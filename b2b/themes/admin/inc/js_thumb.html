@@ -1,0 +1,52 @@
+<style>
+	#js-thumb-box{ display: none; background-color: #333; position: fixed; left: 0; right: 0; top: 0;bottom: 0; z-index: 9999;} 	    		
+	#js-thumb-box .swiper-container{height: 100%; width: 100%;}
+	#js-thumb-box .swiper-slide{ display: flex;align-items: center;justify-content: center;}
+	#js-thumb-box .swiper-slide img{margin: 0 auto; max-width: 100%; max-height: 100%;}
+</style>
+<div id="js-thumb-box" >
+	<div class=" swiper-container" id="js-thumb-swiper-container">
+	<div class=" swiper-wrapper">
+		
+	</div>
+	<div class="swiper-pagination" id="js-thumb-swiper-pagination"></div>
+	</div>
+</div>
+<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet">
+<script src="/plugin/swiper/js/swiper.js"></script>
+<script>
+	var js_thumb_swiper=false;
+	var js_thumb_index=0;
+	$(document).on("click",".js-thumb",function(){
+		var o=$(this).parents(".js-thumb-item");
+		 
+		var imgs=o.find(".js-thumb");
+		if(js_thumb_swiper!=false){
+			js_thumb_swiper.destroy();
+			js_thumb_swiper=false;
+		}
+		$("#js-thumb-box .swiper-wrapper").html("");
+		for(var i=0;i<imgs.length;i++){
+			if($(this).attr("v")==imgs.eq(i).attr("v")){
+				js_thumb_index=i;
+			}
+			$("#js-thumb-box .swiper-wrapper").append('<div class="swiper-slide"><img src="'+imgs.eq(i).attr("v")+'" /></div>');
+		}
+		$("#js-thumb-box").show();
+		js_thumb_swiper = new Swiper ('#js-thumb-swiper-container', {
+	      loop: false,
+		  pagination: {
+		    el: '#js-thumb-swiper-pagination'
+		  }
+	    })
+		if(js_thumb_index!=0){
+			js_thumb_swiper.slideTo(js_thumb_index,0); 	
+		}
+	   
+	});
+	
+	$(document).on("click","#js-thumb-box",function(){
+		$("#js-thumb-box").hide();
+		js_thumb_swiper.slideTo(0);
+	})
+</script>	  

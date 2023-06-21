@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}forum/index.css?v2" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div url="/" class="header-back pos-relative"></div> 
+			<div class="header-search-box">
+				 
+				<input id="search-word" class="header-search pdl-5" placeholder="搜你想要的" type="text">
+				<div id="search-btn" class="header-search-btn  iconfont icon-search"></div>
+			</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+
+				<div class="swiper-pagination"></div>
+
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+			<style>
+				.tabNav{
+					padding: 10px;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					justify-content: center;
+					background-color: #fff;
+					border-bottom: 1px solid #eee;
+				}
+				.tabNav-item{
+					cursor: pointer;
+					margin-right: 40px;
+					font-weight: 600;
+				}
+				.tabNav-item-active{
+					color: #f60;
+					padding-bottom: 3px;
+				 
+				}
+			</style>
+			<div class="tabNav">
+				<div gourl="/module.php?m=forum" class="tabNav-item tabNav-item-active">推荐</div>
+				<div gourl="/module.php?m=forum&a=new"  class="tabNav-item">最新</div>
+				<div gourl="/module.php?m=forum_feeds"  class="tabNav-item">关注</div>
+				<div gourl="/module.php?m=forum_paihang"  class="tabNav-item">排行榜</div>
+			</div>
+			<div class="sglist">
+				{include file="inc/forum_item.html"}
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<?php wx_jssdk(false);?>
+		<script>
+			$(document).on("click","#search-btn",function(){
+				var word=$("#search-word").val();
+				window.location="/module.php?m=forum&a=search&keyword="+encodeURI(word)
+			})
+		</script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash");
+			})
+		</script>
+	</body>
+</html>

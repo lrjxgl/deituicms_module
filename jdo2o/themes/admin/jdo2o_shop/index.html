@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='jdo2o_shop/nav.html'}
+<div class="main-body">
+	<form class="search-form" action="/moduleadmin.php" autocomplete="off">
+		<input type="hidden" name="m" value="jdo2o_shop" />
+		<div class="flex flex-ai-center">
+		shopid:<input class="w60" type="text" name="shopid" value="{$smarty.get.shopid|intval}" />
+		名称：<input class="w100" type="text" name="shopname" value="{$smarty.get.shopname|html}" />
+		营业状态：
+		<select class="w100" name="yystatusType">
+			<option value="">请选择</option>
+			<option {if get('yystatusType') eq 'unbegin'}selected{/if} value="unbegin">即将开业</option>
+			<option {if get('yystatusType') eq 'doing'}selected{/if}  value="doing">营业中</option>
+			<option {if get('yystatusType') eq 'finish'}selected{/if}  value="finish">已休息</option>
+		</select>
+		推荐：<input type="checkbox" name="isrecommend" {if get('isrecommend')}checked{/if} value="1" />
+		<button class="btn-small mgl-10" type="submit">搜一下</button>
+		</div>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+    
+   <td>商家</td>
+	<td> Logo</td>
+  <td>状态</td>
+	<td>推荐</td>
+    
+   <td>电话</td>
+    
+<td>营业状态</td>	
+   
+ 
+   <td>月售</td>
+ 
+   <td>保证金</td>
+ 
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+  
+   <td>{$c.shopid}·{$c.shopname}</td>
+	 <td>{if $c.imgurl}<img  src="{$c.imgurl|images_site}.100x100.jpg" width="60" />{/if}</td>
+ 
+  <td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=jdo2o_shop&a=status&shopid={$c.shopid}&ajax=1" ></div></td>
+	<td><div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=jdo2o_shop&a=recommend&shopid={$c.shopid}&ajax=1" ></div></td>
+    
+  
+   <td>{$c.telephone}</td>
+    
+	<td>{$c.yystatus_name}</td>
+   <td>{$c.month_buy_num}</td>
+ 
+   <td>￥{$c.earnest}</td>
+  
+<td>
+	<a href="/moduleadmin.php?m=jdo2o_admin&a=shop&shopid={$c.shopid}">管理员</a>
+	<a target="_blank" href="/moduleadmin.php?m=jdo2o_shop&a=goShop&shopid={$c.shopid}">进入管理</a>
+	<br />
+	<a href="/moduleadmin.php?m=jdo2o_shop&a=add&shopid={$c.shopid}">编辑</a>
+	
+	<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=jdo2o_shop&a=delete&shopid={$c.shopid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

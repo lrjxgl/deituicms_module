@@ -1,0 +1,11 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div class="footer-item icon-home {if get('m') eq 'csc'}footer-active{/if}" gourl="/module.php?m=csc">首页</div>
+	<div class="footer-item icon-cascades {if get('m') eq 'csc_category'}footer-active{/if}" gourl="/module.php?m=csc_category&a=tpl">分类</div>
+	<div class="footer-item icon-cart {if get('m') eq 'csc_cart'}footer-active{/if}" gourl="/module.php?m=csc_cart">购物车</div>
+	<a href="/module.php?m=csc_notice" class="footer-item icon-message {if $ftnav eq 's2c_notice'}footer-active{/if}">
+		消息
+		<span id="ft-msg-num" class="footer-item-num"></span>
+	</a> 
+	<div class="footer-item icon-my_light {if get('m') eq 'csc_user'}footer-active{/if}"  gourl="/module.php?m=csc_user">我的</div>
+</div>

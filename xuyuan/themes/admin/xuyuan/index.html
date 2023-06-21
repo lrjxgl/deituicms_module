@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">{$type_name}</div>
+		<div class="main-body pd-10">
+			<form class="flex flex-ai-center" method="get" action="/moduleadmin.php">
+			    <input type="hidden" name="m" value="xuyuan">
+				<input  type="hidden" name="type" value="{$type}"/>
+			    	<div class="mgr-5">签名</div> 
+					<input class="w100" type="text" name="nickname" value="{$smarty.get.nickname}"/>
+			        <div class="mgr-5">内容</div>
+					 <input class="w150" type="text" name="keyword" value="{$smarty.get.keyword}"/>
+			        <button class="btn">查找</button>
+			    </form>
+			 </div>
+			 
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>许愿时间</td>
+					    <td>许愿内容</td>
+					    <td>许愿签名</td>
+						<td>状态</td>
+					    <td>操作</td>
+					</tr>
+				</thead>
+			<tbody>
+			{foreach item=c from=$data}
+			<tr>
+			<td width="100">{$c.dateline|date:Y-m-d H:i}</td>
+			<td>
+			{$c.content}
+			</td>
+			<td width="80">{$c.nickname}</td>
+			<td>
+				<div url="/moduleadmin.php?m=xuyuan&a=status&id={$c.id}&ajax=1" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+			</td>
+			<td width="80" >
+			<a href="javascript:;" url="/moduleadmin.php?m=xuyuan&a=delete&id={$c.id}" class="js-delete">删除</a>
+			<a href="/moduleadmin.php?m=xuyuan&a=add&id={$c.id}"  >编辑</a>
+			</td>
+			</tr>
+			{/foreach}
+			</tbody>
+			</table>
+			<div>{$pagelist}</div>
+		</div> 
+		 <div class="search-form">
+		 
+		{include file="footer.html"} 
+		 
+	</body>
+	</html>
+ 
+ 
+
+ 
+		

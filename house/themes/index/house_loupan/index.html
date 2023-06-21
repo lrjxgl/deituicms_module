@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">楼盘</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flexlist">
+				{foreach item=c from=$list}
+				<a href="/module.php?m=house_loupan&a=show&id={$c.id}" class="flexlist-item">
+					<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flex mgb-5">
+							<span class="cl-num">{if $c.isbuy eq 1}在售{else}未售{/if}</span>
+							<div class="flex-1"></div>
+							<span class="cl-money">{$c.price}元/平</span>
+						</div>
+						<div class="cl3 f12">{$c.address}</div>
+					</div>
+				</a>
+				{/foreach}
+			</div>
+
+			<div>{$pagelist}</div>
+		</div>
+		</div>
+		{assign var="ftnav" value="loupan"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_imgUrl =
+				"http://img.deitui.com/?w=200&h=200&text=%E4%B9%B0%E6%88%BF&bgcolor=BA55D3&textcolor=efefef&fontsize=48";
+			wxshare_title = "买房先上福鼎生活网，福鼎最全的房产信息网站";
+		</script>
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">礼物发送记录</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>sendid</td>
+   <td>礼物</td>
+   <td>发送人</td>
+   <td>接收人</td>
+   <td>留言</td>
+   <td>创建时间</td>
+ 
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.sendid}</td>
+   <td>{$c.gift_title}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.touser_nickname}</td>
+   <td>{$c.content}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   
+ </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

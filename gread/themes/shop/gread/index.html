@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">{$shop.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body"> 
+			<div class="row-box mgb-5 flex">
+				<img gourl="/moduleshop.php?m=gread_shop&a=logo" class="wh-60 bd-radius-50" src="{$shop.imgurl}.100x100.jpg" />
+				<div class="flex-1 mgl-5 mgr-5">
+					<div class="cl2 mgb-5 f16">{$shop.title}</div>
+					<div class="flex flex-ai-center">
+						 
+						<div id="noticeMp3" class="iconfont cl-num f20 mgl-20 icon-notificationfill icon-notificationforbidfill "></div>
+					</div>
+					
+				</div>
+				<div>
+					<div class="btn-round bg-success icon-home" gourl="/module.php?m=gread_shop&shopid={$shop.shopid}"></div>
+				</div>
+			</div>
+			 
+			 <div class="flex pd-10 bg-white mgb-5">
+			    	<div class="flex-1 text-center">
+			    		<div class="cl-num">{$neworder}</div>
+			    		<div class="cl3">新订单</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="cl-num">{$dayorder}</div>
+			    		<div class="cl3">今日订单</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="cl-money">￥{$daymoney}</div>
+			    		<div class="cl3">今日收入</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="cl-num">{$alluser}</div>
+			    		<div class="cl3">总客户</div>
+			    	</div>
+			    </div>
+			 	
+			<div class="m-navPic">
+				
+				<div gourl="/moduleshop.php?m=gread_shop_product" class="m-navPic-item">
+					<div class="m-navPic-icon icon-goods"></div>
+					<div class="m-navPic-title">图书列表</div>
+				</div>
+				<div gourl="/moduleshop.php?m=gread_book" class="m-navPic-item">
+					<div class="m-navPic-icon icon-book"></div>
+					<div class="m-navPic-title">书库中心</div>
+				</div> 
+				<div gourl="/moduleshop.php?m=gread_recycle" class="m-navPic-item">
+					<div class="m-navPic-icon icon-camerarotate"></div>
+					<div class="m-navPic-title">旧书回收</div>
+				</div>
+				<div gourl="/moduleshop.php?m=gread_zbook" class="m-navPic-item">
+					<div class="m-navPic-icon icon-ticket"></div>
+					<div class="m-navPic-title">一折买书</div>
+				</div>
+				 <div gourl="/moduleshop.php?m=gread_user_card" class="m-navPic-item">
+				 	<div class="m-navPic-icon icon-vipcard"></div>
+				 	<div class="m-navPic-title">借书卡</div>
+				 </div> 
+				<div gourl="/moduleshop.php?m=gread_tixian" class="m-navPic-item">
+					<div class="m-navPic-icon icon-exit"></div>
+					<div class="m-navPic-title">资金提现</div>
+				</div>
+				<div gourl="/moduleshop.php?m=gread_shop_money" class="m-navPic-item">
+					<div class="m-navPic-icon icon-moneybag"></div>
+					<div class="m-navPic-title">账户资金</div>
+				</div>
+				<div gourl="/moduleshop.php?m=gread_shop_earnest" class="m-navPic-item">
+					<div class="m-navPic-icon icon-recharge"></div>
+					<div class="m-navPic-title">保证金</div>
+				</div>  
+				<div gourl="/moduleshop.php?m=gread_bankcard" class="m-navPic-item">
+					<div class="m-navPic-icon icon-subtitle_unblock_light"></div>
+					<div class="m-navPic-title">银行卡</div>
+				</div>
+				<div gourl="/moduleshop.php?m=gread_shop_safephone" class="m-navPic-item">
+					<div class="m-navPic-icon icon-phone_light"></div>
+					<div class="m-navPic-title">安全手机</div>
+				</div>
+				
+				<div gourl="/moduleshop.php?m=gread_olprint&a=openbind" class="m-navPic-item">
+					<div class="m-navPic-icon icon-punch_light"></div>
+					<div class="m-navPic-title">资料打印</div>
+				</div>
+				<div gourl="/moduleshop.php?m=gread_shop_paypwd" class="m-navPic-item">
+					<div class="m-navPic-icon icon-password"></div>
+					<div class="m-navPic-title">支付密码</div>
+				</div>
+				<div gourl="/moduleshop.php?m=gread_shop_admin&a=password" class="m-navPic-item">
+					<div class="m-navPic-icon icon-password"></div>
+					<div class="m-navPic-title">登录密码</div>
+				</div>
+			</div>
+			 
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			if(localStorage.getItem("noticeMp3")==1){
+				$("#noticeMp3").removeClass("icon-notificationforbidfill");
+			}else{
+				$("#noticeMp3").addClass("icon-notificationforbidfill");
+			}
+			$(document).on("click","#noticeMp3",function(){
+				var a=localStorage.getItem("noticeMp3");
+				if(a==1){
+					$(this).addClass("icon-notificationforbidfill");
+					localStorage.setItem("noticeMp3",0);
+				}else{
+					localStorage.setItem("noticeMp3",1);
+					$(this).removeClass("icon-notificationforbidfill");
+				}
+			})	
+		</script>
+	</body>
+</html>

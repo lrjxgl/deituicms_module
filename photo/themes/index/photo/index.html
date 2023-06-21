@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="header">
+		<div class="header-title">摄影</div>
+	</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="sglist">
+			{foreach item=c from=$list}
+				<a href="/module.php?m=photo&a=show&id={$c.id}" class="sglist-item">
+					<div class="sglist-imgbox">
+						<image class="sglist-img" src="{$c.imgurl|images_site}.middle.jpg" />						
+					</div>
+					<div class="sglist-title">{$c.title}</div>
+					<div class="sglist-desc">{$c.description}</div>
+				</a>
+			{/foreach}
+		</div> 
+		<div>{$pagelist}</div>
+     
+</div>
+<div class="footer">
+	<div gourl="/module.php?m=photo" class="footer-item footer-active icon-home">摄影</div>
+	<div gourl="/module.php?m=photo&a=maps" class="footer-item icon-location_light">附近</div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

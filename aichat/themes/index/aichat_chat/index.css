@@ -1,0 +1,97 @@
+html,
+body {
+	height: 100%;
+}
+
+.msbox {}
+
+.msList {
+	background-color: beige;
+	position: absolute;
+	top: 90px;
+	bottom: 50px;
+	left: 0;
+	right: 0;
+	overflow-y: auto;
+}
+
+.msitem {
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 10px;
+
+}
+
+.msitem-answer {
+	background-color: #cddc39;
+	padding: 10px;
+	border-radius: 20px;
+	width: 80%;
+	margin-left: 10px;
+	position: relative;
+}
+
+.msitem-ask {
+	background-color: #ff5722;
+	padding: 10px;
+	border-radius: 20px;
+	width: 80%;
+	margin-right: 10px;
+	color: #fff;
+	position: relative;
+}
+.msitem-ask-del,.msitem-answer-del{
+	position: absolute;
+	right: 10px;
+	top:10px;
+	padding:5px;
+	cursor: pointer;
+	background-color: #eee;
+	color: #f00;
+	box-sizing: border-box;
+}
+.pre{
+	white-space: break-spaces;
+	overflow-x: auto;
+}
+.preblock{
+	overflow-x: auto;
+	background-color: #fff;
+	border-radius: 20px;
+	padding:10px;
+}
+.ts-close{
+	position: absolute;
+	right:5px;
+	top:5px;
+	padding:5px;
+	cursor: pointer;
+	color:#f00;
+}
+.tsList{
+	position: fixed;
+	top: 100px;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	background-color: #eee;
+	z-index: 99;
+	overflow: auto;
+	padding: 10px;
+}
+.tsBox{
+	position: fixed;
+	bottom: 60px;
+	right: 5px;
+	padding: 5px;
+	background-color: #ff5722;
+	color: #fff;
+	cursor: pointer;
+}
+.msBottom {
+	position: absolute;
+	bottom: 0px;
+	left: 0;
+	right: 0;
+	background: #eee;
+}

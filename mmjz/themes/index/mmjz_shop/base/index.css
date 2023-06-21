@@ -1,0 +1,85 @@
+.header-back-fixed {
+	color: #fff;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+}
+ 
+.header-fixtop-menu{
+	position: absolute;
+	top:40px;
+	border-radius: 10px; 
+	right: 5px;
+	width: 100px;
+	z-index: 999; 
+	background-color: #fff;
+}
+.header-fav-btn{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	display: flex;
+	flex-direction: row;
+	font-size: 14px;
+	padding: 5px; 
+	color: #666;
+	cursor: pointer;
+}
+.header-fav-btn:before{
+	font-size: 14px;
+	color: #666;
+}
+.btn-fav-active,.btn-fav-active::before{
+	color: #FFC107;
+}
+.wshop {
+	background-color: #fff;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+
+.wshop-logo {
+	height: 60px;
+	background-color:#0099a8;
+	text-align: center;
+}
+
+.wshop-logo-img {
+	width: 50px;
+	height: 50px;
+	margin: 0 auto;
+	position: relative;
+	top: 25px;
+	border-radius: 10px;
+}
+
+.wshop-shopname {
+	color: #323232;
+	margin-bottom: 5px;
+	position: relative;
+	font-size: 16px;
+	text-align: center;
+}
+
+.wshop-welcome {
+	color: #fff;
+	font-size: 14px;
+}
+.side{
+	
+	width: 75px;
+	background-color: #fff;
+}
+.side-item{
+	padding: 5px;
+	border-bottom: 1px solid #eee;
+	margin-bottom: 5px;
+}
+.side-item-active{
+	color: #f60;
+	font-weight: 600;
+}
+.main{
+	margin-left: 5px;
+	flex:1;
+}

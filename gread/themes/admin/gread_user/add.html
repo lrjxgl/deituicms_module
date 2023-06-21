@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_user/nav.html'}
+<form method="post" action="/module.php?m=gread_user&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>昵称：</td>		
+				<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}" ></td>
+				</tr>
+  <tr>
+				<td>头像：</td>		
+				<td><input type="text" name="user_head" id="user_head" value="{$data.user_head}" ></td>
+				</tr>
+  <tr>
+				<td>手机：</td>		
+				<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>保证金：</td>		
+				<td><input type="text" name="bond" id="bond" value="{$data.bond}" ></td>
+				</tr>
+  <tr>
+				<td>会员到期时间：</td>		
+				<td><input type="text" name="endtime" id="endtime" value="{$data.endtime}" ></td>
+				</tr>
+  <tr>
+				<td>订单状态：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>shopid：</td>		
+				<td><input type="text" name="shopid" id="shopid" value="{$data.shopid}" ></td>
+				</tr>
+  <tr>
+				<td>address：</td>		
+				<td><input type="text" name="address" id="address" value="{$data.address}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+ 
+{include file="footer.html"}
+</body>
+</html>

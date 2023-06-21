@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>楼盘</td>
+   <td>类型</td>
+   <td>简介</td>
+   <td>status</td>
+   <td>imgurl</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.lpid}</td>
+   <td>{$c.tkey}</td>
+   <td>{$c.content}</td>
+   <td>{$c.status}</td>
+   <td>{$c.imgurl}</td>
+<td><a href="/module.php?m=house_peitao&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=house_peitao&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=house_peitao&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

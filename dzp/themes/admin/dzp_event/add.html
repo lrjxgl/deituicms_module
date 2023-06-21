@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='dzp_event/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=dzp_event&a=save">
+				<input type="hidden" name="eventid" style="display:none;" value="{$data.eventid}">
+				<table class="table-add">
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					 
+					<tr>
+						<td>开始时间：</td>
+						<td><input type="text" name="stime" id="stime" value="{if !empty($data)}{$data.stime|date:Y-m-d H:i:s}{else}{$datetime}{/if}"></td>
+					</tr>
+					<tr>
+						<td>结束时间：</td>
+						<td><input type="text" name="etime" id="etime" value="{if !empty($data)}{$data.etime|date:Y-m-d H:i:s}{else}{$datetime}{/if}"></td>
+					</tr>
+					 
+					<tr>
+						<td>参与人数：</td>
+						<td>{$data.join_num}人</td>
+					</tr>
+					<tr>
+						<td>概率基数</td>
+						<td>
+							<input  type="text" name="gailv" value="{$data.gailv}"/> 默认一万
+						</td>
+					</tr>
+					<tr>
+						<td>限次数：</td>
+						<td><input type="text" name="limit_num" id="limit_num" value="{$data.limit_num}"></td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td><input type="radio" name="status" value="2" {if $data.status neq 1} checked="checked" {/if} />隐藏 &nbsp;
+							<input type="radio" name="status" value="1" {if $data.status eq 1} checked="checked" {/if} />显示</td>
+					</tr> 
+					<tr>
+						<td>实名认证</td>
+						<td>
+							<input  type="radio" name="isauth" value="0" {if $data.isauth neq 1}checked{/if} /> 否
+							<input  type="radio" name="isauth" value="1" {if $data.isauth eq 1}checked{/if} /> 是
+						</td>
+					</tr>
+					<tr>
+						<td>区域限制</td>
+						<td>
+							<input  type="text" class="w300" name="addronly" value="{$data.addronly}"/> (填写市或镇即可)
+						</td>
+					</tr>
+					<tr>
+						<td>模板</td>
+						<td><input type="text" name="tpl" id="tpl" value="{$data.tpl}"></td>
+					</tr>
+					<tr>
+						<td>内容：</td>
+						<td>
+							<script name="content" id="content" style="height:300px;" type="text/html">{$data.content}</script>
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#stime",
+				type:"datetime"
+			})
+			laydate.render({
+				elem:"#etime",
+				type:"datetime"
+			})
+		</script>	
+		<?php loadEditor();?>
+		<script>
+			var editor = UE.getEditor('content', options)
+		</script>
+		
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+</html>

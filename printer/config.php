@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"小票打印机",//模块名称
+	"module"=>"printer",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"小票打印机",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=printer&a=menu",
+	"check_update"=>"http://www.skymvc.com",
+);
+?>

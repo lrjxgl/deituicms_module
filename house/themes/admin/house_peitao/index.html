@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body class="bg-ef">
+<div class="tabs-border">
+	<div class="item">{$loupan.title}::</div>
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=house_peitao&lpid={$loupan.id}">配套列表</a>
+	 
+</div>
+<div class="main-body" id="App">
+	<form id="form0" class="row-box mgb-5">
+		<input type="hidden" name="lpid" :value="lpid" />
+		<div class="input-flex">
+			<div class="input-flex-label">类型</div>
+			<select name="typeid">
+				<option value="">请选择</option>
+				 
+				<option v-for="(c,index) in typeList" :key="index" :value="index">{{c}}</option>
+			 
+			</select>
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">描述</div>
+			<textarea name="content" ></textarea>
+		</div>
+		<div @click="save(0)"  class="btn-row-submit">保存</div>
+	</form>
+	 
+	<form :id="'form'+item.id" v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+		<input type="hidden" name="lpid" :value="item.lpid" />
+		<input type="hidden" name="id" :value="item.id" />
+		<div class="input-flex">
+			<div class="input-flex-label">类型</div>
+			<select v-model="item.typeid" name="typeid">
+				<option value="">请选择</option>
+				<option v-for="(c,index) in typeList" :key="index" :value="index">{{c}}</option>
+			</select>
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">内容</div>
+			<textarea name="content" :value="item.content"></textarea>
+		</div>
+		<div class="flex">
+			<div @click="save(item.id)" class="btn mgr-20">编辑</div>
+			<div @click="del(item.id)" class="btn btn-danger mgr-20">删除</div>
+		</div>
+		
+	</form>
+</div> 
+{include file="footer.html"}
+<script>
+	var lpid="{$loupan.id}"
+</script>
+<script src="{$skins}house_peitao/index.js"></script>
+</body>
+</html>

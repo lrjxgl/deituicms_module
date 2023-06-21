@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<a href="/module.php?m=zupu" class="header-back"></a>
+			<div class="header-title">寻根追源</div>
+		</div>
+		<div class="header-row"></div>
+		<div   class="main-body">
+			<div class=" row-box mgb-5">
+				<div class="flex">
+					<input value="{$xing}" id="search-xing" class="input-flex-text w50"  type="text" placeholder="姓"  />
+					<input value="{$beifen}" id="search-beifen" class="input-flex-text" type="text" placeholder="辈分排列" />
+					<div id="search-btn" class="input-flex-btn w60">寻根</div>
+				</div>
+				
+			</div>
+			<div>
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=zupu_group&a=show&gid={$c.gid}" class="row-box mgb-5">
+					<div class="mgb-5">{$c.title}</div>
+					<div class="flex mgb-5">
+						<span class="cl2 mgr-5">辈分</span>
+						<span class="cl-info">{$c.beifen}</span>
+					</div>
+					<div class="cl3">地址：{$c.address}</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+		 
+		<script>
+			$(function(){
+				$(document).on("click","#search-btn",function(){
+					var xing=$("#search-xing").val();
+					var beifen=$("#search-beifen").val();
+					window.location="/module.php?m=zupu&a=search&xing="+xing+"&beifen="+beifen;
+				})
+			})
+		</script>
+	</body>
+</html>

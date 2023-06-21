@@ -1,0 +1,13 @@
+{if get('type') eq 'new'}
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=party&type=new">活动审核</a>
+	 
+</div>
+{else}
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=party">管理</a>
+	{if get('a') eq 'add'}
+	<a class="item {if get('a') eq 'add'}active{/if}" href="{$appadmin}?m=party&a=add">编辑</a>
+	{/if}
+</div>
+{/if}

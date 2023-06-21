@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=flk_daxin">打新列表</a>
+			
+		</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>用户</td>
+						 
+						<td>总额</td>
+						 
+						<td>时间</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					<td>{$c.nickname}</td>
+					 
+					<td>{$c.money}</td>
+					 
+					<td>{$c.dateline|date:Y-m-d}</td>
+					<td> 
+					
+					<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=flk_queue&a=delete&id={$c.id}">删除</a>
+					
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

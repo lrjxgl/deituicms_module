@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	
+	<body>
+{include file='h5video_style/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>名称</td>
+   <td>status</td>
+   <td>样式内容</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td> 
+  			<div url="/moduleadmin.php?m=h5video_style&a=status&ajax=1&id={$c.id}" class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}"></div>
+  </td>
+   <td>
+		 <div style="{$c.content}" class="{$c.cssClass}">样式内容显示</div>
+	 </td>
+  
+<td><a href="/moduleadmin.php?m=h5video_style&a=add&id={$c.id}">编辑</a>
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=h5video_style&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<link href="/module.php?m=h5video_style&a=allcss" rel="stylesheet" />
+</body>
+</html>

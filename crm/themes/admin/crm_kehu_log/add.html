@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='crm_kehu_log/nav.html'}
+<div class="main-body">
+<form method="post" action="/module.php?m=crm_kehu_log&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>kehuid：</td>		
+				<td><input type="text" name="kehuid" id="kehuid" value="{$data.kehuid}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>内容：</td>		
+				<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

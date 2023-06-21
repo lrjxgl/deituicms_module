@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='crm_kehu/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=crm_kehu&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					 
+					<tr>
+						<td>名字：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>照片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>性别：</td>
+						<td><input type="text" name="gender" id="gender" value="{$data.gender}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="adddress" id="adddress" value="{$data.adddress}"></td>
+					</tr>
+					<tr>
+						<td>微信号：</td>
+						<td><input type="text" name="wxhao" id="wxhao" value="{$data.wxhao}"></td>
+					</tr>
+					<tr>
+						<td>qq号：</td>
+						<td><input type="text" name="qqhao" id="qqhao" value="{$data.qqhao}"></td>
+					</tr>
+					<tr>
+						<td>微博：</td>
+						<td><input type="text" name="weibo" id="weibo" value="{$data.weibo}"></td>
+					</tr>
+					<tr>
+						<td>微信好友：</td>
+						<td><input type="text" name="wx_freind" id="wx_freind" value="{$data.wx_freind}"></td>
+					</tr>
+					<tr>
+						<td>qq好友：</td>
+						<td><input type="text" name="qq_freind" id="qq_freind" value="{$data.qq_freind}"></td>
+					</tr>
+					<tr>
+						<td>createtime：</td>
+						<td>{$data.createtime}</td>
+					</tr>
+					<tr>
+						<td>lasttime：</td>
+						<td>{$data.lasttime}</td>
+					</tr>
+					<tr>
+						<td>简介：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

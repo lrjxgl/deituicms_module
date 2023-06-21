@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">订单列表</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    {foreach item=c from=$list}
+    <div class="flexlist-item" gourl="/moduleshop.php?m=exue_order&a=show&orderid={$c.orderid}">
+    	<img gourl="/moduleshop.php?m=exue_order&a=show&orderid={$c.orderid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+    	<div class="flex-1">
+    		<div  gourl="/module.php?m=exue_order&a=show&orderid={$c.orderid}" class="flexlist-title">{$c.title}</div>
+    		 
+    		<div class="flex mgb-5">
+    			<div class="cl-money f16 mgr-20">￥{$c.money}</div>
+    			 
+    			<div class="flex-1"></div>
+    			<div class="f12 cl3">{$c.createtime}</div>
+    		</div>
+			<div class="flex mgb-5">
+				<div class="mgr-10 cl3">{$c.nickname}</div>
+				<div class="cl3">{$c.telephone}</div>
+			</div>
+			 
+    	</div>
+    </div>
+    {/foreach}	  
+	<div>{$pagelist}</div>
+    
+</div>
+{assign var="ftnav" value="order"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+</body>
+</html>

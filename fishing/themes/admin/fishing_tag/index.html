@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='fishing_tag/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>名称</td>
+   <td>createtime</td>
+   <td>grade</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.grade}</td>
+   <td>{$c.status}</td>
+<td><a href="/moduleadmin.php?m=fishing_tag&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=fishing_tag&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fishing_tag&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

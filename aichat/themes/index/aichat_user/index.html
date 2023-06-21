@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex pd-10 mgb-10 bg-white flex-ai-center">
+				<image class="wh-60 mgr-10 bd-radius-50" gourl="/index.php?m=user&a=user_head" src="{$user.user_head}.100x100.jpg" />
+				<div class="flex-1">
+					<div class="mgb-10 f16 flex">
+						<div class="flex flex-ai-center mgb-5">
+							<div class="f16 cl1 mgr-5">{$user.nickname}</div>
+							<div gourl="/index.php?m=user_rank" class="f12 cl-red">{$rank.rank_name}</div>
+						</div>
+						<div class="flex-1"></div>
+						{if $invitecode}
+						<div class="cl2 mgr-5">邀请码</div>
+						<div class="cl-num">{$invitecode}</div>
+						{/if}
+					</div>
+					<div class="flex flex-ai-center mgb-5">
+						<div class="mgr-5">Token</div>
+						<div class="cl-money mgr-2"> {$aiuser.token}</div>
+						<div class="mgr-10">个</div>
+						<div gourl="/module.php?m=aichat_token&a=buy" class="cl-primary pointer">去购买</div>
+						 
+						
+					</div>
+					<div class="flex flex-ai-center mgb-5">
+						{if $aiuser.vip_etime > 0}
+						<div class="mgr-5 f12">Vip到期时间:</div>
+						<div class="cl-red mgr-10">{$aiuser.vip_etime_date}</div>
+						<div gourl="/module.php?m=aichat_vip&a=buy" class="cl-primary pointer">去续费</div>
+						{else}
+						<div gourl="/module.php?m=aichat_vip&a=buy" class="cl-primary pointer">成为Vip，体验更多功能</div>
+						{/if}
+					</div>
+					 
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+			</div>
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=aichat_img&a=my" class="row-item">
+					<div class="row-item-icon icon-pic  cl-u"></div>
+					<div class="row-item-title">我的图片</div>
+				</div>
+				<div gourl="/module.php?m=aichat_text&a=my" class="row-item">
+					<div class="row-item-icon icon-text  cl-u"></div>
+					<div class="row-item-title">我的文章</div>
+				</div>
+				<div gourl="/module.php?m=aichat_book&a=my" class="row-item">
+					<div class="row-item-icon icon-text  cl-u"></div>
+					<div class="row-item-title">我的图书</div>
+				</div> 
+				<div gourl="/module.php?m=aichat_img2img" class="row-item">
+					<div class="row-item-icon icon-pic  cl-u"></div>
+					<div class="row-item-title">图像编辑</div>
+				</div> 
+				<div gourl="/module.php?m=aichat_imgscale" class="row-item">
+					<div class="row-item-icon icon-pic  cl-u"></div>
+					<div class="row-item-title">图像放大</div>
+				</div> 
+			</div>	
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=aichat_prompt&a=my" class="row-item">
+					<div class="row-item-icon icon-news  cl-u"></div>
+					<div class="row-item-title">我的提示词</div>
+				</div>
+				<div gourl="/module.php?m=aichat_prompt&a=fav" class="row-item">
+					<div class="row-item-icon icon-favor_light  cl-u"></div>
+					<div class="row-item-title">我的收藏</div>
+				</div>
+				 
+			</div>	
+			<div class="row-box mgb-5">	 
+				<div gourl="/index.php?m=notice&a=my" class="row-item">
+					<div class="row-item-icon icon-notice  cl-u"></div>
+					<div class="row-item-title">我的消息</div>
+				</div>
+				<div gourl="/module.php?m=aichat_token_log&a=my" class="row-item">
+					<div class="row-item-icon icon-choiceness  cl-u"></div>
+					<div class="row-item-title">消费日志</div>
+				</div>
+				 
+				
+			</div>	
+			<div class="row-box mgb-5"> 
+				<div gourl="/index.php?m=user_auth" class="row-item">
+					<div class="row-item-icon icon-vipcard  cl-u"></div>
+					<div class="row-item-title">实名认证</div>
+				</div>
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service  cl-u"></div>
+					<div class="row-item-title">联系客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info  cl-u"></div>
+					<div class="row-item-title">关于我们</div>
+				</div>
+			</div>
+			 
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

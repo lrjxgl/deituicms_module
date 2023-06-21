@@ -1,0 +1,1 @@
+<?php define("MODULE_PHOTO_ID",24); ?>

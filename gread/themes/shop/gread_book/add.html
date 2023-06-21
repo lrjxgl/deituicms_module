@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">新书申请</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		<form method="post" action="/moduleadmin.php?m=gread_book&a=save">
+			<input type="hidden" name="bookid" style="display:none;" value="{$data.bookid}">
+			<div class="input-flex">
+				<div class="input-flex-label">书名</div>
+				<input type="text" class="input-flex-text" name="title" id="title" value="{$data.title}">
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">分类</div>
+				<select class="input-flex-select" name="catid">
+					<option value="0">请选择</option>
+					{foreach item=c from=$catlist}
+					<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+					{if $c.child}
+						{foreach item=cc from=$c.child}
+						<option  value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+						{/foreach}
+					{/if}
+					{/foreach}
+				</select>
+			</div>
+			<div class="textarea-flex">
+				<div class="textarea-flex-label">简介</div>
+				<textarea class="textarea-flex-text h60" name="description" id="description" >{$data.description}</textarea>
+			</div>
+			<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">图片</div>
+						<div class="flex-1">
+							<div class="upimg-box bg-fff">
+								<div class="upimg-item none js-upimg-btn">
+									<img class="upimg-img" src="">								 
+								</div>
+								 
+								<div class="upimg-btn js-upimg-btn">
+									<i class="upimg-btn-icon"></i>
+								</div>
+								 
+								<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+								<input style="display: none;" type="file" name="upimg" class="js-upimg-file" /> 
+							</div> 
+						</div>
+					</div>
+			<div class="input-flex">
+				<div class="input-flex-label">作者</div>
+				<input type="text" class="input-flex-text" name="author"   value="{$data.author}">
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">出版社</div>
+				<input type="text" class="input-flex-text" name="publisher"   value="{$data.publisher}">
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">价格</div>
+				<input type="text" class="input-flex-text" name="price"   value="{$data.price}">
+			</div>
+			<div class="sky-editor-box">
+				<div class="sky-editor-content" name="content" contenteditable="true"></div>
+			</div>
+			<div class="btn-row-submit js-submit">保存</div>
+		</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script> 
+	</body>
+</html>

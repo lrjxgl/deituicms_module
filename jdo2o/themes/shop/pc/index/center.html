@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">商户中心</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="row-item" gourl="/moduleshop.php?m=jdo2o_shop">
+					<div class="row-item-icon icon-shop"></div>
+					<div class="row-item-title">商家信息</div>
+				</div>
+				
+				<div class="row-item" gourl="/moduleshop.php?m=jdo2o_bankcard">
+					<div class="row-item-icon icon-vipcard"></div>
+					<div class="row-item-title">银行卡</div>
+				</div>
+				<div class="row-item none" gourl="/moduleshop.php?m=jdo2o_shop_earnest">
+					<div class="row-item-icon icon-moneybag"></div>
+					<div class="row-item-title">保证金</div>
+				</div>
+				<div class="row-item" gourl="/moduleshop.php?m=jdo2o_express_fee">
+					<div class="row-item-icon icon-deliver"></div>
+					<div class="row-item-title">运费设置</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_qrcode" class="row-item">
+					<div class="row-item-icon icon-qr_code_light"></div>
+					<div class="row-item-title">二维码</div>
+				</div>
+			</div>
+			<div class="row-box">
+				<div gourl="/moduleshop.php?m=jdo2o_open" class="row-item">
+					<div class="row-item-icon icon-moneybag"></div>
+					<div class="row-item-title">开放平台</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_shop_money" class="row-item">
+					<div class="row-item-icon icon-moneybag"></div>
+					<div class="row-item-title">账户资金日志</div>
+				</div>
+				<div class="row-item" gourl="/moduleshop.php?m=jdo2o_shop_safephone">
+					<div class="row-item-icon icon-phone"></div>
+					<div class="row-item-title">安全手机</div>
+				</div>
+				<div class="row-item" gourl="/moduleshop.php?m=jdo2o_shop_paypwd">
+					<div class="row-item-icon icon-password"></div>
+					<div class="row-item-title">支付密码管理</div>
+				</div>
+				<div class="row-item" gourl="/moduleshop.php?m=jdo2o_admin&a=password">
+					<div class="row-item-icon icon-password"></div>
+					<div class="row-item-title">登录密码管理</div>
+				</div>
+				 
+			</div>
+			<div class="btn-row-submit btn-warning" id="loginOut">注销</div>
+		</div>
+		{assign var="ftnav" value="center"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#loginOut",function(){
+				$.ajax({
+					url:"/moduleshop.php?m=jdo2o_login&a=logout&ajax=1",
+					dataType:"json",
+					success:function(res){
+						window.location="/moduleshop.php?m=jdo2o"
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

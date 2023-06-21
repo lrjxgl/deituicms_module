@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		{include file='fenlei_category/nav.html'}
+		<div class="main-body">
+			<div id="tbsFixed" class="pos-relative"></div>
+		<table class="tbs">
+			 
+			<thead>
+				<tr>
+					<td>catid</td>
+					<td>分类名称</td>
+					<td>图片</td>
+					<td>发布费用</td>
+					<td>排序</td>
+					<td>状态</td>
+					<td>价格</td>
+					<td>类型</td>
+					<td>区域</td>
+					<td style="width: 200px;">操作</td>
+				</tr>
+				 
+			</thead>
+			<tbody> 
+			{foreach item=c from=$catlist}
+			<tr>
+				<td>{$c.catid}</td>
+				<td><a href="/module.php?m=fenlei&a=list&catid={$c.catid}" target="_blank">{$c.title}</a></td>
+				<td>{if $c.imgurl}<img src="{$c.imgurl|images_site}.100x100.jpg" width="50" />{/if}</td>
+				<td>{$c.money}元 </td>
+				<td>
+					<input type="text" class="w50  js-blur-update" value="{$c.orderindex}" url="/moduleadmin.php?m=fenlei_category&a=orderindex&catid={$c.catid}" />
+				</td>
+				<td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=status&catid={$c.catid}&ajax=1" ></div></td>
+				<td><div class="{if $c.money_open eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=money_open&catid={$c.catid}&ajax=1" ></div></td>
+				<td><div class="{if $c.type_open eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=type_open&catid={$c.catid}&ajax=1" ></div></td>
+				<td><div class="{if $c.area_open eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=area_open&catid={$c.catid}&ajax=1" ></div></td>
+				<td  >
+					<a href="/moduleadmin.php?m=fenlei_category&a=add&catid={$c.catid}">编辑</a>
+					<a href="/moduleadmin.php?m=fenlei_category&a=addmore&catid={$c.catid}">下级添加</a>
+					<a href="/moduleadmin.php?m=fenlei_category_admin&catid={$c.catid}">版主列表</a>
+					<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fenlei_category&a=delete&ajax=1&catid={$c.catid}">删除</a>
+				</td>
+			</tr>
+				{foreach item=cc from=$c.child}
+				<tr>
+					<td>{$cc.catid}</td>
+					<td >|--<a href="/module.php?m=fenlei&a=list&catid={$cc.catid}" target="_blank">{$cc.title}</a> </td>
+					<td>{if $cc.imgurl}<img src="{$cc.imgurl|images_site}.100x100.jpg" width="50" />{/if}</td>
+					<td>{$cc.money}元 </td>
+					<td>
+						<input type="text" class="w50  js-blur-update" value="{$cc.orderindex}" url="/moduleadmin.php?m=fenlei_category&a=orderindex&catid={$cc.catid}" />
+					</td>
+					<td><div class="{if $cc.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=status&catid={$cc.catid}&ajax=1" ></div></td>
+					<td><div class="{if $cc.money_open eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=money_open&catid={$cc.catid}&ajax=1" ></div></td>
+					<td><div class="{if $cc.type_open eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=type_open&catid={$cc.catid}&ajax=1" ></div></td>
+					<td><div class="{if $cc.area_open eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_category&a=area_open&catid={$cc.catid}&ajax=1" ></div></td>
+					<td>
+						<a href="/moduleadmin.php?m=fenlei_category&a=add&catid={$cc.catid}">编辑</a>
+						<a href="/moduleadmin.php?m=fenlei_category_admin&catid={$cc.catid}">版主列表</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fenlei_category&a=delete&ajax=1&catid={$cc.catid}">删除</a>
+						</td>
+				</tr>
+				{/foreach}
+			{/foreach}
+			</tbody>
+		</table>
+		
+		<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		 
+		<script>
+			$(function(){
+				$(document).on("focusout",".js-blur-update",function(){
+					var url=$(this).attr("url");
+					$.ajax({
+						url:url+"&ajax=1",
+						data:{
+							orderindex:$(this).val()
+						},
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message)
+						}
+					})
+					
+				})
+				setTimeout(function(){
+					
+					fixedTableChange(120)
+					
+				},1000)		 
+				
+			})
+			
+		</script>
+	</body>
+</html>

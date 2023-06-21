@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=sblog_topic">话题列表</a>
+
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php" class="search-box mgb-5">
+				<input type="hidden" name="m" value="sblog_topic" />
+				
+				<div class="flex flex-ai-center">
+					<div class="mgr-5">名称</div>
+					<input type="text" value="{$keyword}" class="w150 mgr-5" name="keyword" />
+					<div class="mgl-5 mgr-5">推荐</div>
+					<input type="checkbox" name="isrecommend" {if get('isrecommend') eq  1}checked{/if} value="1" /> 
+					<div class="mgl-5 mgr-5">首页</div>
+					<input type="checkbox" name="isindex" {if get('isindex') eq  1}checked{/if}  value="1" /> 
+					<button type="submit" class="btn-small">搜一下</button>
+				</div>
+				
+			</form>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>名称</td>
+						<td>主题数</td>
+						<td>浏览数</td>
+						<td>状态</td>
+						<td>创建时间</td>
+						<td>推荐</td>
+						<td>首页</td>
+						<td>
+							操作
+						</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					<td>{$c.title}</td>
+					<td>{$c.blog_num}</td>
+					<td>{$c.view_num}</td>
+					<td>
+						<div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=sblog_topic&a=status&ajax=1&id={$c.id}"></div>
+					</td>
+					<td>{$c.createtime}</td>
+					<td>
+						<div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=sblog_topic&a=recommend&ajax=1&id={$c.id}"></div>
+					</td>
+					<td>
+						<div class="{if $c.isindex eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=sblog_topic&a=index&ajax=1&id={$c.id}"></div>
+					</td>
+					<td>
+						<a href="/moduleadmin.php?m=sblog_topic&a=add&id={$c.id}">编辑</a>
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

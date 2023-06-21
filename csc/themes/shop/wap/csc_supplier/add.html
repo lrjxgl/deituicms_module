@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑供应商</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=csc_supplier&a=save&ajax=1" id="form">
+				<input type="hidden" name="supid" value="{$data.supid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" name="title" class="input-flex-text" value="{$data.title}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">联系人</div>
+					<input type="text" name="nickname" class="input-flex-text" value="{$data.nickname}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input type="text" name="telephone" class="input-flex-text" value="{$data.telephone}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">地址</div>
+					<input type="text" name="address" class="input-flex-text" value="{$data.address}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">上架</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.status eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.status neq 1}switch-active{/if} js-switch" data-value="2">否</div>
+						<input type="hidden" name="status" value="{$data.status}" class="switch-value" />
+					</div>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='forum_group_admin/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=forum_group_admin&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>gid：</td>		
+				<td><input type="text" name="gid" id="gid" value="{$data.gid}" ></td>
+				</tr>
+  <tr>
+				<td>dateline：</td>		
+				<td><input type="text" name="dateline" id="dateline" value="{$data.dateline}" ></td>
+				</tr>
+  <tr>
+				<td>status：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

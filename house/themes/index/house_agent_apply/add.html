@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请成为经纪人</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/module.php?m=house_agent_apply&a=save&ajax=1">
+				<div class="input-flex">
+					<div class="input-flex-label">名字</div>
+					<input type="text" class="input-flex-text" name="truename" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input type="text" class="input-flex-text" name="telephone" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">身份证号</div>
+					<input type="text" class="input-flex-text" name="userno" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">身份证<br/>正面照</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+				
+							<div class="upimg-item {if $data.usercard==""}none{/if} js-upimg-btn">
+								<img class="upimg-img" {if $data.usercard}src="{$data.trueusercard}.100x100.jpg" {/if}>
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+						 
+							<input type="hidden" name="usercard" value="{$data.usercard}" class="imgurl" />
+							<input style="display: none;"  class="js-upimg-file" type="file" name="upimg" id="upimga" />
+						</div>
+					</div>
+				</div>
+				
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">真实头像</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+
+							<div class="upimg-item {if $data.uhead==""}none{/if} js-upimg-btn">
+								<img class="upimg-img" {if $data.uhead}src="{$data.trueuhead}.100x100.jpg" {/if}>
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+						 
+							<input type="hidden" name="uhead" value="{$data.uhead}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg" id="upimg" />
+						</div>
+					</div>
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">自我介绍</div>
+					<textarea type="text" class="textarea-flex-text h60" name="description" ></textarea>
+				</div>
+
+				<div class="btn-row-submit js-submit">提交申请</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

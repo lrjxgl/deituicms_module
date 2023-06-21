@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布房源</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=house_resource&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				  
+					<div class="input-flex">
+						<input type="radio" name="isnew" {if $data.isnew eq 1}checked{/if} value="1" />
+						<div>新房</div>
+						<input type="radio" name="isnew" {if $data.isnew eq 0}checked{/if}  value="0" />
+						<div>二手房</div>
+					</div>
+					<div class="input-flex flex-ai-center">
+						<div class="mgr-10">总价</div>
+						<input class="input-flex-text" type="text" name="total_money" value="{$data.total_money}" />
+						<div class="mgl-5">万元</div>
+					</div>	
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">所在区域：</div>
+						<select name="sc_id" class="input-flex-select">
+							<option value="0">请选择</option>
+							{foreach item=c from=$scList}
+							<option value="{$c.sc_id}" {if $data.sc_id eq $c.sc_id}selected{/if}>{$c.title}</option>
+							{/foreach}
+						</select>
+					</div>
+					 	
+					<div class="textarea-flex">
+					 
+						<textarea placeholder="请输入房源介绍"  class="textarea-flex-text h60" name="description" id="description">{$data.description}</textarea>
+					</div>
+				 
+					<div class="bg-fff mgb-5">
+						<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+						{include file="inc/uploader-data.html"}
+					</div>
+				 
+				<div class="btn-row-submit js-submit js-pageHide">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+	</body>
+</html>

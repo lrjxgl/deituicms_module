@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}bzy_shopadmin/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">活动管理中心</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="tabs-border">
+				<div @click="setTab('index')" :class="tab=='index'?'tabs-border-active':''" class="tabs-border-item">数据统计</div>
+				<div @click="setTab('order')" :class="tab=='order'?'tabs-border-active':''"  class="tabs-border-item">订单管理</div>
+				<div @click="setTab('user')" :class="tab=='user'?'tabs-border-active':''"  class="tabs-border-item">参与列表</div>
+			</div>
+			<div v-show="tab=='index'" id="p1">
+				<div class="row-box mgb-5">
+					<div class="flex bd-mp-10">
+						<div class="mgr-10">总数据</div>
+						<div class="mgr-5 cl2">参与人数</div>
+						<div class="cl-num mgr-10">{{stat.total_user}}人</div>
+						<div class="mgr-5 cl2">交互次数</div>
+						<div class="cl-num mgr-10">{{stat.total_num}}次</div>
+					</div>
+					<div class="flex bd-mp-10">
+						<div class="mgr-10">今日数据</div>
+						<div class="mgr-5 cl2">参与人数</div>
+						<div class="cl-num mgr-10">{{stat.day_user}}人</div>
+						<div class="mgr-5 cl2">交互次数</div>
+						<div class="cl-num mgr-10">{{stat.day_user}}次</div>
+					</div>
+					<div class="flex">
+						<div class="mgr-10">昨日数据</div>
+						<div class="mgr-5 cl2">参与人数</div>
+						<div class="cl-num mgr-10">{{stat.last_user}}人</div>
+						<div class="mgr-5 cl2">交互次数</div>
+						<div class="cl-num mgr-10">{{stat.last_user}}次</div>
+					</div>
+				</div>
+				<div class="row-box">
+					<div id="canvas">
+						
+					</div>
+				</div>
+			</div>
+			<div v-show="tab=='order'"  id="p2">
+				<order-list :eventid="eventid"></order-list>
+			</div>
+			<div v-show="tab=='user'"  id="p3">
+				<rank-list :eventid="eventid"></rank-list>
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var eventid="{$event.eventid}"
+		</script>
+		<script src="{$skins}bzy_shopadmin/order.js"></script>
+		<script src="{$skins}bzy_shopadmin/rank.js"></script>
+		<script src="{$skins}bzy_shopadmin/index.js"></script>
+		
+	</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="/moduleadmin.php?m=fsbuy_config">配置</a>
+ 
+</div>
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=fsbuy_config&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>说明：</td>		
+				<td><textarea name="description" id="description">{$data.description}</textarea></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

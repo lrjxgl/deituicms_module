@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=csc_shop_agent">管理</a>
+	<a class="item {if get('a') eq 'add'}active{/if}" href="{$appadmin}?m=csc_shop_agent&a=add">添加</a>
+</div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>agentid</td>
+ 
+   <td>名称</td>
+   <td>名称</td>
+   <td>电话</td>
+   <td>地址</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.agentid}</td>
+    
+   <td>{$c.title}</td>
+   <td>{$c.truename}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+   <td>{$c.status}</td>
+<td><a href="moduleadmin.php?m=csc_shop_agent&a=add&agentid={$c.agentid}">编辑</a> 
+
+
+<a href="javascript:;" class="js-delete" url="moduleadmin.php?m=csc_shop_agent&a=delete&ajax=1&agentid={$c.agentid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

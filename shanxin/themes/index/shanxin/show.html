@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		 
+		<div class="main-body">
+			<div>
+				<img src="{$shanxin.imgurl}" class="d-img" />
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex flex-center bd-mp-5">
+					<div class="flex-1 ">
+						<div class="f16">报名</div>
+						<div class="cl-red">{$shanxin.join_num}人</div>
+					</div>
+					<div class="flex-col-line"></div>
+				
+					<div class="flex-1">
+						<div class="f16">爱心</div>
+						<div class="cl-red">{$shanxin.juan_num}份</div>
+					</div>
+					<div class="flex-col-line"></div>
+					<div class="flex-1">
+						<div class="f16">已送</div>
+						<div class="cl-red">{$shanxin.finish_num}人</div>
+					</div>
+				
+				</div>
+			</div>
+			<div class="row-box">
+				<div class="row-item-text "><i class="row-item-icon icon-hot_light"></i>
+					<div class="flex-1">{$shanxin.title}</div>
+				</div>
+				<div class="row-item-text "><i class="row-item-icon icon-time"></i>
+					<div class="flex-1">活动时间：{$shanxin.stime|date:Y.m.d}-{$shanxin.etime|date:Y.m.d}</div>
+				</div>
+			</div>
+		</div>
+		<div id="app">
+			<div class="mtlist">
+				<div :gourl="'/module.php?m=shanxin_join&a=show&id='+item.id" class="mtlist-item" v-for="(item,index) in joinList" :key="index">
+					<img class="wmax" :src="item.imgurl+'.100x100.jpg'" />
+					<div class="mtlist-item-bd">
+						<div class="mtlist-item-pd">
+							<div class="mtlist-title">{{item.nickname}}</div>
+							<div class="mtlist-desc">{{item.description}}</div>
+						</div>
+						
+					</div>
+					 
+					
+				</div>
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var sid="{$shanxin.sid}"
+		</script>
+		<script src="{$skins}shanxin/show.js"></script>
+	</body>
+</html>

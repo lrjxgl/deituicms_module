@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请圈子</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form id="form" method="post" action="/module.php?m=group&a=applysave&ajax=1">
+				<input type="hidden" name="gid" style="display:none;" value="{$data.gid}">
+				<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input type="text" class="input-flex-text" name="gname" id="gname" value="{$data.gname}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">类别</div>
+					<select class="input-flex-text" name="catid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$typelist}
+						<option value="{$c.catid}">{$c.title}</option>
+						{/foreach}
+					</select>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">Logo：</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							
+							<div class="upimg-item {if $data.glogo==""}none{/if} js-upimg-btn">
+								<img class="upimg-img" {if $data.glogo}src="{$data.glogo|images_site}.100x100.jpg"{/if} >								 
+							</div>
+						 	 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+						 
+							<input type="hidden" name="glogo" value="{$data.glogo}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" /> 
+						</div> 
+						 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">主题：</div>
+					<input class="input-flex-text"  type="text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">描述：</div>
+					<div class="flex-1">
+						<textarea class="textarea-flex-text h60" name="description" id="description">{$data.description}</textarea>
+					</div>
+				</div>
+				<div   class="btn-row-submit js-submit">提交申请</div> 
+		 
+		</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+
+</html>

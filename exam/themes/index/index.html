@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">爱考试</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="bg-white">
+				{foreach item=c from=$list}
+				<a href="/module.php?m=exam&a=test&exid={$c.exid}" class="row-item">
+					<div class="row-item-title">{$c.title}</div>
+				</a>
+				{/foreach}
+			</div>
+		</div>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://beian.miit.gov.cn">{$site.icp}</a>
+		</div>   
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html" }
+	</body>
+</html>

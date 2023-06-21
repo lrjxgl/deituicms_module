@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">帖子发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=forum&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				 <input type="hidden" name="catid" value="{$catid}" />
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">标题：</div>
+						<input type="text" class="input-flex-text" name="title" id="title" value="{$data.title}">
+						
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">选择板块</div>
+						 
+							<select name="gid" id="gid" class="input-flex-select" >
+							<option value="0">请选择</option>
+							{foreach item=c from=$grouplist}
+								<option value="{$c.gid}" {if $gid eq $c.gid } selected="selected"{/if}>{$c.title}</option>
+							{/foreach}
+							</select>
+							&nbsp;
+						<select name="catid" id="catid" class="input-flex-select" >
+						<option value="0">请选择</option>
+						{foreach item=c from=$catlist}
+								<option value="{$c.catid}" {if $catid eq $c.catid} selected="selected"{/if}>{$c.title}</option>
+						{/foreach}
+						</select>
+						
+					</div> 
+					<div class="textarea-flex">
+						<div class="textarea-flex-label input-flex-require">内容：</div>
+						<textarea  class="textarea-flex-text h60" name="description" id="description">{$data.description}</textarea>
+					</div>
+					{if  OPEN_UPLOAD_VIDEO==true}
+	
+					<div class="tabs-border-group">
+						<div class="tabs-border">
+							<div class="tabs-border-item tabs-border-active">图片</div>
+							<div  class="tabs-border-item">视频</div>
+						</div>
+						<div class="tabs-border-box bg-white tabs-border-box-active">
+							<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+						{include file="inc/uploader-data.html"}
+						</div>
+						<div  class="input-flex tabs-border-box">
+							 
+							<div class="videoBox flex-1">
+								<div style="display: none;">
+									<input type="file" id="up-video" name="upfile" />
+								</div>
+								<div class="upimg-btn" id="mp4Up-btn">
+									<div class="upimg-btn-icon">
+						
+									</div>
+								</div>
+						
+								<span id="progress"></span>
+								<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+								<div id="mp4box">
+									{if $data.videourl}
+									<video controls="" src="' + data.true_videourl + '" class="video"></video>
+									{/if}
+								</div>
+								<input type="hidden" name="videourl" id="mp4url" value="{$data.videourl}" />
+								
+								 
+							</div>
+						</div>
+					
+					</div>
+					{else}
+					<div class="bg-fff mgb-5">
+						<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+						{include file="inc/uploader-data.html"}
+					</div>
+					{/if}
+				 
+				<div class="btn-row-submit " id="submit">保存</div>
+			</form>
+
+		</div>
+		 
+		{include file="footer.html"}
+		 
+		{get data=wxs model=weixin fun=selectRow(" status=1") }  
+		{if INWEIXIN && $wxs}
+		
+		<?php wx_jssdk();?>
+		<script src="{$skins}inc/uploader-data-wx.js?{$smarty.now}"></script> 
+		{else} 
+		
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js?v2"></script>
+		{/if}
+		<script>
+			var UPLOAD_OSS="{const.UPLOAD_OSS}"
+		</script>  
+		<script src="{$skins}forum/add.js"> </script>
+	</body>
+</html>

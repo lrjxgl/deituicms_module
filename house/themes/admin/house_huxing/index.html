@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='house_huxing/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>楼盘</td>
+   <td>名称</td>
+   <td>面积</td>
+   <td>总价</td>
+   <td>状态</td>
+   <td>图片</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.lpid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+   <td>{$c.total_money}</td>
+   <td>{$c.status}</td>
+   <td>
+		<img src="{$c.imgurl|images_site}.100x100.jpg" width="50" />
+ </td>
+<td><a href="/moduleadmin.php?m=house_huxing&a=add&id={$c.id}&lpid={$c.lpid}">编辑</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=house_huxing&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

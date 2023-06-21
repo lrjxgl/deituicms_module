@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">菜园任务</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div @click="setType('new')" :class="type=='new'?'tabs-border-active':''" class="tabs-border-item">待处理</div>
+				<div @click="setType('receive')"  :class="type=='receive'?'tabs-border-active':''"  class="tabs-border-item">待验收</div>
+				<div @click="setType('finish')"  :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">已完成</div>
+				<div @click="setType('all')"  :class="type=='all'?'tabs-border-active':''"  class="tabs-border-item">全部</div>
+			</div>
+			<div>
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex bd-mp-5">
+						<div class="cl-status">{{item.status_name}}</div>
+						<div class="mgl-20 cl-info">{{item.task_action}}</div>
+					</div>
+					<div class="cl2" v-html="item.content"></div>
+				</div> 
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}gxny_order_task/my.js"></script>
+	</body>
+</html>

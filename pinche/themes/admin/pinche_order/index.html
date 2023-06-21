@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">{$typename}</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>orderid</td>
+						<td>线路</td>
+						<td>下单人</td>
+						<td>金额</td>
+
+						<td>人数</td>
+						<td>状态</td>
+						<td>司机</td>
+
+						<td>创建时间</td>
+
+					</tr>
+
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.orderid}</td>
+					<td>{$c.line.title}</td>
+					<td>{$c.nickname}</td>
+					<td>￥{$c.money}</td>
+
+					<td>{$c.usernum}</td>
+					<td>{$c.status_name}</td>
+					<td>{$c.driver.title}</td>
+
+					<td>{$c.dateline|date:Y-m-d}</td>
+
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

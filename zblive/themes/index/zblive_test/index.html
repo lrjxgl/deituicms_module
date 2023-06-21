@@ -1,0 +1,81 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+<style>
+	.videoFixed{
+		_position: fixed;
+		left:120%;
+		z-index: 0;
+	}
+	.pageModal{
+		_position: fixed;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		top:200px;
+	}
+</style>
+ <div class="videoFixed">
+	<div id="videoBox">
+	<video 
+		 
+		x5-playsinline="true"
+		x-webkit-airplay="true"
+		 playsinline="true" 
+	 id="video" >
+		<source src="https://www.w3school.com.cn/example/html5/mov_bbb.mp4"></source>
+	</video>
+	</div> 
+ </div>
+ <button id="playBtn">播放</button>
+ <div id="canvasBox">
+	 canvas
+	<canvas width="400"
+		height="200" id="canvas">
+		图片</canvas> 
+ </div>
+ <div class="pageModal">
+	<div>这是浮萍</div> 
+ </div>
+
+<div id="res"></div>
+<script src="/plugin/jquery/jquery.js"></script>
+<script>
+	var video=document.getElementById("video");
+	var canvas=document.getElementById("canvas");
+	var winWidth=$(window).innerWidth();
+	var winHeight=$(window).innerHeight();
+	var videoWidth;
+	var videoHeight;
+	var sWidth=sHeight=0;
+	video.addEventListener("loadedmetadata",function(e){
+		setTimeout(function(){
+			videoWidth=video.width;
+			videoHeight=video.height; 
+			console.log(video.width)
+			render()
+		},30)
+		
+		
+	})
+	$(document).on("click","#playBtn",function(){
+		video.play();
+		
+		
+	})
+	videoResize()
+	function videoResize(){
+		window.requestAnimationFrame(videoResize);
+		canvas.width=videoWidth=$("#videoBox").width();
+		canvas.height=videoHeight=$("#videoBox").height();
+		console.log(videoWidth,videoHeight);
+	}
+	var ctx = canvas.getContext('2d');
+	var width=canvas.width;
+	var  height=canvas.height;
+	
+	function render() {
+	    window.requestAnimationFrame(render)
+	    //ctx.clearRect(0, 0,canvas.width,canvas.height)
+	    ctx.drawImage(video, 0, 0,canvas.width,canvas.height) 
+	}
+</script>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<style>
+		.tabs-absox{
+			position: absolute;
+			top:100%;
+			left:0;
+			right:0;
+			background-color: #fff;
+			border: 1px solid #eee;
+			border-bottom: 0;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<div class="header-title">福鼎相亲</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="swiper-container mgb-5" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			</div>
+			{/if}
+			<div class="tabs-border mgb-5">
+				<div class="tabs-border-item pos-relative">
+					<div @click="tabShow('tabAgeShow')" class="flex flex-center">
+						<span class="mgr-5">{{age_label}}</span>
+						<span class="iconfont f12 icon-godown"></span>
+					</div>
+					<div v-if="tabAgeShow" class="tabs-absox">
+						<div class="bd-mp-5" @click="setAge('年龄')" >不限年龄</div>
+						<div class="bd-mp-5" @click="setAge(item)" v-for="(item,index) in ageList" :key="index">
+							{{item}}
+						</div>
+					</div>
+				</div>
+				<div class="tabs-border-item pos-relative">
+					<div  @click="tabShow('tabMoneyShow')" class="flex flex-center">
+						<span class="mgr-5">{{money_label}}</span>
+						<span class="iconfont f12 icon-godown"></span>
+					</div>
+					<div v-if="tabMoneyShow" class="tabs-absox">
+						<div class="bd-mp-5" @click="setMoney('收入')" >不限收入</div>
+						<div class="bd-mp-5" @click="setMoney(item)" v-for="(item,index) in moneyList" :key="index">
+							{{item}}
+						</div>
+					</div>
+				</div>
+				
+				<div class="tabs-border-item pos-relative">
+					<div @click="tabShow('tabAddrShow')" class="flex flex-center">
+						<span class="mgr-5">{{addr_label}}</span>
+						<span class="iconfont f12 icon-godown"></span>
+					</div>
+					<div v-if="tabAddrShow" class="tabs-absox">
+						<div class="bd-mp-5" @click="setAddr(0,'户籍')" >不限户籍</div>
+						<div class="bd-mp-5" @click="setAddr(item.id,item.title)" v-for="(item,index) in addrList" :key="index">
+							{{item.title}}
+						</div>
+					</div>
+				</div>
+				 
+			</div>
+			<div>
+				<div class="flex-center cl2 pd-10">温馨提示：本站只负责收集相亲信息，职业收入等信息未经确认，请广大用户注意。</div>
+				<div class="flex">
+					<div class="flex-1 mgr-10">
+						<div @click="goDetail(item.id)" class="row-box mgb-10 bd-radius-10" v-for="(item,index) in listA" :key="index">
+							<img :src="item.imgurl+'.small.jpg'" class="wmax mgb-5" />
+							<div >
+								<div class="flex mgb-5">
+									<div class="mgr-10">{{item.truename}}</div>
+								</div>
+								<div class="flex mgb-5">
+									<div class="cl3 f12 mgr-10">{{item.gender_title}}</div>
+									<div class="cl3 f12">{{item.age}}岁</div>
+									<div class="flex-1"></div>
+									
+									<div class="cl-primary f12">收入：{{item.income}}万</div>
+								</div>
+								 
+								<div class="flexlist-desc">{{item.self_desc}}</div>
+								 
+							</div>
+							
+						</div>
+					</div>
+					<div class="flex-1">
+						<div @click="goDetail(item.id)" class="row-box mgb-10 bd-radius-10" v-for="(item,index) in listB" :key="index">
+							<img :src="item.imgurl+'.small.jpg'" class="wmax mgb-5" />
+							<div >
+								<div class="flex mgb-5">
+									<div class="mgr-10">{{item.truename}}</div>
+								</div>
+								<div class="flex mgb-5">
+									<div class="cl3 f12 mgr-10">{{item.gender_title}}</div>
+									<div class="cl3 f12">{{item.age}}岁</div>
+									<div class="flex-1"></div>
+									 
+									<div class="cl-primary f12">收入：{{item.income}}万</div>
+								</div>
+								
+								
+								<div class="flexlist-desc">{{item.self_desc}}</div>
+								 
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			{if $unJoin}
+			<div gourl="/module.php?m=xiangqin_people&a=add" class="fixedAdd">加入</div>
+			{/if}
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			var unJoin={$unJoin};
+			var flash=new Swiper("#indexFlash");
+		</script>
+		<script src="{$skins}xiangqin/index.js"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			 
+		</script>
+	</body>
+</html>

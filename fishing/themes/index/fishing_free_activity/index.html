@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>actid</td>
+   <td>placeid</td>
+   <td>description</td>
+   <td>金额</td>
+   <td>活动时间</td>
+   <td>status</td>
+   <td>创建时间</td>
+   <td>imgurl</td>
+   <td>content</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.actid}</td>
+   <td>{$c.placeid}</td>
+   <td>{$c.description}</td>
+   <td>{$c.money}</td>
+   <td>{$c.stime}</td>
+   <td>{$c.status}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.content}</td>
+<td><a href="/module.php?m=fishing_free_activity&a=add&actid={$c.actid}">编辑</a> <a href="/module.php?m=fishing_free_activity&a=show&actid={$c.actid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=fishing_free_activity&a=delete&ajax=1&actid={$c.actid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

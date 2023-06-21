@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width: 100%;
+		}
+		.shareFixed{
+			display: none;
+			position: fixed;
+			right: 5px;
+			bottom:200px;
+			background-color: #006699;
+			color: #fff;
+			width: 36px;
+			height: 36px;
+			border-radius: 50%;
+			line-height: 36px;
+			text-align: center;
+			font-size: 14px;
+			cursor: pointer;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div url="/module.php?m=freeshop" class="header-back"></div>
+			<div class="header-title">优惠详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="shareFixed">赏</div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<img gourl="/module.php?m=freeshop_home&shopid={$shop.shopid}" src="{$shop.imgurl}.100x100.jpg" class="wh-60 bd-radius-50 mgr-5" />
+					<div gourl="/module.php?m=freeshop_home&shopid={$shop.shopid}" class="flex-1">
+						<div class=" mgb-5 f14">{$shop.shopname}</div>
+						<div class="flex mgb-5 flex-ai-center mgr-10">
+							 
+							<div class="cl2 f12 mgr-5">月销</div>
+							<div class="cl-num f12 mgr-10">{$shop.sold_num}笔</div>
+							 
+							<div class="cl2 f12 mgr-5">评价</div>
+							<div class="cl-num f12 mgr-10">{$shop.grade}分</div>
+							<div class="cl2 f12 mgr-5">粉丝</div>
+							<div class="cl-num f12">{$shop.follow_num}</div>
+						</div>
+						<div class="cl3 f12">{$shop.address}</div>
+					</div>
+					<a href="tel:{$shop.telephone}"><div class="iconfont cl-num icon-phone_light"></div></a>
+				</div>
+				 
+			</div>
+		 
+			<div class="row-box mgb-5">
+				<div class="cl2 f14">{$data.content}</div>
+				{if $data.mp4url!=''}
+				<video 
+					src="{$data.mp4url}" 
+					x5-playsinline="true"
+					x-webkit-airplay="true"
+					 playsinline="true" 
+					 webkit-playsinline="true" 
+				 class="video" controls="controls" autoplay=""></video>
+				{/if}
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex mgb-10">
+					<div class="mgr-5 cl2">优惠价</div>
+					<div class="cl-money mgr-10">￥{$data.price}</div>
+					<div class="mgr-5 cl2"></div>
+					<div class="cl2 mgr-10">{$data.discount}折</div>
+					<div class="flex-1"></div>
+					<div class="cl3 f12">原价</div> 
+					<div class="market-price">￥{$data.market_price}</div>
+				</div>
+				
+				<div class="flex mgb-10 flex-ai-center">
+					<div class="mgr-5 cl2">数量</div>
+					<div class="cl-num mgr-10">{$data.maxnum}份</div>
+					<div class="flex-1"></div>
+					<div class="cl2 f14">已购</div>
+					<div class="cl-num">{$data.buynum}份</div>
+				</div>
+				<div class="flex mgb-10">
+					<div class="mgr-10">截止消费时间</div>
+					<div class="cl-red">{$data.etime|date:Y-m-d H:i:s}</div>
+					<div class="flex-1"></div>
+					{if $etime>0}
+					<div class="js-timeout f12 cl-red" v="{$etime}"></div>
+					{/if}
+				</div>
+				
+				<div class="cl-red text-center mgb-5">{if $data.sendtype eq 0}到店消费，注意时间{else}外卖配送，下单马上准备{/if}</div>
+				<div class="cl3 f12 text-center">*活动商品，订单取消扣20%</div>
+			</div> 
+			{if $data.invite_money>0 && $data.status eq 1}
+			<div class="row-box mgb-5">
+				
+				<div class="flex">
+					<div class="cl2">邀请好友下单，可奖励</div>
+					<div class="cl-money">{$data.invite_money}</div>
+					<div class="flex-1 cl2">元</div>
+					<div class="btn-mini js-share-btn btn-outline-primary">马上邀请</div>
+				</div>
+				
+			</div>
+			{/if}
+			{if $imgslist}
+			<div class="row-box mgb-5">
+				<div class="flex-center mgb-10">
+					{foreach item=c from=$imgslist}
+					<img src="{$c}" class="wmax mgb-5" />
+					{/foreach}
+				</div>
+			</div>
+			{/if}
+			{if $olist}
+			<div class="row-box mgb-5">
+				<div class="fw-600 mgb-10">抢购动态</div>
+				<div>
+					{foreach item=c from=$olist}
+					<div class="flex flex-ai-center mgb-5">
+						<img src="{$c.user_head}.100x100.jpg" class="wh-30 bd-radius-50 mgr-5" />
+						<div class="cl2">{$c.nickname}于{$c.createtime}抢购成功</div>
+					</div>
+					{/foreach}
+				</div>
+			</div>
+			{/if}
+			<div  class="modal-group" id="buyBox">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">联系信息</div>
+						<div class="modal-close icon-close"></div>
+					</div>
+					<div>
+						 
+						<div class="input-flex">
+							<label class="input-flex-label">联系人</label>
+							<input id="addr-nickname" value="{$addr.nickname}" class="input-flex-text" type="text">
+						</div>
+						<div class="input-flex">
+							<label class="input-flex-label">电话</label>
+							<input id="addr-telephone" value="{$addr.telephone}" class="input-flex-text" type="text">
+						</div>
+						<div class="input-flex">
+							<label class="input-flex-label">地址</label>
+							<input id="addr-address" value="{$addr.address}" class="input-flex-text" type="text">
+						</div>
+						<div class="cl-red text-center">{if $data.sendtype eq 0}到店消费，注意时间{else}外卖配送，下单马上准备{/if}</div>
+						<div class="btn-row-submit js-buy-submit">确认抢购</div> 
+					</div>
+				</div> 
+			</div>
+		</div>
+		<div class="wx-share-guide">
+			 <img src="/static/images/wx_guide.png" class="wx-share-guide-img" />
+		</div>
+		<div class="footer-row"></div>
+		<div class="footerFix">
+			<div class="row-box flex">
+				<div class="mgr-5">优惠价</div>
+				<div class="cl-money mgr-10">￥{$data.price}</div>
+				<div class="cl3 f12">原价</div>
+				<div class="market-price">￥{$data.market_price}</div>
+				<div class="flex-1"></div>
+				{if $data.status eq 1}
+				<div class="btn-small js-show-buy">立即抢购</div>
+				{else}
+				<div class="btn-small btn-secondary">活动结束</div>
+				{/if}
+			</div>
+			
+		</div> 
+		{include file="footer.html"}
+		<script>
+			var productid="{$data.productid}";
+			var etime="{$etime}";
+			$(document).on("click",".js-share-btn",function(){
+				$(".wx-share-guide").show();
+			})
+			$(document).on("click",".wx-share-guide",function(){
+				$(".wx-share-guide").hide();
+			})
+		</script>
+		<script src="{$skins}freeshop_product/show.js"></script>
+		 
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_link="{$shareLink}";
+			wxshare_title=`"{$data.content|nl2br}"`;
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+		<style>
+			.wx-share-guide{
+				position: fixed;
+				right: 0;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				z-index: 999;
+				background-color: #333;
+				opacity: .8;
+				text-align: right;
+				display: none;
+			}
+			.wx-share-guide-img{
+				position: absolute;
+				right: 0;
+				top: 10px;
+				width: 200px;
+			}
+		</style>
+	</body>
+</html>

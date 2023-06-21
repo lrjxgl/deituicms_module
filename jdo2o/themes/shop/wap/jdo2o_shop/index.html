@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">商家信息</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=jdo2o_shop&a=save&ajax=1">
+			<div class="input-flex">
+				<div class="input-flex-label">店铺名称</div>
+				<input type="text" class="input-flex-text" name="shopname" value="{$shop.shopname}" />
+			</div>
+			<div class="input-flex flex-ai-center">
+				<div class="input-flex-label">logo</div>
+				<div class="flex-1">
+					<div class="upimg-box bg-fff">
+						<div class="upimg-item {if !$shop.imgurl}none{/if} js-upimg-btn">
+							<img class="upimg-img" src="{$shop.imgurl|images_site}.100x100.jpg" >								 
+						</div>
+						{if !$shop.imgurl}	
+						<div class="upimg-btn js-upimg-btn">
+							<i class="upimg-btn-icon"></i>
+						</div>
+						{/if}
+						<input type="hidden" name="imgurl" value="{$shop.imgurl}" class="imgurl" />
+						<input style="display: none;" class="js-upimg-file"  type="file" name="upimg" id="upimg" /> 
+					</div> 
+				</div>
+			</div>
+			<div class="textarea-flex">
+				<div class="textarea-flex-label">店铺介绍</div>
+				<textarea class="textarea-flex-text h60" name="description">{$shop.description}</textarea>
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">店铺公告</div>
+				<input type="text" class="input-flex-text" name="gonggao" value="{$shop.gonggao}" />
+			</div>
+			<div class="input-flex flex-ai-center">
+				<div class="input-flex-label">物流费用</div>
+				<input type="text" class="input-flex-text mgr-5" name="express_money" value="{$shop.express_money}" />
+				<div class="mgr-5">￥</div>
+				<div class="input-flex-note">默认物流费用</div>
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">联系人</div>
+				 
+				<input type="text" class="input-flex-text" name="nickname" value="{$shop.nickname}" />
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">联系电话</div>
+				<input type="text" class="input-flex-text" name="telephone" value="{$shop.telephone}" />
+				 
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">所在区域</div>
+				<select class="input-flex-select" name="sc_id">
+					{foreach item=c from=$site_city}
+                        	<option value="{$c.sc_id}" {if $shop.sc_id eq $c.sc_id} selected{/if}>{$c.title}</option>
+                            {if $c.child}
+                            {foreach item=cc from=$c.child}
+                        	<option value="{$cc.sc_id}"  {if $shop.sc_id eq $cc.sc_id} selected{/if}>|--{$cc.title}</option>
+                            {/foreach}
+                            {/if}
+                        {/foreach}
+				</select>
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">地址</div>
+				<input type="text" id="address" class="input-flex-text" name="address" value="{$shop.address}" />
+				<input type="hidden" name="lat" value="{$shop.lat}" id="lat" />
+				<input type="hidden" name="lng" value="{$shop.lng}" id="lng" />
+				<div class="input-flex-btn w60 flex-center iconfont icon-location_light js-map-show"></div>
+			</div>
+			
+			<div class="sky-editor-content" id="e-content"  contenteditable="true">{$data.content}</div>
+			<div class="none">
+				<textarea name="content" id="content">{$data.content}</textarea>
+			</div>
+			<div class="btn-row-submit" id="submit">保存</div>
+			</form>
+		</div>
+		<!--百度地图-->
+		<div class="baiduMap">
+			<div id="mapCanvas" style="width:100%; height:300px; margin-bottom: 10px;"></div>
+			<div class="flex flex-center">
+				<div class="btn mgr-10" onclick="hideMap()">取消</div>
+				<div class="btn" onclick="sureAddressFn()">确定</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script>
+		var lat="{$shop.lat}", lng="{$shop.lng}";
+		</script>
+		<script>
+			$(document).on("click","#submit",function(){
+				var form=$(this).parents("form");
+				var url=form.attr("action");
+				$("#content").val($("#e-content").html());
+				$.post(url,form.serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+					//	goBack();
+					}
+				},"json")
+			})
+		</script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script src="{$skins}jdo2o_shop/map.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

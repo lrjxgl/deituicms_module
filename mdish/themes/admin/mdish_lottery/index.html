@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='mdish_lottery/nav.html'}
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=mdish_lottery" class="search-form">
+				<input type="hidden" name="m" value="mdish_lottery" />
+				<div class="flex flex-ai-center">
+					时间：<input class="w150 mgr-5" value="{$sday}" type="text" name="sday" />
+					<button class="btn" type="submit">搜一下</button>
+				</div>
+				
+			</form>
+			<table class="tbs">
+				<thead>
+					<tr>
+
+						<td>shopid</td>
+						<td>title</td>
+						<td>description</td>
+						<td>imgurl</td>
+						<td>price</td>
+						<td>userid</td>
+						<td>isnew</td>
+						<td>ishot</td>
+						<td>isrecommend</td>
+						 
+						<td>love_num</td>
+						<td>status</td>
+						 
+						<td>sday</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+
+					<td>{$c.shopid}</td>
+					<td>{$c.title}</td>
+					<td>{$c.description}</td>
+					<td><img src=" {$c.imgurl|images_site}.100x100.jpg" class="w50" /></td>
+					<td>{$c.price}</td>
+					<td>{$c.userid}</td>
+					<td>{$c.isnew}</td>
+					<td>{$c.ishot}</td>
+					<td>{$c.isrecommend}</td>
+					 
+					<td>{$c.love_num}</td>
+					<td>{$c.status}</td>
+					 
+					<td>{$c.sday}</td>
+					<td><a href="moduleadmin.php?m=mdish_lottery&a=add&ltid={$c.ltid}">编辑</a> 
+						<a href="javascript:;" class="js-delete" url="moduleadmin.php?m=mdish_lottery&a=delete&ajax=1&ltid={$c.ltid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

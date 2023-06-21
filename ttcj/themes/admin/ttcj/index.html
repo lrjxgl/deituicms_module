@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+ 
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=ttcj">活动列表</a>
+	<a class="item {if get('a') eq 'add'}active{/if}" href="{$appadmin}?m=ttcj&a=add">添加</a>
+</div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>cjid</td>
+   <td>标题</td>
+    
+   <td>图片</td>
+   <td>创建时间</td>
+   <td>结束时间</td>
+   <td>参与人数</td>
+   <td>中奖者</td>
+   <td>状态</td>
+   
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.cjid}</td>
+   <td>{$c.title}</td>
+    
+   <td><img class="w50" src="{$c.imgurl}.100x100.jpg" /> </td>
+   <td>{$c.createtime}</td>
+   <td>{$c.endtime}</td>
+   <td>{$c.join_num}</td>
+   <td>{$c.win_userid}</td>
+   <td>{$c.status}</td>
+   
+<td><a href="/moduleadmin.php?m=ttcj&a=add&cjid={$c.cjid}">编辑</a> 
+	<a href="/moduleadmin.php?m=ttcj_item&a=ttcj&cjid={$c.cjid}">奖项</a>
+	<a href="/moduleadmin.php?m=ttcj&a=open&cjid={$c.cjid}">开奖</a>
+	<br>
+	<a href="/module.php?m=ttcj&a=show&cjid={$c.cjid}" target="_blank">查看</a>
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=ttcj&a=delete&cjid={$c.cjid}">删除</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+     
+</div>
+{include file="footer.html"}
+</body>
+</html>

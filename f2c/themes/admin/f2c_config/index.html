@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">分销设置</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=f2c_config&a=save&ajax=1">
+				<table class="table-add">
+					<tr>
+						<td>分成模式</td>
+						<td>
+							<input type="radio" {if $data.fctype eq 0}checked{/if} name="fctype" value="0" /> 订单分成
+							&nbsp;&nbsp;
+							<input type="radio" {if $data.fctype eq 1}checked{/if} name="fctype" value="1" /> 产品分成
+						</td>
+					</tr>
+					<tr>
+						<td>抽成比例</td>
+						<td>
+							<input type="text" class="w100" name="per_money" value="{$data.per_money}" /> %
+						</td>
+					</tr>
+					<tr>
+						<td>分销模式</td>
+						<td>
+							<input type="radio" {if $data.shoptype eq 0}checked{/if} name="shoptype" value="0" /> 店铺模式  
+							&nbsp;&nbsp;
+							<input type="radio" {if $data.shoptype eq 1}checked{/if} name="shoptype" value="1" /> 多级分销 
+							<span class="cl-red"> *只支持订单分成</div>
+						</td>
+					</tr>
+					
+				</table>
+				<div class="btn-row-submit js-submit">保存设置</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

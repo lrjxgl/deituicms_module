@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="tabs-border i5">
+				{foreach item=c key=k from=$statuslist}
+				<a class="tabs-border-item {if get('status') eq $k}tabs-border-active{/if}" href="/module.php?m=zhuli_order&a=my&status={$k}">{$c}</a>
+				{/foreach}
+ 
+			</div>
+		    <div class="uplist">
+		    	{foreach item=c from=$orderlist}
+		    		<div class="item">
+		    			<div class="item-img">
+		    				<img src="{$c.imgurl}.100x100.jpg">
+		    			</div>
+		    			<div class="flex-1"> 
+			    			<a href="/module.php?m=zhuli&id={$c.zlid}" class="title">{$c.title}</a>
+			    			<div class="flex mgb-10" >
+			    				
+								<div class="mgr-5">价格 </div>
+								<span class="cl-money mgr-5">￥{$c.money} </span> 	 
+			    				<div class="flex-1"></div>
+								<div class="mgr-5">状态</div>
+								<span class="cl-num">{$c.status_name}</span>
+			    				
+			    			</div>
+			    			<div class="addr">
+			    				{$c.createtime}<br>
+			    				联系人：{$c.nickname}<br>
+			    				联系电话：{$c.telephone}<br>
+			    				收货地址：{$c.address}
+			    			</div>
+			    			<div class="desc">
+			    				备注：{$c.comm}
+			    			</div>
+			    			<div class="tools">
+			    				 
+			    				
+			    				 <a href="/module.php?m=zhuli_shaidan&a=add&orderid={$c.orderid}">我要晒单</a>
+			    				{if !$c.isreceived} 
+			    				 <a href="javascript:;" class="js-order-received" orderid="{$c.orderid}">确认收货</a>
+			    				{/if} 
+			    			</div>
+		    			</div>
+		    		</div>
+		    	{/foreach}
+		    </div>
+		    {$pagelist}
+		</div>
+		{include file="footjs.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-order-received",function(){
+			var orderid=$(this).attr("orderid");
+			var obj=$(this);
+			$.get("/module.php?m=zhuli_order&a=receive&ajax=1&orderid="+orderid,function(data){
+				skyJs.toast(data.message);
+			},"json");
+		})
+		
+	})
+</script>		
+	</body>
+</html>

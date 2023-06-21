@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='fxa_shop/nav.html'}
+		
+		<div class="main-body">
+			<form action="/moduleadmin.php" class="search-form">
+				<input type="hidden" name="m" value="fxa_shop" />
+				shopid:<input type="text" name="shopid" class="w50" value="{$smarty.get.shopid|intval}"  />
+				状态：<select class="w100" name="status">
+						<option value="">请选择</option>
+						<option {if get('status') eq 'finish'}selected{/if} value="finish">上线</option>
+						<option {if get('status') eq 'unfinish'}selected{/if}  value="unfinish">下线</option>
+				</select>
+				 
+				 
+				名称：<input class="w100" type="text" name="shopname" value="{$smarty.get.shopname|html}" />
+				<button class="btn" type="submit">搜一下</button>
+			</form>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>shopid</td>
+						<td>标题</td>
+						<td>状态</td>
+						<td>logo</td>
+						<td>电话</td>
+						<td>地址</td>
+						<td>营业执照号码</td>
+						<td>营业执照</td>
+						<td>联系人</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.shopid}</td>
+					<td>{$c.title}</td>
+					<td>{if $c.status eq 1}上线{else}下线{/if}</td>
+					<td><img src="{$c.imgurl|images_site}.100x100.jpg" width="50" /></td>
+					<td>{$c.telephone}</td>
+					<td>{$c.address}</td>
+					<td>{$c.shopno}</td>
+					<td><img src="{$c.yyzh|images_site}.100x100.jpg" width="50" /> </td>
+					<td>{$c.nickname}</td>
+					<td><a href="/moduleadmin.php?m=fxa_shop&a=add&shopid={$c.shopid}">编辑</a>
+						<a href="/moduleadmin.php?m=fxa_shop_admin&shopid={$c.shopid}">账号管理</a>
+
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fxa_shop&a=delete&ajax=1&shopid={$c.shopid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='shanxin_bang/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>sid</td>
+   <td>userid</td>
+   <td>状态</td>
+   <td>描述</td>
+   <td>创建时间</td>
+   <td>数量</td>
+   <td>价格</td>
+   <td>支付</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.sid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.status}</td>
+   <td>{$c.description}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.num}</td>
+   <td>{$c.money}</td>
+   <td>{$c.ispay}</td>
+<td><a href="moduleadmin.php?m=shanxin_bang&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=shanxin_bang&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="moduleadmin.php?m=shanxin_bang&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

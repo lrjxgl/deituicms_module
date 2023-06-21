@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.tabs-absox{
+		position: absolute;
+		top:100%;
+		left:0;
+		right:0;
+		background-color: #fff;
+		border: 1px solid #eee;
+		border-bottom: 0;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">找兼职</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	<div class="tabs-border mgb-5">
+		<div class="tabs-border-item pos-relative">
+			<div @click="tabCatShow=tabCatShow?false:true;tabMoneyShow=false;" class="flex flex-center">
+				<span class="mgr-5">{{cat_label}}</span>
+				<span class="iconfont f12 icon-godown"></span>
+			</div>
+			<div v-if="tabCatShow" class="tabs-absox">
+				<div class="bd-mp-5" @click="setCat(0,'类别')" >全部类别</div>
+				<div class="bd-mp-5" @click="setCat(item.catid,item.title)" v-for="(item,index) in catList" :key="index">
+					{{item.title}}
+				</div>
+			</div>
+		</div>
+		<div class="tabs-border-item pos-relative">
+			<div @click="tabMoneyShow=tabMoneyShow?false:true;tabCatShow=false;" class="flex flex-center">
+				<span class="mgr-5">{{money_label}}</span>
+				<span class="iconfont f12 icon-godown"></span>
+			</div>
+			<div v-if="tabMoneyShow" class="tabs-absox">
+				<div class="bd-mp-5" @click="setMoney('工资')" >不限工资</div>
+				<div class="bd-mp-5" @click="setMoney(item)" v-for="(item,index) in moneyList" :key="index">
+					{{item}}
+				</div>
+			</div>
+		</div>
+	</div>
+	 
+	<div v-if="list.length==0" class="emptyData">暂无数据</div>
+	<div v-else>
+		<div @click="goDetail(item.id)" v-for="(item,index) in list" :key="index" class="bg-white  flex-col  pd-10 mgb-5">
+			  <div class="c1 f16 mgb-5">{{item.title}}</div>
+			  <div class="flex flex-ai-center mgb-5">
+				  <div class="cl2 f12 ">发布时间：{{item.createtime}}</div>
+				  
+				  <div class="flex-1">
+					  
+				  </div>
+				  工资 <div class="cl-money">￥{{item.money}}</div>/天
+			  </div>
+			  <div class="cl3 f12  mgb-5">地点：{{item.address}}</div>
+			  <div class="cl2">
+				  {{item.description}}
+			  </div>
+		</div>
+		<div @click="getList()" class="loadMore" v-if="per_page>0">加载更多</div>
+	</div>
+ 
+  
+ 
+ 
+  
+</div>
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script src="{$skins}job_jianzhi/index.js"></script>
+</body>
+</html>

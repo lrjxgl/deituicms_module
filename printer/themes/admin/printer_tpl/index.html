@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+<body>
+ 
+<div class="shd">打印模板</div>
+<div class="main-body">
+ <table class="tbs">
+	 <thead>
+  <tr>
+   <td>id</td>
+   <td>表名</td>
+   <td>shopid</td>
+   <td>加入时间</td>
+   <td>shead</td>
+   <td>sfoot</td>
+   <td>sqr</td>
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.tablename}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.shead}</td>
+   <td>{$c.sfoot}</td>
+   <td>{$c.sqr}</td>
+<td>
+	
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

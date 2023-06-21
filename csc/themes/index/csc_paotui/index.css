@@ -1,0 +1,56 @@
+.lmBox{
+	 
+}
+.lmSide{
+	position:fixed;
+	left:0;
+	top:45px;
+	bottom:45px;
+	overflow: auto;
+	background-color: #fff;
+	padding-top: 5px;
+}
+.lmSide-item{
+	display: flex;
+	flex-direction: row;
+	padding: 5px;
+	width: 100px;
+	font-size: 12px;
+	cursor: pointer;
+	overflow: hidden;
+}
+.lmSide-item-active{
+	color:#F20C00;
+}
+.lmSide-badge{
+	position: absolute;
+	right: 5px;
+	background-color: #fff;
+	width:14px;
+	height: 14px;
+	line-height: 14px;
+	text-align: center;
+	border: 1px solid #f30;
+	font-size: 12px;
+	border-radius: 50%;
+}
+.lmMain{
+	margin-left:105px;
+}
+.lmBox-stat{
+	z-index: 999;
+	position: fixed;
+	left:3px;
+	bottom:150px;
+	width:40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #f30;
+	opacity: 0.6;
+	color: #fff;
+	font-size: 12px;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	display: flex;
+}

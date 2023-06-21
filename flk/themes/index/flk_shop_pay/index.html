@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div url="/module.php?m=flk" class="header-back"></div>
+			<div class="header-title">付款</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="row-box mgb-5">
+				<div class="flex-ai-center mgb-5">
+					<img class="w50 bd-radius-50" src="{$shop.imgurl}.100x100.jpg"/>
+				</div>
+				<div class="flex cl2 f14 flex-jc-center">
+					付款给 &nbsp; {$shop.shopname}
+				</div>
+			</div>
+			<form class="row-box" method="post" >
+				 
+				<div class="input-flex mgb-5">
+					<div class="input-flex-label">支付金额</div>
+					<input type="text" v-model="money" id="money" class="input-flex-text" />
+					<input type="hidden" v-model="paymoney"   />
+				</div>
+				<div class="row-box mgb-5">
+					<div class="flex mgb-10">
+						<div>单笔折扣限额</div>
+						<div class="cl-money">￥{{shop.flk_maxmoney}}</div>
+						<div class="flex-1"></div>
+						<div>商家返利率</div>
+						<div class="cl-money">{{shop.flk_discount}}</div>
+					</div>
+					<div v-if="shop.flk_maxmoney<money">
+						订单金额大于单笔折扣限额，无法使用折扣券
+					</div>
+					<div v-else-if="shop.flk_new && !daxin ">
+						暂时不符合，新店打新资格，无法使用折扣券
+					</div>
+					<div v-else >
+						<div v-if="shop.flk_new" class="flex mgb-5">
+							<div class="cl2">
+								打新券 
+							</div>
+							<div class="cl-money">￥{{daxin.money}}</div>
+						</div>
+						<div class="flex mgb-5">
+							<div v-if="flkview"><input @click="toggleFlk" id="flkid" name="flkid" value="1" type="checkbox" /></div>
+							<div class="cl-num">购买一折排队券</div>
+							<div class="flex-1"></div>
+							<div @click="ksmClass='flex-col'" class="pointer cl-red">请先阅读卡券协议</div>
+						</div>
+						<div>实际支付金额：{{paymoney}}元</div>
+					</div>
+					
+				</div>
+				<div class="flex flex-jc-center">
+					<div id="goPay"  class="btn">确定支付</div>
+				</div>
+				
+			</form>
+			<div :class="ksmClass" class="modal-group">
+				<div @click="ksmClass=''" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">一折卡券说明</div>
+						<div  @click="ksmClass=''"  class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="f12 cl2 mgb-5" v-for="(item,index) in rules" :key="index">{{item}}</div>
+						 
+						<div class="flex flex-center">
+							<div @click="flkview=1;ksmClass='' " class="btn">我同意</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shop.shopid}";
+			$(document).on("click","#goPay",function(){
+				var money=$("#money").val();
+				$.ajax({
+					dataType:"json",
+					url:"/module.php?m=flk_shop_pay&a=pay&ajax=1",
+					method:"POST",
+					data:{
+						money:money,
+						shopid:shopid,
+						flkid:$("#flkid").val()
+					},
+					success:function(res){
+						if(res.error){
+							skyToast(res.message);
+							return false;
+						}
+						window.location=res.data.payurl;
+					}
+					
+				})
+			})
+			new Vue({
+				el:"#App",
+				data:function(){
+					return {
+						ksmClass:"",
+						flkChoice:0,
+						flkPrice:0,
+						flkview:0,
+						rules:{},
+						shop:{},
+						money:1,
+						paymoney:1,
+						daxin:false,
+						flk_discount:0
+					}
+				},
+				created:function(){
+					this.getPage();
+					this.getRule();
+				},
+				watch:{
+					money:function(e){
+						if(this.flkChoice){
+							this.paymoney=parseInt(this.money)*(100+this.flk_discount*100)/100;
+						}else{
+							this.paymoney=parseInt(e);
+						}
+					}
+				},
+				methods:{
+					getPage:function(){
+						var that=this;
+						$.ajax({
+							url:"/module.php?m=flk_shop_pay&ajax=1&shopid="+shopid,
+							dataType:"json",
+							success:function(res){
+								that.shop=res.data.shop;
+								that.daxin=res.data.daxin;
+								that.flk_discount=parseInt(res.data.flk_discount*10)/10;
+							}
+						})
+					},
+					getRule:function(){
+						var that=this;
+						$.ajax({
+							url:"/module.php?m=flk&a=rule",
+							dataType:"json",
+							success:function(res){
+								that.rules=res;
+							}
+						})
+					},
+					toggleFlk:function(){
+						if(this.flkChoice){
+							this.flkChoice=0;
+							this.paymoney=parseInt(this.money);
+						}else{
+							this.flkChoice=1;
+							console.log(this.flk_discount);
+							this.paymoney=parseInt(this.money)*(100+this.flk_discount*100)/100;
+						}
+						
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.ghd{
+		line-height: 40px;
+		color: #333;
+		font-size: 20px;
+		padding-left: 5px;
+	}
+ </style>
+<body>
+<div class="header">
+			<div class="header-title">圈子大全</div>
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body">
+    	<div class="grouplist">
+    	{foreach item=c from=$list}
+    	<a class="flexlist-item" href="/module.php?m=group&a=show&gid={$c.gid}">
+    		<img class="flexlist-img"   src="{$c.glogo|images_site}.100x100.jpg"> 
+    		<div class="flex-1">
+    			<div class="flexlist-title">{$c.gname}</div>
+				<div class="flex mgb-5">
+					<div class="cl2 f12 mgr-10">主题 {$c.topic_num}</div>
+					 
+				</div>
+    			<div class="cl3 f12">{$c.description}</div>
+    		</div>
+    		
+    		 
+    	</a> 
+    	{/foreach}
+    	</div>
+     
+</div>
+{assign var="ftnav" value="list"}
+{include file="ftnav.html"}
+
+</body>
+</html>

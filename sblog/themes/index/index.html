@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<a href="/" class="header-back pos-relative"></a>
+			<!--<img src="{$site.logo}" class="header-logo" />-->
+			<div class="header-title">好友圈</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		{if $flashList}
+		<div style="width: 100%;" class="swiper-container" id="indexFlash">
+			<div class="swiper-wrapper" >
+				{foreach item=c from=$flashList}
+				<div class="swiper-slide">
+					<img class="wmax" src="{$c.imgurl}" />
+				</div>
+				{/foreach}
+			</div>
+			 
+			<div class="swiper-pagination"></div>
+		 
+		</div>
+		{/if}
+		{if $navList}
+		<div class="m-navPic">
+		    {foreach item=c from=$navList}
+		    <a href="{$c.link_url}" class="m-navPic-item">
+				  <img class="m-navPic-img" src="{$c.logo|images_site}" />
+				  <div class="m-navPic-title">{$c.title}</div>				   
+		    </a>		
+		    {/foreach}
+		</div>
+		{/if}
+		{if $adList}
+		<div class="adBox">
+			{foreach item=c from=$adList}
+			<div class="adBox-item">
+				<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+			</div>
+			{/foreach}
+					 
+		</div>
+		{/if}
+		</div>
+		<div id="tabAA"></div>
+		<div class="main-body none" :class="'flex-col'"  id="app">
+			
+			<div id="tabBox" class="tabs-border mgb-5">
+				<div @click="setType('')" :class="{'tabs-border-active':type==''}" class="tabs-border-item">关注</div>
+				<div @click="setType('recommend')" :class="{'tabs-border-active':type=='recommend'}" class="tabs-border-item">推荐</div>
+				<div @click="setType('new')" :class="{'tabs-border-active':type=='new'}" class="tabs-border-item">最新</div>
+				<div @click="setType('topic')" :class="{'tabs-border-active':type=='topic'}"  class="tabs-border-item">话题</div>
+				
+			</div>
+			
+			<div v-if="page=='blog'" style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in pageData.list" :key="index" class="sglist-item">
+					<div @click="goPeople(item.userid)" class="flex pointer mgb-5">
+						<img :src="item.user.user_head+'.100x100.jpg'" class="wh-40 bd-radius-50" />
+						<div class="flex-1 mgl-5">
+							<div class="f14 fw-600 mgb-5">{{item.user.nickname}}</div>
+							<div class="flex">
+								<div class="f12 cl3">{{item.timeago}}</div>
+								
+							</div>
+						</div>
+						 
+					</div>
+					<div  @click="goBlog(item.id)" class="sglist-title pointer block" v-html="item.parsecontent"></div>
+					<div  @click="goBlog(item.id)" class="sglist-imglist pointer">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+				</div>
+				<div @click="getList" v-if="per_page>0" class="loadMore">点我加载更多...</div>
+			</div>
+			<div  v-if="page=='topic'" class="blogList">
+				<div @click="goTopic(item.title)" class="blogList-item" v-for="(item,index) in pageData.topicList" :key="index">{{item.title}}</div>
+				
+			</div>
+		</div>
+		<a href="/module.php?m=sblog_blog&a=add" class="fixedAdd">发布</a>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://www.beian.miit.gov.cn">{$site.icp}</a>
+		</div> 
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#search-btn",function(){
+				var word=$("#search-word").val();
+				window.location="/module.php?m=sblog_blog&a=search&keyword="+encodeURI(word)
+			})
+		</script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function(){
+				 
+				var flash=new Swiper("#indexFlash");
+				 $(window).scroll(function(e){
+					 var ex=$("#tabAA").offset().top;
+					 var st=$(window).scrollTop()+60;
+					 console.log(st,ex);
+					 if(st>ex){
+						 $("#tabBox").addClass("tabFixed")
+					 }else{
+						  $("#tabBox").removeClass("tabFixed")
+					 }
+					 
+				 })
+			})
+			
+		</script>
+		 
+		<script src="{$skins}index.js?v33"></script>
+		<?php wx_jssdk();?> 
+	</body>
+</html>

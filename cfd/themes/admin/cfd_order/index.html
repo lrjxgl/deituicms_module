@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">{$typename}</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+   <td>创业项目</td>
+   <td>用户</td>
+   
+   <td>金额</td>
+   <td>状态</td>
+   <td>支付</td>
+   
+   <td>投资项目</td>
+   
+   <td>投资类型</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.nickname}</td>
+   
+   <td>{$c.money}</td>
+   <td>{$c.status}</td>
+   <td>{if $c.ispay eq 1}已支付{else}未支付{/if}</td>
+  
+   <td>{$c.reward_title}</td>
+   
+   <td>{if $c.typeid eq 1}股权{else}普通{/if}</td>
+<td> 
+<a href="/moduleadmin.php?m=cfd_order&a=show&orderid={$c.orderid}">查看</a> 
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,41 @@
+.btn-love-s {
+	border: 1px solid #F55977;
+	padding-right: 15px;
+}
+
+.btn-l20 {
+	margin-left: -10px;
+	border-radius: 0px 20px 20px 0px;
+	background-color: #F55977;
+	height: 36px;
+	line-height: 36px;
+	padding: 0px 10px 0px 10px;
+	color: #fff;
+	cursor: pointer;
+}
+
+.uList {
+	padding: 10px;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.uItem {
+	width: 50px;
+	height: 70px;
+	margin-right: 10px;
+}
+
+.uItem-img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	margin-bottom: 5px;
+}
+
+.uItem-nick {
+	text-align: center;
+	font-size: 12px;
+}

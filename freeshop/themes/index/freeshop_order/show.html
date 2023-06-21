@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex bg-fff pd-10 mgb-5">
+				 
+				<div class="flex-1 cl-money">订单金额：{$order.money}</div>
+				<div class="f12 cl3 mgr-10">{$order.timeago}</div>
+				<div class="cl-primary">{$order.status_name}</div>
+			</div>
+			<div class="flexlist">
+
+				<div class="flexlist-item mgb-0">
+
+					<div gourl="/module.php?m=freeshop_product&a=show&productid={$product.productid}" class="flexlist-imgbox">
+						<image src="{$product.imgurl}.100x100.jpg" class="flexlist-img"></image>
+					</div>
+
+					<div class="flex-1">
+						<div class="flexlist-title" gourl="/module.php?m=freeshop_product&a=show&productid={$c.productid}" target="_blank">{$product.content}</div>
+						<div class="flex">
+
+							<div class="cl-num mgr-10">￥{$product.price} </div>
+							<div class="flex-1"></div>
+							<div class="market-price mgr-10">{$product.market_price}</div>
+							<div class="cl2">x 1</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+			<div class="row-box mgb-5">
+				 
+				<div class="flex mgb-10">
+					<div class="mgr-10">截止消费时间</div>
+					<div class="cl-red">{$order.etime|date:Y-m-d H:i:s}</div>
+					<div class="flex-1"></div>
+					<div class="js-timeout f12 cl-red" v="{$etime}"></div>
+				</div>
+				<div class="cl-red text-center">{if $order.sendtype eq 0}到店消费，注意时间{else}外卖配送，下单马上准备{/if}</div> 
+			</div>
+			
+			<div class="row-box pdt-0 mgb-5">
+
+				<div class="flex-table">
+					<div class="flex-table-label">联系人：</div>
+					<div class="flex-table-box text-right">
+						{$order.truename}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">手机：</div>
+					<div class="flex-table-box text-right">
+						{$order.telephone}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">收货地址：</div>
+					<div class="flex-table-box text-right">
+						{$order.address}
+					</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<img src="{$shop.imgurl}.100x100.jpg" class="wh-40 mgr-5" />
+					<div class="flex-1">
+						<div class="  f14">{$shop.shopname}</div>
+						<div class="cl2 f12">{$shop.address}</div>
+					</div>
+					<a href="tel:{$shop.telephone}"><div class="iconfont cl-num icon-phone_light"></div></a>
+				</div>
+				 
+			</div> 
+			{if $ordercode}
+			<div class="row-box mgb-5">
+				 
+				<div class="flex flex-center pd-5">
+					到店消费验证码：{$ordercode}，请勿泄露
+				</div>
+				 
+			</div> 
+			{/if} 
+			{if $order.status==0}
+			<div class="row-box pdt-0">
+				<div class="row-box flex flex-center">
+					<div gourl="/index.php?m=kefu" class="btn btn-outline-primary ">联系客服</div>
+					 {if $order.ispay==0}
+					<div id="goPay" class="btn-small btn-outline-success mgl-20">去支付</div>
+					 {/if}
+				</div>
+			</div>
+			{elseif $order.status==1}
+			<div class="row-box pdt-0">
+				<div class="row-box flex flex-center">
+					<div gourl="/index.php?m=kefu" class="btn btn-outline-primary ">联系客服</div>
+				</div>
+			</div>
+			{elseif $order.status==2}
+			<div class="row-box pdt-0">
+				<div class="row-box flex flex-center">
+					<div gourl="/index.php?m=kefu" class="btn btn-outline-primary mgr-5">联系客服</div>
+ 
+					<div class="btn btn-outline-primary " id="order-receive-submit">确认收货</div>
+				</div>
+			</div>
+			{elseif $order.status==3}
+			<div class="row-box pdt-0">
+				<div class="row-box flex flex-center">
+					<div gourl="/index.php?m=kefu" class="btn btn-outline-primary mgr-5">联系客服</div>
+					{if $order.israty==0}
+					<div class="btn btn-outline-primary " gourl="/module.php?m=freeshop_order&a=raty&orderid={$order.orderid}">去评价</div>
+					{/if}
+				</div>
+			</div>
+			{/if}
+
+
+
+
+
+
+		</div>
+		{include file="footer.html"}
+		<script>
+			var orderid = "{$order.orderid}";
+			var etime="{$etime}"
+		</script>
+		<script src="{$skins}freeshop_order/show.js?v44"></script>
+	</body>
+</html>

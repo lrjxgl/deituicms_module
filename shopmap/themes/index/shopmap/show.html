@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.mapBox{
+		position: fixed;
+		top:0;
+		left: -2000px;
+		z-index: 9999;
+		background-color: #fff;
+	}
+	.map{
+		width: 300px;
+		height: 400px;
+		margin: 0 auto;
+	}
+	.mapBox-active{
+		left:0;
+		right: 0;
+		bottom:0;
+	}
+	.mapBox-close{
+		cursor: pointer;
+	}
+</style>
+<body>
+	<div class="header">
+		<div url="/module.php?m=shopmap" class="header-back"></div>
+		<div class="header-title">云名片</div>
+	</div>
+<div class="header-row"></div>
+<div gourl="/module.php?m=shopmap&a=add" class="fixedAdd">发布</div>
+<div class="main-body">
+	
+  <div class="row-box mgb-5">
+	  <img src="{$data.imgurl|images_site}" class="d-img mgb-10" />
+		<div class="d-title">{$data.title}</div>
+		<div class="flex mgb-10">
+			<div class="cl2">联系人：{$data.nickname}</div>
+			<div class="flex-1"></div>
+			{if $data.telephone}
+			<a href="tel:{$data.telephone}" title="{$data.telephone}" class="iconfont icon-phone_light">{$data.telephone}</a>
+			{/if}
+		</div>
+		{if $data.wxhao}
+		<div class="flex mgb-10">
+			<div class="w100">微信号</div>
+			<div class="flex-1">{$data.wxhao}</div>
+		</div>
+		{/if}
+		{if $data.qqhao}
+		<div class="flex mgb-10">
+			<div class="w100">QQ</div>
+			<div class="flex-1">{$data.qqhao}</div>
+		</div>
+		{/if}
+		{if $data.dyhao}
+		<div class="flex mgb-10">
+			<div class="w100">抖音号</div>
+			<div class="flex-1">{$data.dyhao}</div>
+		</div>
+		{/if}
+		{if $data.kshao}
+		<div class="flex mgb-10">
+			<div class="w100">快手号</div>
+			<div class="flex-1">{$data.kshao}</div>
+		</div>
+		{/if}
+		{if $data.wbhao}
+		<div class="flex mgb-10">
+			<div class="w100">微博</div>
+			<div class="flex-1">{$data.wbhao}</div>
+		</div>
+		{/if}
+		{if $data.wxgzh}
+		<div class="flex mgb-10">
+			<div class="w100">微信公众号</div>
+			<div class="flex-1">{$data.wxgzh}</div>
+		</div>
+		{/if}
+		{if $data.taobao}
+		<div class="flex mgb-10">
+			<div class="w100">淘宝店</div>
+			<div class="flex-1">{$data.taobao}</div>
+		</div>
+		{/if}
+		{if $data.taobao}
+		<div class="flex mgb-10">
+			<div class="w100">拼多多</div>
+			<div class="flex-1">{$data.pdd}</div>
+		</div>
+		{/if}
+		<div class="flex">
+			<div class="cl2 flex-1 flex flex-ai-center"><i class="iconfont icon-location_light"></i> {$data.address}</div>
+			<div class="pointer cl-primary" id="showMap">
+				查看地图
+			</div>
+		</div>
+	</div>
+	<div class="mapBox">
+		<div class="flex pd-10">
+			<div class="flex-1">地图</div>
+			<div class="mapBox-close iconfont icon-close"></div>
+		</div>
+		<div id="allmap" class="map"></div>
+	</div>	
+		<div class="row-box">
+			<div class="fwb mgb-5">公司简介</div>
+			{if $data.content==""}
+			
+			<div class="d-content">{$data.description}</div>
+			{else}
+			
+			<div class="d-content">{$data.content}</div>
+			{/if}
+		</div>	
+</div>
+{include file="footer.html"}
+<script>
+	
+	$(document).on("click","#showMap",function(){
+		$(".mapBox").addClass("mapBox-active")
+	})
+	$(document).on("click",".mapBox-close",function(){
+		$(".mapBox").removeClass("mapBox-active")
+	})
+</script>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script>
+			var width=$("body").width();
+			var height=$(window).innerHeight();
+			$("#allmap").css("width",width);
+			$("#allmap").css("height",height-40);
+			var map = new BMap.Map("allmap");    // 创建Map实例
+			map.enableScrollWheelZoom(true);
+			map.addControl(new BMap.MapTypeControl({
+				mapTypes:[
+								BMAP_NORMAL_MAP,
+								BMAP_HYBRID_MAP
+						]}));
+			map.enableScrollWheelZoom(true);
+			map.setMapType(BMAP_HYBRID_MAP)
+			map.enableScrollWheelZoom(true);
+	  // 初始化地图,设置中心点坐标和地图级别
+ {if $data.lat>0}
+ var point=new BMap.Point({$data.lng}, {$data.lat})
+ var marker = new BMap.Marker(point);  
+ map.addOverlay(marker);
+ var label = new BMap.Label("{$data.title}",{offset:new BMap.Size(-20,-30)});
+ marker.setLabel(label);
+ map.centerAndZoom(point, 14);
+ {else}
+ map.centerAndZoom(new BMap.Point(120.240986, 27.316632), 14);
+ {/if}
+
+	
+	/***线路***/
+	{if $data.mapCanvas!=''}
+		var ps=JSON.parse('{$data.mapCanvas}');
+		var pts=[];
+		for(var i in ps){
+			pts.push(new BMap.Point(ps[i].lng,ps[i].lat));
+			var polyline = new BMap.Polyline(pts, {strokeColor:"red", strokeWeight:2, strokeOpacity:1});   //创建折线
+			map.addOverlay(polyline);  
+		}
+	{/if}
+		</script>
+		
+</body>
+</html>

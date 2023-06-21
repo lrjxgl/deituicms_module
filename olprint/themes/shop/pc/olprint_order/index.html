@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">订单管理</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div id="app" style="display: none;">
+				<div class="tabs-border">
+					<div @click="setType('new')" v-bind:class="{'tabs-border-active':type=='new'}" class="tabs-border-item ">新订单</div>
+					<div @click="setType('unpay')"  v-bind:class="{'tabs-border-active':type=='unpay'}" class="tabs-border-item">待付款</div>
+					<div @click="setType('unsend')"  v-bind:class="{'tabs-border-active':type=='unsend'}" class="tabs-border-item">待发货</div>
+					<div @click="setType('unreceive')"  v-bind:class="{'tabs-border-active':type=='unreceive'}" class="tabs-border-item">待收货</div>
+					<div @click="setType('unraty')"  v-bind:class="{'tabs-border-active':type=='unraty'}" class="tabs-border-item">待评价</div>
+					<div @click="setType('all')" v-bind:class="{'tabs-border-active':type=='all'}" class="tabs-border-item ">全部</div>
+				</div>
+				<div v-if="!list ||  list.length==0" class="emptyData">暂无订单</div>
+				<div class="item row-box mgb-10" v-for="(item,index) in list" :key="index">
+					 
+					<div class="flex flex-ai-center mgb-5">
+						<div class="cl-status mgr-5">{{item.status_name}}</div>
+						
+						<div class="flex-1"></div>
+						<div class="cl-money">￥{{item.shop_money}}/￥{{item.money}}</div>
+						
+					</div>
+					<div>
+						<div class="flex mgb-5">
+							<div class="cl2 f12 mgr-5">类型：</div>
+							<div class="cl-num f12 mgr-10">{{item.ptype_name}}</div>
+							<div class="cl2 f12 mgr-5">页数：</div>
+							<div class="cl-num f12 mgr-10">{{item.page_num}}</div>
+							 
+							<div class="cl2 f12 mgr-5">份数：</div>
+							<div class="cl-num f12">{{item.print_num}}</div>
+						</div>
+						 
+						<div v-if="item.bookid>0" class="flex mgb-10">
+							<div class="cl3">{{item.book.title}}</div>
+							<div class="flex-1"></div>
+							
+						</div>
+						
+						 
+						<div v-if="item.sendtype==1" class="flex flex-ai-center mgb-5">
+							<div class="cl2 f12 mgr-5">收货人</div>
+							<div class="cl2 f12 mgr-5">{{item.nickname}}</div>
+							<div class="flex-1"></div>
+							<div class="f12 cl-primary">{{item.telephone}}</div>
+						</div>
+						<div class="cl3 f12 mgb-5">{{item.address}}</div>
+						 
+					</div>
+					<div class="flex mgb-5">
+						<div class="cl1 f12">{{item.sendtype_name}}</div>
+						<div class="flex-1"></div>
+						<div class="cl3 f12">{{item.createtime}}</div>
+					</div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						 
+						<template v-if="item.status==0">
+							<div @click="confirm(item)" v-if="item.ispay==1"  class="btn-mini btn-success mgr-10">确认接单</div>
+							<div  @click="cancel(item)" class="btn-mini btn-danger mgr-10">取消打印</div>
+						</template> 
+						 
+						<div class="btn-mini btn-success" @click="goOrder(item.orderid)">订单详情</div> 
+						 
+					</div>
+					 
+				</div>
+				<div class="loadMore" v-if="per_page>0">加载更多</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="olprint_order"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var type="{$type}";
+		</script>
+		<script src="{$skins}olprint_order/index.js"></script>
+	</body>
+</html>

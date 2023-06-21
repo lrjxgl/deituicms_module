@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	<form method="post" action="/module.php?m=zbtao_pp_pts&a=save">
+<input type="hidden" name="ptid" style="display:none;" value="{$data.ptid}" >
+<div class="input-flex">
+						<div class="input-flex-label">ppid：</div>		
+						<input type="text" name="ppid" id="ppid" class="input-flex-text" value="{$data.ppid}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">主播名称：</div>		
+						<input type="text" name="nickname" id="nickname" class="input-flex-text" value="{$data.nickname}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">主播ID：</div>		
+						<input type="text" name="zbhao" id="zbhao" class="input-flex-text" value="{$data.zbhao}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">描述：</div>		
+						<textarea name="description" id="description" class="textarea-flex-text h60"   />{$data.description}</textarea> 
+						</div>
+{if $data}<div class="input-flex">
+						<div class="input-flex-label">创建时间：</div>		
+						{$data.createtime}
+						</div>{/if}
+<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">状态：</div>		
+						<div class="flex-1 flex flex-ai-center">
+							<input type="radio" class="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" class="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</div>
+						</div>
+ <div class="btn-row-submit js-submit">保存</div> 
+</form>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,11 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div gourl="/module.php?m=freeshop" class="footer-item icon-home {if $ftnav eq 'home'}footer-active{/if}">首页</div>
+	<div gourl="/module.php?m=freeshop_order&a=my"
+		class="footer-item icon-order  {if $ftnav eq 'order'}footer-active{/if}">订单</div>
+	<div gourl="/module.php?m=freeshop_notice"
+		class="footer-item icon-message_light  {if $ftnav eq 'forum_notice'}footer-active{/if}">消息<span id="ft-msg-num"
+			style="display:none;" class="footer-item-num"></span></div>
+	<div gourl="/module.php?m=freeshop&a=user"
+		class="footer-item icon-my_light {if  $ftnav eq 'user' }footer-active{/if}">我的</div>
+</div>

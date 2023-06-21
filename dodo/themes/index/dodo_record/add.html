@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布日志</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form>
+				<input type="hidden" id="dd-doid" name="doid" value="{$dodo.id}" />
+				<div class="textarea-flex">
+					<textarea id="dd-content" style="height: 60px;" class="textarea-flex-text" placeholder="任务内容"></textarea>
+				</div>
+				<div class="bg-fff mgb-5">
+					<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+					{include file="inc/uploader-data.html"}
+				</div>
+				<div class="pd-10 cl-danger">
+					日志记录目标执行过程，发布后，不能改，不能删，请真心对待
+				</div>
+		</div>
+		<div id="dodoSubmit" class="btn-row-submit">确认发布</div>
+		</form>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		 
+		<script>
+	 
+			$(document).on("click", "#dodoSubmit", function() {
+				if (!postCheck.canPost()) {
+					return false;
+				}
+
+				if (confirm("确认发布日志吗？")) {
+					$.ajax({
+						url: "/module.php?m=dodo_record&a=save&ajax=1",
+						dataType: "json",
+						type: "POST",
+						data: {
+							content: $("#dd-content").val(),
+							doid:$("#dd-doid").val(),
+							imgsdata:$("#imgsdata").val()
+						},
+						success: function(res) {
+							skyToast(res.message);
+							if(!res.error){
+								goBack();
+							}
+						}
+					})
+				}
+
+			})
+		</script>
+	</body>
+</html>

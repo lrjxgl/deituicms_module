@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>typeid</td>
+   <td>名称</td>
+   <td>图片</td>
+   <td>用户</td>
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.typeid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.status}</td>
+<td><a href="/module.php?m=sharepic_type&a=add&typeid={$c.typeid}">编辑</a> <a href="/module.php?m=sharepic_type&a=show&typeid={$c.typeid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=sharepic_type&a=delete&typeid={$c.typeid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

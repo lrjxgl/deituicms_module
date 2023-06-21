@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		* {
+			touch-action: pan-y;
+		}
+
+		.sidetool {
+			position: absolute;
+			left: 2px;
+			display: block;
+			background-color: #fff;
+			color: red;
+			bottom: 30px;
+			border: 1px solid #f30;
+			text-align: center;
+			z-index: 9999;
+			opacity: 0.8;
+		}
+
+		.sidetool .item {
+			border-bottom: 1px solid #ccc;
+			padding: 5px 10px;
+			cursor: pointer;
+		}
+
+		.xy-list {
+			position: absolute;
+			width: 100%;
+			top: 40px;
+			bottom: 30px;
+			margin: 0 auto;
+			overflow: hidden;
+			border-top: 1px solid #f30;
+			color: #eee;
+		}
+
+		.xy-list .xy-item {
+			width: 200px;
+			padding: 10px;
+			height: 200px;
+			display: flex;
+			flex-direction: column;
+			position: absolute;
+			cursor: move;
+			opacity: 0.9
+		}
+
+		.xy-list .xy-item .xy-del {
+			position: absolute;
+			right: 0px;
+			top: 0px;
+			color: #fff;
+			display: block;
+			width: 25px;
+			height: 25px;
+			line-height: 25px;
+			text-align: center;
+			cursor: pointer;
+		}
+
+		.xy-s0 {
+			background-color: #ffb3a7;
+		}
+
+		.xy-s1 {
+			background-color: #ed5736;
+		}
+
+		.xy-s2 {
+			background-color: #f00056;
+		}
+
+		.xy-s3 {
+			background-color: #f20c00
+		}
+
+		.xy-s4 {
+			background-color: #f9906f;
+		}
+
+		.xy-s5 {
+			background-color: #ffa631;
+		}
+
+		.xy-s6 {
+			background-color: #ff8936;
+		}
+
+		.xy-s7 {
+			background-color: #ffa400;
+		}
+
+		.xy-s8 {
+			background-color: #b35c44;
+		}
+
+		.xy-s9 {
+			background-color: #bddd22;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<div class="header-title">许愿墙</div>
+			<div id="xuyuan-add" class="header-right-btn">我要许愿</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="app">
+			<div class="sidetool">
+				<div class="item" @click="getPage()" id="refresh">刷新</div>
+				<div class="item" @click="getNext()">下一页</div>
+				<div class="item" @click="searchBox=true">查找</div>
+			</div>
+			<div>
+
+				<div class="xy-list">
+					<div :class="'xy-s'+index" v-for="(item,index) in list" :key="index" class="xy-item">
+						<div @click="del(item)" class="xy-del">x</div>
+						<div class="flex mgb-5">
+							<span class="flex-1">第{{item.id}}个愿望</span> 
+							<span class="cl2 f12">{{item.timeago}} </span></div>
+						<div class="flex-1 cl-white" v-html="item.content"></div>
+						<div class="flex">
+							<div>{{item.nickname}}</div>
+							<div class="flex-1"></div>
+							<span :v="item.conten" class="mp3 js-mp3">播放</span>
+						</div>
+					</div>
+				</div>
+
+				<div v-if="addBox">
+					<div @click="addBox=false" class="modal-mask"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">我要许愿</div>
+							<div @click="addBox=false" class="modal-close icon-close"></div>
+						</div>
+						<div class="modal-body">
+							<form id="addForm" method="post"
+								action="/module.php?m=xuyuan&a=save&shopappid={$shop_app.shopappid}">
+								<input type="hidden" name="shopid" value="{$smarty.get.shopid|intval}">
+								<div><textarea placeholder="请输入许愿内容" name="content"
+										class="textarea-flex-text h60"></textarea></div>
+								<div class="input-flex">
+									<input type="text" name="nickname" class="input-flex-text" value="{$user.nickname}"
+										placeholder="签名">
+								</div>
+								<div @click="submit()" class="btn-row-submit">我要许愿</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+				<div v-if="searchBox">
+					<div @click="searchBox=false" class="modal-mask"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">搜索</div>
+							<div @click="searchBox=false" class="modal-close icon-close"></div>
+						</div>
+						<div class="modal-body">
+							<div class="input-flex">
+								<input type="text" class="input-flex-text" v-model="keyword" placeholder="关键词">
+								<div @click="unSearch" style="position: relative; right: 20px; top: 3px; cursor: pointer;" class="input-flex-clear iconfont icon-close"></div>
+								<div @click="search" class="input-flex-btn">搜索</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div style="display: none;">
+			<audio id="mp3"></audio>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var App;
+		</script>
+		<script src="{$skins}index.js"></script>
+
+
+	</body>
+</html>

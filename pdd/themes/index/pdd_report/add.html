@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">举报商家</div>
+		 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box" style="color: #555;">
+				为了提供更好的服务，欢迎广大用户监督商家。
+			</div>
+		    <div class="row-box">
+		    	<div class="input-flex">
+		    		<div class="input-flex-label">举报类型</div>
+		    		<select class="input-flex-select" id="typeid" name="typeid">
+		    			<option value="0">请选择</option>
+		    			{foreach key=k item=c from=$typelist}
+		    			<option value="{$k}">{$c}</option>
+		    			{/foreach}
+		    		</select>
+		    	</div>
+		    	
+		    	<div class="textarea-flex">
+		    		<label class="textarea-flex-label">举报内容</label>
+		    		<textarea class="textarea-flex-text h60" id="content"></textarea>
+		    	</div>
+				<input type="hidden" name="imgsdata" id="imgsdata" />
+		    	{include file="inc/uploader-data.html"}
+		    	
+		    	<div class="btn-row-submit" id="post-submit">提交举报</div>
+		    </div>
+		</div>
+		{include file="footer.html"}
+		
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script>
+			var shopid="{$shopid}";
+			$(document).on("click","#post-submit",function(){
+	    			var content=$("#content").val();
+	    			if(content==''){
+	    				skyToast('请输入举报内容');
+	    				return false;
+	    			}
+	    			var imgsdata=$("#imgsdata").val(); 
+	    			$.post("/module.php?m=pdd_report&a=save&ajax=1",{
+	    				typeid:$("#typeid").val(),
+	    				content:content,
+	    				imgsdata:imgsdata,
+						shopid:shopid
+	    			},function(data){
+	    				skyToast(data.message);
+	    				if(data.error==0){
+	    					setTimeout(function(){
+		    					goBack();
+		    				},1000)
+	    				}
+	    				
+	    			},"json");
+	    		})
+		</script>
+	</body>
+</html>

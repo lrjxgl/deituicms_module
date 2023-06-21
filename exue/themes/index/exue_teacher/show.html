@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">教师</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="rdBox">
+		<div class="flex">
+			<img class="wh-60 mgr-10" src="{$data.imgurl}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="mgb-5">{$data.nickname}</div>
+				<div class="mgb-5">
+					<div class="zm-raty" mod="2" grade="9.8" len="5"></div>
+				</div>
+				<div class="flex">
+					<div class="flex-1">
+						<div class="cl2">{$data.grade}</div>
+						<div class="cl3 f12">评分</div>
+					</div>
+					<div class="flex-1">
+						<div class="cl2">{$kcnum}</div>
+						<div class="cl3 f12">课程</div>
+					</div>
+					<div class="flex-1">
+						<div class="cl2">{$xsnum}</div>
+						<div class="cl3 f12">学员</div>
+					</div>
+				</div>
+				
+			</div>
+			<div class="none">
+				<div  class="btn">关注</div>
+			</div>
+		</div>
+		 
+		 
+	</div>
+    <div>
+		<div class="tabs-border-group">
+			<div class="tabs-border">
+				<div class="tabs-border-item tabs-border-active js-tabs-border-item">简介</div>
+				<div class="tabs-border-item js-tabs-border-item">相关课程</div>
+			</div>
+			<div class="tabs-border-box tabs-border-box-active">
+				<div class="row-box  d-content">
+					{$data.content}
+				</div>
+				
+			</div>
+			<div class="tabs-border-box">
+				{foreach item=c from=$kcList}
+				<div class="flexlist-item">
+					<img gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div  gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-desc">{$c.description}</div>
+						<div class="flex">
+							<div class="cl-money f16 mgr-20">￥{$c.price}</div>
+							<div class="market-price">￥{$c.market_price}</div>
+							<div class="flex-1"></div>
+							<div gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="btn-bm">立即报名</div>
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		
+	</div>
+</div>
+{include file="footer.html"}
+<script src="/plugin/dt-ui/dt-ui-raty.js"></script>
+		<script>
+			skyRaty(".zm-raty")
+		</script>
+</body>
+</html>

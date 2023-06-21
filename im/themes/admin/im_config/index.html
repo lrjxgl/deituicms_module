@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">基本设置</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=im_config&a=save&ajax=1">
+				<table class="table-add">
+					<tr>
+						<td>wsHost</td>
+						<td>
+							<input type="text" name="wsHost" value="{$data.wsHost}" />
+						</td>
+					</tr>
+					<tr>
+						<td>机器人</td>
+						<td>
+							<input  type="text" name="aiusers" value="{$data.aiusers}" />(用英文,隔开)
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

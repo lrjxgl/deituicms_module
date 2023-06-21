@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a class="item active" href="{$appadmin}?m=cy2c_plan&a=add">包间预定</a>
+		</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=cy2c_plan&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+						<tr>
+						<td>人数：</td>
+						<td><input type="text" name="num" id="num" value="3"></td>
+					</tr>
+					<tr>
+						<td>座位：</td>
+						<td><input type="hidden" class="w100" name="placeid" id="placeid" value="{$data.placeid}">
+						<div id="place-title">{$data.placeid_title}</div>
+							<div class="btn js-place-btn">选择</div>
+						</td>
+					</tr>
+					<tr>
+						<td>备注：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+				
+				 
+					<tr>
+						<td>联系人：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>联系电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+
+					<tr>
+						<td>预定时间：</td>
+						<td><input type="text" name="plantime" id="plantime" value="{$data.plantime}"></td>
+					</tr>
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<div id="app">
+			<div class="modal-group" style="display: block;" v-if="pageLoad" >
+					<div class="modal-mask" @click="hideModal"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">请选择座位</div>
+						</div>
+						<div class="modal-body">
+							<div v-for="(item,index) in pageData.list" class="flex flex-ai-center mgb-5" :key="index">
+								<div @click="choice(item.placeid,item.title)" class="btn-small btn-outline-primary mgr-5">{{item.title}}</div>
+								<div v-for="(cc,ccindex) in item.plan" :key="ccindex">
+									<div>{{cc.plantime}}</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+			</div>
+		</div>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}cy2c_plan/add.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			$(document).on("click",".js-place-btn",function(){
+					var num=$("#num").val();
+					if(num==''){
+						skyToast("请选择人数");
+						return false;
+					}
+					App.getPage();
+			})
+			laydate.render({
+				elem:"#plantime"
+				 ,type: 'datetime'
+			})
+			 
+		</script>
+	</body>
+</html>

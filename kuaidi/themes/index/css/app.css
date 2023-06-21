@@ -1,0 +1,131 @@
+/**********物流查询*********/
+.wuliu_banner {
+	height:80px;
+	background:#5c6982;
+	width:100%;
+	position:relative;
+	color:#fff;
+	font-size:13px;
+	line-height:18px
+}
+.wuliu_name {
+	position:absolute;
+	left:12px;
+	top:16px;
+	width:40px;
+	height:40px
+}
+.wuliu_info {
+	padding:10px 12px 0px 63px;
+}
+.wuliu_info h1 {
+	font-size:15px;
+	font-weight:normal;
+	line-height:24px;
+	margin:0px;
+}
+.wuliu_body {
+	margin-top:10px;
+	padding:0px 12px;
+	border-top:1px solid #dddddd;
+	background:#fff;
+}
+.wuliu_tl {
+	height:42px;
+	border-bottom:1px solid #ddd;
+	line-height:42px;
+	font-size:15px;
+	color:#000;
+	padding-left:5px
+}
+.wuliu_box {
+	background:url(../images/line_dot.png) repeat-y 16px top;
+	margin-top:13px
+}
+.wuliu_box ul li {
+	display:block;
+	margin-left:13px;
+	background:url(../images/lc_off.png) no-repeat left top;
+	background-size:8px 8px;
+	padding:0px 0px 0px 28px;
+	font-size:14px;
+	color:#999999;
+	line-height:18px;
+	margin-bottom:12px;
+}
+.wuliu_box ul li.wuliu_finishi {
+	background:url(../images/lc_on.png) no-repeat left top;
+	background-size:16px 16px;
+	margin-left:10px;
+	color:#2ea65d
+}
+.wuliu_item {
+	border-bottom:1px solid #ddd;
+	padding-bottom:10px;
+}
+.wuliu_box ul li:last-child .wuliu_item {
+	border:none
+}
+.wl_time {
+	font-size:12px;
+	color:#999;
+	margin-top:3px
+}
+
+.search_date {
+	margin-top:10px;
+	position:relative;
+	height:30px
+}
+.padds {
+	padding-right:0px
+}
+.date_list {
+	/*width:50%;
+	float:left*/
+}
+.search_list {
+	border: 1px solid #fedee3;
+	background: #fff url(../images/WBSearch@2xoff.png) no-repeat 15px center;
+	padding: 3px 70px 3px 40px;
+	background-size: 16px 16px;
+	border-radius: 20px;
+}
+.search_list input {
+	width:100%;
+	height:24px;
+	line-height:24px;
+	border:none;
+}
+.date_list span {
+	display:block;
+	padding-right:5px
+}
+.date_list span select {
+	width:100%;
+	height:25px;
+	line-height:25px
+}
+.pd_pos {
+	position:absolute;
+	right:0px;
+	top:1px;
+	width:60px;
+	height:30px;
+}
+.date_btn {
+	width:100%;
+	height:30px;
+	line-height:30px;
+	text-align:center;
+	font-size:15px;
+	color:#fff;
+	border:none;
+	background-image:-webkit-gradient(linear, left top, left bottom, from(#d8220e), to(#d8220e));
+	background-image:-webkit-linear-gradient(#d8220e, #d8220e);
+	background-image:-moz-linear-gradient(#d8220e, #d8220e);
+	background-image:-ms-linear-gradient(#d8220e, #d8220e);
+	background-image:-o-linear-gradient(#d8220e, #d8220e);
+	background-image:linear-gradient(#d8220e, #d8220e);
+	border-radius: 0px 20px 20px 0px;
+}

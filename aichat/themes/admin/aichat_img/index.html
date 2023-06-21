@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">{$type_name}</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>主图</td>
+   <td>状态</td>
+   <td>推荐</td>
+   <td>热门</td>
+   <td class="w300">prompt</td>
+    
+   
+   
+    
+  
+   <td class="w100">数据统计</td>
+   
+   <td>已成图</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>
+   	<img src=" {$c.imgurl}.small.jpg" class="w150" />
+   </td>
+   <td>
+	   <div class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}" url="/moduleadmin.php?m=aichat_img&a=status&ajax=1&id={$c.id}"></div>
+	   
+   </td>
+   <td>
+	   <div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=aichat_img&a=recommend&ajax=1&id={$c.id}"></div>
+   </td>
+   <td>
+	   <div class="{if $c.ishot eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=aichat_img&a=hot&ajax=1&id={$c.id}"></div>
+   </td>
+   <td>
+   <p>{$c.prompt}</p>
+   <p>{$c.prompt_en}</p>
+	
+   
+   </td>
+   
+ 
+  
+   
+   <td>喜欢 {$c.love_num} <br/> 评论 {$c.comment_num} <br/>收藏 {$c.fav_num}</td>
+   <td>{$c.create_status}</td>
+<td><a href="/moduleadmin.php?m=aichat_img&a=add&id={$c.id}">编辑</a> 
+<a href="/module.php?m=aichat_img&a=show&id={$c.id}" target="_blank">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=aichat_img&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

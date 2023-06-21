@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}	
+<style>
+	.mapBox{
+		width: 100%;
+		background-color: #fff;
+		top:0;
+		bottom: 0;
+		position: fixed;
+		margin-left: -200%;
+		z-index: 9999;
+	}
+	.mapBox-active{
+		margin-left: 0;
+	}
+	.map{
+		width: 100%; 
+		height: 320px;	
+	}
+</style>
+<body>
+	<div class="mapBox">
+		<div id="allmap" class="map"></div>
+		<div class="btn-group pd-10">
+			<div class="btn mgr-10" id="setGps" onclick="getGps()">定位一下</div>
+			<div class="btn" id="mapClose">确定</div>
+		</div>
+	</div>	
+	<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">商家信息</div>
+	</div>
+	 <div class="header-row"></div>
+	<div>
+		<form>
+		<div class="input-flex">
+			<div class="input-flex-label">商家名称</div>
+			<input type="text" class="input-flex-text" value="{$shop.title}" name="title"  />
+		</div>
+		<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">门面照</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$shop.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$shop.trueimgurl}.100x100.jpg">								 
+							</div>
+							{if !$shop.imgurl}	
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							{/if}
+							<input type="hidden" name="imgurl" value="{$shop.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" id="upimg" /> 
+						</div> 
+					</div>
+				</div>
+		
+		<div class="input-flex">
+			<div class="input-flex-label">配送费</div>
+			<input type="text" class="input-flex-text" name="sendmoney" value="{$shop.sendmoney}" />
+			<div class="input-flex-note">元</div>
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">会员费</div>
+			<input type="text" class="input-flex-text" name="usermoney" value="{$shop.usermoney}" />
+			<div class="input-flex-note">元</div>
+		</div>		
+		<div class="input-flex">
+			<div class="input-flex-label">联系人</div>
+			<input type="text" class="input-flex-text" value="{$shop.nickname}" name="nickname"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">联系电话</div>
+			<input type="text" class="input-flex-text" value="{$shop.telephone}" name="telephone"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">商家地址</div>
+			<input type="text" class="input-flex-text" value="{$shop.address}" name="address" placeholder="前岐镇鹿兴路68号"  />
+			<input type="hidden" name="lat" value="{$shop.lat}" id="lat" />
+			<input type="hidden" name="lng" value="{$shop.lng}" id="lng" />
+			<div class="input-flex-btn " style="width: 50px;" id="mapShow">位置</div>
+		</div>
+		
+		<div class="textarea-flex">
+			<div class="textarea-flex-label">商家简介</div>
+			<textarea class="textarea-flex-text h60" placeholder="请填写商家经营信息,如小吃店,服装鞋子,理发店"  name="description">{$shop.description}</textarea>
+		</div>
+		 
+		<div class="btn-row-submit" id="submit">保存</div>
+		</form>
+	</div>
+	{include file="footer.html"}
+	<script src="/plugin/lrz/lrz.bundle.js"></script>
+	<script>
+		$(document).on("click","#submit",function(){
+			var form=$(this).parents("form");
+			$.post("/moduleshop.php?m=gread_shop&a=save&ajax=1",form.serialize(),function(res){
+				skyToast(res.message);
+				if(!res.error){
+					goBack();
+				}
+			},"json")
+		})
+		$(document).on("click",".js-upimg-btn",function(){
+			$("#upimg").click();
+		})
+		$(document).on("change","#upimg", function(e){
+			var p=$(this).parents(".upimg-box");
+            var src, url = window.URL || window.webkitURL || window.mozURL, files = e.target.files;
+            for (var i = 0, len = files.length; i < len; ++i) {
+                var file = files[i];
+
+                if (url) {
+                    src = url.createObjectURL(file);
+                } else {
+                    src = e.target.result;
+                }
+				lrz(file,{width:1024}) .then(function(rst){
+					 
+					$.post("/index.php?m=upload&a=base64",
+					{
+						content:rst.base64,
+						tablename:"mod_shopmap",
+						object_id:0,
+						inimgs:0,
+					},
+					function(data){
+						console.log(data);
+						p.find(".upimg-item").removeClass("none");
+						p.find(".upimg-img").attr("src",data.trueimgurl);
+						p.find(".imgurl").val(data.imgurl);
+						p.find(".upimg-btn").hide();
+					},"json")
+				})
+				.catch(function(err){
+					console.log(err)
+				})
+                
+            }
+        });
+	</script>
+	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+	<script>
+		var lat,lng;
+		var map = new BMap.Map("allmap");    // 创建Map实例
+		map.enableScrollWheelZoom(true);
+		map.addControl(new BMap.MapTypeControl({
+			mapTypes:[
+							BMAP_NORMAL_MAP,
+							BMAP_HYBRID_MAP
+					]}));
+		map.enableScrollWheelZoom(true);
+		map.setMapType(BMAP_HYBRID_MAP)
+		map.enableScrollWheelZoom(true);
+		 
+		map.centerAndZoom(new BMap.Point(120.240986, 27.316632), 18);
+		//地理位置
+		var geolocation = new BMap.Geolocation();
+		var latlng=GPS.get()
+		if(latlng){
+			lat=latlng.lat;
+			lng=latlng.lng;
+			var point=new BMap.Point(lng, lat);
+			map.centerAndZoom(point, 17);
+			$("#lat").val(lat);
+			$("#lng").val(lng);
+			map.clearOverlays();
+			var marker = new BMap.Marker(point);  
+			map.addOverlay(marker);
+		}else{
+			getGps();
+		}
+		
+		 
+		function getAddr(e){
+			var marker = new BMap.Marker(e.point);  
+			map.clearOverlays();
+			map.addOverlay(marker);
+			//alert(e.point.lng + ", " + e.point.lat);
+			$("#lat").val(e.point.lat);
+			$("#lng").val(e.point.lng);
+			
+		}
+		map.addEventListener("click", getAddr);
+		function getGps(){
+			geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				map.centerAndZoom(r.point, 18);
+				$("#lat").val(r.point.lat);
+				$("#lng").val(r.point.lng);
+				map.clearOverlays();
+				var marker = new BMap.Marker(r.point);  
+				map.addOverlay(marker);	
+			}
+			else {
+				alert('获取GPS失败'+this.getStatus());
+			}        
+			},{enableHighAccuracy: true})
+		}
+		//
+		$(document).on("click","#mapClose",function(){
+			$(".mapBox").removeClass("mapBox-active");
+		})
+		$(document).on("click","#mapShow",function(){
+			$(".mapBox").addClass("mapBox-active");
+		})
+	</script>
+</body>	
+</html>	

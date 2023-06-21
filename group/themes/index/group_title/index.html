@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}css/news.css" rel="stylesheet">
+ 
+<div class="header">
+    <div url="/module.php?m=group&a=show&gid={$group.gid}" class="header-back"></div>
+    <div class="header-title">{if get('isrecommend')}推荐主题{else}圈子主题{/if}</div>
+    <div class="header-right-btn" gourl="/module.php?m=group_title&a=add&gid={$group.gid}">发表</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	<div v-if="Object.keys(taglist).length>0"> 
+	    <div class="tabs-border" >
+			<div @click="setCat(0)" :class="catid==0?'tabs-border-active':''" class="tabs-border-item">全部</div>
+			 
+			<div @click="setCat(item.tagid)" v-for="(item,index) in taglist" :key="index"  :class="catid==item.tagid?'tabs-border-active':''" class="tabs-border-item">{{item.tagname}}</div>
+			 
+		</div>
+	</div>
+	
+	<div class="newslist" id="list">
+	 
+		<div v-for="(item,index) in list" :key="index" class="flex pdb-10 mgb-10 bdb">
+			<div class="w60 flex-col flex-ai-center mgr-5">
+				
+				<img class="w60 mgb-5 bd-radius-5" :src="item.user_head+'.100x100.jpg'">
+				<span class="cl2 f12 text-center">{{item.nickname}}</span>
+				 
+				<div v-if="ssuser && item.userid!=ssuser.userid" class="newslist-item-follow">
+					<span v-if="item.isfollow">已关注</span>
+					<span v-else>已关注</span>
+				</div>
+			 
+			</div>
+			<div class="flex-1">
+				<div class="d-content" v-html="item.content"></div>
+				
+				<div class="flex mgb-5 flex-wrap js-thumb-item">
+						<template  v-for="(cc,ii) in item.imgList" :key="ii">
+						<img  class="wh-40 mg-5 js-thumb" :v="cc" :src="cc+'.100x100.jpg'" />
+						</template>
+					 
+					<div class="clearfix"></div>
+				</div>
+				<div class="flex">
+					<span class="cl3 f12 mgr-5">{{item.timeago}}</span>
+					<a class="mgr-10 f12 cl-primary" :href="'/module.php?m=group_title&a=show&gid='+item.gid+'&id='+item.id">详情</a>
+					<div class="flex-1"></div> 
+					<span :newsid="item.id" class="flex mgr-5 cl2 f12 js-news-zan-btn">赞 <span id="zan-num-{$c.id}">{{item.love_num}}</span></span>
+					<span :newsid="item.id" class="flex mgr-5 cl2 f12 js-news-comment-btn">评论 <span id="comment-num-{$c.id}">{{item.comment_num}}</span></span>
+					 
+				</div>
+			</div>
+		
+		</div>
+	 
+   	</div>
+   	<div id="loadmore" v-if="per_page>0" class="loadMore">加载更多</div>
+   	
+</div>
+{include file="footer.html"}
+{include file="inc/js_thumb.html"}
+{include file="group_title/comm.html"}
+<script>
+	var gid="{$group.gid}";
+</script>
+<script src="{$skins}group_title/index.js"></script> 
+
+</body>
+</html>

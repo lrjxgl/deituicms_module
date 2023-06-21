@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.btn-song,.btn-shou{
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;
+			margin-right: 5px;
+			background-color: #53beb7;
+			font-size: 12px;
+			color: #fff;
+			border-radius: 50%;
+		}
+		.btn-shou{
+			background-color: #ec9130;
+		}
+		.bg-cy{
+			background-color: #36b3a2;
+		}
+		.cl-4f{
+			color:#4fbcad;
+		}
+		.txl{
+			height: 24px;			
+			line-height: 24px;
+			color: #323232;
+			margin-right: 5px;
+		}
+		.txc{
+			height: 24px;
+			line-height: 24px;
+			color: #646464;
+			flex: 1;
+			border: 0;
+			padding-left: 5px;
+		}
+		.m-navPic-item{
+			width:20%;
+			padding: 0;
+		}
+		.m-navPic-title{
+			color: #646464;
+			font-size: 12px;
+		}
+		.btn-user{
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			cursor: pointer;
+			text-align: center;
+		}
+		.userBox{
+			position: fixed;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			width: 200px;
+			background-color: #fff;
+			z-index: 999;
+			padding: 10px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-title">跑腿</div>
+			<div gourl="/module.php?m=paotui_user" class="header-right-btn iconfont icon-my_light"></div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			{if $pconfig.morecity}
+			<div class="flex flex-ai-center pd-10 bg-white">
+				 
+				<div gourl="/index.php?m=city" class="flex-1 flex flex-center">
+					<div>{{city}}</div>
+					<div class="iconfont icon-location_light"></div>
+				</div>
+			</div>
+			{/if}
+			
+			<form id="form" class="pdb-10">
+				<input type="hidden" name="typeid" :value="typeid" />
+				<input type="hidden" name="fromaddrid" :value="fromaddrid" />
+				<input  type="hidden" name="toaddrid" :value="toaddrid" />
+				<input type="hidden" name="cityid" :value="cityid" />
+				<div class="tabs-border">
+					<div @click="setType(item.typeid)" v-for="(item,index) in typelist" :class="item.typeid==typeid?'tabs-border-active':''"
+					 :index="index" class="tabs-border-item">{{item.title}}</div>
+
+				</div>
+				<div class="pd-10 text-center cl2">
+					附近有{{sender_num}}位跑腿员正在等待
+				</div>
+				<div v-if="typeid==3||typeid==4||typeid==5" class="m-navPic mgb-5">
+					<input type="hidden" name="catid" v-model="catid" />
+					<div @click="setCat(item)" v-for="(item,index) in catList"  v-if="typeid==item.typeid"  :key="index" class="m-navPic-item">
+						<img class="m-navPic-img wh-40" :src="item.imgurl+'.100x100.jpg'" />
+						<div :class="{'cl-num':catid==item.catid}" class="m-navPic-title">{{item.title}}</div>
+					</div>
+				</div>
+				<div class="row-box mgb-5">
+					<template v-if="typeid==1||typeid==4||typeid==5">
+					<div class="flex flex-ai-center">
+						<div v-if="typeid==4||typeid==5" class="btn-song">到</div>
+						<div v-else class="btn-song">取</div>
+						<div class="flex-1">
+
+							<template v-if="Object.keys(addrSong).length>0">
+								<div class="f12">{{addrSong.address}}</div>
+								<div class="cl2">{{addrSong.truename}}{{addrSong.telephone}}</div>
+							</template>
+							<div v-else>
+								请选择地址
+							</div>
+						</div>
+						<div @click="showAddr(1)" class="btn-small bg-cy">常用</div>
+					</div>
+					</template>
+					<template v-if="typeid==1||typeid==3">
+					<div class="bd-mp-5"></div>
+					<div class="flex flex-ai-center">
+						<div class="btn-shou">往</div>
+						<div class="flex-1">
+							<template v-if="Object.keys(addrQu).length>0">
+								<div class="f12">{{addrQu.address}}</div>
+								<div class="cl2">{{addrQu.truename}}{{addrQu.telephone}}</div>
+							</template>
+							<div v-else>
+								请选择地址
+							</div>
+						</div>
+						<div @click="showAddr(2)" class="btn-small bg-cy">常用</div>
+					</div>
+					</template>
+				</div>
+				<div class="row-box mgb-5">
+					<template v-if="typeid==1 || typeid==3">
+						<div class="input-flex bd-mp-5">
+							<div class="txl">重量(公斤)</div>
+							<input type="text" value="1" name="weight" placeholder="1" class="txc" />
+						</div>
+						<div  v-if="typeid==3" class="input-flex bd-mp-5">
+							<div class="txl">商品估价(元)</div>
+							<input type="text" name="goodsmoney" value="1" placeholder="1" class="txc" />
+						</div>
+						<div v-if="typeid==3" class="textarea-flex h100">
+							<textarea name="content" class="textarea-flex-text" placeholder="帮买的东西"></textarea>
+						</div>
+						<div v-else class="input-flex">
+							<div class="txl">备注留言</div>
+							<input type="text"  name="content"  placeholder="备注留言" class="txc" />
+						</div>
+					</template>
+					<template v-if="typeid==4">
+						 
+						<div class="input-flex bd-mp-5">
+							<div class="txl">排队时间（分钟）</div>
+							<input type="text" name="pdtime" value="30" placeholder="请输入排队时间" class="txc" />
+						</div>
+						<div  class="textarea-flex h100">
+							<textarea name="content" class="textarea-flex-text" placeholder="请输入排队内容"></textarea>
+						</div>
+					</template>
+					<template v-if="typeid==5">
+						<div class="input-flex bd-mp-5">
+							<div class="txl">代办时间</div>
+							<input type="text" id="dotime" name="dotime" value="" placeholder="请输入代办时间" class="txc" />
+						</div>
+						 
+						<div  class="textarea-flex h100">
+							<textarea name="content" class="textarea-flex-text" placeholder="请输入代办内容"></textarea>
+						</div>
+					</template>
+					
+				</div>
+				<div class="row-box">
+					<div class="input-flex">
+						<div class="txl cl-red">赏金（元）</div>
+						<input name="money" v-model="money" type="text"   class="txc" /> 
+						
+					</div>
+					<div class="cl-4f mgb-5">收费标准</div>
+					<div v-html="pconfig.fee_desc" class="cl3 f12 pd-20">
+						
+					</div>
+				</div>
+				 
+			</form>
+			<div class="footer pd-10">
+
+				<div>赏金：</div>
+				<div class="cl-4f">￥{{money}}</div>
+				<div class="flex-1"></div>
+				<div @click="submit" class="btn bg-cy">确认下单</div>
+
+			</div>
+
+			<div :class="addrClass" class="modal-group">
+				<div @click="addrClass=''" class="modal-mask"></div>
+				<div class="modal">
+					<div class="bd-mp-10 pd-10 flex">
+						<div class="f14">常用地址</div>
+						<div class="flex-1"></div>
+						<div gourl="/module.php?m=paotui_addr&a=add" class="f12 mgr-5">添加地址</div>
+					</div>
+					<div class="modal-body">
+						<div @click="setAddr(item)" class="bd-mp-5 pointer" v-for="(item,index) in addrlist" :key="index">
+							<div class="cl2 f12">{{item.truename}} {{item.telephone}}</div>
+							<div class="cl3 f12">{{item.address}}</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+		<div class="footer-row"></div>
+		{include file="footer.html"}
+		<script src="{$skins}paotui/index.js?v33s"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<style>
+			.layui-laydate div{
+				display: block;
+			}
+		</style>
+		<script>
+			
+		</script>
+	</body>
+</html>

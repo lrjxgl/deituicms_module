@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>content：</td><td>{$data.content}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

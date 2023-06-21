@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">直播平台</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			
+			<div>
+				<div class="row-box mgb-5" v-for="(item,index) in list">
+					<div class="mgb-5">{{item.nickname}}</div>
+					<div class="flex">
+						<div class="mgr-10">{{item.ptcom_name}}</div>
+						<div class="cl-status">{{item.zbhao}}</div>
+						<div class="flex-1"></div>
+						<div @click="del(item)" class=" btn-outline-danger btn-mini">删除</div>
+					</div>
+					
+				</div>
+			</div>
+			<div  @click="addForm=true" class="fixedAdd">新增</div>
+			<div v-if="addForm">
+				<div  @click="addForm=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">新增平台</div>
+						<div @click="addForm=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<form>
+							<div class="input-flex">
+								<div class="input-flex-label">昵称</div>
+								<input type="text" v-model="addNickname" class="input-flex-text" name="nickname" />
+							</div>
+							<div class="input-flex">
+								<div class="input-flex-label">账号ID</div>
+								<input type="text" v-model="addHao" class="input-flex-text" name="zbhao" />
+							</div>
+							<div class="input-flex">
+								<div class="input-flex-label">所属平台</div>
+								<select type="text" v-model="addCom" class="input-flex-select" name="ptcom" >
+									<option value="">请选择</option>
+									<option v-for="(item,index) in ptcomList" :key="index" :value="index">{{item}}</option>
+								</select>	
+							</div>
+							<div @click="addSubmit()" class="btn-row-submit">确认保存</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}zbtao_pp_pts/my.js"></script>
+	</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=collect_type" class="item active">分类列表</div>
+			<div gourl="/moduleadmin.php?m=collect_type&a=add"  class="item">分类添加</div>
+		</div>
+		<div class="main-body">
+
+ <table class="tbs">
+  <tr>
+   <td>type_id</td>
+   <td>标题</td>
+   <td>排序</td>
+   <td>状态</td>
+<td>操作</td>
+  </tr>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.type_id}</td>
+   <td>{$c.title}</td>
+   <td>{$c.orderindex}</td>
+   <td> {if $c.status eq 1}
+           <img src="/static/images/yes.gif" class="ajax_no"  rurl="{$appadmin}?m=collect_type&a=status&type_id={$c.type_id}&status=1" url="{$appadmin}?m=collect_type&a=status&type_id={$c.type_id}&status=0" />
+           {else}
+           <img src="/static/images/no.gif"  class="ajax_yes" url="{$appadmin}?m=collect_type&a=status&type_id={$c.type_id}&status=1" rurl="{$appadmin}?m=collect_type&a=status&type_id={$c.type_id}&status=0" />  
+          {/if}</td>
+<td><a href="admin.php?m=collect_type&a=add&type_id={$c.type_id}">编辑</a> <a href="admin.php?m=collect_type&a=show&type_id={$c.type_id}">查看</a> <a href="javascript:;" class="js-delete"te" url="admin.php?m=collect_type&a=delete&type_id={$c.type_id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

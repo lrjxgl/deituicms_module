@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">省钱搜列表</div>
+		</div>
+		<div class="main-body" >
+			<form class="search-form" method="get" action="/moduleadmin.php?m=taoke_searchcache">
+			<input type="hidden" name="m" value="taoke_searchcache" />
+			ID:<input class="w50" type="text" name="id" value="{$smarty.get.id|intval}" />
+			标题：<input type="text" class="word w150" value="{$smarty.get.word|html}" name="word" />
+			平台：
+			<select name="xfrom" class="w100">
+				<option value="">所属平台</option>
+				{foreach item=c key=k from=$xfromlist}
+				<option value="{$k}" {if get('xfrom') eq $k}selected{/if}>{$c}</option>
+				{/foreach}
+				 
+			</select> 
+			状态：<select class="w100" name="status">
+					<option value="">请选择</option>
+					<option {if get("status") eq 'online'}selected{/if} value="online">上线</option>
+					<option {if get("status") eq 'offline'}selected{/if}  value="offline">下线</option>
+			</select>
+			
+			推荐：<select class="w100" name="isrecommend">
+					<option value="">请选择</option>
+					<option {if get("isrecommend") eq 'online'}selected{/if} value="online">是</option>
+					<option {if get("isrecommend") eq 'offline'}selected{/if}  value="offline">否</option>
+			</select>
+			热门：<select class="w100" name="ishot">
+					<option value="">请选择</option>
+					<option {if get("ishot") eq 'online'}selected{/if} value="online">是</option>
+					<option {if get("ishot") eq 'offline'}selected{/if}  value="offline">否</option>
+			</select>
+			<button type="submit" class="btn-small">搜索</button>
+		</form>
+		<table class="tbs">
+			<thead>
+				<tr>
+					<td>ID</td>
+					<td>图片</td>
+					<td>名称</td>
+					<td>平台</td>
+					<td>状态</td>
+					<td>推荐</td>
+					<td>热门</td>
+					<td>价格</td>
+					<td>佣金</td>
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					<td><img src="{$c.imgurl}" width="50"/></td>
+					<td>{$c.title}</td>
+					<td>{$c.k}</td>
+					<td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=taoke_searchcache&a=status&ajax=1&id={$c.id}"></div></td>
+					<td><div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=taoke_searchcache&a=recommend&ajax=1&id={$c.id}"></div></td>
+					<td><div class="{if $c.ishot eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=taoke_searchcache&a=hot&ajax=1&id={$c.id}"></div></td>
+					<td>{$c.price}元</td>
+					<td>{$c.yj_money}元,{$c.yj_bl|/:100}%</td>
+					<td>
+						<div class="btn-small btn-danger js-delete" url="/moduleadmin.php?m=taoke_searchcache&a=delete&ajax=1&id={$c.id}">删除</div>
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		{$pagelist}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="top-hd">课程订单</div>
+<div class="main-body">
+    <div class="tabs-border">
+		<div class="tabs-border-item tabs-border-active">全部</div>
+		<div class="tabs-border-item ">待报名</div>
+		<div class="tabs-border-item">待评价</div>
+	</div>
+    {foreach item=c from=$list}
+    <div class="flexlist-item">
+    	<img gourl="/moduleadmin.php?m=exue_course&a=show&courseid={$c.courseid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+    	<div class="flex-1">
+    		<div  gourl="/moduleadmin.php?m=exue_course&a=show&courseid={$c.courseid}" class="flexlist-title">{$c.title}</div>
+    		<div class="flexlist-desc">{$c.description}</div>
+    		<div class="flex">
+    			<div class="cl-money f16 mgr-20">￥{$c.price}</div>
+    			<div class="market-price">￥{$c.market_price}</div>
+    			<div class="flex-1"></div>
+    			<div gourl="/moduleadmin.php?m=exue_order&a=show&orderid={$c.orderid}" class="btn-bm">查看</div>
+    		</div>
+    	</div>
+    </div>
+    {/foreach}	  
+	<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body class="bg-ef">
+		<div class="tabs-border">
+			<div class="item active">产品列表</div>
+		</div>
+		 
+		<div class="main-body" id="app">
+			 
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in list" :key="index"  class="sglist-item">
+					
+					<div @click="goDetail(item.productid)" class="sglist-title flex" v-html="item.content"></div>
+					<div @click="goDetail(item.productid)" class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="flex mgb-10">
+						<div class="mgr-5 cl2">优惠价</div>
+						<div class="cl-money mgr-10">￥{{item.price}}</div>
+						<div class="flex-1"></div>
+						<div class="cl3 f12">原价</div>
+						<div class="market-price">￥{{item.market_price}}</div>
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-cart">{{item.buynum}}</div>
+						<div class="flex">
+							<div>推荐</div>
+							<div  :class="item.isrecommend?'yes':'no'" @click="toggleRecommend(item)" ></div>
+						</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+						<div @click="del(item.productid)" class="flex-1 cl-danger iconfont pointer icon-delete"></div>
+					</div>
+					
+				</div>
+				<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+			</div>
+			
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var type="{$type}"
+		</script>
+		<script src="{$skins}freeshop_product/index.js?v=34"></script>
+	</body>
+</html>

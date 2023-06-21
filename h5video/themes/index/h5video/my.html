@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的设计</div>
+			<div class="header-right-btn" gourl="/module.php?m=h5video&a=add">发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if empty($list)}
+			<div class="emptyData">暂无设计</div>
+			{/if}
+			<div class="list">
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5 js-item">
+					<div class="f16 cl1 mgb-5">{$c.title}</div>
+					<div class="f14 cl3 mgb-5">{$c.description}</div>
+					<div class="flex">
+						<div gourl="/module.php?m=h5video&a=show&vid={$c.vid}" class="btn-small btn-outline-primary mgr-10">查看</div>
+						<div gourl="/module.php?m=h5video&a=design&vid={$c.vid}" class="btn-small btn-outline-primary mgr-10">设计</div>
+						<div gourl="/module.php?m=h5video&a=add&vid={$c.vid}" class="btn-small btn-outline-primary mgr-10">编辑</div>
+						<div class="btn-small btn-outline-primary mgr-10 js-copy" vid="{$c.vid}">复制</div>
+						<div url="/module.php?m=h5video&a=delete&ajax=1&vid={$c.vid}" class="btn-small btn-outline-warning js-delete">删除</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{assign var="ftnav" value="my"}
+		{include file="ftnav.html"}
+		{include  file="footer.html"}
+		<script>
+			$(document).on("click",".js-copy",function(){
+				var vid=$(this).attr("vid");
+				$.get("/module.php?m=h5video&a=copy&ajax=1&vid="+vid,function(res){
+					skyToast(res.message);
+					window.location.reload();
+				},"json")
+			})
+		</script>
+	</body>
+</html>

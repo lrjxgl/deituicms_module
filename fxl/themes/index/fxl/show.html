@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}fxl/show.css?v2" rel="stylesheet" /> 
+<body>
+<div class="header">
+	 
+	<div class="header-title">慈善募捐</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    
+    <div v-if="fxl.videourl" class="videoBox">
+    	<video :src="fxl.videourl" ></video>
+    </div> 
+    <img v-else :src="fxl.imgurl" class="d-img"  />
+  
+    <div class="row-box">
+    	<div class="d-title">{{fxl.title}}</div>
+    	<div class="flex mgb-10">
+    		<div class="mgr-10 f14">发起人</div>
+    		<div class="f14  cl-status">{{fxl.nickname}}</div>
+			<div class="flex-1"></div>
+			<div class="cl-status">已认证</div>
+    	</div> 
+		<div class="flex mgb-10">
+    		<div class="f14 cl2 mgr-5">众筹金额</div>  
+    		<span class="cl-money">￥{{fxl.needmoney}}</span>  
+			<div class="flex-1"></div>
+			<div class="f14 cl2  mgr-5">已筹：</div>
+			<span class="cl-money">￥{{fxl.joinmoney}}</span>  
+    	</div>
+    	
+		<div class="pd-5 cl-red">*修路搭桥结一段善缘，感谢大家的爱心支持</div>
+    </div>
+	<div id="tabDot"></div>
+    <div class="tabs-border-group">
+	    <div class="tabs-border" id="tabBox" >
+	    	<div class="tabs-border-item js-tabs-border-item tabs-border-active">项目</div>
+	    	
+	    	<div class="tabs-border-item js-tabs-border-item" >证件证明</div>
+	    	<div class="tabs-border-item js-tabs-border-item">捐赠列表</div>
+			<div class="tabs-border-item js-tabs-border-item">项目进度</div>
+			<div class="tabs-border-item js-tabs-border-item">财务记录</div>
+	    </div>
+   	
+	    <div class="tabs-border-box tabs-border-box-active">
+	    	<div v-html="fxl.content" class="row-box d-content">
+				 
+			</div>
+			
+	    </div>
+	 	<div class="tabs-border-box tabs-border-box-active">
+			<div v-if="cert" v-html="cert.content" class="row-box d-content">
+				 
+			</div>
+	 		
+	 	</div>
+	    <div class="tabs-border-box tabs-border-box-active" >
+	    	<div class="bg-white">
+				<div v-for="(item,index) in orderList" :key="index" class="flex pd-10 flex-ai-center bd-mp-5" >
+					<div class="f14">{{item.nickname}}捐了</div>
+					<div class="cl-money">￥{{item.money}}元</div>
+					 
+					<div class="flex-1"></div>
+					<div class="cl2 f12">{{item.createtime}}</div>
+				</div>    		 
+	    	</div>
+	    </div>
+		<div class="tabs-border-box tabs-border-box-active" >
+			<div class="logList">
+				 
+					<div v-for="(item,index) in logList" :key="index"  class="flex row-box mgb-5" vid="{$c.id}" vmoney="{$c.money}">
+						<div class="w100">{{item.title}}</div>
+						<div class="flex-1 d-content" v-html="item.content"></div>
+					</div>
+			 
+			</div>
+		</div>
+		<div class="tabs-border-box tabs-border-box-active" >
+			<div class="row-box mgb-5" v-for="(item,index) in cwList" :key="index">
+				<div class="flex flex-ai-center mgb-5">
+					<div class="cl-money mgr-10">{{item.money}}</div>
+					<div class="cl-primary f12 mgr-5">{{item.catid_title}}</div>
+					<div class="flex-1"></div>
+					
+					<div class="f12 cl3">{{item.cdate}}</div>
+				</div>
+				<div class="mgb-5">{{item.title}}</div>
+				<div class="cl2 f12">{{item.content}}</div>
+				<div class="cl2 f12">{{item.logdesc}}</div>
+			</div>
+		</div>
+    </div>
+	<div class="pd-10 flex-center flex">
+		<span class="cl2 mgr-5">技术支持</span>
+		<a class="cl-primary" href="https://www.fd175.com/">福鼎生活网</a>
+	 </div>
+    <div style="height: 46px;"></div>
+    <div class="fixBottom">
+    	<div class="note">支持金额</div>
+    	 
+    	<input type="text"  class="text" id="join-money" value="" placeholder="捐赠金额" />
+    	<div class="note">元</div>
+		<input type="text"  class="text" id="join-nickname" value="" placeholder="捐赠人" />
+    	<div class="bt" @click="orderSubmit()">支持一下</div>
+    </div>
+</div>
+{include file="footer.html"} 
+<script>
+	var fxlid="{$data.fxlid}";
+	var bill_shopid="{$data.bill_shopid}";
+</script>
+<script src="{$skins}fxl/show.js?vw2x"></script>
+<?php wx_jssdk();?>
+<script>
+	wxshare_title="{$data.title}";
+	{if $data.imgurl}
+	wxshare_imgUrl="{$data.imgurl}.small.jpg";
+	{/if}
+	
+</script>
+</body>
+</html>

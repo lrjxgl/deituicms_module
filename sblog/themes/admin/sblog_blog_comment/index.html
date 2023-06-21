@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	
+	<body class="bg-ef">
+	<div class="shd">{$type_name}</div>
+<div class="main-body">
+	{foreach item=c from=$list}
+	<div class="sglist-item mgb-5 js-item">
+		<div class="sglist-desc mgb-5">{$c.content}</div>
+		<div class="flex flex-ai-center">
+			<div class="flex-1">{$c.nickname}</div>
+			<div class="mgr-10 cl3 f12">{$c.createtime}</div>
+			<div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status mgr-10" url="/moduleadmin.php?m=sblog_blog_comment&a=status&id={$c.id}&ajax=1" ></div>
+			<div class="cl-danger mgr-5 iconfont pointer icon-delete js-delete" url="/moduleadmin.php?m=sblog_blog_comment&a=delete&ajax=1&id={$c.id}">删除</div>
+			<div class="btn-mini btn-danger js-join-blacklist mgr-5" userid="{$c.userid}">拉黑</div>
+			<div class="btn-mini btn-danger js-forbid-post" userid="{$c.userid}">禁言</div>
+		</div>
+	</div>
+	{/foreach}
+  
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+ 
+</body>
+</html>

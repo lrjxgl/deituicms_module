@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='s2c_vendor/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/module.php?m=s2c_vendor&a=save">
+				<input type="hidden" name="vdid" style="display:none;" value="{$data.vdid}">
+				<table class="table-add">
+					 
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>联系人：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					<tr>
+						<td>营业执照：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="yyzz" class="js-imgurl" value="{$data.yyzz}" />
+								<div class="js-imgbox">
+									{if $data.yyzz}
+									<img src="{$data.yyzz|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+</html>

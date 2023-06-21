@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">确认下单</div>
+		 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		    <form id="form" class="row-box">
+		    	<input type="hidden" name="joinid" value="{$join.id}" />
+	    		<div class="flex flex-center"><img class="d-img" src="{$zhuli.imgurl|images_site}"></div>
+	 
+	   
+	           
+	            
+	           <div class="d-title">{$zhuli.title}</div> 
+	           <div class="pricebox">
+			    	价格 <span class="price">￥{$buy_money} </span> 
+			    	<span class="del-price">￥{$zhuli.market_price}</span>
+			    </div>
+	             
+	            <div class="input-flex">
+					<label class="input-flex-label">联系人</label>
+					<input id="addr-nickname" name="nickname" value="{$addr.nickname}" class="input-flex-text" type="text"></div>
+				<div class="input-flex">
+					<label class="input-flex-label">电话</label>
+					<input id="addr-telephone" name="telephone" value="{$addr.telephone}" class="input-flex-text" type="text">
+					</div>
+				<div class="input-flex">
+					<label class="input-flex-label">地址</label>
+					<input id="addr-address" name="address" value="{$addr.address}" class="input-flex-text" type="text">
+					</div>
+	            <div class="textarea-row">
+	            	<label class="mgb-5">备注</label>
+	            	<textarea   name="comm" class="textarea-flex-text" placeholder="请输入备注信息" ></textarea>
+	            </div>
+	             <div class="btn-row-submit" id="submit">确认购买</div>
+    		</form>
+		</div>
+	{include file="footjs.html"}	
+	<script>
+		
+		$(function(){
+	
+			$(document).on("click","#submit",function(){
+				if(!postCheck.canPost()){
+					return false;
+				}
+				$.post("/module.php?m=zhuli_order&a=order&ajax=1",
+					$("#form").serialize(),
+					function(data){
+						if(data.error){
+							mui.toast(data.message);
+						}else{
+							window.location=data.url;
+						}
+						
+					},
+					"json"
+				)
+			})
+			
+		})
+	</script>	
+	</body>
+</html>

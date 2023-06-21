@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请促销</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=flk_one&a=save&ajax=1">
+				<input type="hidden" name="id" value="{$data.id}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" readonly="readonly" name="title" value="{$data.title}" class="input-flex-text" />
+				</div>
+				 
+				<div class="input-flex flex-ai-center">
+					<div class="mgl-10 mgr-10">正常价</div>
+					<input type="text"  readonly="readonly" name="price" value="{$data.price}" class="input-flex-text" />
+					<span>元</span>
+				 
+					<div class="mgl-10 mgr-10">库存</div>
+					<input type="text" name="total_num" value="{$data.total_num}" class="input-flex-text" />
+				</div>
+				 
+				 
+				<div class="oneBox" >
+					<div class="input-flex flex-ai-center">
+						<div class="mgl-10 mgr-10">秒杀价</div>
+						<input  class="input-flex-text w60" type="text" value="{$data.one_price}" name="one_price" />
+						<span>元</span>
+						<div class="mgl-10 mgr-10">秒杀抽成</div>
+						<input  class="input-flex-text w60" type="text" value="{$data.one_discount}" name="one_discount" />
+						<span>%</span> 
+					</div>
+					<div class="input-flex  flex-ai-center">
+						<div class="mgl-10 mgr-10">开始时间</div>
+						<input id="one_stime" type="text" class="input-flex-text" name="one_stime" value="{$data.one_stime}" />
+					</div>
+					<div class="input-flex  flex-ai-center">
+						<div class="mgl-10 mgr-10">截止时间</div>
+						<input id="one_etime" type="text" class="input-flex-text" name="one_etime" value="{$data.one_etime}" />
+					</div>
+				</div>
+				
+				 
+				<div class="btn-row-submit js-submit">提交申请</div>
+			</form>
+		</div>
+		 
+		{include file="footer.html"}
+		 
+	 
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script >
+			laydate.render({
+				elem:"#one_etime"
+			})
+			laydate.render({
+				elem:"#one_stime"
+			})
+			
+		</script>
+	</body>
+</html>

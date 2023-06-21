@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">打车订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div v-if="Object.keys(list).length==0" class="emptyData">
+				暂无订单
+			</div>
+			
+			<div v-else class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary mgr-5">出发地：</div>
+					<div class="cl2">{{item.from_addr}}</div>
+				</div>
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary mgr-5">目的地：</div>
+					<div class="cl2">{{item.from_addr}}</div>
+				</div>
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary mgr-5">乘客数：</div>
+					<div class="cl-num">{{item.user_num}}</div>
+				</div>
+				<div class="bd-mp-10 cl3">
+					{{item.description}}
+				</div>
+				
+				<div class="flex flex-ai-center">
+					<div class="cl-status mgr-5">{{item.status_name}}</div> 
+					<div class="cl2 f12">{{item.createtime}}</div>
+					<div class="flex-1"></div>
+					<div @click="goOrder(item.orderid)" class="btn-small">详情</div>
+				</div>
+			</div>
+			<div v-if="per_page>0" @click="getList()" class="loadMore">加载更多</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}pinche_dache_order/index.js"></script>
+	</body>
+</html>

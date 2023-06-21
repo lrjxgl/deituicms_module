@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_book/nav.html'}
+<div class="main-body">
+	<form method="get" action="/moduleadmin.php" class="search-box">
+		<input type="hidden" name="m" value="gread_book" />
+		<div class="flex flex-ai-center pd-5">
+			<div class="mgr-5">书名:</div>
+			<input type="text"  name="keyword" class="w150" />
+			<div class="mgl-5 mgr-5">分类</div>
+			<select name="catid" class="w100">
+				<option value="0">请选择</option>
+				{foreach item=c from=$catList}
+				<option {if get("catid") eq $c.catid}selected{/if} value="{$c.catid}">{$c.title}</option>
+				{/foreach}
+			</select>
+			<button class="btn mgl-5" type="submit">搜索</button>
+		</div>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>bookid</td>
+   <td>分类</td>
+   <td>书名</td>
+    
+   <td>图片</td>
+   <td>价格</td>
+   
+   <td>状态</td>
+	 <td>推荐</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.bookid}</td>
+   <td>{$c.catid_name}</td>
+   <td>{$c.title}</td>
+    
+   <td><img src="{$c.imgurl}.100x100.jpg" width="50" /> </td>
+   <td>{$c.price}</td>
+  
+   <td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=gread_book&a=status&bookid={$c.bookid}&ajax=1" ></div></td>
+	<td>
+		<div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=gread_book&a=recommend&bookid={$c.bookid}&ajax=1" ></div>
+	</td>
+	<td><a href="/moduleadmin.php?m=gread_book&a=add&bookid={$c.bookid}">编辑</a> 
+ 
+<a href="javascript:;" class="delete" url="/moduleadmin.php?m=gread_book&a=delete&bookid={$c.bookid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

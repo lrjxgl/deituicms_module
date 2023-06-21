@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">课程详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box mgb-5">
+		<div class="flex">
+			<div class="cl-status">{$order.status_name}</div>
+			<div class="flex-1"></div>
+			<div class="f12 cl2">{$order.createtime}</div>
+		</div>
+	</div>
+	<div class="row-box mgb-5">
+		<div class="flexlist-item">
+			<img src="{$course.imgurl}.100x100.jpg" class="flexlist-img" />
+			<div class="flex-1">
+				<div class="flexlist-title">{$course.title}</div>
+				<div class="cl-num f12">课时：{$course.ke_num}节</div>
+				<div class="flexlist-desc">{$course.description}</div>
+				 
+			</div>
+		</div>
+	</div>
+	<div class="row-box mgb-5">
+		<div class="xhd">报名学校</div>
+		<div class="flexlist-item">
+			<img src="{$shop.imgurl}.100x100.jpg" class="flexlist-img" />
+			<div class="flex-1">
+				<div class="flexlist-title">{$shop.title}</div>
+				<div class="flex mgb-5">
+					<div class="cl-primary f12">{$shop.nickname}</div>
+					<div class="flex-1"></div>
+					<div class="cl-primary f12">{$shop.telephone}</div>
+				</div>
+				
+				<div class="flexlist-desc">{$shop.address}</div>
+				 
+			</div>
+		</div>
+	</div>
+	{if $order.tcid}
+	<div class="row-box">
+		<div class="xhd">任课老师</div>
+		<div class="flexlist-item">
+			<img src="{$teacher.imgurl}.100x100.jpg" class="flexlist-img" />
+			<div class="flex-1">
+				<div class="flexlist-title">{$teacher.truename}</div>
+				<div class="flex">
+					<div class="cl2 f12">{$teacher.description}</div>
+					 
+				</div>
+			</div>
+		</div>
+	
+	</div>
+	{/if}
+	{if $order.stid}
+	<div class="row-box">
+		<div class="xhd">绑定学生</div>
+		<div class="flexlist-item">
+			<img src="{$student.imgurl}.100x100.jpg" class="flexlist-img" />
+			<div class="flex-1">
+				<div class="flexlist-title">{$student.truename}</div>
+				<div class="flex">
+					<div class="cl-status">{if $student.gender eq 1}男{else}女{/if}</div>
+					<div class="flex-1"></div>
+					<div class="cl3 f12">{$student.age}</div>
+				</div> 
+			</div>
+		</div>
+		
+	</div>
+	{/if}
+	<div class="row-box mgb-5">
+		<div class="xhd">联系方式</div>
+		<div class="flex-table">
+			<div class="flex-table-label">联系人</div>
+			<div class="cl2">{$order.nickname}</div>
+		</div>
+		<div class="flex-table">
+			<div class="flex-table-label">电话</div>
+			<div class="cl2">{$order.telephone}</div>
+		</div>
+ 
+	</div>
+	{if $order.status lt 3}
+	<div class="row-box">
+		<div class="flex flex-jc-center">
+			{if $order.tcid eq 0}
+			<div id="xy-btn" class="btn-small mgr-10">绑定老师</div>
+			{/if}
+			 
+		</div>
+	
+	</div>
+	{/if} 
+	<div class="modal-group" id="xy-box">
+		<div class="modal-mask"></div>
+		<div class="modal">
+			<div class="modal-header">
+				<div class="modal-title">绑定老师</div>
+				<div class="modal-close iconfont icon-close"></div>
+			</div>
+			<div class="modal-body">
+				<div>
+					{foreach item=c from=$tcList}
+					<div class="flex mgb-5">
+						<input type="radio" value="{$c.tcid}"   class="tcid" /> {$c.truename}
+					</div>
+					{/foreach}
+				</div>
+				<div id="xy-submit" class="btn-row-submit">确认绑定</div>
+			</div>
+		</div>
+	</div> 
+</div>
+ 
+{include file="footer.html"}
+<script>
+	var orderid="{$order.orderid}";
+</script>
+<script src="{$skins}exue_order/show.js"></script>
+</body>
+</html>

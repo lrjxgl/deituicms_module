@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我发起的活动</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<img gourl="/module.php?m=fishing_free_activity&a=show&actid={$c.actid}"  src="{$c.imgurl}.middle.jpg" class="sglist-img" />
+					<div gourl="/module.php?m=fishing_free_activity&a=show&actid={$c.actid}"  class="mgb-5">{$c.title}</div>
+					<div class="mgb-10 cl3">{$c.description}</div>
+					<div class="flex">
+						<div class="cl-primary">{$c.stime}</div>
+						<div class="flex-1"></div>
+						<div gourl="/module.php?m=fishing_free_activity&a=add&actid={$c.actid}" class="btn-mini mgr-5">编辑</div>
+						<div gourl="/module.php?m=fishing_free_activity&a=add&iscopy=1&actid={$c.actid}" class="btn-mini mgr-5">复制</div>
+						<div gourl="/module.php?m=fishing_free_activity&a=join&actid={$c.actid}" class="btn-mini mgr-5">参与用户</div>
+						
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

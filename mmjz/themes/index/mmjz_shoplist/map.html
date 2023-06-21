@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		#goshop{
+			position: fixed;
+			top: 100px;
+			right: 10px;
+			padding: 10px;
+			width: 20px;
+			z-index: 9999;
+			background-color: #F00056;
+			color: #fff;
+			text-align: center;
+			box-sizing: content-box;
+			 
+			display: none;
+			border-radius: 10px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">钓点地图</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div id="bdmap" style="width: 100%;height: 480px;"></div>
+			<a href="" id="goshop">去看看</a>
+		</div>
+		{assign var="ftnav" value="map"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.2&type=webgl&ak={const.BDMAPKEY}"></script>
+		<script src="{$skins}mmjz_shoplist/map.js?{$smarty.now}"></script>
+		
+	</body>
+</html>

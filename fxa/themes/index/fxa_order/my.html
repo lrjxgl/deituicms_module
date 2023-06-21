@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			
+			<div @click="goDetail(item.orderid)" class="flexlist-item" v-for="(item,index) in list" :key="index">
+				<img class="flexlist-img" :src="item.product.imgurl+'.100x100.jpg'" />
+				<div class="flex-1">
+					<div class="flexlist-title">{{item.product.title}}</div>
+					<div class="flex">
+						<div class="cl-money">￥{{item.money}}</div>
+						<div class="flex-1"></div>
+						<div class="cl-status">{{item.status_name}}</div>
+					</div>
+					<div class="flex">
+						<div class="cl3 f12 mgr-10">{{item.nickname}}</div>
+						<div class="cl3 f12">{{item.telephone}}</div>
+					</div>
+					<div class="cl3 f12">{{item.address}}</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}fxa_order/my.js"></script>
+	</body>
+</html>

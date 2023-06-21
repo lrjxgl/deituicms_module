@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的看房团</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="sglist">
+    	{foreach item=c from=$list}
+    	<div  class="sglist-item js-item">
+    		<div gourl="/module.php?m=house_tuan&a=show&id={$c.id}" class="sglist-imgbox">
+				<img src="{$c.imgurl}.middle.jpg" class="wmax" />
+			</div>
+			<div gourl="/module.php?m=house_tuan&a=show&id={$c.id}" class="sglist-title">{$c.title}</div>
+			<div class="cl2 f12 mgb-5">活动时间：{$c.stime}</div>
+			<div class="flex flex-ai-center">
+				<div class="cl-status">{if $c.status eq 1}已通过{elseif $c.status eq 0}待审核{else}未通过{/if}</div>
+				<div class="flex-1"></div>
+				<div gourl="/module.php?m=house_tuan_user&a=admin&tid={$c.id}" class="btn-small mgr-10">报名管理</div>
+				{if $c.status neq 1}
+				<div gourl="/module.php?m=house_tuan&a=add&id={$c.id}"  class="btn-small mgr-10">编辑</div>
+				<div url="/module.php?m=house_tuan&a=delete&ajax=1&id={$c.id}"  class="btn-small js-delete">删除</div>
+				{/if}
+			</div>
+			
+    	</div>
+    	{/foreach}
+    </div>   
+<div>{$pagelist}</div>
+    
+</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div   class="item active">规则导入</div>
+		 
+		</div>
+		<div class="main-body">
+ <form method="post" action="/moduleadmin.php?m=collect_rule&a=import">
+ <textarea style="width:600px; height:300px;" name="content" >{$content}</textarea>
+ <p><input type="submit" class="btn btn-success" value="导入" /></p>
+ </form>
+ </div> 
+ 
+{include file="footer.html"}
+</body>
+</html>

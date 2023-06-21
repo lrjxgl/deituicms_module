@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='gread_book_category/nav.html'}
+		<div class="main-body">
+		<table class="tbs">
+			<thead>
+				<tr>
+					<td>catid</td>
+					<td>分类名称</td>
+
+					<td>排序</td>
+					<td>状态</td>
+					<td>操作</td>
+				</tr>
+				</tr>
+			</thead> 
+			{foreach item=c from=$catlist}
+			<tr>
+				<td>{$c.catid}</td>
+				<td>{$c.title}</td>
+
+				<td>{$c.orderindex}</td>
+				<td>{$c.status}</td>
+				<td><a href="/moduleadmin.php?m=gread_book_category&a=add&catid={$c.catid}">编辑</a>
+				 
+					<a href="javascript:;" class="delete" url="/moduleadmin.php?m=gread_book_category&a=delete&catid={$c.catid}">删除</a></td>
+			</tr>
+				{foreach item=cc from=$c.child}
+				<tr>
+					<td>{$cc.catid}</td>
+					<td>|--{$cc.title}</td>
+				
+					<td>{$cc.orderindex}</td>
+					<td>{$cc.status}</td>
+					<td><a href="/moduleadmin.php?m=gread_book_category&a=add&catid={$cc.catid}">编辑</a>
+ 
+						<a href="javascript:;" class="delete" url="/moduleadmin.php?m=gread_book_category&a=delete&catid={$cc.catid}">删除</a></td>
+				</tr>
+				{/foreach}
+			{/foreach}
+		</table>
+		<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

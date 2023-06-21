@@ -1,0 +1,86 @@
+body,
+.mui-content {
+	background-color: #fff;
+}
+.mui-content{
+	max-width: 100%;
+}
+.table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+.table thead td {
+	height: 40px;
+}
+
+.table td {
+	border-bottom: 1px solid #eee;
+	padding: 5px;
+}
+
+.search-form {
+	box-sizing: border-box;
+	border: 1px solid #eee;
+	margin: 5px;
+	padding: 5px;
+}
+
+
+/*****后台********/
+
+.uplist {}
+
+.uplist .item {
+	display: flex;
+	font-size: 14px;
+	background-color: #fff;
+	margin-bottom: 5px;
+	padding: 10px 5px;
+}
+
+.uplist .item-img {
+	width: 70px;
+	margin-right: 10px;
+}
+
+.uplist .item-img img {
+	width: 100%;
+}
+
+.uplist .item .flex-1 {
+	flex: 1;
+}
+
+.uplist .title {
+	font-size: 16px;
+}
+
+.uplist .row-price {
+	padding: 10px 0px;
+}
+
+.uplist .row-price .num {
+	color: #f60;
+	margin-right: 5px;
+}
+
+.uplist .addr {
+	color: #999;
+	padding: 5px;
+}
+
+.uplist .tools {
+	text-align: center;
+	padding: 10px 0px;
+	color: #666;
+}
+
+.uplist .tools a {
+	margin-right: 10px;
+}
+
+.uplist .row-time{
+	color: #666;
+	font-size: 14px;
+}

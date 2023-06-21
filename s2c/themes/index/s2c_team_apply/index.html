@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请成为团长</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $apply}
+				<div class="pd-10 f14 ">你已提交申请，正在审核中..</div>
+			{/if}
+			<form {if $apply}class="none"{/if}  id="form" action="/module.php?m=s2c_team_apply&a=save&ajax=1">
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">团队名称</div>
+					<input type="text" name="title" class="input-flex-text" />
+				</div>
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">姓名</div>
+					<input type="text" name="nickname" class="input-flex-text" />
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">手机</div>
+					<input type="text" name="telephone" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">微信号</div>
+					<input type="text" name="wxhao" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label ">
+						<div class="input-flex-require">小区/店铺</div>
+						 
+					</div>
+					<input type="text" placeholder="请输入店铺/社区名称" name="shequ" class="input-flex-text" />
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">详细地址</div>
+					<input type="text" name="address" class="input-flex-text" />
+				</div>
+				<div class="btn-row-submit" id="submit">提交申请</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script>
+			$(document).on("click","#submit",function(){
+				$.post("/module.php?m=s2c_team_apply&a=save&ajax=1",$("#form").serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

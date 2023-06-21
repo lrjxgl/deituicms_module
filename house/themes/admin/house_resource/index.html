@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="shd">{$type_name}</div>
+<form action="/moduleadmin.php" class="search-form flex flex-ai-center flex-wrap">
+	<input type="hidden" name="m" value="house_resource" />
+	<input type="hidden" name="type" value="{$type}" />
+	ID:<input class="w100 mgr-5" value="{$smarty.get.id|intval}" type="text" name="id" />
+	名称：<input  class="w150 mgr-5"  value="{$smarty.get.keyword|html}"  type="text" name="keyword" />
+	类型：<select class="w150" name="snew">
+		<option value="">选择</option>
+		<option {if get("snew") eq 'new'}selected{/if} value="new">新房</option>
+		<option {if get("snew") eq 'ershou'}selected{/if}  value="ershou">二手房</option>
+	</select>
+	<button class="btn" type="submit">搜一下</button>
+</form>
+<form id="cForm">
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>描述</td>
+   <td>用户</td>
+  
+   <td>新房</td>
+ 
+   <td>状态</td>
+ 
+   <td>浏览</td>
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}<input type="checkbox" class="ids"  name="ids[]" value="{$c.id}" /></td>
+  <td>{$c.description}</td>
+   <td>{$c.userid}</td>
+   
+   <td>{if $c.isnew}新房{else}二手房{/if}</td>
+    
+    <td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=house_resource&a=status&id={$c.id}&ajax=1" ></div></td>
+    
+ 
+ 
+   <td>{$c.view_num}</td>
+   
+    
+<td>
+	
+	<a href="/moduleadmin.php?m=house_resource&a=add&id={$c.id}">编辑</a> 
+<a href="/module.php?m=house_resource&a=show&id={$c.id}" target="_blank">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=house_resource&a=delete&ajax=1&id={$c.id}">删除</a>
+	<div class="btn-mini btn-danger js-join-blacklist" userid="{$c.userid}">拉黑</div>
+	<div class="btn-mini btn-danger js-forbid-post" userid="{$c.userid}">禁言</div>
+</td>
+  
+  </tr>
+   {/foreach}
+ </table>
+ <div class="flex flex-ai-center mgt-20">
+	 	<input type="checkbox" class="chkall"  />&nbsp;
+		 
+			聚合：
+			<select name="tagid" class="w100 mgr-5">
+				<option value="0">请选择</option>
+				{foreach item=c from=$taglist}
+				<option value="{$c.tagid}">{$c.title}</option>
+				{/foreach}
+			</select>
+			<div  class="btn"  id="changeGroup">聚合产品</div>
+		 </div>
+ </div>
+ </form>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(".chkall").click(function(){
+		if($(this).prop("checked")==true){
+			$(".ids").prop("checked",true);
+		}else{
+			$(".ids").prop("checked",false);
+		}
+	});
+	$(document).on("click","#changeGroup",function(){
+		$.post("/moduleadmin.php?m=house_resource&a=tags&ajax=1",$("#cForm").serialize(),function(res){
+			skyToast(res.message);
+			if(!res.error){
+				window.location.reload();
+			}
+		},"json");
+	})
+</script>
+</body>
+</html>

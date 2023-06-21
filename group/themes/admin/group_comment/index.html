@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="tabs-border">
+			<div class="item active">圈子评论</div>
+		</div>
+	 
+	<div class="main-body">
+  
+    	 <table class="tbs">
+  <tr>
+   <td>id</td>
+ 
+   <td>时间</td>
+   <td>状态</td>
+ 
+   <td>内容</td>
+<td>操作</td>
+  </tr>
+ {foreach item=c from=$data}
+<tr class="item">
+   <td>{$c.id}</td>
+ 
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.status}</td>
+ 
+   <td>{$c.content}</td>
+<td>
+	<a class="js-delete pointer" url="/moduleadmin.php?m=group_comment&a=delete&ajax=1&id={$c.id}">删除</a>
+	<div class="js-join-blacklist pointer" userid="{$c.userid}">禁言</div>
+	
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+ 
+</body>
+</html>

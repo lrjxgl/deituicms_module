@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		video{
+			width: 320px;
+			height: auto;
+		}
+	</style>
+	<body>
+		<div class="tabs-border">
+				<a href="/moduleadmin.php?m=fsbuy" class="item">产品列表</a>
+				<a href="/moduleadmin.php?m=fsbuy&a=add" class="item  active">添加</a>
+			</div>
+		 
+		<div class="main-body">
+				
+				<form  id="form"  method="post" action="/moduleadmin.php?m=fsbuy&a=save">
+					<input type="hidden" name="fsid" style="display:none;" value="{$data.fsid}">
+					<table class="table-add">
+						 
+						<tr>
+							<td>名称：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+						<tr>
+							<td>团购类型</td>
+							<td>
+								<input type="radio" {if $data.fstype eq 1}checked{/if} name="fstype" value="1" />满团
+								<input type="radio" {if $data.fstype neq 1}checked{/if}  name="fstype" value="2" />阶梯
+							</td>
+						</tr>
+					 
+						<tr>
+							<td>图片：</td>
+							<td>
+								<div class="js-upload-item">
+									<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+									<div class="upimg-btn js-upload-btn">+</div>
+									<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+									<div class="js-imgbox">
+										{if $data.imgurl}
+										<img src="{$data.imgurl|images_site}.100x100.jpg">
+										{/if}
+									</div>
+								</div>
+						
+							</td>
+						</tr>
+						<tr>
+							<td>视频：</td>
+							<td>
+								<div id="upmp4-btn" class="btn mgb-10">上传视频</div>
+								{if $data.mp4url}
+								<div id="mp4-delete" class="btn btn-danger">删除视频</div>
+								{/if}
+								<span id="progress"></span>
+								<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+								<div id="mp4box">
+									{if $data.mp4url}
+									<video controls="" src="{$data.mp4url|images_site}" class="video"></video>
+									{/if}
+								</div>
+								
+								<input type="hidden" name="mp4url" id="mp4url" value="{$data.mp4url}" />
+							 
+								<div style="display: none;">
+									<input type="file" id="upvideo" name="upfile" />
+								</div>
+								 
+							
+							</td>
+						</tr>
+						<tr>
+							<td>状态：</td>
+							<td style="line-height: 40px;">
+								<select name="status">
+									{foreach item=c key=k from=$statusList}
+									<option value="{$k}" {if $data.status eq $k}selected{/if}>{$c}</option>
+									{/foreach}
+									 
+								</select>
+								 
+							</td>
+						</tr>
+						<tr>
+							<td>开始时间</td>
+							<td>
+								<div class="flex flex-ai-center">
+									<input   class="w150" type="text" id="startTime" name="startTime" value="{$data.startTime}" />
+									<div class="mgl-10 mgr-10">结束时间</div>
+									<input  class="w150"  type="text" id="endTime" name="endTime" value="{$data.endTime}" />									 
+								</div>
+							</td>
+						</tr> 
+						<tr>
+							<td>描述：</td>
+							<td><textarea name="description" id="description">{$data.description}</textarea></td>
+						</tr>
+						 
+						 
+						<tr>
+							<td>团购价：</td>
+							<td>
+								<div class="flex flex-ai-center">
+									<input class="w150"  type="text" name="price" id="price" value="{$data.price}">
+									<div class="mgl-10 mgr-10">市场价</div>
+									<input class="w150"  type="text" name="market_price" id="market_price" value="{$data.market_price}">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>阶梯折扣</td>
+							<td>
+								<div>
+									<textarea name="step_config">{$data.step_config}</textarea>
+									<div>格式： 人数:折扣，如10:100,每行一个</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>邀请奖励：</td>
+							<td>
+								<div class="flex flex-ai-center">
+									<input  class="w150" type="text" name="invite_money" id="invite_money" value="{$data.invite_money}"> 
+									<div class="mgl-10 mgr-10">最多奖励</div>： 
+									<input  class="w150" type="text" name="invite_money_max" id="invite_money_max" value="{$data.invite_money_max}">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>成团人数</td>
+							<td>
+								<div class="flex flex-ai-center">
+									<input class="w150" type="text" name="minnum" value="{$data.minnum}" />
+																 
+									<span class="mgl-10 mgr-10">限制人数</span> 
+																 
+									<input  class="w150" type="text" name="maxnum" value="{$data.maxnum}" />
+								</div>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>已购人数</td>
+							<td>
+								<div class="flex flex-ai-center">
+									<input class="w150" type="text" name="buynum" value="{$data.buynum}" />
+									<div class="mgl-10 mgr-10">
+										围观数
+									</div>
+									<input class="w150" type="text" name="viewnum" value="{$data.viewnum}" />
+								</div>
+								
+							</td>
+						</tr>
+						 
+						<tr>
+							<td>活动备注</td>
+							<td>
+								<textarea   name="fsnote" class="textarea" >{$data.fsnote}</textarea>
+							</td>
+						</tr> 
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+					</table>
+					<div class="btn-row-submit" id="submit">保存</div>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+{php loadEditor();}
+
+<script language="javascript">
+ 
+var editor=UE.getEditor('content',options);
+ 
+</script>
+<script src="/plugin/laydate/laydate.js"></script>
+<script src="{$skins}/fsbuy/upload-video.js"></script>
+<script src="/static/admin/js/upload.js"></script>
+<script>
+	laydate.render({
+	  elem: '#startTime',
+	  type: 'datetime'
+	});
+	laydate.render({
+	  elem: '#endTime',
+	  type: 'datetime'
+	});
+	$(document).on("click","#mp4-delete",function(){
+		$("#mp4url").val("");
+		$("#mp4box").html("");
+	})
+	$(document).on("click", "#submit", function() {
+		editor.sync();
+		$.post("/moduleadmin.php?m=fsbuy&a=save&ajax=1", $("#form").serialize(), function(data) {
+			skyToast(data.message);
+			if(data.error) {
+				return false;
+
+			} else {
+				goBack();
+			}
+		}, "json")
+	})
+	
+ 
+</script>	
+	</body>
+
+</html>

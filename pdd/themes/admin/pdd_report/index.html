@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item active" href="{$appadmin}?m=pdd_report">举报列表</a>
+</div>
+<div class="main-body">
+	{foreach item=c from=$list}
+	<div class="sglist-item">
+		<div class="sglist-desc">{$c.content}</div>
+		<div class="sglist-imglist">
+			{foreach item=img from=$c.imglist}
+			<div class="sglist-imgbox">
+				<img src="{$img}.100x100.jpg" class="sglist-imglist-img"/>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	{/foreach}
+  
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

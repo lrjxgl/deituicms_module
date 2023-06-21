@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">打新券</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="row-box mgb-5">
+		<div class="flex flex-center">
+			<div class="mgr-10">打新额度</div>
+			<div class="cl-money">￥{$daxin.money}</div>
+			
+		</div>
+	</div>
+	<div class="row-box mgb-5">
+		打新券是一个可以参加新店打新活动的一种许可券，新店使用返券可以更快的获得返利。
+	</div>
+	
+    <div>
+		{foreach item=c from=$list}
+		<div class="row-box mgb-5">
+			<div class="flex mgb-5">
+				<div class="cl2 f12">{$c.dateline|date:Y-m-d}</div>
+				
+				<div class="flex-1"></div>
+				<div class="cl-money"> ￥{$c.money}</div>
+			</div>
+			<div>
+				<div class="cl-num">{$c.content}</div>
+			</div>
+		</div>
+		{/foreach}
+	</div> 
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.circle{
+			width: 20px;
+			height: 20px;
+			text-align: center;
+			line-height: 20px;
+			border-radius: 50%;
+			font-size: 12px;
+			border:1px solid #aaa;
+			margin-left: 3px;
+		}
+		.circle-active{
+			border:1px solid #f30;
+			color: #f30;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品管理</div>
+			<div gourl="/moduleshop.php?m=mmjz_product&a=add" class="header-right-btn">添加</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="flex row-box mgb-5">
+				<select v-model="catid"  class="select h30 mgr-5 w100">
+					<option value="0">选择分类</option>
+					<template v-for="(item,index) in catList" :key="index">						 
+					<option  :value="item.catid">{{item.title}}</option>
+					<option v-if="item.child" v-for="(cc,ccindex) in item.child" :key="ccindex" :value="cc.catid">|--{{cc.title}}</option> 
+					</template>
+				</select>
+				<select v-model="bstatus"   class="select h30 mgr-5 w100">
+					<option value="0">全部</option>
+					<option value="1">上架</option>
+					 <option value="2">下架</option>
+				</select>
+				<input true-value="1" false-value="0" v-model="isrecommend" type="checkbox" />
+				<div>推荐</div>
+				
+				<input true-value="1" false-value="0" v-model="ishot" type="checkbox" />
+				<div>热门</div>
+			</div>
+			<div class="flex flex-ai-center row-box mgb-5">
+				关键字
+				<input v-model="keyword" class="input-flex-text" />
+				<div @click="search" class="input-flex-btn">搜一下</div>
+				<div>总计{{rscount}}条</div>
+			</div>
+			<div class="list">
+				 
+				<div v-for="(item,index) in list" :index="index" class="flexlist-item js-item">
+				
+					<img v-if="item.imgurl!=''" :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+					 
+					<div class="flex-1">
+						<div class="flexlist-title">{{item.title}}</div>
+						<div class="flex mgb-5">
+							<div class="cl-money">￥{{item.price}}</div> 
+							<div class="flex-1"></div>
+							<div class="cl2">{{item.catid_name}}</div>
+						</div>
+						<div class="flex flex-center">
+							<div @click="statusToggle(item)" :class="item.status==1?'yes':'no'" class="js-toggle-status" :url="'/moduleshop.php?m=csc_product&a=status&id='+item.id+'&ajax=1'" ></div>
+							<div @click="hotToggle(item)" class="circle" :class="item.ishot==1?'circle-active':''">热</div>
+							<div @click="recommendToggle(item)" class="circle" :class="item.isrecommend==1?'circle-active':''">荐</div>
+							<div class="flex-1"></div>
+							<div :gourl="'/moduleshop.php?m=mmjz_product&a=add&id='+item.id" class="btn-small mgr-5  ">编辑</div>
+							<div :gourl="'/moduleshop.php?m=mmjz_product_ks&productid='+item.id" class="btn-small mgr-5">款式</div>
+
+							<div class="btn-small btn-danger js-delete" :url="'/moduleshop.php?m=mmjz_product&a=delete&ajax=1&id='+item.id">删除</div>
+						</div>
+					</div>
+				</div>
+				
+			 
+			</div>
+			<div class="loadMore" v-if="per_page>0" @click="getList()">加载更多</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}mmjz_product/index.js"></script>
+	</body>
+</html>

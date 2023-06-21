@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='crm_kehu/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>userid</td>
+   <td>名字</td>
+   <td>电话</td>
+   <td>性别</td>
+   <td>地址</td>
+   <td>微信号</td>
+   <td>qq号</td>
+   <td>微博</td>
+   <td>微信好友</td>
+   <td>qq好友</td>
+   <td>createtime</td>
+   <td>lasttime</td>
+   <td>简介</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.gender}</td>
+   <td>{$c.adddress}</td>
+   <td>{$c.wxhao}</td>
+   <td>{$c.qqhao}</td>
+   <td>{$c.weibo}</td>
+   <td>{$c.wx_freind}</td>
+   <td>{$c.qq_freind}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.lasttime}</td>
+   <td>{$c.description}</td>
+<td><a href="/module.php?m=crm_kehu&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=crm_kehu&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=crm_kehu&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+   <td>用户</td>
+   <td>类别</td>
+   <td>发布时间</td>
+   <td>更新时间</td>
+   <td>状态</td>
+   <td>站点审核</td>
+   <td>价格</td>
+   <td>市场价格</td>
+   <td>图集</td>
+   <td>主图</td>
+   <td>描述</td>
+   <td>维度</td>
+   <td>精度</td>
+   <td>地址</td>
+   <td>想要</td>
+   <td>浏览</td>
+   <td>收藏</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.catid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.updatetime}</td>
+   <td>{$c.status}</td>
+   <td>{$c.sitecheck}</td>
+   <td>{$c.price}</td>
+   <td>{$c.market_price}</td>
+   <td>{$c.imgsdata}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.description}</td>
+   <td>{$c.lat}</td>
+   <td>{$c.lng}</td>
+   <td>{$c.address}</td>
+   <td>{$c.love_num}</td>
+   <td>{$c.view_num}</td>
+   <td>{$c.fav_num}</td>
+<td><a href="/module.php?m=ershou_product&a=add&productid={$c.productid}">编辑</a> <a href="/module.php?m=ershou_product&a=show&productid={$c.productid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=ershou_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

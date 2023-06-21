@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body >
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$group.title}</div>
+		</div>
+		<div class="header-row"></div>
+		
+		<div id="App" class="main-body">
+			 
+			<div class="sglist mgt-5">
+				<div v-for="(item,index) in list" :key="index" @click="goProduct(item.productid)" class="sglist-item">
+						
+						<div class="mgb-5 flex flex-ai-center">
+							<div class="btn-recommend">荐</div>
+							<div>{{item.title}}</div>
+						</div>
+						<div class="sglist-imglist">
+							 
+							<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+							
+						</div>
+						<div class="flex flex-ai-center mgb-10">
+							<div class="mgr-5 cl2">售价</div>
+							<div class="cl-money mgr-10">￥{{item.money}}</div>
+							<div class="cl2 f12 mgr-10">{{item.brand_title}}</div>
+							<div class="flex-1"></div> 
+							<div class="cl2 f12 mgr-10">上牌：{{item.pai_date}}</div> 
+							
+						</div>
+						<div class="sglist-ft">
+							<div class="sglist-ft-love">{{item.love_num}}</div>
+							<div class="sglist-ft-cm">{{item.comment_num}}</div>
+							<div class="sglist-ft-view">{{item.view_num}}</div>
+						</div> 
+					</div>
+					
+				</div>
+				
+			</div>
+		 
+		</div>
+		{include file="footer.html"}
+		<script>
+			var gkey="{$group.gkey}";
+			var gid="{$group.gid}"
+		</script>
+		<script src="{$skins}car_group_product/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">借书卡</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="">
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<div class="flex flex-ai-center bd-mp-10">
+						<div class="cl-status mgr-10">{$c.status_name}</div>
+						<div class="cl2 f12">{$c.createtime}</div>
+						<div class="flex-1"></div>
+						<div class="cl2">{$c.nickname}</div>
+					</div>
+					<div class="flex bd-mp-10">
+						<div class="cl2 mgr-5">预计收入</div>
+						<div class="cl-money"> ￥{$c.shop_money}</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body class="bg-ef">
+		<div class="header">
+			<div class="header-back"></div> 
+			<div class="header-title">补单列表</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body ">
+			<div id="app" style="display: none;">
+				<div class="tabs-border">
+					<div @click="setType('all')" v-bind:class="{'tabs-border-active':type=='all'}" class="tabs-border-item ">全部</div>
+					<div @click="setType('unpay')"  v-bind:class="{'tabs-border-active':type=='unpay'}" class="tabs-border-item">待付款</div>
+					<div @click="setType('finish')"  v-bind:class="{'tabs-border-active':type=='finish'}" class="tabs-border-item">已完成</div>
+					 
+				</div>
+				<div class="item row-box mgb-10" v-for="(item,index) in pageData.list" :key="index">
+					<div class="flex mgb-5">
+						<div>补差价：</div> 
+						<div class="cl-money">￥{{item.nmoney}}</div> 
+						<div class="flex-1"></div>
+						<div v-if="item.typeid==1">多还</div>
+						<div v-else>少补</div>
+					</div> 
+					<div class="f12 mgb-5 pd-5 bdb">{{item.ncontent}}</div>
+					<div class="flexlist-item" v-for="(pro,proIndex) in item.prolist" :key="proIndex">
+						<img class="flexlist-img" :src="pro.imgurl+'.100x100.jpg'">
+						<div class="flex-1">
+							<div class="flexlist-title">{{pro.title}}</div>
+							<div class="flexlist-ks">{{pro.sup_title}}</div>
+							<div class="flex ">
+								<div class="flex-1 cl-money">￥{{pro.price}}</div>
+								<div class="cl3">x {{pro.amount}}</div>
+							</div>
+							
+						</div>
+					</div>
+					
+					<div class="flex mgb-10">
+						
+						 订单原价：<div class="cl-money">￥{{item.money}}</div>元 
+						
+						 <div class="flex-1"></div> 
+						 
+					</div>
+					 
+					<div   class="flex flex-jc-end">
+						<div class="cl3 f12">{{item.timeago}}</div>
+						<div class="flex-1"></div>
+						<div v-if="item.ispay==0" @click="goPay(item.orderid)" class="btn-small  btn-outline-primary mgr-5">去支付</div>
+						 
+					</div>	
+				</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var type="{$type}";
+		</script>
+		<script src="{$skins}csc_order_change/index.js"></script>
+	</body>
+</html>

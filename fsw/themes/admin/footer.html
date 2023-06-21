@@ -1,0 +1,18 @@
+<script src="/plugin/jquery/jquery-2.1.3.min.js"></script>
+<script src="/plugin/dt-ui/skyJs.js"></script> 
+<script src="/static/admin/js/app.js?{$smarty.now}"></script>
+<script>
+	function fixedTableChange(height){
+		var fixedTableHeight=height;
+		var tttheight=$(window).innerHeight()-fixedTableHeight;
+		 
+		var obj=$(".tbs tbody:eq(0) td");
+		var html=$(".tbs  thead").html();
+		html=html.replaceAll("<td","<div").replaceAll("<tr","<div class='tbs-fixed'").replaceAll("</td","</div").replaceAll("</tr","</div");
+		$("#tbsFixed").html(html);
+		for(var i=0;i<obj.length;i++){
+			var w=obj.eq(i).width();
+			$(".tbs-fixed div:eq("+i+")").width(w);
+		}
+	}
+</script>

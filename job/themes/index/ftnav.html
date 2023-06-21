@@ -1,0 +1,9 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div gourl="/module.php?m=job" class="footer-item icon-home {if get('m') eq 'job' && get('a') eq 'default'}footer-active{/if}">首页</div>
+	 
+	<div gourl="/module.php?m=job_jianzhi" class="footer-item icon-jianzhi {if get('m') eq 'job_jianzhi'}footer-active{/if}">找兼职</div>
+	<div gourl="/module.php?m=job_quanzhi" class="footer-item icon-quanzhi {if get('m') eq 'job_quanzhi'}footer-active{/if}">找全职</div>
+	<div gourl="/module.php?m=job_notice" class="footer-item icon-message_light {if $ftnav eq 'notice'}footer-active{/if}">消息</div>
+	<div gourl="/module.php?m=job&a=my" class="footer-item icon-my_light {if get('m') eq 'job' && get('a') eq 'my' }footer-active{/if}">我的</div>
+</div>

@@ -1,0 +1,42 @@
+.uBox{
+			position: relative;
+			width: 100%;
+			height: 200px;
+			background-color: #2b8b97;
+			padding: 10px;
+			color: #fff;
+		}
+		.uBox-nick{
+			margin-bottom: 10px; 
+			color: #fff;
+		}
+		.uBox-head{
+			 
+			width:50px;
+			height: 50px;
+			border-radius: 10px;
+			margin-bottom: 10px;
+		}
+		.uBox-desc{
+			text-align: center;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			padding-right: 10px;
+			color: #fff;
+			font-size: 12px;
+		}
+		.fixFollow{
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			color: #eee;
+			border: 1px solid #eee;
+			border-radius: 5px;
+			padding:5px 10px;
+			font-size: 12px;
+			cursor: pointer;
+		}
+		.fixFollow-active{
+			color: #fff;
+			border: 1px solid #fff;
+		}

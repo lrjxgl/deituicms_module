@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">主播编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=zbtao_pp&a=save">
+				 <div class="input-flex">
+					<div class="input-flex-label">昵称：</div>
+					<input type="text" name="nickname" id="nickname" class="input-flex-text" value="{$data.nickname}" />
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">头像：</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.trueimgurl}.100x100.jpg">
+							</div>
+			
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+			
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" />
+						</div>
+					</div>
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">简介</div>
+					<textarea name="description" class="textarea-flex-text">{$data.description}</textarea>
+				</div> 
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

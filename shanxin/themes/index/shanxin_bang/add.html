@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">送一份</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+
+			<form method="post" action="/module.php?m=shanxin_bang&a=save">
+ 
+				<input type="hidden" name="sid" style="display:none;" value="{$shanxin.sid}">
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">数量</div>
+					<input type="text" v-model="num"  name="num" class="input-flex-text mgr-5" />
+					<div class="mgr-10 cl-red">份</div>
+					
+					<div>每份{$shanxin.money}元</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">寄语</div>
+					<input type="text" name="description" id="description" class="input-flex-text mgr-5"  value="祝爷爷奶奶们身体健康,万事如意">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">需支付</div>
+					<div class="input-flex-txt">{{total_money}}元</div>
+				</div>
+				<div class="btn-row-submit" @click="submit">确认提交</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script>
+			var smoney="{$shanxin.money}";
+			var sid="{$shanxin.sid}";
+			var App=new Vue({
+				el:"#app",
+				data:function(){
+					return {
+						
+						num:1
+					}
+				},
+				created:function(){
+					
+				},
+				computed:{
+					total_money:function(){
+						return this.num*smoney
+					}
+				},
+				methods:{
+					submit:function(){
+						$.ajax({
+							url:"/module.php?m=shanxin_bang&a=save&ajax=1",
+							data:{
+								sid:sid,
+								num:this.num,
+								description:$("#description").val()
+							},
+							method:"POST",
+							dataType:"json",
+							success:function(res){
+								if(res.data.action=='pay'){
+									window.location=res.data.payurl;
+								}else{
+									skyToast(res.message);
+								}
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

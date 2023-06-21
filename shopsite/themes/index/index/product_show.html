@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<style>
+		.header-fixtop-icon::before{
+			color: #646464;
+		}
+	</style>
+	<body>
+		<div id="App" class="none" :class="'flex-col'">
+			<div class="header-fixtop-right">
+				<div @click="shareClass='flex-col'" class="header-fixtop-icon pointer cl2 icon-share"></div>
+			</div>
+			<div :class="shareClass"  class="modal-group">
+				<div @click="shareClass=''"  class="modal-mask" style="background-color: #000; opacity: 0.8;"></div>
+				<div style="position: fixed;right: 0px;top: 30px; z-index: 9999;">
+					<img src="/static/images/wx_guide.png" style="width: 200px;" />
+				</div>
+			</div>
+			<div v-if="pageLoad">
+			 
+				<div  @click="goShop" class="header-back-fixed  cl2"></div>
+				<div v-if="pageLoad" class="main-body">
+					<img :src="data.imgurl+'.middle.jpg'"  class="d-img" />
+					<div class="row-box mgb-5">
+						<div class="d-title">{{data.title}}</div>
+						<div class="flex flex-ai-center">
+							<div class="mgr-5">价格</div>
+							<div class="cl-money">￥{{data.price}}</div>
+						</div>
+					</div>
+					<div class="row-box mgb-5">
+						 
+						<div v-html="data.content" class="d-content">
+						 
+						</div>
+					</div>
+				</div>
+			</div>	
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shop.shopid}";
+			var id="{$data.id}"
+		</script>
+		<script src="{$skins}index/show.js?mm=33"></script>
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title="{$data.title}";
+			wxshare_imgUrl="{$data.imgurl|images_site}.middle.jpg";
+		</script>
+	</body>
+</html>

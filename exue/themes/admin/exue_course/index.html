@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='exue_course/nav.html'}
+		<form action="/moduleadmin.php" class="search-form">
+			<input type="hidden" name="m" value="exue_course" />
+			<div class="flex flex-ai-center">
+				标题：<input value="{$keyword}" class="w150 mgr-5" type="text" name="keyword" />
+				类型：<select class="w150 mgr-5" name="stype">
+					<option {if get('stype') eq 0}selected{/if} value="0">请选择</option>
+					<option {if get('stype') eq 1}selected{/if} value="1">限时试课</option>
+					<option {if get('stype') eq 2}selected{/if} value="2">正式课程</option>
+				</select>
+				推荐：<input type="checkbox" {if get("site_index")}checked{/if} name="site_index" value="1" />
+				
+				<button class="btn-small">搜一下</button>
+			</div>
+			
+		</form>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>courseid</td>
+						<td>学校</td>
+						<td>分类</td>
+						<td>名称</td>
+						<td>图片</td>
+
+						<td>综合评分</td>
+						<td>状态</td>
+						<td>首页推荐</td>
+						 
+
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.courseid}</td>
+					<td>{$c.shop_title}</td>
+					<td>{$c.catid_name}</td>
+					<td>{$c.title}</td>
+					<td>
+						{if $c.imgurl}<img src="{$c.imgurl|images_site}.100x100.jpg" width="60" />{/if}
+					</td>
+
+					<td>{$c.raty_grade}</td>
+					<td>
+						<div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=exue_course&a=status&courseid={$c.courseid}&ajax=1" ></div>
+					</td>
+					<td>
+						<div class="{if $c.site_index eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=exue_course&a=site_index&courseid={$c.courseid}&ajax=1" ></div>
+						
+					</td>
+					 
+
+					<td>
+						<a href="/moduleadmin.php?m=exue_course&a=add&courseid={$c.courseid}">编辑</a> 
+						<a target="_blank" href="/module.php?m=exue_course&a=show&courseid={$c.courseid}">查看</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=exue_course&a=delete&ajax=1&courseid={$c.courseid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

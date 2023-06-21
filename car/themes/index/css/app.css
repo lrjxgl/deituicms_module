@@ -1,0 +1,43 @@
+.main-body{
+	max-width: 640px;
+	margin: 0 auto;
+}
+.btn-mini-cycle{
+	line-height: 12px;
+	font-size: 12px;
+	padding: 2px 5px;
+	border-radius: 5px;
+	border:1px solid #f60;
+	color: #f60;
+}
+.btn-type,.btn-type-wm{
+	line-height: 12px;
+	font-size: 12px;
+	padding: 2px 5px;
+	border-radius: 5px;
+	border:1px solid #007BFF;
+	color: #0000FF;
+}
+.btn-type-wm{
+	color: #f90;
+	border:1px solid #f90;
+}
+ 
+.sglist-ft-cart {
+	flex: 1;
+	border-right: 1px solid #eee;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	color: #f30;
+}
+
+.sglist-ft-cart:before {
+	font-family: "iconfont" !important;
+	display: inline-block;
+	margin-right: 4px;
+	font-size: 14px;
+	content: "\e6af";
+
+}

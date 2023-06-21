@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>heid：</td><td>{$data.heid}</td></tr>
+  <tr><td>投诉类型：</td><td>{$data.typeid}</td></tr>
+  <tr><td>标题：</td><td>{$data.title}</td></tr>
+  <tr><td>简介：</td><td>{$data.description}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>主图：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>图集：</td><td>{$data.imgsdata}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		<div class="shd">签到配置</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=checkin_config&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>积分奖励：</td>
+						<td><input type="text" name="grade" id="grade" value="{$data.grade}"></td>
+					</tr>
+					<tr>
+						<td>金币奖励：</td>
+						<td><input type="text" name="gold" id="gold" value="{$data.gold}"></td>
+					</tr>
+					<tr>
+						<td>积分最大值：</td>
+						<td><input type="text" name="max_grade" id="max_grade" value="{$data.max_grade}"></td>
+					</tr>
+					<tr>
+						<td>金币最大值：</td>
+						<td><input type="text" name="max_gold" id="max_gold" value="{$data.max_gold}"></td>
+					</tr>
+					<tr>
+						<td>连续签到积分：</td>
+						<td><input type="text" name="day_grade_p" id="day_grade_p" value="{$data.day_grade_p}"></td>
+					</tr>
+					<tr>
+						<td>连续签到金币：</td>
+						<td><input type="text" name="day_gold_p" id="day_gold_p" value="{$data.day_gold_p}"></td>
+					</tr>
+					<tr>
+						<td>签到说明：</td>
+						<td>
+							<textarea class="textarea" name="description">{$data.description}</textarea>
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+
+	</body>
+
+</html>

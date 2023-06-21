@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="header">
+		 
+		<div class="header-title">书店登录</div>
+	</div>
+	<div class="header-row"></div>
+	<div class="main-body" id="App">
+			<form id="form">
+			    <div class="input-flex">
+			    	<label class="input-flex-label">手机</label>
+			    	<input type="text" class="input-flex-text" name="telephone" />
+			    </div>
+			    
+			    <div class="input-flex">
+			    	<label class="input-flex-label">密码</label>
+			    	<input type="password" class="input-flex-text" name="password" />
+			    </div>
+			    
+			    
+			    <div class="btn-row-submit" id="submit">登录</div>
+		    </form>
+		</div>
+		{include file="footer.html"}
+	<script>
+		$(document).on("click","#submit",function(){
+			$.post("/moduleshop.php?m=gread_login&a=login&ajax=1",$("#form").serialize(),function(data){
+				skyJs.toast(data.message);
+				if(!data.error){
+					window.location="/moduleshop.php?m=gread";
+				}
+			},"json")
+		})
+	</script>	
+	</body>
+</html>

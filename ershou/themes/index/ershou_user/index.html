@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		 
+		.nItem{
+			flex: 1;
+			align-items: center;
+			justify-items: center;
+		}
+		.nItem-num{
+			margin-bottom: 3px;
+			font-weight: 600;
+		}
+		.nItem-title{
+			font-size: 1.2rem;
+		}
+		.zhd{
+			font-size: 16px;
+			font-weight: 600;
+			margin-bottom: 10px;
+		}
+		.m-navPic-item{
+			width: 25%;
+		}
+		.m-navPic2 .m-navPic-icon:before {
+			 
+			color: #666;
+		}
+	</style>
+	 
+	<body>
+		<div class="main-body">
+			<div class="row-box mgb-10" >
+				<div class="flex mgb-10">
+					<div class="flex-1"></div>
+					<div  gourl="/index.php?m=user&a=set"  class="iconfont icon-settings"></div>
+				</div>
+				<div class="flex flex-ai-center mgb-10">
+					<img gourl="/index.php?m=user&a=user_head" style="width: 80px;border-radius: 50%;margin-right: 15px;" src="{$user.user_head|images_site}.100x100.jpg" />
+					<div class="flex-1">
+						<div class="mgb-5 fw-600 f16">{$user.nickname}</div>
+						<div class="cl3">{$user.description}</div>
+					</div>
+				</div>
+				
+				<div class="flex mgb-20">
+					<div gourl="/module.php?m=ershou_fav&a=my" class="nItem">
+						<div class="nItem-num">{$fav_num}</div>
+						<div class="nItem-title">收藏</div>
+					</div>
+					<div gourl="/module.php?m=ershou_history" class="nItem">
+						<div class="nItem-num">{$history_num}</div>
+						<div class="nItem-title">历史浏览</div>
+					</div>
+					<div gourl="/index.php?m=follow" class="nItem">
+						<div class="nItem-num">{$follow_num}</div>
+						<div class="nItem-title">关注</div>
+					</div>
+					<div gourl="/index.php?m=follow&a=followed" class="nItem">
+						<div class="nItem-num">{$followed_num}</div>
+						<div class="nItem-title">粉丝</div>
+					</div>
+					<div gourl="/module.php?m=group_title&a=my" class="nItem">
+						<div class="nItem-num">{$post_num}</div>
+						<div class="nItem-title">帖子</div>
+					</div>
+				</div>
+				
+				<div class="zhd">我的交易</div>
+				<div class="m-navPic mgb-10">
+					<div  gourl="/module.php?m=ershou_product&a=my" class="m-navPic-item">
+						<img src="{$skins}img/wfb.png" class="m-navPic-img" />
+						<div class="m-navPic-title">我发布的 </div>
+					</div>
+					<div  gourl="/module.php?m=ershou_shop_order&a=my" class="m-navPic-item">
+						<img src="{$skins}img/wmc.png" class="m-navPic-img" />
+						<div class="m-navPic-title">我卖出的 </div>
+					</div>
+					<div gourl="/module.php?m=ershou_order&a=my" class="m-navPic-item">
+						<img src="{$skins}img/wmd.png" class="m-navPic-img" />
+						<div class="m-navPic-title">我买到的 </div>
+					</div>
+					 <div gourl="/module.php?m=ershou_baojia&a=shop" class="m-navPic-item">
+					 	<div class="m-navPic-icon icon-we_light"></div>
+					 	<div class="m-navPic-title">收到的报价 </div>
+					 </div>
+					 <div gourl="/module.php?m=ershou_baojia&a=my" class="m-navPic-item">
+					 	<div class="m-navPic-icon icon-evaluate"></div>
+					 	<div class="m-navPic-title">发出的报价 </div>
+					 </div>
+					<div gourl="/module.php?m=ershou_shop_money" class="m-navPic-item">
+						<div class="m-navPic-icon icon-moneybag" ></div>
+						<div class="m-navPic-title">资金管理</div>
+					</div>  
+					 
+					<div gourl="/module.php?m=ershou_bankcard" class="m-navPic-item">
+						<div class="m-navPic-icon icon-vipcard" ></div>
+						<div class="m-navPic-title">银行卡</div>
+					</div> 
+					 
+				</div>
+				<div class="zhd">我的会玩</div>
+				<div class="m-navPic mgb-10">
+					<div  gourl="/module.php?m=group&a=my"  class="m-navPic-item">
+						<img src="{$skins}img/icon-quanzi.png" class="m-navPic-img" />
+						<div class="m-navPic-title">我的圈子</div>
+					</div>
+					<div  gourl="/module.php?m=group_title&a=my"  class="m-navPic-item">
+						<img src="{$skins}img/icon-tiezi.png" class="m-navPic-img" />
+						<div class="m-navPic-title">我的帖子</div>
+					</div>
+					<!--
+					<div class="m-navPic-item">
+						<img src="{$skins}img/icon-wanjia.png" class="m-navPic-img" />
+						<div class="m-navPic-title">玩家中心</div>
+					</div>
+					<div class="m-navPic-item">
+						<img src="{$skins}img/icon-youjiang.png" class="m-navPic-img" />
+						<div class="m-navPic-title">有奖活动</div>
+					</div>-->
+					<div gourl="/module.php?m=checkin" class="m-navPic-item">
+						<img src="{$skins}img/icon-qiandao.png" class="m-navPic-img" />
+						<div class="m-navPic-title">领金币</div>
+					</div>
+				</div>
+				<!--
+				<div class="zhd">互动权益</div>
+				<div class="m-navPic mgb-10">
+					<div gourl="/module.php?m=checkin" class="m-navPic-item">
+						<img src="{$skins}img/icon-qiandao.png" class="m-navPic-img" />
+						<div class="m-navPic-title">领金币</div>
+					</div>
+					<div class="m-navPic-item">
+						<img src="{$skins}img/icon-nongchang.png" class="m-navPic-img" />
+						<div class="m-navPic-title">农场</div>
+					</div>
+					<div class="m-navPic-item">
+						<img src="{$skins}img/icon-hongbao.png" class="m-navPic-img" />
+						<div class="m-navPic-title">瓜分红包</div>
+					</div>
+					 
+				</div>
+				-->
+			</div>
+			<div class="row-box">
+				<div class="m-navPic m-navPic2">
+					<div gourl="/index.php?m=coupon_user&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-ticket"></div>
+						<div class="m-navPic-title">红包奖券</div>
+					</div>
+					<div gourl="/index.php?m=html&word=ershou_scgy" class="m-navPic-item">
+						<div class="m-navPic-icon icon-news"></div>
+						<div class="m-navPic-title">市场公约</div>
+					</div>
+					<div gourl="/index.php?m=kefu" class="m-navPic-item">
+						<div class="m-navPic-icon icon-service_light"></div>
+						<div class="m-navPic-title">帮助与客服</div>
+					</div>
+					 
+					
+					<div  gourl="/index.php?m=html&word=ershou_zhaoshang" class="m-navPic-item">
+						<div class="m-navPic-icon icon-vip"></div>
+						<div class="m-navPic-title">认证招商</div>
+					</div>
+					 
+				</div>
+			</div>
+		</div>
+		
+		
+		{assign var="ftnav" value="my"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

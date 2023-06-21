@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	 
+	<div class="header-title">阶梯拼团</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" style="display: none;" :style="'display:block;'"  id="app">
+	<div class="tabs-border">
+		<div @click="setType('')" :class="{'tabs-border-active':type==''}" class="tabs-border-item">全部</div>
+		<div @click="setType('doing')" :class="{'tabs-border-active':type=='doing'}" class="tabs-border-item">进行中</div>
+		<div @click="setType('done')" :class="{'tabs-border-active':type=='done'}" class="tabs-border-item">往期活动</div>
+		<div @click="setType('begin')" :class="{'tabs-border-active':type=='begin'}" class="tabs-border-item">即将开始</div>
+	</div>
+    <div class="flexlist" style="padding-top: 5px;" >
+     
+    	<a v-for="(item,index) in pageData.list" :key="index" class="flexlist-item" :href="'/module.php?m=fsbuy&a=show&fsid='+item.fsid">
+    		 
+    			<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"  />
+    		 
+    		<div class="flex-1">
+    			<div class="flexlist-title">{{item.title}}</div>
+    			<div class="flex flex-ai-center mgb-5">
+    				<span class="cl-money f18">￥{{item.price}}</span> 
+					<div class="flex-1"></div>
+					<div class="cl3">份数：{{item.maxnum}}</div>
+    			</div>
+    			<div class="flexlist-desc">{{item.description}}</div>
+    		</div>
+    	</a>
+    	 
+    </div>
+	<div class="loadMore" v-if="pageData.per_page>0" @click="getList">加载更多</div>
+</div>
+{assign var="ftnav" value="home"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script src="/plugin/vue/vue.min.js"></script>
+<script src="{$skins}fsbuy/index.js"></script>
+</body>
+</html>

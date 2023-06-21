@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	
+	<body>
+		{assign var="tab" value="detail"} 
+		{include file="exue_shop/header.html"}
+		<div class="main-body">
+			<div class="row-box">
+				
+				<div class="row-item-text ">
+					<div class="row-item-icon icon-people"></div>
+					<div class="flex-1">{$shop.nickname}</div>
+				</div>
+				<div class="row-item-text ">
+					<div class="row-item-icon icon-phone_light"></div>
+					<div class="flex-1">{$shop.telephone}</div>
+				</div>
+				<div class="row-item-text mgb-10 ">
+					<div class="row-item-icon icon-location_light"></div>
+					<div class="flex-1">{$shop.address}</div>
+				</div>
+				<div class="d-content">
+					{$shop.content}
+				</div>
+			</div>
+			 
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}exue_shop/show.js"></script>
+	</body>
+</html>

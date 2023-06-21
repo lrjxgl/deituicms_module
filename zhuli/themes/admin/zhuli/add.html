@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	 
+		
+		<div class="shd">活动编辑</div>
+		
+		<div class="main-body">
+		    
+		
+		<form id="form" method='post' action='/moduleadmin.php?m=zhuli&a=save'>
+  <input type='hidden' name='id' style='display:none;' value='{$data.id}' >
+ 
+  <table class="table-add">
+  
+    <tr>
+      <td >名称：</td>
+      <td><input type='text' name='title' id='title' value='{$data.title}' ></td>
+    </tr>
+ 	
+    <tr>
+    	<td>价格</td>
+        <td><input type="text" name="price" value="{$data.price}"></td>
+    </tr>
+    <tr>
+    	<td>市场价格</td>
+        <td><input type="text" name="market_price" value="{$data.market_price}"></td>
+    </tr>
+    <tr>
+		<td>助力金额比</td>
+		<td>
+			<input style="width: 100px;" type="text" name="zlmoney" value="{$data.zlmoney}" /> 分
+		</td>
+    </tr>
+    
+    <tr>
+    	<td>砍价上限</td>
+        <td><input type="text" name="max_zlmoney" value="{$data.max_zlmoney}"></td>
+    </tr>
+    
+    <tr>
+    	<td>助力值范围</td>
+    	<td>
+    		<input type="text" style="width: 60px;" name="zl_min" value="{$data.zl_min}" /> 到
+    		<input type="text" style="width: 60px;" name="zl_max" value="{$data.zl_max}" />
+    	</td>
+    </tr>
+    
+     <tr>
+          <td>开始时间：</td>
+          <td><input type='text' name='starttime' id='starttime' value='{if $data.starttime>0}{$data.starttime|date:Y-m-d H:m:s}{/if}'   ></td>
+        </tr>
+        <tr>
+          <td>结束时间：</td>
+          <td><input type='text' name='endtime' id='endtime' value='{if $data.endtime>0}{$data.endtime|date:Y-m-d H:m:s}{/if}'  ></td>
+        </tr>
+    <tr>
+    	<td>参与人数</td>
+    	<td>
+    		<input type="text" name="tj_user" value="{$data.tj_user}" />
+    	</td>
+    </tr>
+    
+    <tr>
+    	<td>助力人数</td>
+    	<td>
+    		<input type="text" name="tj_num" value="{$data.tj_num}" />
+    	</td>
+    </tr>
+    
+    <tr>
+    	<td>助力金额</td>
+    	<td>
+    		<input type="text" name="tj_money" value="{$data.tj_money}" />
+    	</td>
+    </tr>
+    
+    <tr>
+    	<td width="100">描述：</td>
+        <td>
+        	<textarea name="description" class="w98 h100">{$data.description}</textarea>
+        </td>
+    </tr>
+    
+      <tr>
+    <td align="right">封面图片：</td>
+    <td>
+   <div class="js-upload-item">
+   	<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+   	<div class="upimg-btn js-upload-btn">+</div>
+   	<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+   	<div class="js-imgbox">
+   		{if $data.imgurl}
+   		<img src="{$data.imgurl|images_site}.100x100.jpg">
+   		{/if}
+   	</div>
+   </div>
+      </td>
+  </tr>
+    
+    {if $data}
+    <tr>
+      <td>添加时间：</td>
+      <td>{$data.dateline|date:Y-m-d H:m}</td>
+    </tr>
+    {/if}
+    <tr><td align="right">奖品介绍：</td><td><textarea class="w98 h60" type="text" name="award" id="award" >{$data.award}</textarea></td></tr>
+     <tr><td align="right">参与规则：</td><td><textarea class="w98 h60" type="text" name="ruledesc" id="ruledesc" >{$data.ruledesc}</textarea></td></tr>
+     <tr>
+     	<td>状态：</td>
+     	<td><input type="radio" name="status" value="2" {if $data.status neq 1} checked="checked" {/if} />隐藏 &nbsp;
+     		<input type="radio" name="status" value="1" {if $data.status eq 1} checked="checked" {/if} />显示</td>
+     </tr>
+	 <tr>
+     	<td>内容</td>
+        <td><script name="content" id="content" style="height:300px;" type="text/html">{$data.content}</script></td>
+     </tr>
+    <tr>
+      <td></td>
+      <td>
+      	
+      	<div  id="submit" value="保存" class="btn-row-submit">保存</div>
+      </td>
+    </tr>
+  </table>
+</form>
+</div>
+ <script src="/plugin/laydate/laydate.js"></script>
+ <script>
+ 	laydate.render({
+ 		elem:"#starttime",
+ 		type:"datetime"
+ 	})
+ 	laydate.render({
+ 		elem:"#endtime",
+ 		type:"datetime"
+ 	})
+ </script>
+<script src="/static/admin/js/upload.js"></script>
+ <?php loadEditor();?>
+<script>
+	
+	 var editor=UE.getEditor('content',options)
+</script>
+<script>
+			var ispost=false;
+			$(document).on("click","#submit",function(){
+				if(ispost) return ;
+				ispost=true;
+				setTimeout(function(){
+					ispost=false;
+				},10000)
+				$.post("/moduleadmin.php?m=zhuli&a=save&ajax=1",$("#form").serialize(),function(data){
+					ispost=false;
+					skyJs.toast(data.message);
+					if(!data.error){
+						setTimeout(function(){
+							window.location="/moduleadmin.php?m=zhuli";
+						},1000)
+						
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

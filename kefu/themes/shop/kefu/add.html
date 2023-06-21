@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">添加客服</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=kefu&a=save&ajax=1">
+				<input type="hidden" name="kfid" value="{$kefu.kfid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" class="input-flex-text" name="title" value="{$kefu.title}" />
+					
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">头像</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$kefu.user_head}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$kefu.user_head|images_site}.100x100.jpg" >								 
+							</div>
+							 	
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="user_head" value="{$kefu.user_head}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg" id="upimg" /> 
+						</div> 
+					</div>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

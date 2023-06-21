@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.f-a{
+			width:80px;
+			text-align: center;
+		}
+		
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back" url="/module.php?m=flk_one"></div>
+			<div class="header-title">超级惠详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="none" :class="'flex-col'" v-if="pageLoad">
+			{if $data.videourl}
+			<video  poster="{$data.videobg}" controls="controls" src="{$data.videourl}" class="wmax"></video>
+			{elseif !empty($imgsdata)}
+					 
+			<div class="scale-swiper-box">
+				<div class="swiper-container scale-swiper-container" id="indexFlash">
+					<div class="swiper-wrapper" >
+						{foreach item=c from=$imgsdata}
+						<div class="swiper-slide scale-swiper-slide">
+							<div class="scale-swiper-bgimg" style="background-image: url({$c});"></div>
+							
+						</div>
+						{/foreach}
+					</div>
+					 
+					<div class="swiper-pagination flex flex-jc-center"></div>
+				 
+				</div>
+			</div> 
+			{else}
+			<image src="{$data.imgurl}" class="d-img"></image>
+			{/if}
+			<div class="row-box mgb-5">
+				<div class="d-title mgb-10">{$data.title}</div>
+				<div class="flex flex-ai-center mgb-5">
+					<div class="mgr-5 cl2 f12">活动价</div>
+				
+					<div class="cl-money">￥{{data.one_price}}</div>
+					
+					<div class="flex-1"></div>
+					<div class="mgr-5 cl3 f12">原价</div>
+												
+					<div class="market-price f12">￥{{data.price}}</div>
+				</div>
+				<div class="flex flex-ai-center mgb-5">
+					 
+					<div class="mgr-5 cl2 f12">一折券</div>
+					<div class="cl2 f12">{{data.one_price}}*10%=</div>																
+					<div class="cl-money mgr-5">￥{{data.ez_price}}</div>
+					<div class="cl2 f12">省</div>
+					<div class="cl-money f12">￥{{data.ez_sx_price}}</div>
+					<div class="flex-1"></div>
+					<div class="cl3 f12">库存: {{data.total_num}}</div>
+				</div>
+				 
+				<div class="mgb-5">
+					<div class="cl3 f12">开始时间：{{data.one_stime}}</div> 
+					<div class="cl3 f12">结束时间：{{data.one_etime}}</div>
+				</div>
+				<div class="text-center cl-num">返利率：{{data.one_flk_discount}}%</div> 
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<img :gourl="'module.php?m=flk_shop&shopid='+shop.shopid" class="wh-60 mgr-5" :src="shop.imgurl+'.100x100.jpg'">
+					<div class="flex-1">
+						<div :gourl="'module.php?m=flk_shop&shopid='+shop.shopid"  class="f14 cl1 mgb-5">{{shop.shopname}}</div>
+			
+						<div class="flex-col">
+							<div class="f12 cl2 mgb-5">联系电话：{{shop.telephone}}</div> 
+							<div class="f12 cl2">地址：{{shop.address}}</div>
+						</div>
+						
+					</div>
+					 
+				</div>
+			
+			</div>
+			<div class="tabs-border">
+				<div @click="tab='detail'" :class="{'tabs-border-active':tab=='detail'}" class="tabs-border-item">详情</div>
+				<div @click="tab='queue'" :class="{'tabs-border-active':tab=='queue'}"  class="tabs-border-item">返利进度</div>
+			</div>
+			<div v-if="tab=='detail'"  v-html="data.content" class="row-box d-content"></div>
+			<div v-else>
+				<div v-for="(item,index) in queList" :key="index" class="flexlist-item">
+					<img class="flexlist-img bd-radius-50" :src="item.user_head+'.100x100.jpg'" />
+					<div class="flex-1">
+						<div class="cl2 f12 mgb-5">{{item.nickname}}</div>
+						<div class="flex mgb-5">
+							<div class="cl2 f12">总额</div>
+							<div class="cl-money f12">￥{{item.total_money}}</div>
+							 
+							 
+						</div>
+						<div class="flex">
+							 
+							<div class="cl2 f12">已返</div>
+							<div class="cl-money f12">￥{{item.back_money}}</div>
+							<div class="flex-1"></div>
+							<template v-if="item.money>0">
+							<div class="cl2 f12">待返</div>
+							<div class="cl-money f12">￥{{item.money}}</div>
+							</template>
+							<div class="cl-status" v-else>已完成</div> 
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="h60"></div>
+			<div v-if="canbuy==1" class="footerFix bg-white pd-10">
+				<div class="flex flex-ai-center">
+					<div class="cl-money mgr-5">￥{{total_money}}</div>
+					
+					<div class="flex-1"></div>
+					<div class="cl3 f12 mgr-5">秒杀不支持退货，按时消费</div>
+					<div @click="goBuy" class="btn">立即抢购</div>
+				</div>
+				
+			</div>
+			<div v-else  class="footerFix bg-white pd-10">
+				<div v-if="canbuy==2" class="text-center cl3">活动已结束</div>
+				<div v-else class="text-center cl3">活动还未开始</div>
+			</div>	
+			
+			<div v-if="showBuy">
+				<div @click="showBuy=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">确认抢购</div>
+						<div  @click="showBuy=false"  class="modal-close iconfon icon-close"></div>
+					</div>
+					<form id="oForm">
+						<div>
+							<input type="hidden" name="id" :value="data.id" />
+							<div class="input-flex">
+								<label class="input-flex-label">联系人</label>
+								<input name="nickname" :value="addr.nickname"  class="input-flex-text" type="text">
+							</div>
+							<div class="input-flex">
+								<label class="input-flex-label">电话</label>
+								<input name="telephone" :value="addr.telephone" class="input-flex-text" type="text">
+							</div>
+							 
+							<div class="input-flex">
+								<label class="input-flex-label">抢购协议</label>
+								<div class="flex-1">
+									<div class="cl-red f12 mgb-5">*抢购不支持退货，请按时到店消费，过期报废</div>
+									<div class="cl2 flex f12">
+										<input name="isCheck" value="1" type="checkbox" /> 同意协议
+									</div>
+								</div>
+								
+								
+							</div>
+							
+							<div class="input-flex flex-ai-center">
+								<label class="input-flex-label">一折券</label>
+								<div class="flex" >
+									<input @click="toggleFlk" name="flkid" value="1" type="checkbox" />
+									选择
+								</div>
+								 
+								<div class="flex-1"></div>
+								<div class="cl3 f12">花点时间省</div>
+								<div class="cl-money f12">{{data.ez_sx_price}}</div>
+							</div>
+							<div class="flex flex-center mgb-5">
+								<div @click="showFlk=true" class="pointer cl-red">阅读一折券协议</div>
+							</div>
+							<div class="flex  flex-ai-center">
+								<div class="mgl-5 cl2 f12 mgr-10">返利金库</div>
+								<div class="f12 mgr-10 cl-money">￥{{account_money}}</div>
+								 
+								<label class="mgr-10  cl2 f12">订单金额</label>
+								<div class="f12 cl-money">
+									￥{{total_money}}
+								</div>
+							</div>
+							<div class="flex flex-ai-center">
+								<div class="input-flex-label  mgl-5">还需支付</div>
+								<div class="input-flex-txt cl-money">￥{{pay_money}}</div>
+								 
+							</div>
+							<div class="btn-row-submit" @click="orderSubmit">确认抢购</div>
+						</div>
+					</form>
+				</div>
+				<div v-if="showFlk">
+					<div @click="showFlk=false" class="modal-mask"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">一折卡券说明</div>
+							<div  @click="ksmClass=false"  class="modal-close iconfon icon-close"></div>
+						</div>
+						<div class="modal-body">
+							<div class="f12 cl2 mgb-5" v-for="(item,index) in rules" :key="index">{{item}}</div>
+							 
+							<div class="flex flex-center">
+								<div @click="flkview=1;showFlk=false" class="btn">确定</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		 
+	 
+		<script>
+			var id="{$data.id}"
+		</script>
+		<script src="{$skins}flk_one/show.js"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_link="{$shareLink}";
+			wxshare_title="{$data.title}";
+			wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+		</script>
+	</body>
+</html>

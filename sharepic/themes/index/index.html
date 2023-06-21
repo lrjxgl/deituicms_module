@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">快分享</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div>
+				<canvas id="canvas" width="320" height="400" style=" display: none; border:1px solid #ddd; "></canvas>
+				<img  id="img" style="width: 100%; height: auto;" src="{$skins}img/bg-ewm.png" />
+			</div>
+			 
+			<input type="file" style="display: none;" name="ewm" id="ewm" placeholder="请选择二维码" />
+			<input type="file" style="display: none;"  name="pics" id="pics" placeholder="请选择产品" />
+			<div style="position: fixed; bottom: 55px; left: 0; right: 0;">
+			<div class="btn-group">
+				<div onclick="ewm.click();" class="btn-small mgr-5">上传二维码</div>
+				<div onclick="pics.click()" class="btn-small mgr-5">上传图片</div>
+				<div onclick="getImg()" class="btn-small">生成图片</div>
+			</div>	
+			</div>
+		</div>
+		{include file="footer-nav.html"} 
+		{include file="footer.html"}
+		<script>
+			var eCanvas={
+				pH:0,
+				pW:0,
+				cW:320,
+				ctx:"",
+				el:"#canvas",
+				ewmImg:"",
+				canvas:"",
+				word:"长按识别二维码加微信好友",
+				version:"由得推网提供技术支持",
+				picIndex:0,
+				init:function(){
+					this.canvas=document.querySelector("#canvas");
+					this.ctx=this.canvas.getContext("2d");
+				},
+				down:function(url){
+					var Ea=document.createElement("a");
+					Ea.download="";
+					Ea.href=url;
+					document.body.appendChild(Ea);
+					Ea.click();
+					Ea.remove();
+				},
+				drawWord:function(){
+					this.ctx.fillStyle = '#323232';
+					this.ctx.font="13px  SimSun";
+					this.ctx.fillText(this.word,130,this.pH+48);
+					this.ctx.font="12px SimSun";
+					this.ctx.fillStyle = '#646464';
+					this.ctx.fillText(this.version,130,this.pH+78)
+				},
+				drawEwm:function(){
+					var that=this;
+					var file=that.ewmImg;
+					var reader=new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload=function(ev){
+						var img=new Image();
+						img.src=ev.target.result;
+						img.onload=function(){
+							that.ctx.drawImage(img,20,that.pH+20,80,80);
+							var url=that.canvas.toDataURL("image/png");
+							document.querySelector("#img").src=url;
+							//that.down(url);
+							that.drawPics();
+						}			 					
+					}
+				},
+				drawPics:function(){
+					var that=this;
+					if(this.picIndex==that.pics.length){
+						this.picIndex=0;
+						return ;
+					} 
+					var file=that.pics[this.picIndex];
+					this.picIndex++;
+					
+					var reader=new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload=function(ev){
+						var img=new Image();
+						img.src=ev.target.result;
+						
+						
+						img.onload=function(){
+							var h=img.height*that.cW/img.width;
+							that.canvas.height=h+110;
+							that.ctx.clearRect(0,0,that.cW,that.canvas.height);
+							that.ctx.fillStyle="#ffffff";
+							that.ctx.fillRect(0,0,that.cW,that.canvas.height);
+							that.pW=that.cW;
+							that.pH=h;
+							that.ctx.drawImage(img,0,0,that.cW,h);
+							that.drawWord();
+							that.drawEwm();
+
+							
+						}			 					
+					}
+					
+				}
+			}
+			eCanvas.init();
+			 
+			function getImg(){
+				eCanvas.drawPics();
+				
+			}
+			$(document).on("change","#ewm",function(e){
+				eCanvas.ewmImg=e.target.files[0];
+				 		
+			})
+			$(document).on("change","#pics",function(e){
+				this.picIndex=0;
+				eCanvas.pics=e.target.files;
+				
+			})
+			
+		</script>
+		<script src="{$skins}js/canvas.js?{$smarty.now}"></script>
+	</body>
+</html>

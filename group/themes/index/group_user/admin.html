@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ 
+<body>
+<div class="header">
+		<div class="header-back"></div> 
+		<div class="header-title">主题管理</div>
+		 <a class="header-right-btn" href="/module.php?m=group_user_apply&a=admin&gid={$group.gid}">审核</a>
+	</div>
+	<div class="header-row"></div>	
+ 
+<div class="main-body">
+	<div class="tabs-border">
+		<a class="tabs-border-item {if !get('isforbid')}tabs-border-active{/if}" href="/module.php?m=group_user&a=admin&gid={$group.gid}">全部</a>
+		<a class="tabs-border-item {if get('isforbid')}tabs-border-active{/if}" href="/module.php?m=group_user&a=admin&gid={$group.gid}&isforbid=1">禁言</a>
+		<a class="tabs-border-item {if get('isadmin')}tabs-border-active{/if}" href="/module.php?m=group_user&a=admin&gid={$group.gid}&isadmin=1">管理员</a> 
+	</div> 
+ 	<div class="flexlist">
+ 		{foreach item=c from=$data}
+ 			<div class="flexlist-item">
+ 				<img class="flexlist-img" src="{$c.user_head|images_site}.100x100.jpg">
+	 			<div class="flex-1">
+	 				<div class="flexlist-title">{$c.nickname}</div>
+	 				<div class="flex">
+	 					<span class="cl2 mgr-5">主题数</span> 
+						<span class="cl2 mgr-5">{$c.topic_num}</span>    
+	 					<span class="cl2 mgr-5">评论数</span> 
+						<span class="cl2 mgr-5">{$c.comment_num}</span>
+						<div class="flex-1"></div>
+	 					{if $c.status neq 4}
+	 					<a href="javascript:;" gid="{$c.gid}" userid="{$c.userid}" class="cl-danger mgr-5 js-user-forbid">禁言</a> 
+	 					{else}
+	 					<a href="javascript:;" gid="{$c.gid}" userid="{$c.userid}" class="cl-primary mgr-5 js-user-pass">取消禁言</a>
+	 					{/if}
+	 					{if $c.isadmin}
+	 					<a href="javascript:;" gid="{$c.gid}" userid="{$c.userid}" class="cl-primary mgr-5 js-user-admin">取消管理</a>
+	 					{else}
+	 					<a href="javascript:;" gid="{$c.gid}" userid="{$c.userid}" class="cl-primary mgr-5 js-user-admin">设为管理</a>
+	 					{/if}
+	 					<a href="javascript:;" gid="{$c.gid}" userid="{$c.userid}"  class="cl-primary mgr-5 js-user-delete">删除</a>
+	 				</div>
+ 				</div> 
+ 			</div>
+ 		{/foreach}
+ 	</div>
+</div>
+{include file="admin_footer.html"}
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-user-admin",function(){
+		var userid=$(this).attr("userid");
+		var gid=$(this).attr("gid");
+		$.get("/module.php?m=group_user&a=setAdmin&ajax=1&userid="+userid+"&gid="+gid,function(data){
+			skyJs.toast(data.message);
+		},"json")
+	})
+</script>
+</body>
+</html>

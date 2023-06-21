@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">账户列表</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>shopid</td>
+						 
+						<td>title</td>
+						<td>description</td>
+						 
+					 
+						<td>money</td>
+						<td>total_money</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.shopid}</td>
+					 
+					<td>{$c.title}</td>
+					<td>{$c.description}</td>
+					 
+					
+					<td>{$c.money}</td>
+					<td>{$c.total_money}</td>
+					<td> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=bill_shop&a=delete&ajax=1&shopid={$c.shopid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

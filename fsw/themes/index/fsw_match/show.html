@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+		.tr-a{
+			background-color: #f30;
+			height: 40px;
+			margin-bottom: 5px;
+		}
+		.tr-a div{
+			height: 40px;
+			line-height: 40px;
+			color:#fff;
+			font-weight: 600;
+			
+		}
+		.tr-b{
+			margin-bottom: 5px;
+		}
+		.tr-b div{
+			height: 40px;
+			line-height: 40px;
+			color: #f30;
+			font-weight: 600;
+			font-size: 16px;
+			 
+		}
+		.td-a{
+			width: 60px;
+			text-align: center;
+		}
+		.td-f{
+			flex: 1;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+		.td-b{
+			width: 80px; 
+			text-align: center;
+		}
+		.td-c{
+			width: 80px;
+			text-align: center;
+		}
+		.pic{
+			width: 35px;
+			height: 35px;
+			border-radius: 50%;
+			margin-right: 5px;
+		}
+	</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">{$data.title}</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box mgb-5">
+    	<img src="{$data.imgurl}" class="d-img mgb-5" />
+    	<div class="d-title">{$data.title}</div>
+		<div class="flex mgb-5">
+			<div class="cl2 flex-1">地址：{$data.address}</div>
+			<div class="cl2">联赛积分：</div>
+			<div class="cl-num">{$data.grade}</div>
+			 
+		</div> 
+    	<div class="d-desc">{$data.description}</div>
+    </div>
+	<div class="tabs-border-group">
+		<div class="tabs-border">
+			<div class="tabs-border-item tabs-border-active js-tabs-border-item">比赛列表</div>
+			<div class="tabs-border-item js-tabs-border-item">积分榜</div>
+			<div class="tabs-border-item js-tabs-border-item"">联赛介绍</div>
+		</div>
+		<div class="tabs-border-box tabs-border-box-active">
+			 
+			<div class="sglist">
+				{foreach item=c from=$actList}
+				<div gourl="/module.php?m=fsw_activity&a=show&actid={$c.actid}" class="sglist-item pointer">
+					<img class="sglist-img" :src="item.imgurl+'.middle.jpg'" />
+					<div class="sglist-title">{$c.title}</div>
+					<div class="flex mgb-5">
+						<div class="mgr-5 cl2">比赛日期</div>
+						<div class="cl-num">{$c.sday}</div>
+						<div class="flex-1"></div>
+						<div class="cl-status">{$c.atype_title}</div>
+					</div>
+					<div class="sglist-desc">{$c.description}</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		<div class="row-box tabs-border-box">
+			<div class="row-box">
+				<div class="flex tr-a">
+					<div class="td-a">排名</div>
+					<div class="td-f">用户</div>
+					<div class="td-b">联赛积分</div>
+					<div class="td-c">参赛次数</div>
+				</div>
+				{foreach item=c key=k from=$phList}
+				<div  class="flex tr-b">
+					<div class="td-a">{$k+1}</div>
+					<div class="td-f">
+					<img src="{$c.user_head}.100x100.jpg" class="pic" />
+					{$c.nickname}</div>
+					<div class="td-b">{$c.grade}</div>
+					<div class="td-c">{$c.join_num}</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		<div class="row-box tabs-border-box">
+			<div class="d-content">{$data.content}</div>
+		</div>
+		
+	</div>
+	
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

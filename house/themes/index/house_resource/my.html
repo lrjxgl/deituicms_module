@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的房源</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    <div class="list">
+    	{foreach item=c from=$list}
+    	<div class="sglist-item js-item">
+    		<div class="sglist-title">{$c.description}</div>
+    		 
+    		<div class="sglist-imglist">
+    			{foreach item=img from=$c.imgslist}
+    			<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+    			{/foreach}
+    		</div>
+			<div class="flex">
+				<div class="mgr-10 cl2">总价</div>
+				<div class="mgb-5 cl-money">￥{$c.total_money}</div>
+				<div class="cl2">万元</div>
+			</div>  
+    		<div class="flex flex-jc-center mgt-5">
+    			<div gourl="/module.php?m=house_resource&a=show&id={$c.id}" class="btn-small mgr-10">查看</div>
+    			<div class="btn-small mgr-10" gourl="/module.php?m=house_resource&a=add&id={$c.id}">编辑</div>
+    			<div class="btn-small btn-danger js-delete" url="/module.php?m=house_resource&a=delete&id={$c.id}&ajax=1">删除</div>
+    		</div>
+    	</div>
+    	{/foreach}
+    </div> 
+    
+</div>
+{include file="footer.html"}
+
+</body>
+</html>

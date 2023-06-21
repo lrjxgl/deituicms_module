@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body class="bg-ef">
+		<div class="main-body">
+			<div class="mgb-10 pdt-10 f16">{$line.title}：： {if $stype eq 1}起点{else}终点{/if}线路</div>
+			<div id="App">
+				<div class="row-box mgb-10">
+				<div class="flex flex-ai-center">
+					<div class="mgr-5">
+						名称：
+					</div>
+					<input class="mgr-10" v-model="addr" type="text" name="addr" />
+					<div class="mgr-5">价格</div>
+					<input class="mgr-10" v-model="price" type="text" name="price" />
+					<input type="hidden" v-model="lat" />
+					<input type="hidden" v-model="lng" />
+					<div @click="setMap" class="mgr-10 pointer">位置</div>
+					<div @click="add" class="btn">添加</div>
+				</div>
+				
+				</div>
+				
+				<div v-if="showMap">
+					<div @click="showMap=false" class="modal-mask"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">选择位置</div>
+							<div  @click="showMap=false" class="modal-close icon-close"></div>
+						</div>
+						<iframe id="mapFrame" style="border: 0;width:100%;height:400px;" :src="mapUrl"></iframe>
+					</div>
+				</div>
+				
+				<div class="row-box">
+					<div class="mgb-10" v-for="(item,index) in list" :key="index">
+						<div class="flex">
+							<div class="mgr-10">编号:{{item.addrid}}</div>
+							<div  class="mgr-10">{{item.addr}}</div>
+							<div class="cl-money">{{item.price}}元</div>
+							<div class="flex-1"></div>
+							<div @click="viewMap(item)" class="mgr-10 pointer">位置</div>
+							<div @click="del(item.addrid)" class="pointer cl-danger">删除</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var App;
+			var lineid="{$line.lineid}";
+			var stype={$stype};
+			function setMap(lat,lng){
+				console.log(lat,lng)
+				App.$data.lat=lat;
+				App.$data.lng=lng;
+			}
+		</script>
+		<script src="{$skins}pinche_line_addr/line.js?v=3"></script>
+	</body>
+</html>

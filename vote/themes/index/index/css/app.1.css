@@ -1,0 +1,268 @@
+
+.vbanner img {
+	width: 100%;
+}
+
+.vstat .item {
+	width: 33.33%;
+	margin: 10px 0px;
+	float: left;
+	text-align: center;
+	font-weight: 600;
+	border-right: 1px solid #eee;
+	margin-left: -1px;
+}
+
+.vstat .item .a1 {
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+.vrow {
+	border-bottom: 1px solid #eee;
+	line-height: 25px;
+	padding: 6px 0px;
+	font-size: 14px;
+	flex-direction: row;
+}
+
+.vrow .iconfont {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.vrow .icon-hottopic {
+	color: #E01518;
+}
+
+.vrow .icon-time {
+	color: #f90;
+}
+
+.vrow .icon-desc {
+	color: #17CB63;
+}
+
+.vrow .icon-jiangbei {
+	color: #E12D30;
+}
+.vrow .box img{
+	max-width: 100% !important;
+	height: auto !important; 
+}
+.vtitle {
+	border-top: 1px solid #eee;
+}
+
+.vtoggle .hd {
+	height: 30px;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.vtoggle .vtoggle-icon {
+	float: right;
+}
+
+.vtoggle .box {
+	display: none;
+	width: inherit;
+	color: #999;
+	font-size: 14px;
+	border-top: 1px solid #eee;
+	padding: 5px 16px;
+	 
+	box-sizing: border-box;
+	background-color: #fff;
+}
+
+.vtoggle .icon-fold {
+	display: none;
+}
+
+.vtoggle.von .icon-unfold {
+	display: none;
+}
+
+.vtoggle.von .icon-fold {
+	display: block;
+}
+
+.vtoggle.von .box {
+	display: block;
+}
+.vdesc img{
+	max-width: 100%;
+	height: auto !important; 
+}
+.vsearch {
+	position: relative;
+	margin-bottom: 10px;
+}
+
+.vsearch .a1 {
+	width: 100%;
+	float: left;
+}
+
+.vsearch .a1 .a1c {
+	margin-right: 60px;
+}
+
+.vsearch .a2 {
+	width: 60px;
+	float: right;
+	margin-left: -60px;
+}
+
+.vsearch input {
+	display: block;
+	width: 100%;
+	height: 40px;
+}
+
+.vsearch button {
+	background-color: #f60;
+	color: #fff;
+	display: block;
+	width: 60px;
+	height: 42px;
+	color: #666;
+	border-left: 0px;
+	color: #fff;
+	border-radius: 5px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
+	border: 1px solid #aaa;
+	cursor: pointer;
+}
+
+.vlist {}
+
+.vlist .item {
+	width: 50%;
+	float: left;
+	background-color: #eee;
+}
+
+.vlist .item .pd {
+	padding: 3px 5px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.vlist .item .pd .bg {
+	background-color: #fff;
+	padding-top: 10px;
+}
+
+.vlist .item .img {
+	margin-bottom: 5px;
+}
+
+.vlist .item .title {
+	font-size: 16px;
+	padding: 5px 0px;
+	margin-bottom: 10px;
+}
+
+.vlist .item .row-num {
+	height: 30px;
+	padding-left: 5px;
+}
+
+.vlist .item .btn {
+	height: 25px;
+	line-height: 25px;
+	margin-right: 6px;
+	float: left;
+}
+
+.vlist .item .num {
+	display: inline-block;
+	font-size: 16px;
+	color: #D30C3E;
+}
+
+.phtable {
+	width: 100%;
+	border-collapse: collapse;
+	border: 0px;
+	border-spacing: 0;
+}
+
+.phtable th {
+	background-color: #f0f0f0;
+	height: 30px;
+	color: #000;
+	text-align: center;
+	border: 1px solid #eee;
+}
+
+.phtable td {
+	background-color: #fafafa;
+	height: 30px;
+	color: #666;
+	text-align: center;
+	border: 1px solid #eee;
+}
+
+.hdsm {
+	text-align: center;
+	padding: 10px 0px;
+	font-size: 14px;
+}
+
+.vjform .hd {
+	height: 40px;
+	line-height: 40px;
+	font-size: 1.4em;
+	background-color: #eee;
+	padding-left: 10px;
+}
+
+.vjform .vjtable {
+	width: 100%;
+}
+
+.vjform .vjtable .a1 {
+	padding: 0px 6px;
+	width: 40px;
+}
+
+.vjform .vjtable td {
+	height: 40px;
+}
+
+.vjform .vjtable td input {
+	height: 30px;
+	width: 90%;
+}
+
+.vjform .vjtable td textarea {
+	height: 60px;
+	width: 90%;
+	padding-top: 5px;
+}
+
+.vrulebox .hd {
+	height: 40px;
+	line-height: 40px;
+	font-size: 1.4em;
+	background-color: #eee;
+	text-align: center;
+}
+
+.vrulebox .box {
+	padding: 10px;
+	width: inherit;
+}
+
+.vcontent {
+	padding: 10px;
+}
+
+.vcontent img{
+	max-width: 100% !important;
+	height: auto !important;
+}

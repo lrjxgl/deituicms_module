@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">拼车设置</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=pinche_config&a=save&ajax=1">
+			<table class="table-add">
+				<tr>
+					<td>平台抽成</td>
+					<td>
+						<input type="text" class="w100" value="{$data.site_per_money}" name="site_per_money" />%
+					</td>
+				</tr>
+				<tr>
+					<td>邀请奖赏</td>
+					<td>
+						<input type="text"  class="w100" value="{$data.invite_per_money}" name="invite_per_money" />%
+					</td>
+				</tr>
+				<tr>
+					<td>支付方式</td>
+					<td>
+						<input type="radio" {if $data.retype==0}checked{/if} name="retype" value="0" /> 后支付
+						<input type="radio" {if $data.retype==1}checked{/if}  name="retype" value="1" /> 预支付
+						
+					</td>
+				</tr>
+				<tr>
+					<td>白天时段</td>
+					<td>
+						<input type="text" name="bai_time" class="w100" value="{$data.bai_time}" />(格式：06:00-18:00)
+					</td>
+				</tr>
+				
+			</table>
+			<div class="btn-row-submit js-submit">保存</div>
+			</form>
+			{include file="footer.html"}
+		</div>
+	</body>
+</html>

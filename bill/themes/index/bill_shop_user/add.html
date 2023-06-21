@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">新增成员</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=bill_shop_user&a=save">
+				<input type="hidden" name="suid" style="display:none;" value="{$data.suid}">
+				<input type="hidden" name="shopid" value="{$shop.shopid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名字</div>
+					<input type="text" name="title" class="input-flex-text" />
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">简介</div>
+					<textarea class="textarea-flex-text h100" name="description"></textarea>
+				</div>	
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

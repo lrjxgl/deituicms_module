@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的进度</h1>
+</header>
+<div class="mui-content">
+	<div class="flex-col pd-10 bg-fff">
+	{foreach item=c from=$list}
+ 
+		<div class="mgb-10 pdb-10 bdb" >
+		<div class="flex"> 
+			<div class="flex-1" gourl="/index.php?m=shop_product_item_log&a=show&id={$c.id}">{$c.title}</div>
+			<div class="f12 cor-danger">from: {$c['item']['title']}</div>
+		</div>
+		<div class="flex">
+			<span class="flex-1 mgr-10 cor3 f12">{$c.timeago}</span>
+			<span class="f12 cor-success mgr-10">{$c.status_name}</span>
+			<a class="btn-mini btn-outline-primary" href="/index.php?m=shop_product_item_log&a=add&id={$c.id}&productid={$c.productid}">编辑</a>
+		</div>
+		</div>
+		 
+	
+	{/foreach}
+	</div>
+	 
+     
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

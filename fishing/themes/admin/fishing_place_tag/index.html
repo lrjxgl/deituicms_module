@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">钓点标签</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>placeid</td>
+   <td>名称</td>
+   <td>createtime</td>
+   <td>grade</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.placeid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.grade}</td>
+   <td>{$c.status}</td>
+<td> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fishing_place_tag&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

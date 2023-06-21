@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width: 100%;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div url="/module.php?m=forum" class="header-back"></div>
+			<div class="header-title">详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body pd-10 bg-fff mgb-10">
+			<div class="d-userbox">
+				<image gourl="/module.php?m=forum_home&userid={$author.userid}" class="d-userbox-head" src="{$author.user_head}.100x100.jpg"></image>
+				<div class="flex-1">
+					<div gourl="/module.php?m=forum_home&userid={$author.userid}"  class="d-userbox-nick">{$author.nickname}</div>
+					<div class="d-userbox-follows flex-ai-center">
+						<text>粉丝</text>
+						<text class="cl-num mgr-5 ">{$author.followed_num}</text>
+						<text>关注</text>
+						<text class="cl-num">{$author.follow_num}</text>
+						 
+					</div>
+				</div>
+				<div class="btn-small btn-outline-success js-follow-toggle" data-userid="{$author.userid}">{if $author.isFollow}已{/if}关注</div>
+			</div>
+			<div class="d-title">{$data.title}</div>
+			<div class="d-tools">
+				<div class="cl2 f12 mgr-5">来自 </div>
+				<div gourl="/module.php?m=forum&a=list&gid={$group.gid}" class="cl2 f12 mgr-10">{$group.title}</div> 
+				<div class="cl2 f12">{$data.timeago}</div>
+				
+				
+				<div class="flex-1"></div>
+				{if $data.isrecommend}
+				<div class="bc-recommend mgr-10">
+					荐
+				</div>
+				
+				{/if}
+				{if $data.gold}
+				<div class="cl-num">赏金 {$data.gold}</div>
+				{/if}
+			</div>
+			{if $data.videourl!=''}
+			<video 
+				src="{$data.videourl}" 
+				x5-playsinline="true"
+				x-webkit-airplay="true"
+				 playsinline="true" 
+				 webkit-playsinline="true" 
+			 class="video" controls="controls" autoplay=""></video>
+			{/if}
+			<div class="d-content">{$data.content}</div>
+			<div class="flex-center mgb-10">
+				{foreach item=c from=$imgslist}
+				<img src="{$c}" class="wmax mgb-5" />
+				{/foreach}
+			</div>
+			<div class="flex flex-center mgb-10">
+				<div class="btn-love js-love-toggle {if $islove}btn-love-active{/if} mgr-10" tablename="mod_forum" objectid="{$data.id}">
+					喜欢
+				</div>
+
+				<div class="btn-fav js-fav-toggle {if $isfav}btn-fav-active{/if} mgr-10" tablename="mod_forum" objectid="{$data.id}">收藏</div>
+
+			</div>
+			{if $isadmin}
+			<div class="flex flex-center">
+				{if !$data.isrecommend}
+				<div id="adminRecommend" class="btn-mini js-admin-btn btn-outline-success mgr-10">推荐</div>
+				{/if}
+				<div id="adminDel" class="btn-mini js-admin-btn btn-outline-danger mgr-10">删除</div>
+				<!--
+				<div title="拉黑作者" v="blackList" class="btn-mini js-admin-btn btn-outline-warning mgr-10">拉黑</div>
+				<div title="禁言" v="forbidPost" class="btn-mini js-admin-btn btn-outline-warning mgr-10">禁言</div>
+				-->
+			</div>
+			{/if}
+		</div>
+		<div class="main-body">
+			{include file="inc/comment.html"}
+		</div>
+		
+		<a href="/module.php?m=forum&a=add&gid={$data.gid}&catid={$data.catid}" class="fixedAdd">发布</a>
+		
+		{include file="footer.html"}
+		
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}inc/comment.js?{const.JS_VERSION}"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+		<script>
+			setTimeout(function(){
+				$.get("/module.php?m=forum&a=addclick&id={$data.id}&ajax=1")
+			},3000);
+			
+		</script>
+		<script>
+			var id="{$data.id}"
+		</script>
+		<script src="{$skins}forum/show.js"></script>
+		<script src="/static/js/login.vue.js"></script>
+		<script src="/static/js/login.app.js"></script>
+		
+	</body>
+</html>

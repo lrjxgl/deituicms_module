@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">司机信息</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<form action="/sender.php?m=household_sender&a=save&ajax=1">
+				<div class="input-flex">
+					<div class="input-flex-label">姓名</div>
+					<div class="input-flex-txt" >{$driver.truename}</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">身份证</div>
+					<div class="input-flex-txt" >{$driver.userno}</div>
+				</div> 
+				<div class="input-flex">
+					<div class="input-flex-label">车牌号</div>
+					<div class="input-flex-txt" >{$driver.carno}</div>
+				</div>
+				 <div class="input-flex">
+				 	<div class="input-flex-label">车辆照片</div>
+				 	<div class="flex-1" >
+						<img src="{$driver.carpic}.small.jpg" class="w300" />
+						
+					</div>
+				 </div> 
+				<div class="input-flex">
+					<div class="input-flex-label">简介</div>
+					<input type="text" class="input-flex-text" value="{$driver.description}"  name="description" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">地址</div>
+					<input type="text" class="input-flex-text" value="{$driver.address}"  name="address" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<div class="input-flex-txt" >{$driver.telephone}</div>
+				</div>
+				
+				<!-- 
+				<div class="btn-row-submit js-submit">保存</div>
+				-->
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

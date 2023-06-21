@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	
+	<body>
+		{assign var="tab" value="home"} 
+		{include file="exue_shop/header.html"}
+		<div class="main-body">
+
+			
+
+			<div>
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=exue_blog&a=show&id={$c.id}" class="sglist-item">
+					
+					<div class="sglist-title">{$c.content}</div>
+					{if $c.imgslist}
+					<div class="sglist-imglist">
+						{foreach item=p from=$c.imgslist} 
+						<img  src="{$p}.100x100.jpg" class="sglist-imglist-img" />
+						{/foreach}
+					</div>
+					{/if}
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{$c.love_num}</div>
+						<div class="sglist-ft-cm">{$c.comment_num}</div>
+						<div class="sglist-ft-view">{$c.view_num}</div>
+					</div> 
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}exue_shop/show.js"></script>
+		 
+	</body>
+</html>

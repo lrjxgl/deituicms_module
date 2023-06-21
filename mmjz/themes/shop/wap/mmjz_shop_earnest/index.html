@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">保证金</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="cl2">您的保证金：</div>
+					<div class="cl-money">￥{{data.money}}元</div>
+					<div class="flex-1"></div>
+					<div gourl="/moduleshop.php?m=mmjz_shop_earnest&a=out" class="btn-mini btn-outline-warning">申请取出</div>
+				</div>
+			</div>
+			<div class="row-box">	
+				<div class="pd-10 cl3">缴纳保证金可以让客户优先选择您，缴纳的保证金金额越大~</div>
+				<div class="radioList-group">
+					
+					<div class="radioList">
+					 
+							<div  v-for="(item,index) in moneyList"  
+								:key="index" 
+								@click="money=item"
+								:class="money==item?'radioList-item-active':''"
+								class="radioList-item">￥{{item}}</div>
+					 
+					</div>
+				</div>
+				 
+				<div @click="save" class="btn-row-submit">缴纳保证金</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}mmjz_shop_earnest/index.js"></script>
+		 
+	</body>
+</html>

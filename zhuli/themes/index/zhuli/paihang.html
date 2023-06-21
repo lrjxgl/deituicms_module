@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="header">
+		<div class="header-back"></div>
+		<div class="header-title">助力砍价</div>
+	</div>
+	<div class="header-row"></div>
+	<div class="main-body">
+    <div class="zlph-hd">
+        <div class="tp">Top {$data.max_win}</div>
+        <div class="r-num">助力人数 <span class="num">{$data.total_num}</span></div>
+    </div>
+    <table class="zlph-table">
+    	<thead>
+        	<tr>
+            	<th>名次</th>
+                <th>姓名</th>
+                <th>手机</th>
+                <th>助力</th>
+            </tr>
+        </thead>
+        <tbody>
+        	{foreach item=c key=k from=$phlist}
+        	<tr>
+            	<td>{$key+1}</td>
+                <td>{$c[user].nickname}</td>
+                <td>{$c[user].telephone}</td>
+                <td>{$c.zlmoney}</td>
+            </tr>
+            {/foreach}
+        </tbody>
+    	
+    </table>
+
+</div>
+{assign var="mfooter" value="paihang"}
+{include file="footer.html"}
+</body>
+</html>

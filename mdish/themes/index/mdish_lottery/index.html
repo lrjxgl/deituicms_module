@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.mhead{
+		width:30px;
+		height: 30px;
+		margin: 5px;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-title">天天抽奖</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="tabs-border">
+		<div gourl="/module.php?m=mdish_lottery" class="tabs-border-item tabs-border-active">今日抽奖</div>
+		<div gourl="/module.php?m=mdish_lottery&a=tomorrow" class="tabs-border-item">明日预购</div>
+		<div gourl="/module.php?m=mdish_lottery_win" class="tabs-border-item">昨日中奖</div>
+		<div gourl="/module.php?m=mdish_lottery&a=history" class="tabs-border-item">历史抽奖</div>
+	</div>
+	{foreach item=c from=$list}
+	<div class="flexlist-item">
+		<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" />
+		<div class="flex-1">
+			<div class="flexlist-title mgb-5">{$c.title}</div>
+			<div class="flex mgb-5">
+				<div class="mgr-5 f14 cl2">价值</div>
+				<div class="cl-money">￥{$c.price}</div>
+			</div>
+			<div class="flex flex-ai-center mgb-5">
+				<div class="iconfont f12 cl2 icon-shop"></div>
+				<div class="cl2 f12">{$c.shop.title}</div>
+			</div>
+			<div class="flexlist-desc">{$c.description}</div>
+		</div>
+		<div class="cl-num f14">{$c.status_name}</div>
+	</div>
+	{/foreach}
+	{if !empty($joinList)}
+	<div  class="row-box mgb-5">
+		<div class="row-item-text mgb-5 icon-love">
+			<div class="iconfont icon-like cl-red"></div>
+			<div class="row-item-title cl-red">参与抽奖的朋友</div>
+		</div>
+		<div class="flex flex-wrap">
+			{foreach item=c from=$joinList}
+			<div>
+				<img class="mhead" src="{$c.user_head}.100x100.jpg" />
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	{/if}
+	{if $isJoin}
+	<div class="emptyData">你已经参与抽奖了，请等待开奖</div>
+	{else}
+	<div class="row-box">
+		<div>
+			<div class="fwb">收货地址</div>
+			<div class="input-flex">
+				<label class="input-flex-label">联系人</label>
+				<input id="addr-nickname" value="{$addr.nickname}" class="input-flex-text" type="text">
+			</div>
+			<div class="input-flex">
+				<label class="input-flex-label">电话</label>
+				<input id="addr-telephone" value="{$addr.telephone}" class="input-flex-text" type="text">
+			</div>
+			<div class="input-flex">
+				<label class="input-flex-label">地址</label>
+				<input id="addr-address" value="{$addr.address}" class="input-flex-text" type="text">
+			</div>
+			<div class="btn-row-submit js-buy-submit">确认参团</div>
+		</div>
+	</div>
+	{/if}
+</div>
+{assign var="ftnav" value="lottery"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-buy-submit",function(){
+		var nickname=$("#addr-nickname").val();
+		var telephone=$("#addr-telephone").val();
+		var address=$("#addr-address").val(); 
+		$.ajax({
+			url:"/module.php?m=mdish_lottery_join&a=save&ajax=1",
+			dataType:"json",
+			type:"POST",
+			data:{
+				nickname:nickname,
+				telephone:telephone,
+				address:address
+			},
+			success:function(res){
+				skyToast(res.message);
+				if(res.error){
+					
+					return false;
+				}
+				window.location.reload();
+			}
+		})
+	})
+</script>
+</body>
+</html>

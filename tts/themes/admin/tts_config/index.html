@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">基本设置</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=tts_config&a=save">
+				 
+				<table class="table-add">
+					<tr>
+						<td>语音平台：</td>
+						<td>
+							<select name="com">
+								<option value="">请选择</option>
+								{foreach item=c from=$comList}
+								<option {if $data.com eq $c.key}selected{/if} value="{$c.key}">{$c.val}</option>
+								{/foreach}
+							</select>
+							
+						</td>
+					</tr>
+					 
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

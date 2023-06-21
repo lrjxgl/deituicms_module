@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>orderid：</td><td>{$data.orderid}</td></tr>
+  <tr><td>用户：</td><td>{$data.userid}</td></tr>
+  <tr><td>用户2：</td><td>{$data.shopid}</td></tr>
+  <tr><td>动物id：</td><td>{$data.animalid}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+  <tr><td>订单金额：</td><td>{$data.money}</td></tr>
+  <tr><td>可返金额：</td><td>{$data.back_money}</td></tr>
+  <tr><td>创建时间：</td><td>{$data.createtime}</td></tr>
+  <tr><td>content：</td><td>{$data.content}</td></tr>
+  <tr><td>动物编号：</td><td>{$data.animal_no}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

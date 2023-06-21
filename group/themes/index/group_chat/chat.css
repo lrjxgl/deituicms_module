@@ -1,0 +1,109 @@
+.msgnote{
+	position: fixed;
+	top: 50px;
+	left: 50%;
+	background-color: #000;
+	width: 200px;
+	margin-left: -100px;
+	text-align: center;
+	line-height: 40px;
+	color: #efefef;
+	z-index: 999;
+	opacity: 0;
+} 
+.msglist{
+ 	overflow: hidden;
+	position: absolute;
+	top: 45px;
+	bottom: 50px;
+	left: 0px;
+	right: 0px;
+	background-color: #fff;
+} 
+
+.msglist .item{
+	border-bottom: 1px solid #eee;
+	display: flex;
+ 	margin-bottom: 5px;
+ 	padding: 5px;
+}
+.msglist .item:after{
+	display: block;
+	clear: both;
+	content: ".";
+	height: 0;
+	visibility: hidden;
+}
+ 
+.msglist .item .user_head{
+	width: 60px;
+	text-align: center;
+}
+.msglist .item .user_head img{
+	width: 50px;
+}
+.msglist .item .nick{
+	color: #666;
+	line-height: 20px;
+	font-size: 12px;
+}
+.msglist .item .flex-1{
+	flex: 1;
+}
+.msglist .item  .time{
+	line-height: 20px;
+	color: #666;
+	font-size: 12px;
+}
+.msglist .item .content{
+	padding: 5px;
+	margin-bottom: 5px;
+	color: #888;
+	font-size: 14px;
+}
+.sayInput{
+	position: absolute;
+	bottom: 5px;
+	left: 3px;
+	right: 3px; 
+}
+.fixInput{
+	position: absolute;
+	display: block;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	bottom: inherit;
+	background-color: #fff;
+	z-index: 999;
+}
+.flexinput{
+	display: flex;
+ 	
+}
+.flexinput input{
+	display: block;
+	flex: 1;
+	border: 1px solid #aaa;
+	border-radius: 0;
+	box-sizing: border-box;
+	float: left;
+	height: 40px;
+	border-right: 0px;
+	margin: 0;
+}
+.flexinput .btns{
+	width: 60px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	border: 1px solid #aaa;
+	box-sizing: border-box;
+	cursor: pointer;
+	background-color: rgba(24, 169, 24, 0.82);
+    color: #fff;
+}
+
+.js-bigimg{
+	cursor: pointer;
+}

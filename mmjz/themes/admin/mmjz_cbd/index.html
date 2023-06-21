@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+
+		<div class="tabs-border">
+		 <a class="item active" href="/moduleadmin.php?m=mmjz_cbd">商圈列表</a>
+		 <a class="item" href="/moduleadmin.php?m=mmjz_cbd&a=add">添加商圈</a> 
+		</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+				<tr>
+					<td>id</td>
+					<td>名称</td>
+
+					<td>图片</td>
+					<td>排序</td>
+					<td>状态</td>
+					<td>操作</td>
+				</tr>
+				</thead>
+				{foreach item=c from=$data}
+				<tr>
+					<td>{$c.cbdid}</td>
+					<td>{$c.title}</td>
+
+					<td><img src="{$c.imgurl|images_site}.100x100.jpg" width="30" /></td>
+					<td>{$c.orderindex}</td>
+					<td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=mmjz_cbd&a=status&cbdid={$c.cbdid}&ajax=1" ></div></td>
+					<td>
+						<a href="/moduleadmin.php?m=mmjz_cbd_shop&cbdid={$c.cbdid}">店铺管理</a>
+						<a href="/moduleadmin.php?m=mmjz_cbd&a=add&cbdid={$c.cbdid}">编辑</a> 
+						<a target="_blank" href="/module.php?m=mmjz_cbd&a=show&cbdid={$c.cbdid}">查看</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=mmjz_cbd&a=delete&cbdid={$c.cbdid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

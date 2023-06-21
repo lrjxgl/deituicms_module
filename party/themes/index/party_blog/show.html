@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width: 100%;
+		}
+	</style>
+	<body>
+		<div class="header-back-fixed goBack" style="z-index: 999;"></div>
+	 
+		<div class="main-body pd-10 bg-fff mgb-10">
+			<div class="d-userbox">
+				<image gourl="/module.php?m=party_home&userid={$author.userid}" class="d-userbox-head" src="{$author.user_head}.100x100.jpg"></image>
+				<div class="flex-1">
+					<div class="d-userbox-nick">{$author.nickname}</div>
+					<div class="mgb-5 d-userbox-follows flex-ai-center">
+						<text class="mgr-5">粉丝</text>
+						<text class="cl-num mgr-5 ">{$author.followed_num}</text>
+						<text class="mgr-5">关注</text>
+						<text class="cl-num">{$author.follow_num}</text>
+						
+						
+					</div>
+					<div class="flex">
+						<div class="f12  cl3 mgr-10">{$data.timeago} </div>
+						{if $party}
+						<div class="cl3 f12 mgr-5">发布于</div>
+						<div gourl="/module.php?m=party&a=show&id={$party.id}" class="f12 cl-primary pointer">{$party.title}</div>
+						{/if}
+					</div>
+					 
+				</div>
+				<div class="btn-small btn-outline-success js-follow-toggle" data-userid="{$author.userid}">{if $author.isFollow}已{/if}关注</div>
+			</div>
+		 
+			
+			{if $data.mp4url}
+			<div>
+				<video autoplay="autoplay" controls="controls" class="video" src="{$data.mp4url}"></video>
+			</div>
+			{/if}
+			<div class="d-content block">{$data.content}</div>
+			<div class="flex-center mgb-10">
+				{foreach item=c from=$imgslist}
+				<img src="{$c}" class="wmax mgb-5" />
+				{/foreach}
+			</div>
+			<div class="flex flex-center mgb-10">
+				<div class="btn-love js-love-toggle {if $islove}btn-love-active{/if} mgr-10" tablename="mod_party_blog" objectid="{$data.id}">
+					喜欢
+				</div>
+
+				
+			</div>
+			
+		</div>
+		{include file="inc/comment.html"}
+		<a href="/module.php?m=party_blog&a=add" class="fixedAdd">发布</a>
+		{include file="footer.html"}
+
+		<script src="{$skins}inc/comment.js"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+	</body>
+</html>

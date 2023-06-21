@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="/plugin/dt-ui/dt-ui-pages.css" rel="stylesheet" />
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">产品列表</div>
+	
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+     
+  {foreach item=c from=$list}
+  <div class="row-box mgb-5">
+  	<div class="flex bd-mp-5 mgb-5">
+  		<div>{$c.no}</div>
+  		<div class="flex-1"></div>
+		<div class="">{$c.cat.title}</div>
+  		<div class="cl-money">￥{$c.cat.money}</div>
+  	</div>
+   
+  	<div class="flex flex-ai-center">
+  		{if $c.status eq 1}
+  		<div class="yes"></div>
+  		{/if}
+  	 
+  		<div class="flex-1"></div>
+  		<div gourl="/moduleshop.php?m=gxny_shop_product&a=add&id={$c.id}" class="btn-small mgr-5">编辑</div>
+  		<div url="/moduleshop.php?m=gxny_shop_product&a=delete&ajax=1&id={$c.id}" class="btn-small mgr-5 js-delete">删除</div>
+  	</div>
+  </div> 
+  {/foreach}
+	<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

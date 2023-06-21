@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}car/user.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+
+			<div class="header-title">个人中心</div>
+
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="uhead" v-if="pageLoad">
+
+				<image gourl="/index.php?m=user&a=user_head" class="uhead-img" src="{$data.user_head}.100x100.jpg"></image>
+
+				<div class="uhead-box">
+					<div class="uhead-nick">{$data.nickname}</div>
+					<div class="uhead-rnum flex flex-ai-center">
+
+						<text>余额 ￥</text>
+						<text class="f14 cl-money mgl-5">{$data.money}</text>
+					</div>
+					 
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+			</div>
+			<div class="tabs-border-group"> 
+			<div class="tabs-border ">
+				<div class="tabs-border-item js-tabs-border-item tabs-border-active">商家端</div>
+				<div class="tabs-border-item js-tabs-border-item">用户端</div>
+			</div>
+			
+				<div class="tabs-border-box tabs-border-box-active">
+				 
+				<div class="row-box mgb-5">
+					<div gourl="/module.php?m=car_guest&a=shopIndex" class="row-item">
+						<div class="row-item-icon icon-message  cl-u"></div>
+						<div class="row-item-title">客户咨询</div>
+					</div>
+					<div gourl="/module.php?m=car_product&a=my" class="row-item">
+						<div class="row-item-icon icon-goods  cl-u"></div>
+						<div class="row-item-title">二手车源列表</div>
+					</div>
+					<div gourl="/module.php?m=car_product&a=add" class="row-item">
+						<div class="row-item-icon icon-add  cl-u"></div>
+						<div class="row-item-title">发布二手车源</div>
+					</div>
+					<div gourl="/module.php?m=car_shop&a=my" class="row-item">
+						<div class="row-item-icon icon-shop  cl-u"></div>
+						<div class="row-item-title">商家信息</div>
+					</div>
+				</div>
+				<div class="row-box mgb-5">	
+					<div gourl="/module.php?m=car_zuche&a=my" class="row-item">
+						<div class="row-item-icon icon-goods  cl-u"></div>
+						<div class="row-item-title">租赁车源列表</div>
+					</div>
+					<div gourl="/module.php?m=car_zuche&a=add" class="row-item">
+						<div class="row-item-icon icon-add  cl-u"></div>
+						<div class="row-item-title">发布租赁车源</div>
+					</div>
+				</div>
+				<div class="row-box mgb-5">
+					<div gourl="/module.php?m=car_home&a=shopfollow" class="row-item">
+						<div class="row-item-icon icon-people  cl-u"></div>
+						<div class="row-item-title">我的粉丝</div>
+						 
+					</div>
+					 
+					 
+					
+					 
+					<div gourl="/module.php?m=car_shop_money" class="row-item">
+						<div class="row-item-icon icon-moneybag  cl-u"></div>
+						<div class="row-item-title">收支记录</div>
+					</div>
+				</div>
+				</div>
+				<div class="tabs-border-box">
+					
+					<div class="row-box mgb-5">
+						<div gourl="/module.php?m=car_guest" class="row-item">
+							<div class="row-item-icon icon-goods  cl-u"></div>
+							<div class="row-item-title">我的咨询</div>
+						</div>
+						<div gourl="/module.php?m=car_sold_product&a=my" class="row-item">
+							<div class="row-item-icon icon-goods  cl-u"></div>
+							<div class="row-item-title">待售列表</div>
+						</div> 
+						<div gourl="/module.php?m=car_invite_log" class="row-item">
+							<div class="row-item-icon icon-moneybag  cl-u"></div>
+							<div class="row-item-title">邀请奖励</div>
+						</div>
+					
+						<div gourl="/index.php?m=notice&a=my" class="row-item">
+							<div class="row-item-icon icon-notice  cl-u"></div>
+							<div class="row-item-title">我的消息</div>
+						</div>
+					
+						<div gourl="/index.php?m=recharge&a=my" class="row-item">
+							<div class="row-item-icon icon-moneybag  cl-u"></div>
+							<div class="row-item-title">支付记录</div>
+						</div>
+					
+				</div>	
+				<div class="row-box mgb-5">	
+					
+						<div gourl="/index.php?m=kefu" class="row-item">
+							<div class="row-item-icon icon-service  cl-u"></div>
+							<div class="row-item-title">联系客服</div>
+						</div>
+						<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+							<div class="row-item-icon icon-info  cl-u"></div>
+							<div class="row-item-title">关于我们</div>
+						</div>
+					</div>
+				</div>	
+			</div>
+			 
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

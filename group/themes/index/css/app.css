@@ -1,0 +1,140 @@
+.ghd {
+	line-height: 40px;
+	color: #333;
+	font-size: 20px;
+	padding-left: 5px;
+}
+
+.glist {
+	margin-bottom: 10px;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	 
+}
+ 
+
+.glist-item {
+	width: 25%;
+	float: left;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+
+.glist-item-pd {
+	box-sizing: border-box;
+	border: 1px solid #eee;
+	margin: 5px;
+	padding-top: 5px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+}
+
+.glist-item-img {
+	width: 70%;
+	border-radius: 20px;
+}
+
+.glist-item-title {
+	height: 30px;
+	line-height: 30px;
+	overflow: hidden;
+	font-size: 14px;
+	color: #666;
+}
+
+table {
+	width: 100%;
+}
+
+.grouphead {
+	display: flex;
+	flex-direction: row;
+	color: #999;
+	padding: 10px 5px;
+	background-color: #fff;
+	font-size: 14px;
+}
+
+.grouphead .img {
+	width: 70px;
+	margin-right: 5px;
+}
+
+.grouphead .img img {
+	width: 100%;
+}
+
+.grouphead .flex-1 {
+	flex: 1;
+}
+
+.grouphead .gname {
+	color: #333;
+	font-size: 16px;
+}
+
+.grouphead .title {
+	color: #999;
+}
+
+.grouphead .tjnum {
+	color: #777;
+	line-height: 25px;
+	display: flex;
+	flex-direction: row;
+}
+
+.grouphead .tjnum .num {
+	color: #f70;
+	margin-left: 3px;
+	margin-right: 10px;
+}
+
+.grouphead .tjnum .gl {
+	float: right;
+	color: red;
+}
+
+/*****grouplist******/
+
+.grouplist {
+	background-color: #fff;
+	padding: 10px 0px;
+}
+
+.grouplist .item {
+	width: 100%;
+	display: flex;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #eee;
+	font-size: 16px;
+}
+
+.grouplist .item .img {
+	width: 60px;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+
+.grouplist .item .img img {
+	width: 100%;
+}
+
+.grouplist .item .flex-1 {
+	flex: 1;
+}
+
+.grouplist .item .desc {
+	color: #999;
+}
+
+.grouplist .item .tools a {
+	line-height: 40px;
+	fon-size: 14px;
+	color: #666;
+	margin-right: 10px;
+}

@@ -1,0 +1,38 @@
+.main-body{
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto;
+}
+.m-note{
+	background-color: #fff;
+	padding: 10px;
+	box-sizing: border-box;
+	color: #666;
+	font-size: 14px;
+}
+.m-note-label{
+	font-size: 16px;
+	font-weight: 600;
+	color: #f60;
+}
+.buy-btn {
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    width: 30px;
+    border:1px solid #83c44e;
+    color: #83c44e;
+    border-radius: 50%;
+    float: right;
+    cursor: pointer;
+}
+.buy-btn.active{
+	background-color: #83c44e;
+	color: #fff;
+} 
+
+.d-content p{
+	line-height: 1.5;
+	margin-bottom: 5px;
+}

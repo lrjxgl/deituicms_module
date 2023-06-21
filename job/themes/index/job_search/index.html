@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">搜一下</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div @click="setTab('jianzhi')" :class="tab=='jianzhi'?'tabs-border-active':''" class="tabs-border-item">兼职</div>
+				<div @click="setTab('quanzhi')"  :class="tab=='quanzhi'?'tabs-border-active':''"  class="tabs-border-item">全职</div>
+			</div>
+			<div class="input-flex">
+				<input type="text" v-model="keyword" class="input-flex-text" />
+				<div class="input-flex-btn" @click="search">搜一下</div>
+			</div>
+			<div v-if="list.length==0" class="emptyData">暂无信息</div>
+			<div v-else>
+				<div v-if="tab=='jianzhi'">
+					<div @click="gourl('module.php?m=job_jianzhi&a=show&id='+item.id)" v-for="(item,index) in list" :key="index" class="bg-white flex-col pd-10 mgb-5">
+						  <div class="c1 f16 mgb-5">{{item.title}}</div>
+						  <div class="flex mgb-5">
+							  时间：{{item.startTime}}
+							  <div class="flex-1">
+								  
+							  </div>
+							  工资 <div class="cl-money">￥{{item.money}}</div>/天
+						  </div>
+						  <div class="cl2  mgb-5">地点：{{item.address}}</div>
+						  <div class="cl2">
+							  {{item.description}}
+						  </div>
+					</div>
+				</div>
+				<div v-else>
+					<div @click="gourl('module.php?m=job_quanzhi&a=show&id='+item.id)" v-for="(item,index) in list" :key="index" class="bg-white flex-col  pd-10 mgb-5">
+						  <div class="c1 f16 mgb-5">{{item.title}}</div>
+						  <div class="flex cl2 mgb-5">
+							  工资 <div class="cl-money">￥{{item.money}}</div>/月
+						  </div>
+						  <div class="cl2  mgb-5">地点：{{item.address}}</div>
+						  <div class="cl3">
+							  {{item.description}}
+						  </div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var keyword="{$keyword}"
+		</script>
+		<script src="{$skins}job_search/index.js"></script>
+	</body>
+</html>

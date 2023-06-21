@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">资料打印</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<form onsubmit="return false;" id="eForm">
+			<template v-if="bookid==0">
+				<div class="input-flex">
+					<div class="input-flex-label">打印类型</div>
+					<select class="input-flex-select" name="ptype" v-model="ptype">
+						<option v-for="(item,index) in ptypeList" key="index" :value="item.ptype">{{item.title}}</option>
+					</select>
+					
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">页面数</div>
+					<input type="text" v-model="page_num" name="page_num" class="input-flex-text w100" />
+					<span class="mgl-5">页</span>
+				</div>
+			</template>
+			<template v-else>
+				<div class="input-flex">
+					<div class="input-flex-label">打印资料</div>
+					<input type="hidden" name="bookid" :value="bookid" />
+					<input type="hidden" name="ptype" :value="ptype" />
+					<div class="input-flex-txt">
+						 {{book.title}} 
+					</div>
+					
+				</div>
+			</template>
+			<div class="input-flex flex-ai-center">
+				<div class="input-flex-label">印</div>
+				<input type="text" v-model="print_num" name="print_num" class="input-flex-text w100" />
+				<span class="mgl-5">份</span>
+			</div>
+			 
+			<div v-if="bookid==0"  class="input-flex flex-ai-center">
+				<div class="input-flex-label">上传文件</div>
+				<div class="btn-small js-upfile">选择文件</div>
+				<div id="upfile-loading" style="display: none;">上传中..</div>
+				<input type="hidden" v-model="fileurl" name="fileurl" id="fileurl" />
+				<span class="mgl-5 cl-red f12">支持word、zip压缩包</span>
+				<input type="file" name="upfile" class="none" id="upfile" />
+			</div>
+			<div class="bg-fff mgb-5">
+					<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+					{include file="inc/uploader-data.html"}
+				</div>
+			<div class="input-flex">
+				<div class="input-flex-label">配送方式</div>
+				<div class="flex flex-ai-center">
+					<input name="sendtype" v-model="sendtype" value="0" type="radio" /> 到店自取
+					<input name="sendtype" v-model="sendtype" value="1" type="radio" /> 送上门
+				</div>
+			</div>
+			<div v-if="sendtype==1">
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">配送费：</div>
+					<div class="input-flex-txt cl-money">￥{{send_money}}</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">联系人：</div>
+					<input type="text" class="input-flex-text" name="nickname" id="nickname" value="{$nickname}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">电话：</div>
+					<input type="text" class="input-flex-text" name="telephone" id="telephone" value="{$telephone}">
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">地址：</div>
+					<input type="text" class="input-flex-text" name="address" id="address" value="{$address}">
+				</div>
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">备注</div>
+				<input placeholder="请输入备注内容" type="text" class="input-flex-text" name="content" />
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">支付金额</div>
+				<div class="input-flex-txt cl-money">￥{{money}}</div>
+			</div>
+			<div @click="submit" class="btn-row-submit">确认下单</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var bookid="{$bookid}";
+		</script>
+		<script src="{$skins}gread_olprint/index.js"></script>
+		{get data=wxs model=weixin fun=selectRow(" status=1") }
+		{if INWEIXIN && $wxs}
+		
+		<?php wx_jssdk();?>
+		<script src="{$skins}inc/uploader-data-wx.js?{$smarty.now}"></script> 
+		{else} 
+		
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js?v2"></script>
+		{/if}
+	</body>
+</html>

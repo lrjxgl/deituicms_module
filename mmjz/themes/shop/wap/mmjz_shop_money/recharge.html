@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">商家充值</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			 
+			<div class="flex flex-center">
+			 	<div class="input-flex-label">支付方式</div>
+			 	<div class="flex-1">
+					<div  v-for="(item,index) in pay_type_list"
+						:key="index" 
+						@click="paytype=index"
+						:class="paytype==index?'radioList-item-active':''"
+						class="radioList-item">
+							{{item}}
+						</div> 
+			 		 
+			 	</div>
+			 </div>
+			 <div class="input-flex flex-ai-center">
+			 	<div class="input-flex-label">充值金额</div>
+			 
+			 	<input class="input-flex-text" type="text"   v-model="money" >
+			 	<div class="cl2 mgl-5">元</div> 
+			 </div>
+			 
+			<div  @click="save" class="btn-row-submit">确认充值</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}mmjz_shop_money/recharge.js"></script>
+	</body>
+</html>

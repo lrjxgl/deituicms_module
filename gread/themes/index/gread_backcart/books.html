@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">待还图书</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		    
+			{if empty($shops)}
+			<div class="emptyData">暂无待还书籍</div>
+			{/if}
+		    {foreach item=shop from=$shops}
+			<div class="row-box">
+				<div class="row-box-hd pdl-5 fwb">{$shop.title}</div>
+				<div class="flexlist">
+					
+					{foreach item=c from=$shop.books}
+						<div class="flexlist-item">
+							<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+							<div class="flex-1">
+								<div class="flexlist-title">{$c.title}</div>
+								<div class="flex mgb-5">
+									<div class="cl2 mgr-5">价格 </div>
+									<span class="cl-money">￥{$c.book_money}</span>
+								</div>
+								<div class="cl3 mgb-5">到期时间 {$c.backtime}</div>
+								
+							</div>
+							<a class="buy-btn js-hs-btn {if $c.incart}active{/if}" shopid="{$c.shopid}" order_bookid="{$c.id}" bookid="{$c.bookid}">还</a>
+						</div>
+					{/foreach}
+					<div class="flex">
+						<div class="flex">共还<span id="hs-num" class="num hs-num">{$shop.carts_num}</span>本</div>
+						<div class="flex-1"></div>
+						<a href="/module.php?m=gread_backcart&shopid={$shop.shopid}" class="btn-mini" id="hs-submit">确认还书</a>
+					</div>
+				</div>
+			</div>
+		    
+		    {/foreach}
+		    
+		</div>
+		<div style="height: 50px;"></div>
+		{include file="footer.html"}
+		<script>
+			
+			$(document).on("click",".js-hs-btn",function(){
+				var p=$(this).parents(".splist");
+				if($(this).hasClass("active")){
+					$(this).removeClass("active");
+					
+				}else{
+					$(this).addClass("active");				
+				}
+				$.get("/module.php?m=gread_backcart&a=toggle&ajax=1",{
+					shopid:$(this).attr("shopid"),
+					bookid:$(this).attr("bookid"),
+					order_bookid:$(this).attr("order_bookid")
+				},function(data){
+					//mui.toast(data.message);
+				},"json")
+				var len=p.find(".js-hs-btn.active").length;
+				p.find(".hs-num").html(len);
+			});
+		</script>
+	</body>
+</html>

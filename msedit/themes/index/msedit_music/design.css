@@ -1,0 +1,52 @@
+.main-body{
+	max-width: inherit;
+}
+.pianoBox {
+	display: flex;
+	flex-direction: row;
+
+	overflow: auto;
+}
+
+.pianoBox-item {
+	width: 20px;
+	height: 40px;
+	margin-bottom: 5px;
+}
+
+.pianoBox-white {
+	background-color: #fff;
+	border: 1px solid #eee;
+	padding-top: 10px;
+}
+
+.pianoBox-black {
+	background-color: #000;
+	color: #fff;
+}
+
+.guBox {
+	display: flex;
+	flex-direction: row;
+
+	overflow: auto;
+}
+.guBox-item{
+	padding: 5px;
+	border: 1px solid #eee;
+	margin: 5px;
+}
+.soundBox {
+	display: flex;
+	flex-direction: row;
+
+	overflow: auto;
+}
+.soundBox-item{
+	padding: 5px;
+	border: 1px solid #eee;
+	margin: 5px;
+}
+.soundBox-active{
+	color:#f30;
+}

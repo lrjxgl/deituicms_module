@@ -1,0 +1,20 @@
+{include file="header.html"}
+<div> 
+{include file='mscard/nav.html'}
+ <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>名称：</td><td>{$data.nickname}</td></tr>
+  <tr><td>用户：</td><td>{$data.userid}</td></tr>
+  <tr><td>手机：</td><td>{$data.telephone}</td></tr>
+  <tr><td>身份证：</td><td>{$data.idcard}</td></tr>
+  <tr><td>金额：</td><td>{$data.money}</td></tr>
+  <tr><td>积分：</td><td>{$data.grade}</td></tr>
+  <tr><td>金币：</td><td>{$data.gold}</td></tr>
+  <tr><td>商家：</td><td>{$data.shopid}</td></tr>
+  <tr><td>办理时间：</td><td>{$data.dateline}</td></tr>
+  <tr><td>备注：</td><td>{$data.description}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}

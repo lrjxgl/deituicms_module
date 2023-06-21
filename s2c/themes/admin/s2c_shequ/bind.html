@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">绑定团长</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=s2c_shequ&a=bindsave&ajax=1">
+				<input type="hidden" name="scid" value="{$shequ.scid}" />
+			<div class="row-item-text">社区名称：{$shequ.title} 地址：{$shequ.address}</div>
+			<div class="list">
+			{foreach item=c from=$teamList}
+			<div class="row-item">
+				<div class="flex-1">
+				<input type="radio" value="{$c.teamid}" name="teamid" />团长：{$c.nickname} 地址：{$c.address}
+				</div>
+			</div>
+			{/foreach}
+			</div>
+			<div class="btn-row-submit js-submit">确认绑定</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

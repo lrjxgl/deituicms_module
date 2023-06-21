@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='jieti_ask/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>用户</td>
+   <td>createtime</td>
+   <td>年级</td>
+   <td>图片</td>
+   <td>内容</td>
+   <td>是否回答</td>
+   <td>答案</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.typeid}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.content}</td>
+   <td>{$c.isanswer}</td>
+   <td>{$c.answerid}</td>
+<td><a href="/module.php?m=jieti_ask&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=jieti_ask&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="delete" url="/module.php?m=jieti_ask&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">订单详情</div>
+		<div class="main-body" id="App">
+			 
+			<table class="table table-bordered mgb-10">
+				<tr>
+					<td>订单编号：{$data.orderid}</td>
+					<td>所属商家：{$data.nickname}</td>
+					<td>下单时间：{$data.createtime}</td>
+				</tr>
+				<tr>
+					 
+					<td>订单金额：<span class="cl-money"> ￥{$data.money}</span></td>
+				 
+					<td>分销收益：<span class="cl-money">￥{$data.fx_money}</span></td>
+					 
+					<td>商家收益： <span class="cl-money">￥{$data.shop_money}</span></td>
+				</tr> 
+				<tr>
+					<td>订单状态： <span class="cl-status">{$data.status_name}</span></td>
+					<td>支付状态： <span class="cl-status">{if $data.ispay}已支付{else}未支付{/if}</span></td>
+					<td>是否返利：<span v-if="data.isback">已返利</span><span v-else>未返利</span>
+					
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<img src="{$product.imgurl}.small.jpg" class="w150" /><br/>
+						{$product.title}
+					</td>
+					<td>
+						 <div class="mgb-5  cl-primary">所属会员：{$user.nickname}</div>
+						 {if $data.invite_userid}
+						 <div class="mgb-5 cl-primary">邀请人：{$inuser.nickname}</div>
+						 {/if}
+						 <div>
+							联系人：{$data.nickname}<br/>
+							电话：{$data.telephone}<br/>
+							地址：{$data.address} 
+						 </div>
+						
+					</td>
+					<td>
+						 
+							快递单号： <input  type="text" v-model="express_no" class="w100 mgr-5"/>
+							<div @click="updateExpress()" class="btn-small">修改快递</div> 
+						 
+					</td>
+				</tr>
+				 
+				
+			</table>
+			<div v-if="data.status<3 && data.ispay==1 ">
+				 
+				<div v-if="data.status<2" @click="send()" class="btn-small">确认发货</div>
+				<div @click="finish()" v-if="data.status<3" class="btn-small mgl-10">确认完成</div>
+				<div class="btn-small mgl-10">打印快递单</div>
+				 
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var orderid="{$data.orderid}"
+		</script>
+		<script src="{$skins}fxa_order/show.js"></script>
+	</body>
+</html>

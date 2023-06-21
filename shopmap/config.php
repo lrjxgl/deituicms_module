@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"企业名片",//模块名称
+	"module"=>"shopmap",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"企业名片",//模块信息
+	"from"=>"来自福鼎生活网",
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=shopmap&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

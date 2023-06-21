@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">分类</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+				<div class="tabs-border mgb-5">
+					<div gourl="/module.php?m=job_category&tab=jianzhi" class="tabs-border-item {if $tab=='jianzhi'}tabs-border-active{/if}">兼职</div>
+					<div gourl="/module.php?m=job_category&tab=quanzhi"  class="tabs-border-item {if $tab=='quanzhi'}tabs-border-active{/if}">全职</div>
+				</div>
+				{foreach item=c from=$catList}
+				<div class="row-box mgb-5">
+					<a href="/module.php?m=job_{$tab}&a=list&catid={$c.catid}" class="row-box-hd row-box-more mgb-10">
+						<div class="flex-1">{$c.title}</div>
+					</a>
+					<div class="flex flex-wrap">
+						{foreach item=cc from=$c.child}
+						<a href="/module.php?m=job_{$tab}&a=list&catid={$cc.catid}" class="pd-5 cl2">{$cc.title}</a>
+						{/foreach}
+					</div>
+				</div>
+				{/foreach}
+			
+		</div>
+		{assign var="ftnav" value="job_category"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

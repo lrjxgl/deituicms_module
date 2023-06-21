@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='fenlei_black/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fenlei_black&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>userid：</td>
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}"></td>
+					</tr>
+					<tr>
+						<td>原因：</td>
+						<td><input type="text" name="content" id="content" value="{$data.content}"></td>
+					</tr>
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

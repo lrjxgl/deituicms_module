@@ -1,0 +1,60 @@
+var App=new Vue({
+	el:"#App",
+	data:function(){
+		return {
+			recordList:{},
+			loveList:{},
+			tab:"record"
+		}
+	},
+	created:function(){
+		this.getPage();
+	},
+	methods:{
+		getPage:function(){
+			this.getRecord();
+			this.getLove();
+		},
+		setTab:function(t){
+			this.tab=t;
+			if(t=='record'){
+				this.getRecord();
+			}else{
+				this.getLove();
+			}
+		},
+		getRecord:function(){
+			var that=this;
+			$.ajax({
+				url:"/module.php?m=dodo_record&ajax=1&doid="+doid,
+				dataType:"json",
+				success:function(res){
+					that.recordList=res.data.list;
+				}
+			})
+		},
+		getLove:function(){
+			var that=this;
+			$.ajax({
+				url:"/module.php?m=dodo_love&ajax=1&doid="+doid,
+				dataType:"json",
+				success:function(res){
+					that.loveList=res.data.list;
+				}
+			})
+		},
+		loveToggle:function(item){
+			$.ajax({
+				url:"/module.php?m=dodo_record_love&a=toggle&ajax=1&recordid="+item.id,
+				dataType:"json",
+				success:function(res){
+					if(res.error){
+						return false;
+					}
+					skyToast(res.message);
+					item.love_num=res.data.love_num;
+				}
+			})
+		}
+	}
+})

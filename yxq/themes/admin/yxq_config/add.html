@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">设置</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=yxq_config&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>发布金额：</td>
+						<td><input class="w100" type="text" name="post_money" id="post_money" value="{$data.post_money}">元</td>
+					</tr>
+					<tr>
+						<td>获取金额：</td>
+						<td><input  class="w100" type="text" name="get_money" id="get_money" value="{$data.get_money}">元</td>
+					</tr>
+					<tr>
+						<td>邀请抽成：</td>
+						<td><input type="text" name="invite_per"  value="{$data.invite_per}"></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

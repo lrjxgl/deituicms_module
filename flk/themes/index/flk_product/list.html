@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$cat.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<style>
+			.tabs-border{
+				overflow: auto;
+			}
+			.tabs-border-item{
+				flex: none;
+				width: 20%;
+			}
+		</style>
+		<div class="main-body none" :class="'flex-col'" id="app">
+			<div  style="overflow-x: auto;">
+				<div v-if="catlist && catlist.length>0" class="tabs-border">
+					<a @click="setCatid(scatid)" :class="catid==scatid?'tabs-border-active':''" class="tabs-border-item">全部</a>
+					<a @click="setCatid(item.catid)" v-for="(item,index) in catlist" :class="catid==item.catid?'tabs-border-active':''"  class="tabs-border-item" >{{item.title}}</a>
+						
+				</div>
+			</div>
+			<div class="mtlist mgt-5">
+				<div class="mtlist-item" v-for="(item,index) in list" :key="index">
+					<div class="mtlist-item-bd">
+						
+						<div class="mtlist-bgimg-box">
+							<div @click="goProduct(item.id)" mode="widthFix" class="mtlist-bgimg pointer"  :style="'background-image:url('+item.imgurl+'.small.jpg)'"  ></div>
+						</div>
+						<div class="mtlist-item-pd">
+							<div @click="goProduct(item.id)" class="mtlist-title pointer">{{item.title}}</div>
+							 
+							<div class="flex flex-ai-center mgb-5">
+								<div class="cl-money f12">￥</div>
+								<div class="cl-money f14 mgr-5">{{item.price}}</div>
+								<div class="cl3 f10">已售{{item.buy_num}}件</div>
+								<div class="flex-1"></div>
+								
+							</div>
+							 
+						</div>
+					</div>
+				
+				</div>
+				
+			</div>
+			<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div> 
+		</div>
+		{include file="footer.html"}
+		<script>
+			var scatid=catid="{$cat.catid}";
+			
+		</script>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}flk_product/list.js"></script>
+	</body>
+</html>

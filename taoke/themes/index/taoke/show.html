@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+ 
+	.fav-btn{
+		width: 36px;
+		height: 36px;
+		text-align: center;
+		line-height: 36px;
+		border-radius: 50%;
+		cursor: pointer;
+		background-color: #333;
+		opacity: 0.9;
+		color: #fff;
+	}
+	
+	.fav-btn:before{
+		color: #666;
+		font-family: iconfont;
+		content: "\e64c";
+	}
+	.fav-btn-active{
+		background-color: #e91e63
+	}
+	.fav-btn-active:before{
+		color: #fff;
+		font-size: 22px;
+	}
+</style>
+<body>
+
+<div class="details-nav">
+    <div href="/" class="goBack" >
+        <img src="{$skins}img/details-back.png" class="fl" alt="">
+    </div>
+    <div style="position: fixed; right: 10px; top: 10px;">
+    	<div class="fav-btn {if $isfav} fav-btn-active {/if} js-fav-toggle"  tablename="mod_taoke" objectid="{$data.id}"></div>
+    </div>
+</div>
+<div class="main-body">
+	<img style="width: 100%;" src="{$data.imgurl|images_site}"  />
+     
+	<div class="p-title">
+		{$data.title}
+	</div>
+	<div class="p-desc">
+		{$data.description}
+		
+	</div>
+	<div class="p-price">
+		<span class="price">券后价：￥{$data.price}</span>
+		<span class="sold">销量 {$data.sold_num}</span>
+		<div class="juan-price">
+			<span class="q">券</span>
+			<span class="m">￥{$data.juan_money}</span>
+		</div>
+	</div>
+	 
+	
+	{if !empty($data.content)} 
+	<a href="javascript:;" id="js-detail" class="look-text">查看图文详情</a>
+	<div class="p-detail">
+		{$data.content}
+	</div>
+	{/if}
+	<div class="fine_out">
+        <div class="fine">
+            <span class="fine_in"><span>精品</span>推荐</span>
+        </div>
+    </div>
+    
+    <div class="tk-list">
+    	{foreach item=c from=$reclist}
+    		{include file="taoke/item.html"}
+    		
+    	{/foreach}
+    </div>
+	
+</div>
+<div style="height: 60px;"></div>
+{if $data.xfrom=='pdd' or $data.xfrom=='jd'}
+<div class="bfooter">
+	
+	<div class="flex mgl-10 mgr-10"><span>约返：</span><span class="juan">￥{$data.yj_money}</span> </div>
+	<div class="flex-1 "></div>
+
+	<a target="_blank" href="{if $data.juan_url}{$data.juan_url}{else}{$data.tk_url}{/if}" class="lq">立即领券</a>
+
+</div>
+{else}
+<div class="bfooter">
+	
+	<div class="flex mgl-10 mgr-10"><span>约返：</span><span class="juan">￥{$data.yj_money}</span> </div>
+	<div class="flex-1 "></div>
+	<div class="pwd " id="js-showpwd">获取口令</div>
+	{if !INWEIXIN}
+	<a target="_blank" href="{if $data.juan_url}{$data.juan_url}{else}{$data.tk_url}{/if}" class="lq">立即领券</a>
+	{/if}
+</div>
+{/if}
+<div id="fixbox" class="fixbox">
+	
+	<div class="hd">淘口令购买
+	<img class="f_close fixbox-close" src="{$skins}img/f_close.png">
+	</div>
+	<div class="box">
+		<div class="tit">{$data.title}</div>
+		<div class="flex">券后价：<span class="num">￥{$data.price}</span></div>
+		<div>复制这条信息</div>
+		{if $data.juan_pwd}
+		<div style="-webkit-user-select:text" class="num " data-clipboard-text="{$data.juan_pwd}">{$data.juan_pwd}</div>
+		{else}
+		<div style="-webkit-user-select:text" class="num " data-clipboard-text="{$data.tk_pwd}">{$data.tk_pwd}</div>
+		{/if}
+		<div class="flex">打开<span class="num">[手机淘宝]</span>即可领取优惠券购买</div>
+	</div>
+	{if $data.juan_pwd}
+	<p class="copytext js-copy" style="margin:0 auto!important" data-clipboard-text="{$data.juan_pwd}">一键复制</p>
+	{else}
+	<p class="copytext js-copy" style="margin:0 auto!important" data-clipboard-text="{$data.tk_pwd}">一键复制</p>
+	{/if}
+	<p class="desc">由于部分浏览器不支持一键复制，<br>若一键复制失败，请长按文字手动复制</p>
+</div>
+{include file="footer.html"}
+<script src="{$skins}js/clipboard.min.js"></script>
+<script>
+	$(function(){
+		$(document).on("click",".js-fav-toggle",function(){
+			var tablename=$(this).attr("tablename");
+			var objectid=$(this).attr("objectid");
+			var that=$(this);
+			$.get("/index.php?m=fav&a=toggle&ajax=1",{
+				tablename:tablename,
+				objectid:objectid
+			},function(res){
+				skyToast(res.message);
+				if(res.error==1000){
+					window.location="/index.php?m=login";
+					return false;
+				}else{
+					if(res.data=='add'){
+						that.addClass("fav-btn-active");
+					}else{
+						that.removeClass("fav-btn-active");
+					}
+				}
+				
+			},"json")
+		})
+		$(document).on("click","#js-detail",function(){
+			$(".p-detail").toggle();
+		})
+		$(document).on("click","#js-showpwd",function(){
+			$(".fixbox").show();
+		})
+		$(document).on("click",".fixbox-close",function(){
+			$(".fixbox").hide();
+		})
+		var clipboard = new Clipboard('.js-copy');
+		clipboard.on('success', function(e) {
+		    $(".js-copy").html("已复制");
+		    setTimeout(function(){
+		    	$(".js-copy").html("一键复制");
+		    },3000)
+		    e.clearSelection();
+		});
+		clipboard.on('error', function(e) {
+	        	skyToast("浏览器不支持，请手动复制");
+	    });
+	})
+</script>
+<?php wx_jssdk();?>
+<script>
+	wxshare_title="{$data.title}";
+	{if $data.imgurl}
+	wxshare_imgUrl="{$data.imgurl}";
+	{/if}
+</script>
+</body>
+</html>

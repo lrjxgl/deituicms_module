@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">商机详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    <div class="row-box">
+		<div class="d-title">{$data.title}</div>
+		<div class="mgb-10">
+			<div class="f12 cl3">{$data.createtime}</div>
+		</div>
+		 
+		<div class="d-content mgb-10">{$data.content}</div>
+		<div class="flex mgb-5">
+			<div class="mgr-5 cl-primary">作者</div>
+			<div class="mgr-5 cl2">已发布</div>
+			<div class="cl-num mgr-5">{$suser.post_num}条</div>
+			<div class="mgr-5 cl2">买断</div>
+			<div class="cl-num mgr-5">{$suser.post_sold_num}条</div>
+			<div class="mgr-5 cl2">赏金</div>
+			<div class="cl-num mgr-5">{$suser.post_success_num}条</div>
+			<div class="mgr-5 cl2">失效</div>
+			<div class="cl-num ">{$suser.post_fail_num}条</div>
+			 
+		</div>
+		<div class="flex">
+			
+			
+			<div class="flex-1"></div>
+			 <div  cl2>已有</div>
+			 <div class="cl-num">10</div>
+			 <div class="mgl-10 cl2">人咨询</div>
+			 {if $data.issuccess}
+			 <div class="mgl-10">
+				已打赏{$data.sj_money}元 
+			 </div>
+			 {/if}
+			 {if $data.isbuy}
+			<div class="mgl-10 cl-red">已被买断</div>
+			{else}
+			<div @click="goGuest(item)" class="btn-mini mgl-5">咨询</div>
+			<div @click="buy(item)" class="btn-mini mgl-5">买断</div>
+			{/if}
+			
+		</div>
+	</div> 
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

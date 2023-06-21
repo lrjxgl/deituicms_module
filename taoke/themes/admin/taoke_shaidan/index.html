@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='taoke_shaidan/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>userid</td>
+   <td>createtime</td>
+   <td>订单号</td>
+   <td>内容</td>
+   <td>图集</td>
+   <td>是否中奖</td>
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.orderno}</td>
+   <td>{$c.content}</td>
+   <td>{$c.imgsdata}</td>
+   <td>{$c.iswin}</td>
+   <td>{$c.status}</td>
+<td><a href="/moduleadmin.php?m=taoke_shaidan&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=taoke_shaidan&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=taoke_shaidan&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

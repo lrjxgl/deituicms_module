@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">兑换订单</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="app">
+    <div class="list none" :class="'flex-col'" v-if="pageLoad"  >
+		<div class="row-box mgb-5" v-for="(item,index) in pageData.list" :key="index">
+			<div class="flex bd-mp-5">
+				<div class="flex-1 cl2">订单号：{{item.orderno}}</div>
+				<div class="cl-primary">{{item.status_name}}</div>
+			</div>
+			<div @click="goProduct(item.productid)" class="flexlist-item pointer" >
+				<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'">
+				<div class="flex-1">
+					<div class="flexlist-title">{{item.title}}</div>
+					 
+					<div class="flex ">
+						<div class="flex-1 cl-money">{{item.gold}}</div>
+						<div class="cl3">x 1</div>
+					</div>
+					
+				</div>
+			</div>
+			<div>
+				<div class="cl2">联系人：{{item.nickname}}</div>
+				<div class="cl3">电话：{{item.telephone}}</div>
+				<div class="cl3">地址：{{item.address}}</div>
+			</div>
+			<div v-if="item.status<3 && item.status>0" class="flex">
+				<div class="flex-1"></div>
+				<div @click="finish(item)" class="btn-small">收货</div>
+			</div>
+		</div>
+	</div> 
+    
+</div>
+{include file="footer.html"}
+<script src="{$skins}gold_order/my.js"></script>
+</body>
+</html>

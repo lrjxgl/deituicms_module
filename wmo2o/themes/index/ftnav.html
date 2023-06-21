@@ -1,0 +1,8 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div class="footer-item icon-home {if get('m') eq 'wmo2o'}footer-active{/if}" gourl="/module.php?m=wmo2o">首页</div>
+	<div class="footer-item icon-news {if get('m') eq 'wmo2o_blog'}footer-active{/if}" gourl="/module.php?m=wmo2o_blog">美食圈</div>
+	<div class="footer-item icon-order {if get('m') eq 'wmo2o_order'}footer-active{/if}" gourl="/module.php?m=wmo2o_order&a=my">订单</div>
+	<div  gourl="/module.php?m=wmo2o_msg" class="footer-item icon-message_light  {if $ftnav eq 'wmo2o_msg'}footer-active{/if}">消息<span id="ft-msg-num" style="display:none;" class="footer-item-num"></span></div>  
+	<div class="footer-item icon-my_light {if get('m') eq 'wmo2o_user'}footer-active{/if}"  gourl="/module.php?m=wmo2o_user">我的</div>
+</div>

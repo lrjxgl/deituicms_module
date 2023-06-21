@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">相亲列表</div>
+<div class="main-body">
+	<form method="GET" action="/moduleadmin.php" class="search-form">
+		<input type="hidden" name="m" value="xiangqin_people"/>
+		<input  type="hidden" name="type" value="{$type}"/>
+		<div class="flex flex-ai-center">
+			<span class="mgr-5">名字</span>
+			<input class="w150" type="text" name="truename" value="{$truename}" />
+			 
+			<select class="w100 mgl-5" name="gender">
+				<option value="0">性别</option>
+				<option {if $gender eq 1}selected{/if} value="1">男</option>
+				<option {if $gender eq 2}selected{/if}  value="2">女</option>
+			</select>
+			<span class="mgl-5 mgr-5">收入</span>
+			<input class="w100" type="text" name="income" value="{$income}"/>万
+			<button type="submit" class="btn mgl-10">搜一下</button>
+		</div>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+ 
+   <td>姓名</td>
+   <td>头像</td>
+   <td>出生年月</td>
+   <td>性别</td>
+   <td>收入</td>
+   <td>自我介绍</td>
+   <td>状态</td>
+   
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+  
+   <td>{$c.truename}</td>
+   <td><img src="{$c.imgurl}.small.jpg" class="w50" /> </td>
+   <td>{$c.birthday}</td>
+   <td>{if $c.gender eq 1}男{else}女{/if}</td>
+   <td>{$c.income}</td>
+   <td>{$c.you_desc}</td>
+   
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if}"></div>
+   </td>
+  
+    
+   
+<td>
+	{if $c.status eq 0}
+	<div class="btn-mini mgr-5 js-pass" url="/moduleadmin.php?m=xiangqin_people&a=pass&ajax=1&id={$c.id}">通过</div>
+	<div class="btn-mini mgr-5 js-forbid"  url="/moduleadmin.php?m=xiangqin_people&a=forbid&ajax=1&id={$c.id}">不通过</div>
+	<br />
+	{/if}
+	<div class="btn-mini mgr-5 js-view-btn" url="/moduleadmin.php?m=xiangqin_people&a=show&id={$c.id}&type={$type}">详情</div>
+  
+  <a href="javascript:;" class="js-delete" url="moduleadmin.php?m=xiangqin_people&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-pass",function(){
+			var url=$(this).attr("url");
+			var that=$(this)
+			$.ajax({
+				url:url,
+				dataType:"json",
+				success:function(res){
+					skyToast(res.message)
+					that.parents("tr").remove();
+				}
+			})
+		})
+		$(document).on("click",".js-forbid",function(){
+			var url=$(this).attr("url");
+			var that=$(this)
+			$.ajax({
+				url:url,
+				dataType:"json",
+				success:function(res){
+					skyToast(res.message)
+					that.parents("tr").remove();
+				}
+			})
+		})
+		$(document).on("click",".js-view-btn",function(){
+			var url=$(this).attr('url')
+			var html=`
+				<style>.modal-body{max-height:500px;}</style>
+				<iframe style="width:100%;height:400px;border:0;" src="`+url+`"></iframe>
+			`;
+			showbox("预览",html,750,480);
+		})
+	})
+</script>
+</body>
+</html>

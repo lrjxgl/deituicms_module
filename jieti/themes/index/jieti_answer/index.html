@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		{include file="header.html"}
+		<div class="layui-main">
+			<div class="layui-row">
+	         	<div class="layui-col-md3">{include file="[c]/sidebar.html"}</div>
+				<div class="layui-col-md9">
+					{include file='jieti_answer/nav.html'}  <table class="tbs">
+<thead>  <tr>
+   <td>answerid</td>
+   <td>用户</td>
+   <td>createtime</td>
+   <td>年级</td>
+   <td>图片</td>
+   <td>内容</td>
+   <td>mp3url</td>
+   <td>mp4url</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.answerid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.typeid}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.content}</td>
+   <td>{$c.mp3url}</td>
+   <td>{$c.mp4url}</td>
+<td><a href="/module.php?m=jieti_answer&a=add&answerid={$c.answerid}">编辑</a> <a href="/module.php?m=jieti_answer&a=show&answerid={$c.answerid}">查看</a> <a href="javascript:;" class="delete" url="/module.php?m=jieti_answer&a=delete&answerid={$c.answerid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+				</div>
+
+			</div>
+		</div>	
+		{include file="footer.html"}
+
+	</body>
+
+</html>

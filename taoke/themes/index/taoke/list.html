@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$cat.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="tabs-border">
+				<div @click="setOrder('')" :class="orderby==''?'tabs-border-active':''" class="tabs-border-item">综合排序</div>
+				<div @click="setOrder('sold_num')"  :class="orderby=='sold_num'?'tabs-border-active':''"  class="tabs-border-item">销量优先</div>
+				<div @click="setOrder('priceAsc')"  :class="orderby=='priceAsc'?'tabs-border-active':''"  class="tabs-border-item">价格排序</div>
+				<div @click="setOrder('maxBack')"  :class="orderby=='maxBack'?'tabs-border-active':''"  class="tabs-border-item">大额优惠</div>
+			</div>
+			<div class="taoke_tags">
+					 
+					<div v-for="(item,index) in tagList" :key="index" :class="tagname==item.name?'active':''" class="item" @click="setTag(item.name)">{{item.name}}</div>
+			 
+			</div> 
+			<div class="tk-list">
+				
+				<div v-for="(item,index) in list" :key="index" class="tk-item" @click="goDetail(item.id)">
+					 
+					<div class="img">
+						<img :src="item.imgurl" />
+						<div class="juan-price">券￥{{item.juan_money}}</div>
+					</div>
+					<div class="title">{{item.title}}}</div>
+					<div class="row-price">
+						<span class="price">￥{{item.price}}(券后)</span>
+						<span class="sold">销量{{item.sold_num}}</span>
+					</div>
+				</div>
+		 
+			</div>
+		
+			<div class="loadMore" @click="getList" v-if="per_page>0">加载更多</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var catid="{$cat.catid}"
+		</script>
+		<script src="{$skins}taoke/list.js"></script> 
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title = "福鼎淘客-拿优惠券去淘宝购买更便宜";
+		</script>
+	</body>
+</html>

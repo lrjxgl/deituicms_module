@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">标签</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    
+    <div v-if="myList.length>0" class="row-box mgb-10">
+		<div class="flex flex-ai-center mgb-10">
+			<div class="fw-600 mgr-20 f16">关注标签</div>
+			<div class="flex-1"></div>
+			<div @click="unFollow()" class="btn-small btn-outline-danger">确认移除</div>
+		</div>
+		<div class="flex flex-ai-center flex-wrap">
+			<div  @click="choice(item)"  class="tag tag-large" :class="item.choice==1?'tag-info':''"  v-for="(item,index) in myList" :key="index">{{item.title}}</div>
+		</div>
+		
+	</div>	 
+    <div v-if="list.length>0" class="row-box">
+		<div class="flex flex-ai-center mgb-10">
+			<div class="fw-600 mgr-20 f16">热门标签</div>
+			<div class="flex-1"></div>
+			<div @click="follow()" class="btn-small btn-outline-primary">确认关注</div>
+		</div>
+    	<div class="flex flex-ai-center flex-wrap">
+    		<div @click="choice(item)" class="tag tag-large" :class="item.choice==1?'tag-info':''" v-for="(item,index) in list" :key="index">{{item.title}}</div>
+    	</div>
+    	
+    </div>
+</div>
+{assign var="ftnav" value="tags"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script src="{$skins}sjsj_tags/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='cy2c_place/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=cy2c_place&a=save">
+				<input type="hidden" name="placeid" style="display:none;" value="{$data.placeid}">
+				<table class="table-add">
+					<tr>
+						<td>座位名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>座位数：</td>
+						<td><input type="text" name="zw_num" id="zw_num" value="{$data.zw_num}"></td>
+					</tr>
+					<tr>
+						<td>最低人数：</td>
+						<td><input type="text" name="min_num" id="min_num" value="{$data.min_num}"></td>
+					</tr>
+					<tr>
+						<td>最多人数：</td>
+						<td><input type="text" name="max_num" id="max_num" value="{$data.max_num}"></td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1} checked{/if} value="1" />显示
+
+							<input type="radio" name="status" {if $data.status neq 1} checked{/if} value="2" />隐藏
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

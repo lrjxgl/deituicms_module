@@ -1,0 +1,42 @@
+.cl-gold{
+	color: #e2bd27;
+}
+.aBox {
+	margin: 5px;
+	border: 1px solid #F1C40F;
+	padding: 16px;
+	margin-bottom: 20px;
+	position: relative;
+}
+
+.aBox-hd {
+	position: absolute;
+	top: -14px;
+	left:20px;
+	background-color: #efefef;
+	font-size: 18px;
+	color: #cea015;
+}
+
+.aBox-con {}
+
+.zBox{
+	border: 1px solid #F1C40F;
+	padding: 10px;
+	margin: 5px;
+	position: relative;
+	border-radius: 10px;
+}
+.phzan{
+	display: block;
+	position: absolute;
+	left: 45%;
+	background-color: #efefef;
+	top:-20px;
+	font-size: 22px;
+	color: #f1c40f;
+	
+}
+.bg-g{
+	background-color:  #F1C40F;
+}

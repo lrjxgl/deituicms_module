@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+{include file="head.html"}
+<body class="user_bg">
+ 
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">快递查询</div>
+</div>
+<div class="header-row"></div>
+
+
+<!--物流查询版块 start-->
+<div class="wuliu">
+	{if $wuliu}
+	<div class="wuliu_banner">
+    	<img src="{$skins}images/80x80.png" class="wuliu_name">
+        <div class="wuliu_info">
+        	<h1>{$wuliu.com}</h1>
+            <p>运单编号：{$wuliu.nu}</p>
+            <p>物流状态：{$wuliu.status}</p>
+        </div>
+    </div>	
+    <div class="wuliu_body">
+    	<div class="wuliu_tl">物流跟踪</div>
+        <div class="wuliu_box">
+        
+        	<ul>
+            {foreach item=c from=$wuliu.data}
+            	<li class="wuliu_finishi">
+                	<div class="wuliu_item">
+                    	<p>{$c.context}</p>
+                    	<p class="wl_time">{$c.ftime}</p>
+                    </div>
+                </li>
+            {/foreach}     
+            </ul>
+        </div>
+    </div>
+    {else}
+    	<div style="padding: 20px; font-size: 16px;">查询不到</div>
+ {/if}
+</div>
+<!--物流查询版块 end-->
+{include file="footer.html"}
+</body>
+</html>

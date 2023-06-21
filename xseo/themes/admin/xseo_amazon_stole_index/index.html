@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='xseo_amazon_stole_index/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>productid</td>
+   <td>pageindex</td>
+   <td>keyword</td>
+    
+   <td>createtime</td>
+   
+   <td>ip</td>
+   <td>asin</td>
+   <td>xfrom</td>
+   <td>area</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.productid}</td>
+   <td>{$c.pageindex}</td>
+   <td>{$c.keyword}</td>
+    
+   <td>{$c.createtime}</td>
+  
+   <td>{$c.ip}</td>
+   <td>{$c.asin}</td>
+   <td>{$c.xfrom}</td>
+   <td>{$c.area}</td>
+<td><a href="/moduleadmin.php?m=xseo_amazon_stole_index&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=xseo_amazon_stole_index&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=xseo_amazon_stole_index&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

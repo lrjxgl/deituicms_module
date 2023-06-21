@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+    <div href="/module.php?m=group&a=show&gid={$group.gid}" class="header-back"></div>
+    <div class="header-title">圈子详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{include file="group/grouphead.html"}
+	{assign  var="gtab" value="detail"} 
+    {include file="group/grouphead_nav.html"}
+    <div class="d-content" style="padding: 10px; background-color: #fff;">
+    	{$group.content}
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

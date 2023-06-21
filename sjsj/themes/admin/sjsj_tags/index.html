@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='sjsj_tags/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>tagid</td>
+   <td>名称</td>
+   <td>推荐</td>
+   <td>createtime</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.tagid}</td>
+   <td>{$c.title}</td>
+   <td>
+	   <div url="/moduleadmin.php?m=sjsj_tags&a=recommend&ajax=1&tagid={$c.tagid}" class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+   <td>{$c.createtime}</td>
+   <td>
+	   <div url="/moduleadmin.php?m=sjsj_tags&a=status&ajax=1&tagid={$c.tagid}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+<td><a href="/moduleadmin.php?m=sjsj_tags&a=add&tagid={$c.tagid}">编辑</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=sjsj_tags&a=delete&ajax=1&tagid={$c.tagid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

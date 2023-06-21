@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="tabs-border">
+		 <a class="item" href="{$appadmin}?m=cfd">管理</a>
+		 <a class="item active" href="{$appadmin}?m=cfd&a=add">添加</a> 
+		</div>
+		<div class="main-body">
+			<div class="mui-content-padded">
+				<form  id="form"  method="post" action="/moduleadmin.php?m=cfd&a=save">
+					<input type="hidden" name="cfdid" style="display:none;" value="{$data.cfdid}">
+					<table class="table-add">
+						<tr>
+							<td>名称：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+				 
+					 
+						<tr>
+							<td>图片：</td>
+							<td>
+								 <div class="upimg-box bg-fff">
+								 	<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								 		<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+								 	</div>
+								 	{if !$data.imgurl}	
+								 	<div class="upimg-btn js-upimg-btn">
+								 		<i class="upimg-btn-icon"></i>
+								 	</div>
+								 	{/if}
+								 	<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+								 	<input style="display: none;" class="js-upimg-file" type="file" name="upimg"  /> 
+								 </div> 
+							</td>
+						</tr>
+						<tr>
+							<td>状态：</td>
+							<td style="line-height: 40px;">
+								上线 <input type="radio" name="status" {if $data.status eq 1}checked{/if} id="status" value="2">
+								下线 <input type="radio" name="status" {if $data.status neq 1}checked{/if}  id="status" value="1">
+							</td>
+						</tr>
+						<tr>
+							<td>截止时间：</td>
+							<td><input type="text" name="endtime" id="endtime" value="{$data.endtime}"></td>
+						</tr>
+						<tr>
+							<td>描述：</td>
+							<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+						</tr>
+						 
+						<tr>
+							<td>视频：</td>
+							<td><input type="text" name="videourl" id="videourl" value="{$data.videourl}"></td>
+						</tr>
+						<tr>
+							<td>需要金额：</td>
+							<td><input type="text" name="needmoney" id="needmoney" value="{$data.needmoney}"></td>
+						</tr>
+						<tr>
+							<td>股权限制额</td>
+							<td>
+								<input type="text" name="gqmoney" value="{$data.gqmoney}" />
+							</td>
+						</tr>
+						<tr>
+							<td>众筹人数：</td>
+							<td><input type="text" name="joinnum" id="joinnum" value="{$data.joinnum}"></td>
+						</tr>
+						<tr>
+							<td>众筹金额：</td>
+							<td><input type="text" name="jionmoney" id="jionmoney" value="{$data.jionmoney}"></td>
+						</tr>
+						<tr>
+							<td>团队介绍：</td>
+							<td><script type="text/plain" id="teamdesc" name="teamdesc" >{$data.teamdesc}</script></td>
+						</tr>
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+					</table>
+					<div class="btn-row-submit" id="submit">保存</div>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+{php loadEditor();}
+
+<script language="javascript">
+ 
+var editor=UE.getEditor('content',options);
+var teamEditor=UE.getEditor('teamdesc',options)
+</script>
+<script src="/plugin/laydate/laydate.js"></script>
+<script src="/plugin/lrz/lrz.bundle.js"></script>
+<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+<script>
+	laydate.render({
+	  elem: '#endtime',
+	  type: 'datetime'
+	});
+	$(document).on("click", "#submit", function() {
+		editor.sync();
+		$.post("/moduleadmin.php?m=cfd&a=save&ajax=1", $("#form").serialize(), function(data) {
+			if(data.error) {
+				skyToast(data.message);
+
+			} else {
+				goBack();
+			}
+		}, "json")
+	})
+	
+ 
+</script>	
+	</body>
+
+</html>

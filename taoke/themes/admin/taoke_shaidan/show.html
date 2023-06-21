@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='taoke_shaidan/nav.html'}
+<div class="main-body">
+ <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>订单号：</td><td>{$data.orderno}</td></tr>
+  <tr><td>内容：</td><td>{$data.content}</td></tr>
+  <tr><td>图集：</td><td>{$data.imgsdata}</td></tr>
+  <tr><td>是否中奖：</td><td>{$data.iswin}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=csc_paotui_lmshop">&lt;&lt;商品列表</a>
+ 
+</div>
+<div class="main-body" id="App">
+	<form class="mgb-5" id="addForm">
+		<div class="flex flex-ai-center">
+			<input type="hidden" name="lmid" value="{$lmshop.lmid}" />
+			<div class="mgr-5">名称</div>
+			<input class="mgr-5" type="text" name="title" />
+			<div class="mgr-5">价格</div>
+			<input class="mgr-5" type="text" name="price" />
+			<div class="mgr-5">排序</div>
+			<input class="mgr-5" type="text" name="orderindex" value="100" />
+			<div @click="add" class="btn-small">新增</div>
+		</div>
+	</form>
+	<form class="mgb-5" :id="'e'+item.productid" v-for="(item,index) in list" :key="index">
+		<div class="flex flex-ai-center">
+			<input type="hidden" name="lmid" value="{$lmshop.lmid}" />
+			<input type="hidden" name="productid" :value="item.productid" />
+			<div class="mgr-5">名称</div>
+			<input class="mgr-5" type="text" :value="item.title" name="title" />
+			<div class="mgr-5">价格</div>
+			<input class="mgr-5" type="text" :value="item.price" name="price" />
+			<div class="mgr-5">排序</div>
+			<input class="mgr-5" type="text" name="orderindex" :value="item.orderindex" />
+			<div @click="update(item.productid)" class="btn-small">编辑</div>
+		</div>
+	</form>
+</div> 
+{include file="footer.html"}
+<script>
+	var lmid="{$lmshop.lmid}"
+</script> 
+<script src="{$skins}csc_paotui_lmshop_product/index.js"></script>
+</body>
+</html>

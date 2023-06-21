@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	 
+	<img gourl="/module.php?m=shopmap_apply&a=add" style="width: 100%;" src="{$skins}img/pdys.png" />
+	<div style="margin-bottom: 20px; text-align: center;display: block; padding: 10px;">
+		已经有<span class="cl-money">100</span>位小伙伴，帮助<span class="cl-money">500</span>个商家<br />入驻福鼎生活网了
+	</div> 
+	<div class="aBox">
+			<div class="aBox-hd">活动说明</div>
+			<div class="aBox-con">
+				福鼎口福科技助力“福鼎互联网+”产业升级系列活动，推动企业信息化升级，帮助福鼎商企全面入网。福鼎生活网拍店有赏，逛街也能赚零花钱活动。
+				<div style="display: block;">点击<a href="/module.php?m=shopmap_apply&a=add" style="color: #007AFF;">我要参加</a>，发布商家信息，通过审核就可以收到红包了</div>
+				<div>微信咨询：搜 “leirijin” 添加微信 </div>
+			</div>
+		</div>
+	{if $spUser.pass_num>0} 
+	<div class="zBox ">
+		<div class="phzan iconfont icon-crown"></div>
+		你帮助{$spUser.pass_num}个商家入驻福鼎生活网，获得了{$spUser.money}元奖励，快去炫耀一下吧。
+	</div>	
+	<div class="btn-row-submit bg-g" id="shareGift">炫耀一下</div>
+	{/if}
+	<div class="aBox">
+		<div class="aBox-hd">红包动态</div>
+		<div class="aBox-con">
+			{foreach item=c from=$shopList}
+			<div class="mgb-10 cl1">{$c.nickname}获得了￥{$c.hbmoney}元红包</div>
+			{/foreach}
+		</div>
+	</div>
+	
+	<div class="aBox">
+		<div class="aBox-hd">入驻动态</div>
+		<div class="flexlist">
+			{foreach item=c from=$shopList}
+			<div class="flexlist-item">
+				<image class="flexlist-img" src="{$c.imgurl}.100x100.jpg"></image>
+				<div class="flex-1">
+					<div class="flexlist-title">{$c.title}</div>
+					<div class="flexlist-desc">{$c.address}</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	<div class="aBox none">
+		<div class="aBox-hd">推荐商家</div>
+	</div>
+	<div class="modal-group" id="shareBox">
+		<div class="modal-mask"></div>
+			<div class="modal">
+			<div class="modal-header">
+				<div class="modal-title">长按图片保存分享到朋友圈</div>
+				<div class="modal-close icon-close"></div>
+			</div>
+			<div class="modal-body">
+				 
+				<div>
+				<img id="shareGiftImg" src="/module.php?m=shopmap_gd&a=winner" style="width: 100%;" />
+				</div>
+				 
+				
+			</div>
+		</div>
+	</div>
+	{include file="shopmap_apply/ftnav.html"}
+	{include file="footer.html"}
+	<script>
+		$(function(){
+			
+			$(document).on("click","#shareGift",function(){
+				$("#shareGiftImg").attr("src","/module.php?m=shopmap_gd&a=winner&t="+Math.random())
+				$("#shareBox").show();
+				
+			})
+		})
+	</script>
+		<?php wx_jssdk();?>
+	<script>
+		wxshare_title="拍店有红包，逛街也能赚零花钱";
+	 
+	</script> 
+</body>
+</html>	

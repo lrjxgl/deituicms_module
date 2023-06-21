@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div url="/" class="header-back"></div>
+			<div class="header-title">签到</div>
+			<div gourl="/module.php?m=checkin&a=my" class="header-right-btn">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				 
+				{$checkConfig.description}
+			</div>
+			 
+			<div class="flex pdl-10 pdt-10 bg-white">
+				{foreach item=c key=k from=$moodList}
+					<div v="{$k}"  class="mgr-5  js-mood">
+						<div class="moodIcon moodIcon{$k}"></div>
+					</div>
+					
+				{/foreach}
+			</div>
+			<div class="input-flex mgb-5">
+				<input class="input-flex-text" id="checkin-content" placeholder="请说点什么" type="text"> 
+				<div class="input-flex-btn" id="checkin-submit">点我签到</div>
+			</div>	
+			 
+			 
+			<div class="row-box">
+
+				<div class="qdlist">
+					<div class="pd-10 fw-600 bd-mp-10">签到记录</div>
+					{foreach item=c from=$list}
+					<div class=" bd-mp-10 ">
+						
+						
+						<div class="flex  mgb-10 flex-ai-center">
+							<span class="mgr-5 cl2">{$c.nickname}</span>
+							<span class="mgr-5 moodIcon moodIcon{$c.mood}"></span>
+							<span class="cl-num f12">金币 {$c.gold}</span>
+							<div class="flex-1"></div>
+							<span class="cl3 f12 mgl-5">{$c.day}</span> 
+						</div>
+						<div class="f14">{$c.content}</div>
+					</div>
+					{/foreach}
+				</div>
+			</div>
+			 
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function() {
+				$(document).on("click",".js-mood",function(){
+					$(this).addClass("mood-check").siblings().removeClass("mood-check");
+				})
+				$("#checkin-submit").on("click", function() {
+					$.post("/module.php?m=checkin&a=save&ajax=1", {
+						content: $("#checkin-content").val(),
+						mood:$(".mood-check").attr("v")
+					}, function(data) {
+						skyToast(data.message);
+						window.location.reload();
+					}, "json")
+				});
+			});
+		</script>
+	</body>
+</html>

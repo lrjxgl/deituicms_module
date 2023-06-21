@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">主题分类</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body">
+		    <form class="row-box mgb-5" method="post" action="/module.php?m=group_tags&a=save">
+		    	<input type="hidden" name="gid" value="{$group.gid}" />
+		    	<div class="input-flex">
+		    	<div class="input-flex-label">名称：</div>
+				<input class="input-flex-text" type="text" name="tagname" />
+		    	</div>
+		    	<div class="input-flex">
+		    	<div class="input-flex-label">排序：</div>
+				<input class="input-flex-text" type="text" name="orderindex" />
+		    	</div>
+		    	<div class="btn-row-submit js-submit" >添加</div>
+		    	
+		    </form>
+		    {foreach item=c from=$list}
+		    <form class="row-box mgb-5"   method="post" action="/module.php?m=group_tags&a=save">
+		    	<input type="hidden" name="tagid" value="{$c.tagid}" />
+		    	<input type="hidden" name="gid" value="{$group.gid}" />
+		    	<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input class="input-flex-text"  type="text" name="tagname" value="{$c.tagname}" />
+		    	</div>
+		    	<div class="input-flex">
+					<div class="input-flex-label">排序：</div>
+					<input class="input-flex-text" type="text" name="orderindex" value="{$c.orderindex}" />
+		    	</div>
+		    	 
+		    		<div class="btn-row-submit js-submit" >编辑</div>
+		    	 
+		    	
+		    </form>
+		    {/foreach}
+		     
+		</div>
+		{include file="admin_footer.html"}
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-del",function(){
+				var obj=$(this);
+				$.get($(this).attr("url"),function(data){
+					obj.parents("tr").remove();
+					skyJs.toast(data.message);
+				},"json")
+			})
+		</script>
+		
+	</body>
+</html>

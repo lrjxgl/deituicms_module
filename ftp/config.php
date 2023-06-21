@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"在线FTP",//模块名称
+	"module"=>"ftp",//模块目录
+ 	"version"=>3.0,//当前版本
+	"info"=>"FTP",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"from"=>"DeituiCMS",
+	"adminurl"=>"/moduleadmin.php?m=ftp&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

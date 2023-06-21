@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='bzy_event/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>eventid</td>
+   <td>名称</td>
+   <td>状态</td>
+   <td>开始时间</td>
+   <td>结束时间</td>
+    
+   <td>参与人数</td>
+	<td>限制次数</td>
+   <td>图片</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.eventid}</td>
+   <td>{$c.title}</td>
+   <td><div class="{if $c.status eq 1}yes{else}no{/if}"></div></td>
+   <td>{$c.stime|date:m-d H:i}</td>
+   <td>{$c.etime|date:m-d H:i}</td>
+    
+   <td>{$c.join_num}</td>
+   <td>{$c.limit_num}</td>
+   <td>
+	   {if $c.imgurl!=''}
+	   <img src="{$c.imgurl|images_site}.100x100.jpg" class="wh-40" />
+	   {/if}
+   </td>
+    
+<td><a href="/moduleadmin.php?m=bzy_event&a=add&eventid={$c.eventid}">编辑</a>
+ <a href="/moduleadmin.php?m=bzy_product&eventid={$c.eventid}">奖品管理</a>
+  <a href="/moduleadmin.php?m=bzy_product&a=add&eventid={$c.eventid}">奖品添加</a> 
+<a target="_blank" href="/module.php?m=bzy_event&a=show&eventid={$c.eventid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=bzy_event&a=delete&ajax=1&eventid={$c.eventid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}index.css?v3" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<img src="{$site.logo}.100x100.jpg" class="header-logo" />
+			<div class="header-search-box">
+				<input id="keyword" type="search" class="header-search pdl-5" />
+				<div id="searchBtn" class="header-search-btn  iconfont icon-search"></div>
+			</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		
+		<div class="main-body">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper" >
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+				 
+				<div class="swiper-pagination"></div>
+			 
+			</div>
+			{if $navList}
+			<div class="m-navPic">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+						 
+			</div>
+			{/if}
+			<div class="row-box-hd  pdl-10" >
+				<div class="flex-1 f16">好店推荐</div>
+				<div gourl="/module.php?m=mmjz_shoplist" class="row-box-more">更多</div>
+			</div>
+			{foreach item=c from=$recShop}
+			<a href="/module.php?m=mmjz_shop&shopid={$c.shopid}"  class="flexlist-item">
+				<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img bd-radius-50" />
+				<div class="flex-1">
+					<div class="flexlist-title">{$c.shopname}</div>
+					<div class="sky-raty" len="5" mod="2"  readonly="1" grade="{$c.raty_grade}" label="评价"></div>
+					{if $c.prolist}
+					<div class="flex" >
+						{foreach item=p from=$c.prolist}
+						<div  class="mgr-5">
+							<img src="{$p.imgurl}.100x100.jpg" class="wh-60 mgb-5" />							 
+						</div>
+						{/foreach}
+					</div>
+					{/if}
+				</div>
+				 
+			</a>
+			{/foreach}
+			
+			<div class="row-box-hd  pdl-10" >
+				<div class="flex-1 f16">好货推荐</div>
+				<div gourl="/module.php?m=mmjz_group_product&gkey=recommend" class="row-box-more">更多</div> 
+			</div>
+			<?php
+				$this->_var["pubList"]=$this->_var["recList"];
+			?>
+			{include file="inc/pubu-list.html"}
+			{if !empty($vipShop)}
+			<div class="mgb-10 row-box  flex flex-ai-center">
+				<div class="iconfont icon-back cl3 f18"></div>
+				<div class="flex-1" style="overflow: auto;" >
+					<div class="flex">
+						{foreach item=c from=$vipShop}
+						<div gourl="/module.php?m=mmjz_shop&shopid={$c.shopid}&spid={$c.spid}" class="w100  mgr-10">
+							<img class="wh-100 mgb-5" src="{$c.imgurl}.100x100.jpg" />
+							<div class="cl3" style="overflow: hidden;height:24px;line-height: 24px;">{$c.title}</div>
+						</div>
+						{/foreach}
+					</div>
+				</div>
+				<div class="iconfont icon-right cl3 f18"></div>
+			</div>
+			{/if}
+			<div class="row-box-hd  pdl-10 mtt10" >
+				<div class="flex-1 f16">热销商品</div>
+				<div gourl="/module.php?m=mmjz_group_product&gkey=hot" class="row-box-more">更多</div>  
+			</div>
+			<?php
+				$this->_var["pubList"]=$this->_var["hotList"];
+			?>
+			{include file="inc/pubu-list.html"}
+		</div>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://beian.miit.gov.cn">{$site.icp}</a>
+		</div>    
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/dt-ui-raty.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function(){
+				skyRaty(".sky-raty");
+				var flash=new Swiper("#indexFlash");
+				$(document).on("click","#searchBtn",function(){
+					var keyword=$("#keyword").val();
+					window.location="/module.php?m=mmjz_search&keyword="+encodeURIComponent(keyword);
+				})
+			})
+			
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			{if $site.logo} 
+			 wxshare_imgUrl="{$site.logo}.100x100.jpg";
+			 {/if}
+		</script>
+		 
+	</body>
+</html>

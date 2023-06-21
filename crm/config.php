@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"crm客户管理",//模块名称
+	"module"=>"crm",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"crm客户管理",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=crm&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

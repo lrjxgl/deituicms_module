@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.btn-mini{
+		background:none;
+		border:1px solid #007AFF;
+		color: #666;
+	}
+	.btn-status{
+		font-size: 12px;
+		padding: 2px;
+		border-radius: 5px;
+		background:none;
+		border:1px solid #007AFF;
+		color: #f60;
+		margin-right:5px;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的发布</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+  {foreach item=c from=$list}
+  <div class="bg-white pd-10 mgb-5 js-item">
+	  <div gourl="/module.php?m=fenlei&a=show&id={$c.id}" class="c1 f16 mgb-5">{$c.title}</div>
+	  <div class=" mgb-5 flex">
+	  		  <div class="flex-1 flex">
+				  <div class="btn-status">{if $c.status eq 1}已上线{else}未上线{/if}</div>
+				  {if $c.hb_on}
+				  <div class="btn-status">红包</div>
+				 {/if}
+			  </div>
+	  		  <div class=" flex">
+				  <div class="btn-status mgr-10">{if $c.ispay eq 1}已支付{else}未支付{/if}  </div>
+				  <div class="flex-1"></div>
+					<div class="cl-money">￥{$c.paymoney}</div>
+			   </div>
+	  </div>
+	  
+	  
+	  <div class="cl2 mgb-5">
+		  {$c.description}
+	  </div>
+	  <div class="mgb-10 flex">
+		  {if $c.money>0}
+		  <div class="cl-money"> {$c.money}元</div>
+		  {/if}
+		  <div class="flex-1"></div>
+		  <div>查看 {$c.view_num}次</div>
+	  </div>
+	  <div class="flex flex-jc-center">
+		  {if !$c.ispay}
+		  <div gourl="/module.php?m=fenlei&a=pay&id={$c.id}" class="btn-mini js-pageHide mgr-5">去支付</div>
+		  {/if}
+		  {if $flConfig["hb_on"] && !$c.hb_on}
+		 <div class="mgr-5 btn-mini js-hb" v="{$c.id}">红包</div> 
+		 {/if}
+		 <div class="mgr-5 btn-mini js-update" data-id="{$c.id}">更新</div>
+		  <div class="mgr-5 btn-mini js-ding-cat" data-id="{$c.id}">置顶分类</div>
+		  <div class="mgr-5 btn-mini js-ding-index" data-id="{$c.id}">置顶首页</div>
+		 <div gourl="/module.php?m=fenlei&a=add&id={$c.id}" class="btn-mini js-pageHide">编辑</div>
+		 <div class="mgl-5 btn-mini js-del" data-id="{$c.id}">删除</div>
+		  <div class="mgl-5 btn-mini js-out" data-id="{$c.id}">下架</div>
+	  </div>
+  </div>
+  {/foreach}
+<div>{$pagelist}</div>
+  
+</div>
+<div class="modal-group" id="hb-modal">
+	<div class="modal-mask"></div>
+	<div class="footerFix" style="z-index: 9999;">
+		<div class="row-box">
+			<div class="cl2 text-center">请选择红包金额</div>
+		</div>
+		<div class="row-box">
+			{foreach item=c from=$hbList}
+			<div v="{$c.id}" class="row-item-text pointer js-hb-pay">{$c.hb_money}元分{$c.hb_num}包</div>
+			{/foreach}
+			 
+		</div>
+		
+		<div class="row-box pointer">
+			<div class="text-center">取消</div>
+		</div>
+	</div>
+</div>
+
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script>
+	var fid=0;
+	$(function(){
+		$(document).on("click",".js-update",function(){
+			if(!postCheck.canPost()){
+				return false;
+			}
+			var id=$(this).attr("data-id");
+			$.get("/module.php?m=fenlei&a=updatetime&ajax=1&id="+id,function(res){
+				skyToast(res.message);
+			},"json")
+		})
+		
+		$(document).on("click",".js-ding-cat",function(){
+			var id=$(this).attr("data-id");
+			skyJs.confirm({
+				content:"确定置顶分类吗？",
+				success:function(){
+					if(!postCheck.canPost()){
+						return false;
+					}
+					
+					$.get("/module.php?m=fenlei&a=dingcat&ajax=1&id="+id,function(res){
+						skyToast(res.message);
+						if(!res.error){
+							window.location=res.data.payurl;
+						}
+					},"json")
+				}
+			})
+			
+		})
+		$(document).on("click",".js-del",function(){
+			var id=$(this).attr("data-id");
+			var obj=$(this);
+			skyJs.confirm({
+				content:"确定删除信息吗？",
+				success:function(){
+					if(!postCheck.canPost()){
+						return false;
+					}
+					
+					$.get("/module.php?m=fenlei&a=delete&ajax=1&id="+id,function(res){
+						skyToast(res.message);
+						obj.parents(".js-item").remove();
+					},"json")
+				}
+			})
+			
+		})
+		
+		$(document).on("click",".js-out",function(){
+			var id=$(this).attr("data-id");
+			var obj=$(this);
+			skyJs.confirm({
+				content:"确定下架信息吗？",
+				success:function(){
+					if(!postCheck.canPost()){
+						return false;
+					}
+					
+					$.get("/module.php?m=fenlei&a=out&ajax=1&id="+id,function(res){
+						skyToast(res.message);
+						obj.parents(".js-item").remove();
+					},"json")
+				}
+			})
+			
+		})
+		$(document).on("click",".js-ding-index",function(){
+			var id=$(this).attr("data-id");
+			skyJs.confirm({
+				content:"确认置顶首页吗？",
+				success:function(){
+					if(!postCheck.canPost()){
+						return false;
+					}
+					
+					$.get("/module.php?m=fenlei&a=dingindex&ajax=1&id="+id,function(res){
+						skyToast(res.message);
+						if(!res.error){
+							window.location=res.data.payurl;
+						}
+					},"json")
+				}
+			})
+			
+		})
+		
+		$(document).on("click",".js-hb",function(){
+			fid=$(this).attr("v");
+			$("#hb-modal").show();
+		})
+		$(document).on("click",".js-hb-pay",function(){
+			if(!postCheck.canPost()){
+				return false;
+			}
+			var hbid=$(this).attr("v");
+			$.ajax({
+				url:"/module.php?m=fenlei&a=hbpay&ajax=1",
+				dataType:"json",
+				data:{
+					id:fid,
+					hbid:hbid
+				},
+				success:function(res){
+					skyToast(res.message);
+					if(res.error){
+						return false;						
+					}
+					if(res.data.action=='finish'){
+						window.location.reload();
+					}else{
+						window.location=res.data.payurl;
+					}
+				}
+			})
+		})
+	})
+</script>
+</body>
+</html>

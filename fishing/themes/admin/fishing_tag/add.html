@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='fishing_tag/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=fishing_tag&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+						<td>名称：</td>		
+						<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+						</tr>
+  {if $data}<tr>
+						<td>createtime：</td>		
+						<td>{$data.createtime}</td>
+						</tr>{/if}
+  <tr>
+						<td>grade：</td>		
+						<td><input type="text" name="grade" id="grade" value="{$data.grade}" ></td>
+						</tr>
+  <tr>
+						<td>status：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

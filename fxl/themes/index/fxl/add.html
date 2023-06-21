@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	<form method="post" action="/module.php?m=fxl&a=save">
+<input type="hidden" name="fxlid" style="display:none;" value="{$data.fxlid}" >
+ <table class="table-add">  <tr>
+				<td>名称：</td>		
+				<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+				</tr>
+  <tr>
+				<td>用户：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>状态：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>结束时间：</td>		
+				<td><input type="text" name="endtime" id="endtime" value="{$data.endtime}" ></td>
+				</tr>
+  <tr>
+				<td>描述：</td>		
+				<td><input type="text" name="description" id="description" value="{$data.description}" ></td>
+				</tr>
+  <tr>
+				<td>图片：</td>		
+				<td><input type="text" name="imgurl" id="imgurl" value="{$data.imgurl}" ></td>
+				</tr>
+  <tr>
+				<td>视频：</td>		
+				<td><input type="text" name="videourl" id="videourl" value="{$data.videourl}" ></td>
+				</tr>
+  <tr>
+				<td>需要金额：</td>		
+				<td><input type="text" name="needmoney" id="needmoney" value="{$data.needmoney}" ></td>
+				</tr>
+  <tr>
+				<td>众筹人数：</td>		
+				<td><input type="text" name="joinnum" id="joinnum" value="{$data.joinnum}" ></td>
+				</tr>
+  <tr>
+				<td>众筹金额：</td>		
+				<td><input type="text" name="jionmoney" id="jionmoney" value="{$data.jionmoney}" ></td>
+				</tr>
+  <tr>
+				<td>联系电话：</td>		
+				<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}" ></td>
+				</tr>
+  <tr>
+				<td>联系人：</td>		
+				<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}" ></td>
+				</tr>
+  <tr>
+				<td>地址：</td>		
+				<td><input type="text" name="address" id="address" value="{$data.address}" ></td>
+				</tr>
+  <tr>
+				<td>content：</td>		
+				<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

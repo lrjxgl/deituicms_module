@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">叫快车订单详情</div>
+<div class="main-body">
+ <table class="table table-bordered" width="100%">
+  <tr><td>orderid：</td><td>{$data.orderid}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>telephone：</td><td>{$data.telephone}</td></tr>
+  <tr><td>出发地：</td><td>{$data.from_addr}</td></tr>
+  <tr><td>目的地：</td><td>{$data.to_addr}</td></tr>
+  <tr><td>乘客数：</td><td>{$data.user_num}</td></tr>
+  <tr><td>介绍：</td><td>{$data.description}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+  <tr><td>支付：</td><td>{$data.ispay}</td></tr>
+  <tr><td>床架时间：</td><td>{$data.createtime}</td></tr>
+  <tr><td>接单时间：</td><td>{$data.order_time}</td></tr>
+  <tr><td>司机：</td><td>{$data.senderid}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}
+</body>
+</html>

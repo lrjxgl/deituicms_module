@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">任务反馈</h1>
+	</header>
+	<div class="mui-content">
+		<div class="mui-content-padded">
+			<form method="post" action="index.php?m=shop_product_item_comment&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<input type="hidden" name="productid" value="{$product.id}" />
+				<input type="hidden" name="itemid" value="{$itemid}" />
+				<div class="input-flex">
+					<div class="label">所属项目</div>
+					<div class="flex-1 txt">{$product.title}</div>
+				</div>
+				{if $item}
+				<div class="input-flex">
+					<div class="label">任务名称</div>
+					<div class="flex-1 txt">
+						{$item.title}
+					</div>
+				</div>
+				{/if}
+				 
+				<script name="content" id="content" type="text/plain" style="height: 300px;" >{$data.content}</script>
+				 
+				<div class="btn-row-submit" id="submit">提交反馈</div>
+			</form>
+		</div>
+	</div>
+ 	 <script src="/plugin/lrz/lrz.bundle.js"></script>
+	{php loadEditor(0);}
+	<script language="javascript">
+		var editor=UE.getEditor('content',options)
+	</script>
+	<script>
+		$(function(){
+			$(document).on("click","#submit",function(){
+				 $("#content").val($("#js-content").html());
+				 $.post($(this).parents("form").attr("action")+"&ajax=1",$(this).parents("form").serialize(),function(res){
+					 mui.toast(res.message);
+					 if(!res.error){
+					 	goBack();
+					 }
+					 
+				 },"json")
+			})
+			
+		})
+	</script>
+</body>
+
+</html>

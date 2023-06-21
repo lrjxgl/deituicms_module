@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.uList{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.uItem{
+		flex-direction: column;
+		width: 20%;
+		padding: 5px;
+		box-sizing: border-box;
+		justify-content: center;
+		align-items: center;
+		overflow: hidden;
+	}
+	.uItem-img{
+		width: 80%;
+		margin-bottom: 5px;
+		border-radius: 20px;
+	}
+	.uItem-nick{
+		color: #666;
+		font-size: 12px;
+	}
+	
+</style>
+<body>
+<div class="header">
+	<div url="/module.php?m=house" class="header-back"></div>
+	<div class="header-title">看房团</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<img class="d-img" src="{$data.imgurl|images_site}" />
+    <div class="row-box mgb-10">
+		
+		<div class="d-title">{$data.title}</div>
+		<div class="flex mgb-5 flex-ai-center">
+			<span class="mgr-10 cl2">看房时间</span>
+			<span class="f12 cl2">{$data.stime}</span>
+		</div>
+		<div class="mgb-10 cl2">地点：{$data.address}</div>
+		<div class="flex-center flex">
+			<div class="btn mgr-20" id="join-btn">我要参与</div>
+			 
+		</div>
+	</div>
+	<div class="row-box mgb-10">
+		<div class="flex">
+			<div class="fwb mgb-5 f14">参团列表</div>
+			<div class="flex-1"></div>
+			<div id="contact-btn" class="btn-mini btn-outline-info">联系人</div>
+		</div>
+		
+		<div class="uList" id="App">
+			<div class="uItem" v-for="(item,index) in userList" :key="index">
+				<img class="uItem-img" :src="item.user_head+'.100x100.jpg'" />
+				<div class="uItem-nick">{{item.nickname}}</div>
+			</div>
+		</div>
+		
+	</div>
+	
+	
+	<div class="row-box">
+		<div class="d-content">{$data.content}</div>
+	</div> 
+
+    
+</div>
+<div class="modal-group" id="contact-modal">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">看房团联系人</div>
+			<div class="modal-close icon-close"></div>
+		</div>
+		<div class="modal-body">
+			<div class="flex-center mgb-5">
+				<img src="{$data.wxewm|images_site}.100x100.jpg" />
+				<div class="cl3 f12">长按识别二维码</div>
+			</div>
+			<div class="">
+				<div class="mgb-5">联系人：{$data.truename}</div>
+				<div class="flex">
+					<div>电话：</div>
+					<div>{$data.telephone}</div>
+				</div>
+			</div>
+			 
+		</div>
+	</div>
+</div>
+<div class="modal-group" id="join-modal">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">看房报名</div>
+			<div class="modal-close icon-close"></div>
+		</div>
+		<div class="modal-body">
+			<form id="join-form">
+				<input type="hidden" name="tid" value="{$data.id}" />
+			<div class="input-flex">
+				<input class="input-flex-text" placeholder="请输入名字" id="t-truename" name="truename" />
+			</div>
+			<div class="input-flex">
+				<input class="input-flex-text" placeholder="请输入手机号码" id="t-telephone" name="telephone" />
+			</div>
+			<div class="btn-row-submit" id="join-submit">确认报名</div>
+			</form>
+		</div>
+	</div>
+</div>
+<style>
+	.shareFixed{
+		position: fixed;
+		right: 1px;
+		bottom:200px;
+		background-color:rgba(240,85,75,.82);
+		padding:5px 5px;
+		width:30px;
+		text-align: center;
+		box-sizing: border-box;
+		font-size: 14px;
+		color: #fff;
+		cursor: pointer;
+	}
+</style>
+<div  class="shareFixed iconfont icon-friend">邀请好友</div>
+<div id="shareGuide" class="modal-group">
+	<div class="modal-mask" style="opacity: 0.6;"></div>
+	<img style="display:block;width:200px;height:auto;position:fixed;right:0;top:0;z-index:999;" src="/static/images/wx_guide.png" />
+	 
+	
+</div>
+{include file="footer.html"}
+<script src="/plugin/vue/vue.min.js"></script>
+<script>
+	var tid="{$data.id}"
+</script>
+<script src="{$skins}house_tuan/show.js"></script>
+<?php wx_jssdk();?>
+<script>
+	wxshare_link="{$shareurl}";
+	wxshare_imgUrl="{$data.imgurl}";
+	$(".shareFixed").click(function(){
+		wxshare_title="我觉得这个真不错，推荐给大家。{$data.title}";
+		wxshare_link="{$shareurl}";
+		$("#shareGuide").show();
+	})
+</script>
+</body>
+</html>

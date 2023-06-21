@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='exue_shop/nav.html'}
+
+<div class="main-body">
+	<form class="search-form" action="/moduleadmin.php" autocomplete="off">
+		<input type="hidden" name="m" value="exue_shop" />
+		<div class="flex flex-ai-center">
+		shopid:<input class="w60" type="text" name="shopid" value="{$smarty.get.shopid|intval}" />
+		名称：<input class="w100" type="text" name="keyword" value="{$smarty.get.keyword|html}" />
+		首页：<input type="checkbox" {if get("site_index")}checked{/if} name="site_index" value="1" />
+		推荐：<input type="checkbox" {if get("site_recommend")}checked{/if} name="site_recommend" value="1" />
+		
+		
+		<button class="btn-small" type="submit">搜一下</button>
+		</div>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>shopid</td>
+   <td>名称</td>
+   
+   <td>地址</td>
+   <td>昵称</td>
+   <td>电话</td>
+   <td>图片</td>
+  
+   <td>综合评分</td>
+  
+   <td>状态</td>
+   <td>首页</td>
+   <td>推荐</td>
+    
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.shopid}</td>
+   <td>{$c.title}</td>
+   
+   <td>{$c.address}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>
+	   {if $c.imgurl}<img  src="{$c.imgurl|images_site}.100x100.jpg" width="60" />{/if}
+   </td>
+  
+   <td>{$c.raty_grade}</td>
+    
+   <td>
+   	<div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=exue_shop&a=status&shopid={$c.shopid}&ajax=1" ></div>
+   </td>
+   <td>
+   	<div class="{if $c.site_index eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=exue_shop&a=site_index&shopid={$c.shopid}&ajax=1" ></div>  	
+   </td>
+   <td>
+   	<div class="{if $c.site_recommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=exue_shop&a=site_recommend&shopid={$c.shopid}&ajax=1" ></div>  	
+   </td> 
+   
+<td>
+	<a href="/moduleadmin.php?m=exue_admin&a=shop&shopid={$c.shopid}">管理员</a>
+	<a href="/moduleadmin.php?m=exue_shop&a=add&shopid={$c.shopid}">编辑</a> 
+<a href="/module.php?m=exue_shop&a=show&shopid={$c.shopid}" target="_blank">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=exue_shop&a=delete&ajax=1&shopid={$c.shopid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

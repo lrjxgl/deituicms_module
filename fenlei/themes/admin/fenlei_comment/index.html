@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='fenlei_comment/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>用户</td>
+   <td>状态</td>
+   <td>文章</td>
+   <td>上级评论</td>
+   <td>创建时间</td>
+   <td>内容</td>
+   <td>ip</td>
+   <td>所在城市</td>
+   <td>点赞数</td>
+   <td>图集</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.status}</td>
+   <td>{$c.objectid}</td>
+   <td>{$c.pid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.content}</td>
+   <td>{$c.ip}</td>
+   <td>{$c.ip_city}</td>
+   <td>{$c.love_num}</td>
+   <td>{$c.imgsdata}</td>
+<td><a href="/module.php?m=fenlei_comment&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=fenlei_comment&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=fenlei_comment&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">全职发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=job_quanzhi&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				 
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">职位名称：</div>
+						<input type="text" class="input-flex-text" name="title" id="title" value="{$data.title}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">分类</div>
+						<select name="catid" class="input-flex-select">
+							<option value="0">请选择</option>
+							{foreach item=c from=$catList}
+								<option {if $data.catid eq $c.catid}selected{/if} value="{$c.catid}">{$c.title}</option>
+								{foreach item=cc from=$c.child}
+								<option {if $data.catid eq $cc.catid}selected{/if}  value="{$cc.catid}">|--{$cc.title}</option>
+								{/foreach}
+							{/foreach}
+						</select>
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">工资：</div>
+						<input type="text" class="input-flex-text " name="money" id="money" value="{$data.money}">
+						<div class="input-flex-note">元/月</div> 
+					</div>
+					<div class="textarea-flex">
+						<div class="textarea-flex-label input-flex-require">描述：</div>
+						<textarea  class="textarea-flex-text" name="description" id="description" >{$data.description}</textarea>
+					</div>
+					 
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">联系人：</div>
+						<input type="text" class="input-flex-text" name="nickname" id="nickname" value="{$data.nickname}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">电话：</div>
+						<input type="text" class="input-flex-text" name="telephone" id="telephone" value="{$data.telephone}">
+					</div>
+					
+					<div class="input-flex">
+						<div class="input-flex-label input-flex-require">地址：</div>
+						<input type="text" class="input-flex-text" name="address" id="address" value="{$data.address}">
+					</div>
+					<div class="sky-editor-box">
+						<div name="content" contenteditable="true" class="sky-editor-content"></div>
+					</div> 
+					
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+	</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.row-box .hd{
+		font-size: 18px;
+		margin-bottom: 5px;
+		font-weight: 600;
+		color: #444;
+	}
+ 	.row-box .con p{
+ 		color: #444;
+ 	}
+</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">问答红包</div>
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body">
+			<div>
+				<img src="{$data.imgurl}" class="d-img" />
+			</div>
+			<div class="row-box">
+				<div class="d-title">{$data.title}</div>
+				<div class="flex mgb-5">
+					<label class="mgr-10">红包总额</label>
+					<span class="cl-money">￥{$data.total_money}</span>
+				</div>
+				<div class="flex">
+					<div class="mgr-10">截止时间</div>
+					<div>{$data.endtime|date:Y-m-d H:i:s}</div>
+ 
+				</div>
+			</div>
+		 
+
+			<div class="row-box">
+				{if $data.isask}
+				<div class="input-flex">
+					<div class="label">问题：</div>
+					<div> {$data.ask}
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="label">回答：</div>
+					<input type="text" class="text" id="answer" />
+				</div>
+				{/if}
+				<div class="note" style="font-size: 14px; color: red; padding: 10px;">
+					获得的红包大于1元才能通过微信发送，没满1元存在网站用户红包，累计到下次满1元自动发送。
+				</div>
+				{if $data.isfinish}
+				<div style="color: #555;">当前活动已结束</div>
+				{else}
+				{if $canget}
+				<div class="btn-row-submit" v="{$data.id}" id="getHongbao">立即抢红包</div>
+				{else}
+				<div style="color: #555;">你需要先通过公众号发送抢红包，获取参与资格。</div>
+				{/if}
+				{/if}
+			</div>
+			<div class="row-box mgb-5">
+				<div class="d-content ">
+					{$data.content}
+				</div>
+			</div>
+
+			{if $itemlist}
+			<div class="flex flex-center pd-10 fwb">红包排行</div>
+			<div class="paibox">
+				<div class="flexitem">
+					<div class="pm">排名</div>
+					<div class="nick">姓名</div>
+					<div class="money">金额</div>
+				</div>
+				{foreach item=c key=k from=$itemlist}
+				<div class="flexitem">
+					<div class="pm">{$k+1}</div>
+					<div class="nick">{$c.nickname}</div>
+					<div class="money">{$c.money}</div>
+				</div>
+				{/foreach}
+			</div>
+			{/if}
+
+		</div>
+		{include file="footer.html"}
+		 
+		<script>
+			var isask = "{$data.isask}";
+
+			$(document).on("click", "#getHongbao", function() {
+				var answer = $("#answer").val();
+				if (isask == 1 && answer == '') {
+					skyToast('请填写答案');
+					return false;
+				}
+				var id = $(this).attr("v");
+				$.post("/module.php?m=hongbao&a=get&ajax=1", {
+					id: id,
+					answer: answer
+				}, function(data) {
+					skyToast(data.message);
+					if (data.error == 0) {
+						setTimeout(function() {
+							window.location.reload();
+						}, 600)
+					}
+				}, "json")
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title = "{$data.title}"; 
+			wxshare_imgUrl = "{$data.imgurl}";
+		</script>
+	</body>
+</html>

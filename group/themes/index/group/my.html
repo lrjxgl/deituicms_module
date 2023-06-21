@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}css/news.css" rel="stylesheet">
+ 
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的圈子</div>
+</div>	
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 
+    	<div class="flexlist">
+    	{foreach item=c from=$list}
+    	<div class="flexlist-item" href="/module.php?m=group&a=show&gid={$c.gid}">
+    		<img class="flexlist-img"  src="{$c.glogo|images_site}.100x100.jpg"> 
+    		<div class="flex-1">
+    			<div class="flexlist-title">{$c.gname}</div>
+    			<div class="flexlist-desc">{$c.description}</div>
+    			<div class="flex">
+    				<a class="mgr-10" href="/module.php?m=group&a=show&gid={$c.gid}">访问</a>  
+    				{if $c.isadmin}
+    				<a href="/module.php?m=group&a=admin&gid={$c.gid}">管理</a>
+    				{/if}
+    			</div>
+    		</div>
+    		
+    		 
+    	</div> 
+    	{/foreach}
+    	</div>
+     
+</div>
+ 
+{include file="footer.html"}
+{include file="inc/js_thumb.html"}
+{include file="group_title/comm.html"}
+</body>
+</html>

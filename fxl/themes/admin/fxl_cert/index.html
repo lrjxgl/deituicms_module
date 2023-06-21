@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.c-content img{
+			max-width: 200px;
+			height: auto;
+		}
+	</style>
+	<body>
+		{if $fxl}
+		<div class="shd">{$fxl.title}</div>
+		{/if}
+		{include file='fxl_cert/nav.html'}
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="row-box">
+				<div class="c-content mgb-10">{$c.content}</div>
+				
+				<div class="flex">
+					<a class="mgr-10 cl-primary" href="/moduleadmin.php?m=fxl_cert&a=add&id={$c.id}">编辑</a> 
+					 
+					<a  class="mgr-10 cl-primary js-delete" url="/moduleadmin.php?m=fxl_cert&a=delete&ajax=1&id={$c.id}">删除</a>
+				</div>	
+			</div>
+			{/foreach}
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

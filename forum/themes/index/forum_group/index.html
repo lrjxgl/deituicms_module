@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">论坛版块</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box">
+				 
+				<div class="flexlist">
+					{foreach item=c from=$list}
+						<div class="flexlist-item">
+							<img  gourl="/module.php?m=forum&a=list&gid={$c.gid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+							<div class="flex-1">
+								<div  gourl="/module.php?m=forum&a=list&gid={$c.gid}" class="flexlist-title">{$c.title}</div>
+								<div class="flexlist-row">
+									主题数
+									<text class="cl-num mgl-5 mgr-10">{$c.topic_num}</text> 
+									 
+									评论数
+									<text class="cl-num  mgl-5">{$c.comment_num}</text>
+								</div>
+								{if !empty($c.admin)}
+								<div class="flex flex-wrap">
+									<div class="cl-success f12 mgr-5">版主</div>
+									{foreach item=a from=$c.admin}
+									<span gourl="/module.php?m=forum_home&userid={$a.userid}" class="f12 cl2 mgr-5 mgb-5">{$a.nickname}</span>
+									{/foreach}
+								
+								</div>
+								{/if}
+								<div class="flexlist-desc">{$c.description}</div>
+							</div>
+						</div>
+					{/foreach}
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="forum_group"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

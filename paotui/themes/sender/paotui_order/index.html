@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="app">
+			<div class="tabs-border">
+				<div :class="typeid==0?'tabs-border-active':''" class="tabs-border-item" @click="setType(0)">全部</div>
+				<div @click="setType(item.typeid)" v-for="(item,index) in typelist" :class="item.typeid==typeid?'tabs-border-active':''"
+				 :index="index" class="tabs-border-item">{{item.title}}</div>
+		
+			</div>
+			<div class="ptlist">
+		
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="mgr-5">{{item.typeid_name}}</div>
+		
+						<div class="f12 cl3">{{item.createtime}}</div>
+						<div class="flex-1"></div>
+		
+						<div class="flex mgb-5 flex-ai-center">
+							<div class="mgr-5 cl3">{{item.weight}}Kg</div>
+							<div class="cl-money">￥</div>
+							<div class="cl-money">{{item.money}}</div>
+						</div>
+					</div>
+					<div v-if="item.fromaddr && Object.keys(item.fromaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">取</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.fromaddr.truename}}</div>
+								<div class="cl3 f12">{{item.fromaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.fromaddr.address}}
+							</div>
+						</div>
+		
+					</div>
+					<div v-if="item.toaddr && Object.keys(item.toaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">收</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.toaddr.truename}}</div>
+								<div class="cl3 f12">{{item.toaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.toaddr.address}}
+							</div>
+						</div>
+		
+					</div>
+		
+					<div class="mgb-5 cl3 f12" v-html="item.content"></div>
+					<div v-if="item.typeid==3" class="flex mgb-10">
+						<div class="f12 cl2">商品估价</div>
+						<div class="cl-num f12">￥{{item.goodsmoney}}</div>
+					</div>
+					<div class="flex">
+						<div class="cl-num">
+							{{item.status_name}}
+						</div>
+						<div class="flex-1"></div>
+						<div :gourl="'/sender.php?m=paotui_order&a=show&id='+item.id" class="btn-small">去处理</div>
+		
+					</div>
+		
+				</div>
+		
+			</div>
+		</div>
+		{assign var="ftnav" value="order"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}paotui_order/index.js"></script>
+	</body>
+</html>

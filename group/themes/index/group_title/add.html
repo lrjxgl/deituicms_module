@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ 
+<body>
+	
+<div class="header">
+    <div class="header-back"></div>
+    <div class="header-title">发布主题</div>
+     
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	
+    <div>
+    	<form id="addForm" method="post" action="/module.php?m=group_title&a=save">
+			<input type="hidden" id="id" name="id" style="display:none;" value="{$data.id}" >
+			
+			 
+			{if $group.gid}
+			<input type="hidden" id="gid" name="gid" value="{$group.gid}" />
+			<div class="input-flex" >
+				<label class="input-flex-label">类别</label>
+				<select class="input-flex-select" id="tagid"  name="tagid">
+					<option value="0">请选择</option>
+					{foreach item=c from=$taglist}
+					<option value="{$c.tagid}" {if $data.tagid eq $c.tagid} selected=""{/if}>{$c.tagname}</option>
+					{/foreach}
+				</select>
+			</div>
+			{else}
+			<div class="input-flex">
+				<div class="input-flex-label">选择圈子</div>
+				<select id="changeGroup" class="input-flex-select"  name="gid">
+					<option value="0">请选择圈子</option>
+					{foreach item=g from=$groupList}
+					<option value="{$g.gid}">{$g.gname}</option>
+					{/foreach}
+				</select>
+			</div>
+			<div id="changeTag" style="display: none;" class="input-flex" >
+				<label class="input-flex-label">类别</label>
+				<select class="input-flex-select" id="tagid"  name="tagid">
+					<option value="0">请选择</option>
+					{foreach item=c from=$taglist}
+					<option value="{$c.tagid}" {if $data.tagid eq $c.tagid} selected=""{/if}>{$c.tagname}</option>
+					{/foreach}
+				</select>
+			</div>
+			{/if}
+			<div class="bg-fff mgb-5">
+				<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+				{include file="inc/uploader-data.html"}
+			</div>
+			 
+			
+		 	<div class="textarea-flex">
+				 
+				<div id="js-content" name="content" contenteditable="" class="sky-editor-content">{if $data}{$data.content}{/if}</div>
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">话题</div>
+				<input class="input-flex-text" type="text" name="tags" id="tags" value="{$data.tags}">
+				
+			</div>
+			<div class="input-flex">
+				<div class="cl-red">*多个标签用空格 隔开</div>
+			</div>
+			<div id="comApp"> 
+				<div class="input-flex">
+					<input  type="hidden" id="open_data" name="open_data" v-model="open_data" />
+					<div class="input-flex-label">插入商品</div>
+					<div class="input-flex-txt" @click="openModal=true" id="open_data-title">
+						{{open_data_title}}
+					</div>
+					<div class="iconfont icon-right"></div>
+				</div>
+			
+				 
+				<open-data @close="close" v-if="openModal" @call-parent="setProduct"></open-data>
+			</div> 
+			
+			<div class="btn-row-submit" id="post-submit">发布</div>
+		</form>
+    </div>
+</div>
+<input type="file" id="videofile" name="video" style="display: none;" />
+{include file="footer.html"}
+<script src="{$skins}js/open-data.js"></script>
+<script src="/plugin/skyeditor/skyeditor.js?{$smarty.now}"></script>
+<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+<script>
+	    	$(function(){
+	    		skyeditor.uploadUrl = "/index.php?m=upload&a=base64";
+				skyeditor.uploadVideo = "/index.php?m=upload&a=uploadmp4";
+				
+				$(document).on("change","#changeGroup",function(){
+					var gid=$(this).val();
+					$.ajax({
+						url:"/module.php?m=group_title&a=gettag&ajax=1",
+						dataType:"json",
+						data:{
+							gid:gid
+						},
+						success:function(res){
+							$("#changeTag").show();
+							var html='<option value="">请选择</option>';
+							for(var i in res.data.list){
+								html+='<option value="'+res.data.list[i].tagid+'">'+res.data.list[i].tagname+'</option>'
+							}
+							$("#tagid").html(html);
+						}
+					})
+				})
+	    		$(document).on("click","#post-submit",function(){
+	    			 
+	    			if(!postCheck.canPost()){
+						return false;
+					} 
+	    			$.post("/module.php?m=group_title&a=save&ajax=1",$("#addForm").serialize(),function(data){
+	    				skyJs.toast(data.message);
+	    				if(data.error==0){
+	    					setTimeout(function(){
+		    					window.history.back();
+		    				},1000)
+	    				}
+	    				
+	    			},"json");
+	    		})
+	    		 
+	    	})
+	    </script>
+</body>
+</html>

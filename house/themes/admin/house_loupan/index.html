@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		{include file="house_loupan/nav.html"}
+		<div class="main-body">
+			<div class="">
+				<table class="tbs" width="100%">
+					<thead>
+						<tr>
+							<td>id</td>
+							<td>名称</td>
+
+							<td>在售</td>
+							<td>价格</td>
+							<td>图片</td>
+							<td>地址</td>
+							<td>状态</td>
+							<td>推荐</td>	
+							<td>操作</td>
+						</tr>
+					</thead>
+					<tbody>
+						{foreach item=c from=$data}
+						<tr>
+							<td>{$c.id}</td>
+							<td>{$c.title}</td>
+
+							<td><div class="{if $c.isbuy eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=house_loupan&a=isbuy&id={$c.id}&ajax=1" ></div>
+							<td>{$c.price}</td>
+							<td><img src="{$c.imgurl|images_site}.100x100.jpg" width="50" /> </td>
+							<td>{$c.address}</td>
+							   <td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=house_loupan&a=status&id={$c.id}&ajax=1" ></div></td>
+							<td><div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=house_loupan&a=recommend&id={$c.id}&ajax=1" ></div></td>
+							<td>
+								<a href="/moduleadmin.php?m=house_huxing&lpid={$c.id}">户型</a>
+								<a href="/moduleadmin.php?m=house_peitao&lpid={$c.id}">配套</a>
+								<br/>
+								<a href="/moduleadmin.php?m=house_loupan&a=add&id={$c.id}">编辑</a>
+								<a href="/module.php?m=house_loupan&a=show&id={$c.id}" target="_blank">查看</a>
+								<a href="javascript:;" class="js-delete" te" url="/moduleadmin.php?m=house_loupan&a=delete&id={$c.id}">删除</a></td>
+						</tr>
+						{/foreach}
+					</tbody>
+				</table>
+				<div>{$pagelist}</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+
+	</body>
+</html>

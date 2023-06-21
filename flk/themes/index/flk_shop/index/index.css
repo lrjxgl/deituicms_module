@@ -1,0 +1,233 @@
+.header-back-fixed {
+	color: #fff;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+}
+
+.header-fixtop-menu {
+	position: absolute;
+	top: 40px;
+	border-radius: 10px;
+	right: 5px;
+	width: 100px;
+	z-index: 999;
+	background-color: #fff;
+}
+
+.header-fav-btn {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	display: flex;
+	flex-direction: row;
+	font-size: 14px;
+	padding: 5px;
+	color: #666;
+}
+
+.header-fav-btn:before {
+	font-size: 14px;
+	color: #666;
+}
+
+.btn-fav-active,
+.btn-fav-active::before {
+	color: #FFC107;
+}
+
+.wshop {
+	background-color: #fff;
+	padding-top: 20px;
+	padding-bottom: 10px;
+}
+
+.wshop-logo {
+	height: 60px;
+	background-color: #0099a8;
+	text-align: center;
+}
+
+.wshop-logo-img {
+	width: 50px;
+	height: 50px;
+	margin: 0 auto;
+	position: relative;
+	top: 25px;
+	border-radius: 10px;
+}
+
+.wshop-shopname {
+	color: #323232;
+	margin-bottom: 5px;
+	position: relative;
+	font-size: 16px;
+	text-align: center;
+}
+
+.wshop-welcome {
+	color: #fff;
+	font-size: 14px;
+}
+
+.btn-service {
+	display: flex;
+	flex-direction: row;
+	font-family: iconfont;
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 0 10px;
+	border: 1px solid #aaa;
+	font-size: 14px;
+	height: 26px;
+	border-color: #e30;
+	color: #e30;
+	border-radius: 5px;
+}
+
+.btn-fav {
+	height: 28px;
+
+	border-radius: 5px;
+}
+
+.btn-service:before {
+	font-family: iconfont;
+	content: "\e7e6";
+	font-size: 14px;
+	margin-right: 3px;
+}
+
+.rp-list {
+	overflow: hidden;
+
+}
+
+.rp-item {
+	width: 30%;
+	padding-right: 2px;
+	box-sizing: border-box;
+
+}
+
+.rp-item-pd {
+	padding: 5px;
+	border: 1px solid #efefef;
+	border-radius: 5px;
+}
+
+.rp-imgbox {
+	height: 0px;
+	padding-bottom: 62.5%;
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.rp-img {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+}
+
+.rp-item-title {
+	font-size: 12px;
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}
+
+.couponBox {
+	position: fixed;
+	top: 50px;
+	background-color: #fff;
+	left: 20px;
+	right: 20px;
+	padding: 10px;
+}
+
+.side {
+	position: absolute;
+	top: 160px;
+	bottom: 40px;
+	left: 0px;
+	width: 80px;
+
+	background-color: #fff;
+}
+
+.sideClass {
+	position: fixed;
+	top: 38px !important;
+	left: 0;
+	right: 0;
+	bottom: 50px;
+}
+
+.side-menu {
+	cursor: pointer;
+	padding: 10px 5px;
+	border-bottom: 1px solid #eee;
+	color: #646464;
+	font-size: 14px;
+}
+
+.side-menu-active {
+	color: #f60;
+}
+
+.main {
+	margin-left: 82px;
+}
+
+.tabClass {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.tabRowClass {
+	height: 46px;
+}
+
+.sideClass {
+	position: fixed;
+	top: 44px;
+	left: 0;
+	right: 0;
+	bottom: 50px;
+}
+
+.fixCartBox-bg {
+	background-color: #efefef;
+	position: fixed;
+	z-index: 9;
+	opacity: 0.6;
+	bottom: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+.fixCartBox {
+	background-color: #fff;
+	position: fixed;
+	z-index: 99;
+
+	bottom: 60px;
+	top: 100px;
+	left: 5px;
+	right: 5px;
+	border-radius: 5px;
+	padding: 5px;
+	box-sizing: border-box;
+}

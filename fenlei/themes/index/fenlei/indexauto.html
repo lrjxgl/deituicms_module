@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<style>
+	.swiper-container{
+		width: 100%;
+		 
+	}
+	.swiper-wrapper{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+	}
+	.m-navPic-item{
+		padding: 5px;
+		width: 20%;
+		margin-bottom: 10px;
+	}
+	.m-navPic-img{
+		width: 40px;
+		height: 40px;
+	}
+	.m-navPic-title {
+    font-size: 0.7rem;
+   
+}
+.adBox{
+			display: flex;
+			flex-direction: row;
+			 
+		}
+		.adBox-item{
+			flex: 1;
+			margin: 5px;
+		}
+		.adBox-img{
+			width: 100%;
+			border-radius: 10px;
+		}
+</style>
+	<body>
+		<div class="header">
+			<a href="/" class="header-back pos-relative"></a>
+			<!--<img class="header-logo" src="{$site.logo}.100x100.jpg" />-->
+			<div class="header-search-box">
+
+				<input id="search-word" class="header-search pdl-5" placeholder="搜你想要的" type="text">
+				<div id="search-btn" class="header-search-btn bg-primary cl-white iconfont icon-search"></div>
+			</div>
+
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+
+				<div class="swiper-pagination"></div>
+
+			</div>
+			
+			{if $navList}
+			<div class="m-navPic">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+					  <div class="m-navPic-title">{$c.title}</div>
+					   
+			    </a>
+				
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+			
+
+			<div class="f18 cl1 pd-10">猜你喜欢</div>
+			<?php
+			$indexList=MM("fenlei","fenlei")->Dselect(array(
+				"where"=>" status=1 AND isindex=1 ",
+				"order"=>"isindex_etime DESC",
+				"limit"=>24
+			));
+			$this->_var["indexList"]=$indexList;
+			?>
+			{foreach item=c from=$indexList}
+			 <a href="/module.php?m=fenlei&a=show&id={$c.id}" class="flexlist-item">
+				 {if $c.imgurl}
+				 <img class="flexlist-img" src="{$c.imgurl}.100x100.jpg" />
+				 {/if}
+					 <div class="flex-1">
+						<div class="flex mgb-5">
+							 
+							{if $c.hb_on}
+							<div class="bc-red mgr-5">红</div>
+							{/if}
+							<div class="f14">{$c.title}</div>
+						</div>
+							{if $c.money>0}
+							<div class="flexlist-row">
+								<div class="cl-money">￥{$c.money}</div>
+							</div>
+							{/if}
+						  <div class="flexlist-desc">
+							  {$c.description}
+						  </div>
+					</div>
+			</a>
+			{/foreach}
+			<div class="f18 cl1 pd-10">最新发布</div>
+			 
+			<?php
+				$list=MM("fenlei","fenlei")->Dselect(array(
+					"where"=>" status=1 ",
+					"order"=>"id DESC",
+					"limit"=>24
+				));
+				$this->_var["list"]=$list;
+				 
+			?>
+			{foreach item=c from=$list}
+			 <a href="/module.php?m=fenlei&a=show&id={$c.id}" class="flexlist-item">
+				 {if $c.imgurl}
+				 <img class="flexlist-img" src="{$c.imgurl}.100x100.jpg" />
+				 {/if}
+					 <div class="flex-1">
+						<div class="flex mgb-5">
+							{if $c.isindex}
+							<div class="bc-red mgr-5">顶</div>
+							{/if} 
+							{if $c.hb_on}
+							<div class="bc-red mgr-5">红</div>
+							{/if}
+							<div class="f14">{$c.title}</div>
+						</div>
+						{if $c.money>0}
+						<div class="flexlist-row">
+							<div class="cl-money">￥{$c.money}</div>
+						</div>
+						{/if}
+						  <div class="flexlist-desc">
+							  {$c.description}
+						  </div>
+					</div>
+			</a>
+			{/foreach}
+		</div>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://beian.miit.gov.cn">{$site.icp}</a>
+		</div>  
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash");
+			})
+		</script>
+		<script>
+			$(document).on("click", "#search-btn", function() {
+				var word = $("#search-word").val();
+				window.location = "/module.php?m=fenlei&a=search&keyword=" + encodeURI(word)
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			 
+		</script>
+
+	</body>
+</html>

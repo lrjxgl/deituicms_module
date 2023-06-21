@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我参与的活动</div>
+
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{if empty($list)}
+	<div class="emptyData">暂无参与活动</div>
+	{/if}
+	<div class="sglist">
+		{foreach item=c from=$list}
+		<div  class="sglist-item js-item">
+			 
+			<div class="sglist-title">{$c.title}</div>
+			<div class="flex mgb-10">
+				<div class="cl2 mgr-5">限制人数</div>
+				<div class="cl-num">{$c.max_num}</div>
+				<div class="flex-1"></div>
+				<div class="cl2 mgr-5">参与人数</div>
+				<div class="cl-num">{$c.join_num}</div>
+			</div>
+			<div class="flex mgb-10">
+				<div class="cl2 mgr-5">活动时间</div>
+				<div class="cl2">{$c.stime}</div>
+			</div>
+			<div class="flex">
+				<div class="flex-1"></div>
+				 
+				<div class="btn-mini js-delete btn-outline-danger mgr-5" url="/module.php?m=party_join&a=delete&ajax=1&pid={$c.id}">取消参与</div>
+				<div class="btn-mini btn-outline-primary"  gourl="/module.php?m=party&a=show&id={$c.id}">查看</div>
+			</div>
+		</div>	
+		{/foreach}	
+	</div>
+	
+
+<div>{$pagelist}</div>
+    
+</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

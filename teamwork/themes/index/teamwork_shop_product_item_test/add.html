@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">添加测试</h1>
+	</header>
+	<div class="mui-content">
+		<div class="mui-content-padded">
+			<form method="post" action="index.php?m=shop_product_item_test&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<input type="hidden" name="productid" value="{$product.id}" />
+				<input type="hidden" name="itemid" value="{$itemid}" />
+				<div class="input-flex">
+					<div class="label">所属项目</div>
+					<div class="flex-1 txt">{$product.title}</div>
+				</div>
+				 
+				<div class="input-flex">
+					<div class="label">任务详情</div>
+					<div class="flex-1 txt">
+						{$item.title}
+						<br />
+						{$item.content}
+					</div>
+				</div>
+				<div class="row-box">
+					<div class="btn-small btn-outline-success">测试内容</div>
+					<div class="d-content">
+						{$item.testing}
+					</div>
+				</div>
+				
+				<div class="input-flex">
+					<div class="label">测试结果</div>
+					<div class="flex-1 txt">
+						<input type="radio" name="ispass" checked="" value="1" />通过
+						<input type="radio"  name="ispass" value="0" />未通过
+					</div>
+				</div>
+				 
+				<textarea placeholder="请输入测试结果" name="content" id="content" style="height: 60px;">{$data.content}</textarea>
+				 
+			 
+				<div class="btn-row-submit" id="submit">添加</div>
+			</form>
+		</div>
+	</div>
+ 	 <script src="/plugin/lrz/lrz.bundle.js"></script>
+	 
+	<script>
+		$(function(){
+			$(document).on("click","#submit",function(){
+				 
+				 $.post($(this).parents("form").attr("action")+"&ajax=1",$(this).parents("form").serialize(),function(res){
+					 mui.toast(res.message);
+					 if(!res.error){
+					 	goBack();
+					 }
+					 
+				 },"json")
+			})
+			
+		})
+	</script>
+</body>
+
+</html>

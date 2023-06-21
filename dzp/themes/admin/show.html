@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body class="bg-white">
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">幸运大转盘</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body pdt-10">
+			<div class=" pd-10 text-center">{$event.title}</div>
+			<div class="wheel mgb-10">
+			    <canvas class="item" id="wheel-canvas" width="320" height="320"></canvas>
+			    <img class="wheel-pointer" src="{$skins}img/wheel-pointer.png" />
+			</div>
+			<div id="App" >
+				<div class="flex mgb-10 pdt-10 flex-center" >
+					<div class="btn-small mgr-10 btn-outline-danger btn-icon icon-add">中奖名单</div>
+					
+					
+					<div class="btn-small btn-outline-warning btn-icon icon-order">我的奖品</div> 
+				</div>	
+				<div >
+					<div class="pd-10" style="max-height: 240px; overflow: auto;">
+						 
+						<div class="flex mgb-10">
+							<div class="w100">昵称</div>
+							<div class="flex-1">奖品</div>
+							<div class="w100">时间</div>
+						</div>
+						<div class="flex mgb-10" v-for="(item,index) in list" :key="index">
+							<div class="w100">{{item.nickname}}</div>
+							<div class="flex-1">{{item.product.description}}</div>
+							<div class="w100">{{item.time}}</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			
+		</div>
+		<div class="footer-row"></div>
+		{include file="footer.html"}
+		<script src="{$skins}js/turnWheel.js"></script>
+		<script>
+			var App;
+			var eventid="{$event.eventid}";
+			$.ajax({
+				url:"/module.php?m=dzp_event&a=show&ajax=1",
+				data:{
+					eventid:eventid
+				},
+				dataType:"json",
+				success:function(res){
+					turnWheel.rewards=res.data.list;
+					turnWheel.init();
+					turnWheel.draw();
+				}
+			})
+			
+			// 抽取按钮按钮点击触发事件
+			$('.wheel-pointer').click(function() {
+				// 正在转动，直接返回
+				if (turnWheel.bRotate) return;
+				turnWheel.bRotate = true;
+				$.ajax({
+					url:"/module.php?m=dzp_event&a=getindex&ajax=1",
+					data:{
+						eventid:eventid
+					},
+					dataType:"json",
+					success:function(res){
+						if(res.error){
+							skyJs.toast(res.message,"error");
+							turnWheel.bRotate = false;
+							return false;
+						}
+						var index = res.data.index;
+		 
+						turnWheel.goRoate(turnWheel.rewards.length - index, function() {
+						 
+							skyJs.toast("恭喜你获得了"+turnWheel.rewards[index].title);
+							App.getPage();
+						}); 
+					}
+				})
+				
+			});
+		</script>
+		<script src="{$skins}dzp_event/show.js"></script>
+	</body>
+</html>

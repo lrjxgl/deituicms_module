@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.sglist-scale-box{
+			position: relative;
+			padding-bottom: 50%;
+			height: 0;
+			overflow: hidden;
+			margin-bottom: 5px;
+		}
+		.sglist-scale-img{
+			width: 100%;
+			height: auto;
+		}
+	</style>
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<a class="header-back" href="/"></a>
+			<div class="header-title">福鼎超级惠</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex row-box mgb-5 flex-center">
+			
+				<div class="flex-1">
+					<div class="cl2 f12">已返金额</div>
+					<div class="cl-money f12">￥{$flks["back_money"]}</div>
+				</div>
+			
+				<div class="flex-1">
+					<div class="cl2 f12">排队返单</div>
+					<div class="cl-money f12">{$flk_num}笔</div>
+				</div>
+				<div class="cl-num" gourl="/module.php?m=flk_queue_log">实时返券</div>
+			</div>
+			 
+				<div style="width: 100%;"  class="swiper-container" id="indexFlash">
+					<div class="swiper-wrapper">
+						{foreach item=c from=$flashList}
+						<div gourl="{$c.link1}" class="swiper-slide">
+							<img class="wmax"src="{$c.imgurl}" />
+			
+						</div>
+						{/foreach}
+					</div>
+			
+					<div class="swiper-pagination flex flex-jc-center"></div>
+			
+				</div>
+		</div>
+		<div id="App" class="none" :class="'flex-col'">
+			<div>
+
+				<div class="main-body">
+					
+						<div class="tabs-border">
+							<div @click="setTab('doing')" :class="{'tabs-border-active':tab=='doing'}" class="tabs-border-item">疯抢中</div>
+							<div @click="setTab('will')" :class="{'tabs-border-active':tab=='will'}" class="tabs-border-item">即将开始</div>
+							<div @click="setTab('done')" :class="{'tabs-border-active':tab=='done'}" class="tabs-border-item">往期活动</div>
+						</div>
+						<div class="flexlist-item " v-for="(item,index) in list" :key="index">
+							<img @click="goDetail(item.id)" :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+							<div class="flex-1">
+								<div @click="goDetail(item.id)" class="flexlist-title">{{item.title}}</div>
+								<div class="flex flex-ai-center mgb-5">
+									<div class="mgr-5 cl2 f12">活动价</div>
+								
+									<div class="cl-money">￥{{item.one_price}}</div>
+									
+									<div class="flex-1"></div>
+									<div class="mgr-5 cl3 f12">原价</div>
+																
+									<div class="market-price f12">￥{{item.price}}</div>
+								</div>
+								<div class="flex flex-ai-center mgb-5">
+									 
+									<div class="mgr-5 cl2 f12">使用一折劵</div>
+									<div class="cl2 f12">{{item.price}}*10%=</div>															
+									<div class="cl-money">￥{{item.ez_price}}</div>
+									<div class="flex-1"></div>
+									<div class="cl2 f12">省</div>
+									<div class="cl-money">￥{{item.fan_price}}</div>
+								</div>
+								<div class="flex cl2 f12">
+									开始时间：{{item.one_stime}}
+								</div>
+								<div class="flex cl2 f12 mgb-10">
+									结束时间：{{item.one_etime}}
+								</div>
+								<div @click="goDetail(item.id)" class="flex flex-center ">
+									<span class="btn-small btn-outline-primary" v-if="item.canbuy==1">马上抢购</span>
+									<span class="btn-small btn-outline-primary" v-else>去看看</span>
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			{include file="ftnav.html"}
+			{include file="footer.html"}
+
+			<script src="/plugin/swiper/js/swiper.min.js"></script>
+			<script>
+				$(function() {
+
+					var flash = new Swiper("#indexFlash", {
+						pagination: {
+							el: '.swiper-pagination',
+						}
+					});
+
+				})
+			</script>
+			<?php wx_jssdk();?>
+			<script type="text/javascript">
+				wxshare_title = "{$seo.title}"; 
+				{if $site.logo}
+				wxshare_imgUrl = "{$site.logo}.100x100.jpg"; 
+				{/if}
+			</script>
+
+			<script src="{$skins}flk_one/index.js"></script>
+	</body>
+</html>

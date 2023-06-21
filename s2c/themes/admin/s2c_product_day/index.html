@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=s2c_product_day" class="item {if get('day') eq 0}active{/if}">今日备货</div>
+			<div gourl="/moduleadmin.php?m=s2c_product_day&day=-1" class="item {if get('day') eq -1}active{/if}">昨日备货</div>
+			<div gourl="/moduleadmin.php?m=s2c_product_day&day=2" class="item {if get('day') eq 2}active{/if}">明日备货</div>
+		</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>产品</td>
+						<td>款式</td>
+						<td>数量</td>
+					</tr>
+				</thead>
+				<tbody>
+					{foreach item=c from=$list}
+					<tr>
+						<td>{$c.title}</td>
+						<td>{$c.ks_title}</td>
+						<td>{$c.amount}</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="tabs-border">
+		<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=zbtao_pp">全部主播</a>
+		<a class="item {if get('type') eq 'online'}active{/if}" href="{$appadmin}?m=zbtao_pp&type=online">上架</a>
+		<a class="item {if get('type') eq 'offline'}active{/if}" href="{$appadmin}?m=zbtao_pp&type=offline">已下架</a> 
+	</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>ppid</td>
+   <td>昵称</td>
+   <td>描述</td>
+   <td>性别</td>
+   <td>创建时间</td>
+   <td>积分</td>
+   <td>评价</td>
+   <td>头像</td>
+   <td>用户</td>
+   <td>状态</td>
+   <td>推荐</td>
+   <td>关注数</td>
+   <td>喜欢数</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.ppid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.description}</td>
+   <td>{if $c.gender eq 1}女{else}男{/if}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.grade}</td>
+   <td>{$c.raty_grade}</td>
+   <td><img src="{$c.imgurl}.100x100.jpg" class="w60" /> </td>
+   <td>{$c.userid}</td>
+   <td><div url="/moduleadmin.php?m=zbtao_pp&a=status&ppid={$c.ppid}&ajax=1" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div></td>
+   <td><div url="/moduleadmin.php?m=zbtao_pp&a=recommend&ppid={$c.ppid}&ajax=1" class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status"></div></td>
+   
+   <td>{$c.followed_num}</td>
+   <td>{$c.love_num}</td>
+<td><a href="/moduleadmin.php?m=zbtao_pp&a=add&ppid={$c.ppid}">编辑</a> 
+<a target="_blank" href="/module.php?m=zbtao_pp&a=show&ppid={$c.ppid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=zbtao_pp&a=delete&ajax=1&ppid={$c.ppid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

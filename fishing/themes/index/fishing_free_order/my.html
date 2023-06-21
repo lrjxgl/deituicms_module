@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的捐赠</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			{if empty($list)}
+			<div class="emptyData">暂无位置</div>
+			{/if}
+			{foreach item=c from=$list}
+			<div class="row-box mgb-5">
+				<img gourl="/module.php?m=fishing_free_place&a=show&placeid={$c.placeid}"  src="{$c.place.imgurl}.middle.jpg" class="sglist-img" />
+				<div gourl="/module.php?m=fishing_free_place&a=show&placeid={$c.placeid}" class="mgb-5">{$c.place.title}</div>
+				<div class="mgb-10 cl3">{$c.description}</div>
+				<div class="flex">
+					<div class="cl-money">{$c.money}元</div>
+					<div class="flex-1"></div>
+					<div class="f12 cl3">{$c.createtime}</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

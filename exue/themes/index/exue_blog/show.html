@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width: 100%;
+		}
+	</style>
+	<body>
+		<div class="header-back-fixed goBack" style="z-index: 999;"></div>
+	 
+		<div class="main-body pd-10 bg-fff mgb-10">
+			{if $data.shopid}
+			<div class="d-userbox">
+				<image gourl="/module.php?m=exue_shop&a=show&shopid={$shop.shopid}" class="d-userbox-head" src="{$shop.imgurl}.100x100.jpg"></image>
+				<div class="flex-1">
+					<div class="d-userbox-nick">{$shop.title}</div>
+					<div class="mgb-5 d-userbox-follows flex-ai-center">
+						<text class="mgr-5">学生</text>
+						<text class="cl-num mgr-5 ">{$shop.student_num}</text>
+						<text class="mgr-5">评价</text>
+						<div class="zm-raty" mod="2" grade="{$shop.raty_grade}" len="5"></div>
+						
+						
+					</div>
+					
+				</div>
+				<div gourl="/module.php?m=exue_shop&a=show&shopid={$shop.shopid}" class="btn-small btn-outline-success" >主页</div>
+			</div>
+			{else}
+			<div class="d-userbox">
+				<image gourl="/module.php?m=exue_home&userid={$author.userid}" class="d-userbox-head" src="{$author.user_head}.100x100.jpg"></image>
+				<div class="flex-1">
+					<div class="d-userbox-nick">{$author.nickname}</div>
+					<div class="mgb-5 d-userbox-follows flex-ai-center">
+						<text class="mgr-5">粉丝</text>
+						<text class="cl-num mgr-5 ">{$author.followed_num}</text>
+						<text class="mgr-5">关注</text>
+						<text class="cl-num">{$author.follow_num}</text>
+						
+						
+					</div>
+					<div class="mgb-5 f12 cl3">{$data.timeago} </div> 
+				</div>
+				<div class="btn-small btn-outline-success js-follow-toggle" data-userid="{$author.userid}">{if $author.isFollow}已{/if}关注</div>
+			</div>
+			{/if}
+			
+			{if $data.mp4url}
+			<div>
+				<video autoplay="autoplay" controls="controls" class="video" src="{$data.mp4url}"></video>
+			</div>
+			{/if}
+			<div class="d-content block">{$data.parsecontent}</div>
+			<div class="flex-center mgb-10">
+				{foreach item=c from=$imgslist}
+				<img src="{$c}" class="wmax mgb-5" />
+				{/foreach}
+			</div>
+			<div class="flex flex-center mgb-10">
+				<div class="btn-love js-love-toggle {if $islove}btn-love-active{/if} mgr-10" tablename="mod_exue_blog" objectid="{$data.id}">
+					喜欢
+				</div>
+
+				
+			</div>
+			
+		</div>
+		<div class="main-body">
+			{include file="inc/comment.html"}
+		</div>
+		<a href="/module.php?m=exue_blog&a=add" class="fixedAdd">发布</a>
+		{include file="footer.html"}
+
+		<script src="{$skins}inc/comment.js"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+		<script src="/plugin/dt-ui/dt-ui-raty.js"></script>
+		<script>
+			skyRaty(".zm-raty")
+		</script>
+	</body>
+</html>

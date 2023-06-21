@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">微投票</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="flexlist">
+			{foreach item=c from=$data}
+			<div class="flexlist-item">
+				<a href="/module.php?m=vote&a=home&id={$c.id}">
+				<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" />
+				</a>
+				<div class="flex-1">
+					<a class="flexlist-title" href="/module.php?m=vote&a=home&id={$c.id}">{$c.title}</a>
+					<div class="flexlist-desc">
+						{$c.description}
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

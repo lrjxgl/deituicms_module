@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+		    <div class="header-back"></div>
+		    <div class="header-title">做任务</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		    <div class="row-box">
+		    	<div class="thd">任务说明</div>
+		    	<div class="tcon">
+		    		点击以下任务商品，转发到朋友圈。好友首次点击商品进入，则有机会获得兑换币奖励。
+		    	</div>
+		    </div>
+		    <div class="flexlist">
+		    	{foreach item=c from=$data}
+		    	<a href="/module.php?m=cj1&a=show&id={$c.id}&fuserid={$userid}" class="flexlist-item">
+		    		<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg">
+		    		<div class="flex-1">
+		    			<div class="flexlist-title">{$c.title}</div>
+		    			<div class="flex">
+		    				 价值：<span class="cl-num">￥{$c.price}</span> 
+							 &nbsp;&nbsp;	成团数：<span class="cl-num">{$c.need_num}</span> 
+		    			</div>
+		    		</div>
+		    	</a>
+		    	{/foreach}
+		    </div>
+		</div>
+		
+		{include file="footer.html"}
+	</body>
+</html>

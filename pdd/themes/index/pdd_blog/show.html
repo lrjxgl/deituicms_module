@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body pd-10 bg-fff mgb-10">
+			<div class="d-userbox">
+				<image class="d-userbox-head" src="{$author.user_head}.100x100.jpg"></image>
+				<div class="flex-1">
+					<div class="d-userbox-nick">{$author.nickname}</div>
+					<div class="d-userbox-follows flex-ai-center">
+						<text>粉丝</text>
+						<text class="cl-num mgr-5 ">{$author.followed_num}</text>
+						<text>关注</text>
+						<text class="cl-num">{$author.follow_num}</text>
+						<text class="mgl-5 f12 cl3">{$data.timeago} </text>
+						
+					</div>
+				</div>
+				<div class="btn-small btn-outline-success js-follow-toggle" data-userid="{$author.userid}">{if $author.isfollow}已{/if}关注</div>
+			</div>
+			<div class="d-title">{$data.title}</div>
+			 
+			<div class="d-content">{$data.content}</div>
+			<div class="flex-center mgb-10">
+				{foreach item=c from=$imgslist}
+				<img src="{$c}" class="wmax mgb-5" />
+				{/foreach}
+			</div>
+			<div class="flex flex-center mgb-10">
+				<div class="btn-love js-love-toggle {if $islove}btn-love-active{/if} mgr-10" tablename="mod_pdd_blog" objectid="{$data.id}">
+					喜欢
+				</div>
+
+				
+			</div>
+			
+		</div>
+		{include file="inc/comment.html"}
+		<a href="/module.php?m=pdd_blog&a=add" class="fixedAdd">发布</a>
+		{include file="footer.html"}
+
+		<script src="{$skins}inc/comment.js"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+	</body>
+</html>

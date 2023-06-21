@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">消费验证</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <div  class="flexlist-item" >
+    	 	<img class="flexlist-img" src="{$product.imgurl}.100x100.jpg" />
+    	 	<div class="flex-1">
+    	 		<div class="flexlist-title">{$product.title}</div>
+    	 		<div class="flex">
+    	 			<div class="cl-money">￥{$order.money}</div>
+    	 			<div class="flex-1"></div>
+    	 			<div class="cl-status">{if $order.status eq 0}待消费{else}已消费{/if}</div>
+    	 		</div>
+    	 		
+    	 	</div>
+    	 </div>
+		 <form id="form">
+		 {if empty($ssfxadmin)}
+			<div class="input-flex">
+				<input name="username" class="input-flex-text" type="text" placeholder="商家账号" />
+			</div>
+			<div class="input-flex">
+				<input name="password" class="input-flex-text" type="password" placeholder="商家密号" />
+			</div>
+		 {/if}
+		 {if $order.status eq 0} 
+		 <div class="btn-row-submit" id="submit">确认消费</div>
+		  
+		 {/if}
+		</form>	 
+    
+</div>
+{include file="footer.html"}
+<script>
+	var yzm="{$yzm}";
+	$(document).on("click","#submit",function(){
+		$.ajax({
+			url:"/module.php?m=fxa_shop&a=checkOrderFinish&ajax=1&yzm="+yzm,
+			dataType:"json",
+			data:$("#form").serialize(),
+			type:"POST",
+			success:function(res){
+				if(res.error){
+					skyToast(res.message)
+					return false;
+				}
+				window.location.reload();
+			}
+		})
+	})
+</script>
+</body>
+</html>

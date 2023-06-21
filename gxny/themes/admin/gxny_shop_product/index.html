@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gxny_shop_product/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>用户2</td>
+   <td>no</td>
+   <td>status</td>
+   <td>创建时间</td>
+   <td>catid</td>
+   <td>decription</td>
+   <td>isused</td>
+   <td>userid</td>
+   <td>starttime</td>
+   <td>orderid</td>
+   <td>endtime</td>
+   <td>islook</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.no}</td>
+   <td>{$c.status}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.catid}</td>
+   <td>{$c.decription}</td>
+   <td>{$c.isused}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.starttime}</td>
+   <td>{$c.orderid}</td>
+   <td>{$c.endtime}</td>
+   <td>{$c.islook}</td>
+<td><a href="/moduleadmin.php?m=gxny_shop_product&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=gxny_shop_product&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=gxny_shop_product&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

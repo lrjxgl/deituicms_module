@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>{include file="head.html" }
+	<style>
+		.h60 {
+			height: 60px;
+		}
+	</style>
+
+	<body>
+		<div class="tabs-border">
+			<a class="item" href="/moduleadmin.php?m=vote">投票管理</a>
+			<a class="item active" href="/moduleadmin.php?m=vote&a=add">投票添加</a>
+		</div>
+		<div class="main-body">
+		<form autocomplete="off" method="post" action="/moduleadmin.php?m=vote&a=save">
+			<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+			<table class="table-add">
+
+				<tr>
+					<td  align="right">标题：</td>
+					<td><input type="text" class="w98" name="title" id="title" value="{$data.title}"></td>
+				</tr>
+				<tr>
+					<td align="right">封面图片：</td>
+					<td>
+						<div class="js-upload-item">
+							<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+							<div class="upimg-btn js-upload-btn">+</div>
+							<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+							<div class="js-imgbox">
+								{if $data.imgurl}
+								<img src="{$data.imgurl|images_site}.100x100.jpg">
+								{/if}
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>开始时间：</td>
+					<td><input type='text' name='starttime' id='starttime' value='{if $data}{$data.starttime|date:Y-m-d H:m:s}{/if}'
+						 ></td>
+				</tr>
+				<tr>
+					<td>结束时间：</td>
+					<td><input type='text' name='endtime' id='endtime' value='{if $data}{$data.endtime|date:Y-m-d H:m:s}{/if}' ></td>
+				</tr>
+				<tr>
+					<td>活动类型：</td>
+					<td>
+
+						{foreach item=c key=k from=$typelist}
+
+						<input type="radio" class="js-typeid" name="typeid" value="{$k}" {if $k eq $data.typeid} checked{/if}> {$c} {/foreach} </td> </tr>
+						 <tr>
+					<td>模板</td>
+					<td>
+						<input type="text" id="tpl" name="tpl" value="{$data.tpl}" />
+					</td>
+				</tr>
+				<tr>
+					<td>投票类型：</td>
+					<td>
+						<input type="radio" name="gotype" value="1" {if $data.gotype eq 1} checked{/if}>按总数 <input type="radio" name="gotype"
+						 value="2" {if $data.gotype neq 1} checked{/if}> 按天 </td> </tr> <tr>
+					<td>投票次数：</td>
+					<td>
+						<input type="text" name="gonum" class="w100" value="{$data.gonum}">
+					</td>
+				</tr>
+				<tr>
+					<td>参加人数</td>
+					<td>
+						<input type="text" name="join_num" value="{$data.join_num}" />
+					</td>
+				</tr>
+				<tr>
+					<td>状态：</td>
+					<td><input type="radio" name="status" value="2" {if $data.status neq 2} checked="checked" {/if} />隐藏 &nbsp;
+						<input type="radio" name="status" value="1" {if $data.status eq 1} checked="checked" {/if} />显示</td>
+				</tr>
+				<tr>
+					<td align="right">活动介绍：</td>
+					<td><textarea class="w98 h60" type="text" name="description" id="description">{$data.description}</textarea></td>
+				</tr>
+
+				<tr>
+					<td align="right">奖品介绍：</td>
+					<td>
+						<script name="award" id="award" style="height:300px;" type="text/html">{$data.award}</script>
+
+					</td>
+				</tr>
+
+				<tr>
+					<td align="right">参与规则：</td>
+					<td>
+						<script name="ruledesc" id="ruledesc" style="height:300px;" type="text/html">{$data.ruledesc}</script>
+					</td>
+				</tr>
+				{if $data}
+				<tr>
+					<td>发布时间：</td>
+					<td>{$data.dateline|date:Y-m-d H:m}</td>
+				</tr>{/if}
+				<tr>
+					<td align="right">活动详情</td>
+					<td>
+						<script name="content" id="content" style="height:300px;" type="text/html">{$data.content}</script>
+					</td>
+				</tr>
+				 
+			</table>
+			<div class="btn-row-submit js-submit" >保存</div>
+		</form>
+		</div>
+		{include file="footer.html" }
+		<script src="/static/admin/js/upload.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#starttime",
+				type: 'datetime'
+			})
+			laydate.render({
+				elem:"#endtime",
+				type: 'datetime'
+			})
+			$(document).on("click",".js-typeid",function(){
+				var v=$(this).val();
+				var tpl="";
+				console.log(v);
+				switch(v){
+					case "1":
+						tpl="picture/";
+						break;
+					case "2":
+						tpl="article/";
+						break;
+					case "3":
+						tpl="audio/";
+						 
+						break;
+					case "4":
+						tpl="video/";
+						break;
+				}
+				$("#tpl").val(tpl);
+			})
+		</script>
+		<?php loadEditor();?>
+		<script>
+			var editor = UE.getEditor('content', options);
+			var editor2 = UE.getEditor('award', options);
+			var e3 = UE.getEditor('ruledesc', options);
+		</script>
+
+	</body>
+
+</html>

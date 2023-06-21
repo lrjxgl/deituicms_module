@@ -1,0 +1,23 @@
+body,.mui-content,.mui-content-padded{
+	background-color: #fff;
+}
+.mui-btn-block{
+	padding: 8px 0;
+}
+.btn-upload {
+	position: relative;
+	background: url(btn-upload.jpg) no-repeat;
+	width: 99px;
+	height: 33px;
+}
+.btn-upload .btn-upload-file {
+	opacity: 0;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 99px;
+	height: 33px;
+	-ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(opacity=0)';
+filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+	display: block;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<a href="/module.php?m=taoke_user" class="header-back"></a>
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="tabs-border">
+				<div @click="setType('all')" :class="type=='all'?'tabs-border-active':''"  class="tabs-border-item">全部</div>
+				<div @click="setType('finish')" :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">已结算</div>
+				<div @click="setType('ispay')" :class="type=='ispay'?'tabs-border-active':''"  class="tabs-border-item">已付款</div>
+				<div @click="setType('cancel')" :class="type=='cancel'?'tabs-border-active':''"  class="tabs-border-item">已失效</div>
+			</div>
+			<div  class="flexlist-item" v-for="(item,index) in list" :key="index">
+				<img class="flexlist-img" :src="item.imgurl" />
+				<div class="flex-1">
+					<div class="flexlist-title">{{item.title}}</div>
+					<div class="flex mgb-10">
+						<div class="cl-money">￥{{item.money}}</div>
+						<div class="flex-1"></div>
+						<div class="cl-status">{{item.orderstatus}}</div>
+					</div>
+					<div v-if="!item.issd" class="flex">
+						<div class="flex-1"></div>
+						<div :gourl="'/module.php?m=taoke_shaidan&a=add&orderno='+item.orderno" class="btn-small">晒单抽奖</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}taoke_order/my.js"></script>
+	</body>
+</html>

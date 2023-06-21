@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">缓存清理</div>
+		<div class="main-body">
+			
+			<div class="row-box">
+				<div class="flex mgb-10">
+					<div class="flex-1">清理购物车过期商品</div>
+					<div gourl="/moduleadmin.php?m=b2c_clear&a=cart" class="btn-small">一键清理</div>
+				</div>
+				<div class="flex">
+					<div class="flex-1">清理访问记录</div>
+					<div gourl="/moduleadmin.php?m=b2c_clear&a=history" class="btn-small">一键清理</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

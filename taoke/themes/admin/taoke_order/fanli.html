@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div  gourl="/moduleadmin.php?m=taoke_order&a=fanli"  class="item {if get('type') eq ''}active{/if}">全部订单</div>
+			<div gourl="/moduleadmin.php?m=taoke_order&a=fanli&type=no" class="item {if get('type') eq 'no'}active{/if}">待返利</div>
+			<div gourl="/moduleadmin.php?m=taoke_order&a=fanli&type=yes"  class="item {if get('type') eq 'yes'}active{/if}">已返利</div>
+		</div>
+		<div class="main-body">
+		<form></form>
+		<table class="tbs">
+			<thead>
+				<tr>
+					 
+					<td>商品名称</td>
+					<td>图片</td>
+					<td>订单金额</td>
+					<td>预估收入</td>
+					<td>结算状态</td>
+					<td>返利状态</td> 
+					<td>操作</td>
+				</tr>
+			</thead>
+			<tbody>
+				{foreach item=c from=$data}
+				<tr>
+					 
+					<td>{$c.title}</td>
+					<td>
+						<img src="{$c.imgurl|images_site}" width="50" />
+					</td>
+					<td>￥{$c.money}</td>
+					<td>￥{$c.income}</td>
+					<td>{$c.orderstatus}</td>
+					<td>{if $c.isback eq 1}已返{elseif $c.isback eq 11}已取消{else}未返{/if}</td> 
+					<td>
+						{if $c.isback eq 0}
+						<div class="btn-small js-confirm" orderid="{$c.orderid}">确认返利</div>
+						<div class="btn-small btn-warning js-cancel" orderid="{$c.orderid}">取消返利</div>
+						{/if}
+					</td>
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-confirm",function(){
+				var orderid=$(this).attr("orderid");
+				var that=$(this);
+				$.ajax({
+					url:"/moduleadmin.php?m=taoke_order&a=Dofan&ajax=1&orderid="+orderid,
+					dataType:"json",
+					success:function(res){
+						skyToast(res.message);
+						if(res.error){
+							return false;
+						}
+						that.parents("tr").remove();
+					}
+				})
+			})
+			
+			$(document).on("click",".js-cancel",function(){
+				var orderid=$(this).attr("orderid");
+				var that=$(this);
+				$.ajax({
+					url:"/moduleadmin.php?m=taoke_order&a=delfan&ajax=1&orderid="+orderid,
+					dataType:"json",
+					success:function(res){
+						skyToast(res.message);
+						if(res.error){
+							return false;
+						}
+						that.parents("tr").remove();
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

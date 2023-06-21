@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='party/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>名称</td>
+	<td>费用</td>
+   <td>参与人数</td>
+   <td>限制人数</td>
+   <td>联系人</td>
+   <td>电话</td>
+   <td>地址</td>
+   <td>状态</td> 
+   
+    
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td>{$c.money}元</td>
+   <td>{$c.join_num}</td>
+   <td>{$c.max_num}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+    
+   <td>
+	   <div  class="{if $c.status==1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+    
+<td >
+	{if $c.status==0}
+	<div url="/moduleadmin.php?m=party&a=pass&id={$c.id}&ajax=1" class="js-delete btn-mini" msg="确认审核通过吗">通过</div>
+	<div  url="/moduleadmin.php?m=party&a=forbid&id={$c.id}&ajax=1" class="js-delete btn-mini" msg="确认审核通过吗">不通过</div>
+	<br />
+	{/if}
+	<a class="btn-mini" href="/moduleadmin.php?m=party&a=add&id={$c.id}">编辑</a>  
+	<a class="btn-mini" href="/moduleadmin.php?m=party_join&pid={$c.id}">参与人员</a> 
+<a href="/module.php?m=party&a=show&id={$c.id}" class="btn-mini" target="_blank">查看</a> 
+<a href="javascript:;" class="js-delete btn-mini btn-danger" url="/moduleadmin.php?m=party&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

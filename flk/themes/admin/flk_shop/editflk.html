@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='flk_shop/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=flk_shop&a=saveflk">
+				<input type="hidden" name="shopid" style="display:none;" value="{$data.shopid}">
+				<table class="table-add">
+					<tr>
+						<td>返利率</td>
+						<td>
+							<input type="text" name="flk_discount" value="{$data.flk_discount}" />
+						</td>
+					</tr>
+					<tr>
+						<td>单笔限额</td>
+						<td>
+							<input type="text" name="flk_maxmoney" value="{$data.flk_maxmoney}" />
+						</td>
+					</tr>
+					<tr>
+						<td>打新</td>
+						<td>
+							<input type="checkbox" name="flk_new" {if $data.flk_new eq 1}checked{/if} value="1" />
+						</td>
+					</tr>
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}			
+	</body>
+</html>

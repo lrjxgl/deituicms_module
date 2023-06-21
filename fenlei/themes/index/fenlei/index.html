@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<style>
+	.swiper-container{
+		width: 100%;
+		 
+	}
+	.swiper-wrapper{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+	}
+	.m-navPic-item{
+		padding: 5px;
+		width: 20%;
+		margin-bottom: 10px;
+	}
+	.m-navPic-img{
+		width: 40px;
+		height: 40px;
+	}
+	.m-navPic-title {
+    font-size: 0.7rem;
+   
+}
+.adBox{
+			display: flex;
+			flex-direction: row;
+			 
+		}
+		.adBox-item{
+			flex: 1;
+			margin: 5px;
+		}
+		.adBox-img{
+			width: 100%;
+			border-radius: 10px;
+		}
+</style>
+	<body>
+		<div class="header">
+			<a href="/" class="header-back pos-relative"></a>
+			<!--<img class="header-logo" src="{$site.logo}.100x100.jpg" />-->
+			<div class="header-search-box">
+
+				<input id="search-word" class="header-search pdl-5" placeholder="搜你想要的" type="text">
+				<div id="search-btn" class="header-search-btn bg-primary cl-white iconfont icon-search"></div>
+			</div>
+
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+
+				<div class="swiper-pagination"></div>
+
+			</div>
+			
+			{if $navList}
+			<div class="m-navPic">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+					  <div class="m-navPic-title">{$c.title}</div>
+					   
+			    </a>
+				
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+			<style>
+			.scroll-x{
+				overflow: auto;
+				width: 100%;
+				background-color: #fff;
+			}
+			.tabs-border-item{
+				padding-left: 10px;
+				padding-right: 10px;
+				flex: inherit;
+			}
+			.navFixed{
+				position: fixed;
+				top: 45px;
+				left: 0;
+				right: 0;
+				z-index: 999;
+			}
+			</style>
+			<div id="pageNavDot"></div>
+			<div class="mgt-5" id="App">
+				
+				<div id="pageNav"  class="scroll-x">
+					<div class="tabs-border">
+						<div :class="{'tabs-border-active':pageTab=='article'}" @click="setPage('article')" class="tabs-border-item">头条推荐</div>
+						<div :class="{'tabs-border-active':pageTab=='recList'}" @click="setPage('recList')"  class="tabs-border-item">猜你喜欢</div>
+						<div :class="{'tabs-border-active':pageTab=='new'}" @click="setPage('new')"  class="tabs-border-item">最新发布</div>
+						<div @click="setCat(item.catid)" :class="{'tabs-border-active':catid==item.catid}"  class="tabs-border-item" v-for="(item,index) in catList" :key="index">
+							{{item.title}}
+						</div>
+					</div>
+				</div>
+				<div>
+					<div v-if="pageTab=='article'">
+						{foreach item=c from=$articleList}
+						<a href="/index.php?m=article&a=show&id={$c.id}" class="sglist-item">
+							{if $c.imgurl}
+							<div class="sglist-imgbox">
+								<img class="sglist-img" src="{$c.imgurl}.middle.jpg" />
+							</div>
+							{/if}
+							<div class="sglist-title">{$c.title}</div>
+							<div class="sglist-desc">{$c.description}</div>
+							<div class="sglist-ft">
+								<div class="sglist-ft-love">{$c.love_num}</div>
+								<div class="sglist-ft-cm">{$c.comment_num}</div>
+								<div class="sglist-ft-view">{$c.view_num}</div>
+							</div> 
+						</a>
+						{/foreach}	
+					</div>
+					<div v-else-if="pageTab=='recList'">
+						<div class="sglist">
+						{foreach item=c from=$recList}
+						 <a href="/module.php?m=fenlei&a=show&id={$c.id}" class="sglist-item">				  
+							<div class="flex mgb-5">				 
+								{if $c.hb_on}
+								<div class="bc-red mgr-5">红</div>
+								{/if}
+								<div class="f14">{$c.title}</div>
+							</div>
+							{if $c.money>0}
+							<div class="flex mgb-5">
+								<div class="cl-money">￥{$c.money}</div>
+								<div class="flex-1"></div>
+								<div class="cl3 f12">{$c.createtime}</div>
+							</div>
+							{/if}
+							  <div class="flexlist-desc">
+								  {$c.description}
+							  </div>				 
+							<div class="sglist-imglist">
+								{foreach item=img from=$c.imgsdata}
+								<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+								{/foreach}
+							</div>
+								 
+						</a>
+						{/foreach}
+						</div>
+					</div>
+					<div v-else-if="pageTab=='new'">
+						<div class="sglist">
+							{foreach item=c from=$list}
+							<a href="/module.php?m=fenlei&a=show&id={$c.id}" class="sglist-item">
+								<div class="flex mgb-5">				 
+									{if $c.hb_on}
+									<div class="bc-red mgr-5">红</div>
+									{/if}
+									<div class="f14">{$c.title}</div>
+								</div>
+								{if $c.money>0}
+								<div class="flex mgb-5">
+									<div class="cl-money">￥{$c.money}</div>
+									<div class="flex-1"></div>
+									<div class="cl3 f12">{$c.createtime}</div>
+								</div>
+								{/if}
+								  <div class="flexlist-desc">
+									  {$c.description}
+								  </div>				 
+								<div class="sglist-imglist">
+									{foreach item=img from=$c.imgsdata}
+									<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+									{/foreach}
+								</div>
+									 
+							</a>
+							{/foreach}
+						</div>
+					</div>
+					<div  v-else>
+						<div class="sglist">
+						<div @click="goDetail(item.id)" v-for="(item,index) in list" :key="index" class="sglist-item pointer">
+							<div class="flex mgb-5">
+								<div v-if="item.hb_on" class="bc-red mgr-5">红</div>
+								<div class="f14">{{item.title}}</div>
+							</div>						 								 
+							<div v-if="item.money>0" class="flexlist-row">
+								<div class="cl-money">￥{{item.money}}</div>
+							</div>						 
+							<div class="flexlist-desc">{{item.description}}</div>
+							<div class="sglist-imglist">
+				 
+								<img v-for="(img,imgIndex) in item.imgsdata" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+							</div>			
+						</div>
+						</div>
+						<div v-if="per_page>0" class="loadMore" @click="getList">加载更多...</div>
+					</div>
+				</div>
+			</div> 
+			
+			 
+		</div>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://www.beian.miit.gov.cn">{$site.icp}</a>
+		</div>  
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}fenlei/index.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash");
+			})
+		</script>
+		<script>
+			$(document).on("click", "#search-btn", function() {
+				var word = $("#search-word").val();
+				window.location = "/module.php?m=fenlei&a=search&keyword=" + encodeURI(word)
+			})
+			$(window).on("scroll",function(e){
+				var y=$("#pageNavDot").offset().top;
+				var y2=$(document).scrollTop()
+				 
+				if(y<y2+45){
+					$("#pageNav").addClass("navFixed")
+				}else{
+					$("#pageNav").removeClass("navFixed")
+				}
+				 
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			 
+		</script>
+
+	</body>
+</html>

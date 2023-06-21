@@ -1,0 +1,108 @@
+.zbtn {
+	padding: 10px 20px;
+	border-radius: 20px;
+	background-color: #eee;
+	cursor: pointer;
+}
+
+.zbtn2 {
+	background-color: #ffe60f;
+}
+
+.cjBox {
+	position: fixed;
+	z-index: 999;
+	bottom: 0px;
+	left: 0px;
+	right: 0;
+	background-color: #fff;
+	border-radius: 20px;
+
+}
+
+.cjBox-head {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	margin-right: 5px;
+}
+
+.cjBox-text {
+	border: 0;
+	outline: 0;
+
+}
+
+.table {
+	display: table;
+	border-collapse: collapse;
+}
+
+.tr {
+	display: table-row;
+
+}
+
+.td {
+	display: table-cell;
+	border: 1px solid #eee;
+	text-align: center;
+	vertical-align: middle;
+	padding: 20px;
+
+
+	width: 33.33%;
+	box-sizing: border-box;
+}
+
+.td2 {
+	border: 1px solid #eee;
+	border-left: 0;
+	flex: 1;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+}
+
+.cmModal {
+	position: fixed;
+	bottom: 60px;
+	left: 0;
+	right: 0;
+	background-color: #fff;
+	z-index: 999;
+	padding: 10px;
+	max-height: 300px;
+	overflow: auto;
+}
+
+.cmhead {
+	width: 30px;
+	border-radius: 50%;
+	margin-right: 5px;
+}
+
+.cmText {
+	width: 100%;
+	padding: 8px 30px 8px 15px;
+	box-sizing: border-box;
+	border: 0;
+	outline: 0;
+	background-color: #fafafa;
+	border-radius: 20px;
+}
+
+.cmForm {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+}
+
+.cmEmo {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	margin-right: 10px;
+}

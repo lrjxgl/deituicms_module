@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		div{
+			direction: flex;
+			flex-direction: column;
+		}
+		.no:after{
+			color: #FF0000;
+		}
+		.w50{
+			width: 50px;
+		}
+		.lineText{
+			border:0;
+			border-bottom: 1px solid #ddd;
+			outline: none;
+			width:60px;
+			padding: 0px 5px;
+			border-radius: 0;
+		}
+	</style>
+	<body class="bg-ef">
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">阅卷</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="pd-10 flex">
+			{if $answer.israty}
+			<div class="cl-red">当前考卷已评分过,得分:{$answer.grade}</div>
+			{/if}
+		</div>
+		<div class="main-body">
+			<form>
+				<input type="hidden" name="id" value="{$answer.id}" />
+				<input type="hidden" name="exid" value="{$exam.exid}" />
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					{if $c.typeid eq 'text'}
+					
+					<div class="flex flex-wrap mgb-5 " style="line-height: 2;">
+						{foreach item=a key=ka from=$c.ask}
+						 
+							{if $a.type=="text"}
+							{$a.content}
+							{else}
+							<input name="tp[{$c.topicid}]" value="{$a.user_answer}" class="lineText" type="text"  />
+							{/if}
+						{/foreach}
+					</div>
+					<div class="flex">
+						评分：<input  value="{$c.raty_grade}"  class="w50 ratyGrade" type="text" name="ratyGrade[{$c.id}]" />
+						总分：{$c.grade}
+					</div>
+					<div class="pd-5  cl-success flex flex-wrap">
+						标准答案：
+						{foreach item=a key=ka from=$c.ask}
+						{if $a.type=="text"}
+							{$a.content}
+							{else}
+							<input name="tp[{$c.id}]" value="{$a.answer}" class="lineText" type="text"  />
+							{/if}
+						{/foreach}
+					</div>
+					{elseif $c.typeid eq 'radio'}
+						
+					<div class="f16 flex  cl1 mgb-5">
+						<div class="flex-1">
+						{$c.title}
+						</div>
+						{if $c.user_answer_result eq 1}
+						<div class="yes"></div>
+						{else}
+						<div class="no"></div>
+						{/if}
+					</div>
+					<div class="mgb-5">
+						{foreach item=a key=ka from=$c.ask}
+						<div class="radio-flex cl2"><input value="{$ka}" {if $c.user_answer eq $ka}checked{/if} name="tp[{$c.topicid}]" type="radio" /> {$ka}、{$a}</div>
+						{/foreach}
+					</div>
+					<div class="pd-5 cl-success">标准答案：{$c.answer}</div>
+					<div  class="flex">
+						评分：<input class="w50  mgr-5 ratyGrade" readonly {if $c.user_answer_result}value="{$c.grade}"{else}value="0"{/if} type="text" name="ratyGrade[{$c.id}]" />
+						总分：{$c.grade}
+					</div>
+					{elseif $c.typeid eq 'checkbox'}
+					<div class="f16 flex  cl1 mgb-5">
+						<div class="flex-1">
+						{$c.title}
+						</div>
+						{if $c.user_answer_result eq 1}
+						<div class="yes"></div>
+						{else}
+						<div class="no"></div>
+						{/if}
+					</div>
+					<div class="mgb-5">
+						{foreach item=a key=ka from=$c.ask}
+						<div class="checkbox-flex cl2"><input {if in_array($ka,$c.user_answer)}checked{/if} value="{$ka}" name="tp[{$c.topicid}]" type="checkbox" /> {$ka}、{$a}</div>
+						{/foreach}
+					</div>
+					<div class="pd-5 cl-success">标准答案：{$c.answer}</div>
+					<div class="flex">
+						评分：<input class="w50  mgr-5 ratyGrade" readonly {if $c.user_answer_result}value="{$c.grade}"{else}value="0"{/if} type="text" name="ratyGrade[{$c.id}]" />
+						总分：{$c.grade}
+					</div>
+					{else}
+					<div class="f16 cl1 mgb-5">{$c.title}</div>
+					<div><textarea class="textarea-flex-text h60" name="tp[{$c.topicid}]">{$c.user_answer}</textarea></div>
+					<div class="pd-5 cl-success">参考答案：{$c.answer}</div>
+					<div  class="flex">
+						评分：<input class="w50 mgr-5" type="text" value="{$c.raty_grade}" name="ratyGrade[{$c.id}]" />
+						总分：{$c.grade}
+					</div>
+					{/if}
+				</div>
+				{/foreach}
+				<div class="btn-row-submit" id="submit">提交评卷</div>
+			</form>	
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click","#submit",function(){
+					var form=$(this).parents("form")
+					if(confirm("请确认题目，全部评完")){
+						$.ajax({
+							url:"/module.php?m=exam_answer&a=ratysave&ajax=1",
+							type:"POST",
+							dataType:"json",
+							data:form.serialize(),
+							success:function(res){
+								skyToast(res.message);
+								window.location.reload();
+							}
+						})
+					} 
+					
+				})
+			})
+		</script>
+	</body>
+</html>

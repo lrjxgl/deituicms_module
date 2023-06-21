@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">客户管理</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app" style="display: none;" :class="'flex-col'">
+			<div class="tabs-border mgb-5">
+				<div @click="setPage('order')" :class="{'tabs-border-active':page=='order'}" class="tabs-border-item ">下单客户</div>
+				<div @click="setPage('view')" :class="{'tabs-border-active':page=='view'}" class="tabs-border-item">访问客户</div>
+			</div>
+			<div v-if="page=='order'" class="row-box">
+				<div class="flex bd-mp-5">
+					<div class="flex-1">昵称</div>
+					<div class="w100">金额</div>
+					<div class="w60">笔数</div>
+				</div>
+				<div v-for="(item,index) in pageData.list" :key="index" class="flex bd-mp-5">
+					<div class="flex-1">{{item.nickname}}</div>
+					<div class="cl-money w100">￥{{item.money}}</div>
+					<div class="w60">{{item.num}}笔</div>
+					
+				</div>
+			</div>
+			<div v-if="page=='view'" class="row-box">
+				<div class="flex bd-mp-5">
+					<div class="flex-1">昵称</div>
+					<div class="cl3 f12">最近访问</div>
+				</div>
+				<div v-for="(item,index) in pageData.list" :key="index" class="flex bd-mp-5">
+					<div class="flex-1">{{item.nickname}}</div>
+					<div class="cl3 f12">2019-03</div>
+				</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}gxny_shop_user/index.js"></script>
+	</body>
+</html>

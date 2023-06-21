@@ -1,0 +1,18 @@
+{include file='header.html'}
+ 
+
+<script language="javascript">
+function movenew()
+{
+	document.location='{$url}';
+}
+setTimeout(movenew,2000);
+
+</script>
+<div class="rbox" style="width:600px; margin:0 auto; padding:10px; border:3px solid #ccc; border-radius:5px;">
+<div style="padding:20px; line-height:30px;"> 
+{$message},如果浏览器没有自动跳转，请点击<a href="{$url}">跳转</a>！
+</div>
+</div>
+
+{include file='footer.html'}

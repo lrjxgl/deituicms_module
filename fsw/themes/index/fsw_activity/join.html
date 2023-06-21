@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">参赛用户</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				<div class="row-box mgb-5">
+					<div class="flex">
+						<div class="flex-1">当前赛事：{$activity.title}</div>
+						<div v-if="activity.isfinish==0" @click="finish()" class="btn-mini mgr-5">完成比赛</div> 
+						<div v-else>比赛结束</div>
+					</div>	
+					</div>
+				<div>
+					<div>
+						<div class="flexlist-item" v-for="(item,index) in list" :key="index">
+							<img class="flexlist-img" :src="item.user_head+'.100x100.jpg'" />
+							<div class="flex-1">
+								<div class="flex">
+									<div>{{item.nickname}}</div>
+									<div class="flex-1"></div>
+									<div class="cl-status" v-if="item.ischeck">已签到</div>
+									<div @click="checkin(item)" class="btn-mini" v-else>签到</div>
+								</div>
+								 
+								<div class="flex mgb-5">
+									<span>重量：</span>
+									<input type="text" v-model="item.weight" class="w100 mgr-5" /> 
+									<span>kg</span>
+									<div class="flex-1"></div>
+									<span>积分：{{item.grade}}</span>
+								</div>
+								<div v-if="activity.isfinish==0" class="flex">
+									<div class="flex-1"></div>
+									<div @click="changeWeight(item)" class="btn-mini">改重量</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var actid="{$activity.actid}"
+		</script>
+		<script src="{$skins}fsw_activity/join.js"></script>
+	</body>
+</html>

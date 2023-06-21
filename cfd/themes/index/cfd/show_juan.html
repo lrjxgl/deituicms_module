@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ <style>
+    	.pdetail-price .label{
+    		width: 80px;
+    	}
+    	.rewardList{
+    		
+    	}
+    	.reward-item{
+    		display: flex;
+			flex-direction: row;
+    		padding: 10px;
+    		background-color: #fff;
+    		border-bottom: 1px solid #eee;
+    		cursor: pointer;
+    	}
+    	
+    	.reward-item .title{
+    		flex: 1;
+    		color: #444;
+    		font-size: 14px;
+    	}
+    	.reward-item.active .title{
+    		color: #0000FF;
+    	}
+    	.reward-item .money{
+    		width: 100px;
+    		text-align: right;
+    		font-size: 18px;
+    		color: #f60;
+    	}
+    	.ptime{
+    		color: #666;
+    		padding-left: 10px;
+    		font-size: 14px;
+    		margin-bottom: 10px;
+    	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">众筹详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    {if $data.videourl}
+    <div class="videoBox">
+    	<video src="{$data.videourl}" ></video>
+    </div> 
+    {else}
+   
+    	<img src="{$data.imgurl}" class="d-img"  />
+   
+    {/if}
+   
+    <div class="row-box">
+    	<div class="d-title">{$data.title}</div>
+    	<div class="flex mgb-10">
+    		<div class="label">众筹金额：</div>  
+    		<span class="cl-money">￥{$data.needmoney}</span>  
+    	</div>
+    	<div class="cl2 f12">
+    		截止时间：{$data.endtime}
+    	</div>
+    </div>
+    <div class="tabs-border-group">
+	    <div class="tabs-border ">
+	    	<div class="tabs-border-item js-tabs-border-item tabs-border-active" href="#d-content">项目</div>
+	    	
+	    	<div class="tabs-border-item js-tabs-border-item" href="#d-group">团队</div>
+	    	<div class="tabs-border-item js-tabs-border-item" href="#d-order">团队</div>
+			<div class="tabs-border-item js-tabs-border-item" href="#d-reward">回报</div>
+	    </div>
+   	
+	    <div class="tabs-border-box tabs-border-box-active">
+	    	<div class="row-box d-content">
+				{$data.content}
+			</div>
+			
+	    </div>
+	 	<div class="tabs-border-box">
+			<div class="row-box d-content">
+				{$data.teamdesc}
+			</div>
+	 		
+	 	</div>
+		
+	    <div class="tabs-border-box" >
+	    	<div class="rewardList">
+	    		{foreach item=c from=$rewardList}
+	    			<div class="reward-item" vid="{$c.id}" vmoney="{$c.money}">
+	    				<div class="title">{$c.title}</div>
+	    				<div class="money">￥{$c.money}</div>
+	    			</div>
+	    		{/foreach}
+	    	</div>
+	    </div>
+    </div>
+    <style>
+    	.fixBottom{
+    		position: fixed;
+    		left: 0;
+    		right: 0;
+    		bottom: 0;
+    		display: flex;
+			flex-direction: row;
+    		height: 45px;
+    		background-color: #fff;
+    		border-top: 1px solid #eee;
+    	}
+    	.fixBottom .bt{
+    		height: 45px;
+    		width: 100px;
+    		background-color: #F06060;
+    		color: #fff;
+    		font-size: 14px;
+    		line-height: 45px;
+    		text-align: center;
+    		cursor: pointer;
+    	}
+    	.fixBottom .note{
+    	 	
+    		line-height: 45px;
+    		color: #333;
+    		font-size: 16x;
+    		padding: 0px 10px;
+    	}
+    	.fixBottom .text{
+    		display: block;
+    		height: 40px;
+    		line-height: 45px;
+    		flex: 1;
+    		margin: 0;
+    		border:0;
+    		border-bottom: 1px solid #999;
+    		text-align: center;
+			width: 60px;
+    		
+    	}
+    </style>
+    <div style="height: 46px;"></div>
+    <div class="fixBottom">
+    	<div class="note">支持金额</div>
+    	<input type="hidden" id="join-reward" value="{$rewardList[0][id]}" />
+    	<input type="text"  readonly="" class="text" id="join-money" value="{$rewardList[0][money]}" />
+    	<div class="note">元</div>
+    	<div class="bt" id="js-join-btn">支持一下</div>
+    </div>
+</div>
+{include file="footer.html"} 
+<script>
+	var cfdid="{$data.cfdid}";
+	$(".reward-item:eq(0)").addClass("active");
+	$(document).on("click","#join-money",function(){
+		$(".js-tabs .item:eq(2)").trigger("click");
+	})
+	$(document).on("click",".reward-item",function(){
+		$(this).addClass("active").siblings().removeClass("active");
+		var money=$(this).attr("vmoney");
+		$("#join-money").val(money);
+		$("#join-reward").val($(this).attr("vid"));
+	})
+	$(document).on("click","#js-join-btn",function(){
+		var money=$("#join-money").val();
+		if(money==""){
+			skyToast("请输入金额");
+			return false;
+		}
+		$.post("/module.php?m=cfd_order&a=order&ajax=1",{
+			cfdid:cfdid,
+			money:money,
+			rewardid:$("#join-reward").val()
+		},function(data){
+			if(data.error){
+				return false;
+			}
+			skyToast(data.message);
+			if(data.data.gopay){
+				window.location=data.data.url;
+			}
+			
+			
+		},"json")
+	})
+</script>
+<?php wx_jssdk();?>
+<script>
+	wxshare_title="{$data.title}";
+	{if $zblive.imgurl}
+	wxshare_imgUrl="{$data.imgurl}";
+	{/if}
+</script>
+</body>
+</html>

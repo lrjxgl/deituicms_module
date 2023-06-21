@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<img  gourl="/index.php?m=user&a=user_head" src="{$user.user_head}.100x100.jpg" class="w60 bd-radius-50 mgr-10" />
+					<div class="flex-1">
+						<div class="mgb-5">{$user.nickname}</div>
+						<div class="flex">
+							<div class="mgr-5 cl2">账户金额</div>
+							<div class="cl-money">{$user.money}元</div>
+							<div class="flex-1"></div>
+							 						
+						</div>
+					</div>
+					<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=pinche_order&a=my" class="row-item">
+					<div class="row-item-icon icon-order  cl-u"></div>
+					<div class="row-item-title">我的订单</div>
+				</div>
+				<div gourl="/module.php?m=pinche_people&a=my" class="row-item">
+					<div class="row-item-icon icon-addressbook  cl-u"></div>
+					<div class="row-item-title">乘客信息</div>
+				</div> 
+				<div gourl="/index.php?m=pay_log" class="row-item">
+					<div class="row-item-icon icon-moneybag  cl-u"></div>
+					<div class="row-item-title">账户日志</div>
+				</div> 
+			</div>	
+			<div class="row-box">	
+				
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service_light  cl-u"></div>
+					<div class="row-item-title">客服反馈</div>
+				</div>
+				<div gourl="/index.php?m=article" class="row-item">
+					<div class="row-item-icon icon-news  cl-u"></div>
+					<div class="row-item-title">平台资讯</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info  cl-u"></div>
+					<div class="row-item-title">关于我们</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

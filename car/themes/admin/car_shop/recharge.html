@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">商家充值</div>
+		<div class="main-body">
+			<div>{$shop.shopname}</div>
+			<form>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">金额</div>
+					<input id="money" type="text" class="input-flex-text" />
+					<div>元</div>
+				</div>
+				<div class="btn-row-submit" id="submit">确认充值</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shop.shopid}"
+			$(document).on("click","#submit",function(){
+				if(!postCheck.canPost()){
+					return false;
+				}
+				$.ajax({
+					url:"/moduleadmin.php?m=car_shop&a=rechargesave&ajax=1",
+					data:{
+						shopid:shopid,
+						money:$("#money").val()
+					},
+					dataType:"json",
+					success:function(res){
+						skyToast(res.message);
+						$("#money").val("")
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

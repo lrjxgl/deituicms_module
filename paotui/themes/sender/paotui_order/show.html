@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="app">
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center mgb-5">
+					<div class="mgr-5">{{order.typeid_name}}</div>
+					
+					<div class="f12 cl3">{{order.createtime}}</div>
+					<div class="flex-1"></div>
+					
+					<div class="flex mgb-5 flex-ai-center">
+						<div class="mgr-5 cl3">{{order.weight}}Kg</div>
+						<div class="cl-money">￥</div>
+						<div class="cl-money">{{order.money}}</div>
+					</div>
+				</div>
+				<div v-if="order.fromaddr && Object.keys(order.fromaddr).length>0" class="flex mgb-5">
+					<div class="btn-song">取</div>
+					<div class="flex-1">
+						<div class="flex mgb-5">
+							<div class="mgr-10 f12">{{order.fromaddr.truename}}</div>
+							<div class="cl3 f12">{{order.fromaddr.telephone}}</div>
+						</div>
+						<div class="cl2 f12">
+							{{order.fromaddr.address}}
+						</div>
+					</div>
+					
+				</div>
+				<div v-if="order.toaddr && Object.keys(order.toaddr).length>0" class="flex mgb-5">
+					<div class="btn-song">收</div>
+					<div class="flex-1">
+						<div class="flex mgb-5">
+							<div class="mgr-10 f12">{{order.toaddr.truename}}</div>
+							<div class="cl3 f12">{{order.toaddr.telephone}}</div>
+						</div>
+						<div class="cl2 f12">
+							{{order.toaddr.address}}
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<div class="row-box mgb-5">		
+				<div class="mgb-5 cl3 f12" v-html="order.content"></div>
+				<div v-if="order.typeid==3" class="flex mgb-10">
+					<div class="f12 cl2">商品估价</div>
+					<div class="cl-num f12">￥{{order.goodsmoney}}</div>
+				</div>
+				
+					
+			</div>
+			<div class="row-box">
+				<div class="flex">
+					<div class="cl-num">
+						{{order.status_name}}
+					</div>
+					<div class="flex-1"></div>
+					<div v-if="order.status==0" @click="confirm(order)" class="btn mgr-5">正在办理</div>
+					<div v-if="order.status<2" @click="send(order)" class="btn">确认办完</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		
+		<script>
+			var id="{$order.id}"
+		</script>
+		<script src="{$skins}paotui_order/show.js"></script>
+	</body>
+</html>

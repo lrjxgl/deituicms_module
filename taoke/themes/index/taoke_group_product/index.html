@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$group.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			 
+			<div class="tk-list">
+				
+				<div v-for="(item,index) in list" :key="index" class="tk-item" @click="goDetail(item.id)">
+					<div class="tk-item-fan">约返{{item.yj_money}}</div>
+					<div class="img">
+						<img :src="item.imgurl" />
+						<div class="juan-price">券￥{{item.juan_money}}</div>
+					</div>
+					<div class="title">{{item.title}}}</div>
+					<div class="row-price">
+						<span class="price">￥{{item.price}}(券后)</span>
+						<span class="sold">销量{{item.sold_num}}</span>
+					</div>
+				</div>
+		 
+			</div>
+		
+			<div class="loadMore" @click="getList" v-if="per_page>0">加载更多</div>
+		</div>
+		{if $group.gkey eq 'gaofan'}
+		{assign var="ftnav" value="gaofan"}
+		{include file="ftnav.html"}
+		{/if}
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var gkey="{$group.gkey}";
+		</script>		 
+		<script src="{$skins}taoke_group_product/index.js"></script> 
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title = "福鼎淘客-拿优惠券去淘宝购买更便宜";
+		</script>
+	</body>
+</html>

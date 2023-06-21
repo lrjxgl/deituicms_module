@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">保证金</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="cl2">您的保证金：</div>
+					<div class="cl-money">￥{$data.money}元</div>
+				</div>
+			</div>
+			<div class="row-box">	
+				<div class="pd-10 cl3">缴纳保证金可以让客户优先选择您，缴纳的保证金金额越大~</div>
+				<div class="radioList-group">
+					<input type="hidden" class="radioList-value" name="money" value="" />
+					<div class="radioList">
+						{foreach item=c key=k from=$moneyList}
+							<div data-value="{$c}" class="radioList-item js-radioList-item">￥{$c}</div>
+						{/foreach}
+					</div>
+				</div>
+				 
+				<div class="btn-row-submit">缴纳保证金</div>
+			</div>
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			$(".radioList-item:eq(0)").addClass("radioList-item-active");
+			$(document).on("click",".js-radioList-item",function(){
+				var p=$(this).parents(".radioList-group");
+				var v=$(this).attr("data-value");
+				p.find(".radioList-value").val(v);
+				$(this).addClass("radioList-item-active").siblings().removeClass("radioList-item-active");
+			})
+		</script>
+	</body>
+</html>

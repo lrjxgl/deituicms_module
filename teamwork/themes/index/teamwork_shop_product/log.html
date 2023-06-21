@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+	{include file="head.html"}
+	<style>
+		.tabs-border .item{
+			width: 80px;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="/" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">{$product.title}</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted  tabs-border">
+			    <div class="mui-scroll">
+			       <a href="/index.php?m=shop_product&a=log&id={$product.id}" class="item {if get('userid') eq 0}active{/if}">全部</a>
+				 	{foreach item=c from=$userList}
+				 	<a class="item {if get('userid') eq $c.userid}active{/if}" href="/index.php?m=shop_product&a=log&id={$product.id}&userid={$c.userid}">{$c.nickname}</a>
+				 	{/foreach}
+			    </div>
+			</div>
+			 
+			 
+			<div class="row-box">
+				<div class="flex-col">
+				{foreach item=c from=$logList}
+					<a class="flex-item" href="/index.php?m=shop_product_item_log&a=show&id={$c.id}">
+					<div class="flex-1"> 
+						<div>{$c.title}</div>
+						<div class="f12 cor-danger">from: {$c['item']['title']}</div>
+					</div>
+					
+					<span class="f12 cor-success mgr-10">{$c.status_name}</span>
+					<span class="mgr-10 cor3 f12">{$c.timeago}</a>
+					</a>
+				{/foreach}
+				</div>
+			</div>
+		</div>
+		{assign var="mfooter" value="log"}
+		{include file="shop_product/ftnav.html"}
+	</body>
+
+</html>

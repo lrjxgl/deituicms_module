@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/moduleshop.php?m=gxny_shop_category&a=save">
+				<input type="hidden" name="catid" style="display:none;" value="{$data.catid}">
+				<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">介绍：</div>
+					<textarea name="description" id="description"
+						class="textarea-flex-text h60" />{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">菜单：</div>
+					<textarea name="caidan" id="caidan"
+						class="textarea-flex-text h60" />{$data.caidan}</textarea>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">状态：</div>
+					<div class="flex-1 flex flex-ai-center">
+						<input type="radio" class="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+						<input type="radio" class="radio" {if $data.status neq 1}checked{/if} name="status" value="2">
+						下线
+					</div>
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">价格：</div>
+					<input type="text" name="money" id="money" class="input-flex-text" value="{$data.money}" />
+					<div>元</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">排序：</div>
+					<input type="text" name="orderindex" id="orderindex" class="input-flex-text"
+						value="{$data.orderindex}" />
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

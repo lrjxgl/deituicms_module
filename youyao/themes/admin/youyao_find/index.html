@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='youyao_find/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>userid</td>
+   <td>content</td>
+   <td>createtime</td>
+   <td>status</td>
+   <td>lat</td>
+   <td>lng</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.content}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.status}</td>
+   <td>{$c.lat}</td>
+   <td>{$c.lng}</td>
+<td><a href="/moduleadmin.php?m=youyao_find&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=youyao_find&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=youyao_find&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

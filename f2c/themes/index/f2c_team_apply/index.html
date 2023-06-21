@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请成为团长</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $apply}
+				<div class="pd-10 f14 ">你已提交申请，正在审核中..</div>
+			{/if}
+			<form {if $apply}class="none"{/if}  id="form" action="/module.php?m=f2c_team_apply&a=save&ajax=1">
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">姓名</div>
+					<input type="text" name="nickname" class="input-flex-text" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label input-flex-require">身份证</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							
+							<div class="upimg-item {if $data.usercard==""}none{/if} js-upimg-btn">
+								<img class="upimg-img" {if $data.usercard}src="{$data.trueusercard}.100x100.jpg"{/if} >								 
+							</div>
+							{if $data.usercard==""}	 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							{/if}
+							<input type="hidden" name="usercard" value="{$data.usercard}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">手机</div>
+					<input type="text" name="telephone" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">微信号</div>
+					<input type="text" name="wxhao" class="input-flex-text" />
+				</div>
+				 
+				 
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">详细地址</div>
+					<input type="text" name="address" class="input-flex-text" />
+				</div>
+				<div class="btn-row-submit" id="submit">提交申请</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script>
+			$(document).on("click","#submit",function(){
+				$.post("/module.php?m=f2c_team_apply&a=save&ajax=1",$("#form").serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

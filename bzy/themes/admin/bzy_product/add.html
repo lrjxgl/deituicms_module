@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='bzy_product/nav.html'}
+		<div class="main-body">
+			<div class="pd-10">{$event.title}</div>
+			<form method="post" action="/moduleadmin.php?m=bzy_product&a=save">
+				<input type="hidden" name="productid" style="display:none;" value="{$data.productid}">
+				<input type="hidden" name="eventid" id="eventid" value="{$eventid}">
+				<table class="table-add">
+					 
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>赛程：</td>
+						<td>
+							<input type="radio" name="etype" {if $data.etype eq 0}checked{/if} value="0" />初赛
+							<input type="radio" name="etype" {if $data.etype eq 1}checked{/if} value="1" />决赛
+						</td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+					<tr>
+						<td>获奖说明：</td>
+						<td><input type="text" name="reward_desc" value="{$data.reward_desc}"></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					<tr>
+						<td>排名范围：</td>
+						<td><input type="text" class="w100" name="gailv"  value="{$data.gailv}"> （1-100）</td>
+					</tr>
+					<tr>
+						<td>排序：</td>
+						<td><input type="text" name="orderindex" value="{$data.orderindex}"></td>
+					</tr>
+					 
+					<tr>
+						<td>奖品已领</td>
+						<td>
+							<input type="text" name="sold_num" value="{$data.sold_num}" />
+						</td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td><input type="radio" name="status" value="2" {if $data.status neq 1} checked="checked" {/if} />隐藏 &nbsp;
+							<input type="radio" name="status" value="1" {if $data.status eq 1} checked="checked" {/if} />显示</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+</html>

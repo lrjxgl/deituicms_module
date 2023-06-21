@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>productid：</td><td>{$data.productid}</td></tr>
+  <tr><td>shopid：</td><td>{$data.shopid}</td></tr>
+  <tr><td>用户：</td><td>{$data.userid}</td></tr>
+  <tr><td>类别：</td><td>{$data.catid}</td></tr>
+  <tr><td>名称：</td><td>{$data.title}</td></tr>
+  <tr><td>发布时间：</td><td>{$data.createtime}</td></tr>
+  <tr><td>更新时间：</td><td>{$data.updatetime}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+  <tr><td>站点审核：</td><td>{$data.sitecheck}</td></tr>
+  <tr><td>价格：</td><td>{$data.price}</td></tr>
+  <tr><td>市场价格：</td><td>{$data.market_price}</td></tr>
+  <tr><td>图集：</td><td>{$data.imgsdata}</td></tr>
+  <tr><td>主图：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>描述：</td><td>{$data.description}</td></tr>
+  <tr><td>维度：</td><td>{$data.lat}</td></tr>
+  <tr><td>精度：</td><td>{$data.lng}</td></tr>
+  <tr><td>地址：</td><td>{$data.address}</td></tr>
+  <tr><td>cityid：</td><td>{$data.cityid}</td></tr>
+  <tr><td>想要：</td><td>{$data.love_num}</td></tr>
+  <tr><td>浏览：</td><td>{$data.view_num}</td></tr>
+  <tr><td>sold_num：</td><td>{$data.sold_num}</td></tr>
+  <tr><td>收藏：</td><td>{$data.fav_num}</td></tr>
+  <tr><td>comment_num：</td><td>{$data.comment_num}</td></tr>
+  <tr><td>shoptype：</td><td>{$data.shoptype}</td></tr>
+  <tr><td>baoyou：</td><td>{$data.baoyou}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

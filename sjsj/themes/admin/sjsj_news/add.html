@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='sjsj_news/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=sjsj_news&a=save">
+<input type="hidden" name="newsid" style="display:none;" value="{$data.newsid}" >
+ <table class="table-add">  <tr>
+						<td>标题：</td>		
+						<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+						</tr>
+  {if $data}<tr>
+						<td>创建时间：</td>		
+						<td>{$data.createtime}</td>
+						</tr>{/if}
+  {if $data}<tr>
+						<td>更新时间：</td>		
+						<td>{$data.updatetime}</td>
+						</tr>{/if}
+  <tr>
+						<td>状态：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+  <tr>
+						<td>用户：</td>		
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+						</tr>
+  <tr>
+						<td>内容：</td>		
+						<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+						</tr>
+  <tr>
+						<td>sj_content：</td>		
+						<td><input type="text" name="sj_content" id="sj_content" value="{$data.sj_content}" ></td>
+						</tr>
+  <tr>
+						<td>赏金：</td>		
+						<td><input type="text" name="sj_money" id="sj_money" value="{$data.sj_money}" ></td>
+						</tr>
+  <tr>
+						<td>isbuy：</td>		
+						<td><input type="text" name="isbuy" id="isbuy" value="{$data.isbuy}" ></td>
+						</tr>
+  <tr>
+						<td>catid：</td>		
+						<td><input type="text" name="catid" id="catid" value="{$data.catid}" ></td>
+						</tr>
+  <tr>
+						<td>buyer：</td>		
+						<td><input type="text" name="buyer" id="buyer" value="{$data.buyer}" ></td>
+						</tr>
+  <tr>
+						<td>issuccess：</td>		
+						<td><input type="text" name="issuccess" id="issuccess" value="{$data.issuccess}" ></td>
+						</tr>
+  <tr>
+						<td>isrecommend：</td>		
+						<td><input type="text" name="isrecommend" id="isrecommend" value="{$data.isrecommend}" ></td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

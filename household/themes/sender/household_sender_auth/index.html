@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			
+			<div class="header-title">实名认证</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $auth}
+			<div class="emptyData">认证资料已提交，待审核中...</div>
+			{else}
+			<form action="/sender.php?m=household_sender_auth&a=save&ajax=1">
+				<div class="input-flex">
+					<div class="input-flex-label">姓名</div>
+					<input type="text" class="input-flex-text"   name="truename" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">身份证</div>
+					<input type="text" class="input-flex-text" name="userno" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">身份证<br/>照片</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item none js-upimg-btn">
+								<img class="upimg-img"   >								 
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="usercard" value="" class="imgurl" />
+							<input style="display: none;" class="js-upimg-file" type="file" name="upimg" id="upimg" /> 
+						</div> 
+					</div>
+				</div>
+				<div class="cl-red f12 pd-10 pdb-5">
+					*姓名和身份证信息必须真实有效，否则无法进行提现操作.
+					<br/>
+					*认证完成后无法更改
+				</div>
+				<div class="btn-row-submit js-submit">提交认证</div>
+			</form>
+			{/if}
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">{$data.shopname}</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box">
+		<img src="{$data.imgurl}" class="w100" />
+		<div class="d-title">{$data.shopname}</div>
+		<div class="d-desc">{$data.description}</div>
+		<div class="flex flex-ai-center mgb-5">
+			<div class="mgr-5">客服电话</div>
+			<a href="tel:{$data.telephone}" class="cl2">{$data.telephone}</a>
+		</div>
+		<div class="flex">
+			<div class="flex cl3 flex-1">{$data.address}</div>
+			<div class="iconfont icon-location"></div>
+		</div>
+		
+	</div>
+    	 
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

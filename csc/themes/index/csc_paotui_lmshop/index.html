@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}csc_paotui_lmshop/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-title">联盟商品</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="lmBox">
+				<div @click="Tab=''" class="lmBox-stat">￥{{totalMoney}}</div>
+				<div v-if="!proList || Object.keys(proList).length==0" class="emptyData">暂无联盟商品</div>
+				<div class="lmSide">
+					<div @click="setShop(item)" class="lmSide-item" v-for="(item,index) in shopList" :key="index">
+						<div  :class="item.lmid==lmid?'lmSide-item-active':''">{{item.shopname}}</div>
+						<div class="lmSide-badge">{{item.num}}</div>
+					</div>
+				</div>
+				<div class="lmMain">
+					<div v-for="(item,index) in proList" :key="index" class="row-box mgb-5">
+						<div class="mgb-5 f12">{{item.title}}</div>
+						<div class="flex">
+							<div class="cl-money">￥{{item.price}}</div>
+							<div class="flex-1"></div>
+							<div @click="cartPlus(item)" v-if="item.cartnum==0" class="btn-mini">+</div>
+							<div v-else class="numbox">
+								<div @click="cartMinus(item)" class="numbox-minus numbox-minus-small">-</div>
+								<input type="text" :value="item.cartnum" class="numbox-num numbox-num-small" />
+								<div @click="cartPlus(item)" class="numbox-plus numbox-plus-small">+</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="shop"}
+		{include file="csc_paotui/ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}csc_paotui_lmshop/index.js"></script>
+	</body>
+</html>

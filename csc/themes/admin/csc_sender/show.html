@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='csc_sender/nav.html'}
+<div class="main-body">
+ <table class="table table-bordered" width="100%">
+  <tr><td>senderid：</td><td>{$data.senderid}</td></tr>
+  <tr><td>shopid：</td><td>{$data.shopid}</td></tr>
+  <tr><td>名字：</td><td>{$data.truename}</td></tr>
+  <tr><td>电话：</td><td>{$data.telephone}</td></tr>
+  <tr><td>身份证：</td><td>{$data.userno}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+  <tr><td>userhead：</td><td>{$data.userhead}</td></tr>
+  <tr><td>usercard：</td><td>{$data.usercard}</td></tr>
+  <tr><td>wxhao：</td><td>{$data.wxhao}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}
+</body>
+</html>

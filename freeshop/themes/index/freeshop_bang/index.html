@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.ph{
+			text-align: center;
+			width: 40px;
+			color: #323232;
+		}
+		.ph0{
+			color: #f80;
+			font-size: 16px;
+		}
+		.ph1{
+			color: #F06060;
+			font-size: 16px;
+		}
+		.ph2{
+			color: #F4726C;
+			font-size: 16px;
+		}
+		.fs{
+			width: 60px;
+			 text-align: center;
+			color: #f60;
+		}
+		.sglist-imglist-img{
+			width: 40px;
+			height: 40px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div url="/module.php?m=freeshop" class="header-back"></div>
+			<div class="header-title">人气榜</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="tabs-border">
+				<div @click="tab='shop'" :class="tab=='shop'?'tabs-border-active':''" class="tabs-border-item ">人气榜</div>
+				<div @click="tab='product'"  :class="tab=='product'?'tabs-border-active':''"  class="tabs-border-item">热销榜</div>
+			</div>
+			<div v-if="tab=='shop'" class="row-box">
+				<div class="flex mgb-10">
+					<div class="ph">排名</div>
+					<div>商家</div>
+					<div class="flex-1"></div>
+					<div class="fs cl2">粉丝</div>
+				</div>
+				<div  @click="goShop(item.shopid)"  class="flex mgb-5 pointer flex-ai-center" v-for="(item,index) in shopList" :key="index">
+					<div class="ph" :class="'ph'+index">{{index+1}}</div>
+					<div>{{item.shopname}}</div>
+					<div class="flex-1"></div>
+					<div class="fs">{{item.follow_num}}</div>
+				</div>
+			</div>
+			<div v-if="tab=='product'"  >
+				<div @click="goDetail(item.productid)"  class="row-box  mgb-5" v-for="(item,index) in proList" :key="index">
+					<div class="flex mgb-5">
+						<div class="ph"  :class="'ph'+index">{{index+1}}</div>
+						<div class="flex-1">
+							<div class="cl2 mgb-10">{{item.content}}</div>
+							<div class="sglist-imglist">
+								 
+								<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+								
+							</div>
+							<div class="flex mgb-10 flex-ai-center">
+								<div class="mgr-5 f12 cl2">优惠价</div>
+								<div class="cl-money f12  mgr-10">￥{{item.price}}</div>
+								 
+								<div class="flex-1"></div>
+								<div class="cl3 f12">销量</div>
+								<div class="cl-num  f12 mgr-5"> {{item.buynum}}</div>
+							</div>
+						</div>
+						
+						 
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}freeshop_bang/index.js"></script>
+	</body>
+</html>

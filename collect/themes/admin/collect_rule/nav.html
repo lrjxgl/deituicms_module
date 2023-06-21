@@ -1,0 +1,9 @@
+<ul class="nav nav-tabs">
+<li {if get('m') eq 'collect_config'} class="active" {/if}><a href="{$appadmin}?m=collect_config">基本配置</a></li>
+<li {if get('m') eq 'collect'} class="active" {/if}><a href="{$appadmin}?m=collect">采集内容</a></li>
+<li {if get('m') eq 'collect_rule' && get('a') eq 'default'} class="active" {/if}><a href="{$appadmin}?m=collect_rule">采集规则</a></li>
+<li {if get('m') eq 'collect_rule' && get('a') eq 'add'} class="active" {/if}><a href="{$appadmin}?m=collect_rule&a=add">规则添加</a></li>
+<li {if get('m') eq 'collect_rule' && get('a') eq 'import'} class="active" {/if}><a href="{$appadmin}?m=collect_rule&a=import">规则导入</a></li>
+<li {if get('m') eq 'collect_type' && get('a') eq 'default'} class="active" {/if}><a href="{$appadmin}?m=collect_type">规则分类</a></li>
+<li {if get('m') eq 'collect_type' && get('a') eq 'add'} class="active" {/if}><a href="{$appadmin}?m=collect_type&a=add">规则分类添加</a></li>
+</ul>

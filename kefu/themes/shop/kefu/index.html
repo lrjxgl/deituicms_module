@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">客服管理</div>
+			<div gourl="/moduleshop.php?m=kefu&a=add" class="header-right-btn">添加客服</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flexlist">
+			{foreach item=c from=$list}
+			
+			<div class="flexlist-item js-item">
+				<img class="flexlist-img" src="{$c.user_head}.100x100.jpg" />
+				<div class="flex-1">
+					<div class="flexlist-title">{$c.title}</div>
+					<div class="flexlist-desc">{$c.description}</div>
+					<div class="flex">
+						<div gourl="/moduleshop.php?m=kefu&a=add&kfid={$c.kfid}" class="btn-small mgr-5">编辑</div>
+						<div url="/moduleshop.php?m=kefu&a=delete&kfid={$c.kfid}" class="btn-small js-delete mgr-5">删除</div>
+					</div>
+				</div>
+				
+			</div>
+			
+			{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

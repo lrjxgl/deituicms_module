@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='house_agent/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>userid</td>
+						<td>姓名</td>
+							<td>电话</td>
+						<td>身份证号</td>
+						<td>身份证照</td>
+						<td>头像</td>
+					
+						<td>简介</td>
+						 
+						
+						<td>创建时间</td>
+						<td>status</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					<td>{$c.userid}</td>
+					<td>{$c.truename}</td>
+					<td>{$c.telephone}</td>
+					<td>{$c.userno}</td>
+					<td><img src="{$c.usercard|images_site}.100x100.jpg" width="50" /></td>
+					<td><img src="{$c.uhead|images_site}.100x100.jpg" width="50" /></td>
+					
+					<td>{$c.description}</td>
+					 
+					
+					<td>{$c.dateline|date:Y-m-d}</td>
+					<td>{if $c.status eq 1}正常{else}不正常{/if}</td>
+					<td>
+						<div class="btn-small js-pass" v="{$c.id}">禁止</div> 
+						<a href="/moduleadmin.php?m=house_agent&a=add&id={$c.id}">编辑</a> 
+						
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

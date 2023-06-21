@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">优惠券</div>
+		</div>
+		<div class="main-body">
+			{foreach item=c from=$data}
+			<div class="row-box mgb-5 js-item">
+				<div class="mgb-10">{$c.title}</div>
+				<div class="cl2 f12 mgb-5">
+					金额 {$c.money}元
+					&nbsp;&nbsp;
+					领取 {$c.get_num} 人
+					&nbsp;&nbsp;
+					使用 {$c.use_num} 人
+				</div>
+				<div class="flex flex-ai-center">
+					<div class="cl3 f12">{$c.end_day}</div>
+					<div class="flex-1"></div>
+					 
+					<div class="btn-small btn-danger js-delete" url="/moduleadmin.php?m=csc_coupon&a=delete&ajax=1&id={$c.id}">禁止</div>
+				</div>
+			</div>
+			{/foreach}
+			{$pagelist}
+		</div>
+
+		{include file="footer.html"}
+	</body>
+</html>

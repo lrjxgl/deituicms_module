@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div url="/" class="header-back"></div>
+			<div class="header-title">福鼎中秋博状元</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="app" class="main-body">
+			<div class="tabs-border">
+				<div @click="setType('doing')" :class="type=='doing'?'tabs-border-active':''" class="tabs-border-item">进行中</div>
+				<div @click="setType('unbegin')" :class="type=='unbegin'?'tabs-border-active':''"   class="tabs-border-item">即将开始</div>
+				<div @click="setType('finish')" :class="type=='finish'?'tabs-border-active':''"   class="tabs-border-item">往期活动</div>
+			</div>
+			<div class="mtlist">
+				 
+				<div @click="goDetail(item.eventid)" v-for="(item,index) in list" :key="index" class="mtlist-item">
+					<div class="mtlist-item-bd">
+						<img class="mtlist-img mgb-5" :src="item.imgurl+'.small.jpg'" />
+						<div class="mtlist-title">{{item.title}}</div>
+					</div>
+				</div>
+				 
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}bzy/index.js"></script>
+	</body>
+</html>

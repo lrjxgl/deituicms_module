@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"赏金猎人",//模块名称
+	"module"=>"sjsj",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"赏金猎人是一款基于提供商业信息获得赏金的应用",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=sjsj&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

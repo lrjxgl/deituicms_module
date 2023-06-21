@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$cbd.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="mtlist pdt-5">
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=mmjz_shop&shopid={$c.shopid}" class="mtlist-item">
+					<div class="mtlist-item-bd">
+						<img class="mtlist-img" src="{$c.imgurl|images_site}.small.jpg" />
+						<div class="mtlist-item-pd">
+						<div class="mtlist-title">{$c.shopname}</div>
+						</div>
+					</div>
+					
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title></title>
+		<link href="/plugin/skyweb/skyweb.css" rel="stylesheet" />
+		<script src="/plugin/jquery/jquery.js"></script>
+		<script src="/plugin/skyweb/skyweb.js"></script>
+		 <style>
+		 	.d-content{
+		 		word-break: break-all;
+		 	}
+			
+		 	.d-content img{
+		 		max-width: 100%;
+		 	}
+		 	table{
+		 		width: 100%;
+		 		border-collapse: collapse;
+		 	}
+		 	table td{
+		 		border:1px solid #eee;
+		 		padding: 10px 5px;
+		 	}
+		 	.audio{
+				display: block;
+				clear: both;
+				margin-bottom: 10px;
+			}
+			.video{
+				clear: both;
+				width:100%;
+			}
+		 </style>
+	</head>
+	<body>
+		<div>
+			{if $data.mp3url}
+			<audio src="{$data.mp3url}" class="audio" controls=""></audio>
+			{/if}
+			
+			{if $data.mp4url}
+			<video src="{$data.mp4url}"  class="video" controls=""></video>
+			{/if}
+		</div>
+		<div class="d-content">
+			{$data.content}
+		</div>
+		
+		{include file="book_article/comment.html"}
+		
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		 
+		<script src="{$skins}book_article/view.js"></script>
+<script type="text/javascript" charset="utf-8" src="/plugin/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+<link rel="stylesheet" type="text/css" href="/plugin/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css"/>
+<script language="javascript">
+SyntaxHighlighter.highlight();
+</script>		
+	</body>
+</html>

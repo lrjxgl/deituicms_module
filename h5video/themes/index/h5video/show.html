@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>{$h5video.title}</title>
+	<link href="/plugin/dt-ui/dt-ui-h5.css" rel="stylesheet" />
+	<link href="/plugin/dt-ui/animate.css" rel="stylesheet" />
+	<link href="//at.alicdn.com/t/font_811242_4k6v9f174g7.css" rel="stylesheet">
+	<link href="{$skins}h5video/show.css" rel="stylesheet" />
+	</head>
+	
+	<body>
+		<div class="movieCanvas" id="movieCanvas" style="background-color: {$h5video.bgcolor};">
+			 
+			{foreach item=c from=$videoData}
+				<div id="page{$c.pageid}" class="moviePage animated none" >
+					<input type="hidden" class="moviePage-text" value="{$c.allText}" />
+					{foreach item=cc from=$c.items}
+					{if $cc.itype eq 'img'}
+					<img src="{$cc.imgurl}"  class="pos-abs animated {$cc.animate}" style="z-index:{$cc.zindex};left:{$cc.x}px;top: {$cc.y}px;{$cc.width}{$cc.height}{$cc.style};{$cc.itemcss}" />
+					{elseif $cc.itype eq 'link'}
+					<a class="pos-abs pd-10 animated {$cc.animate} {$cc.cssClass}" style="z-index:{$cc.zindex};left:{$cc.x}px;top: {$cc.y}px;{$cc.width}{$cc.height}color:{$cc.color};font-size:{$cc.fontsize}px;text-align:{$cc.textalign};{$cc.style};{$cc.itemcss}" href="{$cc.linkurl}" target="_blank">{$cc.content}</a>
+					{elseif $cc.itype eq 'plugin'}
+					<div class="pos-abs pd-10 animated {$cc.animate} {$cc.cssClass}" style="z-index:{$cc.zindex};left:{$cc.x}px;top: {$cc.y}px;{$cc.width}{$cc.height}color:{$cc.color};font-size:{$cc.fontsize}px;text-align:{$cc.textalign};{$cc.style};{$cc.itemcss}">
+						{$cc.plugincontent}
+					</div>
+					{else}
+					<div class="pos-abs pd-10 animated {$cc.animate} {$cc.cssClass}" style="z-index:{$cc.zindex};left:{$cc.x}px;top: {$cc.y}px;{$cc.width}{$cc.height}color:{$cc.color};font-size:{$cc.fontsize}px;text-align:{$cc.textalign};{$cc.style};{$cc.itemcss}">{$cc.content|nl2br}</div>
+					{/if}
+					
+					{/foreach}
+				</div>
+			{/foreach}
+			{if $bgmp3}
+			<div class="movie-bgMp3 movie-bgMp3-active"></div>
+			{/if}
+			{if $h5video.istts}
+			<div class="ctrl-play ctrl-play-active"></div>
+			{/if}
+			<div class="ctrl-camera none" id="camera"></div>
+		</div>
+		<div class="moviePageTools">
+			<div class="flex flex-center" style="margin: 0 auto; width: 200px;"> 
+			<div class="lastPage mgr-10 iconfont icon-fold" style="display: none;"></div>
+			<div class="nextPage  iconfont icon-unfold"></div>
+			</div>
+			
+		</div>
+		{if $h5video.istpl}
+		<div class="copyBtn js-copy" vid="{$h5video.vid}">使用此模板</div>
+		{/if}
+		<a class="jszc" href="https://www.deituicms.com" target="_blank">技术支持 www.deituicms.com</a>
+		<div class="modal-group" id="camera-modal">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header">
+					<div class="modal-title">截图</div>
+				</div>
+				<div class="modal-body" id="camera-imgbox"></div>
+			</div>
+		</div> 
+		 
+		<script src="/plugin/jquery/jquery.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-h5.js"></script>
+		<link href="/module.php?m=h5video_style&a=allcss" rel="stylesheet" />
+		<!--
+		<script src="/plugin/jquery/jquery.touchSwipe.min.js"></script>
+		-->
+		<script>
+			var timer=0;
+			var bodyClick=false; 
+			var pageIndex=0;
+			var autoPlay=true;
+			var istts={$h5video.istts};
+			var pageid="{$pageid}";
+			{if $bgmp3}
+			var bgmp3=true;
+			{else}
+			var bgmp3=false;
+			{/if}
+			{if $pageid}
+				pageIndex=$("#page{$pageid}").index();
+				$(".nextPage").show();
+				$(".lastPage").show();
+			{/if}
+			var ads=$(".moviePage-text");
+			var audios=[];
+			//首页
+			$(".moviePage:eq("+pageIndex+")").removeClass("none");
+			//设置放大比例
+			var winWidth=$("body").width();
+			var scalePage=winWidth/320;
+			console.log(scalePage);
+			$(".movieCanvas").css({transform: 'scale('+scalePage+','+scalePage+')'});
+			//背景音乐
+			
+			var bgAudio=document.createElement("audio");
+			{if $bgmp3}
+			bgAudio.src="{$bgmp3}";
+			bgAudio.loop=1;
+			bgAudio.volume=0.3;
+			bgAudio.addEventListener("canplay",function(){
+				bgAudio.play();			
+			})
+			{/if}
+			//全部语音
+			if(istts){
+				for(var i=0;i<ads.length;i++){
+					audios[i]=document.createElement("audio");
+					audios[i].src="/module.php?m=tts&text="+encodeURIComponent($(".moviePage-text:eq("+i+")").val());
+					audios[i].addEventListener("ended",function(){
+						if(autoPlay){
+							if(timer){
+								clearTimeout(timer)
+							}
+							nextPage();
+						}
+						
+					});
+				}
+				audios[pageIndex].addEventListener("canplay",function(){
+					setTimeout(function(){
+						audios[pageIndex].play();
+					},5000)
+					
+				})
+			}
+			if(!pageid){
+				timer=setTimeout(function(){
+					nextPage();
+				},5000) 
+			}
+			
+			function nextPage(){
+				var len=$(".moviePage").length;
+				if(pageIndex==len-1){	
+					return false;
+				}
+				$(".lastPage").show();
+				$(".moviePage").addClass("none");	
+				if(istts){
+					audios[pageIndex].pause();
+				}
+				
+				pageIndex++;
+				if(istts){
+					setTimeout(function(){
+						audios[pageIndex].currentTime=0;
+						audios[pageIndex].play();
+					},1000)
+				}
+				
+				$(".moviePage").eq(pageIndex).removeClass("none").removeClass("slideInDown").addClass("slideInUp");;
+				if(pageIndex==len-1){
+					$(".nextPage").hide();
+				}else{
+					if(timer){
+						clearTimeout(timer)
+					}
+					timer=setTimeout(function(){
+						nextPage();
+					},5000)
+				}
+			}
+			function lastPage(){
+				if(pageIndex==0){
+					return false;
+				}
+				$(".moviePage").addClass("none");;
+				
+				
+				if(istts){
+					audios[pageIndex].pause();
+				}
+				pageIndex--;
+				
+				if(istts){
+					setTimeout(function(){
+						audios[pageIndex].currentTime=0;
+						audios[pageIndex].play();
+					},1000)
+				}
+				$(".moviePage").eq(pageIndex).removeClass("none").removeClass("slideInUp").addClass("slideInDown");
+				$(".nextPage").show();
+				if(pageIndex==0){
+					$(".lastPage").hide();
+				}
+			}
+			$(document).on("click",".nextPage",function(){
+				nextPage();
+			})
+			$(document).on("click",".lastPage",function(){
+				lastPage();
+			})
+			 
+			//解决未点击触发bug
+			
+			$(document).on("click","body",function(){
+				if(!bodyClick){
+					bodyClick=true;
+					{if $h5video.istts}
+					audios[pageIndex].play();
+					{if $bgmp3}
+					{/if}
+					bgAudio.play();
+					{/if}
+				}
+				
+			})
+			//
+			/*
+			$(".movieCanvas").swipe({
+				swipeUp:function(){
+					//nextPage();
+					console.log("swipeUp")
+				},
+				swipeDown:function(){
+					//lastPage();
+					console.log("swipeDown")
+				}
+			})
+			*/
+			$(document).on("click",".movie-bgMp3",function(){
+				if($(this).hasClass("movie-bgMp3-active")){
+					$(this).removeClass("movie-bgMp3-active");
+					bgAudio.pause();
+					
+				}else{
+					$(this).addClass("movie-bgMp3-active");
+					bgAudio.play();
+				}
+			})
+			$(document).on("click",".ctrl-play",function(){
+				if($(this).hasClass("ctrl-play-active")){
+					$(this).removeClass("ctrl-play-active");
+					autoPlay=false;
+					audios[pageIndex].pause();
+				}else{
+					$(this).addClass("ctrl-play-active");
+					autoPlay=true;
+					audios[pageIndex].play();
+				}
+			})
+			$(document).on("click",".js-copy",function(){
+				var vid=$(this).attr("vid");
+				$.get("/module.php?m=h5video&a=copy&ajax=1&vid="+vid,function(res){
+					skyToast(res.message);
+					if(!res.error){
+						window.location="/module.php?m=h5video&a=my";
+					}
+					
+				},"json")
+			})
+		</script>
+		{php wx_jssdk();}
+		<script>
+			wxshare_title="{$h5video.title}";
+			wxshare_imgUrl=$("img:eq(0)").attr("src");
+		</script>
+		<!--
+		<script src="/plugin/jquery/html2canvas.min.js"></script>
+		<script>
+			$(document).on("click","#camera",function(){
+				html2canvas(document.querySelector("#movieCanvas")).then(canvas => {
+					var img=canvas.toDataURL("png");
+					$("#camera-imgbox").html('<img src="'+img+'" style="width:100%;" />');
+					$("#camera-modal").show();
+				});
+			})
+			
+		</script>
+		-->
+	</body>
+</html>

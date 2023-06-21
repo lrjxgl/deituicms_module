@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='csc_sender/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=csc_sender&a=save">
+				<input type="hidden" name="senderid" style="display:none;" value="{$data.senderid}">
+				<table class="table-add">
+
+					<tr>
+						<td>名字：</td>
+						<td><input type="text" name="truename" id="truename" value="{$data.truename}"></td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>身份证：</td>
+						<td><input type="text" name="userno" id="userno" value="{$data.userno}"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td><input type="text" name="status" id="status" value="{$data.status}"></td>
+					</tr>
+					<tr>
+						<td>头像：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="up2" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="userhead" class="js-imgurl" value="{$data.userhead}" />
+								<div class="js-imgbox">
+									{if $data.userhead}
+									<img src="{$data.userhead|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>身份证：</td>
+						<td>
+							 
+							<div class="js-upload-item">
+								<input type="file" id="up33" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="usercard" class="js-imgurl" value="{$data.usercard}" />
+								<div class="js-imgbox">
+									{if $data.usercard}
+									<img src="{$data.usercard|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>微信号：</td>
+						<td><input type="text" name="wxhao" id="wxhao" value="{$data.wxhao}"></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+</html>

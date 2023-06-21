@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ <style>
+	 .pdetail-note{
+		 color: #FF5722;
+    border: 1px solid #f60;
+    padding: 10px;
+    border-radius: 10px;
+	 }
+	 .input-flex-label{
+		 width: 60px;
+	}	 
+ </style>
+<body>
+<div class="header">
+	<div url="/module.php?m=fsbuy" class="header-back"></div>
+	<div class="header-title">阶梯拼团</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    {if $data.mp4url}
+    <div>
+    	<video src="{$data.mp4url}" autoplay="autoplay"   x5-playsinline="" playsinline="" webkit-playsinline=""  controlsList="nodownload" controls style="width: 100%;"></video>
+    </div> 
+    {else}
+	<div class="flex flex-center">
+    	<img src="{$data.imgurl}" class="wmax"  />
+	</div>
+    {/if}
+    
+    <div class="row-box mgb-5">
+    	<div class="d-title">{$data.title}</div>
+    	<div class="cl3 f14 mgb-5">
+    		{$data.description}
+    	</div>
+		<div class="flex flex-ai-center mgb-10">
+			<div class="cl2">已购 </div>
+			<div class="cl-num f18">&nbsp;{$data.buynum}&nbsp;</div>
+			<div>份</div>
+			<div class="flex-1"></div>
+			<div class="cl2">成团数 </div>
+			<div class="cl-num f18">&nbsp;{$data.minnum}&nbsp;</div>
+			<div>份</div>
+			<div class="flex-1"></div>
+			
+			<div class="cl2 f12">总共{$data.maxnum}份</div>
+		</div>
+	 
+		{if $need_num>0}
+		<div class="pd-10 cl-red flex-center mgb-10">*还差 {$need_num} 份成团，赶紧邀请好友吧</div>
+		{/if}
+		{if !$ksList}
+    	<div class="flex flex-ai-center">
+    		<div class="w50 cl2">价格：</div>  
+    		<span class="flex-1 f22 cl-money">￥{$data.price}</span> 
+			<div class="cl3 f12">开团：{$data.stime}</div>
+    	</div>
+		{else}
+		<div class="">
+			<div class="flex mgb-10">
+			<div class="f14 cl-primary ">请选择购买的产品</div>
+			<div class="flex-1"></div>
+			<div class="cl3 f12">开团：{$data.stime}</div>
+			</div>
+			<div class="mgb-10">
+				{foreach item=c from=$ksList}
+				<div class="flex pdt-5 pdb-5 pointer js-ks-select " price="{$c.price}" ksid="{$c.ksid}">
+					<div class="status"></div>
+					<div class="flex-1">{$c.title}</div>
+					<div class="cl-money">￥{$c.price}</div>
+				</div>
+				{/foreach}
+			</div>
+			<div class="flex mgb-10">
+				<div>总共</div>
+				<div id="total-num" class="cl-money">0份</div>
+				<div class="flex-1"></div>
+				<div>总价</div>
+				<div id="total-money" class="cl-money">￥0</div>
+			</div>
+		</div>
+		{/if}
+		
+		
+	</div>
+	{if $data.fstype eq 2}
+		<div class="row-box mgb-5">
+			<div class="fw-600 mgb-10">阶梯返款</div>
+			<div class="mgb-10 ">
+				参团人数越多，返款越大，越实惠。拼团成功后立即返款到账户余额。
+			</div>
+			
+			<div>
+				<div class="flex mgb-5 flex-ai-center">
+					<div class="w100 ">人数</div>
+					<div>返款折扣</div>
+					 
+				</div>
+				{foreach item=c from=$step_config}
+				<div class="flex flex-ai-center">
+					<div  class="w100 cl-num">&gt;{$c.num}</div>
+					<div class="{if $c.active}cl-money{/if}">{$c.price}% </div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+	{/if}
+	<div class="row-box mgb-5">	
+		{if $order}
+		<div class="flex flex-ai-center mgb-20">
+			<div class="btn cl2 btn-outline-light">你已参团了</div>
+			<div class="flex-1"></div>
+			{if !$order.ispay}
+			<div class="btn-mini" gourl="/module.php?m=fsbuy_order&a=pay&orderid={$order.orderid}">去支付</div> 
+			{else}
+			<div class="cl-red">下单成功，等待发货</div>
+			{/if}
+		</div>
+		{else}
+		{if $data.status eq 2}
+		<div class="row-box">
+			<div>
+				<div class="fwb">收货地址</div>
+				<div class="input-flex">
+					<label class="input-flex-label">联系人</label>
+					<input id="addr-nickname" value="{$addr.nickname}" class="input-flex-text" type="text">
+				</div>
+				<div class="input-flex">
+					<label class="input-flex-label">电话</label>
+					<input id="addr-telephone" value="{$addr.telephone}" class="input-flex-text" type="text">
+				</div>
+				<div class="input-flex">
+					<label class="input-flex-label">地址</label>
+					<input id="addr-address" value="{$addr.address}" class="input-flex-text" type="text">
+				</div>
+				<div class="btn-row-submit js-buy-submit">确认参团</div>
+			</div>
+		</div>
+    	 
+		{elseif $data.status lt 2}
+		<div class="cl-primary mgb-10">即将开始</div>
+		{else}
+		<div class="cl3 mgb-10">活动已经结束</div>
+		{/if}
+		{/if}
+		{if $data.fsnote}
+		<div class="pdetail-note">{$data.fsnote}</div>
+		{/if}
+		<!--
+		<div class="flex flex-ai-center mgb-10 f16">
+			账户余额：<div class="cl-money">￥{$user.money}</div>元
+			<div class="flex-1"></div>
+			<div class="btn-mini" gourl="/index.php?m=recharge">提前充值</div> 
+		</div>
+		-->
+    	<div class="pdetail-note none">
+    		{$fsconfig.description}
+			 
+    	</div> 
+    </div>
+	<style>
+		.t-mid{
+			text-align: center;
+			margin-bottom: 10px;
+			color: #F43838;
+			font-size: 16px;
+			font-family: "arial, helvetica, sans-serif";
+			font-weight: bold;
+		}
+		.t-mid-desc{
+			color: #f30;
+			font-size: 12px;
+			text-align: center;
+			margin-bottom: 10px;
+		}
+		.t-a{
+			flex: 1;
+			text-align: left;
+		}
+		.t-b{
+			width:70px;
+			font-size: 14px;
+			text-align: center;
+		}
+		.t-c{
+			width:70px;
+			font-size: 14px;
+			text-align: center;
+		}
+	</style>
+	<div id="App">
+		{if $data.invite_money>0}
+		<div  class="row-box mgb-5">
+			<div class="t-mid">邀请排行</div>
+			<div class="t-mid-desc">邀请好友可获得{$data.invite_money}元奖励</div>
+			<div v-if="phList.length>0">
+				<div class="flex mgb-10">
+					<div class="t-a">姓名</div>
+					<div class="t-b">邀请人数</div>
+					<div class="t-c">预计奖励</div>
+				</div>
+				<div class="flex mgb-5" v-for="(item,index) in phList" :key="index">
+					<div class="t-a cl2">{{item.nickname}}</div>
+					<div class="t-b cl-num">{{item.num}}</div>
+					<div class="t-c cl-money">￥{{item.money}}</div>
+				</div>
+			</div>
+		</div>
+		{/if}
+		<div class="row-box mgb-5" v-if="Object.keys(list).length>0" id="oList">
+			<div class="fwb mgb-5">成团列表</div>
+			<div class="flex flex-wrap">
+				<div class="flex-ai-center pd-5 " v-for="(item,index) in list" :key="index">
+					<img class="wh-40" :src="item.user_head+'.100x100.jpg'" />
+					 
+				</div>
+			</div>
+			
+		</div>
+	</div>
+    <div class="row-box">
+		<div class="text-center cl-red pd-10" gourl="/module.php?m=fsbuy">点击查看更多优惠活动</div>
+    	<div class="d-content">
+    		{$data.content}
+    	</div>
+    </div>
+     
+    
+</div>
+<div class="fixedAdd" gourl="/module.php?m=fsbuy_order&a=my">订单</div>
+<style>
+	.shareFixed{
+		position: fixed;
+		right: 1px;
+		bottom:200px;
+		background-color:rgba(240,85,75,.82);
+		padding:5px 5px;
+		width:30px;
+		text-align: center;
+		box-sizing: border-box;
+		font-size: 14px;
+		color: #fff;
+		cursor: pointer;
+	}
+</style>
+<div  class="shareFixed iconfont icon-friend">邀请好友</div>
+<div id="shareGuide" class="modal-group">
+	<div class="modal-mask" style="opacity: 0.6;"></div>
+	<img style="display:block;width:200px;height:auto;position:fixed;right:0;top:0;z-index:999;" src="/static/images/wx_guide.png" />
+	 
+	
+</div>
+{include file="footer.html"} 
+<script>
+	function golink(url){
+		var a=$("#goalink");
+		if(a.length==1){
+			a.click();
+		}else{
+			var html='<a id="goalink" href="'+url+'">&nbsp;</a>';
+			$("body").append(html);
+			console.log("goalink");
+			$("#goalink")[0].click();
+		}
+	}
+	var fsid="{$data.fsid}";
+	var ksids="";
+ 
+	$(document).on("click",".js-ks-select",function(){
+		$(this).toggleClass("js-ks-select-check");
+		$(this).find(".status").toggleClass("yes");
+		totalMoney();
+	})
+	function totalMoney(){
+		var obs=$(".js-ks-select-check");
+		var money=0;
+		ksids="";
+		for(var i=0;i<obs.length;i++){
+			money+=parseFloat(obs.eq(i).attr("price"));
+			if(i>0){
+				ksids+=",";
+			}
+			ksids+=obs.eq(i).attr("ksid");
+		}
+		$("#total-num").html(obs.length+"份");
+		$("#total-money").html("￥"+money);
+	}
+	$(document).on("click",".js-buy-btn",function(){
+		$.get("/module.php?m=fsbuy&a=addr&ajax=1",function(data){
+			if(data.error){
+				if(data.error==1000){
+					loginBox();
+					return false;
+				}
+				skyToast(data.message);
+				return false;
+			}
+			var addr=data.data.addr;
+			var html='<div>'
+				+'<div class="input-flex"><label class="input-flex-label">联系人</label><input id="addr-nickname" value="'+addr.nickname+'" class="input-flex-text" type="text"></div>'
+				+'<div class="input-flex"><label class="input-flex-label">电话</label><input id="addr-telephone" value="'+addr.telephone+'" class="input-flex-text" type="text"></div>'
+				+'<div class="input-flex"><label class="input-flex-label">地址</label><input id="addr-address" value="'+addr.address+'" class="input-flex-text" type="text"></div>'
+				+'<div class="btn-row-submit js-buy-submit" >确认购买</div>'
+				+'</div>';
+			showbox("确认收货信息",html,320,360);
+		},"json")
+	})
+	$(document).on("click",".js-buy-submit",function(){
+		var nickname=$("#addr-nickname").val();
+		var telephone=$("#addr-telephone").val();
+		var address=$("#addr-address").val(); 
+		$.post("/module.php?m=fsbuy_order&a=order&ajax=1",{
+			fsid:fsid,
+			nickname:nickname,
+			telephone:telephone,
+			address:address,
+			ksids:ksids 
+		},function(data){
+			skyToast(data.message);
+			if(data.error==1000){
+				golink("/index.php?m=login");
+				return false;
+			}else if(data.error){
+				return false;
+			}
+			
+			if(data.data.gopay){
+				window.location=data.data.payurl;
+			}else{
+				window.location.reload();
+			}
+			
+			
+		},"json")
+	})
+</script>
+<script src="{$skins}fsbuy/show.js?vv=3"></script>
+<?php wx_jssdk();?>
+<script>
+	wxshare_link="{$shareurl}";
+	wxshare_title="{$data.title}";
+	{if $data.imgurl}
+	wxshare_imgUrl="{$data.imgurl}";
+	{/if}
+	$(".shareFixed").click(function(){
+		wxshare_title="我觉得这个真不错，推荐给大家。{$data.title}";
+		wxshare_link=location.protocol+"//"+document.domain+"/module.php?m=fsbuy&a=show&fsid={$data.fsid}&invite_fsuserid={$user.userid}";
+		$("#shareGuide").show();
+	})
+</script>
+</body>
+</html>

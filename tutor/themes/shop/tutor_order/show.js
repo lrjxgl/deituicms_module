@@ -1,0 +1,126 @@
+var App=new Vue({
+	el:"#App",
+	data:{
+		item:{},
+		logList:[],
+		raty_content:"",
+		raty_grade:8,
+		shop:{},
+		lesson:{}
+	},
+	created:function(){
+		this.getPage();
+	},
+	methods:{
+		setRatyGrade:function(e){
+			this.raty_grade=e;
+		},
+		goLession:function(lessonid){
+			window.location="/module.php?m=tutor_lesson&a=show&lessonid="+lessonid
+		},
+		goShop:function(shopid){
+			window.location="/module.php?m=tutor_shop&shopid="+shopid
+		},
+		getPage:function(){
+			var that=this;
+			$.ajax({
+				url:"/moduleshop.php?m=tutor_order&a=show&ajax=1",
+				data:{
+					orderid:orderid
+				},
+				dataType:"json",
+				success:function(res){
+					that.item=res.data.data;
+					that.logList=res.data.logList;
+					that.lesson=res.data.lesson;
+					that.shop=res.data.shop;
+					if(res.data.raty){
+						that.raty_grade=res.data.raty.raty_grade;
+						that.raty_content=res.data.raty.raty_content;
+					}
+				}
+			})
+		},
+		
+		accept:function(item){
+			var that=this;
+			$.ajax({
+				url:"/moduleshop.php?m=tutor_order&a=accept&ajax=1",
+				data:{
+					orderid:item.orderid
+				},
+				dataType:"json",
+				success:function(res){
+					
+					skyJs.toast(res.message);
+					if(!res.error){
+						that.getPage();
+					}
+				}
+			})
+		},
+		send:function(item){
+			var that=this;
+			$.ajax({
+				url:"/moduleshop.php?m=tutor_order&a=send&ajax=1",
+				data:{
+					orderid:item.orderid
+				},
+				dataType:"json",
+				success:function(res){
+					
+					skyJs.toast(res.message);
+					if(!res.error){
+						that.getPage();
+					}
+				}
+			})
+		},
+		finish:function(item){
+			var that=this;
+			skyJs.confirm({
+				title:"确认提示",
+				content:"确认回收完成吗？",
+				success:function(){
+					$.ajax({
+						url:"/moduleshop.php?m=tutor_order&a=finish&ajax=1",
+						data:{
+							orderid:item.orderid
+						},
+						dataType:"json",
+						success:function(res){
+							
+							skyJs.toast(res.message);
+							if(!res.error){
+								that.getPage();
+							}
+						}
+					})
+				}
+			})
+		},
+		cancel:function(item){
+			var that=this;
+			skyJs.confirm({
+				title:"确认提示",
+				content:"确认取消回收吗？",
+				success:function(){
+					$.ajax({
+						url:"/moduleshop.php?m=tutor_order&a=cancel&ajax=1",
+						data:{
+							orderid:item.orderid
+						},
+						dataType:"json",
+						success:function(res){
+							
+							skyJs.toast(res.message);
+							if(!res.error){
+								that.getPage();
+							}
+						}
+					})
+				}
+			})
+		}
+	}
+})

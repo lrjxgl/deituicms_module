@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">收到的报价</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex">
+						<img :src="item.user.user_head+'.100x100.jpg'" class="w50 mgr-5" />
+						<div class="flex-1">
+							<div class="flex flex-ai-center mgb-5">
+								<div class="mgr-5">{{item.user.nickname}}</div>
+								<div class="mgr-5 cl3">出价</div>
+								<div class="cl-money">￥{{item.money}}</div>
+								
+							</div>
+							<div class="cl2">
+								{{item.product.description}}
+							</div>
+						</div>
+						<div v-if="item.status==0" class="mgl-5">
+							<div @click="pass(item)" class="btn-small mgb-10">接受</div>
+							<div @click="forbid(item)" class="btn-small btn-warning">拒绝</div>
+						</div>
+						<div class="cl-status" v-else>
+							{{item.status_name}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}ershou_baojia/shop.js"></script>
+	</body>
+</html>

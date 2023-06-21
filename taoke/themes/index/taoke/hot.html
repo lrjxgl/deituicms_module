@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ 
+<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">9块9</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+   
+    <div class="tk-list">
+    	{foreach item=c from=$data}
+    		<a class="tk-item" href="/module.php?m=taoke&a=show&id={$c.id}">
+    			<div class="img">
+    				<img src="{$c.imgurl|images_site}"  />
+    				<div class="juan-price">券￥{$c.juan_money}</div>
+    			</div>
+    			<div class="title">{$c.title}</div>
+    			<div class="row-price">
+    				<span class="price">￥{$c.price}(券后)</span> 
+    				<span class="sold">销量{$c.sold_num}</span>
+    			</div>
+    		</a>
+    		
+    	{/foreach}
+    </div>
+    
+    {$pagelist}
+</div>
+{assign var="mfooter" value="hot"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+ 
+ <?php wx_jssdk();?>
+<script>
+	wxshare_title="福鼎淘客-拿优惠券去淘宝购买更便宜";
+ 
+</script>
+</body>
+</html>

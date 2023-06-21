@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='im_gift/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>giftid</td>
+						 
+						<td>名称</td>
+						 
+					 
+						<td>图片</td>
+						<td>状态</td>
+						<td>推荐</td>
+						<td>价格</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.giftid}</td>
+					 
+					<td>{$c.title}</td>
+					 
+					 
+					<td><img src="{$c.imgurl|images_site}" class="wh-60" /> </td>
+					<td>
+						<div url="/moduleadmin.php?m=im_gift&a=status&ajax=1&giftid={$c.giftid}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+					</td>
+					<td>
+						<div url="/moduleadmin.php?m=im_gift&a=recommend&ajax=1&giftid={$c.giftid}" class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status"></div>
+					</td>
+					<td>{$c.price}</td>
+					<td><a href="/moduleadmin.php?m=im_gift&a=add&giftid={$c.giftid}">编辑</a> 
+					
+					
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=im_gift&a=delete&giftid={$c.giftid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

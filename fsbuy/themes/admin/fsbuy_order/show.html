@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.textarea{
+		width:80%;
+	}
+</style>
+<body>
+<div class="tabs-border">
+		<a href="/moduleadmin.php?m=fsbuy_order" class="item">订单列表</a>
+		<a href="JavaScript:;" class="item active">订单详情</a> 
+	</div>
+<div class="main-body">
+    <div class="morderlist mgt-5">
+     	<div class="item">
+	     	<div class="flex mgb-5">
+	     		<span class="cl-money flex-1 js-status-name">{$data.status_name}</span>
+	     		<span class="f12 cl3">{$data.timeago}</span>
+	     	</div>
+	     	<div class="flex">
+	     		<img src="{$fsbuy.imgurl}.100x100.jpg" class="wh-60 mgr-10"  />
+	     		<div class="flex-1">
+	     			<div class="cl1 f16 mgb-5">{$fsbuy.title}</div>
+	     			<div class="cl-money">
+	     				<span class="price">￥{$fsbuy.price}</span>
+	     			</div>
+	     		</div>
+	     	</div>
+	     	
+	     	<div class="flex  mgb-5 ">
+	     			<div class="mgr-10 cl3">联系人：{$data.nickname} </div>
+	    			<div class="mgr-10 cl3">联系电话：{$data.telephone}</div>
+	    			<div class="cl3">收货地址：{$data.address}</div>
+	     	</div>
+	     	<div class="flex mgb-5">
+	     		<div>
+	     			订单价格：  
+	     			<span class="money">￥{$data.money}</span> 
+	     		</div>
+	     		<div class="mgl-20">
+	     			支付状态：  
+	     			<span class="ispay_name">{$data.ispay_name}</span> 
+	     		</div>
+	     		
+	     	</div>
+     	</div>
+    </div>
+ 
+    {if $loglist}
+    <div class="row-box">
+    	{foreach item=c from=$loglist}
+    	<div class="morder-log-item">
+    		{$c.content} 
+    		<div class="time">{$c.createtime}</div> 
+    	</div>
+    	{/foreach}
+    </div>
+    {/if}
+    <div class="row-box" {if $data.status eq 3 or $data.status eq 4} style="display: none;" {/if}>
+    	{if $data.status eq 0 && $data.ispay eq 1}
+    	<div class="flex flex-ai-center mgb-10">
+    		<textarea class="textarea content mgr-10" placeholder="请输入日志"></textarea>
+    		<div class="btn js-order-done" data-a="confirm" data-orderid="{$data.orderid}">确认订单</div>
+    	</div>
+    	{/if}
+    	{if $data.status lt 2 && $data.ispay eq 1}
+    	<div class="flex flex-ai-center mgb-10">
+    		<textarea class="textarea content mgr-10" placeholder="请输入日志"></textarea>
+    		<div class="btn js-order-done" data-a="send" data-orderid="{$data.orderid}">确认发货</div>
+    	</div>
+    	{/if}
+    	{if $data.status lt 3 && $data.ispay eq 1}
+    	<div class="flex flex-ai-center mgb-10">
+    		<textarea class="textarea content mgr-10" placeholder="请输入日志"></textarea>
+    		<div class="btn js-order-done" data-a="finish" data-orderid="{$data.orderid}">确认完成</div>
+    	</div>
+    	{/if}
+    	{if $data.status eq 0}
+    	<div class="flex flex-ai-center mgb-10">
+    		<textarea class="textarea content mgr-10" placeholder="请输入日志"></textarea>
+    		<div class="btn btn-danger js-order-done" data-a="cancel" data-orderid="{$data.orderid}">确认取消</div>
+    	</div>
+    	{/if}
+    </div>
+</div>
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-order-done",function(){
+			var $p=$(this).parent(".order-log");
+			var content=$p.find(".content").val();
+			$.get("/moduleadmin.php?m=fsbuy_order&ajax=1",{
+				a:$(this).attr("data-a"),
+				orderid:$(this).attr("data-orderid"),
+				content:content
+			},function(data){
+				skyToast(data.message);
+				if(data.error==0){
+					$(".js-status-name").html(data.data.status_name);
+					window.location.reload();
+				}
+			},"json")
+		})
+	})
+	
+</script>
+ 
+</body>
+</html>

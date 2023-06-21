@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+
+<ul class="nav nav-tabs">
+ 
+    <li  class="active"><a href="{$moduleadmin}?m=search_config">搜索设置</a></li>
+   
+</ul>
+<div class="main-body">
+	<form method="post" action="{$moduleadmin}?m=search_config&a=save">
+    	<input type="hidden" name="id" value="{$data.id}">
+    	<table class="table">
+        	<tr>
+            	<td>线程数</td>
+                <td><input type="text" name="threads" value="{$data.threads}"></td>
+            </tr>
+            
+            <tr>
+            	<td>采集深度</td>
+                <td>
+                	<input type="text" name="steps" value="{$data.steps}">
+                </td>
+            </tr>
+            
+            <tr>
+            	<td></td>
+                <td><button type="submit" class="btn btn-larger">保存</button></td>
+            </tr>
+        
+        </table>
+    
+    </form>
+</div>
+</body>
+</html>

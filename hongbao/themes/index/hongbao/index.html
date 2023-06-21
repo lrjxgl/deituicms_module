@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="header">
+		<div class="header-back"></div>
+		<div class="header-title">问答红包</div>
+	</div>
+	<div class="header-row"></div>
+ 
+<div class="main-body">
+	<div class="tabs-border">
+		<div gourl="/module.php?m=hongbao&type=doing" class="tabs-border-item {if $type=='doing'}tabs-border-active{/if}">进行中</div>
+		<div gourl="/module.php?m=hongbao&type=finish" class="tabs-border-item {if $type=='finish'}tabs-border-active{/if}">已结束</div>
+		<div gourl="/module.php?m=hongbao&type=all" class="tabs-border-item {if $type=='all'}tabs-border-active{/if}">全部</div>
+	</div>
+     <div class="flexlist">
+		    	{foreach item=c from=$data}
+		    	<a class="flexlist-item" href="/module.php?m=hongbao&a=show&id={$c.id}">
+		    	 <img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" /> 
+		    		<div class="flex-1">
+		    			<div class="flexlist-title">{$c.title}</div>
+		    			
+		    			<div class="flex mgb-5">
+		    			 <div class="mgr-10">红包总额：</div>
+						 <span class="cl-num">￥{$c.total_money}</span> 
+						 <div class="flex-1"></div>
+		    			 <div class="cl-status"> {if $c.isfinish}
+		    			 已结束
+		    			 {/if}</div>
+						
+		    			</div>
+						<div class="cl3 f12">结束时间：{$c.endtime|date:Y-m-d H:i}</div>
+		    		</div>
+		    	</a>
+		    	{/foreach}
+		    </div>
+</div>
+<div class="flex-center pd-10">
+	<a class="f12 cl3" href="https://beian.miit.gov.cn">{$site.icp}</a>
+</div>   
+{assign var="ftnav" value="index"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="header">
+		<div class="header-back"></div>
+		<div class="header-title">阅卷</div>
+	</div>
+	<div class="header-row"></div>
+<div class="tabs-border">
+	<a href="/module.php?m=exam_answer&exid={$exid}" class="tabs-border-item  {if get('type') eq ''}tabs-border-active{/if}">答卷</a>
+	<a href="/module.php?m=exam_answer&type=unraty&exid={$exid}"  class="tabs-border-item {if get('type') eq 'unraty'}tabs-border-active{/if}">待评分</a>
+	<a href="/module.php?m=exam_answer&type=raty&exid={$exid}"  class="tabs-border-item {if get('type') eq 'raty'}tabs-border-active{/if}">已评分</a>
+</div>
+<div class="main-body bg-white">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+    <td>用户</td>
+   <td>考卷</td>
+  
+   <td>分数</td>
+   
+   <td>阅卷</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.nickname}</td> 
+   <td>{$c.exam_title}</td>
+   
+   <td>{$c.grade}</td>
+    
+   <td>{if $c.israty}已阅{else}未阅{/if}</td>
+    
+<td>
+	<a href="/module.php?m=exam_answer&a=raty&id={$c.id}">阅卷</a>
+	<a href="javascript:;" class="js-delete" url="/module.php?m=exam_answer&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

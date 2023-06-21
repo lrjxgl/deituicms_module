@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}aichat_bchat/index.css?{$smarty.now}" rel="stylesheet" />
+	<link href="{$skins}aichat_bchat/hightlight.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">Ai聊天</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="msbox">
+				<div v-if="msgList.length==0" class="emptyData">开始聊点什么吧</div>
+				<div v-else class="msList" ref="msglist">
+					<div v-for="(item,index) in msgList" :key="index" class="msitem">
+						<template v-if="item.role=='ask'">
+							<div class="msitem-nick">我</div>
+							<div class="msitem-ask">
+								 
+								<div   v-html="item.content"></div> 
+								<div class="flex">
+									<div class="flex-1"></div>
+									<div @click="copy(index)" class="mgr-10 pd-5 pointer">复制</div>
+									<div @click="tts(item)" class="msitem-tts pointer iconfont icon-notification"></div> 
+								</div>
+							</div>
+						</template>
+						<template v-else>
+							<div class="msitem-nick">AI</div>
+							<div class="msitem-answer">
+								
+								<div   v-html="item.content"></div> 
+								<div class="flex flex-ai-center">
+									<div class="flex-1"></div>
+									<template v-if="item.createing!=true">
+										<div @click="reask(index)" class="mgr-10 pd-5 pointer">重新生成</div>
+										<div @click="delItem(index,item)" class="mgr-10 cl-danger pointer pd-5">删除</div>
+										<div @click="tts(item)" class="msitem-tts pointer iconfont icon-notification"></div> 
+									</template> 
+										
+									 
+									
+								</div>
+							</div>
+							 
+						</template>
+						
+					</div>
+				</div>
+				<!--提示-->
+				<div v-if="showPrompt">
+					<div @click="showPrompt=false" class="modal-mask"></div>
+					<div  class="tsList">
+						<div class="text-center mgb-10">Ai提示词</div>
+						<div  @click="showPrompt=false" class="ts-close">x</div>
+						<div >
+							<div class="mgb-10" @click="promptAsk(item)" v-for="(item,index) in tsList" :key="index">
+								{{item.title}}
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--历史对话-->
+				<div v-if="showLog">
+					<div @click="showLog=false" class="modal-mask"></div>
+					<div  class="tsList">
+						<div class="text-center mgb-10">历史对话</div>
+						<div  @click="showLog=false" class="ts-close">x</div>
+						<div>
+							<log-list @call-parent="goLog"></log-list>
+						</div>
+					</div>
+				</div>
+				<div class="msBottom">
+					<div class="ntable">
+						 
+						<div @click="showPrompt=true" class="ntable-td">提示语</div>
+						<div class="ntable-td" @click="content='/画画 '">画画</div>
+						<div class="ntable-td" @click="upClick">聊图</div>
+						<div class="ntable-td" @click="newSearch">search</div>
+						
+						<div class="flex-1"></div>
+						<div class="ntable-td" @click="clear">+新对话</div>
+						<div @click="getLog()" class="ntable-td">历史对话</div>
+						<div class="none">
+							<input @change="uploadImg" id="upimg" type="file"/>
+						</div>
+					</div>
+					<div @click="true_oimg=''" style="position: fixed;bottom:200px;right:10px;" v-if="true_oimg!=''">
+						<img :src="true_oimg+'.small.jpg'" style="max-width: 100px; height: auto;" />
+					</div>
+					<div class="flex flex-ai-center bg-white">
+						 
+						<textarea placeholder="请输入内容" @blur="blurContent"  @focus="conHeight='100px'"  :style="{height:conHeight}" class="content" v-model="content"></textarea> 
+						<div class="pd-5" v-if="inpost">{{inpost_time}}...</div>
+						<div v-else @click="send" class="pd-10 pointer">发送</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var id={$id};
+		</script>
+		<script src="{$skins}aichat_bchat/log-list.js"></script>
+		<script src="{$skins}aichat_bchat/highlight.min.js"></script>
+		<script src="{$skins}aichat_bchat/marked.min.js"></script>
+		<script src="{$skins}js/help.js"></script>
+		<script src="{$skins}aichat_bchat/index.js?{$smarty.now}"></script>
+		 
+	</body>
+</html>

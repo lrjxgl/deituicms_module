@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$lesson.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flexlist-item mgb-5">
+				<img  gourl="/module.php?m=tutor_shop&shopid={$shop.shopid}" src="{$shop.imgurl}.100x100.jpg" class="flexlist-img bd-radius-50">
+				<div class="flex-1">
+					<div gourl="/module.php?m=tutor_shop&shopid={$shop.shopid}" class="flexlist-title">老雷</div>
+					<div class="flex mgb-5">
+						
+						<div class="cl2 f12 mgr-5">新订单</div>
+						<div class="cl-num f12 mgr-10">{$shop.new_order}</div>
+						<div class="cl2 f12 mgr-5">总订单</div>
+						<div class="cl-num f12 mgr-10">{$shop.order_num}</div>
+						<div class="cl2 f12 mgr-5">评价</div>
+						<div class="cl-num f12 mgr-10">{$shop.raty_grade}</div>
+					</div>
+					<div class="flexlist-desc">{$shop.description}</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="d-title mgb-10">{$lesson.title}</div>
+				<div class="flex mgb-10">
+					<div class="cl2 mgr-5">价格</div>
+					<div class="cl-money">￥{$lesson.money}</div>
+					<div class="flex-1"></div>
+					<div class="cl2 mgr-5">课程数</div>
+					<div class="cl-num">{$lesson.lesson_num}节</div>
+				</div>
+				<div class="flex mgb-10">
+					<div class="cl2 mgr-5">库存</div>
+					<div class="cl-money">{$lesson.total_num}份</div>
+					<div class="flex-1"></div>
+					<div class="cl2 mgr-5">已售</div>
+					<div class="cl-num">{$lesson.sold_num}份</div>
+				</div>
+				
+			</div>
+			<div class="row-box">
+				<div   class="d-content">{$lesson.content}</div>
+			</div>
+		</div>
+		<div class="footer-row"></div>
+		<div class="footerFix pd-10 bg-white">
+			<div class="flex flex-ai-center">
+				<div class="cl-money">￥{$lesson.money}</div>
+				<div class="flex-1"></div>
+				<div onclick="$('#modalOrder').show()" class="btn-small btn-outline-primary">立即下单</div>
+			</div>
+		</div>
+		<div id="modalOrder" class="modal-group">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header">
+					<div class="modal-title">我要下单</div>
+					<div class="modal-close icon-close"></div>
+				</div>
+				<form id="orderForm" class="modal-body">
+					<input type="hidden" name="lessonid" value="{$lesson.lessonid}" />
+					<div class="input-flex">
+						<div class="input-flex-label">联系人</div>
+						<input class="input-flex-text" type="text" name="nickname" value="{$addr.nickname}" />
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">电话</div>
+						<input class="input-flex-text"  type="text" name="telephone" value="{$addr.telephone}" />
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">地址</div>
+						<input class="input-flex-text"  type="text" name="address" value="{$addr.address}" />
+					</div>
+					<div id="orderSubmit" class="btn-row-submit">确认下单</div>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+		$(function(){
+			$(document).on("click","#orderSubmit",function(){
+				if(!postCheck.canPost()){
+					return false;
+				}
+				$.ajax({
+					url:"/module.php?m=tutor_order&a=save&ajax=1",
+					type:"POST",
+					dataType:"json",
+					data:$("#orderForm").serialize(),
+					success:function(res){
+						skyJs.toast(res.message);
+						if(res.error){
+							return false;
+						}
+						if(res.data.action=='pay'){
+							window.location=res.data.payurl;
+						}
+						$('#modalOrder').hide()
+					}
+				})
+				
+			})
+		})
+		</script>
+	</body>
+</html>

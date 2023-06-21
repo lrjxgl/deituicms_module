@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+				<div gourl="/moduleadmin.php?m=taoke" class="item active">淘客设置</div>
+				 
+			</div>
+		<style>
+			.input-flex .label{
+				width: 120px;
+			}
+		</style>
+		<div class="main-body">
+		    <form id="form">
+		    	<div class="input-flex">
+		    		<div class="label">Appkey</div>
+		    		<input type="text" class="text" name="appkey" value="{$data.appkey}" />
+		    	</div>
+		    	
+		    	<div class="input-flex">
+		    		<div class="label">secretKey</div>
+		    		<input type="text" class="text" name="secretKey" value="{$data.secretKey}" />
+		    	</div>
+		    	
+		    	<div class="input-flex">
+		    		<div class="label">口令userid</div>
+		    		<input type="text" class="text" name="tkuserid" value="{$data.tkuserid}" />
+		    	</div>
+		    	<div class="input-flex">
+		    		<div class="label">口令文本</div>
+		    		<input type="text" class="text" name="tktext" value="{$data.tktext}" />
+		    	</div>
+		    	<div class="input-flex">
+					<div class="label">zoneid</div>
+					<input type="text" class="text" name="zoneid" value="{$data.zoneid}" />
+				</div>
+		    	<div class="textarea-row">
+		    		<label>标签</label>
+		    		<textarea name="tags" style="width: 96%;display: block; height: 60px; margin: 0 auto;">{$data.tags}</textarea>
+		    	</div>
+		    	<div class="input-flex">
+					<div class="label">商家类型</div>
+					<input type="radio" name="shoptype" {if $data.shoptype eq 0}checked{/if} value="0" />全部
+					<input type="radio" name="shoptype" {if $data.shoptype eq 1}checked{/if}  value="1" />天猫
+					 
+				</div>
+				<div class="input-flex">
+					<div class="label">运营模式</div>
+					<input type="radio" name="opmode" {if $data.opmode eq 0}checked{/if} value="0" />自动管理
+					<input type="radio" name="opmode" {if $data.opmode eq 1}checked{/if}  value="1" />手动管理
+					 
+				</div>
+				<div class="input-flex">
+					<div class="label">返利率</div>
+					<input type="text" class="input-flex-text" placeholder="50,20" name="flsets" value="{$data.flsets} ">
+					(英文逗号隔开，总和不能超过100)
+				</div>
+				 
+		    	<div id="submit" class="btn-row-submit">保存</div>
+		    </form>
+		</div>
+		{include file="footer.html"}
+	<script>
+		$(function(){
+			
+			$(document).on("click","#submit",function(){
+				$.post("/moduleadmin.php?m=taoke_config&a=save&ajax=1",$("#form").serialize(),function(data){
+					skyToast(data.message);
+				},"json")
+			})
+			
+		})
+	</script>	
+	</body>
+</html>

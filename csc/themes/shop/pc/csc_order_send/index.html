@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.side{
+			position: fixed;
+			top:45px;
+			bottom:0;
+			left:0;
+			width:80px;
+			background-color: #fff;
+			padding: 6px;
+		}
+		.side-active{
+			color: #f60;
+		}
+		.main{
+			margin-left:90px;
+		}
+	</style>
+	<body class="bg-ef">
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单分配</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="flex-col">
+				<div class="side">
+					<div @click="setSender(item.senderid)" v-for="(item,index) in sds" :key="index">
+						<div :class="item.senderid==senderid?'side-active':''" >{{item.truename}} {{item.have_num}}</div>
+					</div>
+				</div>
+				<div class="main">
+					<div v-if="list.length==0" class="emptyData">暂无未分配订单</div>
+					<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+						<div class="flex">
+							<div class="flex-1">{{item.addr.address}}</div>
+							<div @click="fenpei(item.orderid)" class="btn-small">分配</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}/csc_order_send/index.js"></script>
+	</body>
+</html>

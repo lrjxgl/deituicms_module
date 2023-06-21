@@ -1,0 +1,79 @@
+.flexlist {
+	padding-top: 5px;
+}
+
+.flexlist .item {
+	background-color: #fff;
+	margin-bottom: 5px;
+	padding: 5px;
+}
+
+.flexlist .starttime {
+	line-height: 1.5;
+	font-size: 14px;
+	color: #555;
+	padding-left: 10px;
+}
+
+.flexlist .nums {
+	line-height: 1.6;
+	font-size: 14px;
+	color: #666;
+	padding-left: 10px;
+}
+
+.flexlist .nums .num {
+	color: #f60;
+}
+
+.paibox {
+	padding: 10px;
+	background-color: #fff;
+	margin-top: 10px;
+}
+
+.flexitem {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border-bottom: 1px solid #eee;
+	padding: 10px 0px;
+	color: #555;
+}
+
+.flexitem .pm {
+	width: 60px;
+}
+
+.flexitem .nick {
+	width:60px;
+	overflow: hidden;
+}
+
+.flexitem .money {
+	width: 60px;
+}
+
+.tbs-img .bt {
+	width: 100px;
+	margin-right: 20px;
+	text-align: center;
+	color: #fff;
+	background-color: #7ab8e2;
+	border-radius: 20px;
+	line-height: 40px;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.tbs-img .bts {
+	text-align: center;
+}
+
+.tbs-img .bt.on {
+	background-color: #0062CC;
+}
+
+#img-ewm-2 {
+	display: none;
+}

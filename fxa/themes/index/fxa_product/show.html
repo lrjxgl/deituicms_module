@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}fxa_product/show.css?v23" rel="stylesheet" />
+	<body>
+
+		<div class="main-body">
+			<img class="d-img" src="{$data.imgurl}" />
+			<div class="row-box">
+				<div class="d-title">{$data.title}</div>
+				<div class="flex mgb-20">
+					<div class="cl-money">￥{$data.price}</div>
+					<div class="flex-1"></div>
+					<div class="cl2">已拼{$data.sold_num}件</div>
+				</div>
+				<div class="flex-col flex-center">
+					<div style="color: #0034FF;font-size: 16px; margin-bottom: 20px;">拼单详情</div>
+					<div style="width:20px; background-color: #0034FF; height: 3px; margin-bottom: 10px;"></div>
+				</div>
+
+			</div>
+
+			<div>
+				{foreach item=c from=$imgsdata}
+				<img src="{$c}" style="width: 100%;" />
+				{/foreach}
+			</div>
+			{if !empty($shareList)}
+			<div style="padding: 20px 10px; font-size: 16px;">
+				赚红包排行榜
+			</div>
+		 
+			<div class="flex topBox">
+				{foreach item=c key=k from=$shareList}
+				{if $k<3}
+				<div class="flex-1  tpItem{$k}">
+					<div class="tpItem">
+						<img class="tpItem-head" src="{$c.user_head}.100x100.jpg" />
+						<div class="tpItem-money">{$c.money}</div>
+						<div class="tpItem-nick">{$c.nickname}</div>
+						<div class="tpItem-num"></div>
+					</div>
+				</div>
+				{/if}
+				{/foreach}
+				 
+			</div>
+			{/if}
+			{if count($shareList)>3} 
+			<div class="faBox">
+				{foreach item=c key=k from=$shareList}
+				{if $k>2}
+				<div class="fa-row">
+					<div class="fa1">{$k+1}</div>
+					<img class="fa2" src="{$c.user_head}.100x100.jpg" />
+					<div class="fa3">{$c.nickname}</div>
+					<div class="fa4">{$c.num}人</div>
+					<div class="fa5">￥{$c.money}</div>
+				</div>
+				{/if}
+				{/foreach}
+			</div>
+			{/if}
+		</div>
+		<div gourl="/module.php?m=fxa_product&a=share&id={$data.id}" class="shareRight flex-ai-center flex">
+			<div class="mgr-5 cl-white">
+			邀请好友<br />赚红包
+			</div>
+			<div class="iconfont f18 cl-white icon-redpacket"></div>	
+		</div>
+		
+		<div class="modal-group" id="modal-kefu">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="flex-center" style="padding: 40px;">
+					<div class="mgb-20">
+						<img style="width:150px; height: 150px;" src="{$skins}css/kefu.jpg">
+					</div>
+					<div>长按添加客服</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-row" style="height: 80px;"></div>
+		<div class="footer pd-10">
+			<div gourl="/module.php?m=fxa_user" class="mgr-20">
+				<div class="iconfont icon-my_light"></div>
+				<div>我的</div>
+			</div class="mgr-20">
+			<div class="pointer" onclick='$("#modal-kefu").show()'>
+				<div class="iconfont icon-service_light"></div>
+				<div>客服</div>
+			</div>
+			<div class="cl-money flex-center flex-1">￥{$data.price}</div>
+			{if $canBuy}
+			<div class="btn" gourl="/module.php?m=fxa_order&a=confirm&productid={$data.id}">立即购买</div>
+			{else}
+			<div class="btn btn-disable" >活动未开启</div>
+			{/if}
+		</div>
+		<style>
+			.zmBox{
+				position: fixed;
+				top:10px;
+				right:0px;
+				color: #fff;
+				animation: floatRight 5s linear 0s 1 forwards ;
+				width:160px;
+				background-color: #666;
+				opacity: .8;
+				border-radius: 20px;
+				overflow: hidden;
+				padding: 5px;
+			}
+			.zmBox1{
+				top:35px;
+			}
+			.zmBox2{
+				top:50px;
+			}
+			.zmBox3{
+				top:85px;
+			}
+			.zmBox4{
+				top:110px;
+			}
+			.zmBox5{
+				top:135px;
+			}
+			.zmBox-img{
+				width:20px;
+				height:20px;
+				border-radius: 10px;
+				margin-right: 3px;
+			}
+			@keyframes floatRight{
+				from{
+					right:0px;
+				}
+				to{
+					right:100%;
+					
+				}
+			}
+		</style>
+		<div id="orderApp">
+			<div class="zmBox flex" :class="'zmBox'+(index%6)" v-for="(item,index) in list" :key="index">
+				<img class="zmBox-img" :src="item.user_head+'.100x100.jpg'"  />
+				{{item.nickname}} 拼单成功
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var productid = "{$data.id}";
+			$(".tpItem0").insertAfter(".tpItem1");
+			$(document).on("click", "#order", function() {
+				$.ajax({
+					url: "/module.php?m=fxa_order&a=order&ajax=1&productid=" + productid,
+					dataType: "json",
+					success: function(res) {
+						
+						skyToast(res.message);
+						window.location=res.data.payurl;
+					}
+				})
+			})
+		</script>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}fxa_product/show.js"></script>
+	</body>
+</html>

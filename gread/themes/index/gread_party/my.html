@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我发起的读书会</div>
+	<div gourl="/module.php?m=gread_party&a=add" class="header-right-btn">发起</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="sglist">
+		{foreach item=c from=$list}
+		<div  class="sglist-item js-item">
+			 
+			<div class="sglist-title">{$c.title}</div>
+			<div class="flex mgb-5">
+				<div class="cl2 mgr-5">限制人数</div>
+				<div class="cl-num">{$c.max_num}</div>
+				<div class="flex-1"></div>
+				<div class="cl2 mgr-5">参与人数</div>
+				<div class="cl-num">{$c.join_num}</div>
+			</div>
+			<div class="flex">
+				<div class="flex-1"></div>
+				<div class="btn-mini btn-outline-primary mgr-5" gourl="/module.php?m=gread_party&a=add&id={$c.id}">编辑</div>
+				<div class="btn-mini btn-outline-danger js-delete mgr-5" url="/module.php?m=gread_party&a=delete&ajax=1&id={$c.id}">取消活动</div>
+				<div class="btn-mini btn-outline-primary"  gourl="/module.php?m=gread_party&a=show&id={$c.id}">查看</div>
+			</div>
+		</div>	
+		{/foreach}	
+	</div>
+	
+
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

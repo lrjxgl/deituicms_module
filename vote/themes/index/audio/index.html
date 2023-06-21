@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<a href="/" class="header-back header-back-fixed"></a>
+		<img src="{$vote.imgurl|images_site}" class="wmax"> 
+		<div class="row-box mgb-5">
+			<div class="flex flex-center bd-mp-5">
+				<div class="flex-1 ">
+					<div class="f16">已报名</div>
+					<div class="cl2">{$vote.join_num}</div>
+				</div>
+				<div class="flex-col-line"></div>
+
+				<div class="flex-1">
+					<div class="f16">累计投票</div>
+					<div class="cl2">{$vote.vote_num}</div>
+				</div>
+				<div class="flex-col-line"></div>
+				<div class="flex-1">
+					<div class="f16">访问量</div>
+					<div class="cl2">{$vote.view_num}</div>
+				</div>
+
+			</div>
+
+			<div class="row-item-text "><i class="row-item-icon icon-hot_light"></i>
+				<div class="flex-1">{$vote.title}</div>
+			</div>
+			<div class="row-item-text "><i class="row-item-icon icon-time"></i>
+				<div class="flex-1">{$vote.starttime|date:Y.m.d}-{$vote.endtime|date:Y.m.d}</div>
+			</div>
+			<div class="tabs-toggle-group">
+				<div class="tabs-toggle">
+					<div class="tabs-toggle-hd flex-ai-center"><div class="row-item-icon icon-news"></div>活动介绍</div>
+					<div class="tabs-toggle-box d-content">{$vote.content}</div>
+				</div>
+			</div>
+		</div>
+		<div  id="app" style="display: none;" :class="'flex-col'" v-if="pageLoad">
+			<div class="flex row-box mgb-10">
+				<input v-model="bianhao" type="text" placeholder="输入编号"   class="input-flex-text" :value="bianhao">
+				<div class="input-flex-btn" @click="search"><i class="iconfont  icon-search"></i></div>
+			</div>
+			
+			<div class="  mtlist " id="votelist">
+				 
+				<div v-if="pageData.list.length==0" class="emptyData">暂无参与</div> 
+				<div v-for="(item,index) in pageData.list" class="mtlist-item" >
+					<div class="mtlist-item-bd">
+						 
+						<div class="mtlist-item-pd">
+							<div class="mtlist-title">{{item.title}}</div>
+							<div class="flex mgb-10 cl3">编号：<div class="cl-num">{{item.bianhao}}</div></div>
+							<div class="flex flex-ai-center">
+								<a class="btn" :href="'/module.php?m=vote_join&a=show&vid='+item.vid+'&id='+item.id">看看</a>
+								<div class="flex-1"></div>
+								<div class="cl-num mgr-10">{{item.vote_num}}票</div>
+							</div> 
+						</div>
+					</div>	
+					
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var vid="{$vote.id}";
+		</script>
+		<script src="{$skins}index.js"></script>
+	</body>
+</html>

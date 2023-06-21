@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div id="App">
+
+
+			<div class="header">
+				<div class="header-back"></div>
+				<div class="header-title">搜一下</div>
+
+			</div>
+			<div class="header-row"></div>
+			<div class="main-body">
+				<div>
+					<div class="tabs-border">
+						<div @click="setTab('loupan')" :class="{'tabs-border-active':tab=='loupan'}"
+							class="tabs-border-item">楼盘</div>
+						<div @click="setTab('resource')" :class="{'tabs-border-active':tab=='resource'}" class="tabs-border-item">房源
+						</div>
+					</div>
+					<div class="flex pd-5">
+						<input class="input-flex-text bd-radius-10 outline-none" v-model="keyword" :value="keyword"
+							id="keyword" />
+						<div class="input-flex-btn w60" @click="search">搜一下</div>
+					</div>
+				</div>
+				<div v-if="tab=='loupan'">
+					<div v-if="lpList.length==0" class="emptyData">暂无数据</div>
+					<div v-else class="flexlist">
+
+						<div @click="goLoupan(item.id)" v-for="(item,index) in lpList" :key="index" class="flexlist-item">
+							<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'">
+							<div class="flex-1">
+								<div class="flexlist-title">{{item.title}}</div>
+								<div class="flex mgb-5">
+									<span class="cl-num">{{item.isbuy_title}}</span>
+									<div class="flex-1"></div>
+									<span class="cl-money">{{item.price}}元/平</span>
+								</div>
+								<div class="cl3 f12">{{item.address}}</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div v-if="tab=='resource'">
+
+					<div v-if="resList.length==0" class="emptyData">暂无数据</div>
+					<div v-else class="sglist">
+
+						<div  @click="goResource(item.id)"   v-for="(item,index) in resList" :key="index" class="sglist-item js-item">
+							<div class="sglist-title">{{item.description}}</div>
+							
+							<div v-if="item.imgslist.length>0" class="sglist-imglist">
+								 
+								<img v-for="(img,imi) in item.imgslist" :key="imi" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+								 
+							</div>
+							<div class="flex">
+								<div class="mgr-10 cl2">总价</div>
+								<div class="mgb-5 cl-money">￥{{item.total_money}}</div>
+								<div class="cl2">万元</div>
+								<div class="flex-1"></div>
+								<div class="cl2">{{item.sc_id_title}}</div>
+							</div>  
+						</div>
+
+					</div>
+				</div>
+				<div v-if="per_page>0" @click="getPage()" class="loadMore">加载更多</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var keyword = "{$keyword}";
+		</script>
+		<script src="{$skins}house_search/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,55 @@
+
+{foreach item=c from=$list}
+<div   class="sglist-item">
+	<div class="flex mgb-10">
+		<img gourl="/module.php?m=forum_home&userid={$c.userid}" src="{$c.user_head}.100x100.jpg" class="wh-40 bd-radius-50" />
+		<div class="flex-1 mgl-5">
+			<div class="flex flex-ai-center mgb-5">
+				<div class="f14 fw-600 ">{$c.nickname}</div>
+				<span gourl="/index.php?m=user_rank" class="mgl-5 cl-warning f12">{$c.user.rank.rank_name}</span>
+			</div>
+			
+			<div class="flex">
+				 
+				<div class="f12 cl3">{$c.timeago}</div>
+				
+			</div>
+		</div>
+		<div gourl="/module.php?m=forum&a=list&gid={$c.gid}" class="cl2 f12">来自{$c.group_title}</div>  
+	</div>
+	<a href="/module.php?m=forum&a=show&id={$c.id}">
+		{if isset($c.imgslist) }
+			{if count($c.imgslist)<=1}
+			<div class="flex">
+				<div class="sglist-title flex-1 mgb-10">{$c.title}</div>
+				{foreach item=img from=$c.imgslist}
+				<img src="{$img}.100x100.jpg" class="wh-100 mgl-10" />
+				{/foreach}
+			</div>
+			{elseif count($c.imgslist)<=3 }
+			<div class="sglist-title mgb-10">{$c.title}</div>
+			<div class="sglist-imglist">
+				{foreach item=img from=$c.imgslist}
+				<img src="{$img}.small.jpg" class="sglist-imglist-img{$c.imgslist|count}" />
+				{/foreach}
+			</div>
+			{else}
+				<div class="sglist-title mgb-10">{$c.title}</div>
+				<div class="sglist-imglist">
+					{foreach item=img from=$c.imgslist}
+					<img src="{$img}.small.jpg" class="sglist-imglist-img" />
+					{/foreach}
+				</div>
+			{/if} 
+		{else}
+			<div class="sglist-title mgb-10">{$c.title}</div>
+		{/if}
+		
+		<div class="sglist-ft">
+			<div class="sglist-ft-love">{$c.love_num}</div>
+			<div class="sglist-ft-cm">{$c.comment_num}</div>
+			<div class="sglist-ft-view">{$c.view_num}</div>
+		</div> 
+	</a>
+</div>
+{/foreach}

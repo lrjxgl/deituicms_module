@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>sendid</td>
+   <td>礼物</td>
+   <td>类别</td>
+   <td>类别</td>
+   <td>留言</td>
+   <td>创建时间</td>
+   <td>状态</td>
+   <td>阅读</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.sendid}</td>
+   <td>{$c.giftid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.touserid}</td>
+   <td>{$c.content}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.status}</td>
+   <td>{$c.isread}</td>
+<td><a href="/module.php?m=im_gift_send&a=add&sendid={$c.sendid}">编辑</a> <a href="/module.php?m=im_gift_send&a=show&sendid={$c.sendid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=im_gift_send&a=delete&sendid={$c.sendid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

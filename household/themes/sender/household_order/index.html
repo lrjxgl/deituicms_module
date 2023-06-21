@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="app">
+			<div class="tabs-border">
+				<div :class="typeid==0?'tabs-border-active':''" class="tabs-border-item" @click="setType(0)">全部</div>
+				<div @click="setType(item.typeid)" v-for="(item,index) in typelist" :class="item.typeid==typeid?'tabs-border-active':''"
+				 :index="index" class="tabs-border-item">{{item.title}}</div>
+		
+			</div>
+			<div class="ptlist">
+		
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="cl-num mgr-10">
+							{{item.status_name}}
+						</div>
+					
+						<div class="f12 cl3">{{item.createtime}}</div>
+						<div class="flex-1"></div>
+					
+						<div class="flex mgb-5 flex-ai-center">
+							 
+							<div class="cl-money">￥</div>
+							<div class="cl-money">{{item.money}}</div>
+						</div>
+					</div>
+					<div class="bd-mp-5 cl3">
+						{{item.addr.address}}
+					</div>
+					<div class="flexlist-item" v-for="(pro,proIndex) in item.prolist" :key="proIndex">
+						<img class="flexlist-img" :src="pro.imgurl+'.100x100.jpg'">
+						<div class="flex-1">
+							<div class="flexlist-title">{{pro.title}}</div>
+							 
+						</div>
+					</div> 
+					<div class="flex">
+						
+						<div class="flex-1"></div>
+						<div :gourl="'/sender.php?m=household_order&a=show&orderid='+item.orderid" class="btn-small">去处理</div>
+		
+					</div>
+		
+				</div>
+		
+			</div>
+		</div>
+		{assign var="ftnav" value="order"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}household_order/index.js"></script>
+	</body>
+</html>

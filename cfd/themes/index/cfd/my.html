@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的众筹</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flexlist">
+				{foreach item=c from=$data}
+				<div class="flexlist-item">
+					<img class="flexlist-img"  src="{$c.imgurl}.100x100.jpg" />
+					<div class="flex-1">
+						<div class="title">{$c.title}</div>
+						<div class="flex mgb-5">
+							目标金额：<span class="cl-money">￥{$c.needmoney}</span>
+							<div class="flex-1"></div>
+							股权限制：<span class="cl-money">￥{$c.gqmoney}</span>
+						</div>
+						<div class="flex mgb-10">
+							众筹金额：<span class="cl-money">{$c.jionmoney}元</span>
+							<div class="flex-1"></div>
+							众筹人数：<span class="cl-num">{$c.joinnum}人</span>
+						</div>
+						<div class="flex">
+							<a class="btn-mini mgr-10"  href="/module.php?m=cfd_order_owner&cfdid={$c.cfdid}">报名管理</a>
+						
+							<a class="btn-mini mgr-10" href="/module.php?m=cfd&a=add&cfdid={$c.cfdid}">编辑</a>
+							<a  class="btn-mini mgr-10"  href="/module.php?m=cfd&a=show&cfdid={$c.cfdid}" target="_blank">查看</a>
+							<br />
+							<a class="btn-mini mgr-10"  href="/module.php?m=cfd_reward&cfdid={$c.cfdid}">报酬管理</a>
+							<a class="btn-mini mgr-10"  href="javascript:;" class="js-delete" te" url="/module.php?m=cfd&a=delete&cfdid={$c.cfdid}">删除</a>
+							
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

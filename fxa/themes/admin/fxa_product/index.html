@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='fxa_product/nav.html'}
+		<form action="/moduleadmin.php" class="search-form">
+			<input type="hidden" name="m" value="fxa_product" />
+			id:<input type="text" name="id" class="w50" value="{$smarty.get.id|intval}"  />
+			状态：<select class="w100" name="status">
+					<option value="">请选择</option>
+					<option {if get('status') eq 'finish'}selected{/if} value="finish">上架</option>
+					<option {if get('status') eq 'unfinish'}selected{/if}  value="unfinish">下架</option>
+			</select>
+			 
+			名称：<input class="w100" type="text" name="title" value="{$smarty.get.title|html}" />
+			商家：<input class="w100" type="text" name="shopname" value="{$smarty.get.shopname|html}" />
+			<button class="btn" type="submit">搜一下</button>
+		</form>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>标题</td>
+						<td>封面图片</td>
+						<td>商家</td>
+						<td>状态</td>
+						<td>截止时间</td>
+						<td>价格</td>
+						<td>分销收益</td>
+						<td>商家收益</td>
+					 
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					
+					<td>{$c.title}</td>
+					<td><img src=" {$c.imgurl|images_site}.100x100.jpg" width="60"/></td>
+					<td>{$c.shopname}</td>
+					 <td>{if $c.status eq 1}上线{else}下线{/if}</td>
+					 <td>{$c.etime|date:Y-m-d}</td>
+					<td>{$c.price}</td>
+					<td>{$c.fx_money}</td>
+					<td>{$c.shop_money}</td>
+					
+				 
+					<td><a href="/moduleadmin.php?m=fxa_product&a=add&id={$c.id}">编辑</a> 
+					<a target="_blank" href="/module.php?m=fxa_product&a=show&id={$c.id}">查看</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fxa_product&a=delete&ajax=1&id={$c.id}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

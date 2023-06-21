@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='crm_kehu_log/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>userid</td>
+   <td>kehuid</td>
+   <td>createtime</td>
+   <td>内容</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.kehuid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.content}</td>
+<td><a href="/module.php?m=crm_kehu_log&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=crm_kehu_log&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=crm_kehu_log&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发起活动</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=party&a=save">
+				<input type="hidden" name="lat" id="lat" value="{$data.lat}">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<input type="hidden" name="lng" id="lng" value="{$data.lng}">	 
+					<div class="input-flex">
+						<div class="input-flex-label">名称：</div>
+						<input type="text" class="input-flex-text" name="title" id="title" value="{$data.title}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">宣传图</div>
+						<div class="flex-1">
+							<div class="upimg-box bg-fff">
+								<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+									<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+								</div>
+								 
+								<div class="upimg-btn js-upimg-btn">
+									<i class="upimg-btn-icon"></i>
+								</div>
+								 
+								<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+								<input style="display: none;" type="file" class="js-upimg-file" name="upimg" id="upimg" /> 
+							</div> 
+						</div>
+					</div>
+					<div class="textarea-flex">
+						<div class="textarea-flex-label">描述：</div>
+						<textarea class="textarea-flex-text h60" type="text" name="description" id="description">{$data.description}</textarea>
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">开始时间：</div>
+						<input type="text" class="input-flex-text"  name="stime" id="stime" value="{$data.stime}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">活动人数：</div>
+						<input type="text" class="input-flex-text"  name="max_num" id="max_num" value="{$data.max_num}">
+					</div>
+					<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">活动费用：</div>
+						<input type="text" class="input-flex-text"  name="money"  value="{$data.money}">
+						<div class="mgl-5 cl2">元</div>
+					</div>
+					<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">支付类型：</div>
+						<input type="radio"  class="radio"  name="retype" {if $data.retype==0}checked{/if}  value="0"> 线下支付
+						<input type="radio" class="radio"   name="retype" {if $data.retype==1}checked{/if}  value="1"> 在线支付
+						 
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">联系人：</div>
+						<input type="text" class="input-flex-text"  name="nickname" id="nickname" value="{$data.nickname}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">电话：</div>
+						<input type="text" class="input-flex-text"  name="telephone" id="telephone" value="{$data.telephone}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">地址：</div>
+						<input type="text" class="input-flex-text"  name="address" id="address" value="{$data.address}">
+					</div>
+					 
+					 
+					
+					 
+					<div class="sky-editor-box">
+						<div class="sky-editor-content" name="content" contenteditable="true">{$data.content}</div>
+					</div>
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<style>
+		.laydate-footer-btns{
+			flex-direction: row;
+		}
+		</style>
+		<script>
+		laydate.render({
+			elem:"#stime",
+			type:"datetime"
+		})
+		</script>
+	</body>
+</html>

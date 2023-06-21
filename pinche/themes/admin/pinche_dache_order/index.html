@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+
+<div class="shd">叫快车订单</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+   <td>用户/电话</td>
+   
+   <td>出发地</td>
+   <td>目的地</td>
+   <td>乘客数</td>
+ 
+   <td>状态</td>
+   <td>支付</td>
+   <td>创建时间</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.nickname}<br/>{$c.telephone}</td>
+   <td>{$c.from_addr}</td>
+   <td>{$c.to_addr}</td>
+   <td>{$c.user_num}</td>
+   
+   <td>{$c.status} <br/>
+   {if $c.senderid}已接单{else}待接单{/if}</td>
+   <td>{$c.ispay}</td>
+   <td>{$c.createtime}</td>
+   
+<td> <a href="/moduleadmin.php?m=pinche_dache_order&a=show&orderid={$c.orderid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=pinche_dache_order&a=delete&ajax=1&orderid={$c.orderid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

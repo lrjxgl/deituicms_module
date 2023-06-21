@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}freeshop_home/index.css" rel="stylesheet" />
+	<body>
+		<div url="/module.php?m=freeshop" class="header-back-fixed goBack" style="z-index: 999; color: #fff;"></div>
+		<div class="main-body" v-if="pageLoad" id="App">
+			
+			<div class="uBox">
+				<div @click="toggleFollow()" v-if="isFollow" class="fixFollow fixFollow-active">已关注</div>
+				<div @click="toggleFollow()" v-else class="fixFollow fixFollow-active">+关注</div>
+				<div class="flex flex-col flex-center">
+					<img class="uBox-head" :src="shop.imgurl+'.100x100.jpg'" />
+					<div class="uBox-nick">{{shop.shopname}}</div>
+					<div class="flex mgb-5 flex-ai-center mgr-10">
+						 
+						<div class="cl-white f12 mgr-5">月销</div>
+						<div class="cl-white f12 mgr-10">{{shop.sold_num}}笔</div>
+						 
+						<div class="cl-white f12 mgr-5">评价</div>
+						<div class="cl-white f12 mgr-10">{{shop.grade}}分</div>
+						<div class="cl-white  f12 mgr-5">粉丝</div>
+						<div class="cl-white  f12">{{shop.follow_num}}</div>
+					</div>
+				</div>
+				<div class="uBox-desc">{{shop.description}}</div>	
+				
+				
+			</div>
+			<!--
+			<div class="tabs-border ">
+				<div class="tabs-border-item tabs-border-active">主页</div>
+				<div class="tabs-border-item">评价</div>
+				<div class="tabs-border-item">商家</div>
+			</div> 
+			-->
+			<div v-if="!list || Object.keys(list).length==0 " class="emptyData">暂无产品</div>
+			<div v-for="(item,index) in list" :key="index" @click="goDetail(item.productid)" class="sglist-item pointer">
+				
+				<div class="sglist-title flex" v-html="item.content"></div>
+				<div class="sglist-imglist">
+					 
+					<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+					
+				</div>
+				<div class="flex mgb-10">
+					<div class="mgr-5 cl2">优惠价</div>
+					<div class="cl-money mgr-10">￥{{item.price}}</div>
+					<div class="mgr-5 cl2"></div>
+					<div class="cl2 mgr-10">{{item.discount}}折</div>
+					<div class="flex-1"></div>
+					<div class="cl3 f12">原价</div>
+					<div class="market-price">￥{{item.market_price}}</div>
+				</div>
+				<div class="flex">
+					<div class="mgr-5 cl2">销量</div>
+					<div class="cl-num mgr-10">{{item.buynum}}</div>
+					<div class="mgr-5 cl2">库存</div>
+					<div class="cl-num mgr-10">{{item.maxnum}}</div>
+					<div class="flex-1"></div>
+					<div class="cl-status">{{item.status_name}}</div>
+				</div>
+			</div>
+			<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var  shopid="{$shopid}";
+			var isFollow={$isFollow};
+		</script>
+		<script src="{$skins}freeshop_home/index.js"></script>
+	</body>
+</html>

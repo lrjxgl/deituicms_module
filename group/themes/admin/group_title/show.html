@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+  <tr><td>dateline：</td><td>{$data.dateline}</td></tr>
+  <tr><td>gid：</td><td>{$data.gid}</td></tr>
+  <tr><td>tagid：</td><td>{$data.tagid}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>title：</td><td>{$data.title}</td></tr>
+  <tr><td>keywords：</td><td>{$data.keywords}</td></tr>
+  <tr><td>description：</td><td>{$data.description}</td></tr>
+  <tr><td>imgsdata：</td><td>{$data.imgsdata}</td></tr>
+  <tr><td>last_time：</td><td>{$data.last_time}</td></tr>
+  <tr><td>comment_num：</td><td>{$data.comment_num}</td></tr>
+  <tr><td>click_num：</td><td>{$data.click_num}</td></tr>
+  <tr><td>isrecommend：</td><td>{$data.isrecommend}</td></tr>
+  <tr><td>isnew：</td><td>{$data.isnew}</td></tr>
+  <tr><td>ishot：</td><td>{$data.ishot}</td></tr>
+  <tr><td>love_num：</td><td>{$data.love_num}</td></tr>
+  <tr><td>isding：</td><td>{$data.isding}</td></tr>
+  <tr><td>首页展示：</td><td>{$data.isindex}</td></tr>
+  <tr><td>内容：</td><td>{$data.content}</td></tr>
+ </table>
+
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

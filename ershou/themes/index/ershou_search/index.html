@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div id="App">
+			<div class="header">
+				<div class="header-back pos-relative"></div>
+				<head-search :dword="keyword" @call-parent="search"></head-search> 
+				<head-more></head-more>
+			</div>
+			<div class="header-row"></div>
+			<div  class="main-body">
+				<div>
+					<product-list :dlist="list"></product-list>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var keyword="{$keyword}"
+		</script>
+		<script src="/plugin/dt-ui/dt-ui-pagecache.js"></script>
+		<script src="{$skins}js/head-search.js"></script>
+		<script src="{$skins}js/head-more.js"></script>
+		<script src="{$skins}js/product-list.js"></script>
+		<script src="{$skins}ershou_search/index.js"></script>
+		
+	</body>
+</html>

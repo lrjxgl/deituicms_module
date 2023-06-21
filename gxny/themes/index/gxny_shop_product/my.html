@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的菜园</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			
+			<div>
+				<div v-if="list.length==0" class="emptyData">暂无菜园</div>
+				<div v-for="(item,index) in list" :key="index" class="row-box mgb-10">
+					<div   class="flex mgb-5">
+						<div class="mgr-5 cl-primary">{{item.shopname}}</div>
+						<div class="cl-num">#{{item.no}}</div>
+					</div>
+					
+					<div v-if="item.iszhong==1" class="flex  mgb-5">
+						 
+						{{item.caidan}}
+						 
+					</div>
+					<div class="flex mgb-5">
+						<div class="mgr-10 cl3 f12">到期时间：</div>
+						<div class="cl3 f12">{{item.endtime}}</div>
+						<div class="flex-1"></div>
+						
+					</div>
+					<div class="flex">
+						<div v-if="item.iszhong==0" @click="showCaidan(item)" class="btn-mini btn-outline-primary mgr-5">种菜</div>
+						<div @click="showTask(item)" class="btn-mini btn-outline-primary  mgr-5">维护</div>				 
+						<div @click="showCaizhai(item)" class="btn-mini btn-outline-primary  mgr-5">采摘</div>
+						<div class="flex-1"></div>
+						<div @click="buy(item.id)" class="btn-mini btn-outline-primary">续期</div>
+					</div>
+				</div>
+				 
+			</div>
+			
+			<div v-if="cdModalShow">
+				<div @click="cdModalShow=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">选菜</div>
+						<div @click="cdModalShow=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="flex flex-wrap">
+						<div class="flex mg-5" v-for="(item,index) in cdList" :key="index">
+							<input name="caidans[]" v-model="caidans" :value="item"  type="checkbox" />
+							<div>{{item}}</div>
+						</div>
+					</div>
+					<div @click="zhongcai()" class="btn-row-submit">确认种植</div>
+				</div>
+			</div>
+			
+			<div v-if="whModalShow">
+				<div @click="whModalShow=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">菜园维护</div>
+						<div @click="whModalShow=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="flex flex-wrap">
+						<div class="flex mg-5" v-for="(item,index) in whList" :key="index">
+							<input   v-model="weihu" :value="item"  type="radio" />
+							<div>{{item}}</div>
+						</div>
+					</div>
+					<div @click="taskPost()" class="btn-row-submit">确认维护</div>
+				</div>
+			</div>
+			
+			<div v-if="czModalShow">
+				<div @click="czModalShow=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">菜园采摘配送</div>
+						<div @click="czModalShow=false" class="modal-close icon-close"></div>
+					</div>
+					<div>
+						<div class="row-box">
+							<div class="input-flex-label">联系方式</div>
+							<div>
+								<div class="flex"  v-for="(item,index) in addrList" :key="index">
+									<input type="radio" v-model="user_address_id" name="user_address_id" :value="item.id" />
+									<div>
+										<div>{{item.truename}} {{item.telephone}}</div>
+										 <div>{{item.pct_address}}</div> 
+									</div>
+									
+								</div>
+							</div>
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">采摘需求</div>
+							<textarea v-model="czContent" placeholder="需要种类以及数量" class="textarea-flex-text h100" ></textarea>
+						</div>
+					</div>
+					<div @click="czPost()" class="btn-row-submit">确认采摘</div>
+				</div>
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}gxny_shop_product/my.js"></script>
+	</body>
+</html>

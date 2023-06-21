@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">地址管理</div>
+	<div gourl="/module.php?m=paotui_addr&a=add" class="header-right-btn">添加</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{foreach item=c from=$list}
+	<div class="row-box mgb-5">
+		<div class="flex-table">
+		
+			<div class="flex-table-label">姓名</div>
+			<div class="flex-table-box">{$c.truename}</div>
+		</div>
+		<div class="flex-table">
+		
+			<div class="flex-table-label">手机 </div>
+			<div class="flex-table-box">{$c.telephone} </div>
+		</div>
+		<div class="flex-table">
+		
+			<div class="flex-table-label">详细地址 </div>
+			<div class="flex-table-box">{$c.address} </div>
+		</div>
+		
+		<div class="btn-group pdt-10">
+			 
+				<a href="/module.php?m=paotui_addr&a=add&addrid={$c.addrid}" class="btn-small btn-outline-primary mgr-10">编辑</a> &nbsp;
+				<a href="javascript::" class="js-delete btn-small btn-outline-primary" url="/module.php?m=paotui_addr&a=delete&addrid={$c.addrid}">删除</a>
+			
+		</div>
+	</div>
+	{/foreach}
+	<div>{$pagelist}</div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

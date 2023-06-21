@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ 
+<body>
+<div class="header">
+	<div url="/module.php?m=fenlei" class="header-back"></div>
+	<div class="header-title">渔获交易详情</div>
+</div>
+<div class="header-row"></div>
+<a href="/module.php?m=fenlei&a=add&catid={$cat.catid}" class="fixedAdd">发布</a>
+<div class="main-body">
+	 
+	 
+	<div class="row-box mgb-5">
+		
+		<div class="block mgb-5">
+			{if $data.hb_on}
+			<div class="bc-red">红</div>
+			{/if}
+			{$data.title}
+		</div>
+	</div>	
+	<div class="row-box mgb-5">	
+		<div class="flex mgb-10">
+			<div class="flex-1 flex">
+				<div class="flex flex-ai-center flex-1 cl2  f12"><div class="iconfont icon-time"></div>{$data.timeago}</div>
+				<div class="flex  cl2  mgr-10 iconfont icon-attention">{$data.view_num}</div>
+			</div>
+			 
+			
+		</div>
+		<div class="flex bd-mp-10">
+			{if $cat.type_open &&  $data.typeid}
+			<div class="flex-1">
+				<div class="mgb-10 cl2">{$cat.typeLabel}</div>
+				<div class="cl1">{$data.typeid_name}</div>
+			</div>
+			{/if}
+			{if $cat.money_open}
+			<div class="flex-1">
+				<div class="mgb-10 cl2">{$cat.moneyLabel}</div>
+				<div class="cl-money">￥{$data.money}</div>
+			</div>
+			{/if}
+			{if $cat.area_open}
+			<div class="flex-1">
+				<div class="mgb-10 cl2">所在区域</div>
+				<div class="cl1">{$data.sc_id_name}</div>
+			</div>
+			{/if}
+		</div>
+		
+		
+		{if $isadmin}
+		<div class="flex flex-center">
+			
+			<div id="adminRecommend" class="btn-mini flex flex-ai-center js-admin-btn btn-outline-success mgr-10">
+				<div class="cl3 mgr-5 f12">推荐</div>
+				<div class="adminRecommend-icon {if !$data.isrecommend}no{else}yes{/if}"></div>
+			</div> 
+			<div id="adminDel" class="btn-mini js-admin-btn btn-outline-danger mgr-10">删除</div>
+			<!--
+			<div title="拉黑作者" v="blackList" class="btn-mini js-admin-btn btn-outline-warning mgr-10">拉黑</div>
+			<div title="禁言" v="forbidPost" class="btn-mini js-admin-btn btn-outline-warning mgr-10">禁言</div>
+			-->
+		</div>
+		{/if}
+	</div>
+	
+	<!--扩展属性-->
+	{if $fieldsList}
+	<div class="row-box mgb-5">
+		{foreach item=c from=$fieldsList}
+		{if $c.fieldtype=='text'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1">{$c.value}</div>					
+		</div>
+		{elseif $c.fieldtype=='textarea'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1">
+				{$c.value}
+			</div>					
+		</div>
+		{elseif $c.fieldtype=='html'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1 d-content">
+				{$c.value}
+			</div>					
+		</div>
+		{elseif $c.fieldtype=='img'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1">
+				<img src="{$c.value}" class="wmax" />
+			</div>					
+		</div>
+		{elseif $c.fieldtype=='map'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1 flex">
+				<img  src="http://api.map.baidu.com/staticimage/v2?ak={const.BDMAPKEY}&mcode=666666&center={$c.value}&markers={$c.value}&width=300&height=200&zoom=11 " class="wmax"  />
+			</div>					
+		</div>
+		{/if}
+		{/foreach}
+	</div>
+	{/if}
+	{if $com.typeid==1}
+	<div class="row-box mgb-5">
+		<div class="flex">
+			<img src="{$com.imgurl}.100x100.jpg" class="wh-60 mgr-10"/> 
+			<div class="flex-1">
+				<div class="mgb-5 cl2">{$com.title}</div>
+				<div class="cl3 flex"><i class="iconfont icon-location_light"></i>{$com.address}</div>
+			</div>
+		</div>
+	</div>
+	{/if}
+	{if $data.hb_on}
+	<div class="row-box mgb-5">
+		<div class="flex pdb-5 bdb mgb-5 bg-fff  flex-ai-center">
+			<div class="f16">任务红包</div>
+			<div class="flex-1"></div>
+			<div class="cl2">总额：</div>
+			<div class="cl-money mgr-5 f14">{$data.hb_money}元</div>
+			<div class="cl2">共{$data.hb_num}个</div>
+		</div>
+		
+		<div>
+			{foreach item=c from=$hbList}
+			<div class="flex mgb-5 flex-ai-center">
+				<img src="{$c.user.user_head}.100x100.jpg" class="wh-40 bd-radius-5 mgr-5" />
+				<div class="flex-1 cl2">{$c.user.nickname}</div>
+				<div class="cl-money">￥{$c.money}</div>
+				
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	{/if}
+	<div class="row-box">
+		<div class="d-content">{$data.description}</div>
+		<div>
+			{foreach item=c from=$imgsdata}
+			<img src="{$c}" class="wmax" />
+			{/foreach}
+		</div>
+	</div>
+	{if $recList}
+	<div class="sglist">
+		<div class="pd-5 bdb pdt-10 bg-fff f16">推荐信息</div>
+		{foreach item=c from=$recList}
+		<a href="/module.php?m=fenlei&a=show&id={$c.id}" class="flexlist-item">
+			{if $c.imgurl}
+			<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg" />
+			{/if}
+				 <div class="flex-1">
+					<div class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-row">
+							<div class="cl-money">￥{$c.money}</div>
+						</div>
+					  <div class="flexlist-desc">
+						  {$c.description}
+					  </div>
+				</div>
+		</a>
+		{/foreach}
+	</div> 
+	{/if} 
+	 
+	
+</div>
+{if $comment_open}
+<div class="main-body">
+	<div class="flex flex-ai-center row-box mgb-10">
+		 <div class="footer-item icon-share js-share-btn">分享</div>
+		 <div class="btn-fav flex-col js-fav-toggle bd-0 {if $isfav}btn-fav-active{/if} mgr-10" tablename="mod_fenlei" objectid="{$data.id}">收藏</div>
+		 {if $userid && $userid!=$data.userid}
+		 <div gourl="/module.php?m=fenlei_guest&a=user&id={$data.id}" class="footer-item icon-service_light">咨询</div>
+		 {/if}
+		 {if $data.telephone}
+		 <a href="tel:{$data.telephone}" class="footer-item icon-phone">电话</a>
+		 {/if}
+	 </div>
+
+			{include file="inc/comment.html"}
+		</div>
+{else}
+<div class="footer-row"></div>
+ <div class="footer">
+	 <div class="footer-item icon-share js-share-btn">分享</div>
+	 <div class="btn-fav flex-col js-fav-toggle bd-0 {if $isfav}btn-fav-active{/if} mgr-10" tablename="mod_fenlei" objectid="{$data.id}">收藏</div>
+	 {if $userid && $userid!=$data.userid}
+	 <div gourl="/module.php?m=fenlei_guest&a=user&id={$data.id}" class="footer-item icon-service_light">咨询</div>
+	 {/if}
+	 {if $data.telephone}
+	 <a href="tel:{$data.telephone}" class="footer-item icon-phone">电话</a>
+	 {/if}
+ </div>
+{/if}
+
+
+ <div class="wx-share-guide">
+	 <img src="/static/images/wx_guide.png" class="wx-share-guide-img" />
+ </div>
+{include file="footer.html"}
+{if $comment_open}
+<script src="{$skins}inc/comment.js?{const.JS_VERSION}"></script>
+{/if}
+{include file="inc/js_thumb.html"}
+<style>
+	.wx-share-guide{
+		position: fixed;
+		right: 0;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 999;
+		background-color: #333;
+		opacity: .8;
+		text-align: right;
+		display: none;
+	}
+	.wx-share-guide-img{
+		position: absolute;
+		right: 0;
+		top: 10px;
+		width: 200px;
+	}
+	.iconfont:before{
+		margin-right: 3px;
+	}
+	.swiper-pagination{
+		display: block;
+	}
+</style>
+<script src="/plugin/swiper/js/swiper.min.js"></script>
+<script>
+	$(function(){
+		var flash=new Swiper("#indexFlash",{
+					loop: true,
+					pagination: {
+					  el: '.swiper-pagination'
+					},
+		});
+		$(document).on("click",".js-share-btn",function(){
+			$(".wx-share-guide").show();
+		})
+		$(document).on("click",".wx-share-guide",function(){
+			$(".wx-share-guide").hide();
+		})
+	})
+	
+</script>
+<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_link="{$shareLink}";
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+		<script>
+			var id="{$data.id}"
+		</script>
+		<script src="{$skins}fenlei/show.js"></script>
+</body>
+</html>

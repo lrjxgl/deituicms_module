@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<body>
+		<div style="position: fixed;left:0px; right: 0px;">
+			 
+			<div class="header-fixtop-right" >
+				 <div id="header-more-btn" class="header-fixtop-icon pointer icon-share"></div>
+			</div>
+		</div>	
+		<div class="modal-group" id="header-more-box">
+			<div class="modal-mask" style="background-color: #000; opacity: 0.8;"></div>
+			<div style="position: fixed;right: 0px;top: 30px; z-index: 9999;">
+				<img src="/static/images/wx_guide.png" style="width: 200px;" /> 
+			</div>
+		</div>
+		
+		<div class="wshop-logo">
+			<img class="wshop-logo-img" src="{$shop.imgurl}.100x100.jpg">
+		</div>
+		<div class="wshop">
+			
+			<div >
+				<div class="wshop-shopname">{$shop.shopname}</div>
+				<div class="flex mgb-5">
+					<div class="flex-1"></div>
+					<div class="mgr-10 cl2 f12">已售{$shop.buy_num}万+件</div>
+					<div class="cl2 f12">{$shop.fav_num}人收藏</div>
+					<div class="flex-1"></div>
+				</div>
+				<div class="flex">
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=b2b_guest&a=user&shopid={$shop.shopid}" class="btn-service icon-service_light icon-service_light mgr-20">客服</div>
+					 
+					<div gourl="/module.php?m=shopsite&a=detail&shopid={$shop.shopid}" style="padding: 0px 10px;height: 26px;line-height:26px;" class="btn-small btn-outline-dark iconfont icon-lianjie mgr-5">公司信息</div>
+					<div class="flex-1"></div>
+				</div> 
+				 
+				
+			</div>
+
+		</div>
+		
+		 
+		 
+		<div style="height: 1px;"></div>
+		<div id="App" style="display: none;" :style="'display:block;'" v-if="pageLoad">
+			 
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center mgb-5" >
+					<div class="cl1 f14">大家都在买</div>
+					<div class="flex-1"></div>
+					 
+					<div class="iconfont icon-right cl2 f12"></div>
+				</div>
+				<div  @touchstart="rpStart"  @touchend="rpEnd" @touchmove="rpMove" class="rp-list" id="rp-list">
+					<div class="flex" >
+						<div :style="{marginLeft:rpX+'px'}"></div>
+						<div v-for="(item,index) in pageData.recList" class="rp-item">
+							<div class="rp-item-pd">
+								<img class="rp-img" :src="item.imgurl+'.100x100.jpg'" />
+								<div class="rp-item-title" style="overflow: hidden;">{{item.title}}</div>
+								<div class="flex">
+									<div class="f12 cl-money">￥</div>
+									<div class="cl-money">{{item.price}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bg-white text-center flex flex-ai-center flex-jc-center pd-10">
+				<div class="iconfont icon-cascades cl-num f14 mgr-5"></div>
+				<div class="cl-money f14 mgr-10">全部商品</div>
+				
+			</div>
+			<div class="tabs-border mgb-5">
+				<div @click="setProType('')" :class="type==''?'tabs-border-active':''"  class="tabs-border-item">默认</div>
+				<div @click="setProType('new')" :class="type=='new'?'tabs-border-active':''" class="tabs-border-item">新品</div>
+				<div @click="setProType('sold')" :class="type=='sold'?'tabs-border-active':''"  class="tabs-border-item">销量</div>
+				<div @click="setProType('price')" :class="type=='price'?'tabs-border-active':''"  class="tabs-border-item">价格</div>
+			</div>
+			 
+			<div class="page" v-if="page=='product'" id="page-product">
+
+				 
+				<div class="mtlist">
+					<div class="mtlist-item" v-for="(item,index) in pageData.list" :key="index">
+						<div class="mtlist-item-bd">
+							<img @click="goProduct(item.id)" class="mtlist-img pointer bd-radius-5" :src="item.imgurl" />
+							<div class="mtlist-item-pd">
+								<div @click="goProduct(item.id)" class="mtlist-title pointer">{{item.title}}</div>
+								<div class="cl-num f10">急速退款</div>
+								<div class="flex flex-ai-center mgb-5">
+									<div class="cl-money f12">￥</div>
+									<div class="cl-money f14 mgr-5">{{item.price}}</div>
+									<div class="cl3 f10">已拼{{item.buy_num}}件</div>
+									<div class="flex-1"></div>
+									
+								</div>
+								 
+							</div>
+						</div>
+					
+					</div>
+				</div>	
+			</div>
+			<div class="page" id="page-raty" v-if="page=='raty'">
+				<div v-if="ratyPage.ratyList.length==0" class="emptyData">暂无评价</div>
+				<div v-else>
+					<div class="flexlist-item flex-ai-center">
+						<img class="flexlist-img" :src="ratyPage.shop.imgurl+'.100x100.jpg'" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{ratyPage.shop.shopname}}</div>
+							<sky-raty len="5" groupclass="" mod="2" label="综合" readonly="1" :grade="ratyPage.shop.raty_grade"></sky-raty>
+							<sky-raty len="5" groupclass="" mod="2" label="产品" readonly="1" :grade="ratyPage.shop.raty_grade_product"></sky-raty>
+							<sky-raty len="5" groupclass="" mod="2" label="物流" readonly="1" :grade="ratyPage.shop.raty_grade_express"></sky-raty>
+						</div>
+					</div>
+					<div v-for="(item,index) in ratyPage.ratyList" :key="index" class="bg-white pd-10 flex mgb-5">
+						<img class="wh-60 mgr-10" :src="item.user_head+'.100x100.jpg'">
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="flex-1">{{item.nickname}}</div>
+								<div class="cl3"> {{item.timeago}}</div>
+							</div>
+							<sky-raty len="10" readonly="1" label="评价" :grade="item.raty_service"></sky-raty>
+							<div class="cl2">{{item.content}}</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="page" id="page-raty" v-if="page=='detail'">
+				<div class="row-box">
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-location_light"></div>
+						<div class="flex-1">{{detailPage.shop.address}}</div>
+					</div>
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-time"></div>
+						<div class="flex-1">{{detailPage.shop.yystart}}-{{detailPage.shop.yyend}}</div>
+					</div>
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-selection"></div>
+						<div class="flex-1">
+							<div class="cl1">证件信息</div>
+
+						</div>
+					</div>
+					<div class="sglist-imglist mgb-10">
+						<img v-for="(item,index) in detailPage.zzimgsdata" :key="index" class="sglist-imglist-img" :src="item+'.100x100.jpg'">
+
+					</div>
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-read"></div>
+						<div class="flex-1">公司简介</div>
+					</div>
+					<div class="pdl-10 pdr-10">
+						{{detailPage.shop.content}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{include file="footer.html"}
+		<script>
+			var shopid = "{$shop.shopid}";
+		</script>
+		<script src="/plugin/dt-ui/dt-ui-touch.js"></script>
+		
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}index.js"></script>
+
+	</body>
+</html>

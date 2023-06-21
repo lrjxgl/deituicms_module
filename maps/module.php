@@ -1,0 +1,1 @@
+<?php define("MODULE_MAPS_ID",23); ?>

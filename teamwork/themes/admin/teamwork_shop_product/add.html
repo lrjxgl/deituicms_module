@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="main-body">
+			{include file='shop_product/nav.html'}
+			<form method="post" action="admin.php?m=shop_product&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table table-add">
+					 <col width="90" />
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><textarea   name="description" id="description">{$data.description}</textarea>
+							
+						</td>
+					</tr>
+					 
+					<tr >
+						<td>内容：</td>
+						<td ><script type="text/plain" name="content" id="content"  style="height: 300px;" >{$data.content}</script>
+				 </td>
+					</tr>
+					<tr  >
+						<td>状态：</td>
+						<td class="pdb-10 pdt-10">
+							<input type="radio" name="status" {if $data.status eq 1} checked {/if} value="1"> 显示
+							<input type="radio" name="status" {if $data.status eq 2} checked {/if}  value="2"> 隐藏
+						</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" value="保存" class="btn btn-success"></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		{include file="footer.html"}
+		{php loadEditor(0);}
+		<script language="javascript">
+			var editor=UE.getEditor('content',options)
+		</script>
+	</body>
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}cj1/show.css" rel="stylesheet"  />
+	
+	<body>
+	 
+		<div class="header">
+			<div url="/module.php?m=cj1" class="header-back"></div>
+			<div class="header-title">零元抽奖</div>
+		</div>
+		<div class="main-body">
+			 
+			<img src="{$data.imgurl}" class="d-img" style="width: 100%;"  />
+			<div class="row-box mgb-5">
+				<div class="d-title">{$data.title}</div>
+				<div class="flex">
+		    		<label class="mgr-5 cl2">价格</label>
+					<span class="cl-money f16">￥{$data.price}</span>
+		    	</div>
+			</div> 
+		    <div class="row-box mgb-5">
+		    	 
+		    	<div class="flexstat">
+		    		<div class="item">
+		    			参与人数
+		    			<div class="num">
+		    				{$data.join_num}
+		    			</div>
+		    		</div>
+		    		<div class="l"></div>
+		    		<div class="item">
+		    			成团人数
+		    			<div class="num">
+		    				{$data.need_num}
+		    			</div>
+		    		</div>
+		    		<div class="l"></div>
+		    		<div class="item">
+		    			还需人数
+		    			<div class="num">
+		    				{$data.less_num}
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		     
+		    
+		    {if $data.isfinish}
+		    <div class="row-box">
+		    	<div class="thd">幸运用户</div>
+		    	<div class="flexlist">
+		    		<div class="item">
+		    			<div class="img">
+		    				<img src="{$winuser.user_head|images_site}.100x100.jpg">
+		    				
+		    			</div>
+		    			<div class="flex-1">
+		    				<div class="title">{$winuser.nickname}</div>
+		    				<div style="position: relative;">({$winlog['onum']}+{$winlog['cnum']})%{$winlog['allnum']}={$winlog['winkey']}</div>
+		    			</div>
+		    		</div>
+		    	</div>
+		    </div>
+		    {else}
+			    {if $myorder}
+			    <div class="row-box mgb-5">
+			    	<div class="flex cl2">感谢您的参与,<span style="color: red;">邀请好友</span>参与能够更快知晓获奖信息哦。</div>
+			    </div>
+			    {else}
+				    
+				    <div class="row-box mgb-5">
+				    	{if $data.isask}
+				    	<div class="input-flex">
+				    		<div class="label">问题：</div>
+				    		<div> {$data.ask} <span style="color: red;">（内容中找）</span>
+				    		</div>	
+				    	</div>
+				    	<div class="input-flex">
+				    		<div class="label">回答：</div>
+				    		<input type="text" class="text" id="answer" />
+				    	</div>
+				    	{/if}
+				    	<div class="btn-row-submit" v="{$data.id}" id="js-buy">立即参团</div>
+				    </div>
+				    
+			    {/if}
+		    {/if}
+			<div class="row-box mgb-5">
+				<div class="d-content ueditor">
+					<div class="thd">内容</div>
+					{$data.content}
+				</div>
+			</div>
+		    
+		    
+		    <div class="row-box mgb-5">
+			    <div class="thd">活动说明</div>
+			    <div class="tcon">
+			    	<p>1.每场活动每人只能参与1次，每次消耗一个兑换币</p>
+			    	 
+			    	<p>2.
+			    	 当成团人数足够了，系统根据最后一个下单用户自动生成获奖名单。
+			    	获奖规则是所有参团订单ID之和+所有订单时间之和 除以参团人数的余数（a+b）%c，再根据余数选取对应的订单。
+			    	</p>
+			    	
+			    	
+			    </div>
+			   
+		    </div>
+		    <div class="row-box mgb-5">
+		    	<div class="thd">如何获取兑换币</div>
+		    	<div class="tcon">
+		    		<p>1.每天签到可以领取1个兑换币</p>
+		    		<p>2.到个人中心参与活动任务获取</p>
+		    	</div>
+		    </div>
+		    <div class="row-box mgb-5">
+		    	<div class="thd">使用方法</div>
+			   <div class="tcon">
+			   		<p>1.搜索微信号：<span style="color: red;">leirijin</span>  或者长按二维码添加客服微信。</p> 
+			   		<p>2.到店消费时给微信发消费图片及券码即可。</p>
+			   		<p>
+			   			<img src="/static/wx_lrj.png" style="width: 200px;"  />
+			   		</p>
+			   </div>
+		    </div>
+		     
+		    <div class="row-box">
+		    	<div class="thd">参与用户</div>
+		    	<div class="flex flex-wrap">
+		    		{foreach item=c from=$orderlist}
+		    		<div class="mgr-10 pd-10">
+		    			<img class="wh-60 mgb-5" onerror="err_user_head(this)" src="{$c.user_head}.100x100.jpg" />
+		    			<div class="cl2">{$c.nickname}</div>
+		    		</div>
+		    		{/foreach}
+		    	</div>
+		    </div>
+		    <div id="js-gift-get"  class="gift-get" >签到领取兑换币</div>
+		</div>
+		{include file="footer.html"}
+	<script>
+		var isask="{$data.isask}";
+		$(document).on("click","#js-buy",function(){
+			var answer=$("#answer").val();
+			if(isask==1 && answer=='' ){
+				skyToast('请填写答案');
+				return false;
+			} 
+			$.get("/module.php?m=cj1&a=buy&ajax=1&id="+$(this).attr("v")+"&answer="+encodeURI(answer),function(data){
+				skyToast(data.message);
+				if(data.error==0){
+					setTimeout(function(){
+						window.location.reload();
+					},600)
+					
+				}
+			},"json")
+		})
+		
+		$(document).on("click","#js-gift-get",function(){
+			$.get("/module.php?m=cj1_gift&a=get&ajax=1",function(data){
+				skyToast(data.message);
+			},"json")
+		})
+	</script>
+	<?php wx_jssdk();?>
+<script>
+	wxshare_title="{$data.title}";
+	{if $data.imgurl}
+	wxshare_imgUrl="{$data.imgurl}";
+	{/if}
+</script>
+	</body>
+</html>

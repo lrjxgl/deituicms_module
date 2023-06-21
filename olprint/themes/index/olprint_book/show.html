@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.wx-share-guide{
+		position: fixed;
+		right: 0;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 999;
+		background-color: #333;
+		opacity: .8;
+		text-align: right;
+		display: none;
+	}
+	.wx-share-guide-img{
+		position: absolute;
+		right: 0;
+		top: 10px;
+		width: 200px;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">打印资料</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box mgb-5">
+		<div class="d-title">{$data.title}</div>
+		<div class="flex flex-ai-center mgb-5">
+			<div class="cl-money mgr-10">￥{$data.money}</div>
+			
+			<div class="flex-1"></div>
+			<div class="cl2 f12 mgr-10">共{$data.page_num}页</div>
+			<div class="cl2 f12 mgr-10">/</div>
+			<div class="cl2 f12">打印{$data.print_num}次</div>
+			
+		</div>
+		<div class="cl3 mgb-20 f12">{$data.description}</div>
+		<div class="flex flex-center">
+			
+			<div class="btn-fav  flex-col bd-0 mgr-10 icon-share js-share-btn">分享</div>
+			<div class="btn-fav flex-col js-fav-toggle mgr-5 bd-0 {if $isfav}btn-fav-active{/if} mgr-10" tablename="mod_olprint_book" objectid="{$data.bookid}">收藏</div>
+			
+			<div class="flex-1"></div>
+			<div gourl="/module.php?m=olprint_book&a=jubao&bookid={$data.bookid}" class="btn btn-outline-secondary">举报有奖</div>
+		</div>
+	</div>
+	
+	<div class="row-box mgb-5">
+		<div class="d-content">{$data.content}</div>
+	</div>
+	<div class="row-box bdb">
+		<div class="fw-600">推荐资料</div>
+	</div>	
+    <div>
+		{foreach item=c from=$list}
+		<div gourl="/module.php?m=olprint_book&a=show&bookid={$c.bookid}" class="row-box mgb-5">
+			<div class="mgb-5">{$c.title}</div>
+			<div class="flex flex-ai-center mgb-5">
+				<div class="cl-money mgr-10">￥{$c.money}</div>
+				
+				<div class="flex-1"></div>
+				<div class="cl2 f12 mgr-10">共{$c.page_num}页</div>
+				<div class="cl2 f12 mgr-10">/</div>
+				<div class="cl2 f12">打印{$c.print_num}次</div>
+				
+			</div>
+			<div class="cl3 f12">{$c.description}</div>
+		</div> 
+		{/foreach}
+	</div>	  
+
+    
+</div>
+<div class="footer-row"></div>
+<div class="footer pd-5">
+	<div class="cl-money">￥{$data.money}</div>
+	<div class="flex-1"></div>
+	<div gourl="/module.php?m=olprint_order&a=add&bookid={$data.bookid}" class="btn btn-outline-info mgr-10">我要打印</div>
+	
+</div>
+ <div class="wx-share-guide">
+	 <img src="/static/images/wx_guide.png" class="wx-share-guide-img" />
+ </div>
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-share-btn",function(){
+		$(".wx-share-guide").show();
+	})
+	$(document).on("click",".wx-share-guide",function(){
+		$(".wx-share-guide").hide();
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=b2b_shop_cert" class="tabs-border-item {if $type==''}tabs-border-active{/if}">新证件</div>
+			<div gourl="/moduleadmin.php?m=b2b_shop_cert&type=pass"  class="tabs-border-item {if $type=='pass'}tabs-border-active{/if}">已通过</div>
+			<div gourl="/moduleadmin.php?m=b2b_shop_cert&type=forbid"  class="tabs-border-item {if $type=='forbid'}tabs-border-active{/if}">未通过</div>
+			<div gourl="/moduleadmin.php?m=b2b_shop_cert&type=all"  class="tabs-border-item {if $type=='all'}tabs-border-active{/if}">全部</div>
+		</div>
+		 
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="row-box js-item">
+				<div class="mgb-5 flex">
+					<span class="cl-status mgr-10">{$c.status_name}</span>
+					<span>{$c.title}</span>
+				</div>
+				<div class="flex js-thumb-item">
+					{foreach item=p from=$c.imgslist}
+					<img v="{$p}.middle.jpg" src="{$p}.100x100.jpg" class="wh-60 pd-5 js-thumb" />
+					{/foreach}
+				</div>
+				<div class="flex">
+					<div class="flex-1"></div>
+					{if $c.status !=1}
+					<div msg="确认审核通过吗" url="/moduleadmin.php?m=b2b_shop_cert&a=pass&ajax=1&id={$c.id}" class="btn mgr-5 js-delete">通过</div>
+					{/if}
+					{if $c.status !=2}
+					<div msg="确认不通过审核吗" url="/moduleadmin.php?m=b2b_shop_cert&a=forbid&ajax=1&id={$c.id}" class="btn mgr-5 js-delete">不通过</div>
+					{/if}
+					<div gourl="/moduleadmin.php?m=b2b_shop_cert&a=add&id={$c.id}" class="btn-small mgr-10">编辑</div>
+					<div url="/moduleadmin.php?m=b2b_shop_cert&a=delete&ajax=1&id={$c.id}" class="btn-small btn-danger js-delete mgr-10">删除</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+		{include file="inc/js_thumb.html"}
+	</body>
+</html>

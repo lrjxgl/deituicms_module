@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-title">天天抽奖</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="tabs-border">
+		<div gourl="/module.php?m=mdish_lottery" class="tabs-border-item">今日抽奖</div>
+		<div gourl="/module.php?m=mdish_lottery&a=tomorrow" class="tabs-border-item">明日预购</div>
+		<div gourl="/module.php?m=mdish_lottery_win" class="tabs-border-item">昨日中奖</div>
+		<div gourl="/module.php?m=mdish_lottery&a=history" class="tabs-border-item tabs-border-active">历史抽奖</div>
+	</div>
+	{foreach item=c from=$list}
+	<div class="flexlist-item">
+		<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" />
+		<div class="flex-1">
+			<div class="flexlist-title mgb-5">{$c.title}</div>
+			<div class="flex mgb-5">
+				<div class="mgr-5 f14 cl2">价值</div>
+				<div class="cl-money">￥{$c.price}</div>
+			</div>
+			<div class="flexlist-desc">{$c.description}</div>
+		</div>
+		<div class="cl-num f14">{$c.status_name}</div>
+	</div>
+	{/foreach}
+	
+</div>
+{assign var="ftnav" value="lottery"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+ 
+</body>
+</html>

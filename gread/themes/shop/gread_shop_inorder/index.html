@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">进货管理</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		   	<div class="tabs-border i4">
+		   		<a class="tabs-border-item tabs-border-active" href="/moduleshop.php?m=gread_shop_inorder">全部</a>
+		   		<a class="tabs-border-item" href="/moduleshop.php?m=gread_shop_inorder">未审核</a>
+		   		<a class="tabs-border-item" href="/moduleshop.php?m=gread_shop_inorder">送货中</a>
+		   		<a class="tabs-border-item" href="/moduleshop.php?m=gread_shop_inorder">已完成</a>
+		   	</div>
+		   	<div class="sglist">
+		   		{foreach item=c from=$data}
+		   			<div class="sglist-item">
+		   				<div class="flex">
+							<div>{$c.daytime}</div>
+							<div class="flex-1"></div>
+		   					<span class="cl-status">{$c.status_name}</span>
+		   				</div>
+		   				<div class="flexlist">
+		   					{foreach item=p from=$c.pros}
+		   						<div class="flexlist-item">
+		   						 <img class="flexlist-img" src="{$p.imgurl|images_site}.100x100.jpg">	
+		   						<div class="flex-1">
+									<div class="flexlist-title">{$p.title}</div>
+									<div class="flex">￥{$p.price} x {$p.num}</div>
+								</div> 
+		   						</div>
+		   					{/foreach}
+		   				</div>
+		   				{if $c.status lt 3}
+		   				<div class="flex">
+		   					{if $c.status eq 0}
+		   					<a  href="javascript:;" orderid="{$c.orderid}" class="js-cancel btn-mini mgr-10">取消订单</a>
+		   					{/if}
+		   					
+					   		<a    href="javascript:;" orderid="{$c.orderid}"  class="js-recived btn-mini">确认收货</a>
+					   		
+					   	</div>
+					   	{/if}
+		   			</div>
+		   			
+		   		{/foreach}
+		   	</div>
+		   	
+		   	
+		   	
+		</div>
+		{include file="footer.html"}
+	<script>
+		$(function(){
+			$(document).on("click",".js-cancel",function(){
+				var $this=$(this);
+				$.get("/moduleshop.php?m=gread_shop_inorder&a=cancel&ajax=1&orderid="+$(this).attr("orderid"),function(data){
+					skyJs.toast(data.message);
+					$this.parents(".item").find(".status").html("已取消");
+					$this.parents(".item").find(".tools").hide();
+				},"json");
+			})
+			
+			$(document).on("click",".js-recived",function(){
+				var $this=$(this);
+				console.log("aaaa")
+				$.get("/moduleshop.php?m=gread_shop_inorder&a=finish&ajax=1&orderid="+$(this).attr("orderid"),function(data){
+					skyJs.toast(data.message);
+					$this.parents(".item").find(".status").html("已完成");
+					$this.parents(".item").find(".tools").hide();
+				},"json");
+			})
+			
+		})
+	</script>
+	</body>
+</html>

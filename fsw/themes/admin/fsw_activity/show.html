@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='fsw_activity/nav.html'}
+<div class="main-body">
+ <table class="table table-bordered" width="100%">
+  <tr><td>actid：</td><td>{$data.actid}</td></tr>
+  <tr><td>mid：</td><td>{$data.mid}</td></tr>
+  <tr><td>名称：</td><td>{$data.title}</td></tr>
+  <tr><td>介绍：</td><td>{$data.description}</td></tr>
+  <tr><td>图片：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+  <tr><td>详情：</td><td>{$data.content}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}
+</body>
+</html>

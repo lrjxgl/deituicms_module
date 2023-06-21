@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.mscardlist{
+			
+		}
+		.mscardlist .item{
+			display: block;
+			margin-bottom: 5px;
+			border-bottom: 1px solid #eee;
+			font-size: 14px;
+		}
+		.mscardlist .item .title{
+			line-height: 30px;
+			color: #333;
+			font-size: 16px;
+		}
+		.mscardlist .item .tel{
+			float: right;
+		}
+		.mscardlist .item .idcard{
+			color: #888;
+			line-height: 30px;
+		}
+		.mscardlist .item .nums{
+			color: #777;
+			margin-bottom: 5px;
+			line-height: 30px;
+			text-align: center;
+		}
+		.mscardlist .item .money,.mscardlist .item .grade,.mscardlist .item .gold{
+			color: #f60;
+			margin-right: 10px;
+			margin-left: 3px;
+			font-size: 16px;
+		}
+		.mscardlist .tools{
+			text-align: center;
+			line-height: 30px;
+		}
+		.mscardlist .tools a{
+			margin-right: 10px;
+		}
+		.rechargeBox{
+			position: fixed;
+			top: 50%;
+			margin-top: -100px;
+			left: 0px;
+			right: 0px;
+			padding: 10px;
+			background-color: #fff;
+			height: 200px;
+			z-index: 9999;
+			display: none;
+		}
+		.rechargeBox .nick{
+			text-align: center;
+			line-height: 40px;
+			border-bottom: 1px solid #eee;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">会员列表</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="mscardlist">
+					{foreach item=c from=$data}
+					<div class="item">
+						<div class="title">
+							<span class="nick">{$c.nickname}</span>
+							<a href="tel:{$c.telephone}" class="tel">{$c.telephone}</a>
+						</div>
+						
+						<div class="idcard">身份证：{$c.idcard}</div>
+						
+						<div class="nums">
+							余额<span class="money">￥{$c.money}</span>
+							积分<span class="grade">{$c.grade}</span>
+							金币<span class="gold">{$c.gold}</span>
+						</div>
+						<div class="tools">
+							<a href="/moduleshop.php?m=mscard&telephone={$c.telephone}">去支付</a>
+							<a class="rechage-btn" v="{$c.id}" href="javascript:;">充值</a>
+							
+							<a href="/moduleshop.php?m=mscard_order&cardid={$c.id}">消费记录</a>
+							<a href="/moduleshop.php?m=mscard_log&cardid={$c.id}">用卡日志</a> 
+						</div>
+					</div>
+					{/foreach}
+				</div>
+				 
+			</div>
+		</div>
+	 
+		<div id="rechargeMask" style="display: none;" class="mui-backdrop">
+		</div>	
+			<div id="rechargeBox" class="rechargeBox">
+				<div class="mui-input-group">
+					<div class="nick">
+						
+						 
+					</div>
+					<div class="mui-input-row">
+					    <label>金额</label>
+					    <input type="text" id="money" placeholder="请输入金额">
+					</div>
+					<div class="mui-button-row">
+						<button id="rechargeSubmit" type="button" class="mui-btn mui-btn-blue">确认充值</button>
+					</div>
+					
+				</div>
+				 
+			</div>
+		
+		<script>
+			var rid;
+			$(function(){
+				$(document).on("click",".rechage-btn",function(){
+					var $p=$(this).parents(".item");
+					var nick=$p.find(".nick").html();
+					rtel=$p.find(".tel").html();
+					rid=$(this).attr("v");
+					$("#rechargeBox .nick").html(nick+" "+rtel);
+					$("#rechargeMask").show();
+					$("#rechargeBox").show();
+				})
+				var issubmit=false;
+				$(document).on("click","#rechargeSubmit",function(){
+					if(issubmit) return false;
+					var money=$("#money").val();
+					$.post("/moduleshop.php?m=mscard&a=recharge&ajax=1",{
+						"money":money,
+						telephone:rtel
+					},function(data){
+						mui.toast(data.message);
+						if(!data.error){
+							$("#rechargeMask").hide();
+							$("#rechargeBox").hide();
+						}
+					},"json");
+				})
+			 
+				$(document).on("click","#rechargeMask",function(){
+					$("#rechargeMask").hide();
+					$("#rechargeBox").hide();
+				})
+			})
+		</script>
+		{include file="footer.html"}
+	</body>
+
+</html>

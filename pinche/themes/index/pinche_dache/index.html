@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">叫快车</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div >
+				<div class="input-flex">
+					<div class="input-flex-label">出发地</div>
+					<input v-model="from_addr" class="input-flex-text" name="text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">目的地</div>
+					<input v-model="to_addr" class="input-flex-text" name="text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">人数</div>
+					<input v-model="user_num" class="input-flex-text" name="text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">联系电话</div>
+					<input v-model="telephone" class="input-flex-text" name="text" />
+				</div>
+				<div class="pd-5">
+					<textarea v-model="description" placeholder="其他要求" class="textarea-flex-text h60"></textarea>
+				</div>
+				
+				<div @click="orderSubmit()" class="btn-row-submit">立马叫车</div>
+			</div>
+			<div class="row-box">
+				<div class="fw-600 mgb-10">叫快车说明</div>
+				<div v-html="about.content"></div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}pinche_dache/index.js"></script>
+	</body>
+</html>

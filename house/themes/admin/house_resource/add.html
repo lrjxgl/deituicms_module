@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='house_resource/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=house_resource&a=save&ajax=1">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>标题：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+	 
+					<tr>
+						<td>描述：</td>
+						<td><textarea name="description" id="description">{$data.description}</textarea></td>
+					</tr>
+ 
+					
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					<tr>
+						<td>房源类型</td>
+						<td>
+							<input type="radio" name="isnew" {if $data.isnew eq 0} checked{/if} value="0" />二手
+							
+							<input type="radio" name="isnew" {if $data.isnew eq 1} checked{/if}  value="1" />新手
+						</td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1} checked{/if} value="1" />显示
+							
+							<input type="radio" name="status" {if $data.status neq 1} checked{/if}  value="2" />隐藏
+						</td>
+					</tr>
+					<tr>
+						<td>图集</td>
+						<td>
+							<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+							<div class="upimg-box uploader-imgsdata-imgslist js-zzimg-album">
+								<input  type="file"  multiple="" class="none uploader-imgsdata-file" />
+								<div class="upimg-btn">
+									<div class="upimg-btn-icon"></div>
+									
+								</div>
+								{foreach item=c from=$imgsdata}
+								<div class="upimg-item uploader-imgsdata-img js-zzimg" data-src="{$c.trueimgurl}" v="{$c.imgurl}" trueimg="{$c.trueimgurl}">
+									<img class="upimg-img" src="{$c.trueimgurl}.100x100.jpg"/>
+									<i class="upimg-del   js-imgdel"></i>
+								</div>
+								{/foreach}
+								 
+							</div>
+						</td>
+					</tr> 
+					 
+					<tr>
+						<td>内容：</td>
+						<td>
+							<script type="text/plain" id="content" name="content">{$data.content}</script>
+						</td>
+					</tr>
+					
+				</table>
+				 
+				<div class="btn-row-submit" id="submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		 
+		<script src="{$skins}house_resource/upload-data.js"></script>
+		{php loadEditor();}
+		<script>
+			var editor = UE.getEditor('content', options);	 
+			$(document).on("click","#submit",function(){
+				var form=$(this).parents("form");
+				var imgs=$(".uploader-imgsdata-img");
+				 
+				if(imgs.length>0){
+					var s="";
+					for(var i=0;i<imgs.length;i++){
+						if(i>0){
+							s+=",";
+						}
+						s+=imgs.eq(i).attr("v");		
+					}
+					$("#imgsdata").val(s);
+				}
+				 
+				$.post(form.attr("action")+"&ajax=1",form.serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			
+			})
+		  </script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#startTime",
+				type:"datetime"
+			})
+		</script>
+	</body>
+</html>

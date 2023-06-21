@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<title>预览</title>
+	</head>
+	<body>
+		 <div style=" cursor: pointer; position: fixed; right: 30px; top: 60px; color: #fff; background-color: red; " data-clipboard-action="copy"  data-clipboard-target="#copyHtml" id="js-copy">点击复制</div>
+		<div style="width: 750px; margin: 0 auto;" id="copyHtml">
+			{$content}
+		</div> 
+			 
+ 
+		
+ 	<script src="/plugin/jquery/jquery.js"></script>
+ 	<script src="/plugin/jquery/clipboard.min.js"></script>
+ 	<script>
+ 		var clipboard = new Clipboard('#js-copy');
+ 		clipboard.on('success', function(e) {
+		   alert("复制成功，去粘贴")
+		});
+ 	</script> 
+	</body>
+</html>

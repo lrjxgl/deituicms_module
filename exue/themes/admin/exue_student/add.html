@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=exue_student">管理</a>
+			<a class="item {if get('a') eq 'add'}active{/if}" href="{$appadmin}?m=exue_student&a=add">编辑信息</a>
+		</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=exue_student&a=save">
+				<input type="hidden" name="stid" style="display:none;" value="{$data.stid}">
+				<table class="table-add">
+					<tr>
+						<td>userid：</td>
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}"></td>
+					</tr>
+					<tr>
+						<td>性别：</td>
+						<td>
+							<input type="radio" {if $data.gender eq 1}checked{/if} name="gender" value="1"> 男
+							<input type="radio" {if $data.gender eq 2}checked{/if} name="gender" value="2"> 女
+						</td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					<tr>
+						<td>名字：</td>
+						<td><input type="text" name="truename" id="truename" value="{$data.truename}"></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status eq 2}checked{/if} name="status" value="2"> 下线
+						
+						</td>
+					</tr>
+					 
+					<tr>
+						<td>描述：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+					<tr>
+						<td>积分：</td>
+						<td><input type="text" name="grade" id="grade" value="{$data.grade}"></td>
+					</tr>
+
+					<tr>
+						<td>生日：</td>
+						<td><input type="text" name="age" id="age" value="{$data.age}"></td>
+					</tr>
+					<tr>
+						<td>createtime：</td>
+						<td>{$data.createtime}</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">店铺二维码</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="tabs-border-group">
+				<div class="tabs-border">
+					<div class="tabs-border-item tabs-border-active js-tabs-border-item">H5</div>
+					<div class="tabs-border-item js-tabs-border-item">小程序</div>
+				</div>
+				<div class="tabs-border-box tabs-border-box-active">
+					<div class="flex-center pdt-10">
+						<div class="mgb-5">
+						<img style="width: 200px;" src="/index.php?m=qrcode&content={$url}" >
+						</div>
+						<div class="cl2">{$shop.shopname}</div>
+					</div>
+				</div>
+				<div class="tabs-border-box">
+					<div class="flex-center pdt-10">
+						<div class="mgb-5">
+						<img style="width: 200px;" src="/index.php?m=open_wxapp&a=GetWXACode&data={$wxdata}" >
+						</div>
+						<div class="cl2">{$shop.shopname}</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	 
+		{include file="footer.html"}
+	</body>
+</html>

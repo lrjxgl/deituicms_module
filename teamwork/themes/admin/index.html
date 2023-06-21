@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<title>得推项目管理系统</title>
+ 
+<link href="//at.alicdn.com/t/font_384751_259uag2qir7ldi.css" rel="stylesheet">
+
+<link href="{$skins}css/iframe.css" rel="stylesheet" /> 
+ 
+ 
+</head>	
+
+	
+	<body>
+		<div id="tp" class="tp clearfix">
+			<div class="logo">
+				 
+				得推项目管理系统</div>
+			<div class="tpnav">
+				<a class="item active js-home" href="/admin.php?m=index&a=main" target="main-frame"><i class="iconfont icon-home"></i> 首页</a>
+				<div class="item" gourl="/admin.php?m=shop_product">项目管理 </div>
+				<div class="item" gourl="/admin.php?m=shop_product_item">需求管理	</div>
+				<div class="item"  gourl="/admin.php?m=shop_product_item_log">进度管理</div>
+				<div class="item"  gourl="/admin.php?m=shop_product_item_comment">反馈管理</div>
+				<div class="item"  gourl="/admin.php?m=user">用户管理</div>
+			 
+				<div class="item js-item">网站管理											
+					<div class="childbox">
+						<a class="child" href="/admin.php?m=admin" target="main-frame">管理员</a>
+						<a class="child" href="/" target="_blank">前台</a>
+						 
+					</div>
+				</div>
+				 
+		</div>
+		</div>
+		<div id="frame">
+			<iframe id="main-frame" name="main-frame" src="/admin.php?m=index&a=main"></iframe>
+		</div>
+	<script src="/plugin/jquery/jquery-2.1.3.min.js"></script>	
+	<script>
+		$(document).on("click",'[gourl]',function(){
+			var url=$(this).attr("gourl");
+			$("#main-frame").attr("src",url);
+			$(this).addClass("active").siblings().removeClass("active");
+		})
+		$(document).on("click",".js-home",function(){
+			$(this).addClass("active").siblings().removeClass("active");
+			
+		})
+		$(document).on("click",".js-item",function(){
+			$(this).addClass("active").siblings().removeClass("active");	
+			
+		})
+		$(document).on("click",".child",function(e){
+			e.stopPropagation();
+			$(this).parents(".js-item").removeClass("active");	 
+		})
+		$(".js-item:eq(0)").prepend('<i class="iconfont icon-group"></i>');
+		$(".js-item:eq(1)").prepend('<i class="iconfont icon-user"></i>');
+		$(".js-item:eq(2)").prepend('<i class="iconfont icon-bianzhi"></i>');
+		$(".js-item:eq(3)").prepend('<i class="iconfont icon-jixiao"></i>');
+		$(".js-item:eq(4)").prepend('<i class="iconfont icon-weiwen"></i>');
+		$(".js-item:eq(5)").prepend('<i class="iconfont icon-admin"></i>');
+	</script>	
+	</body>
+</html>

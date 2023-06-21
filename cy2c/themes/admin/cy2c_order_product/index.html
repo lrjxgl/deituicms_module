@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item  active " href="{$appadmin}?m=cy2c_order_product">订单产品列表</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>座位</td>
+    <td>产品名称</td>
+    
+   <td>price</td>
+   <td>amount</td>
+   <td>createtime</td>
+ 
+ 
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+    <td>{$c.placeid_title}</td>
+	<td>{$c[product].title} {$c.ks_title}</td>
+
+   <td>￥{$c.price}</td>
+   <td>{$c.amount}</td>
+   <td>{$c.createtime}</td>
+   
+  
+  
+   
+<td>
+	{if $c.status eq 1}
+	<div class="js-confirm btn-mini" data-id="{$c.id}">下锅</div>
+	<div class="js-cancel btn-mini" data-id="{$c.id}">取消</div>
+	{elseif $c.status eq 2}
+	<div class="js-send btn-mini" data-id="{$c.id}">去配送</div>
+	{elseif $c.status eq 3}
+	<div class="js-finish btn-mini" data-id="{$c.id}">上菜完成</div>
+	{else}
+	
+	{$c.status_name}
+	{/if}
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-confirm",function(){
+		var id=$(this).attr("data-id");
+		var obj=$(this);
+		$.get("/moduleadmin.php?m=cy2c_order_product&a=confirm&ajax=1&id="+id,function(res){
+			obj.parents("tr").remove();
+		},"json");
+	})
+	$(document).on("click",".js-send",function(){
+		var id=$(this).attr("data-id");
+		var obj=$(this);
+		$.get("/moduleadmin.php?m=cy2c_order_product&a=send&ajax=1&id="+id,function(res){
+			obj.parents("tr").remove();
+		},"json");
+	})
+	$(document).on("click",".js-finish",function(){
+		var id=$(this).attr("data-id");
+		var obj=$(this);
+		$.get("/moduleadmin.php?m=cy2c_order_product&a=finish&ajax=1&id="+id,function(res){
+			obj.parents("tr").remove();
+		},"json");
+	})
+	$(document).on("click",".js-cancel",function(){
+		var id=$(this).attr("data-id");
+		var obj=$(this);
+		if(confirm("确认取消吗？")){
+			$.get("/moduleadmin.php?m=cy2c_order_product&a=cancel&ajax=1&id="+id,function(res){
+				obj.parents("tr").remove();
+			},"json");
+		}
+		
+	})
+</script>
+</body>
+</html>

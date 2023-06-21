@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的书籍</div>
+			<div gourl="/module.php?m=aichat_book&a=write" class="header-right-btn">创作</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			{foreach item=c from=$list}
+			<div  class="row-box js-item mgb-10">
+				<div class="mgb-5">{$c.title}</div>
+				<div class="flex">
+					
+					{if $c.create_status==0}
+					<div class="cl3 f12">正在创作中，请稍后...</div>
+					{else}
+					<div gourl="/module.php?m=aichat_book&a=show&bookid={$c.bookid}" class="btn-mini mgr-10">查看书籍</div>
+					{/if}
+					<div gourl="/module.php?m=aichat_book&a=add&bookid={$c.bookid}" class="btn-mini mgr-10">编辑</div>
+					<div url="/module.php?m=aichat_book&a=delete&bookid={$c.bookid}&ajax=1" class="btn-mini js-delete mgr-10">删除</div>
+					{if $c.create_article==0} 
+						{if $c.create_status==1}
+						<div gourl="/module.php?m=aichat_book&a=add&bookid={$c.bookid}&type=answer" class="btn-mini mgr-10">编辑章节</div>
+						<div gourl="/module.php?m=aichat_book&a=createarticle&bookid={$c.bookid}" class="btn-mini">生成文章</div>
+						{/if}
+					{else}
+					<div gourl="/module.php?m=aichat_book&a=edit_article&bookid={$c.bookid}" class="btn-mini mgr-10">管理章节</div>
+					{/if}
+					
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

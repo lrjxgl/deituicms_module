@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		 
+		<div class="header">
+			<div class="header-back"></div> 
+			<div class="header-title">圈子管理</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div >
+				<form id="form" method="post" action="/module.php?m=group&a=save">
+					<input type="hidden" name="gid" style="display:none;" value="{$group.gid}">
+					
+					<div class="input-flex">
+						<div class="input-flex-label">名称</div>
+						<input class="input-flex-text" type="text" name="gname" id="gname" value="{$group.gname}">
+					</div>
+					
+					 <div class="input-flex">
+					 	<div class="input-flex-label">类别</div>
+					 	<select class="input-flex-select" name="catid">
+					 		<option value="0">请选择</option>
+					 		{foreach item=c from=$typelist}
+					 		<option value="{$c.catid}" {if $group.catid eq $c.catid} selected {/if}>{$c.title}</option>
+					 		{/foreach}
+					 	</select>
+					 </div>
+					<div class="input-flex">
+						<div class="input-flex-label">Logo：</div>
+						<div class="flex-1">
+							<div class="upimg-box bg-fff">
+								
+								<div class="upimg-item {if $data.glogo==""}none{/if} js-upimg-btn">
+									<img class="upimg-img" {if $data.glogo}src="{$data.glogo|images_site}.100x100.jpg"{/if} >								 
+								</div>
+							 	 
+								<div class="upimg-btn js-upimg-btn">
+									<i class="upimg-btn-icon"></i>
+								</div>
+							 
+								<input type="hidden" name="glogo" value="{$data.glogo}" class="imgurl" />
+								<input style="display: none;" type="file" name="upimg" class="js-upimg-file" /> 
+							</div> 
+							 
+						</div>
+					</div> 
+					<div class="input-flex">
+						<div class="input-flex-label">标题</div>
+						<input class="input-flex-text" type="text" name="title" id="title" value="{$group.title}">
+					</div>
+					<div class="textarea-flex">
+						<div class="mgb-5">描述</div>
+						<textarea class="textarea-flex-text" name="description" id="description" >{$group.description}</textarea>
+					</div>
+					<div class="textarea-flex">
+						<div class="mgb-5">详情</div>
+						<input type="hidden" name="content" id="content" value="{$group.content}" />
+						<div id="js-content" placeholder="这一刻的想法" contenteditable="" class="textarea-flex-text">{$group.content}</div>
+					</div>
+					
+				 	<div id="submit" class="btn-row-submit">保存</div>
+				</form>
+			</div>
+		</div>
+		{assign var="gtab" value="groupadd"}
+		
+		{include file="admin_footer.html"}
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script>
+			$(function(){
+				$(document).on("click","#submit",function(){
+					$("#content").val($("#js-content").html());
+					$.post("/module.php?m=group&a=save&ajax=1",$("#form").serialize(),function(data){
+						skyJs.toast(data.message);
+					},"json")
+				})
+			})
+		</script>
+	</body>
+
+</html>

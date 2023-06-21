@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">在线课程</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="mtlist">
+				{foreach item=c from=$data}
+				<div class="mtlist-item">
+
+					<div class="mtlist-item-bd">
+						<img gourl="/module.php?m=book&a=show&bookid={$c.bookid}" class="mtlist-img"
+							src="{$c.imgurl|images_site}.small.jpg" />
+						<div class="mtlist-item-pd">
+							<div gourl="/module.php?m=book&a=show&bookid={$c.bookid}" class="mtlist-title">{$c.title}
+							</div>
+							<div class="flex">
+								<div class="cl2 f12">价格</div>
+								<div class="cl-money">￥{$c.money}</div>
+								<div class="flex-1"></div>
+								<div>销量 {$c.buy_num} 份</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				{/foreach}
+			</div>
+			{$pagelist}
+
+		</div>
+
+		{include file="footer.html"}
+	</body>
+</html>

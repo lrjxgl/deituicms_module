@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">{$type_name}</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+  
+   <td>类别</td>
+ 
+ 
+   <td>价格</td>
+   <td>市场价格</td>
+  
+   <td>主图</td>
+   <td>描述</td>
+ 
+   <td>想要 /  浏览 / 收藏</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+  
+   <td>{$c.catid_title}</td>
+   
+  
+   <td>{$c.price}</td>
+   <td>{$c.market_price}</td>
+   
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" class="w100" /></td>
+   <td>{$c.description}</td>
+   
+   
+   <td>{$c.love_num} / {$c.view_num} / {$c.fav_num}</td>
+<td>
+	{if $type eq 'new'}
+	<div productid="{$c.productid}" class="btn-small js-pass mgr-10">通过</div>
+	<div productid="{$c.productid}" class="btn-small js-forbid">不通过</div>
+	{/if}
+	<a href="/moduleadmin.php?m=ershou_product&a=add&productid={$c.productid}">编辑</a> 
+<a target="_blank" href="/module.php?m=ershou_product&a=show&productid={$c.productid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=ershou_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script src="{$skins}ershou_product/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=collect_rule" class="item active">规则列表</div>
+			<div gourl="/moduleadmin.php?m=collect_rule&a=add"  class="item">规则添加</div>
+		</div>
+		<div class="main-body">
+
+ <table class="tbs">
+	 <thead>
+  <tr>
+   <td>id</td>
+   <td>名称</td>
+   <td>域名</td>
+   <td>添加时间</td>
+   <td>类型</td>
+   <td>分类</td>
+   <td>所在页面</td>
+   <td>开始</td>
+   
+   <td>结束</td>
+   
+<td>操作</td>
+  </tr>
+  </thead>
+  <tbody>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td>{$c.domain}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$type_list[$c.type_id]}</td>
+   <td>{$c.cname}</td>
+   <td><a href="{$c.list_url}" target="_blank">前往查看</a></td>
+   <td>{$c.start_page}</td>
+    
+   <td>{$c.end_page}</td>
+    
+<td><a href="{$appadmin}?m=collect_rule&a=add&id={$c.id}">编辑</a>
+<a href="{$appadmin}?m=collect_rule&a=copy&id={$c.id}">复制规则</a>  
+<a href="{$appadmin}?m=collect&a=list&id={$c.id}">采集列表</a>
+<a href="{$appadmin}?m=collect&a=save&rule_id={$c.id}">采集内容</a>
+<a href="{$appadmin}?m=collect_rule&a=share&id={$c.id}">分享</a>
+<a href="{$appadmin}?m=collect_rule&a=clear&id={$c.id}">清空未采集</a> 
+<a href="javascript:;" class="js-delete"te" url="{$appadmin}?m=collect_rule&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+   </tbody>
+ </table>
+
+<div>{$pagelist}</div>
+</div>
+ 
+{include file="footer.html"}
+<body>
+</html>	

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">书籍详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box mgb-5">
+				<div class="d-title">{$book.title}</div>
+				<div class="d-description">{$book.prompt}</div> 
+			</div>
+			<div class="row-box">
+				<div class="f16 fwb mgb-10">文章列表</div>
+				<div class="bd-mp-10" @click="goArticle(item)" v-for="(item,index) in list">
+					{{item.title}}
+				</div>
+			</div>
+			<div v-if="showArticle">
+				<div class="modal-mask"  @click="showArticle=false"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">文章详情</div>
+						<div class="modal-close icon-close" @click="showArticle=false"></div>
+					</div>
+					<div class="modal-body">
+						<div class="d-title">{{article.title}}</div>
+						<div class="d-content" v-html="article.content"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var bookid="{$book.bookid}"
+		</script>
+		<script src="{$skins}aichat_book/show.js"></script>
+	</body>
+</html>

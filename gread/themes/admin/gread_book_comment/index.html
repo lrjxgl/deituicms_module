@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_book_comment/nav.html'}
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>bookid</td>
+   <td>userid</td>
+   <td>createtime</td>
+   <td>raty</td>
+   <td>content</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.bookid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.raty}</td>
+   <td>{$c.content}</td>
+<td><a href="/module.php?m=gread_book_comment&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=gread_book_comment&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="delete" url="/module.php?m=gread_book_comment&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

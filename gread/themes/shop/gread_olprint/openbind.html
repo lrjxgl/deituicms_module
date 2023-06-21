@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">资料打印</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $bind}
+			<div class="row-box">
+				<div class="flex">
+					<div>已绑定：{$bind.shopname}</div>
+					<div class="flex-1"></div>
+					<div class="cl-status">
+						{if $bind.status==1}已通过{else}未通过{/if}
+						
+					</div>
+				</div>
+				
+			</div>	
+			{else}
+			<div class="row-box">
+				<div class="input-flex">
+					<div class="input-flex-label">商家</div>
+					<input type="text" id="shopname" class="input-flex-text" />
+					
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">申请原因</div>
+					<input type="text" id="description" class="input-flex-text" />
+					
+				</div>
+				<div id="submit" class="btn-row-submit">申请绑定</div>
+			</div>
+			{/if}
+		</div>
+		{include file="footer.html"}
+		<script>
+		$(function(){
+			$(document).on("click","#submit",function(){
+				$.ajax({
+					url:"/moduleshop.php?m=gread_olprint&a=openbindsave&ajax=1",
+					dataType:"json",
+					data:{
+						shopname:$("#shopname").val(),
+						description:$("#description").val()
+					},
+					success:function(res){
+						skyJs.toast(res.message)
+					}
+				})
+			})
+			
+		})
+		
+		</script>
+	</body>
+</html>

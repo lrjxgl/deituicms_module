@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">购物车</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app" style="display: none;" v-if="pageLoad">
+			<div v-if="pageData.shopCarts.length==0" class="emptyData">购物车，暂无商品</div>
+			<div v-else>
+			<div v-for="(shop,spindex) in pageData.shopCarts" :key="spindex" class="shop">
+				<div :gourl="'/module.php?m=pdd_shop&shopid='+shop.shopid" class="row-box-hd bg-white pdl-5">
+					<div class="flex-1">{{shop.shopname}}</div>
+					<div class="row-box-more"></div>
+				</div>
+				<div class="flexlist" >
+					<div class="flexlist-item" v-for="(item,index) in shop.cart" :key="index">
+						<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.title}}</div>
+							<div class="flexlist-row">
+								<div class="">{{item.ks_title}}</div>
+								<div class="cl-money">
+									￥{{item.price}}
+								</div>
+								<div class="flex-1"></div>
+								<div   class="numbox">
+									<div @click="minusCart(item.productid,item.amount,item.ksid)" class="numbox-minus">-</div>
+									<input type="text" name="amount" :value="item.amount" class="numbox-num" />
+									<div @click="plusCart(item.productid,item.amount,item.ksid)" class="numbox-plus">+</div>	
+								</div>
+							</div>
+							
+						</div>
+					</div>	
+				</div>
+				<div class="pd-10 flex">
+					<div class="flex-1">
+						共{{shop.total_num}}件，总{{shop.total_money}}元
+					</div>
+					<div :gourl="'/module.php?m=pdd_order&a=confirm&shopid='+shop.shopid" class="btn">确认购买</div>
+				</div>
+			</div>	
+			</div>
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}/pdd_cart/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	<form method="post" action="/module.php?m=aichat_book_article&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+<div class="input-flex">
+						<div class="input-flex-label">bookid：</div>		
+						<input type="text" name="bookid" id="bookid" class="input-flex-text" value="{$data.bookid}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">title：</div>		
+						<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">content：</div>		
+						<input type="text" name="content" id="content" class="input-flex-text" value="{$data.content}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">userid：</div>		
+						<input type="text" name="userid" id="userid" class="input-flex-text" value="{$data.userid}"  /> 
+						</div>
+{if $data}<div class="input-flex">
+						<div class="input-flex-label">createtime：</div>		
+						{$data.createtime}
+						</div>{/if}
+<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">status：</div>		
+						<div class="flex-1 flex flex-ai-center">
+							<input type="radio" class="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" class="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</div>
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">orderindex：</div>		
+						<input type="text" name="orderindex" id="orderindex" class="input-flex-text" value="{$data.orderindex}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">prompt：</div>		
+						<input type="text" name="prompt" id="prompt" class="input-flex-text" value="{$data.prompt}"  /> 
+						</div>
+ <div class="btn-row-submit js-submit">保存</div> 
+</form>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

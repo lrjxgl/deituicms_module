@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"多商户会员卡",//模块名称
+	"module"=>"mscard",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"会员卡用于企业会员充值及会员管理",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=mscard&a=menu",
+	"check_update"=>"https://www.deituicms.com",
+);
+?>

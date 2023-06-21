@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="tabs-border">
+				<div gourl="/moduleadmin.php?m=taoke" class="item active">产品列表</div>
+				<div gourl="/moduleadmin.php?m=taoke&a=add" class="item">添加产品</div>
+			</div>
+		
+		<div class="main-body">
+				<form id="form" method="post" action="/moduleadmin.php?m=taoke&a=save">
+					<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+					<table class="table-add">
+						<tr>
+							<td>淘客平台</td>
+							<td>
+								<select name="xfrom">
+									{foreach item=c key=k from=$xfromList}
+									<option {if $data.xfrom eq $k }selected{/if} value="{$k}">{$c}</option>
+									{/foreach} 
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td >类别</td>
+							<td>
+								<select name="catid" style="border: 1px solid #eee !important; ">
+									<option value="0">请选择</option>
+									{foreach item=c from=$catList}
+										<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+										{if $c.child}
+										{foreach item=cc from=$c.child}
+										<option value="{$cc.catid}" {if $data.catid  eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+										{/foreach}
+										{/if}
+									{/foreach}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>标题：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+						<tr>
+							<td>描述</td>
+							<td>
+								<textarea name="description">{$data.description}</textarea>
+							</td>
+						</tr>
+						 
+						 
+						<tr>
+							<td>结束时间：</td>
+							<td><input type="text" name="tk_end" id="tk_end" value="{$data.tk_end|date:Y-m-d H:i:s}"></td>
+						</tr>
+						<tr>
+							<td>状态：</td>
+							<td style="line-height: 40px;">
+								上线 <input type="radio" name="status" {if $data.status eq 2}checked{/if} id="status" value="2">
+								下线 <input type="radio" name="status" {if $data.status neq 2}checked{/if}  id="status" value="1">
+							</td>
+						</tr>
+						<tr>
+							<td>图片：</td>
+							<td>
+								<div class="js-upload-item">
+									<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+									<div class="upimg-btn js-upload-btn">+</div>
+									<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+									<div class="js-imgbox">
+										{if $data.imgurl}
+										<img width="100" src="{$data.imgurl|images_site}">
+										{/if}
+									</div>
+								</div>
+						
+							</td>
+						</tr>
+						<tr>
+							<td>券后价：</td>
+							<td>
+								<input class="w60" type="text" name="price" id="price" value="{$data.price}">元，
+								优惠券
+								<input class="w60"  type="text" name="juan_money" id="juan_money" value="{$data.juan_money}">元
+							</td>
+						</tr>
+						<tr>
+							<td>佣金：</td>
+							<td>
+								<input type="text" name="yj_money" value="{$data.yj_money}" class="w60" /> 元，
+								<input type="text" name="yj_bl" value="{$data.yj_bl}" class="w60" />%
+							</td>
+						</tr>
+						<tr>
+							<td>产品id：</td>
+							<td><input type="text" name="tb_numid" id="tb_numid" value="{$data.tb_numid}"></td>
+						</tr>
+						<tr>
+							<td>产品链接：</td>
+							<td>
+								<input   type="text" name="tb_url" id="tb_url" value="{$data.tb_url}"> 
+								 
+							</td>
+						</tr>
+						<tr>
+							<td>淘客链接：</td>
+							<td><input type="text" name="tk_url" id="tk_url" value="{$data.tk_url}"></td>
+						</tr>
+						<tr>
+							<td>淘客口令：</td>
+							<td><input type="text" name="tk_pwd" id="tk_pwd" value="{$data.tk_pwd}"></td>
+						</tr>
+						<tr>
+							<td>领卷链接：</td>
+							<td><input type="text" name="juan_url" id="juan_url" value="{$data.juan_url}"></td>
+						</tr>
+						<tr>
+							<td>领券口令：</td>
+							<td><input type="text" name="juan_pwd" id="juan_pwd" value="{$data.juan_pwd}"></td>
+						</tr>
+					 
+						<tr>
+							<td>淘券截止时间：</td>
+							<td>
+								<input type="text" name="juan_end" id="juan_end" value="{$data.juan_end}" />
+							</td>
+						</tr>
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><div id="submit"  class="btn-row-submit">保存</div></td>
+						</tr>
+
+					</table>
+				</form>
+		</div>
+		{include file="footer.html"}
+				{php loadEditor();}
+<script src="/plugin/laydate/laydate.js"></script>
+<script language="javascript">
+laydate.render({
+	elem:"#tk_end",
+	type:"datetime"
+})
+ laydate.render({
+ 	elem:"#juan_end"
+ }) 
+var editor=UE.getEditor('content',options)
+$(document).on("click","#submit",function(){
+	editor.sync(); 
+	$.post("/moduleadmin.php?m=taoke&a=save&ajax=1",$("#form").serialize(),function(data){
+		skyToast(data.message);
+		if(!data.error){
+			setTimeout(function(){
+				goBack();
+			},1000)
+		}
+	},"json")
+})
+</script>
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+
+</html>

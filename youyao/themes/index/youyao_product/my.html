@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.btn-mini{
+		margin-right: 5px;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">药品管理</div>
+	<a class="header-right-btn" href="/module.php?m=youyao_product&a=add">添加</a>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+     
+    <div>
+		<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+			<div class="mgb-5">{{item.title}}</div>
+			<div class="cl3 mgb-5">{{item.description}}</div>
+			<div class="flex">
+				<div class="cl-status mgr-5" v-if="item.total_num==0">缺货中</div>
+				<div class="cl-status mgr-5" v-else>库存充足</div>
+				<div v-if="item.status==1" class="cl-status mgr-5">上架中</div>
+				<div   v-else class="cl-status mgr-5">已下架</div>
+				<div class="flex-1"></div>
+				<div @click="toggleNum(item)" v-if="item.total_num==0" class="btn-mini">有货</div>
+				<div @click="toggleNum(item)" v-else class="btn-mini">缺货</div>
+				<div  @click="toggleStatus(item)"  v-if="item.status!=1" class="btn-mini">上架</div>
+				<div  @click="toggleStatus(item)"  v-else class="btn-mini">下架</div>
+				<div @click="goAdd(item.productid)"  class="btn-mini">编辑</div>
+				<div @click="del(item)" class="btn-mini btn-danger">删除</div>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script src="{$skins}youyao_product/my.js"></script>
+</body>
+</html>

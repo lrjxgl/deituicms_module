@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.uBox {
+			position: relative;
+			width: 100%;
+			height: 200px;
+			background-color: #2b8b97;
+			padding: 10px;
+			color: #fff;
+		}
+	
+		.uBox-nick {
+			margin-bottom: 10px;
+			color: #fff;
+		}
+	
+		.uBox-head {
+	
+			width: 50px;
+			height: 50px;
+			border-radius: 10px;
+			margin-bottom: 10px;
+		}
+	
+		.uBox-desc {
+			text-align: center;
+			padding-top: 20px;
+			padding-bottom: 20px;
+			padding-right: 10px;
+			color: #fff;
+			font-size: 12px;
+		}
+	
+		.fixFollow {
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			color: #eee;
+			border: 1px solid #eee;
+			border-radius: 5px;
+			padding: 5px 10px;
+			font-size: 12px;
+			cursor: pointer;
+		}
+	
+		.fixFollow-active {
+			color: #fff;
+			border: 1px solid #fff;
+		}
+	</style>
+	<body>
+		<div v-if="pageLoad" class="none" :class="'flex-col'" id="app">
+			<div url="/module.php?m=exue" class="header-back-fixed goBack" style="z-index: 999; color: #fff;"></div>
+			<div class="uBox">
+				<div :class="shop.isFollow?'fixFollow-active':''" class="fixFollow">关注</div>
+				<div class="flex flex-col flex-center">
+					<img :src="shop.imgurl+'.100x100.jpg'" class="uBox-head">
+					<div class="uBox-nick">{{shop.title}}</div>
+					<div class="flex mgb-5 flex-ai-center mgr-10">
+						<div class="cl-white f12 mgr-5">学员</div>
+						<div class="cl-white f12 mgr-20">{{shop.student_num}}个</div>
+			
+						<div class="cl-white f12 mgr-5">粉丝</div>
+						<div class="cl-white f12 mgr-20">{{shop.follow_num}}个</div>
+						<div class="cl-white f12 mgr-5">评价</div>
+						<div class="cl-white f12">{{shop.raty_grade}}分</div>
+					</div>
+				</div>
+				<div class="uBox-desc">{{shop.description}}</div>
+			</div>
+			<div class="gheader-row"></div>
+			
+			<div class="row-box">
+				<div class="tabs-border mgb-10">
+					<div @click="setTab('blog')" :class="tab=='blog'?'tabs-border-active':''"  
+						class="tabs-border-item">动态</div>
+					<div @click="setTab('course')" :class="tab=='course'?'tabs-border-active':''"   
+						class="tabs-border-item">课程</div>
+			
+					<div @click="setTab('teacher')" :class="tab=='teacher'?'tabs-border-active':''"   
+						class="tabs-border-item {if $tab eq 'teacher'} tabs-border-active{/if}">老师</div>
+					<div @click="setTab('raty')" :class="tab=='raty'?'tabs-border-active':''"
+						class="tabs-border-item">评价</div>
+					<div @click="setTab('detail')" :class="tab=='detail'?'tabs-border-active':''"   
+						class="tabs-border-item">关于</div>
+				</div>
+				<div v-if="tab=='blog'">
+					<div class="emptyData" v-if="!blogList || blogList.length==0">暂无数据</div>
+					<div class="sglist">
+						<div v-for="(item,index) in blogList" :key="index" @click="goBlog(item.id)" class="sglist-item">
+							
+							<div class="sglist-title flex" v-html="item.content"></div>
+							<div class="sglist-imglist">
+								 
+								<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+								
+							</div>
+							<div class="sglist-ft">
+								<div class="sglist-ft-love">{{item.love_num}}</div>
+								<div class="sglist-ft-cm">{{item.comment_num}}</div>
+								<div class="sglist-ft-view">{{item.view_num}}</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+				<div v-if="tab=='course'">
+					<div class="emptyData" v-if="!courseList || courseList.length==0">暂无数据</div>
+					<div v-for="(item,index) in courseList" :key="index" class="flexlist-item">
+						<img :gourl="'/module.php?m=exue_course&a=show&courseid='+item.courseid" :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+						<div class="flex-1">
+							<div   :gourl="'/module.php?m=exue_course&a=show&courseid='+item.courseid"  class="flexlist-title">{{item.title}}</div>
+							<div class="flexlist-desc">{{item.description}}</div>
+							<div class="flex">
+								<div class="cl-money f16 mgr-20">￥{{item.price}}</div>
+								<div class="market-price">￥{{item.market_price}}</div>
+								<div class="flex-1"></div>
+								<div :gourl="'/module.php?m=exue_course&a=show&courseid='+item.courseid"  class="btn-bm">立即报名</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div v-if="tab=='teacher'">
+					<div class="emptyData" v-if="!teacherList || teacherList.length==0">暂无数据</div>
+					<div class="flexlist">
+						 
+						<div v-for="(item,index) in teacherList" :key="index" class="flexlist-item">
+							<img :gourl="'/module.php?m=exue_teacher&a=show&tcid='+item.tcid" :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+							<div class="flex-1">
+								<div :gourl="'/module.php?m=exue_teacher&a=show&tcid='+item.tcid"  class="flexlist-title">{{item.nickname}}</div>
+								<div class="flexlist-desc">{{item.description}}</div>
+								 
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+				<div v-if="tab=='detail'">
+					<div class="row-box">
+						
+						<div class="row-item-text ">
+							<div class="row-item-icon icon-people"></div>
+							<div class="flex-1">{$shop.nickname}</div>
+						</div>
+						<div class="row-item-text ">
+							<div class="row-item-icon icon-phone_light"></div>
+							<div class="flex-1">{$shop.telephone}</div>
+						</div>
+						<div class="row-item-text mgb-10 ">
+							<div class="row-item-icon icon-location_light"></div>
+							<div class="flex-1">{$shop.address}</div>
+						</div>
+						<div class="d-content">
+							{$shop.content}
+						</div>
+					</div>
+				</div>
+				<div v-if="per_page>0 && tab!='detail'" @click="getList()">加载更多</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shop.shopid}"
+		</script>
+		<script src="{$skins}exue_shop/home.js"></script>
+	</body>
+</html>

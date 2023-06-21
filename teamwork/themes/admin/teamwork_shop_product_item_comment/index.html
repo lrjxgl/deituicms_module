@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='shop_product_item_comment/nav.html'}
+ <table class="tbs">
+  <tr>
+   <td>id</td>
+   
+   <td>创建时间</td>
+   <td>反馈内容</td>
+    
+<td>操作</td>
+  </tr>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   
+   <td>{$c.createtime}</td>
+   <td>{$c.content}</td>
+   
+<td>
+	<a href="javascript:;" class="delete" url="admin.php?m=shop_product_item_comment&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+{include file="footer.html"}
+</body>
+</html>

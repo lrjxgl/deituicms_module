@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='shanxin/nav.html'}
+		<div class="main-body">
+			<form id="form" method="post" action="/moduleadmin.php?m=shanxin&a=save">
+				<input type="hidden" name="sid" style="display:none;" value="{$data.sid}">
+				<table class="table-add">
+					<tr>
+						<td>活动名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><textarea name="description" id="description">{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					<tr>
+						<td>礼物名称</td>
+						<td>
+							<input type="text" name="product" value="{$data.product}" />
+						</td>
+					</tr>
+					<tr>
+						<td>金额：</td>
+						<td><input type="text" class="w100" name="money" id="money" value="{$data.money}"> 元/份</td>
+					</tr>
+					<tr>
+						<td>开始时间：</td>
+						<td><input type="text" name="stime" id="stime" value="{$data.stime|date:Y-m-d H:i:s}"></td>
+					</tr>
+					<tr>
+						<td>截止时间：</td>
+						<td><input type="text" name="etime" id="etime" value="{$data.etime|date:Y-m-d H:i:s}"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1}checked{/if} value="1">上架
+							<input type="radio" name="status" {if $data.status neq 1}checked{/if}  value="2">下架
+						</td>
+					</tr>
+					
+					<tr>
+						<td>查看人数：</td>
+						<td><input type="text" name="view_num" id="view_num" value="{$data.view_num}"></td>
+					</tr>
+					<tr>
+						<td>参与人数：</td>
+						<td><input type="text" name="join_num" id="join_num" value="{$data.join_num}"></td>
+					</tr>
+					<tr>
+						<td>完成人数：</td>
+						<td><input type="text" name="finish_num" id="finish_num" value="{$data.finish_num}"></td>
+					</tr>
+					
+					<tr>
+						<td>内容：</td>
+						<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit" id="submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		{php loadEditor();}
+		
+		<script language="javascript">
+		 
+		var editor=UE.getEditor('content',options);
+		 
+		</script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script src="{$skins}/shanxin/upload-video.js"></script>
+		<script src="/static/admin/js/upload.js"></script>
+		<script>
+			laydate.render({
+			  elem: '#stime',
+			  type: 'datetime'
+			});
+			laydate.render({
+			  elem: '#etime',
+			  type: 'datetime'
+			});
+			$(document).on("click","#mp4-delete",function(){
+				$("#mp4url").val("");
+				$("#mp4box").html("");
+			})
+			$(document).on("click", "#submit", function() {
+				editor.sync();
+				$.post("/moduleadmin.php?m=shanxin&a=save&ajax=1", $("#form").serialize(), function(data) {
+					if(data.error) {
+						skyToast(data.message);
+		
+					} else {
+						goBack();
+					}
+				}, "json")
+			})
+			
+		 
+		</script>	
+	</body>
+</html>

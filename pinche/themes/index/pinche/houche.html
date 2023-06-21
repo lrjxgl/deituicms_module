@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">候车室</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" v-if="pageLoad" id="App">
+			<div v-if="!group">
+				<div>订单还未成团</div>
+			</div>
+			<div v-else>
+				<div style="height: 80px;"></div>
+				<div class="row-box" style="position: fixed;top:50px;left:0;right:0">
+					<div class="mgb-5">当前线路：{{line.title}}</div>
+					<div class="flex mgb-5">
+						
+						 
+						<div v-if="driver" class="flex">
+							<div class="mgr-5">司机：{{driver.truename}}</div>
+							<div class="btn-mini">发送定位</div>
+						</div>
+						 
+						<div v-else>等待司机</div>
+						 
+						<div class="flex-1"></div>
+						 
+						<div v-if="group && group.freenum==0" class="cl-status">已成团</div>
+						<div v-else class="cl-status">待成团</div> 
+					</div>
+					
+				</div>
+				<div class="row-box mgb-5">
+					<div class="flex">
+						 
+						<div v-for="(u,ui) in userList" :key="ui" class="pd-5">
+							<img class="wh-60" :src="u.user_head+'.100x100.jpg'" />
+							<div class="text-center">{{u.nickname}}</div>
+							
+						</div>
+						 
+					</div>
+				</div>
+				<div class="row-box">
+					
+					<div class="list">
+						<div class="mgb-5 flex" v-for="(item,index) in msgList" :key="index">
+							<div class="mgr-5 cl2">{{item.nickname}}</div>
+							<div class="flex-1">
+								<div class="cl1">{{item.content}}</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="flex" style="position: fixed;bottom:50px;left:0;right:0;padding:5px;">
+						<input type="text" v-model="msgContent" class="input-flex-text" />
+						<div @click="sendMsg" class="input-flex-btn">发送</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="height: 50px;"></div>
+		{assign var="ftnav" value="houche"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}pinche/houche.js?asdasw"></script>
+	</body>
+</html>

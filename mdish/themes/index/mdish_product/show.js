@@ -1,0 +1,52 @@
+var that
+var app=new Vue({
+	el:"#App",
+	data:function(){
+		return {
+			pageLoad:false,
+			data:{},
+			loveList:[],
+			productid:0,
+			shop:{}
+		}
+		
+	},
+	created:function(){
+		that=this;
+		this.productid=productid;
+		this.getPage();
+		this.getLove();
+	},
+	methods:{
+		getPage:function(){
+			$.ajax({
+				url:"/module.php?m=mdish_product&a=show&ajax=1&productid="+that.productid,
+				dataType:"json",
+				success:function(res){
+					that.data=res.data.data;
+					that.shop=res.data.shop;
+					that.pageLoad=true;
+				}
+			})
+		},
+		getLove:function(){
+			$.ajax({
+				url:"/module.php?m=mdish_love&ajax=1&productid="+that.productid,
+				dataType:"json",
+				success:function(res){
+					that.loveList=res.data.list;
+				}
+			})
+		},
+		loveToggle:function(){
+			$.ajax({
+				url:"/module.php?m=mdish_love&a=toggle&ajax=1&productid="+that.productid,
+				dataType:"json",
+				success:function(res){
+					that.getLove();
+					that.data.love_num=res.data.num;
+				}
+			})
+		}
+	}
+})

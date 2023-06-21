@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">账户日志</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div>账户余额 </div>
+					<div class="cl-money">￥{$account.balance_money}</div>
+					<div class="flex-1"></div>
+					<div>总收入</div>
+					<div class="cl-money">￥{$account.total_money}</div>
+				</div>
+			</div>
+			{foreach item=c from=$list}
+			<div class="row-box mgb-5">
+				<div class="flex mgb-5">
+					<div class="f14 cl-status mgb-5">{$c.type_name}</div>
+					<div class="cl-money">￥{$c.money}</div>
+					<div class="flex-1"></div>
+					<div class="cl3 f12">{$c.timeago}</div>
+				</div>
+				<div class="f12 cl2">
+					{$c.content}
+				</div>
+				 
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

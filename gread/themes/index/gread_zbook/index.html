@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">新书代购·一折买书</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+	<div class="row-box">
+			
+		<div class="mgb-5">针对买书费用贵，我们推出一折买书以租代购服务</div>
+		<div class="mgb-5">
+			1、对于代购书籍，收取标价一折费用。
+		</div>
+		<div class="mgb-5">2、按书籍标价占用保证金，最低时长一个月。还书则可解除占用</div>
+		<div class="mgb-5">3、单用户代购书籍总价少于500元</div>
+		
+		<div class="text-center cl-red">新书代购，一折买书，代购更省钱</div> 
+	</div> 
+	<div id="actJoin" class="btn-row-submit">下单代购</div>
+ 
+    
+</div>
+<div class="modal-group" id="actBox">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">新书代购下单</div>
+			<div class="modal-close icon-close"></div>
+		</div>
+		<div class="modal-body" style="max-height: 480px;">
+			<form id="actForm">
+			<div class="input-flex flex-ai-center">
+				<div class="cl2 mgr-5">数量：</div>
+				<input type="text" class="input-flex-text w60 mgr-5"  name="num"   value="">
+				<div class="cl2 mgr-5">本</div>
+			 	<div class="cl2 mgr-5">总价：</div>
+			 	<input type="text" class="input-flex-text w60 mgr-5"  name="total_money"   value="">
+				<div class="cl2">元</div>
+			 </div>
+			 <div class="textarea-flex">
+			 	<div class="textarea-flex-label">书籍描述</div>
+			 	<textarea placeholder="描述书籍内容，价格" name="description" class="textarea-flex-text h60"></textarea>
+			 </div>
+			 <div class="bg-fff mgb-5">
+			 	<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+			 	{include file="inc/uploader-data.html"}
+			 </div>
+			<div class="input-flex flex-ai-center">
+				<div class="cl2 mgr-5">联系人：</div>
+				<input type="text" class="input-flex-text w60 mgr-5"  name="nickname" id="nickname" value="">
+			 
+				<div class="cl2 mgr-5">电话：</div>
+				<input type="text" class="input-flex-text"  name="telephone" id="telephone" value="">
+			</div>
+			 
+			
+			 <div class="text-center cl-red">新书代购，一折买书，代购更省钱</div>
+			<div id="actSubmit" class="btn-row-submit">确认下单</div>
+			</form>
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script>
+$(function(){
+	$(document).on("click","#actJoin",function(){
+		$("#actBox").show();
+	})
+	
+	$(document).on("click","#actSubmit",function(){
+		if(!postCheck.canPost()){
+			return false;
+		}
+		$.ajax({
+			url:"/module.php?m=gread_zbook&a=save&ajax=1",
+			type:"POST",
+			dataType:"json",
+			data:$("#actForm").serialize(),
+			success:function(res){
+				skyJs.toast(res.message);
+				if(!res.error){
+					$("#actBox").hide();
+				}
+			}
+		})
+	})
+})</script>
+{get data=wxs model=weixin fun=selectRow(" status=1") }
+		{if INWEIXIN && $wxs}
+		
+		<?php wx_jssdk();?>
+		<script src="{$skins}inc/uploader-data-wx.js?{$smarty.now}"></script> 
+		{else} 
+		
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js?v2"></script>
+		{/if}
+</body>
+</html>

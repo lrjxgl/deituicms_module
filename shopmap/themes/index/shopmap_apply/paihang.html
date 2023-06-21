@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">排行版</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex pd-5 mgb-10 bg-white flex-ai-center">
+				<image class="wh-60 mgr-5 bd-radius-50" src="{$user.user_head}.100x100.jpg" />
+				<div class="flex-1">
+					<div>{$user.nickname}</div>
+					<div>  成功 {$spUser.pass_num|intval} 家 获得 {$spUser.money|floatval} 元</div>
+				</div>
+				<div>排行：{$paihang}</div>
+			</div>
+			<style>
+				.tb-tr{
+					display: flex;
+					flex-direction: row;
+					min-height: 36px;
+					align-items: center;
+				}
+				.tb-a{
+					flex:1;
+					
+				}
+				.tb-b{
+					width: 80px;
+					text-align: center;
+				}
+				.tb-c{
+					width:80px;
+					text-align: center;
+				}
+				.tb-n{
+					width: 50px;
+					padding-left: 5px;
+				}
+				.tbg-1{
+					background-color: #ff6e75;
+					padding-left: 5px;
+					border-radius: 5px;
+					margin-bottom: 10px;
+				}
+				.tbg-2{
+					background-color: #ffc547;
+					padding-left: 5px;
+					border-radius: 5px;
+					margin-bottom: 10px;
+				}
+				.tbg-3{
+					background-color: #6fbdff;
+					padding-left: 5px;
+					border-radius: 5px;
+					margin-bottom: 10px;
+				}
+				.tbg-1 div,.tbg-2 div,.tbg-3 div{
+					color: #fff;
+					
+				}
+			</style>
+			<div class="pd-10 bg-white">
+			<div class="tb-tr">
+				<div class="tb-n"></div> 
+				<div class="tb-a">姓名</div>
+				<div class="tb-b">贡献</div>
+				<div class="tb-c">奖励</div>
+			</div>
+			{foreach item=c key=k from=$userList}
+			<div class="tb-tr tbg-{$k+1}">
+				<div class="tb-n">{$k+1}</div>
+				<div class="tb-a">{$c.nickname}</div>
+				<div class="tb-b">{$c.pass_num}</div>
+				<div class="tb-c">￥{$c.money}</div>
+			</div>
+			{/foreach}
+			</div>
+		</div>
+		{include file="shopmap_apply/ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

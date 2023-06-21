@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='pinche_driver_line/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=pinche_driver_line&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>司机：</td>		
+				<td><input type="text" name="driverid" id="driverid" value="{$data.driverid}" ></td>
+				</tr>
+  <tr>
+				<td>线路：</td>		
+				<td><input type="text" name="lineid" id="lineid" value="{$data.lineid}" ></td>
+				</tr>
+  <tr>
+				<td>freetime：</td>		
+				<td><input type="text" name="freetime" id="freetime" value="{$data.freetime}" ></td>
+				</tr>
+  <tr>
+				<td>status：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

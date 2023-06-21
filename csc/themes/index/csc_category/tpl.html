@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}csc_category/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">分类</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body bg-white" id="App">
+		<div class="list-side">			 
+			<div @click="setCat(item.catid)" v-for="(item,index) in catList" :key="index" :class="aItem.catid==item.catid?'active':''" class="list-side-item">{{item.title}}</div>
+		</div>
+		<div class="list-main">
+			 
+			<div   class="list-cat-item">
+				 
+				<div  @click="goList(aItem.catid)" class="list-cat-hd">{{aItem.title}}</div>
+				<div class="list-child">
+					 
+					<div v-for="(cc,index) in aItem.child" :key="index" @click="goList(cc.catid)" class="list-child-item">
+						<img class="list-child-img" :src="cc.imgurl+'.100x100.jpg'"
+						    onerror="this.src='http://img.deitui.com/?w=50&h=50&text=logo&fontsize=14&textcolor=fff&bgcolor=9FB6CD'">
+						<div class="list-child-title">{{cc.title}}</div>
+					</div>
+					 
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			 
+			
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}csc_category/index.js"></script>
+	</body>
+</html>

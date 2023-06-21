@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>{$data.title}</title>
+		<style>
+			.head{
+				line-height: 40px;
+				background-color: #fff;
+				border-bottom: 1px solid #ddd;
+				margin-bottom: 5px;
+				font-size: 16px;
+				display: flex;
+			}
+			.head .title{
+				flex: 1;
+				font-size: 14px;
+			}
+			.head .back{
+				display: block;
+				width: 40px;
+				height: 40px;
+				color: #0066CC;
+				font-size: 18px;
+			}
+		 	.d-content{
+		 		word-break: break-all;
+		 	}
+			pre{
+			white-space: pre-wrap!important;
+			word-wrap: break-word!important;
+			*white-space:normal!important;
+			}
+		 	.d-content img{
+		 		max-width: 100%;
+		 	}
+		 	table{
+		 		width: 100%;
+		 		border-collapse: collapse;
+		 	}
+		 	table td{
+		 		border:1px solid #eee;
+		 		padding: 10px 5px;
+		 	}
+		 </style>
+	</head>
+	<body>
+		<div class="head">
+			<a href="/module.php?m=book&a=view&bookid={$data.bookid}" class="back">返回</a>
+			<div class="title">{$data.title}</div>
+		</div>
+		<div class="d-content">
+			{$data.content}
+		</div>
+	</body>
+</html>

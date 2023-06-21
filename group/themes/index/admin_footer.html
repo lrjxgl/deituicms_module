@@ -1,0 +1,14 @@
+<style>
+	.footer-item{
+		line-height: 40px;
+	}
+</style> 
+<div class="footer-row"></div>
+<div class="footer ">
+	
+	<a href="/module.php?m=group_title&a=admin&gid={$group.gid}"  class="footer-item  {if get('m') eq 'group_title'}footer-active{/if}">主题</a>
+	<a href="/module.php?m=group_user&a=admin&gid={$group.gid}"  class="footer-item  {if get('m') eq 'group_user'}footer-active{/if}">成员</a>
+	<a href="/module.php?m=group_comment&a=admin&gid={$group.gid}"  class="footer-item {if $gtab eq 'group_comment'}footer-active{/if}">评论</a>
+	<a href="/module.php?m=group&a=add&gid={$group.gid}" class="footer-item {if $gtab eq 'groupadd'}footer-active{/if}">圈子</a> 
+	<a href="/module.php?m=group_tags&a=admin&gid={$group.gid}"  class="footer-item  {if get('m') eq 'group_tags'}footer-active{/if}">分类</a>
+</div>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.lineText{
+			border:0;
+			border-bottom: 1px solid #ddd;
+			outline: none;
+			width:60px;
+			padding: 0px 5px;
+		}
+		.fullPage{
+			position: absolute;
+			top:30px;
+			bottom:0;
+			left: 0;
+			width: 100%;
+			overflow: auto;
+			display:none;
+			padding: 10px;
+			box-sizing: border-box;
+			background-color: #fff;
+			align-items: center;
+			justify-content: center;
+		}
+		.fullPage-active{
+			display:flex;
+			flex-direction:column;
+		}
+		.tool{
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 30px;
+			padding: 10px;
+			background-color: #fff;
+			display: flex;
+			flex-direction: row;
+		}
+		#lastPage,#nextPage{
+			cursor: pointer; 
+			display: none;
+			color: #f30; 
+		}
+		#lastPage{
+			left:10px;
+			
+		}
+		#nextPage{
+			 
+			right:10px;
+			 
+		}
+	</style>
+	<body>
+		 
+		<div class="main-body">
+			<form>
+				<input type="hidden" name="exid" value="{$exam.exid}" />
+				<div class="tool">
+					<div id="lastPage">上一题</div>
+					 <div class="flex-1 text-center cl-red" id="extime"></div>
+					<div id="nextPage">下一题</div>
+					
+				</div>
+				
+				<div class="fullPage fullPage-active">
+					<div class="f16 mgb-10">{$exam.title}</div>
+					{if $exam.extime>0}
+					<div class="cl2 mgb-10">考试时长：{$exam.extime}秒</div>
+					{/if}
+					<div class="btn" id="goExam">开始考试</div>
+				</div>	
+				
+				{foreach item=c from=$list}
+				<div class="fullPage">
+					<div class="f16 cl1 mgb-10">{$c.title}</div>
+					{if $c.typeid eq 'text'}
+					<div class="flex flex-wrap mgb-10 " style="line-height: 2;">
+						{foreach item=a key=ka from=$c.ask}
+						 
+							{if $a.type=="text"}
+							{$a.content}
+							{else}
+							<input name="tp[{$c.topicid}][]" class="lineText" type="text"  />
+							{/if}
+						{/foreach}
+					</div>
+					{elseif $c.typeid eq 'radio'}
+					
+					<div>
+						{foreach item=a key=ka from=$c.ask}
+						<div class="radio-flex mgb-10 cl2"><input value="{$ka}"  name="tp[{$c.topicid}]" type="radio" /> {$ka}、{$a}</div>
+						{/foreach}
+					</div>
+					{elseif $c.typeid eq 'checkbox'}
+					
+					<div>
+						{foreach item=a key=ka from=$c.ask}
+						<div class="checkbox-flex mgb-10 cl2"><input value="{$ka}" name="tp[{$c.topicid}][]" type="checkbox" /> {$ka}、{$a}</div>
+						{/foreach}
+					</div>
+					{else}
+					
+					<div class="cl2 mgb-5">{$c.content}</div>
+					<textarea class="textarea-flex-text h60" name="tp[{$c.topicid}]"></textarea>
+					{/if}
+				</div>
+				{/foreach}
+				<div class="fullPage">
+					{if $isanswer}
+					<div class="btn-row-submit cl3 bg-disabled">你已经考过了</div>
+					{else}
+					<div class="mgb-20">温馨提示，请确认全部答完噢</div>
+					<div class="btn-row-submit" id="submit">提交考卷</div>
+					{/if}
+				</div>
+				
+			</form>	
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				var extime={$exam.extime}
+				
+				var pageIndex=0;
+				$(document).on("click","#goExam",function(){
+					$(".fullPage").removeClass("fullPage-active");
+					pageIndex++;
+					$(".fullPage:eq("+pageIndex+")").addClass("fullPage-active");
+					$("#nextPage").show();
+					if(extime>0){
+						setInterval(function(){
+							extime--;
+							$("#extime").html("还剩"+extime+"秒");
+							if(extime<=0){
+								$("#submit").submit()
+							}
+						},1000)
+					}
+				})
+				$(document).on("click","#nextPage",function(){
+					pageIndex++;
+					$(".fullPage").removeClass("fullPage-active");
+					$(".fullPage:eq("+pageIndex+")").addClass("fullPage-active");
+					if(pageIndex<$(".fullPage").length-1){
+						$("#nextPage").show();
+					}else{
+						$("#nextPage").hide();
+					}
+					if(pageIndex>1){
+						$("#lastPage").show();
+					}else{
+						$("#lastPage").hide();
+					}
+				})
+				$(document).on("click","#lastPage",function(){
+					pageIndex--;
+					$(".fullPage").removeClass("fullPage-active");
+					$(".fullPage:eq("+pageIndex+")").addClass("fullPage-active");
+					if(pageIndex>1){
+						$("#lastPage").show();
+					}else{
+						$("#lastPage").hide();
+					}
+					if(pageIndex<$(".fullPage").length-1){
+						$("#nextPage").show();
+					}else{
+						$("#nextPage").hide();
+					}
+				})
+				$(document).on("click","#submit",function(){					
+					var form=$(this).parents("form")
+					if(confirm("考卷提交后不可更改，请确保答案都填写完成，确认提交吗?")){
+						$.ajax({
+							url:"/module.php?m=exam&a=testsave&ajax=1",
+							type:"POST",
+							dataType:"json",
+							data:form.serialize(),
+							success:function(res){
+								skyToast(res.message);
+								if(res.error){
+									
+									return false;
+								}else{
+									$.ajax({
+										url:"/module.php?m=exam_answer&a=autoraty&ajax=1",
+										type:"get",
+										dataType:"json",
+										data:{
+											id:res.data
+										},
+										success:function(e){
+											if(e.error){
+												window.location='/module.php?m=exam_answer&a=show&id='+res.data;
+												return false;
+											}else{
+												window.location='/module.php?m=exam_answer&a=show&id='+res.data;
+											}
+											
+											
+										}
+									})
+								}
+								
+								 
+							}
+						})
+					} 					
+				})
+			})
+		</script>
+	</body>
+</html>

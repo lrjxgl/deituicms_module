@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"shopsite商家建站",//模块名称
+	"module"=>"shopsite",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"shopsite商家建站是一款基于B2B商城的独立建站插件，支持公众号、小程序等",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=shopsite&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

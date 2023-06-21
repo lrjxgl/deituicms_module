@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<img src="{$site.logo}.100x100.jpg" class="header-logo" />
+			<div class="header-title">{$site.sitename}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="pos-relative">
+				<style>
+					.search-box {
+						position: absolute;
+						top: 0.4rem;
+						left: 3rem;
+						right: 3.3rem;
+						z-index: 99;
+						opacity: 0.8;
+					}
+
+					.search-form {
+						position: relative;
+					}
+
+					.search-input {
+						border-radius: 1.2rem;
+						background-color: #fff;
+						border: 0;
+						height: 30px;
+						line-height: 30px;
+						outline: 0;
+						padding-left: 30px;
+					}
+
+					.search-icon {
+						position: absolute;
+						left: 10px;
+						top: 3px;
+					}
+
+					.search-tip {
+						position: absolute;
+						left: 2.5rem;
+						top: 0.45rem;
+						color: #646464;
+					}
+
+					.search-active .search-tip {
+						display: none;
+					}
+				</style>
+				<div class="search-box">
+					<form id="searchForm" class="search-form flex-col">
+						<div class="search-icon iconfont icon-search"></div>
+						<div class="search-tip">搜索商品或店铺</div>
+						<input autocomplete="off" id="keyword" type="text" class="search-input" />
+					</form>
+				</div>
+				<div class="flashBox">
+					<div class="swiper-container" style="width: 100%;" id="indexFlash">
+						<div class="swiper-wrapper">
+							{foreach item=c from=$flashList}
+							<div class="swiper-slide">
+								<img class="wmax" src="{$c.imgurl}" />
+
+							</div>
+							{/foreach}
+						</div>
+
+						<div class="swiper-pagination"></div>
+
+					</div>
+				</div>
+			</div>
+			<div class="mgb-5">
+				{if $navList}
+				<div class="m-navPic">
+					{foreach item=c from=$navList}
+					<a href="{$c.link1}" class="m-navPic-item">
+						<img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+						<div class="m-navPic-title">{$c.title}</div>
+
+					</a>
+
+					{/foreach}
+				</div>
+				{/if}
+			</div>
+			
+			<?php
+				diyui("b2c","index"); 
+				diyuiCompentHtml("md-scroll-pic");
+			?>
+			
+			 
+			<div class="bg-white mgb-5">
+				<style>
+					.btn-out-a {
+						margin-right: 3rem;
+						padding: 3px 5px;
+						border: 1px solid #eee;
+						color: #d3c5a8;
+						display: flex;
+						flex-direction: row;
+					}
+
+					.mtlist-item-bd {
+						border: 1px solid #eee;
+					}
+				</style>
+				<div class="flex flex-ai-center  row-box">
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=b2c_group_product&gkey=bimai" class="fw-600  cl1">超级热卖</div>
+					<div gourl="/module.php?m=b2c_group_product&gkey=bimai" class="iconfont icon-roundright mgl-5 cl2">
+					</div>
+					<div class="flex-1"></div>
+					<div id="htFlash-num" class="btn-out-a"><span id="htFlash-index">1</span>/<span
+							id="htFlash-page"></span></div>
+				</div>
+
+				<div id="htFlash" class="mtlist  pd-0">
+					{foreach item=c from=$bmList}
+					<div class="mtlist-item">
+						<div class="mtlist-item-bd">
+							<img class="mgb-5 wmax" src="{$c.imgurl}" />
+							<div class="pd-5">
+								<div class="mgb-10 ">{$c.title}</div>
+								<div class="flex">
+									<div class="cl-money f16 fw-600 mgr-5">￥{$c.price}</div>
+								</div>
+							</div>
+
+						</div>
+
+					</div>
+					{/foreach}
+
+				</div>
+
+
+
+			</div>
+			<div class="row-box mgb-5 flex">
+				<div class="iconfont mgr-10 icon-moneybag cl-f30 f20"></div>
+				<div class="flex-1 ">
+					<div class="f14">猜你喜欢</div>
+					<div class="cl3 f12">Guess You Like It</div>
+				</div>
+				<div gourl="/module.php?m=b2c_product&type=recommend" class="row-box-more"></div>
+			</div>
+			<?php 
+				diyuiCompentUser("md-pubu-product",$this->_var["recList"]);
+			?>
+			<div >
+				<div class="row-box mgb-5 flex">
+					<div class="iconfont mgr-10 icon-hot_light cl-f30 f20"></div>
+					<div class="flex-1 ">
+						<div class="f14">热销商品</div>
+						<div class="cl3 f12">Hot Goods</div>
+					</div>
+					<div gourl="/module.php?m=b2c_product&type=hot" class="row-box-more"></div>
+				</div>
+				<?php
+					diyuiCommon("md-pubu-product",$this->_var["recList"]);
+				?>
+			</div>
+		</div>
+		{assign var="ftnav" value="b2c_home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash", {
+					loop: true,
+					pagination: {
+						el: '.swiper-pagination'
+					},
+				});
+				$(document).on("click", ".search-box", function() {
+					$("#keyword").focus();
+					$(this).addClass("search-active");
+				})
+				$(document).on("focus", "#keyword", function() {
+
+					$(".search-box").addClass("search-active");
+				})
+				$(document).on("focusout", "#keyword", function() {
+
+					$(".search-box").removeClass("search-active");
+				})
+				$(document).on("submit", "#searchForm", function(event) {
+					event.preventDefault()
+					var keyword = $("#keyword").val();
+					window.location = "/module.php?m=b2c_search&keyword=" + encodeURIComponent(keyword);
+				})
+				var htflash_index = 0;
+				htFlash();
+				$(document).on("click", "#htFlash-num", function() {
+					htFlash();
+				})
+
+				function htFlash() {
+					var res = $("#htFlash .mtlist-item");
+					var len = res.length;
+					var page = len / 2;
+					$("#htFlash-page").html(page);
+					if (htflash_index >= page) {
+						htflash_index = 0;
+					}
+					if (htflash_index < 1) {
+						$("#htFlash .mtlist-item:lt(2)").show();
+						$("#htFlash .mtlist-item:gt(1)").hide();
+					} else {
+						$("#htFlash .mtlist-item").hide();
+						$("#htFlash .mtlist-item:eq(" + (htflash_index * 2) + ")").show();
+						$("#htFlash .mtlist-item:eq(" + (htflash_index * 2 + 1) + ")").show();
+
+					}
+					htflash_index++;
+					$("#htFlash-index").html(htflash_index);
+				}
+			})
+		</script>
+	</body>
+</html>

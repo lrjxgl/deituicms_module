@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">全职报名列表</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	<div class="row-box mgb-5">
+		{$quanzhi.title}
+	</div>
+	{if empty($list)}
+	<div class="emptyData">暂无报名</div>
+	{/if}
+    {foreach item=c from=$list}
+	 <div class="bg-white pd-10 mgb-5">
+	 	  <div class="c1 f16 mgb-5">联系人：{$c.nickname}</div>
+		   <div class="cl2  mgb-5">联系电话：{$c.telephone}</div>
+	 	  <div class="mgb-5 cl2">
+	 		  报名时间：{$c.createtime}	 		   
+	 	  </div>
+
+	 	  <div class="cl2">
+	 		 简介： {$c.description}
+	 	  </div>
+		  <div class="flex">
+			<div class="flex-1"></div>
+			  <div  class="btn-mini" @click="getJianli('{$c.userid}')">查看简历</div>
+		  </div>
+		  
+	 </div>
+	{/foreach} 
+	
+	<div v-if="showJianli">
+		<div @click="showJianli=false" class="modal-mask"></div>
+		<div class="modal">
+			<div class="modal-header">
+				<div class="modal-title">查看简历</div>
+				<div @click="showJianli=false"  class="modal-close icon-close"></div>
+			</div>
+			<div style="height:400px;margin-bottom: 20px; overflow: auto;">
+				<div class="flex row-box">
+					<img class="wh-60 mgr-10" :src="jianli.imgurl+'.100x100.jpg'" />
+					<div class="flex-1">
+						<div class="mgb-5">{{jianli.nickname}}</div>
+						<div class="flex">
+							<div class="mgr-5 cl2">{{jianli.age}}岁</div>
+							<div class="mgr-5 cl2">{{jianli.gender_title}}</div>
+							<div class="mgr-5 cl2">{{jianli.xueli}}</div>
+						</div>
+					</div>
+					<a :href="'tel:'+jianli.telephone" class="iconfont icon-phone pd-10"></a>
+				</div>
+				<div class="row-box mgb-5">
+					<div class="fw-600 mgb-5">工作经验</div>
+					<div v-html="jianli.job"></div>
+				</div>
+				<div class="row-box mgb-5">
+					<div class="fw-600 mgb-5">自我介绍</div>
+					<div v-html="jianli.description"></div>
+				</div>
+				<div class="row-box mgb-5">
+					<div class="fw-600 mgb-5">简历详情</div>
+					<div v-html="jianli.content"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script src="{$skins}job_quanzhi_baoming/quanzhi.js"></script>
+</body>
+</html>

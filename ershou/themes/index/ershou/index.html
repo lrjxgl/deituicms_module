@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}ershou/index.css" rel="stylesheet" />
+	<link href="{$skins}ershou_feeds/index.css?v2" rel="stylesheet" />
+	<body>
+		<div class="main-body" id="App">
+			<div class="mHeader">
+				<div class="flex flex-ai-center mgb-10">
+				 
+					<img  src="{$site.logo}" style="width: 50px;" /> 
+					<div class="flex-1"></div>
+					<div class="mNav">
+						<div @click="setPage('feeds')" :class="page=='feeds'?'mNav-item-active':''"  class="mNav-item">关注</div>
+						<div @click="setPage('index')" :class="page=='index'?'mNav-item-active':''" class="mNav-item ">推荐</div>
+					 
+					</div><div class="flex-1"></div>
+					<div gourl="/module.php?m=checkin" class="iconfont icon-checkin f22 cl-red pd-10"></div>
+					  
+				</div>
+				<div class="flex flex-ai-center">
+					<div class="mHeader-searchbox">
+						<div class="iconfont f22 icon-scan_light"></div>
+						
+						<input v-model="search_word" placeholder="手机壳 | 苹果13 " class="mHeader-search" type="text"/>
+						<div @click="goSearch()" class="iconfont f22 icon-search mHeader-searchbox-btn"></div>
+					</div>
+					<div gourl="/module.php?m=ershou_category"  class="iconfont icon-cascades f22 pd-5"></div>
+					 
+				</div>
+			</div>
+			<div style="height: 130px;"></div>
+			<!--顶部-->
+			<page-index v-if="page=='index'"></page-index>
+			<page-feeds v-if="page=='feeds'"></page-feeds>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-pagecache.js"></script>
+		<script src="{$skins}js/product-list.js"></script>
+		<script src="{$skins}ershou/index.js"></script>
+		<script src="{$skins}ershou/feeds.js"></script>
+		<script src="{$skins}ershou/app.js"></script> 
+		<script>
+			var flash=new Swiper("#indexFlash");
+		</script>
+	</body>
+</html>

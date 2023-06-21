@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理后台</title>
+<script language="javascript" src="/plugin/skyweb/jquery.js"></script>
+<link type="text/css" rel="stylesheet" href="/static/module/admin.css" />
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".mtitle").click(function()
+	{
+		if($(this).next(".menu").css("display")=="block")
+		{
+			$(".menu").css("display","none")
+		 
+		}else
+		{
+			$(".menu").css("display","none")
+			$(this).next(".menu").css({display:"block"});
+		}
+	});
+	parent['main-frame'].location.href=$("a:eq(0)").attr("href");
+	$("ul li a:eq(0)").addClass('on'); 
+	$('ul li a').click(function(){
+		$('ul li a').removeClass('on');
+		$(this).addClass('on');
+	});
+});
+</script>
+</head>
+
+<body id="menu-body" class="menu-body">
+<div class="mtitle"><span>会员卡</span></div>
+<div class="menu" style="display:block">
+<ul>
+<li><a href="/moduleadmin.php?m=mscard_shop"  target="main-frame">商家管理</a></li> 
+<li><a href="/moduleadmin.php?m=mscard"  target="main-frame">会员卡管理</a></li>
+ <li><a href="/moduleadmin.php?m=mscard_order"  target="main-frame">会员订单</a></li>
+ <li><a href="/moduleadmin.php?m=mscard_log"  target="main-frame">会员动作</a></li>
+</ul>
+</div>
+<a href="/moduleadmin.php?m=mscard"></a>
+ 
+</body>
+</html>

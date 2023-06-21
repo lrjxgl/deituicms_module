@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=shopmap_apply">管理</a>
+	
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   
+   
+   <td>名称</td>
+	<td>图片</td>
+
+   <td>地址</td>
+   <td>创建时间</td>
+ 
+   <td>联系电话</td>
+		<td>联系人</td>
+   <td>商家简介</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+    
+   
+   <td>{$c.title}</td>
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="60"/> </td>
+   <td>{$c.address}</td>
+   <td>{$c.createtime}</td>
+	<td>{$c.telephone}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.description}</td>
+   
+  
+<td>
+	<a href="javascript:;" class="js-pass" v="{$c.id}">通过</a>
+	<a href="javascript:;" class="js-forbid" v="{$c.id}">不通过</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-pass",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/moduleadmin.php?m=shopmap_apply&a=pass&ajax=1&id="+id,function(res){
+				skyToast(res.message);
+				obj.parents("tr").remove();
+			},"json")
+		})
+		$(document).on("click",".js-forbid",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/moduleadmin.php?m=shopmap_apply&a=forbid&ajax=1&id="+id,function(res){
+				skyToast(res.message);
+				obj.parents("tr").remove();
+			},"json")
+		})
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div url="/module.php?m=car" class="header-back"></div>
+			<div class="header-title">我的车源</div>
+		 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="tabs-border">
+				<div @click="setType('online')" class="tabs-border-item" :class="type=='online'?'tabs-border-active':''">上架中</div>
+				<div @click="setType('offline')"  class="tabs-border-item" :class="type=='offline'?'tabs-border-active':''">下架</div>
+				<div @click="setType('all')"  class="tabs-border-item" :class="type=='all'?'tabs-border-active':''">全部</div>
+			</div> 
+			<div v-if="list.length==0" class="emptyData">
+				暂无车源
+			</div>
+			<div v-else class="sglist">
+				 
+				<div v-for="(item,index) in  list" :key="index"  class="sglist-item">
+					<div class="flex mgb-5 bdb pd-5">
+						<div class="btn-mini-cycle" v-if="item.status==1">上架中</div>
+						<div class="btn-mini-cycle"  v-else>已下架</div>
+						<div v-if="item.isrecommend==1" class="btn-mini-cycle mgl-10" >已推荐</div>
+						<div class="flex-1"></div>
+						 
+					</div>
+					<div class="sglist-title">{{item.title}}</div>
+					
+					<div @click="goDetail(item.productid)" class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="flex mgb-10">
+						<div class="mgr-5 cl2">租金</div>
+						<div class="cl-money mgr-10">￥{{item.money}}</div>
+						<div class="flex-1"></div>
+						<div v-if="item.hb_on" class="cl-num">红包 {{item.hb_money}}元/{{item.hb_num}}个 </div>
+						 
+					</div>
+					<div class="sglist-ft flex-ai-center">
+						<div @click="toggleStatus(item)" :class="item.status==1?'yes':'no'"></div> 
+						<div @click="del(item.productid)" class="cl-danger iconfont pointer mgl-10 icon-delete"></div>
+						<div class="flex-1"></div>
+						<div  @click="goEdit(item.productid)" class="btn-mini btn-outline-danger mgr-10">编辑</div>
+						<div @click="recommend(item)" class="btn-mini btn-outline-danger mgr-10" v-if="item.isrecommend==0">上热门</div>
+						<div @click="showHb(item)" class="btn-mini btn-outline-danger mgr-10" v-if="item.hb_on==0">发红包</div>
+						 			 
+					</div>
+					
+				</div>
+				<div class="loadMore"  v-if="per_page>0" @click="loadMore">加载更多</div>
+				 
+			</div>
+			<div v-if="hbListShow">
+				<div  @click="hbListShow=false"  class="modal-mask"></div>
+				<div class="footerFix" style="z-index: 9999;">
+					<div class="row-box">
+						<div class="cl2 text-center">请选择红包金额</div>
+					</div>
+					<div class="row-box">
+						 
+						<div @click="hbid=item.id" :class="hbid==item.id?'cl-num':''" v-for="(item,index) in hbList" :key="index"  class="row-item-text pointer" >
+						{{item.hb_money}}元分{{item.hb_num}}包
+						</div>
+						 
+						 
+					</div>
+					
+					<div  class="row-box flex-center flex">
+						<div @click="hbListShow=false" class="btn-small mgr-10">取消</div>
+						<div  @click="sendHb()"  class="btn">确认发布</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var recommend_money="{$sconfig.recommend_money}";
+		</script>
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}car_zuche/my.js?vv"></script>
+	</body>
+</html>

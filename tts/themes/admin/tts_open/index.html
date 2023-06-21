@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='tts_open/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>com</td>
+   <td>appid</td>
+   <td>secret_id</td>
+   <td>secret_key</td>
+   <td>attr1</td>
+   <td>attr2</td>
+   <td>status</td>
+   <td>create_time</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.com}</td>
+   <td>{$c.appid}</td>
+   <td>{$c.secret_id}</td>
+   <td>{$c.secret_key}</td>
+   <td>{$c.attr1}</td>
+   <td>{$c.attr2}</td>
+   <td>{$c.status}</td>
+   <td>{$c.create_time}</td>
+<td><a href="/moduleadmin.php?m=tts_open&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=tts_open&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=tts_open&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

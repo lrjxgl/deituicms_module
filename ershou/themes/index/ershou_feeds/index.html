@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="UTF-8" /> 
+		
+		<title>发布页面</title>
+		<link href="/plugin/dt-ui/dt-ui-h5.css?v3" rel="stylesheet" />
+		<link href="//at.alicdn.com/t/font_811242_bl1740adjkh.css" rel="stylesheet" />
+		<link href="{$skins}ershou_feeds/index.css" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="main-body" id="App">
+			<div class="mHeader">
+				<div class="flex flex-ai-center mgb-10">
+				 
+					<img  src="{$site.logo}" style="width: 50px;" /> 
+					<div class="mNav">
+						<div gourl="/module.php?m=ershou_feeds" class="mNav-item mNav-item-active">关注</div>
+						<div gourl="/module.php?m=ershou" class="mNav-item">推荐</div>
+						<div gourl="/module.php?m=ershou_near" class="mNav-item">宁德</div>
+					</div>
+					<img gourl="/module.php?m=checkin" src="{$skins}/demo/top1.jpg" style="width: 50px;" /> 
+				</div>
+				<div class="flex flex-ai-center">
+					<div class="mHeader-searchbox">
+						<div class="iconfont f22 icon-scan_light"></div>
+						
+						<input placeholder="手机壳 | 苹果13 " class="mHeader-search" type="text"/>
+						<div gourl="/module.php?m=ershou_search" class="iconfont f22 icon-search"></div>
+					</div>
+					<img gourl="/module.php?m=ershou_category" src="{$skins}/demo/top6.jpg" style="width: 50px;" />
+				</div>
+			</div>
+			<div style="height: 130px;"></div>
+			<div>
+				<div @click="goItem(item)" v-for="(item,index) in list" :key="index" class="blogItem">
+					<img :src="item.user.user_head+'.100x100.jpg'" class="blogItem-head" />
+					<div class="flex-1">
+						<div class="flex mgb-5">
+							<div class="blogItem-hnick">{{item.user.nickname}}</div>
+							<div class="blogItem-htag">粉丝最爱</div>
+						</div>
+						<div class="cl3 mgb-5 f12">{{item.timeago}}给宝贝降了价</div>
+						<div class="flex flex-ai-end mgb-5">
+							<div class="blogItem-cl-money f14">降价至</div>
+							<div class="blogItem-cl-money">￥</div>
+							<div class="blogItem-cl-money f18">{{item.price}}</div>
+							<div class="blogItem-market-pirce">￥{{item.market_price}}</div>
+						</div>
+						<div class="inlineblock mgb-5">
+							<span class="blogItem-tag">降价</span>
+							<span>{{item.description}}</span>
+						</div>
+						<div class="flex mgb-5">
+							<img v-for="(cc,ccindex) in item.imgList" :key="ccindex" :src="cc+'.100x100.jpg'" class="blogItem-img" />
+							 
+						</div>
+						<div>
+							<div class="flex  mgb-5">
+								<div class="flex mgr-10">
+									<img v-for="(cm,cmindex) in item.cmList" :key="cmindex"  :src="cm.user_head+'.100x100.jpg'" class="blogItem-cm-head" />
+								</div>
+								<div class="cl3 f12">{{item.comment_num}}条留言 · {{item.love_num}}人想要 · {{item.view_num}}人浏览</div>
+							</div>
+							<div class="blogItem-cmbox">
+								<div v-for="(cm,cmindex) in item.cmList" :key="cmindex" class="flex flex-ai-center">
+									<div>{{cm.nickname}}：</div>
+									<div class="cl3 f12">{{cm.content}}</div>
+								</div>
+								 
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				 
+			</div>
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}ershou_feeds/index.js"></script>
+	</body>
+</html>

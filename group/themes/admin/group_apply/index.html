@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="tabs-border">
+		<div class="item active">圈子申请</div>
+	</div>
+ 
+<div class="main-body">
+    
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>gid</td>
+   
+   <td>名称</td>
+   <td>Logo</td>
+   <td>主题</td>
+    
+   <td>描述</td>
+   <td>申请人</td>
+   <td>时间</td>
+   <td>状态</td>
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.gid}</td>
+   
+   <td>{$c.gname}</td>
+   <td><img src="{$c.glogo|images_site}.100x100.jpg" width="40px"> </td>
+   <td>{$c.title}</td>
+  
+   <td>{$c.description}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.status}</td>
+<td>
+	<a href="javascript:;" class="js-pass" gid="{$c.gid}">通过</a>
+	<a href="javascript:;" class="js-forbid" gid="{$c.gid}">禁止</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+   
+</div>
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-pass",function(){
+			var obj=$(this);
+			$.get("/moduleadmin.php?m=group_apply&a=pass&ajax=1&gid="+$(this).attr("gid"),function(data){
+				obj.parents("tr").remove();
+			},"json")
+		})
+		
+		$(document).on("click",".js-forbid",function(){
+			var obj=$(this);
+			$.get("/moduleadmin.php?m=group_apply&a=forbid&ajax=1&gid="+$(this).attr("gid"),function(data){
+				obj.parents("tr").remove();
+			},"json")
+		})
+	})
+</script>
+</body>
+</html>

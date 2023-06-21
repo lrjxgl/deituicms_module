@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>shopid</td>
+   <td>userid</td>
+   <td>名称</td>
+   <td>地址</td>
+   <td>纬度</td>
+   <td>经度</td>
+   <td>nickname</td>
+   <td>联系电话</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.shopid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.shopname}</td>
+   <td>{$c.address}</td>
+   <td>{$c.lat}</td>
+   <td>{$c.lng}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.status}</td>
+<td><a href="/module.php?m=youyao_shop_apply&a=add&shopid={$c.shopid}">编辑</a> <a href="/module.php?m=youyao_shop_apply&a=show&shopid={$c.shopid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=youyao_shop_apply&a=delete&ajax=1&shopid={$c.shopid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

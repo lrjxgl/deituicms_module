@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布求药</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=youyao_find&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<input  type="hidden" name="lat" id="lat"/>
+				<input  type="hidden" name="lng" id="lng" />
+				<div class="textarea-flex">
+					<textarea class="textarea-flex-text" placeholder="填写求药信息" name="content">{$data.content}</textarea>
+					 
+				</div>
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src = 'https://webapi.amap.com/maps?v=2.0&key={$map.mkey}'></script>
+		<script>
+			AMap.plugin('AMap.Geolocation', function() {
+			  var geolocation = new AMap.Geolocation({
+			    // 是否使用高精度定位，默认：true
+			    enableHighAccuracy: true,
+			    // 设置定位超时时间，默认：无穷大
+			    timeout: 20000,
+			    // 定位按钮的停靠位置的偏移量
+			    offset: [10, 20],
+			    //  定位成功后调整地图视野范围使定位位置及精度范围视野内可见，默认：false
+			    zoomToAccuracy: true,     
+			    //  定位按钮的排放位置,  RB表示右下
+			    position: 'RB'
+			  })
+			
+			  geolocation.getCurrentPosition(function(status,result){
+			        if(status=='complete'){
+			            onComplete(result)
+			        }else{
+			            onError(result)
+			        }
+			  });
+			
+			  function onComplete (res) {
+			    console.log(res.position)
+				$("#lat").val(res.position.lat);
+				$("#lng").val(res.position.lng);
+			  }
+			
+			  function onError (data) {
+			     console.log(data)
+			  }
+			})
+		</script>
+	</body>
+</html>

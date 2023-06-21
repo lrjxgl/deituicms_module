@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 <style>
+		 .mtlist-find{
+			 font-size:12px; border-radius: 10px; border: 1px solid #ddd; padding: 3px 10px 3px 5px;
+			 margin-right: -15px;
+		 }
+		 
+	 </style>
+	<body>
+		<div class="header">
+			<div class="header-title">{if $cat}{$cat.title}{else}推荐{/if}</div>
+		</div>
+		<div class="header-row"></div>
+		<style>
+			.tabs-border{
+				overflow: hidden;
+			}
+			.tabs-border-item{
+				width: 20%;
+				flex: inherit;
+			}
+			.tabs-border-wrap{
+				flex-wrap: wrap;
+				
+			}
+			.tabs-border-wrap .tabs-border-item{
+				flex:inherit;
+				width: 20%;
+				margin-bottom: 10px;
+			}
+			.tabs-border-right{
+				position: fixed;
+				right: 0px;
+				top: 45px;
+				width: 30px;
+				height: 30px;
+				background-color: #fff;
+				font-family: iconfont;
+				justify-content: center;
+				align-items: center;
+			}
+			.tabs-border-right:before{
+				content:"\e612"
+			}
+			.tabs-border-right-active:before{
+				content:"\e611"
+			}
+			.tabs-border-title{
+				color: #b7b7b7;
+				font-size: 12px;
+				padding: 6px;
+				background-color: #fff;
+				padding-left: 26px;
+			}
+		</style>
+		<div class="main-body" style="display: none;" :class="'flex-col'" v-if="pageLoad"  id="app">
+					<div :class="tabsTitleClass" class="tabs-border-title">分类</div>
+					
+						<div :class="tabClass" id="swiperTabs" class="tabs-border  mgb-5">
+							<div :class="catActive"  @click="setCat(pid)" class="tabs-border-item">全部</div>
+							<div @click="setCat(item.catid)" :class="item.isactive?'tabs-border-active':''" class="tabs-border-item "  v-for="(item,index) in pageData.catList" :key="index">{{item.title}}</div>
+						</div>
+				
+					<div @click="tabToggle" class="tabs-border-right icon-"></div>
+				
+				<div class="mtlist">
+					<div class="mtlist-item" v-for="(item,index) in pageData.list" :key="index">
+						<div class="mtlist-item-bd">
+							<img @click="goProduct(item.shopid,item.id)" class="mtlist-img pointer bd-radius-5" :src="item.imgurl" />
+							<div class="mtlist-item-pd">
+								<div @click="goProduct(item.shopid,item.id)" class="mtlist-title pointer">{{item.title}}</div>
+								<div class="cl-num f10">急速退款</div>
+								<div class="flex flex-ai-center mgb-5">
+									<div class="cl-money f12">￥</div>
+									<div class="cl-money f14 mgr-5">{{item.price}}</div>
+									<div class="cl3 f10">已拼{{item.buy_num}}件</div>
+									<div class="flex-1"></div>
+									<div @click="goProduct(item.shopid,item.id)"  class="mtlist-find flex">
+										<div class="f12">发现 </div>
+										<div class="iconfont f12 cl3 icon-right"></div></div>
+								</div>
+								 
+							</div>
+						</div>
+
+					</div>
+				 
+				<div     v-if="ksShow">
+					<div class="modal-mask" @click="ksHide"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">选择款式</div>
+							<div class="modal-close icon-close" @click="ksHide"></div>
+						</div>
+						<div class="modal-body pdt-10">	
+							<div class="ksBox mgb-10">
+								<div class="kslist mgb-10">
+									<div class="kslist-label">{{ksproduct.ks_label_name}}</div>
+									<div @click="ks1(item.id)" v-bind:class="{'kslist-active':item.id==ksid1}" class="kslist-item" v-for="(item,index) in ksList" :key="index">{{item.title}}</div>
+								</div>
+								<div class="kslist">
+									<div class="kslist-label">{{ksproduct.ks_label_size}}</div>
+									<div class="kslist-item" @click="ks2(item.id)"  v-bind:class="{'kslist-active':item.id==ksid}" v-for="(item,index) in ksList2" :key="index">{{item.size}}</div>
+								</div>
+							</div>
+							<div class="flex">
+								<div class="cl2 mgr-10 mgl-10">价格</div>
+								<div class="cl-money">￥{{ksproduct.price}}</div>
+								<div class="flex-1"></div>
+								<div v-if="ksproduct.incart" class="numbox prolist-numbox">
+									<div @click="ksMinusCart(ksproduct.shopid,ksproduct.id,ksproduct.cart_amount)" class="numbox-minus">-</div>
+									<input type="text" name="amount" :value="ksproduct.cart_amount" class="numbox-num" />
+									<div @click="ksPlusCart(ksproduct.shopid,ksproduct.id,ksproduct.cart_amount)" class="numbox-plus">+</div>	
+								</div>
+								<div @click="ksAddCart(ksproduct.shopid,ksproduct.id)"  class="btn-buy" v-else>买</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="pdd_prolist"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var catid="{$cat.catid}";
+		</script>
+		<script src="{$skins}pdd_prolist/swiper.js"></script>
+		<script src="/plugin/jquery/listload.js"></script>
+		<script src="{$skins}/pdd_prolist/index.js"></script>
+		<script>
+			$("#swiperTabs").on("swipeLeft",function(e){
+				console.log(e)
+			})
+			listload.showload(function(){
+				App.getList();
+			})
+		</script>
+	</body>
+</html>

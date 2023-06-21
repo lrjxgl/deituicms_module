@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.ggkBox{
+			position: relative;
+			width: 80%;
+			margin: 0 auto;
+			background-color: #00A2D4;
+			border-radius: 5px;
+			margin-bottom: 10px;
+		}
+		.ggkReward{
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			text-align: center;
+			display: flex;
+			flex-direction: row;
+			    justify-content: center;
+			align-items: center;
+			color: #fff;
+			font-size: 14px;
+			opacity: 0;
+		}
+		.ggkCanvas{
+			position: relative;
+			
+		}
+		.ggkBtn{
+			position: absolute;
+			left: 50%;
+			top:50%;
+			width: 100px;
+			margin-left: -50px;
+			margin-top:-18px;
+			text-align: center;
+			height: 36px;
+			line-height: 36px;
+			background-color: #00B7EE;
+			color: #fff;
+			z-index: 10;
+			border-radius: 10px;
+		}	
+	</style>
+	<body class="bg-white">
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">幸运刮刮卡</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body pdt-10">
+			<div class=" pd-10 text-center">{$event.title}</div>
+			<div class="ggkBox mgb-10">
+				<div id="ggkReward" class="ggkReward">
+					 恭喜你中奖了 
+				</div>
+				<div id="getOrder" class="ggkBtn">刮一下</div>
+			    <canvas  class="ggkCanvas" id="canvas" width="320" height="80"></canvas>
+				
+			</div>
+			<div id="App" >
+				<div class="tabs-border" >
+					<div @click="setTab('all')" :class="tab=='all'?'tabs-border-active':''" class="tabs-border-item">中奖名单</div>
+					
+					
+					<div @click="setTab('my')" :class="tab=='my'?'tabs-border-active':''"  class="tabs-border-item">我的奖品</div> 
+				</div>	
+				<div class="pd-10" style="max-height: 340px; overflow: auto;">
+					<div v-show="tab=='all'"> 
+						<div class="flex mgb-10">
+							<div class="w100">昵称</div>
+							<div class="flex-1">奖品</div>
+							<div class="w100">时间</div>
+						</div>
+						<div class="flex mgb-10" v-for="(item,index) in list" :key="index">
+							<div class="w100">{{item.nickname}}</div>
+							<div class="flex-1">{{item.product.description}}</div>
+							<div class="w100">{{item.time}}</div>
+						</div>
+					</div>
+					<div v-show="tab=='my'">
+						<div class="flex mgb-10">
+							<div class="w100">昵称</div>
+							<div class="flex-1">奖品</div>
+							 
+						</div>
+						<div class="flex mgb-10" v-for="(item,index) in myList" :key="index">
+							<div class="w100">{{item.nickname}}</div>
+							<div class="flex-1">{{item.product.description}}</div>
+							<div class="w150 flex-center flex">
+								<template v-if="item.sendtype==1   ">
+								<div @click="showAddr(item.orderid)" v-if="item.status==0 && item.telephone=='' " class="btn-mini mgr-5">完善收货</div>
+								<div @click="received(item.orderid)" v-else-if="item.status==2" class="btn-mini">确认收货</div>
+								<div  class="cl-status"  v-else-if="item.status==3">已完成</div>
+								<div v-else>待配送</div>
+								</template>
+								<div v-else-if="item.status==0" class="cl3">待兑换</div>
+								<div class="cl-status" v-else>已兑换</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div v-show="isAddr">
+					<div class="modal-mask"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">收货地址</div>
+							<div @click="hideAddr()" class="modal-close icon-close"></div>
+						</div>
+						<div class="row-box">
+							<div>
+								
+								<div class="input-flex">
+									<label class="input-flex-label">联系人</label>
+									<input id="addr-nickname" v-model="addr.nickname" class="input-flex-text" type="text">
+								</div>
+								<div class="input-flex">
+									<label class="input-flex-label">电话</label>
+									<input id="addr-telephone" v-model="addr.telephone" class="input-flex-text" type="text">
+								</div>
+								<div class="input-flex">
+									<label class="input-flex-label">地址</label>
+									<input id="addr-address" v-model="addr.address" class="input-flex-text" type="text">
+								</div>
+								<div @click="changeAddr" class="btn-row-submit">确认提交</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class="footer-row"></div>
+		{include file="footer.html"}
+		 
+		 
+		<script>
+			
+			var eventid="{$event.eventid}";
+			
+		</script>
+		<script src="{$skins}dzp_event/ggk/show.js"></script>
+	</body>
+</html>

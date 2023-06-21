@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">Ftp</div>
+			<div id="goHost" class="header-right-btn">连接</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div v-if="page=='list'" class="row-box">
+				<div v-if="dir!='' " class="flex flex-ai-center bd-mp-5">
+					<div  class="flex-1">当前目录：{{dir}}</div>
+					<div class="cl-primary w60"  @click="goLastDir()">
+						返回上级
+					</div>
+				</div>
+				
+				<div class="bd-mp-5" v-for="(item,index) in list" :key="index">
+					<div  v-if="item.type=='dir'" class="flex flex-ai-center">
+						<div @click="goDir(item)" class="iconfont  icon-file cl-primary"></div>
+						<div @click="goDir(item)" class="cl-primary">{{item.name}}</div>
+						<div class="flex-1"></div>
+						<div   @click="rmDir(item)" class="btn-mini mgl-5 btn-danger">删除</div>
+						<div   @click="renameFile(item)" class="btn-mini mgl-5">重命名</div>
+					</div>
+					<div v-else  class="flex flex-ai-center">
+						<div class="iconfont icon-text"></div>
+						<div class="cl1">{{item.name}}</div>
+						<div class="flex-1"></div>
+						<div   @click="editFile(item)" class="btn-mini ">编辑</div>
+						<div   @click="delFile(item)" class="btn-mini mgl-5 btn-danger">删除</div>
+						<div   @click="renameFile(item)" class="btn-mini mgl-5">重命名</div>
+					</div>
+					
+				</div>
+				 
+				<div class="footer-row"></div>
+				<div class="footer pd-10">
+					<div class="flex-1"></div>
+					<div @click="page='add'" class="btn-mini mgr-5">新建文件</div>
+					<div @click="page='createDir'" class="btn-mini mgr-5">新建目录</div>
+					<div @click="choiceFile" class="btn-mini">上传文件</div>
+					<input @change="upFile" type="file" id="uFile" class="none"/>
+				</div>
+				 
+			</div>
+			<div class="row-box" v-if="page=='add'">
+				<div class="flex mgb-10">
+					<div class="flex-1">新建文件</div>
+					<div @click="page='list'" class="cl-danger ">关闭</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input  class="input-flex-text" v-model="add.title" type="text"/>
+				</div>
+				<textarea class="textarea-flex-text tabIndent" style="height: 400px;" v-model="add.content"></textarea>
+				 <div @click="createFile" class="btn-row-submit">保存</div>
+			</div>
+			
+			<div class="row-box" v-if="page=='edit'">
+				<div class="flex mgb-10">
+					<div class="flex-1">编辑文件</div>
+					<div @click="page='list'" class="cl-danger ">关闭</div>
+				</div>
+				
+				<textarea class="textarea-flex-text tabIndent" style="height: 500px;" v-model="fileContent"></textarea>
+				 <div @click="saveFile" class="btn-row-submit">保存</div>
+			</div>
+			<div class="row-box" v-if="page=='rename'">
+				<div class="flex mgb-10">
+					<div class="flex-1">重命名</div>
+					<div @click="page='list'" class="cl-danger ">关闭</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">原文件</div>
+					<div class="input-flex-txt">{{file}}</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input  class="input-flex-text" v-model="rename_title" type="text"/>
+				</div>
+				
+				<div @click="renameFileSave()" class="btn-row-submit">保存</div>
+			</div>
+			<div class="row-box" v-if="page=='createDir'">
+				<div class="flex mgb-10">
+					<div class="flex-1">新建目录</div>
+					<div @click="page='list'" class="cl-danger ">关闭</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">目录名称</div>
+					<input  class="input-flex-text" v-model="newDir.title" type="text"/>
+				</div>
+				<div @click="createDir" class="btn-row-submit">保存</div>
+			</div>
+			<div class="row-box" v-if="page=='host'">
+				<div class="flex mgb-10">
+					<div class="flex-1">主机管理</div>
+					<div class="cl-primary" @click="page='list'" v-if="ftpid">返回</div>
+				</div>
+				
+				<ftp-host @call-parent="setHost"></ftp-host>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}index/tabIndent.js?v2"></script>
+		<script src="{$skins}index/ftp-host.js?v2"></script>
+		<script src="{$skins}index/index.js"></script>
+		<script>
+			$(document).on("click","#goHost",function(){
+				if(App.$data.page=='host'){
+					App.$data.page="list";
+				}else{
+					App.$data.page="host";
+				}
+				
+			})
+		</script>
+	</body>
+</html>

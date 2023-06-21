@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	<form method="post" action="/module.php?m=group_title&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table table-bordered" >
+  <tr><td>status：</td><td><input type="text" name="status" id="status" value="{$data.status}" ></td></tr>
+  {if $data}<tr><td>dateline：</td><td>{$data.dateline|date:Y-m-d H:m}</td></tr>{/if}
+  <tr><td>gid：</td><td><input type="text" name="gid" id="gid" value="{$data.gid}" ></td></tr>
+  <tr><td>tagid：</td><td><input type="text" name="tagid" id="tagid" value="{$data.tagid}" ></td></tr>
+  <tr><td>userid：</td><td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td></tr>
+  <tr><td>title：</td><td><input type="text" name="title" id="title" value="{$data.title}" ></td></tr>
+  <tr><td>keywords：</td><td><input type="text" name="keywords" id="keywords" value="{$data.keywords}" ></td></tr>
+  <tr><td>description：</td><td><input type="text" name="description" id="description" value="{$data.description}" ></td></tr>
+  <tr><td>imgsdata：</td><td><input type="text" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" ></td></tr>
+  <tr><td>last_time：</td><td><input type="text" name="last_time" id="last_time" value="{$data.last_time}" ></td></tr>
+  <tr><td>comment_num：</td><td><input type="text" name="comment_num" id="comment_num" value="{$data.comment_num}" ></td></tr>
+  <tr><td>click_num：</td><td><input type="text" name="click_num" id="click_num" value="{$data.click_num}" ></td></tr>
+  <tr><td>isrecommend：</td><td><input type="text" name="isrecommend" id="isrecommend" value="{$data.isrecommend}" ></td></tr>
+  <tr><td>isnew：</td><td><input type="text" name="isnew" id="isnew" value="{$data.isnew}" ></td></tr>
+  <tr><td>ishot：</td><td><input type="text" name="ishot" id="ishot" value="{$data.ishot}" ></td></tr>
+  <tr><td>love_num：</td><td><input type="text" name="love_num" id="love_num" value="{$data.love_num}" ></td></tr>
+  <tr><td>isding：</td><td><input type="text" name="isding" id="isding" value="{$data.isding}" ></td></tr>
+  <tr><td>首页展示：</td><td><input type="text" name="isindex" id="isindex" value="{$data.isindex}" ></td></tr>
+  <tr><td>内容：</td><td><input type="text" name="content" id="content" value="{$data.content}" ></td></tr>
+<tr><td></td><td><input type="submit" value="保存" class="btn btn-success"></td></tr> </table>
+</form>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

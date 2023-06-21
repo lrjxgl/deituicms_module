@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的图片</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div v-if="list.length==0" class="emptyData">暂无图片</div>
+			<div v-if="list.length>0">
+				<div class="flex pd-10 ">
+					<div class="f16">我的图片</div>
+					
+					<div class="flex-1"></div>
+					<div class="mgr-5">共{{rscount}}张</div>
+					<div class="cl-primary pointer" @click="refresh()">刷新</div>
+				</div>
+				
+				<div class="flex">
+					<div class="flex-1 mgr-5"  >
+						<template  v-for="(item,index) in list" :key="index">
+							<div class="row-box mgb-5" v-if="index%2==0">
+								<img  @click="showItem(item)" class="wall"   :src="item.imgurl+'.small.jpg'"/>
+							</div>
+						</template>
+					</div>
+					<div class="flex-1">
+						<template  v-for="(item,index) in list" :key="index">
+							<div  class="row-box mgb-5" v-if="index%2==1">
+								<img @click="showItem(item)" class="wall"   :src="item.imgurl+'.small.jpg'"/>
+							</div>
+						</template>
+					</div>
+				</div>
+				<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+			</div>
+			<div v-if="showArticle">
+				<div @click="showArticle=false" class="modal-mask"></div>
+				<div class="modal" :style="picModal">
+					<div class="modal-header">
+						<div class="modal-title">查看图片</div>
+						<div @click="goLast()" class="mgr-10 pointer cl-primary">上一张</div>
+						<div @click="goNext()" class="mgr-10  pointer cl-primary">下一张</div>
+						<div @click="showArticle=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="pd-10">
+						<img :src="article.imgurl" class="wall mgb-5" style="max-width: 500px;" />
+						<div class="mgb-5">
+							<div>{{article.prompt}}</div>
+						</div>
+						<div class="flex mgb-10">
+							<div @click="copy(article.prompt)" class="btn-small mgr-10">再来一张</div>
+							<div @click="delItem(article)" class="btn-small">删除图片</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}aichat_img/my.js"></script>
+	</body>
+</html>

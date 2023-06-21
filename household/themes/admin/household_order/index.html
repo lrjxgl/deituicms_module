@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body >
+		{if get("type") eq "new"}
+		<div class="tabs-border">
+			<div class="item active">新订单</div>
+		</div>
+		{elseif get("type") eq "unpay"}
+		<div class="tabs-border">
+			<div class="item active">待支付订单</div>
+		</div>
+		{else}
+		<div class="tabs-border">
+			<a href="/moduleadmin.php?m=household_order&type=all" class="item {if get('type') eq 'all'}active{/if}">全部订单</a>
+			 
+			<a href="/moduleadmin.php?m=household_order&type=unsend" class="item {if get('type') eq 'unsend'}active{/if}">待处理</a>
+			<a href="/moduleadmin.php?m=household_order&type=unreceive" class="item {if get('type') eq 'unreceive'}active{/if}">待验收</a>
+			<a href="/moduleadmin.php?m=household_order&type=unraty" class="item {if get('type') eq 'unraty'}active{/if}">待评价</a>
+		</div>
+		{/if}
+		<div class="main-body">
+			<form autocomplete="off" class="search-form" action="/moduleadmin.php"> 
+				<input type="hidden" name="m" value="household_order">
+				<input type="hidden" name="type" value="{$smarty.get.type|html}" />
+				ID <input type="text"  class="w50" name="orderid" value="{$smarty.get.orderid|intval}" />
+				订单号 <input type="text" class="w150" name="orderno" value="{$smarty.get.orderno|html}" />
+				用户 <input type="text" name="nickname" class="w100" value="{$smarty.get.nickname|html}" />	 
+				 
+				<button type="submit" class="btn" >搜索</button>
+			</form>
+			<div class="bg-ef">
+			{foreach item=item from=$list}
+			<div class="row-box mgb-10" v-for="(item,index) in list" :key="index">
+					<div class="flex bd-mp-5">
+						{if $item.ispin==1}
+						<div class="mgr-5">
+							<div class="btn-mini btn-outline-primary ">拼</div>
+						</div>
+						{/if}
+						<div class="flex-1 cl2">订单号：{$item.orderno}</div>
+						{if $item.senderid}
+						<div class="cl-primary mgr-10">
+							{$item.sender.truename}
+						</div>
+						
+						{/if}
+						<div class="cl-primary">{$item.status_name}</div>
+					</div>
+					<div class="flex bd-mp-5">
+						<div class="cl2 mgr-10">{$item.nickname}</div>
+						<div class="cl2 mgr-10">{$item.telephone}</div>
+						<div class="cl2 mgr-10">{$item.addr.address}</div>
+					</div>
+					<div class="flex flex-wrap">
+					{foreach item=pro from=$item.prolist}
+					<div class="flexlist-item" style="width: 20%; margin-right: 5px;">
+						<img class="flexlist-img" src="{$pro.imgurl}.100x100.jpg">
+						<div class="flex-1">
+							<div class="flexlist-title">{$pro.title}</div>
+							<div class="flexlist-ks">{$pro.ks_title}</div>
+							<div class="flex ">
+								<div class="flex-1 cl-money">￥{$pro.price}</div>
+								<div class="cl3">x {$pro.amount}</div>
+							</div>
+							
+						</div>
+					</div>
+					{/foreach} 
+					</div>
+					<div class="flex mgb-5">
+						 共<div class="cl-num">{$item.total_num}</div>件商品  
+						 订单金额：<div class="cl-money">￥{$item.money}</div>元
+						 
+						 <div class="flex-1"></div> 
+						 
+					</div>
+					 
+					<div  class="flex flex-jc-end">
+						<div class="cl3 f12">{$item.timeago}</div>
+						<div class="flex-1"></div>
+						{if !$item.senderid}
+						<div orderid="{$item.orderid}" class="btn-small mgr-10 btn-outline-success js-pai-btn">派单</div>
+						{/if} 
+						<div class="btn-small  btn-outline-danger" gourl="/moduleadmin.php?m=household_order&a=show&orderid={$item.orderid}">查看</div>
+					</div>
+					 
+			</div>
+		 
+		  
+			{/foreach}
+			 
+			<div>{$pagelist}</div>
+			</div>
+		</div>
+		<style>
+			.selectItem{
+				border: 1px solid #ddd;
+				padding: 5px 10px;
+				margin: 5px;
+				cursor: pointer;
+			}
+			.selectItem-active{
+				color: #f60;
+				border-color: #f60;
+			}
+		</style>
+		<div id="sApp"  v-if="isShow">
+			<div @click="isShow=false" class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header">
+					<div class="modal-title">师傅派单</div>
+					<div  @click="isShow=false"  class="modal-close icon-close"></div>
+				</div>
+				<div class="modal-body">
+					<div class="flex flex-wrap">
+						<div :class="item.selected==1?'selectItem-active':''" @click="change(item)" class="selectItem" v-for="(item,index) in list" :key="index">
+							{{item.truename}}
+							
+						</div>
+					</div>
+					<div @click="submit" class="btn-row-submit">确认</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script>
+			var orderid=0;
+			laydate.render({
+				elem:"#stime"
+			})
+			laydate.render({
+				elem:"#etime"
+			});
+			var sApp=new Vue({
+				el:"#sApp",
+				data:function(){
+					return {
+						list:[],
+						isShow:false,
+						senderid:0
+					}
+				},
+				created:function(){
+					
+				},
+				methods:{
+					getPage:function(){
+						var that=this;
+						$.ajax({
+							url:"/moduleadmin.php?m=household_sender&a=order&ajax=1",
+							data:{
+								orderid:orderid
+							},
+							dataType:"json",
+							success:function(res){
+								var list=[];
+								for(var i in res.data.list){
+									res.data.list[i].selected=0;
+									list.push(res.data.list[i])
+								}
+								that.list=list;
+							}
+						})
+					},
+					show:function(){
+						this.isShow=true;
+						this.getPage();
+					},
+					change:function(item){
+						item.selected=1;
+						this.senderid=item.senderid;
+					},
+					submit:function(){
+						var that=this;
+						$.ajax({
+							url:"/moduleadmin.php?m=household_order&a=paidan&ajax=1",
+							data:{
+								orderid:orderid,
+								senderid:this.senderid
+							},
+							type:"POST",
+							dataType:"json",
+							success:function(res){
+								if(res.error){
+									skyToast(res.message);
+									return false;
+								}else{
+									window.location.reload();
+								}
+								
+							}
+						})
+					}
+				}
+			})
+			$(document).on("click",".js-pai-btn",function(){
+				orderid=$(this).attr("orderid");
+				sApp.show();
+			})
+		</script>
+	</body>
+</html>

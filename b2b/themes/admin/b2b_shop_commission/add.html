@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='b2b_shop_commission/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=b2b_shop_commission&a=save">
+				
+				<table class="table-add">
+					<tr>
+						<td>shopid</td>
+						<td>
+							<input type="text" name="shopid" value="{$data.shopid}">
+						</td>
+					</tr>
+					<tr>
+						<td>per：</td>
+						<td><input class="w100" type="text" name="per" id="per" value="{$data.per}">%</td>
+					</tr>
+					<tr>
+						<td>stime：</td>
+						<td><input type="text" name="stime" id="stime" value="{$data.stime|date:Y-m-d H:i:s}"></td>
+					</tr>
+					<tr>
+						<td>etime：</td>
+						<td><input type="text" name="etime" id="etime" value="{$data.etime|date:Y-m-d H:i:s}"></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#stime",
+				type:"datetime"
+			})
+			laydate.render({
+				elem:"#etime",
+				type:"datetime"
+			})
+		</script>
+	</body>
+</html>

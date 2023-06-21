@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='fxa_product/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fxa_product&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>标题：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>商家：</td>
+						<td>
+							<select name="shopid">
+								<option value="0">请选择商家</option>
+								{foreach item=c from=$shopList}
+								<option value="{$c.shopid}" {if $data.shopid eq $c.shopid}selected{/if}>{$c.title}</option>
+								{/foreach}
+							</select>
+							</td>
+					</tr>
+					<tr>
+						<td>产品描述：</td>
+						<td><textarea class="textarea-flex-text h60" name="description">{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1">上线
+							<input type="radio" {if $data.status neq 1}checked{/if}  name="status"  value="0">下线
+						</td>
+					</tr>
+					<tr>
+						<td>配送类型</td>
+						<td>
+							<input  type="radio" name="send_type" value="0" {if $data.send_type neq 1}checked{/if} />快递
+							<input  type="radio" name="send_type" value="1" {if $data.send_type eq 1}checked{/if}  />到店
+							
+						</td>
+					</tr>
+					<tr>
+						<td>截止时间</td>
+						<td>
+							<input type="text" autocomplete="off" id="etime" name="etime" value="{$data.etime|date:Y-m-d H:i:s}" />
+						</td>
+					</tr>
+					<tr>
+						<td>使用说明</td>
+						<td>
+							<textarea name="usedesc">{$data.usedesc}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>价格：</td>
+						<td><input type="text" name="price" id="price" value="{$data.price}"></td>
+					</tr>
+					<tr>
+						<td>分销收益：</td>
+						<td><input type="text" name="fx_money" id="fx_money" value="{$data.fx_money}"></td>
+					</tr>
+					<tr>
+						<td>商家收益：</td>
+						<td><input type="text" name="shop_money" id="shop_money" value="{$data.shop_money}"></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+								<div>主图：750*1330</div>
+							</div>
+					
+						</td>
+					</tr>
+					
+					<tr>
+						<td>内容图集：</td>
+						<td>
+							<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+							{include file="inc/uploader-data.html"}
+						</td>
+					</tr>
+					<tr>
+						<td>模板</td>
+						<td>
+							<input class="w300" type="text" name="tpl" value="{$data.tpl}"/> (*默认模板留空)
+						</td>
+					</tr>
+					<tr>
+						<td>内容</td>
+						<td>
+							<script type="text/plain" id="content" name="content">{$data.content}</script>
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/static/admin/js/upload.js"></script> 
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#etime",
+				type:"datetime"
+			})
+		</script>
+		{php loadEditor();}
+		<script>
+			var editor = UE.getEditor('content', options);
+			 
+		</script>
+	</body>
+</html>

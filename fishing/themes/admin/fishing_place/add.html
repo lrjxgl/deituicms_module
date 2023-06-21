@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+	.baiduMap{
+		position: absolute;
+		left: 0;
+		width: 100%;
+		top:-1000px;
+		height:360px;
+		background-color: #fff;
+	}</style>
+	<body>
+		<div class="shd">钓点编辑</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fishing_place&a=save">
+				<input type="hidden" name="placeid" style="display:none;" value="{$data.placeid}">
+				<table class="table-add">
+					 
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>保护力度</td>
+						<td>
+							<div class="  flex flex-ai-center">
+								<input {if $data.is_allow eq 0}checked{/if} type="radio" name="is_allow" value="0" />
+								<div class="mgr-5">自由</div>
+								<input {if $data.is_allow eq 1}checked{/if} type="radio" name="is_allow" value="1" />
+								<div class="mgr-5">限制</div>
+								<input {if $data.is_allow eq 2}checked{/if} type="radio" name="is_allow" value="2" />
+								<div class="mgr-5">禁止</div>
+							</div>
+						</td>
+					</tr> 
+					<tr>
+						<td>描述：</td>
+						<td><textarea name="description" id="description"
+								class="textarea-flex-text h60" />{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td>
+							<input type="text" name="address" class="w300" id="address" value="{$data.address}">
+							<input type="hidden" id="lat" name="lat" value="{$data.lat}" />
+							<input type="hidden" id="lng" name="lng" value="{$data.lng}" />
+							<div class="btn-small  js-map-show w60 flex-center iconfont icon-location_light"></div>
+						</td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status" value="2"> 下线
+						</td>
+					</tr>
+					{if $data}<tr>
+						<td>创建时间：</td>
+						<td>{$data.createtime}</td>
+					</tr>{/if}
+					 
+					<tr>
+						<td>访问人数：</td>
+						<td><input type="text" name="view_num" id="view_num" value="{$data.view_num}"></td>
+					</tr>
+					<tr>
+						<td>打卡人数：</td>
+						<td><input type="text" name="checkin_num" id="checkin_num" value="{$data.checkin_num}"></td>
+					</tr>
+					<tr>
+						<td>主题数：</td>
+						<td><input type="text" name="topic_num" id="topic_num" value="{$data.topic_num}"></td>
+					</tr>
+					<tr>
+						<td>图集：</td>
+						<td>
+						<input type="hidden" id="imgsdata" value="{$data.imgsdata}" name="imgsdata" />
+						{include file="inc/uploader-data.html"}</td>
+					</tr>
+					
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		<!--百度地图-->
+		<div class="baiduMap">
+			<div id="mapCanvas" style="width:100%; height:300px; margin-bottom: 10px;"></div>
+			<div class="flex flex-center">
+				<div class="btn mgr-10" onclick="hideMap()">取消</div>
+				<div class="btn" onclick="sureAddressFn()">确定</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script>
+		var lat="{$shop.lat}", lng="{$shop.lng}";
+		</script>
+		 <script src="{$skins}fishing_place/add.js"></script>
+		 <script src="/plugin/lrz/lrz.bundle.js?v2"></script> 
+		 <script src="{$skins}inc/uploader-data.js"></script>
+	</body>
+</html>

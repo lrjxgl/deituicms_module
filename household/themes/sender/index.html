@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+	{include file="head.html"}
+	<style>
+		.btn-song,
+		.btn-shou {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;
+			margin-right: 5px;
+			background-color: #53beb7;
+			font-size: 12px;
+			color: #fff;
+			border-radius: 50%;
+		}
+
+		.btn-shou {
+			background-color: #ec9130;
+		}
+	</style>
+	<body>
+		<div class="header">
+			
+			<div class="header-title">技工抢单</div>
+			{if $sconfig.morecity}
+			<div gourl="/index.php?m=city" class="header-right flex flex-ai-center  iconfont icon-location_light">{if $cityid==0}选择城市{else}{$city.name}{/if}</div>
+			{/if}
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body none" :class="'flex-col'" id="app">
+			 
+			<div class="tabs-border">
+				 
+				<div :class="catid==0?'tabs-border-active':''" class="tabs-border-item" @click="setType(0)">全部</div>
+				<div @click="setType(item.catid)" 
+				 v-for="(item,index) in catList"
+				 :class="item.catid==catid?'tabs-border-active':''"
+				 :index="index"
+				  class="tabs-border-item">{{item.title}}</div>
+
+			</div>
+			<div class="ptlist">
+				<div v-if="Object.keys(list).length==0" class="emptyData">暂无单子</div>
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						 
+						<div class="flex mgb-5 flex-ai-center">
+							 
+							<div class="cl-money">￥</div>
+							<div class="cl-money">{{item.money}}</div>
+						</div>
+						<div class="flex-1"></div>
+						<div class="f12 cl3">{{item.createtime}}</div>
+						
+
+						
+					</div>
+					<div class="bd-mp-5 cl3">
+						{{item.addr.address}}
+					</div>
+					 
+					<div class="flexlist-item" v-for="(pro,proIndex) in item.prolist" :key="proIndex">
+						<img class="flexlist-img" :src="pro.imgurl+'.100x100.jpg'">
+						<div class="flex-1">
+							<div class="flexlist-title">{{pro.title}}</div>
+							 
+						</div>
+					</div>
+					
+					<div class="flex flex-jc-center">
+						<div @click="accept(item.orderid)" class="btn-small">我要抢单</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}index.js?v=3"></script>
+	</body>
+
+</html>

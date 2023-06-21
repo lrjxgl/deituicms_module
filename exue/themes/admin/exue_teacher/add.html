@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='exue_teacher/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=exue_teacher&a=save">
+				<input type="hidden" name="tcid" style="display:none;" value="{$data.tcid}">
+				<table class="table-add">
+					 
+					<tr>
+						<td>昵称：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					<tr>
+						<td>姓名：</td>
+						<td><input type="text" name="truename" id="truename" value="{$data.truename}"></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status eq 2}checked{/if} name="status" value="2"> 下线
+						
+						</td>
+					</tr>
+					<tr>
+						<td>isrecommend：</td>
+						<td><input type="text" name="isrecommend" id="isrecommend" value="{$data.isrecommend}"></td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+					<tr>
+						<td>createtime：</td>
+						<td>{$data.createtime}</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		{php loadEditor();}
+		<script>
+			var editor = UE.getEditor('content', options);
+		</script>
+	</body>
+</html>

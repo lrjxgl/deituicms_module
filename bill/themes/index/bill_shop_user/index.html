@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>suid</td>
+   <td>shopid</td>
+   <td>title</td>
+   <td>description</td>
+   <td>status</td>
+   <td>dateline</td>
+   <td>money</td>
+   <td>total_money</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.suid}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+   <td>{$c.status}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.money}</td>
+   <td>{$c.total_money}</td>
+<td><a href="/module.php?m=bill_shop_user&a=add&suid={$c.suid}">编辑</a> <a href="/module.php?m=bill_shop_user&a=show&suid={$c.suid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=bill_shop_user&a=delete&ajax=1&suid={$c.suid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

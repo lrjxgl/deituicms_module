@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="tabs-border">
+	<div class="item active">中奖订单</div>
+</div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>orderid</td>
+   <td>抽奖</td>
+   <td>奖品</td>
+	<td>价值</td>
+   
+   <td>状态</td>
+   <td>地址</td>
+   <td>手机</td>
+   <td>昵称</td>
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$list}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.title}</td>
+  <td>{$c.item_title}</td>
+   <td>￥{$c.item_money}</td>
+   <td>{$c.status_name}</td>
+   <td>{$c.address}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.nickname}</td>
+<td>
+	<div class="flex">
+	{if $c.status eq 0}
+	<div class="btn-mini js-confirm mgr-10" url="/moduleadmin.php?m=ttcj_order&a=send&ajax=1&orderid={$c.orderid}" msg="确认发货了吗">发货</div>
+	{/if}
+	{if $c.status lt 3}
+	<div class="btn-mini  js-confirm  mgr-10" url="/moduleadmin.php?m=ttcj_order&a=finish&ajax=1&orderid={$c.orderid}"  msg="确认处理完了吗">订单完成</div>
+	{/if}
+	 {if $c.status eq 0}
+	 <div class="btn-mini btn-danger mgr-10">取消</div>
+	 {/if}
+	 </div>
+	 </td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-confirm",function(){
+			var msg=$(this).attr("msg")
+			var url=$(this).attr("url")
+			skyJs.confirm({
+				content:msg,
+				success:function(){
+					$.ajax({
+						url:url,
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message)
+							if(res.error){
+								return false;
+							}
+							setTimeout(function(){
+								window.location.reload();
+							},1000)
+							
+						}
+					})
+				}
+			})
+		})
+	})
+</script>
+</body>
+</html>

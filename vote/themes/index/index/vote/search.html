@@ -1,0 +1,15 @@
+{foreach item=c from=$data}
+    	<div class="item ">
+        	<div class="pd">
+            	<div class="bg">
+                <div class="img"><a href="/module.php?m=vote_join&a=show&shopappid={$shop_app.shopappid}&vid={$c.vid}&id={$c.id}"><img src="{$c.imgurl|images_site}.100x100.jpg"></a></div>
+                <div class="title">{$c.title}</div>
+                <div class="row-num">
+                    <a class="btn" href="/module.php?m=vote_join&a=show&shopappid={$shop_app.shopappid}&vid={$c.vid}&id={$c.id}">投票</a>
+                    <div class="num">{$c.vote_num}票</div>
+                </div>
+                </div>
+            </div>
+        </div>
+        {/foreach}
+        <div class="clearfix"></div>

@@ -1,0 +1,30 @@
+<!DOCTYPE >
+<html>
+{include file="head.html"}
+ 
+<body>
+	<div class="header">
+		<div class="header-back"></div> 
+		<div class="header-title">我参与的项目</div> 
+	</div>
+	<div class="header-row"></div> 
+	 
+	 
+	<div class="main-body">
+		 
+		<div class="row-box">
+		 
+			<div class="flex-col">
+				{foreach item=c from=$list}
+				<a class="flex-item" href="/index.php?m=shop_product&a=home&id={$c.id}">{$c.title}</a>
+				{/foreach}
+			</div>
+		</div>
+		 
+	</div>
+	{assign var="ftnav" value="product"}
+	{include file="ftnav.html"}
+	{include file="footer.html"}
+</body>
+
+</html>

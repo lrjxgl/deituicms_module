@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">优惠券用户</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="list">
+				<div class="row-box mgb-5" v-for="(item,index) in pageData.data" :key="index">
+					<div class="flexlist-item">
+						<img :src="item.user_head+'.100x100.jpg'" class="flexlist-img" />
+					
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="">{{item.nickname}}</div>
+								<div class="flex-1"></div>
+								<div v-if="item.status==1">已使用</div>
+								<div v-else>未使用</div>
+							</div>
+							
+							<div class="cl-primary mgb-5">
+								{{item.title}}
+							</div>
+							<div class="cl2 f12 mgb-5">
+								金额 {{item.money}}元
+								
+							</div>
+						</div>
+						 
+					</div>
+					 
+				</div>
+			</div>
+		</div>	
+		{include file="footer.html"}
+		<script src="{$skins}csc_coupon_user/index.js"></script>
+	</body>
+</html>

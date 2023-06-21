@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='photo/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   
+   <td>分类</td>
+   <td>名称</td>
+ <td>图片</td>
+
+   <td>地址</td>
+   <td>createtime</td>
+ 
+   <td>status</td>
+  
+   <td>view_num</td>
+   <td>comment_num</td>
+   <td>love_num</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+    
+   <td>{$c.catid}</td>
+   <td>{$c.title}</td>
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="60"/> </td>
+   <td>{$c.address}</td>
+   <td>{$c.createtime}</td>
+ 
+   <td>{$c.status}</td>
+   
+   <td>{$c.view_num}</td>
+   <td>{$c.comment_num}</td>
+   <td>{$c.love_num}</td>
+  
+<td><a href="/moduleadmin.php?m=photo&a=add&id={$c.id}">编辑</a> 
+<a href="/module.php?m=photo&a=show&id={$c.id}" target="_blank">查看</a>
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=photo&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

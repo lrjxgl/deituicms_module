@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的帖子</div>
+			<div gourl="/module.php?m=sblog_blog&a=add" class="header-right-btn">发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			 
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in pageData.list" :key="index"  class="sglist-item">
+					
+					<div @click="goBlog(item.id)" class="sglist-title flex" v-html="item.content"></div>
+					<div @click="goBlog(item.id)" class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+						<div @click="del(item.id)" class="flex-1 cl-danger iconfont pointer icon-delete"></div>
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}sblog_blog/my.js"></script>
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<style>
+			.atr{
+				display: flex;
+				flex-direction: row;
+				margin-bottom: 10px;
+				padding-bottom: 10px;
+				border-bottom: 1px solid #eee;
+			}
+		</style>
+		<div class="shd">司机申请详情</div>
+		<div class="main-body">
+			<div class="atr mgt-10">
+				<div class="flex-1">
+					<div>姓名：{$data.truename}</div>
+					<div>电话：{$data.telephone}</div>
+					<div>地址：{$data.address}</div>
+				</div>
+				<div class="flex-1"><img class="w100" src="{$data.userhead|images_site}.100x100.jpg" /></div>
+				 
+			</div>
+			<div class="atr">
+				<div class="flex-1">身份证：{$data.userno}</div>
+				<div class="flex-1"><img class="w100" src="{$data.usercarda|images_site}.100x100.jpg" /></div>
+				<div class="flex-1"><img class="w100"  src="{$data.usercardb|images_site}.100x100.jpg" /></div>
+			</div>
+			<div class="atr">
+				<div class="flex-1">车牌号：{$data.carno}</div>
+				<div class="flex-1"><img class="w100" src="{$data.carpic|images_site}.100x100.jpg" /></div>
+				<div class="flex-1"><img class="w100"  src="{$data.driverpic|images_site}.100x100.jpg" /></div>
+			</div>
+			<div class="atr">
+				<div class="flex-1">状态：{$data.status}</div>
+				<div class="flex-1">申请时间：{$data.dateline|date:Y-m-d H:i:s}</div>
+				
+			</div>
+			{if $data.status eq 0}
+			<div class="atr" id="btns">
+				<div class="btn js-pass-btn mgr-10">审核通过</div>
+				<div class="btn js-forbid-btn">申请失败</div>
+			</div>
+			{/if}
+		</div>
+		{include file="footer.html"}
+		<script>
+			var id="{$data.id}"
+			$(function(){
+				$(document).on("click",".js-pass-btn",function(){
+					$.ajax({
+						url:"/moduleadmin.php?m=pinche_driver_apply&a=pass&ajax=1&id="+id,
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message)
+							$("#btns").hide();
+						}
+					})
+				})
+				$(document).on("click",".js-forbid-btn",function(){
+					$.ajax({
+						url:"/moduleadmin.php?m=pinche_driver_apply&a=forbid&ajax=1&id="+id,
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message)
+							("#btns").hide();
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+</html>

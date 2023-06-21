@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=pdd_product&a=save&ajax=1">
+				<input type="hidden" name="id" value="{$data.id}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" name="title" value="{$data.title}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">平台大类</div>
+					<select name="catid" class="input-flex-select">
+						<option value="0">请选择</option>
+						{foreach item=c from=$catlist}
+							<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+							{if $c.child}
+							{foreach item=cc from=$c.child}
+							<option value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+							{/foreach}
+							{/if}
+						{/foreach}
+					</select>
+				</div>
+				 <div class="input-flex">
+				 	<div class="input-flex-label">店铺分类</div>
+				 	<select name="shop_catid" class="input-flex-select">
+				 		<option value="0">请选择</option>
+				 		{foreach item=c from=$shop_catlist}
+				 			<option value="{$c.catid}" {if $data.shop_catid eq $c.catid}selected{/if}>{$c.title}</option>
+				 			{if $c.child}
+				 			{foreach item=cc from=$c.child}
+				 			<option value="{$cc.catid}" {if $data.shop_catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+				 			{/foreach}
+				 			{/if}
+				 		{/foreach}
+				 	</select>
+				 </div> 
+				<div class="textarea-flex" style="margin-bottom: 0;">
+					<div class="textarea-flex-label">产品介绍</div>
+					<textarea class="textarea-flex-text h60" name="description">{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">单买价</div>
+					<input type="text" name="price" value="{$data.price}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">拼团价</div>
+					<input type="hidden" onabort="pt_open" value="1" />
+					<input type="text" class="input-flex-text" name="pt_price" id="pt_price" value="{$data.pt_price}">
+					<div>元</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">成团人数</div>
+					<input type="text" class="input-flex-text" name="pt_min" value="{$data.pt_min}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">库存</div>
+					<input type="text" name="total_num" value="{$data.total_num}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">上架</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.status eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.status neq 1}switch-active{/if} js-switch" data-value="2">否</div>
+						<input type="hidden" name="status" value="{$data.status}" class="switch-value" />
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">推荐</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.isrecommend eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.isrecommend neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="isrecommend" value="{$data.isrecommend}" class="switch-value" />
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">新品</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.isnew eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.isnew neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="isnew" value="{$data.isnew}" class="switch-value" />
+					</div>
+				</div>
+				<div class="bg-fff mgb-5">
+					<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+				{include file="inc/uploader-data.html"}
+				</div>
+				<style>
+					#content div,#edui_fixedlayer div{
+						display: block;
+					}
+				</style>
+				<script type="text/plain" id="content" name="content">{$data.content}</script>
+				<div class="btn-row-submit" id="submit">保存</div>
+			</form>
+		</div>
+		 
+		{include file="footer.html"}
+		{php loadEditor(0);}
+		<script>
+			var editor = UE.getEditor('content', options);		 
+		</script>
+		<script>
+			$(document).on("click","#submit",function(){
+				var form=$(this).parents("form");
+				var url=form.attr("action");
+				
+				$.post(url,form.serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+					//	goBack();
+					}
+				},"json")
+			})
+		</script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+	</body>
+</html>

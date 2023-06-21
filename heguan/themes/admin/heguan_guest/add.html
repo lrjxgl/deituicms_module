@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='heguan_guest/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=heguan_guest&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+						<td>heid：</td>		
+						<td><input type="text" name="heid" id="heid" value="{$data.heid}" ></td>
+						</tr>
+  <tr>
+						<td>投诉类型：</td>		
+						<td><input type="text" name="typeid" id="typeid" value="{$data.typeid}" ></td>
+						</tr>
+  <tr>
+						<td>标题：</td>		
+						<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+						</tr>
+  <tr>
+						<td>简介：</td>		
+						<td><textarea name="description" id="description" class="textarea-flex-text h60"   />{$data.description}</textarea></td>
+						</tr>
+  <tr>
+						<td>状态：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+  {if $data}<tr>
+						<td>createtime：</td>		
+						<td>{$data.createtime}</td>
+						</tr>{/if}
+  <tr>
+						<td>主图：</td>		
+						<td>{include file="inc/uploader-data.html"}</td>
+						</tr>
+  <tr>
+						<td>图集：</td>		
+						<td>{include file="inc/uploader-data.html"}</td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

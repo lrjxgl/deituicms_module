@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">提示词编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=aichat_prompt&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}" />
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">描述：</div>
+					<textarea style="height: 400px;" name="description" id="description"
+						class="textarea-flex-text" />{$data.description}</textarea>
+				</div>
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<a href="/" class="header-back pos-relative"></a>
+			<div class="header-search-box">
+			
+				<input id="search-word" class="header-search pdl-5" placeholder="搜你想要的" type="text">
+				<div id="search-btn" class="header-search-btn bg-primary cl-white iconfont icon-search"></div>
+			</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="tabs-border">
+				<div  @click="setType('recommend')" :class="type=='recommend'?'tabs-border-active':''" class="tabs-border-item">推荐商机</div>
+				<div :class="type=='follow'?'tabs-border-active':''"  @click="setType('follow')" class="tabs-border-item">我的关注</div>
+				<div :class="type=='new'?'tabs-border-active':''"  @click="setType('new')" class="tabs-border-item">新商机</div>
+				<div :class="type=='success'?'tabs-border-active':''"  @click="setType('success')" class="tabs-border-item">已获赏金</div>
+			</div>
+			<div class="emptyData" v-if="list.length==0">
+				暂无商机
+			</div>
+			<div v-else class="">
+				<div class="row-box mgb-10" v-for="(item,index) in list" :key="index">
+					 
+					<div class="cl1 mgb-5">{{item.title}}</div>
+					<div class="cl2 mgb-5" v-html="item.content"></div>
+					<div class="flex mgb-5">
+						<div class="mgr-5 cl-primary">作者</div>
+						<div class="mgr-5 cl2">已发布</div>
+						<div class="cl-num mgr-5">{{item.suser.post_num}}条</div>
+						<div class="mgr-5 cl2">买断</div>
+						<div class="cl-num mgr-5">{{item.suser.post_sold_num}}条</div>
+						<div class="mgr-5 cl2">赏金</div>
+						<div class="cl-num mgr-5">{{item.suser.post_success_num}}条</div>
+						<div class="mgr-5 cl2">失效</div>
+						<div class="cl-num ">{{item.suser.post_fail_num}}条</div>
+						 
+					</div>
+					<div class="flex">
+						
+						<div class="f12 cl3">{{item.createtime}}</div>
+						<div class="flex-1"></div>
+						 
+						<div class="flex-1"></div>
+						<template v-if="item.isbuy==1">
+							<div class="cl-red">已被买断</div>
+						</template>
+						<template v-else>
+							<div  @click="goGuest(item)" class="btn-mini mgr-5">咨询</div>
+							<div  @click="buy(item)" class="btn-mini mgr-5">买断</div>
+						</template>
+						
+					</div>
+				</div>
+				<div v-if="per_page>0" @click="getList()" class="loadMore">加载更多</div>
+			</div> 
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}sjsj/index.js"></script>
+	</body>
+</html>

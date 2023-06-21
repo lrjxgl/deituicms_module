@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">写作</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			 <div @click="goDetail(item)"  v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+			 	<div class="mgb-5">{{item.title}}</div>
+			 	<div class="cl2">{{item.prompt}}</div>
+			 </div>
+			  
+			 <div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+		</div>
+		{assign var="ftnav" value="text"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}aichat_text/index.js"></script>
+	</body>
+</html>

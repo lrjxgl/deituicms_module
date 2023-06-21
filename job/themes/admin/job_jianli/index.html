@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a href="/moduleadmin.php?m=job_jianli" class="item {if $type eq ''}active{/if}">全部简历</a>
+	<a href="/moduleadmin.php?m=job_jianli&type=new" class="item {if $type eq 'new'}active{/if}">待审核</a>
+	<a href="/moduleadmin.php?m=job_jianli&type=pass" class="item {if $type eq 'pass'}active{/if}">已通过</a>
+	<a href="/moduleadmin.php?m=job_jianli&type=forbid" class="item {if $type eq 'forbid'}active{/if}">已禁止</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+    
+   <td>名字</td>
+    <td>照片</td>
+   <td>出生日期</td>
+   <td>性别</td>
+   <td>自我介绍</td>
+   <td>工作经历</td>
+   <td>学历</td>
+   <td>状态</td>
+	<td>操作</td>
+   
+ </tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   
+   <td>{$c.nickname}</td>
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="50" /> </td>
+   <td>{$c.age}</td>
+   <td>{if $c.gender eq 1}男{else}女{/if}</td>
+   <td>{$c.description}</td>
+   <td>{$c.job}</td>
+   <td>{$c.xueli}</td>
+   <td>
+	   <div url="/moduleadmin.php?m=job_jianli&a=status&ajax=1&id={$c.id}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+   <td>
+	   <div class="btn-mini btn-danger js-delete" url="/moduleadmin.php?m=job_jianli&a=delete&ajax=1&id={$c.id}">删除</div>
+   </td>
+ 
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}huangli/guali.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">老黄历</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<!--<div class="input-flex flex-ai-center">
+				<input v-model="date" class="input-flex-text" type="date" />
+				<select v-model="word" class="input-flex-select">
+					<option value="">请选择</option>
+					<option value="结婚">结婚</option>
+					<option value="搬家">搬家</option>
+					<option value="出门">出门</option>
+				</select>
+				<div @click="search" class="btn-small">查一下</div>
+			</div>
+			-->
+			<div id="guali">
+				
+			</div>
+			<div v-if="dayRes && Object.keys(dayRes).length>0">
+				<div class="row-box">
+					<div class="mgb-5 fw-600">{{date}}</div>
+					<div class="mgb-5">
+						{{dayRes.bazi}}
+					</div>
+					
+					<div class="flex flex-ai-center flex-wrap">
+						<div class="pd-5 cl-red">吉</div>
+						<div class="pd-5"  v-for="(item,index) in dayRes.jiri.ji" :key="index">
+							 {{item}} 
+						</div>
+					</div>
+					
+					
+					<div class="flex flex-wrap">
+						<div class="pd-5 cl-danger">凶</div>
+						<div class="pd-5" v-for="(item,index) in dayRes.jiri.xiong" :key="index">
+							 {{item}} 
+						</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+		var App;
+		</script>
+		<script src="{$skins}js/lunar.js"></script>
+		<script src="{$skins}huangli/guali.js"></script>
+		<script src="{$skins}/huangli/index.js"></script>
+		
+	</body>
+</html>

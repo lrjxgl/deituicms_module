@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我创建的项目</h1>
+	<a href="/index.php?m=shop_product&a=add" class="mui-bar-nav-link" >创建</a>
+</header>
+<div class="mui-content">
+<div class="row-box mgt-5">
+ {foreach item=c from=$list}
+ <div class="bdb mgb-10">
+ 	<a href="/index.php?m=shop_product&a=home&id={$c.id}" class="flex-1">{$c.title}</a>
+ 	<div class="flex">
+ 	<div class="mgr-10 cor2 f12 flex-1">{$c.timeago}</div>
+	<a class="f12 mgr-10" href="/index.php?m=shop_product&a=add&id={$c.id}">编辑</a>
+ 	<div class="js-delete f12 cor-danger" url="/index.php?m=shop_product&id={$c.id}&a=delete&ajax=1">删除</div>
+	</div>
+ </div>
+ {/foreach}
+ </div>	
+<div>{$pagelist}</div>
+    </div>
+ 
+{include file="footer.html"}
+</body>
+</html>

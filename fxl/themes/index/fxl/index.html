@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">慈善众筹</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="sglist">
+		{foreach item=c from=$list}
+		<a  href="/module.php?m=fxl&a=show&fxlid={$c.fxlid}" class="sglist-item">
+			<img src="{$c.imgurl}.middle.jpg" class="sglist-img" />
+			<div class="sglist-title">{$c.title}</div>
+			<div class="sglist-desc">{$c.description}</div>
+		</a>
+		
+		{/foreach}
+	</div> 
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

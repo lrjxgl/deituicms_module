@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"客服",//模块名称
+	"module"=>"kefu",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"客服",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=kefu&a=menu",
+	"check_update"=>"http://www.skymvc.com",
+);
+?>

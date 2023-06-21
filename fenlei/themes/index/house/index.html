@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back pos-relative"></div>
+	<div class="header-search-box">
+		 
+		<input id="search-word" class="header-search pdl-5" placeholder="{$cat.title}" type="text">
+		<div id="search-btn" class="header-search-btn bg-primary cl-white iconfont icon-search"></div>
+	</div>
+	 
+</div>
+<div class="header-row"></div>
+<a href="/module.php?m=fenlei&a=add&catid={$cat.catid}" class="fixedAdd">发布</a>
+<div class="main-body">
+	{if $catList}
+	<div class="row-box mgb-5">
+		
+		<div class="flex flex-wrap">
+			{foreach item=cc from=$catList}
+				<a href="/module.php?m=fenlei&a=list&catid={$cc.catid}" class="pd-5 cl2">{$cc.title}</a>
+				
+			{/foreach}
+		</div> 
+	</div>
+	{else}
+	<div class="pos-relative">
+		<div class="tab-select">
+			<div class="tab-select-item" id="tab-scarea">
+				<div class="tab-select-label">所在区域</div>
+				<div class="tab-select-t3down "></div>	
+			</div>
+			{if $typeList}
+			<div class="tab-select-item" id="tab-type">
+				<div class="tab-select-label">{$cat.typeLabel}</div>
+				<div class="tab-select-t3down "></div>	
+			</div>
+			{/if}
+			<div class="tab-select-item" id="tab-sprice">
+				<div class="tab-select-label">{$cat.moneyLabel}区间</div>
+				<div class="tab-select-t3down "></div>	
+			</div>
+		</div>
+		<div id="scarea-box" class="tab-select-box">
+			<a class="tab-select-box-item" v="">所在区域</a>
+			{foreach item=c from=$scList}
+			<a class="tab-select-box-item" v="{$c.sc_id}">{$c.title}</a>
+			{/foreach}
+		</div>
+		{if $typeList}
+		<div id="type-box" class="tab-select-box">
+			<a class="tab-select-box-item" v="">{$cat.typeLabel}</a>
+			{foreach item=c key=k from=$typeList}
+				<a class="tab-select-box-item" v="{$k}">{$c}</a>
+			{/foreach}
+		</div>
+		{/if}
+		<div id="sprice-box" class="tab-select-box">
+			<a class="tab-select-box-item" v="">{$cat.moneyLabel}区间</a>
+			{foreach item=c from=$priceList}
+				<a class="tab-select-box-item" v="{$c}">{$c}</a>
+			{/foreach}
+		</div>
+	</div>	
+	{/if}
+	{if empty($list)}
+	<div class="emptyData">暂无信息</div>
+	{else}
+	<div class="list" id="list">
+	  {foreach item=c from=$list}
+	 <a href="/module.php?m=fenlei&a=show&id={$c.id}" class="flexlist-item">
+	 	{if $c.imgurl}
+	 	<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg" />
+	 	{/if}
+		 <div class="flex-1">
+			<div class="flexlist-title">{$c.title}</div>
+				{if $c.money>0}
+				<div class="flexlist-row">
+					<div class="cl-money">房租 ￥{$c.money}/月</div>
+				</div>
+				{/if}
+			  <div class="flexlist-desc">
+				  {$c.description}
+			  </div>
+		</div>
+	 </a>
+	  {/foreach}
+	 </div>
+  {/if}
+<div>{$pagelist}</div>
+  
+</div>
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script id="list-tpl" type="text/html">
+	<%for(var i in list){%>
+	<% var $c=list[i];%>
+	<a href="/module.php?m=fenlei&a=show&id=<%=$c.id%>" class="flexlist-item">
+		<%if($c.imgurl){%>	  
+		  <img src="<%=$c.imgurl%>.100x100.jpg" class="flexlist-img" />
+		<%}%>  
+		  <div class="flex-1">
+		  <div class="flexlist-title"><%=$c.title%></div>
+		  <%if($c.money>0){%>
+		  <div class="flexlist-row">
+			  <div class="cl-money">￥<%=$c.money%></div>
+		  </div>
+		  <%}%>
+		  <div class="flexlist-desc">
+			  <%=$c.description%>
+		  </div>
+		 </div> 
+	</a>
+	<%}%>
+</script>
+<script src="/plugin/jquery/template-native.js"></script>
+<script src="/plugin/skyweb/listload.js"></script>
+<script>
+	var catid="{$cat.catid}";
+	var sc_id=0;
+	var sprice="";
+	var typeid=0;
+	function getList(){
+		$.get("/module.php?m=fenlei&a=list&ajax=1",{
+			catid:catid,
+			sc_id:sc_id,
+			sprice:sprice,
+			typeid:typeid
+		},function(res){
+			var html=template("list-tpl",res.data);
+			$("#list").html(html);
+		},"json")
+	}
+	$(document).on("click","#search-btn",function(){
+		var word=$("#search-word").val();
+		window.location="/module.php?m=fenlei&a=search&keyword="+encodeURI(word)
+	})
+	$(document).on("click",".tab-select-item",function(){
+		var index=$(this).index();
+		console.log(index);
+		$(".tab-select-box:eq("+index+")").toggle();
+		$(".tab-select-box:eq("+index+")").siblings(".tab-select-box").hide();
+	})
+	$(document).on("click", ".tab-select-box-item", function() {
+		var $p=$(this).parents(".tab-select-box");
+		var $tab;
+		switch($p.attr("id")){
+			case "choice-box":
+				$tab=$("#tab-choice");
+				sprice=$(this).attr("v");
+				break;
+			case "sprice-box":
+				$tab=$("#tab-sprice");
+				sprice=$(this).attr("v");
+				break;
+			case "type-box":
+				$tab=$("#tab-type");
+				typeid=$(this).attr("v");
+				break;
+			case "scarea-box":
+				$tab=$("#tab-scarea");
+				sc_id=$(this).attr("v");
+				break;
+			case "order-box":
+				$tab=$("#tab-order");
+				orderby=$(this).attr("v");
+				break;
+			 
+		}
+		  
+		per_page = 0;
+		first = true;
+		$p.hide();
+		$p.find(".tab-select-box-item").removeClass("tab-select-box-active");
+		$(this).addClass("tab-select-box-active");
+		$tab.find(".tab-select-label").text($(this).text());
+		getList();
+	});
+</script>
+<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title=document.title;
+		
+			{if $cat.imgurl} 
+			 wxshare_imgUrl="{$cat.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+</body>
+</htmles

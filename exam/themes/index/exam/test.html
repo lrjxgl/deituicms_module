@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.lineText{
+			border:0;
+			border-bottom: 1px solid #ddd;
+			outline: none;
+			width:60px;
+			padding: 0px 5px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$exam.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form>
+				<input type="hidden" name="exid" value="{$exam.exid}" />
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<div class="f16 cl1 mgb-5">{$c.title}</div>
+					{if $c.typeid eq 'text'}
+					<div class="flex flex-wrap mgb-5 " style="line-height: 2;">
+						{foreach item=a key=ka from=$c.ask}
+						 
+							{if $a.type=="text"}
+							{$a.content}
+							{else}
+							<input name="tp[{$c.topicid}][]" class="lineText" type="text"  />
+							{/if}
+						{/foreach}
+					</div>
+					{elseif $c.typeid eq 'radio'}
+					
+					<div>
+						{foreach item=a key=ka from=$c.ask}
+						<div class="radio-flex cl2"><input value="{$ka}"  name="tp[{$c.topicid}]" type="radio" /> {$ka}、{$a}</div>
+						{/foreach}
+					</div>
+					{elseif $c.typeid eq 'checkbox'}
+					
+					<div>
+						{foreach item=a key=ka from=$c.ask}
+						<div class="checkbox-flex cl2"><input value="{$ka}" name="tp[{$c.topicid}][]" type="checkbox" /> {$ka}、{$a}</div>
+						{/foreach}
+					</div>
+					{else}
+					
+					<div class="cl2 mgb-5">{$c.content}</div>
+					<div><textarea class="textarea-flex-text h60" name="tp[{$c.topicid}]"></textarea></div>
+					{/if}
+				</div>
+				{/foreach}
+				{if $isanswer}
+				<div class="btn-row-submit cl3 bg-disabled">你已经考过了</div>
+				{else}
+				<div class="btn-row-submit" id="submit">提交考卷</div>
+				{/if}
+			</form>	
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click","#submit",function(){					
+					var form=$(this).parents("form")
+					if(confirm("考卷提交后不可更改，请确保答案都填写完成，确认提交吗?")){
+						$.ajax({
+							url:"/module.php?m=exam&a=testsave&ajax=1",
+							type:"POST",
+							dataType:"json",
+							data:form.serialize(),
+							success:function(res){
+								skyToast(res.message);
+								if(res.error){
+									
+									return false;
+								}else{
+									$.ajax({
+										url:"/module.php?m=exam_answer&a=autoraty&ajax=1",
+										type:"get",
+										dataType:"json",
+										data:{
+											id:res.data
+										},
+										success:function(e){
+											if(e.error){
+												window.location='/module.php?m=exam_answer&a=show&id='+res.data;
+												return false;
+											}else{
+												window.location='/module.php?m=exam_answer&a=show&id='+res.data;
+											}
+											
+											
+										}
+									})
+								}
+								
+								 
+							}
+						})
+					} 					
+				})
+			})
+		</script>
+	</body>
+</html>

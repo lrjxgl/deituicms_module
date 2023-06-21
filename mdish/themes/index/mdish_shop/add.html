@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">添加店铺</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=mdish_shop&a=save"> 
+				<div class="input-flex">
+					<div class="input-flex-label">店铺名称：</div>
+					<input class="input-flex-text" type="text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">联系人：</div>
+					<input class="input-flex-text" type="text" name="nickname" id="nickname" value="{$data.nickname}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话：</div>
+					<input class="input-flex-text" type="text" name="telephone" id="telephone" value="{$data.telephone}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">地址：</div>
+					<input class="input-flex-text" type="text" name="address" id="address" value="{$data.address}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">店铺简介：</div>
+					<textarea class="h60 textarea-flex-text flex-1"  type="text" name="description" id="description">{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">店铺照片：</div>
+					<div class="flex-1">
+						<div class="upimg-box ">
+							<div class="upimg-item none js-upimg-btn">
+								<img class="upimg-img" />								 
+							</div>	
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 <input type="hidden" name="imgurl" class="imgurl" value="">
+							 <input class="js-upimg-file" style="display: none;" type="file" name="upimg" id="upimg" /> 
+						</div>
+					</div>
+					
+				</div>
+					
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

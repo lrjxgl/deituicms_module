@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+		<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=zbtao_pp_pts">待审核</a>
+		<a class="item {if get('type') eq 'online'}active{/if}" href="{$appadmin}?m=zbtao_pp_pts&type=online">上架</a>
+		<a class="item {if get('type') eq 'offline'}active{/if}" href="{$appadmin}?m=zbtao_pp_pts&type=offline">已下架</a> 
+		<a class="item {if get('type') eq 'all'}active{/if}" href="{$appadmin}?m=zbtao_pp_pts&type=all">全部</a>
+	</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>ptid</td>
+   <td>ppid</td>
+   <td>主播名称</td>
+   <td>主播ID</td>
+   <td>描述</td>
+   <td>创建时间</td>
+   <td>状态</td>
+   <td>所属平台</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.ptid}</td>
+   <td>{$c.ppid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.zbhao}</td>
+   <td>{$c.description}</td>
+   <td>{$c.createtime}</td>
+    <td><div url="/moduleadmin.php?m=zbtao_pp_pts&a=status&ptid={$c.ptid}&ajax=1" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div></td>
+   <td>{$c.ptcom}</td>
+<td><a href="/moduleadmin.php?m=zbtao_pp_pts&a=add&ptid={$c.ptid}">编辑</a> <a href="/module.php?m=zbtao_pp_pts&a=show&ptid={$c.ptid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=zbtao_pp_pts&a=delete&ajax=1&ptid={$c.ptid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

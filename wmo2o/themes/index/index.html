@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<img src="{$site.logo}.100x100.jpg" class="header-logo" />
+			<div class="header-title">{$site.title}</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		
+		<div class="main-body" id="App">
+			<div @click="goAddr()" class="flex flex-ai-center bg-white pd-5">
+				<div class="iconfont  icon-location_light flex flex-ai-center"></div>
+				<div>{{localAddress}}</div>
+				<div class="iconfont icon-right f12 flex flex-ai-center"></div>
+			</div>
+			
+			<div class="pd-5 bg-white">
+				<div class="header-search-box">
+					<div class="header-search-icon icon-search"></div>
+					<input v-model="keyword" placeholder="汉堡王 满100减30 " type="search" class="header-search" />
+					<div  @click="search()" class="header-search-btn iconfont icon-search"></div>
+				</div>
+			</div>
+			
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			<div class="row-box mgb-5">
+				<div @click="gourl('/module.php?m=wmo2o_cbd&a=show&cbdid=6')" class="flex mgb-10">
+					<div class="flex-1 f18">为你优选</div>
+					<div class="row-box-more">更多</div>
+				</div>
+				<div class="scroll-x" style="overflow: auto;">
+					<div class="flex">
+					<div @click="goShop(item.shopid)" class="scItem" v-for="(item,index) in recShop" :key="index">
+						<image mode="top" class="scItem-img" :src="item.imgurl"></image>
+						<div class="scItem-title">{{item.shopname}}</div>
+						
+					</div>
+					</div>
+				</div>
+			</div>
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper" >
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+				 
+				<div class="swiper-pagination"></div>
+			 
+			</div>
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+						 
+			</div>
+			{/if}
+			 <div class="flex pd-10 bg-white flex-ai-center bdb">
+				<div class="flex-1 f16 fw-600">热门商家</div> 
+				<div gourl="/module.php?m=wmo2o_shoplist" class="cl3">更多&gt;</div>
+			 </div>
+			
+			<div>
+				<shop-list hotvip="0" :shoplist="shopList"></shop-list>
+			</div>
+		</div> 
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/gps.js"></script>
+		<script src="/plugin/dt-ui//raty.vue.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script src="{$skins}js/shop-list.js"></script>
+		<script src="{$skins}index.js"></script>
+		<script>
+			$(function(){
+				 
+				var flash=new Swiper("#indexFlash");
+				$(document).on("click","#searchBtn",function(){
+					var keyword=$("#keyword").val();
+					window.location="/module.php?m=wmo2o_search&keyword="+encodeURIComponent(keyword);
+				})
+			})
+			
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			{if $site.logo} 
+			 wxshare_imgUrl="{$site.logo}.100x100.jpg";
+			 {/if}
+		</script>
+		 
+	</body>
+</html>

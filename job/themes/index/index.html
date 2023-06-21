@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	{if empty($site)}
+		{get data=site model=site fun=get()}
+		{/if}
+	<body>
+		 
+		<div class="header">
+			<a href="/" class="header-back pos-relative"></a>
+			<!--<img class="header-logo" src="{$site.logo}.100x100.jpg" />-->
+			<div class="header-search-box">		
+				<input id="search-word" class="header-search pdl-5" placeholder="搜你想找的工作" type="text">
+				<div id="search-btn" class="header-search-btn bg-primary cl-white iconfont icon-search"></div>
+			</div>
+		
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div>
+				<div class="swiper-container" id="indexFlash">
+					<div class="swiper-wrapper">
+						{foreach item=c from=$flashList}
+						<div class="swiper-slide">
+							<img gourl="{$c.link1}" style="width: 100%;" src="{$c.imgurl}" />		 
+						</div>
+						{/foreach}
+					</div>
+				
+					<div class="swiper-pagination"></div>			
+				</div>
+			</div>
+			{if $navList}
+			<div class="m-navPic">
+				{foreach item=c from=$navList}
+				<a href="{$c.link1}" class="m-navPic-item">
+					<img class="m-navPic-img" src="{$c.imgurl}" />
+					<div class="m-navPic-title">{$c.title}</div>
+				</a>
+				{/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+			<style>
+				.btn-jqz{
+					display: flex; 
+					flex-direction: row;
+				}
+				.btn-jz,.btn-qz{
+					background-color: #F1C40F;
+					text-align: center;
+					 
+					font-size: 18px; 
+					padding: 15px 5px;
+					color: #fff;
+				}
+				.btn-qz{
+					background-color: #007BFF;
+					 
+				}
+			</style>
+			<div class="btn-jqz">
+				<div gourl="/module.php?m=job_jianzhi&a=add" class="flex-1 btn-jz">发布兼职</div>
+				<div gourl="/module.php?m=job_quanzhi&a=add" class="flex-1 btn-qz">发布全职</div>
+			</div>
+			<div>
+				{foreach item=c from=$jzList}
+				<a href="/module.php?m=job_jianzhi&a=show&id={$c.id}" class="bg-white flex-col pd-10 mgb-5">
+					  <div class="c1 f16 mgb-5">{$c.title}</div>
+					  <div class="flex mgb-5">
+						  时间：{$c.startTime}
+						  <div class="flex-1">
+							  
+						  </div>
+						  工资 <div class="cl-money">￥{$c.money}</div>/天
+					  </div>
+					  <div class="cl2  mgb-5">地点：{$c.address}</div>
+					  <div class="cl2">
+						  {$c.description}
+					  </div>
+				</a>
+				{/foreach}
+				{foreach item=c from=$qzList}
+				<a href="/module.php?m=job_quanzhi&a=show&id={$c.id}" class="bg-white flex-col  pd-10 mgb-5">
+					  <div class="c1 f16 mgb-5">{$c.title}</div>
+					  <div class="flex cl2 mgb-5">
+						  工资 <div class="cl-money">￥{$c.money}</div>/月
+					  </div>
+					  <div class="cl2  mgb-5">地点：{$c.address}</div>
+					  <div class="cl3">
+						  {$c.description}
+					  </div>
+				</a>
+				{/foreach}
+			</div>
+		</div>
+		
+		{include file="ftnav.html"}
+		{include file="footer.html"}	
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash");
+				$(document).on("click","#search-btn",function(){
+					var word=$("#search-word").val();
+					window.location="/module.php?m=job_search&keyword="+encodeURI(word)
+				})
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			{if $site.logo} 
+			 wxshare_imgUrl="{$site.logo}.100x100.jpg";
+			 {/if}
+		</script>
+	</body>
+</html>

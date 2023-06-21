@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	 
+	<div class="header-title">家畜订单管理</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="tabs-border">
+		<div gourl="/moduleshop.php?m=gxny_order"  class="tabs-border-item ">菜园订单</div>
+		<div gourl="/moduleshop.php?m=gxny_animal_order" class="tabs-border-item tabs-border-active">家畜订单</div>
+	</div>
+	{foreach item=c from=$list}
+    <div class="row-box mgb-5">
+		<div class="flex mgb-5">
+			<div class="cl-money">{$c.money}元</div>
+			<div class="flex-1"></div>
+			<div class="cl-primary">可返 {$c.back_money}</div>
+		</div>
+		<div class="flex">
+			<div class="f12">
+				#{$c.animal_no}
+			</div>
+			<div class="flex-1"></div>
+			<div class="cl3 f12">下单时间：{$c.createtime}</div>
+		</div>
+		
+	</div>
+	{/foreach} 
+	<div>{$pagelist}</div>
+    
+</div>
+{assign var="ftnav" value="gxny_order"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+</body>
+</html>

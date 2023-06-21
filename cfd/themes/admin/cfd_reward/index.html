@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="shd">众筹回报</div>
+<div class="main-body">
+     
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>cfdid</td>
+   
+   <td>名称</td>
+  
+  
+   <td>状态</td>
+    
+   <td>金额</td>
+   <td>类型</td>
+   
+ 
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.cfdid}</td>
+    
+   <td>{$c.title}</td>
+ 
+ 
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=cfd_reward&a=status&ajax=1&id={$c.id}"></div>
+   </td>
+    
+   <td>{$c.money}</td>
+   <td>{if $c.typeid eq 1}股权{else}普通{/if}</td>
+  
+ 
+<td><a href="/moduleadmin.php?m=cfd_reward&a=cfd&cfdid={$c.cfdid}">编辑</a>
+	 
+	<a href="javascript:;" class="js-delete"te" url="/moduleadmin.php?m=cfd_reward&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+   
+</div>
+{include file="footer.html"}
+</body>
+</html>

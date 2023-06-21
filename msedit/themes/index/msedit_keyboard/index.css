@@ -1,0 +1,45 @@
+.toolBar{
+	display: flex;
+	flex-direction: row;
+	background-color: #000;
+	height: 50px;
+	align-items: center;
+	margin-bottom: 5px;
+}
+.toolBar-item{
+	color:#fff;
+	border-right: 1px solid #fff;
+	padding: 0px 20px;
+}
+.pianoBox {
+	display: flex;
+	flex-direction: row;
+
+	overflow: auto;
+	height: 100%;
+	flex:1;
+	position: relative;
+}
+
+.pianoBox-white {
+	width: 30px;
+	height: 100%;
+	margin-bottom: 5px;
+	box-sizing: border-box;
+	background-color: #fff;
+	border: 1px solid #eee;
+	justify-content: end;
+	text-align: center;
+	padding-bottom: 40px;
+}
+
+.pianoBox-black {
+	background-color: #000;
+	color: #fff;
+	position: absolute;
+	 
+	height: 60%;
+	left:1000px;
+	width:20px;
+	text-align: center;
+}

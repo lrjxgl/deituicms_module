@@ -1,0 +1,12 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div class="footer-item icon-home {if $ftnav eq 'index'}footer-active{/if}" gourl="/module.php?m=gxny">首页</div>
+	
+	<div class="footer-item icon-goods {if $ftnav eq 'shop'}footer-active{/if}" gourl="/module.php?m=gxny_shop_product&a=shop">菜园</div>
+	<?php if(M("module")->isInstall("zblive")):?>
+	<div class="footer-item icon-video_light {if $ftnav eq 'zblive'}footer-active{/if}" gourl="/module.php?m=zblive">直播</div>
+	<?php endif;?>
+	<div class="footer-item  icon-news {if $ftnav eq 'blog'}footer-active{/if}" gourl="/module.php?m=gxny_blog">动态</div>
+	
+	<div class="footer-item icon-my_light {if $ftnav eq 'user'}footer-active{/if}"  gourl="/module.php?m=gxny_user">我的</div>
+</div>

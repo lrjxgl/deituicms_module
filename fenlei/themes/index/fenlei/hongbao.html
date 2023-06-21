@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">赏金猎人</div>
+</div>
+<div class="header-row"></div>
+<a href="/module.php?m=fenlei&a=add&catid={$cat.catid}" class="fixedAdd">发布</a>
+<div class="main-body">
+	 
+	{if empty($list)}
+	<div class="emptyData">暂无信息</div>
+	{else}
+	<div class="list" id="list">
+	  {foreach item=c from=$list}
+	 <a href="/module.php?m=fenlei&a=show&id={$c.id}" class="flexlist-item">
+	 	{if $c.imgurl}
+	 	<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg" />
+	 	{/if}
+		 <div class="flex-1">
+			<div class="flex mgb-5">
+				 
+				{if $c.hb_on}
+				<div class="bc-red mgr-5">红</div>
+				{/if}
+				<div class="f14">{$c.title}</div>
+			</div>
+			 
+				{if $c.money>0}
+				<div class="flexlist-row">
+					<div class="cl-money">￥{$c.money}</div>
+				</div>
+				{/if}
+			  <div class="flexlist-desc">
+				  {$c.description}
+			  </div>
+		</div>
+	 </a>
+	  {/foreach}
+	 </div>
+  {/if}
+<div>{$pagelist}</div>
+  
+</div>
+ 
+{include file="footer.html"}
+<script id="list-tpl" type="text/html">
+	<%for(var i in list){%>
+	<% var $c=list[i];%>
+	<a href="/module.php?m=fenlei&a=show&id=<%=$c.id%>" class="flexlist-item">
+		<%if($c.imgurl){%>	  
+		  <img src="<%=$c.imgurl%>.100x100.jpg" class="flexlist-img" />
+		<%}%>  
+		  <div class="flex-1">
+		  <div class="flexlist-title"><%=$c.title%></div>
+		  <%if($c.money>0){%>
+		  <div class="flexlist-row">
+			  <div class="cl-money">￥<%=$c.money%></div>
+		  </div>
+		  <%}%>
+		  <div class="flexlist-desc">
+			  <%=$c.description%>
+		  </div>
+		 </div> 
+	</a>
+	<%}%>
+</script>
+<script src="/plugin/jquery/template-native.js"></script>
+<script src="/plugin/jquery/listload.js"></script>
+<script>
+	var catid="{$cat.catid}";
+	var sc_id=0;
+	var sprice="";
+	var typeid=0;
+	function getList(){
+		$.get("/module.php?m=fenlei&a=list&ajax=1",{
+			catid:catid,
+			sc_id:sc_id,
+			sprice:sprice,
+			typeid:typeid
+		},function(res){
+			var html=template("list-tpl",res.data);
+			$("#list").html(html);
+		},"json")
+	}
+	$(document).on("click","#search-btn",function(){
+		var word=$("#search-word").val();
+		window.location="/module.php?m=fenlei&a=search&keyword="+encodeURI(word)
+	})
+	$(document).on("click",".tab-select-item",function(){
+		var index=$(this).index();
+		console.log(index);
+		$(".tab-select-box:eq("+index+")").toggle();
+		$(".tab-select-box:eq("+index+")").siblings(".tab-select-box").hide();
+	})
+	$(document).on("click", ".tab-select-box-item", function() {
+		var $p=$(this).parents(".tab-select-box");
+		var $tab;
+		switch($p.attr("id")){
+			case "choice-box":
+				$tab=$("#tab-choice");
+				sprice=$(this).attr("v");
+				break;
+			case "sprice-box":
+				$tab=$("#tab-sprice");
+				sprice=$(this).attr("v");
+				break;
+			case "type-box":
+				$tab=$("#tab-type");
+				typeid=$(this).attr("v");
+				break;
+			case "scarea-box":
+				$tab=$("#tab-scarea");
+				sc_id=$(this).attr("v");
+				break;
+			case "order-box":
+				$tab=$("#tab-order");
+				orderby=$(this).attr("v");
+				break;
+			 
+		}
+		  
+		per_page = 0;
+		first = true;
+		$p.hide();
+		$p.find(".tab-select-box-item").removeClass("tab-select-box-active");
+		$(this).addClass("tab-select-box-active");
+		$tab.find(".tab-select-label").text($(this).text());
+		getList();
+	});
+</script>
+<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title=document.title;
+		
+			{if $cat.imgurl} 
+			 wxshare_imgUrl="{$cat.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+</body>
+</html>

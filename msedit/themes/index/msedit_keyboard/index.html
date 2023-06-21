@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link  href="{$skins}msedit_keyboard/index.css?{$smarty.now}" rel="stylesheet"/>
+	<body >
+		 
+		<div  id="App" class="">
+			<div class="toolBar">
+				<div url="/module.php?m=msedit" class="iconfont icon-back toolBar-item goBack"></div>
+				<div class="iconfont icon-time toolBar-item"></div>
+				<div @click="record()" :class="isRecord?'cl-red':''" class="iconfont icon-recordlight toolBar-item"></div>
+				<div class="flex-1"></div>
+				<div @click="keySmall()" class="iconfont icon-move toolBar-item"></div>
+				<div @click="keyLarge()" class="iconfont icon-add toolBar-item"></div>
+			</div>
+			<div class="flex flex-ai-center">
+				<div @click="keyLeft()" class="iconfont icon-back pd-10"></div>
+				<div  style="height: calc(100vh - 90px);" id="pianoBox" :style="{scrollLeft:keyScrollLeft+'px'}" class="pianoBox">
+					<template v-for="(item,index) in orderSounds" :key="index">
+					<div v-if="item.indexOf('b')>0"  @mousedown="mousedown(item)" @touchstart="touchstart(item)" @touchend="mouseup"  @mouseup="mouseup" class="pianoBox-black" :style="{left: blackLeft(index) +'px',width:bkeyWidth+'px'}"  :class="'pianoBox-black'+index" > 
+						 
+					</div>
+					<div class="pianoBox-white" v-else  @mousedown="mousedown(item)" @touchstart="touchstart(item)" @touchend="mouseup"  @mouseup="mouseup" :style="{width:keyWidth+'px'}" >
+						{{item}}<span v-if="!isMobile" class="mgt-5">{{playKeys[index]}}</span>
+					</div>
+					</template>
+				</div>
+				<div @click="keyRight()"  class="iconfont icon-right pd-10"></div>
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}js/isMobile.js"></script>
+		<script src="{$skins}js/soundBase.js?{$smarty.now}"></script>
+		<script src="{$skins}js/record.js?{$smarty.now}"></script>
+		<script src="{$skins}msedit_keyboard/index.js?{$smarty.now}"></script>
+	</body>
+</html>

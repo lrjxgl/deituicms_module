@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+		<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=zbtao_live_product">待审核</a>
+		<a class="item {if get('type') eq 'online'}active{/if}" href="{$appadmin}?m=zbtao_live_product&type=online">上架</a>
+		<a class="item {if get('type') eq 'offline'}active{/if}" href="{$appadmin}?m=zbtao_live_product&type=offline">已下架</a> 
+		<a class="item {if get('type') eq 'all'}active{/if}" href="{$appadmin}?m=zbtao_live_product&type=all">全部商品</a>
+	</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+    
+   <td>名称</td>
+    
+   <td>积分</td>
+   <td>评价</td>
+   <td>图片</td>
+   <td>状态</td>
+   <td>推荐</td>
+   <td>关注数</td>
+   <td>喜欢数</td>
+   <td>价格</td>
+   <td>原价</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+  
+   <td>{$c.title}</td>
+    
+   <td>{$c.grade}</td>
+   <td>{$c.raty_grade}</td>
+   <td><img src="{$c.imgurl}.100x100.jpg" class="w60" /> </td>
+   <td>
+	   <div url="/moduleadmin.php?m=zbtao_live_product&a=status&productid={$c.productid}&ajax=1" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+   <td>
+   	   <div url="/moduleadmin.php?m=zbtao_live_product&a=recommend&productid={$c.productid}&ajax=1" class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+   <td>{$c.followed_num}</td>
+   <td>{$c.love_num}</td>
+   <td>{$c.price}</td>
+   <td>{$c.market_price}</td>
+<td><a href="/moduleadmin.php?m=zbtao_live_product&a=add&productid={$c.productid}">编辑</a> <a href="/module.php?m=zbtao_live_product&a=show&productid={$c.productid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=zbtao_live_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

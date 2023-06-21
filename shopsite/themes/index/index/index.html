@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<body>
+		<div id="App" class="none" :class="'flex-col'">
+			<template v-if="globalData.pageTab=='index' || globalData.pageTab=='detail'">
+			<div style="position: fixed;left:0px; right: 0px;">
+
+				<div class="header-fixtop-right">
+					<div @click="shareClass='flex-col'" class="header-fixtop-icon pointer icon-share"></div>
+				</div>
+			</div>
+			<div :class="shareClass"  class="modal-group">
+				<div @click="shareClass=''"  class="modal-mask" style="background-color: #000; opacity: 0.8;"></div>
+				<div style="position: fixed;right: 0px;top: 30px; z-index: 9999;">
+					<img src="/static/images/wx_guide.png" style="width: 200px;" />
+				</div>
+			</div>
+
+			<div class="wshop-logo">
+				<img v-if="shop.imgurl" class="wshop-logo-img" :src="shop.imgurl+'.100x100.jpg'">
+			</div>
+			<div class="wshop mgb-5">
+
+				<div>
+					<div class="wshop-shopname">{{shop.shopname}}</div>
+					 
+					
+				</div>
+
+			</div>
+			</template>
+			<div v-show="globalData.pageTab=='index'">
+				<list @call-parent="goShow" :shopid="shop.shopid"></list>
+			</div>
+			<div v-if="globalData.pageTab=='detail'">
+				<shop-detail :shopid="shop.shopid"></shop-detail>
+				
+			</div>
+			<div v-else-if="globalData.pageTab=='show'">
+				<product-show :productid="productid"></product-show>
+			</div>
+			<template v-if="globalData.pageTab=='index' || globalData.pageTab=='detail'">
+			<div class="footer-row"></div>
+			<div class="footer">
+				<div :class="globalData.pageTab=='index'?'footer-active':''"  @click="globalData.pageTab='index'" class="footer-item icon-home">商家首页</div>
+				<div :class="globalData.pageTab=='detail'?'footer-active':''"  @click="globalData.pageTab='detail'" class="footer-item icon-location_light">联系我们</div>
+			</div>
+			</template>
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shop.shopid}"
+		</script>
+		<script src="{$skins}index/store.js"></script>
+		<script src="{$skins}index/list.js?v2=44"></script>
+		<script src="{$skins}index/detail.js"></script>
+ 
+		<script src="{$skins}index/index.js?v2=44"></script>
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title="{$shop.shopname}";
+			wxshare_imgUrl="{$shop.imgurl|images_site}.middle.jpg";
+		</script>
+	</body>
+</html>

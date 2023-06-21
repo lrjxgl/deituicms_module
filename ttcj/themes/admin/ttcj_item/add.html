@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	<form method="post" action="/module.php?m=ttcj_item&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table table-bordered" >
+  <tr><td>抽奖：</td><td><input type="text" name="cjid" id="cjid" value="{$data.cjid}" ></td></tr>
+  <tr><td>标题：</td><td><input type="text" name="title" id="title" value="{$data.title}" ></td></tr>
+  <tr><td>图片：</td><td><input type="text" name="imgurl" id="imgurl" value="{$data.imgurl}" ></td></tr>
+  <tr><td>参与人数：</td><td><input type="text" name="need_num" id="need_num" value="{$data.need_num}" ></td></tr>
+  <tr><td>status：</td><td><input type="text" name="status" id="status" value="{$data.status}" ></td></tr>
+<tr><td></td><td><input type="submit" value="保存" class="btn btn-success"></td></tr> </table>
+</form>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

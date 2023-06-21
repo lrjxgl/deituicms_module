@@ -1,0 +1,14 @@
+<?php
+$config=array(
+	"title"=>"哪有药",//模块名称
+	"module"=>"youyao",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"哪有药",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"cat_tpl"=>"",
+	"list_tpl"=>"",
+	"show_tpl"=>"",
+	"adminurl"=>"/moduleadmin.php?m=youyao&a=menu",
+	"check_update"=>"https://www.deituicms.com",
+);
+?>

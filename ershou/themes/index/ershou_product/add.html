@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}ershou_product/add.css" rel="stylesheet" />
+	<body>
+		<div id="App">
+			<div class="pd-10">
+				<div class="flex flex-ai-center mgb-10">
+					<div class="goBack">取消</div>
+					<div class="flex-1"></div>
+					<!--<div class="tBtn mgr-10">存草稿</div>-->
+					<div @click="submit" class="tBtn" style="background-color: #fff06f;color:#878143;">发布</div>
+				</div>
+				<div class="formBox">
+					<div>
+						<textarea v-model="description"
+							style="border: 0; padding: 5px;height: 80px; margin-bottom: 10px;outline: 0;"
+							placeholder="买家都关心品牌型号、入手渠道、转手原因"></textarea>
+						<div class="mgb-10">
+							<upload-data :d-list="imgList" @set-data="setImgsData" upname="imgsFile"></upload-data>
+							<input class="none" type="text" v-model="imgsdata" />
+ 
+						</div>
+					</div>
+					 
+					<div @click="areaModel=true" class="flex flex-ai-center " style="padding: 6px 15px; background-color: #f7f7f7;">
+						<div class="iconfont icon-location_light mgr-5 cl3"></div>
+						<div class="cl3">{{address}}</div>
+						<div class="flex-1"></div>
+						<div class="iconfont icon-right cl3"></div>
+					</div>
+					<div v-if="areaModel">
+						<div  @click="areaModel=false" class="modal-mask"></div>
+						<div class="areabox">
+							 
+							
+							<div class="bdb mgb-10"></div>
+							<div class="flex mgb-10" >
+								<div :style="{height:addrHeight+'px'}" style="background-color: #eee; overflow: auto;">
+									<div :class="Object.keys(province)==0?'area-item-active':''"  @click="getCityList(0,0)" class="area-item">全国</div>
+									<div :class="province.id==item.id?'area-item-active':''"  @click="getCityList(item,1)" v-for="(item,index) in provinceList" :key="index" class="area-item">{{item.name}}</div>
+									 
+								</div>
+								<div :style="{height:addrHeight+'px'}" style="overflow: auto;" class="flex-1">
+									<div  :class="city.id==item.id?'area-item-active':''"  @click="getCityList(item,2)" v-for="(item,index) in cityList" :key="index" class="area-item">{{item.name}}</div>
+								</div>
+								<div :style="{height:addrHeight+'px'}" style="overflow: auto;" class="flex-1" class="flex-1">
+									<div @click="town=item" :class="town.id==item.id?'area-item-active':''"   v-for="(item,index) in townList" :key="index" class="area-item">{{item.name}}</div>
+								</div>
+							</div>
+							<div class="flex flex-ai-center pd-10">
+								<div class="flex-1"></div>
+								<div @click="setAddr()" class="btn-small btn-outline-primary">确定选择</div>
+							</div>
+						</div>
+					</div>
+					
+					 
+					<div class="mgb-10 mgt-10">
+						<div class="flex flex-ai-center mgb-10">
+							<div class="iconfont icon-news mgr-5"></div>
+							<div class="fw-600">更多信息</div>
+						</div>
+
+						<div @click="catBox=true"  class="flex flex-ai-center mgb-10">
+							<div class="mgr-10 mgl-10 fw-600">分类</div>
+							<div class="cat-label">{{cat_label}}</div>
+							<div class="flex-1"></div>
+							<div class="iconfont icon-right"></div>
+						</div>
+						<div  v-if="catBox">
+							<div @click="catBox=false" class="modal-mask"></div>
+							
+							<div class="catBox">
+								<div class="flex mgb-10">
+									<div class="fw-600 flex-1">选择分类</div>
+									<div  @click="catBox=false"  class="iconfont icon-close"></div>
+								</div>
+								<div class="flex">
+									<div class="catList">
+										<div :class="catid1==item.catid?'catItem-active':''" class="catItem" @click="changeCat(item,2)" v-for="(item,index) in catList" :key="index">
+											{{item.title}}
+										</div>
+									</div>
+									<div class="catList">
+										<div :class="catid2==item.catid?'catItem-active':''"  class="catItem"   @click="changeCat(item,3)" v-for="(item,index) in catList2" :key="index">
+											{{item.title}}
+										</div>
+									</div>
+									<div class="catList">
+										<div :class="catid==item.catid?'catItem-active':''"  class="catItem" @click="choiceCat(item)"  v-for="(item,index) in catList3" :key="index">
+											{{item.title}}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="flex flex-ai-center">
+							<div class="mgr-10 mgl-10 fw-600">包邮</div>
+							<div class="flex flex-ai-center">
+								<input v-model="baoyou" value="0" name="baoyou" type="radio"/>是
+								<input v-model="baoyou" value="1" name="baoyou"   type="radio"/>否
+							</div>
+						</div>
+					</div>
+					<div class="bd-mp-10"></div>
+					<div class="flex flex-ai-center">
+						<div class="iconfont icon-moneybag mgr-5"></div>
+						<div>价格</div>
+						<div class="flex-1"></div>
+						<input v-model="price"
+							style="color: #cd2f2e;font-size: 1.6rem;border: 0;outline: 0;width:60px;text-align: right;padding-right: 10px;" />
+						<div class="iconfont icon-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</body>
+	{include file="footer.html"}
+	<script>
+		var productid = "{$data.productid}"
+	</script>
+	<script src="/plugin//lrz/lrz.bundle.js"></script>
+	<script src="{$skins}js/upload-data.vue.js"></script>
+	<script src="{$skins}ershou_product/add.js"></script>
+	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+	<script src="/plugin/dt-ui/gps.js"></script>
+
+</html>

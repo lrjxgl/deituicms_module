@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+			.btn-follow{
+				padding: 3px 6px;
+				border: 1px solid #666;
+				border-radius: 5px;
+				cursor: pointer; 
+				color: #666;
+			}
+			.btn-follow-active{
+				border: 1px solid #f30;
+				color: #F30;
+			}
+			</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">主播详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    <div class="flex flex-ai-center mgb-10 pd-10 bg-white">
+    	<img class="wh-60 bd-radius-50 mgr-10" src="{$data.imgurl}.100x100.jpg" />	
+    	<div class="flex-1">
+    		<div class="mgb-10">{$data.nickname}</div>
+    		<div class="flex">
+    			<div class="mgr-5">粉丝</div>
+    			<div class="cl-num mgr-10">{$data.followed_num}</div>
+    			<div class="mgr-5">评价</div>
+    			<div class="cl-num mgr-10">{$data.raty_grade}</div>
+    			<div class="mgr-5">积分</div>
+    			<div class="cl-num mgr-10">{$data.grade}</div>
+    		</div>
+    	</div>
+    	<div>
+			
+    		<div @click="ppFollow()" class="btn-follow btn-follow-active" v-if="data.isFollow==1">已关注</div>
+			<div @click="ppFollow()" class="btn-follow" v-else>关注</div>
+		</div>
+    </div>
+    
+	<div class="row-box mgb-5">
+		<div class="d-desc">{$data.description}</div>
+	</div>
+	<div class="row-box mgb-10">
+		<div class="g-hd-1">直播记录</div>
+		<div class="mtlist">
+			{foreach item=c from=$zbList}
+			<div gourl="/module.php?m=zbtao_live&a=show&liveid={$c.liveid}" class="mtlist-item">
+				<div class="mtlist-item-bd">
+					<img class="mtlist-img mgb-5" src="{$c.imgurl}.small.jpg" />
+					<div class="mtlist-title">{$c.title}</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	<div class="row-box mgb-10">
+		<div class="g-hd-1">带货历史</div>
+		<div class="flexlist">
+			{foreach item=c from=$proList}
+			<div  class="flexlist-item">
+				<img class="flexlist-img" src="{$c.imgurl}.small.jpg" />
+				<div class="flex-1">
+					
+					<div class="flexlist-title">{$c.title}</div>
+					<div class="flex">
+						<div class="cl-money">{$c.price}</div>
+						<div class="flex-1"></div>
+						<div class="market-price">{$c.market_price}</div>
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script>
+	var ppid="{$data.ppid}"
+</script>
+<script src="{$skins}zbtao_pp/show.js"> </script>
+</body>
+</html>

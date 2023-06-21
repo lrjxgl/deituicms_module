@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary mgr-5">出发地：</div>
+					<div class="cl2">{{order.from_addr}}</div>
+				</div>
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary mgr-5">目的地：</div>
+					<div class="cl2">{{order.from_addr}}</div>
+				</div>
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary mgr-5">乘客数：</div>
+					<div class="cl-num">{{order.user_num}}</div>
+				</div>
+				<div class="bd-mp-10 cl3">
+					{{order.description}}
+				</div>
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary mgr-5">联系电话：</div>
+					<a :href="'tel:'+order.telephone" class="cl-num">{{order.telephone}}</a>
+				</div>
+				<div class="flex flex-ai-center">
+					 <div class="cl-status mgr-5">{{order.status_name}}</div>
+					<div class="cl2 f12">{{order.createtime}}</div>
+					<div class="flex-1"></div>
+					<div v-if="order.status<3" @click="finishOrder(order.orderid)" class="btn-small">确定到达</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var orderid="{$order.orderid}"
+		</script>
+		<script src="{$skins}pinche_dache_order/show.js"></script>
+	</body>
+</html>

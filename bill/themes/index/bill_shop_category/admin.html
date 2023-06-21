@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">分类</div>
+	<div gourl="/module.php?m=bill_shop_category&a=add&shopid={$shop.shopid}" class="header-right-btn">创建</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    {foreach item=c from=$list}
+    <div class="sglist-item js-item">
+    	<div class="sglist-title">{$c.title}</div>
+    	<div class="sglist-desc">{$c.description}</div>
+    	<div class="flex">
+    		<div class="btn mgr-20" gourl="/module.php?m=bill_shop_category&a=add&shopid={$c.shopid}&catid={$c.catid}">编辑</div>
+    		<div class="btn js-delete" url="/module.php?m=bill_shop_category&a=delete&ajax=1&shopid={$c.shopid}&catid={$c.catid}">删除</div>
+    	</div>
+    </div>
+    {/foreach}
+    
+    <div>{$pagelist}</div> 
+    
+</div>
+{include file="bill_shop/admin-ftnav.html"}
+{include file="footer.html"}
+ 
+</body>
+</html>

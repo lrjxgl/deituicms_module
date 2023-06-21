@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">钓友动态</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+     <div class="sglist">
+     	<div class="sglist-item " v-for="(item,index) in list" :key="index">
+     		<div class="flex mgb-5">
+     			<img  @click="goHome(item.userid)" :src="item.user_head+'.100x100.jpg'" class="wh-40 bd-radius-50" />
+     			<div class="flex-1 mgl-5">
+     				<div @click="goHome(item.userid)" class="f14 fw-600 mgb-5">{{item.nickname}}</div>
+     				<div class="flex">
+     					<div class="f12 cl3">{{item.timeago}}</div>
+     					<div class="flex-1"></div>
+     					<div v-if="item.placeid>0" @click="goPlace(item.placeid)" class="cl-primary f12">来自：{{item.place.title}}</div>
+     				</div>
+     			</div>
+     			 
+     		</div>
+     		<div @click="goBlog(item.id)" class="sglist-desc">{{item.content}}</div>
+     		<div @click="goBlog(item.id)"  v-if="item.imgsList" class="sglist-imglist">
+     			 
+     			<img v-for="(cc,ii) in item.imgsList" :key="ii" :src="cc+'.100x100.jpg'" class="sglist-imglist-img" />
+     			 
+     		</div>
+     	</div>
+     </div>
+    <div gourl="/module.php?m=fishing_blog&a=add" class="goRight">发布动态</div>
+</div>
+{include file="footer.html"}
+<script src="{$skins}fishing_blog/index.js"></script>
+</body>
+</html>

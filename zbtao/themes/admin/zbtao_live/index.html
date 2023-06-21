@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+		<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=zbtao_live">待审核</a>
+		<a class="item {if get('type') eq 'online'}active{/if}" href="{$appadmin}?m=zbtao_live&type=online">上架</a>
+		<a class="item {if get('type') eq 'offline'}active{/if}" href="{$appadmin}?m=zbtao_live&type=offline">已下架</a> 
+		<a class="item {if get('type') eq 'all'}active{/if}" href="{$appadmin}?m=zbtao_live&type=all">全部直播</a>
+	</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>liveid</td>
+   <td>ppid</td>
+   <td>描述</td>
+   <td>直播时间</td>
+   <td>直播平台</td>
+  
+   <td>积分</td>
+   <td>评价</td>
+   <td>头像</td>
+   <td>状态</td>
+   <td>推荐</td>
+   <td>关注数</td>
+   <td>喜欢数</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.liveid}</td>
+   <td>{$c.ppid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.zbtime}</td>
+   <td>{$c.zbpts}</td>
+  
+   <td>{$c.grade}</td>
+   <td>{$c.raty_grade}</td>
+   <td><img src="{$c.imgurl}.100x100.jpg" class="w60" /> </td>
+   <td><div url="/moduleadmin.php?m=zbtao_live&a=status&liveid={$c.liveid}&ajax=1" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div></td>
+   <td><div url="/moduleadmin.php?m=zbtao_live&a=recommend&liveid={$c.liveid}&ajax=1" class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status"></div></td>
+   <td>{$c.followed_num}</td>
+   <td>{$c.love_num}</td>
+<td> <a target="_blank" href="/module.php?m=zbtao_live&a=show&liveid={$c.liveid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=zbtao_live&a=delete&ajax=1&liveid={$c.liveid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

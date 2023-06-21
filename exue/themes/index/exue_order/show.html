@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="cl-status">{{order.status_name}}</div>
+					<div class="flex-1"></div>
+					<div class="f12 cl2">{{order.createtime}}</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flexlist-item">
+					<img @click="goCourse(course.courseid)" :src="course.imgurl+'.100x100.jpg'" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{course.title}}</div>
+						<div class="cl-num f12">课时：{{course.ke_num}}节</div>
+						<div class="flexlist-desc">{{course.description}}</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="xhd">报名学校</div>
+				<div class="flexlist-item">
+					<img @click="goShop(shop.shopid)" :src="shop.imgurl+'.100x100.jpg'" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{shop.title}}</div>
+						<div class="flex mgb-5">
+							<div class="cl-primary f12">{{shop.nickname}}</div>
+							<div class="flex-1"></div>
+							<div class="cl-primary f12">{{shop.telephone}}</div>
+						</div>
+
+						<div class="flexlist-desc">{{shop.address}}</div>
+
+					</div>
+				</div>
+			</div>
+		 
+			<div v-if="order.tcid" class="row-box">
+				<div class="xhd">任课老师</div>
+				<div @click="goTeacher(teacher.tcid)" class="flexlist-item">
+					<img :src="teacher.imgurl+'.100x100.jpg'" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{teacher.truename}}</div>
+						<div class="flex">
+							<div class="cl2 f12">{{teacher.description}}</div>
+							 
+						</div>
+					</div>
+				</div>
+			
+			</div>
+			 
+			
+			 
+			<div v-if="order.stid" class="row-box">
+				<div class="xhd">绑定学生</div>
+				<div class="flexlist-item">
+					<img @click="goStudent(student.stid)" :src="student.imgurl+'.100x100.jpg'" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{student.truename}}</div>
+						<div class="flex">
+							<div class="cl-status">
+								<template v-if="student.gender==1">男</template><template v-else>女</template>
+							</div>
+							<div class="flex-1"></div>
+							<div class="cl3 f12">{{student.age}}</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			 
+			<div class="row-box mgb-5">
+				<div class="xhd">联系方式</div>
+				<div class="flex-table">
+					<div class="flex-table-label">联系人</div>
+					<div class="cl2">{{order.nickname}}</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">电话</div>
+					<div class="cl2">{{order.telephone}}</div>
+				</div>
+
+			</div>
+			 
+			<div v-if="order.status<3" class="row-box">
+				<div class="flex flex-jc-center">
+					 
+					<div @click="bindStudent=true" v-if="order.stid==0" id="xy-btn" class="btn-small mgr-10">绑定学员</div>
+					 
+				 
+					<div v-if="order.stid== 1 && order.status== 0" @click="baodao()" class="btn-small mgr-10">到校报到</div>
+					 
+					 
+					<div v-if="order.status==2 && order.israty==0" @click="ratyBox=true"  class="btn-small mgr-10">课程评价</div>
+					 
+				</div>
+
+			</div>
+			 
+			<div class="row-box">
+				<div class="cl3 f12 text-center">
+					如有疑问 咨询电话 15985840591
+				</div>
+			</div>
+			
+			<div  v-if="bindStudent">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">绑定学员</div>
+						<div class="modal-close iconfont icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div>
+							 
+							<div v-for="(item,index) in stList" :key="index" class="flex mgb-5">
+								<input type="radio" :value="item.stid" v-model="stid" name="stid" class="stid" /> {{item.truename}}
+							</div>
+							 
+						</div>
+						<div @click="bindSubmit" class="btn-row-submit">确认绑定</div>
+					</div>
+				</div>
+			</div>
+			<div  v-if="ratyBox">
+				<div @click="ratyBox=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">课程评价</div>
+						<div @click="ratyBox=false" class="modal-close iconfont icon-close"></div>
+					</div>
+					<form v-if="pageLoad" id="ratyForm" @submit.prevent="ratySubmit">
+						<input type="text" class="none" name="orderid" :value="order.orderid" />
+						<div class="row-box mgb-5">
+							<sky-raty label="课程评价" fields="raty_grade" len="10" :grade="order.raty_grade"></sky-raty>
+			
+						</div>
+						<div class="textarea-flex">
+							 
+							<textarea name="raty_content" placeholder="请输入评价内容" :value="order.raty_content" class="textarea-flex-text h60"></textarea>
+						</div>
+			
+			
+						<button form-type="submit"   class="btn-row-submit" id="submit">提交评价</button>
+			
+					</form>
+				</div>
+			</div>
+			
+		</div>
+		
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script>
+			var orderid = "{$order.orderid}";
+		</script>
+		<script src="{$skins}exue_order/show.js"></script>
+		<script src="{$skins}exue_order/raty.js"></script>
+	</body>
+</html>

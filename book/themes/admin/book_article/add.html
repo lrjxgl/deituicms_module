@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+			.flex-table{
+				display: flex;
+				padding: 10px;
+				background-color: #fff;
+			}
+			.flex-table .flex-60{
+				width: 60px;
+				margin-right: 10px;
+			}
+			.flex-table .flex-1{
+				flex: 1;
+			}
+			.textarea{
+				width: 90%;
+				height: 60px;
+				padding: 5px;
+			}
+			.btn-upload{
+				width: 80px;
+				text-align: center;
+				height: 36px;
+				line-height: 36px;
+				background-color: #006699;
+				cursor: pointer;
+			}
+		</style>
+	<body >
+		<div class="tabs-border">
+		 
+			<div class="item active" >文章编辑</div>
+			<div class="item js-import-btn">导入</div>
+			<div class="item" id="article-del">删除</div>
+		</div>	
+ <div class="main-body">
+<form method="post" id="form" action="/module.php?m=book_article&a=save&ajax=1">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+<input  type="hidden" name="bookid" value="{$bookid}"/>
+<input  type="hidden" name="pid" value="{$pid}"/>
+<div class="flex-table">
+	<div class="flex-60">标题</div>
+	<div class="flex-1">
+		<input type="text" id="title" name="title" value="{$data.title}" />
+	</div>
+</div>
+<div class="flex-table">
+	<div class="flex-60">描述</div>
+	<div class="flex-1">
+		<textarea class="textarea" name="description" id="description" >{$data.description}</textarea>
+	</div>
+</div>
+<div class="flex-table">
+	<div class="flex-60">排序</div>
+	<div class="flex-1">
+		<input type="text" id="orderindex" name="orderindex" value="{$data.orderindex}" />
+	</div>
+</div>
+<div class="flex-table">
+	<div class="flex-60">Mp3</div>
+	<div class="flex-1">
+  		<div id="upmp3-btn" class="btn">上传mp3</div>
+			<span id="mp3progress"></span>
+			<div style="padding: 10px; color: #f60;">mp3小于5G，只支持mp3格式</div>
+			<div id="mp3box">
+				{if $data.mp3url}
+				<audio controls="" src="{$data.mp3url|images_site}" ></audio>
+				{/if}
+			</div>
+			
+			<input type="hidden" name="mp3url" id="mp3url" value="{$data.mp3url}" />
+		 
+			<div style="display: none;">
+				<input type="file" id="upMp3" name="upfile" />
+			</div>
+	</div>
+</div>
+
+<div class="flex-table">
+	<div class="flex-60">Mp4</div>
+	<div class="flex-1">
+  		
+			<div id="upmp4-btn" class="btn">上传Mp4</div>
+			<span id="progress"></span>
+			<div style="padding: 10px; color: #f60;">视频小于5G，只支持mp4格式</div>
+			<div id="mp4box">
+				{if $data.mp4url}
+				<video controls="" src="{$data.mp4url|images_site}" class="video"></video>
+				{/if}
+			</div>
+			
+			<input type="hidden" name="mp4url" id="mp4url" value="{$data.mp4url}" />
+		 
+			<div style="display: none;">
+				<input type="file" id="upMp4" name="upfile" />
+			</div>
+             
+	</div>
+</div>
+
+ 
+
+<div class="flex-table">
+	<div class="flex-60">内容</div>
+	<div class="flex-1">
+		<script type="text/plain" id="content"  name="content" >{$data.content}</script>
+	</div>
+</div>
+<div class="flex-table">
+	<div class="flex-60">&nbsp;</div>
+	<div class="flex-1">
+		 <div class="btn-row-submit" id="submit">保存</div> 
+	</div>
+</div>	
+
+</form>
+<style>
+	.importBox-mask{
+		background-color: #eee;
+		position: fixed;
+		top:0px;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 9998;
+	}
+	.importBox{
+		position: absolute;
+		top: 120px;
+		left:100px;
+		width: 600px;
+		background-color: #fff;
+		padding: 20px;
+		border-radius: 20px;
+		z-index: 9999;
+	}
+</style>
+<div id="importBox" style="display: none;">
+	<div class="importBox-mask"></div>
+	<div class="importBox">
+		<div class="flex mgb-5">
+			<input id="imp-title" type="text"> 
+			<div class="input-flex-btn" id="importBox-search-btn">搜索</div>
+		</div>
+		<div class="list" id="importBox-list">
+			 
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script src="{$skins}js/oss.js"></script> 
+<?php loadEditor();?>
+<script language="javascript">
+var id="{$data.id}"; 
+var editor=UE.getEditor('content',options);
+$(document).on("click","#submit",function(){
+	$.post("/moduleadmin.php?m=book_article&a=save&ajax=1",$("#form").serialize(),function(data){
+		skyToast(data.message);
+		setTimeout(function(){
+			window.parent.location.reload();
+		},1000)
+		
+	},"json")
+})
+$(document).on("click",".importBox-mask",function(){
+	$("#importBox").hide();
+})
+$(document).on("click",".js-import-btn",function(){
+	$("#importBox").show();
+	var title=$("#title").val();
+	$("#imp-title").val(title);
+	$.get("/moduleadmin.php?m=book_article&a=search&ajax=1&keyword="+title+"&id="+id,function(res){
+		var html='';
+		for(var i in res.data){
+			html+=`<div class="flex flex-ai-center bd-mp-5">
+				<div class="flex-1">${res.data[i].book_title}之${res.data[i].title}</div>
+				<div aid="${res.data[i].id}" class="btn js-import-submit">导入</div>
+			</div>`;
+		}
+		$("#importBox-list").html(html);
+	},"json")
+	
+})
+
+$(document).on("click","#importBox-search-btn",function(){
+	var title=$("#imp-title").val();
+	$.get("/moduleadmin.php?m=book_article&a=search&ajax=1&keyword="+title+"&id="+id,function(res){
+		var html='';
+		for(var i in res.data){
+			html+=`<div class="flex flex-ai-center bd-mp-5">
+				<div class="flex-1">${res.data[i].book_title}之${res.data[i].title}</div>
+				<div aid="${res.data[i].id}" class="btn js-import-submit">导入</div>
+			</div>`;
+		}
+		$("#importBox-list").html(html);
+	},"json")
+	
+})
+
+$(document).on("click",".js-import-submit",function(){
+	$.ajax({
+		url:"/moduleadmin.php?m=book_article&a=import&ajax=1",
+		data:{
+			id:id,
+			importid:$(this).attr("aid")
+		},
+		dataType:"json",
+		success:function(res){
+			if(!res.error){
+				 location.reload(true)
+			}
+		}
+	})
+})
+
+$(document).on("click","#article-del",function(){
+	if(confirm("确认删除吗")){
+		$.ajax({
+			url:"/moduleadmin.php?m=book_article&a=delete&ajax=1",
+			data:{
+				id:id
+			},
+			dataType:"json",
+			success:function(res){
+				skyToast(res.message)
+				if(!res.error){
+					 window.parent.location.reload(true)
+				}
+			}
+		})
+	}
+	
+})
+</script>
+</body>
+</html>

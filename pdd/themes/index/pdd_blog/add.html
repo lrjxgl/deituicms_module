@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布微贴</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=pdd_blog&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				
+				 
+					 
+					<div class="textarea-flex">
+						 
+						<textarea placeholder="请输入内容" class="textarea-flex-text h60" name="content" id="content">{$data.content}</textarea>
+					</div>
+				 
+					<div class="bg-fff mgb-5">
+						<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+					{include file="inc/uploader-data.html"}
+					</div>
+					 
+				<div class="btn-row-submit " id="submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script>
+			var inSubmit=false; 
+			$(document).on("click","#submit",function(){
+				if(inSubmit){
+					return false;
+				}
+				inSubmit=true;
+				setTimeout(function(){
+					inSubmit=false;
+				},1000)
+				var form=$(this).parents("form");
+				var imgs=$(".uploader-imgsdata-img");
+				 
+				if(imgs.length>0){
+					var s="";
+					for(var i=0;i<imgs.length;i++){
+						if(i>0){
+							s+=",";
+						}
+						s+=imgs.eq(i).attr("v");		
+					}
+					$("#imgsdata").val(s);
+				}
+				 
+				$.post(form.attr("action")+"&ajax=1",form.serialize(),function(res){
+					skyToast(res.message);
+					inSubmit=false;
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

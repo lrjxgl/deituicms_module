@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="tabs-border">
+		<div gourl="/moduleadmin.php?m=taoke" class="item active">产品列表</div>
+		<div gourl="/moduleadmin.php?m=taoke&a=add" class="item">添加产品</div>
+	</div>
+
+<div class="main-body">
+	
+    <div >
+    	<form class="search-form" method="get" action="/moduleadmin.php?m=taoke">
+		<input type="hidden" name="m" value="taoke" />
+		ID:<input class="w50" type="text" name="id" value="{$smarty.get.id|intval}" />
+		标题：<input type="text" class="word w150" value="{$smarty.get.word|html}" name="word" />
+		分类：
+		<select name="catid" class="w150">
+			<option value="0">请选择</option>
+			<option {if get("catid") eq "-1"}selected{/if} value="-1">未分类</option>	
+			{foreach item=c from=$catList}
+				<option value="{$c.catid}" {if get("catid") eq $c.catid}selected{/if}>{$c.title}</option>
+				{if $c.child}
+				{foreach item=cc from=$c.child}
+				<option value="{$cc.catid}" {if get("catid") eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+				{/foreach}
+				{/if}
+			{/foreach}
+		</select>
+		平台：
+		<select name="xfrom" class="w100">
+			<option value="">所属平台</option>
+			{foreach item=c key=k from=$xfromlist}
+			<option value="{$k}" {if get('xfrom') eq $k}selected{/if}>{$c}</option>
+			{/foreach}
+			 
+		</select>
+		状态：<select class="w100" name="status">
+				<option value="">请选择</option>
+				<option {if get("status") eq 'online'}selected{/if} value="online">上线</option>
+				<option {if get("status") eq 'offline'}selected{/if}  value="offline">下线</option>
+		</select>
+		推荐：<select class="w100" name="isrecommend">
+				<option value="">请选择</option>
+				<option {if get("isrecommend") eq 'online'}selected{/if} value="online">是</option>
+				<option {if get("isrecommend") eq 'offline'}selected{/if}  value="offline">否</option>
+		</select>
+		<button type="submit" class="btn-small">搜索</button>
+	</form>
+    	<form id="cForm">
+    	 <table class="tbs">
+			 <thead>
+  <tr>
+   <td>id <input type="checkbox" class="chkall"  /></td>
+   <td>分类</td>
+   <td>所属平台</td>
+   <td>名称</td>
+   
+ 
+   
+   <td>封面</td>
+   <td>价格</td>
+   <td>状态</td>
+   
+   <td>推荐</td>
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td><input type="checkbox" class="ids"  name="ids[]" value="{$c.id}" /> {$c.id}</td>
+   <td>{$c.cat_name}</td>
+   <td>{$c.xfrom}</td>
+   <td>{$c.title|cutstr:32}</td>
+   
+
+   
+   <td><img width="60" src="{$c.imgurl|images_site}"></td>
+   <td>{$c.price}</td>
+  	<td>
+		<div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=taoke&a=status&ajax=1&id={$c.id}"></div>
+  	</td>
+  	 
+  	
+  	<td> <div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=taoke&a=recommend&ajax=1&id={$c.id}"></div>
+  	</td>
+<td><a href="/moduleadmin.php?m=taoke&a=add&id={$c.id}">编辑</a> 
+	<a href="/module.php?m=taoke&a=show&id={$c.id}" target="_blank">查看</a> 
+	<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=taoke&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+ <div class="flex flex-ai-center pd-10">
+	 <input type="checkbox" class="chkall"  />&nbsp;
+	 分类：   
+	 <select name="catid" class="w100 mgr-5">
+		<option value="0">请选择</option>
+		{foreach item=c from=$catList}
+			<option value="{$c.catid}" {if get("catid") eq $c.catid}selected{/if}>{$c.title}</option>
+			{if $c.child}
+			{foreach item=cc from=$c.child}
+			<option value="{$cc.catid}" {if get("catid") eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+			{/foreach}
+			{/if}
+		{/foreach}
+		</select>
+		
+		<div  class="btn mgr-10"  id="changeCategory">修改分类</div>
+	 聚合：
+	 <select name="gid" class="w100 mgr-5">
+	 	<option value="0">请选择</option>
+	 	{foreach item=c from=$groupList}
+	 	<option value="{$c.gid}">{$c.title}</option>
+	 	{/foreach}
+	 </select>
+	 <div  class="btn"  id="changeGroup">聚合产品</div>
+	</div> 
+ </form>
+<div>{$pagelist}</div>
+    </div>
+</div>
+{include file="footer.html"}
+<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#stime"
+			})
+			laydate.render({
+				elem:"#etime"
+			});
+		</script>
+<script>
+	$(".chkall").click(function(){
+		if($(this).prop("checked")==true){
+			$(".ids").prop("checked",true);
+		}else{
+			$(".ids").prop("checked",false);
+		}
+	});
+	$(document).on("click","#changeCategory",function(){
+		$.post("/moduleadmin.php?m=taoke&a=category&ajax=1",$("#cForm").serialize(),function(res){
+			skyToast(res.message);
+			if(!res.error){
+				setTimeout(function(){
+					window.location.reload();
+				},1000)
+				
+			}
+		},"json");
+	})
+	$(document).on("click","#changeGroup",function(){
+		$.post("/moduleadmin.php?m=taoke&a=group&ajax=1",$("#cForm").serialize(),function(res){
+			skyToast(res.message);
+			if(!res.error){
+				setTimeout(function(){
+					window.location.reload();
+				},1000)
+			}
+		},"json");
+	})
+</script>
+</body>
+</html>

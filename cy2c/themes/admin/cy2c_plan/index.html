@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<div class="item">包间预定</div>
+	<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=cy2c_plan">待入座</a>
+	<a class="item {if get('type') eq 'success'}active{/if}" href="{$appadmin}?m=cy2c_plan&type=success">已入座</a>
+	<a class="item {if get('type') eq 'cancel'}active{/if}" href="{$appadmin}?m=cy2c_plan&type=cancel">已取消</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   
+   <td>座位</td>
+   <td>备注</td>
+   <td>人数</td>
+  
+   <td>预订人</td>
+   <td>预定电话</td>
+   
+   <td>预定时间</td>
+    
+   <td>操作</td>
+ </tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.placeid_title}</td>
+    <td>{$c.title}</td>
+   
+  
+   <td>{$c.num}</td>
+   
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   
+   <td>{$c.plantime}</td>
+   
+   <td>
+	   {if $c.status eq 0}
+	   <div class="js-confirm btn-mini" data-id="{$c.id}" >入座</div>
+	    <div class="js-delete btn-mini" url="/moduleadmin.php?m=cy2c_plan&a=cancel&ajax=1&id={$c.id}" >取消</div>
+	   {elseif $c.status eq 1}
+	   已入座
+	   {else}
+	   已取消
+	   {/if}
+   </td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-confirm",function(){
+		var id=$(this).attr("data-id");
+		var obj=$(this);
+		if(confirm("确认客人入座了吗")){
+			$.get("/moduleadmin.php?m=cy2c_plan&a=confirm&ajax=1&id="+id,function(res){
+				obj.parents("tr").remove();
+			},"json");
+		}
+		
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的课程</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div @click="setTab('all')" :class="tab=='all'?'tabs-border-active':''" class="tabs-border-item">全部</div>
+				<div @click="setTab('new')"  :class="tab=='new'?'tabs-border-active':''"  class="tabs-border-item">待审核</div>
+				<div @click="setTab('pass')"  :class="tab=='pass'?'tabs-border-active':''"  class="tabs-border-item">已上架</div>
+				<div @click="setTab('forbid')"  :class="tab=='forbid'?'tabs-border-active':''"  class="tabs-border-item">已下架</div>
+			</div>
+			<div v-for="(item,index) in list" :key="index" class="flexlist-item">
+				<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'" />
+				<div class="flex-1">
+					<div class="flexlist-title">{{item.title}}</div>
+					<div class="flex mgb-10">
+						<div class="cl2 mgr-5">库存</div>
+						<div class="cl-money">{{item.total_num}}份</div>
+						<div class="flex-1"></div>
+						<div class="cl2 mgr-5">已售</div>
+						<div class="cl-num">{{item.sold_num}}份</div>
+					</div>
+					<div class="flexlist-desc">{{item.description}}</div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						<div v-if="item.status==1" class="btn-small mgr-5 btn-outline-primary">下架</div>
+						<div v-if="item.status==2 && item.ispass==1 " class="btn-small  mgr-5 btn-outline-primary">上架</div>
+						<div @click="goAdd(item.lessonid)"  class="btn-small btn-outline-primary">编辑</div>
+					</div>
+				</div>	
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}tutor_lesson/index.js"></script>
+	</body>
+</html>

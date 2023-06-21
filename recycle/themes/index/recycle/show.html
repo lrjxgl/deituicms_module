@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">回收详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box mgb-10">
+				<div class="flex bd-mp-5">
+					<div class="cl-status">{{item.status_name}}</div>
+					<div class="flex-1"></div>
+					<div class="cl3 f12">{{item.createtime}}</div>
+				</div>
+				<div class="sglist-title">{{item.description}}</div>
+				<div class="flex mgb-5">
+					<div class="cl2 mgr-5">{{item.nickname}}</div>
+					<div class="cl2 mgr-5">{{item.telephone}}</div>
+				</div>
+				<div class="cl2 f12 mgb-5">{{item.address}}</div>
+				 <div class="cl2 f12 mgb-5">上门时间：{{item.freetime}}</div> 
+				<div  class="flex">
+					<div class="flex-1"></div>
+					 
+					<div v-if="item.status==0" @click="cancel(item)" class="btn-small btn-danger">取消订单</div>
+				</div>
+			</div>
+			<div v-if="item.status==3 && item.israty==0" class="row-box mgb-5">
+				<sky-raty @call-parent="setRatyGrade" fields="raty_grade" label="评价" grade="8" len="10" ></sky-raty>
+				<textarea v-model="raty_content" class="textarea-flex-text h60"></textarea>
+				<div class="flex">
+					<div class="flex-1"></div>
+					<div @click="ratySubmit()" class="btn">确认评分</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5" v-if="item.israty">
+				<sky-raty readyonly="true" fields="raty_grade" label="评价" :grade="item.raty_grade" len="10" ></sky-raty>
+				<div  class="textarea-flex-text h60" v-html="raty_content"></div>
+			</div>
+			<div v-if="logList && logList.length>0" class="row-box">
+				<div class="row-box-hd mgb-10">订单日志</div>
+				 
+				<div v-for="(it,ii) in logList" :key="ii" class="flex bd-mp-5">
+					<div class="cl3 f12 mgr-10">{{it.createtime}}</div>
+					<div class="cl2 flex-1">
+						{{it.content}}
+					</div>
+					
+				</div>
+				 
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script>
+			var id="{$data.id}"
+		</script>
+		<script src="{$skins}recycle/show.js"></script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+	</body>
+</html>

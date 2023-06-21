@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">全部圈子</div>
+			<div class="header-right-btn" gourl="/module.php?m=group&a=apply">创建圈子</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="grouplist">
+			 
+				<div @click="goGroup(item.gid)" v-for="(item,index) in list" :key="index" class="flexlist-item pointer" >
+					<img class="flexlist-img"   :src="item.glogo+'.100x100.jpg'"> 
+					<div class="flex-1">
+						<div class="flexlist-title">{{item.gname}}</div>
+						<div class="flex mgb-5">
+							<div class="cl2 f12 mgr-10">主题 {{item.topic_num}}</div>
+							 
+						</div>
+						<div class="cl3 f12">{{item.description}}</div>
+					</div>
+					
+					 
+				</div> 
+				<div class="loadMore" v-if="per_page>0" @click="getList()"></div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}ershou_group/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='pinche_line/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>lineid</td>
+   <td>路线名称</td>
+   <td>费用(白天/黑夜)</td>
+   <td>接车费用</td>
+   <td>开始地址</td>
+    
+   
+   <td>结束地址</td>
+ 
+   <td>线路图</td>
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.lineid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.bai_money}元/{$c.hei_money}元</td>
+   <td>{$c.sendmoney}元/千米</td>
+   <td>{$c.start_addr}</td>
+    
+   
+   <td>{$c.end_addr}</td>
+ 
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" class="wh-40" /> </td>
+    <td>
+		<div url="/moduleadmin.php?m=pinche_line&a=status&ajax=1&lineid={$c.lineid}" class="{if $c.status==1}yes{else}no{/if} js-toggle-status"></div>
+	</td>
+<td>
+	<a href="/moduleadmin.php?m=pinche_line_addr&a=line&stype=1&lineid={$c.lineid}">起点列表</a>
+	<a href="/moduleadmin.php?m=pinche_line_addr&a=line&stype=2&lineid={$c.lineid}">终点列表</a> 
+	
+	<br/>
+ <a href="/moduleadmin.php?m=pinche_line&a=add&lineid={$c.lineid}">编辑</a>
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=pinche_line&a=delete&ajax=1&lineid={$c.lineid}">删除</a>
+ </td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

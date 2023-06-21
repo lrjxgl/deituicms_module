@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='cy2c_place/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>placeid</td>
+   <td>座位名称</td>
+   <td>座位数</td>
+   <td>最低人数</td>
+   <td>最多人数</td>
+   
+   <td>占用</td>
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.placeid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.zw_num}</td>
+   <td>{$c.min_num}</td>
+   <td>{$c.max_num}</td>
+   <td><div class="{if $c.inservice}yes{else}no{/if}"></div></td>
+   <td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=cy2c_place&a=status&placeid={$c.placeid}&ajax=1" ></div></td>
+<td><a href="/moduleadmin.php?m=cy2c_place&a=add&placeid={$c.placeid}">编辑</a> 
+<a class="js-ewm-btn pointer" kurl="{$c.url}" url="{$c.ewm}">查看二维码</a> 
+
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=cy2c_place&a=delete&placeid={$c.placeid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-ewm-btn",function(){
+		var url=$(this).attr("url");
+		var kurl=$(this).attr("kurl");
+		html='<div>'+kurl+'</div><a href="'+url+'" target="_blank"><img style="margin:0 auto;width:200px;" src="'+url+'" ></a><div>把二维码打印保存</div>';
+		showbox("二维码",html,360,240);
+	})
+</script>
+</body>
+</html>

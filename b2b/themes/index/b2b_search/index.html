@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.outline-none{
+			outline: none;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">搜一下</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			
+			
+			<div id="app" style="display: none;" :class="'flex-col'">
+				<div class="tabs-border-group">
+					<div class="tabs-border">
+						<div @click="setPage('product')" :class="{'tabs-border-active':page=='product'}" class="tabs-border-item">产品</div>
+						<div @click="setPage('shop')" :class="{'tabs-border-active':page=='shop'}" class="tabs-border-item">商家</div>
+					</div>
+				</div>
+				<div class="flex pd-5">
+					<input class="input-flex-text bd-radius-10 outline-none" v-model="keyword" :value="keyword" id="keyword" />
+					<div class="input-flex-btn w60" @click="search">搜一下</div>
+				</div>
+				<div   v-if="page=='product'">
+					<pubu-list :data-list="list"></pubu-list>
+				</div>
+				<div v-if="page=='shop'">
+					<div @click="goShop(item.shopid)" v-for="(item,index) in  list" :key="index" class="flexlist-item">
+						<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img bd-radius-50" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.shopname}}</div>
+							<sky-raty len="5" mod="2" readonly="1" :grade="item.raty_grade" label="评价"></sky-raty>
+							<div class="flex" v-if="item.prolist">
+								<div v-for="(p,pindex) in item.prolist" :key="pindex" class="mgr-5">
+									<img :src="p.imgurl+'.100x100.jpg'" class="wh-60 mgb-5" />
+									 
+								</div>
+							</div>
+						</div>
+						
+						 
+					</div>
+				</div>
+				<div v-if="per_page>0" id="loadMore" class="loadMore" @click="getPage()">加载更多</div>
+			</div>
+			
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var keyword="{$keyword}";
+		</script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}b2b_search/index.js"></script>
+		<script src="{$skins}js/pubu-list.js"></script>
+	</body>
+</html>

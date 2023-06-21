@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item">{$shop.shopname}::</div>
+			<a class="item active" >管理员列表</a>
+			 
+		</div>
+		<div class="main-body" id="app">
+			<form autocomplete="off" id="addForm">
+				<div class="input-flex">
+					<div class="input-flex-label">账号</div>
+					<input type="text" class="w150" name="adminname" />
+					<div class="input-flex-label">密码</div>
+					<input  type="password"  class="w150" name="password" />
+					<div class="btn" @click="addFormSubmit()">添加</div>
+				</div>
+			</form>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>名称</td>
+					 
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					 
+					<tr v-for="(item,index) in pageData.list" :key="index">
+						<td>{{item.adminname}}</td>
+					 
+						<td><div @click="modalShow(item.adminid)" class="btn-small js-chbtn">修改密码</div> </td>
+					</tr>
+					 
+				</tbody>
+			</table>
+			<div class="modal-group" :class="modalClass">
+				<div class="modal-mask" @click="modalClose()"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">修改密码</div>
+					</div>
+					<div class="modal-body">
+					<div class="input-flex">
+						<div class="input-flex-label">新密码</div>
+						<input v-model="pwd1" type="text" name="password" />
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">重复密码</div>
+						<input v-model="pwd2" type="text" name="password2" />
+					</div>
+					<div class="btn-row-submit" @click="updateSave">确认修改</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script> 
+			var shopid="{$shop.shopid}";
+		</script>
+		<script src="{$skins}csc_admin/index.js"></script>
+		 
+	</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			
+			<div class="row-box flex mgb-5">
+				<div class="flex-1 cl2">单号：{$order.orderno}</div>
+				
+				<div class="cl-primary">{$order.status_name}</div>
+			</div>
+			
+			<div class="flexlist">
+				{foreach item=c from=$prolist}
+				<div class="flexlist-item mgb-0">
+
+					<div gourl="/module.php?m=flk_product&a=show&id={$c.productid}" class="flexlist-imgbox">
+						<image src="{$c.imgurl}.100x100.jpg" class="flexlist-img"></image>
+					</div>
+		
+					<div class="flex-1">
+						<div class="flexlist-title" gourl="/module.php?m=flk_product&a=show&id={$c.productid}" target="_blank">{$c.title}</div>
+						<div class="flex">
+							<div class="cl2 mgr-10">{$c.ks_title}</div>
+							<div class="cl-num mgr-10">￥{$c.price} </div>
+							<div class="flex-1"></div>
+							<div class="cl2">x {$c.amount}</div>	
+						</div>		
+					</div>
+				</div>
+				{/foreach}
+				 
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex mgb-5">
+					共 <div class="cl-num">{$order.total_num}</div> 件商品， 合计
+					<div class="cl-num">￥{$order.money}</div>
+					<div class="mgr-5">元</div>
+					运费<div class="cl-num">{$order.express_money}</div>元 
+				</div>
+				{if $order.account_money>0}
+				<div  class="flex mgb-10 f12">
+					 
+					 账户抵扣：<div class="cl-money f12">￥{$order.account_money}</div>元 
+					 在线支付：<div class="cl-money f12">￥{$order.pay_money}</div>元 
+					 <div class="flex-1"></div>  
+				</div>
+				{/if}
+				<div class="flex mgb-5">
+					<div class=" f12">优惠券</div>
+					<div class="cl-num f12">-￥{$order.coupon_money}</div>
+					{if $order.flkid}
+					<div class="f12 mgl-5">一折券</div>
+					<div class="cl-num f12"> ￥{$order.flk_money} </div>
+					{/if}
+				</div>
+				<div class="cl2 f12 mgb-5">下单时间：{$order.createtime}</div>
+				<div class="f14 mgb-5">备注</div>
+				<div class="bg-light pd-10 cl3 bd-radius-10">
+					{$order.comment}
+				</div>
+			</div>
+			<div class="row-box flex mgb-5">
+				<img gourl="/module.php?m=flk_shop&shopid={$shop.shopid}" src="{$shop.imgurl}.100x100.jpg" class="wh-40 mgr-5" />
+				<div class="flex-1">{$shop.shopname}</div>
+				<div gourl="/module.php?m=flk_guest&a=user&shopid={$shop.shopid}" class="btn-round bg-success wh-30 btn-icon icon-service_light flex-c"></div>
+			</div>
+			<div class="row-box pdt-0 mgb-5">
+				 
+				<div class="flex-table">
+					<div class="flex-table-label">联系人：</div>
+					<div class="flex-table-box text-right">
+						{$addr.truename}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">手机：</div>
+					<div class="flex-table-box text-right">
+						{$addr.telephone}
+					</div>
+				</div>
+				{if $order.sendtype=='shop'}
+				<div class="flex-table">
+					<div class="flex-table-label">配送方式</div>
+					<div class="flex-table-box text-right">
+						到店消费
+					</div>
+				</div>
+				{else}
+				<div class="flex-table">
+					<div class="flex-table-label">收货地址：</div>
+					<div class="flex-table-box text-right">
+						{$addr.address}
+					</div>
+				</div>
+				{/if}
+			</div>
+			{if $ordercode && $order.status==0}
+			<div class="row-box mgb-5">
+				<div class="flex flex-center">
+					<img class="w100" src="{$orderCodeEwm}" />
+				</div>
+				<div class="flex flex-center pd-5">
+					到店消费验证请勿泄露
+				</div>
+				{if $order.ordertype=='one'}
+				<div class="cl-red flex flex-center f12">秒杀商品，不可取消，快去店里消费吧</div>
+				{/if} 
+			</div> 
+			{/if}
+				{if $order.status==0}
+				<div class="row-box pdt-0">
+					<div class="row-box flex flex-center">
+						<div gourl="/module.php?m=flk_guest&a=user&shopid={$order.shopid}" class="btn btn-outline-primary ">联系客服</div>
+						 
+						{if $order.ispay==0}
+						<div id="goPay" class="btn-small btn-outline-success mgl-5">去支付</div>
+						{/if}
+					</div>
+				</div>
+				{elseif $order.status==1}
+				<div class="row-box pdt-0">
+					<div class="row-box flex flex-center">
+						<div gourl="/module.php?m=flk_guest&a=user&shopid={$order.shopid}" class="btn btn-outline-primary ">联系客服</div>
+					</div>
+				</div>
+				{elseif $order.status==2}
+				<div class="row-box pdt-0">
+					<div class="row-box flex flex-center">
+						<div gourl="/module.php?m=flk_guest&a=user&shopid={$order.shopid}" class="btn btn-outline-primary mgr-5">联系客服</div>
+						<div id="express-search" v="{$order.express_no}" class="btn btn-outline-primary mgr-5">查看物流</div>
+						<div class="btn btn-outline-primary " id="order-receive-submit">确认收货</div>
+					</div>
+				</div>	
+				{elseif $order.status==3}
+				<div class="row-box pdt-0">
+					<div class="row-box flex flex-center">
+						<div gourl="/module.php?m=flk_guest&a=user&shopid={$order.shopid}" class="btn btn-outline-primary mgr-5">联系客服</div>
+						{if $order.israty==0}
+						<div class="btn btn-outline-primary " gourl="/module.php?m=flk_order&a=raty&orderid={$order.orderid}">去评价</div>
+						{/if}
+					</div>
+				</div>	
+				{/if}
+				 
+				
+		
+			
+			
+			 
+		</div>
+		{include file="footer.html"}
+		<script>
+			var orderid="{$order.orderid}"
+		</script>
+		<script src="{$skins}flk_order/show.js"></script>
+	</body>
+</html>

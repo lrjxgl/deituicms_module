@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">全职报名列表</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    {foreach item=c from=$list}
+	 <a href="/module.php?m=job_quanzhi&a=show&id={$c.id}" class="bg-white pd-10 mgb-5">
+	 	  <div class="c1 f16 mgb-5">{$c.title}</div>
+	 	  <div class="flex mgb-5">
+	 		  时间：{$c.startTime}
+	 		  <div class="flex-1">
+	 			  
+	 		  </div>
+	 		  工资 <div class="cl-money">￥{$c.money}</div>/月
+	 	  </div>
+	 	  <div class="cl2  mgb-5">地点：{$c.address}</div>
+	 	  <div class="cl2">
+	 		  {$c.description}
+	 	  </div>
+	 </a>
+	{/foreach} 
+</div>
+{include file="footer.html"}
+</body>
+</html>

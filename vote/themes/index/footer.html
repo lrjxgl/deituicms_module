@@ -1,0 +1,25 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<a class="footer-item {if $ftnav eq 'home'}footer-active{/if} icon-home" href="/module.php?m=vote&a=home&id={$vote.id}">
+		首页</a>
+		<a class="footer-item {if $ftnav eq 'item'}footer-active{/if} icon-upstage" href="/module.php?m=vote_join&vid={$vote.id}">作品</a>
+	<a class="footer-item {if $ftnav eq 'join'}footer-active{/if} icon-roundaddlight"   href="/module.php?m=vote_join&a=join&id={$vote.id}">我要参加</a>	
+	<a class="footer-item {if $ftnav eq 'paihang'}footer-active{/if} icon-upstage" href="/module.php?m=vote&a=paihang&id={$vote.id}">排行榜</a>
+	<a class="footer-item {if $ftnav eq 'detail'}footer-active{/if} icon-goods_favor_light"  href="/module.php?m=vote&a=detail&id={$vote.id}">奖品介绍</a>
+</div>
+	
+<script src="/plugin/jquery/jquery.js"></script>
+	<script src="/plugin/dt-ui/dt-ui-h5.js"></script>
+<script src="{$skins}js/app.js"></script>	
+<?php
+wx_jssdk();
+?>    
+<script>
+	wxshare_title="{$seo.title}";
+	wxshare_link=window.location.href;
+	wxshare_imgUrl="{$vote.imgurl|images_site}";
+	setTimeout(function(){
+		$.get("/module.php?m=vote&a=StatView&id={$vote.id}")
+	},3000);
+</script>
+    

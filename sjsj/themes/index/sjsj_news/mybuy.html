@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我买断的商机</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div v-if="list.length==0" class="emptyData">还未购买商机</div>
+			<div v-else>
+				<div class="list">
+					<div class="row-box mgb-10" v-for="(item,index) in list" :key="index">
+						 
+						<div class="cl1 mgb-5">{{item.title}}</div>
+						<div class="cl2 mgb-5" v-html="item.content"></div>
+						<div class="flex flex-ai-center">
+							<div class="cl-status">已通过</div>
+							<div class="flex-1"></div>
+							 
+							<div v-if="item.issuccess==0" class="mgl-10 btn-mini" @click="showFinish(item)">打赏</div>
+							<div v-else class="mgl-10 cl-red">已打赏{{item.sj_money}}元</div>
+							<div class="mgl-10 btn-mini" @click="goDetail(item)">查看</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+			<div v-if="sjShow">
+				<div @click="sjShow=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">打赏</div>
+						<div  @click="sjShow=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div>{{sitem.title}}</div>
+						<div class="input-flex">
+							<div class="input-flex-label">金额</div>
+							<input v-model="sj_money" class="input-flex-text" type="text" />
+							<div class="mgl-5">元</div>
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">打赏说明</div>
+							<input placeholder="说点什么吧" v-model="sj_content" class="input-flex-text" type="text"/>
+						</div>
+						<div @click="finish()" class="btn-row-submit">确认打赏</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}sjsj_news/mybuy.js"></script>
+	</body>
+</html>

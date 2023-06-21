@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑课程</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/moduleshop.php?m=tutor_lesson&a=save">
+				<input type="hidden" name="lessonid" style="display:none;" value="{$data.lessonid}">
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input class="input-flex-text" type="text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">分类</div>
+					<select class="input-flex-select" id="catid" name="catid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$catlist}
+							<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+							{if $c.child}
+							{foreach item=cc from=$c.child}
+							<option value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+							{/foreach}
+							{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">图片</div>
+					<div class="upimg-box bg-fff">
+						<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+							<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+						</div>
+						 
+						<div class="upimg-btn js-upimg-btn">
+							<i class="upimg-btn-icon"></i>
+						</div>
+					 
+						<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+						<input style="display: none;" type="file" class="js-upimg-file" name="upimg" id="upimg" /> 
+					</div> 
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">简介</div>
+					<textarea class="textarea-flex-text h60" name="description" id="description">{$data.description}</textarea>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="mgr-5">价格</div>
+					<input type="text" name="money" value="{$data.money}" class="input-flex-text w100" />
+					<div class="mgl-5 mgr-5">元</div>
+					<div class="flex-1"></div>
+					<div class="mgr-5">课时</div>
+					<input type="text" name="lesson_num" value="{$data.lesson_num}" class="input-flex-text w100" />
+					<div class="mgl-5">节</div>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">库存</div>
+					<input type="text" value="{$data.total_num}" name="total_num" class="input-flex-text" /> 
+					<div class="mgl-5">份</div>
+				</div> 
+				<div class="sky-editor-box">
+					<div class="sky-editor-content" name="content" contenteditable="true">{$data.content}</div>
+				</div>	 
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script> 
+	</body>
+</html>

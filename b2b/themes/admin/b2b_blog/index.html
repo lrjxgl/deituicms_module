@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		 
+		<div id="app">
+			<div class="tabs-border mgb-5">
+				<div class="item">动态列表</div>
+				<div @click="setType('')" :class="{'tabs-border-active':type==''}" class="tabs-border-item">最新</div>
+				<div @click="setType('recommend')" :class="{'tabs-border-active':type=='recommend'}" class="tabs-border-item">推荐</div>
+				
+			</div> 
+		<div class="main-body" >	
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in pageData.list" :key="index"  class="sglist-item">
+					
+					<div @click="goBlog(item.id)" class="sglist-title">{{item.content}}</div>
+					<div @click="goBlog(item.id)" class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+						<div class="flex-1"></div>
+						<div :class="item.isrecommend==1?'yes':'no'" class="js-toggle-status mgr-10" :url="'/moduleadmin.php?m=b2b_blog&a=recommend&ajax=1&id='+item.id" >推荐&nbsp;</div>
+						<div :class="item.status==1?'yes':'no'" class="js-toggle-status mgr-10" :url="'/moduleadmin.php?m=b2b_blog&a=status&ajax=1&id='+item.id" >显示&nbsp;</div>
+						<div @click="del(item.id)" class="flex-1 cl-danger iconfont pointer icon-delete"></div>
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>	
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}b2b_blog/index.js"></script>
+	</body>
+</html>

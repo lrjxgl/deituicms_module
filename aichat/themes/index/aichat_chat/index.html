@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="utf-8">
+		<title>聊聊</title>
+		 
+		<link href="/plugin//iconfont/index/iconfont.css" rel="stylesheet" />
+		<link href="/plugin/dt-ui/dt-ui-h5.css" rel="stylesheet" />
+		<link href="{$skins}aichat_chat/index.css?{$smarty.now}" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">聊聊</div>
+			
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="tabs-border">
+				<div @click="setTab(index,item.tagid)" :class="tabIndex==index?'tabs-border-active':''" class="tabs-border-item" v-for="(item,index) in tabList" :key="index">{{item.title}}</div>
+				<div @click="showTagAdd=true" class="tabs-border-item">+</div>
+			</div>
+			<div class="msbox">
+				<div v-if="tabList[tabIndex].msgList.length==0" class="emptyData">快来聊一聊</div>
+				<div v-else class="msList" ref="msglist">
+					<div v-for="(item,index) in tabList[tabIndex].msgList" :key="index" class="msitem">
+						<template v-if="item.role=='ask'">
+							<div class="flex-1"></div>
+							<div class="msitem-ask">
+								<div @click="del(index)" class="msitem-ask-del">X</div>
+								<pre class="pre" v-html="item.content"></pre> 
+							</div>
+						</template>
+						<template v-else>
+							<div class="msitem-answer">
+								<div @click="del(index)" class="msitem-answer-del">X</div>
+								<pre class="pre" v-html="item.content"></pre> 
+							</div>
+							<div class="flex-1"></div>
+						</template>
+						
+					</div>
+					
+				</div>
+				<div v-if="showPrompt">
+				<div @click="showPrompt=false" class="modal-mask"></div>
+				<div  class="tsList">
+					<div class="text-center mgb-10">Ai提示词</div>
+					<div  @click="showPrompt=false" class="ts-close">x</div>
+					<div >
+						<div class="mgb-5" @click="promptAsk(item)" v-for="(item,index) in tsList" :key="index">
+							{{item.title}}
+						</div>
+					</div>
+				</div>
+				</div>
+				<div @click="showPrompt=true" class="tsBox">
+					提示
+				</div>
+				
+				<div class="msBottom">
+					<div class="flex flex-ai-center pd-5">
+						<div @click="clear" class="pd-10 cl3">清除</div>
+						<textarea placeholder="请输入你想说的" @blur="blurContent"  @focus="conHeight='100px'"  :style="{height:conHeight}" v-model="content" type="text" class="input-flex-text pd-5" ></textarea>
+						<div v-if="tabList[tabIndex].inpost">正在努力找答案，{{tabList[tabIndex].postTimer}}...</div>
+						<div v-else @click="ask()" class="btn-small">发送</div>
+					</div>
+				</div>
+			</div>
+			
+			<div v-if="showTagAdd">
+				<div class="modal-mask" @click="showTagAdd=false" ></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">添加对话栏</div>
+						<div @click="showTagAdd=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div>
+							<div class="input-flex">
+								<div class="input-flex-label">名称</div>
+								<input  class="input-flex-text" type="text" v-model="tab_name" />
+							</div>
+							<div @click="saveTab()" class="btn-row-submit">保存</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}js/help.js"></script>
+		<script src="{$skins}aichat_chat/index.js?{$smarty.now}"></script>
+	</body>
+</html>

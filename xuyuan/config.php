@@ -1,0 +1,14 @@
+<?php
+$config=array(
+	"title"=>"许愿墙",//模块名称
+	"module"=>"xuyuan",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"许愿墙",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"cat_tpl"=>"",
+	"list_tpl"=>"",
+	"show_tpl"=>"",
+	"adminurl"=>"/moduleadmin.php?m=xuyuan_menu",
+	"check_update"=>"https://www.deituicms.com",
+);
+?>

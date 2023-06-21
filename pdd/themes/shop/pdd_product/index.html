@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品管理</div>
+			<div gourl="/moduleshop.php?m=pdd_product&a=add" class="header-right-btn">添加</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="list">
+				{foreach item=c from=$list}
+				<div class="flexlist-item js-item">
+					{if $c.imgurl}
+					<img gourl="/module.php?m=pdd_product&a=show&id={$c.id}&shopid={$c.shopid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					{/if}
+					<div class="flex-1">
+						<div gourl="/module.php?m=pdd_product&a=show&id={$c.id}&shopid={$c.shopid}"  class="flexlist-title">{$c.title}</div>
+						<div class="flex mgb-5">
+							<div class="cl-money">￥{$c.price}</div> 
+							<div class="flex-1"></div>
+							<div class="cl2">{$c.catid_name}</div>
+						</div>
+						<div class="flex flex-center">
+							<div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleshop.php?m=pdd_product&a=status&id={$c.id}&ajax=1" ></div> 
+							<div class="flex-1"></div>
+							<div gourl="/moduleshop.php?m=pdd_product&a=add&id={$c.id}" class="btn-small mgr-5  ">编辑</div>
+							<div gourl="/moduleshop.php?m=pdd_product_ks&productid={$c.id}" class="btn-small mgr-5">款式</div>
+
+							<div class="btn-small btn-danger js-delete" url="/moduleshop.php?m=pdd_product&a=delete&ajax=1&id={$c.id}">删除</div>
+						</div>
+					</div>
+				</div>
+				
+				{/foreach}
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+	</body>
+</html>

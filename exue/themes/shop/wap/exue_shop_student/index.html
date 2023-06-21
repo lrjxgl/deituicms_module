@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">学生管理</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if empty($list)}
+			<div class="emptyData">暂无学生</div>
+			{else}
+			<div class="flexlist">
+				{foreach item=c from=$list}
+				<div class="flexlist-item">
+					<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.truename}</div>
+						<div class="flex mgb-5">
+							<div class="cl-status">{if $c.gender eq 1}男{else}女{/if}</div>
+							<div class="flex-1"></div>
+							<div class="cl3 f12">
+								{$c.age}
+							</div>
+							
+						</div>
+						 
+					</div>
+				</div>
+				 
+				{/foreach}
+			</div> 
+			{$pagelist}
+			{/if}
+		</div>
+		 
+		{include file="footer.html"}
+		 
+	</body>
+</html>

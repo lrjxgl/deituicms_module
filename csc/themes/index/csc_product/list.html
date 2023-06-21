@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}csc_product/list.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$pcat.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" style="display: none;" :class="'flex-col'"  v-if="pageLoad"  id="app">
+			<div gourl="/module.php?m=csc_cart" class="fixCart">
+				<div class="iconfont icon-cart cl-white"></div>
+				<div class="cl-white">￥{{totalMoney}}</div>
+			</div>
+			<div class="side">
+				<div @click="setCat(pcatid)" :class="catid==pcatid?'side-menu-active':''"  class="side-menu">全部</div>
+				<div @click="setCat(item.catid)" :class="item.catid==catid?'side-menu-active':''" class="side-menu" v-for="(item,index) in catList" :key="index">{{item.title}}</div>
+			</div>
+			<div class="main">
+				<div class="flex pd-10 bg-white mgb-5">
+					<div @click="setPlan" class="flex-1 pointer flex flex-center" >
+						<span :class="iPlan==1?'iActive':''" class="mgr-2">预</span>
+						<span :class="iPlan==1?'iActive':''"  class="iconfont icon-check f12"></span>
+					</div>
+					<div @click="setPrice" class="flex-1 flex pointer flex-center">
+						<span :class="iPriceActive" class="mgr-2">价格</span>
+						<span :class="iPriceClass" class="iconfont  f12"></span>
+					</div>
+					<!--
+					<div @click="setDiscount" class="flex-1 flex pointer flex-center">
+						<span :class="iDiscountActive" class="mgr-2">折扣</span>
+						<span  :class="iDiscountClass"  class="iconfont icon-godown f12"></span>
+					</div>
+					
+					<div class="flex-1 flex flex-center">
+						<span class="mgr-2">筛选</span>
+						<span class="iconfont icon-filter f12"></span>
+					</div>
+					-->
+				</div>
+				<div class="flexlist">
+					<div class="flexlist-item" v-for="(item,index) in pageData.list" :key="index">
+						<img @click="goProduct(item.id)" class="flexlist-img pointer bd-radius-5" :src="item.imgurl+'.small.jpg'" />
+						<div class="flex-1">
+							<div @click="goProduct(item.id)" class="flexlist-title pointer">{{item.title}}</div>
+							<div class="flex mgb-5">
+								<div class="flex-1 cl-money">￥{{item.price}}</div>
+								<div class="cl3"> {{item.fenliang}}</div>
+								<div v-if="item.isplan=='1'" class="circle">预</div>
+							</div>
+							<div class="flex">
+								<div class="flex-1"></div>
+								<div v-if="item.isksid>0">
+									<div @click="ksBox(item.id)" class="btn-small btn-outline-success">选规格</div>
+								</div>
+								<div class="pdb-5" v-else>
+									
+									<div v-if="item.incart" class="numbox prolist-numbox">
+										<div @click="minusCart(item.id,item.cart_amount)" class="numbox-minus">-</div>
+										<input type="text" name="amount" :value="item.cart_amount" class="numbox-num" />
+										<div @click="plusCart(item.id,item.cart_amount)" class="numbox-plus">+</div>	
+									</div>
+									<div @click="addCart(item.id)"  class="btn-buy   iconfont icon-cart" v-else></div>
+								</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				<div     v-if="ksShow">
+					<div class="modal-mask" @click="ksHide"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">选择款式</div>
+							<div class="modal-close icon-close" @click="ksHide"></div>
+						</div>
+						<div class="modal-body pdt-10">	
+							<div class="ksBox mgb-10">
+								<div class="kslist mgb-10">
+									<div class="kslist-label">{{ksproduct.ks_label_name}}</div>
+									<div @click="ks1(item.id)" v-bind:class="{'kslist-active':item.id==ksid1}" class="kslist-item" v-for="(item,index) in ksList" :key="index">{{item.title}}</div>
+								</div>
+								<div class="kslist">
+									<div class="kslist-label">{{ksproduct.ks_label_size}}</div>
+									<div class="kslist-item" @click="ks2(item.id)"  v-bind:class="{'kslist-active':item.id==ksid}" v-for="(item,index) in ksList2" :key="index">{{item.size}}</div>
+								</div>
+							</div>
+							<div class="flex">
+								<div class="cl2 mgr-10 mgl-10">价格</div>
+								<div class="cl-money">￥{{ksproduct.price}}</div>
+								<div class="flex-1"></div>
+								<div v-if="ksproduct.incart" class="numbox prolist-numbox">
+									<div @click="ksMinusCart(ksproduct.id,ksproduct.cart_amount)" class="numbox-minus">-</div>
+									<input type="text" name="amount" :value="ksproduct.cart_amount" class="numbox-num" />
+									<div @click="ksPlusCart(ksproduct.id,ksproduct.cart_amount)" class="numbox-plus">+</div>	
+								</div>
+								<div @click="ksAddCart(ksproduct.id)"  class="btn-buy" v-else>买</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var catid="{$cat.catid}";
+			var pcatid="{$pcat.catid}";
+		</script>
+		<script src="{$skins}/csc_product/list.js"></script>
+	</body>
+</html>

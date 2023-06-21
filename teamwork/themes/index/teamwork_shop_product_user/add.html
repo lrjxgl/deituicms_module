@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">添加成员</h1>
+		</header>
+		<div class="mui-content">
+		    <form id="form">
+		    	<input type="hidden" name="productid" value="{$productid}" />
+				<input type="hidden" name="id" value="{$puser.id}" />
+				<div class="input-flex">
+					<div class="label">成员类型</div>
+					<select class="select" name="roleid">
+						{foreach key=k item=c from=$roleList}
+						<option value="{$k}" {if $puser.roleid eq $k} selected {/if} >{$c}</option>
+						{/foreach}
+					</select>
+				</div>
+		    	<div class="input-flex">
+		    		<div class="label">昵称</div>
+		    		<input type="text" name="nickname" value="{$puser.nickname}" id="nickname" />
+		    	</div>
+		    	<div class="btn-row-submit" id="submit">保存</div>
+		    </form>
+		</div>
+	<script>
+		$(function(){
+			$(document).on("click","#submit",function(){
+				$.post("/index.php?m=shop_product_user&a=save&ajax=1",$("#form").serialize(),function(res){
+					mui.toast(res.message);
+					$("#nickname").val("");
+					if(!res.error){
+						goBack();
+					}
+					
+				},"json")
+			})
+		})
+	</script>	
+	</body>
+</html>

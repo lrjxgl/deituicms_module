@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.aBox{
+			background-color: #F4ABA7;
+		}
+		.aBox:nth-child(odd){
+			background-color: #4FBCAD;
+		}
+		.aBox-hide tr{
+			display: none;
+		}
+		.aBox-hide tr:first-child{
+			display: table-row;
+		}
+		.aBox td{
+			border-collapse: collapse;
+			border-spacing: 0;
+			border: 0;
+		}
+	</style>
+	<body>
+		{include file='fenlei_category/nav.html'}
+		<div class="main-body">
+		<form method="post" action="/moduleadmin.php?m=fenlei_category&a=save">
+			<input type="hidden" name="catid" style="display:none;" value="{$data.catid}">
+			<table class="table-add">
+				<tr>
+					<td>分类名称：</td>
+					<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+				</tr>
+				<tr>
+					<td>图片：</td>
+					<td>
+						<div class="js-upload-item">
+							<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+							<div class="upimg-btn js-upload-btn">+</div>
+							<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+							<div class="js-imgbox">
+								{if $data.imgurl}
+								<img src="{$data.imgurl|images_site}.100x100.jpg">
+								{/if}
+							</div>
+						</div>
+				
+					</td>
+				</tr>
+				<tr>
+					<td>分类描述：</td>
+					<td>
+						<textarea class="h60" name="description">{$data.description}</textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>发布费用：</td>
+					<td><input type="text" name="money" class="w60" id="money" value="{$data.money}"> 元</td>
+				</tr>
+				<tr>
+					<td>置顶费用：</td>
+					<td><input type="text" name="dingmoney" class="w60" id="dingmoney" value="{$data.dingmoney}"> 元</td>
+				</tr>
+				<tr>
+					<td>更新费用：</td>
+					<td><input class="w150" type="text" name="update_money"  value="{$data.update_money}">
+						元
+					</td>
+				</tr>
+				<tr>
+					<td>上级分类：</td>
+					<td> 
+						<select  name="pid">
+							<option  value="0">请选择</option>
+							{foreach item=c from=$catlist}
+							<option value="{$c.catid}" {if $c.catid eq $data.pid}selected{/if}>{$c.title}</option>
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>排序：</td>
+					<td><input type="text" name="orderindex" id="orderindex" value="{$data.orderindex}"></td>
+				</tr>
+				<tr>
+					<td>状态</td>
+					<td>
+						<input type="radio" {if $data.status neq 1} checked="" {/if} name="status" value="2" /> 下线
+						<input type="radio" {if $data.status eq 1} checked="" {/if} name="status" value="1" /> 上线
+					</td>
+				</tr>
+				
+				<tr>
+					<td>开启评论</td>
+					<td>
+						<input type="radio" {if $data.comment_open neq 1} checked="" {/if} name="comment_open" value="0" /> 关闭
+						<input type="radio" {if $data.comment_open eq 1} checked="" {/if} name="comment_open" value="1" /> 开启
+					</td>
+				</tr>
+				<tr>
+					<td>上线天数</td>
+					<td>
+						<input class="w100" type="text" name="on_day" value="{if !$data}30{else}{$data.on_day}{/if}" />
+						天
+					</td>
+				</tr>
+				<tbody class="aBox {if $data.money_open neq 1}aBox-hide{/if}">
+				<tr>
+					<td>开启价格字段</td>
+					<td>
+						<input class="js-open-btn" type="radio" {if $data.money_open neq 1} checked="" {/if} name="money_open" value="0" /> 关闭
+						<input class="js-open-btn" type="radio" {if $data.money_open eq 1} checked="" {/if} name="money_open" value="1" /> 开启
+					</td>
+				</tr>
+				<tr>
+					<td>价格标签</td>
+					<td>
+						<input type="text" name="moneyLabel" value="{if $data.moneyLabel}{$data.moneyLabel}{else}价格{/if}" />
+					</td>
+				</tr>
+				<tr>
+					<td>价格筛选</td>
+					<td>
+						<textarea class="h100" name="pricedata">{$data.pricedata}</textarea>
+						<div>一行一个：500以下</div>
+					</td>
+				</tr>
+				</tbody>
+				<tbody class="aBox {if $data.type_open neq 1}aBox-hide{/if}">
+				<tr>
+					<td>开启类型字段</td>
+					<td>
+						<input class="js-open-btn" type="radio" {if $data.type_open neq 1} checked="" {/if} name="type_open" value="0" /> 关闭
+						<input class="js-open-btn" type="radio" {if $data.type_open eq 1} checked="" {/if} name="type_open" value="1" /> 开启
+					</td>
+				</tr>
+				<tr>
+					<td>类型字段</td>
+					<td>
+						<input type="text" name="typeLabel" value="{if $data.typeLabel}{$data.typeLabel}{else}类型{/if}" />
+					</td>
+				</tr>
+				<tr>
+					<td>类型筛选</td>
+					<td>
+						<textarea class="h100"  name="typedata">{$data.typedata}</textarea>
+						<div>一行一个：1=>三室一厅</div>
+					</td>
+				</tr>
+				</tbody>
+				<tr>
+					<td>开启区域字段</td>
+					<td>
+						<input type="radio" {if $data.area_open neq 1} checked="" {/if} name="area_open" value="0" /> 关闭
+						<input type="radio" {if $data.area_open eq 1} checked="" {/if} name="area_open" value="1" /> 开启
+					</td>
+				</tr>
+				<tr>
+					<td>表单扩展</td>
+					<td>
+						<select name="ex_table_id">
+							<option value="0">请选择</option>
+							{foreach item=c from=$tableList}
+							<option {if $c.tableid==$data.ex_table_id}selected{/if} value="{$c.tableid}">{$c.title}</option>
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>栏目模板</td>
+					<td>
+						<input type="text" name="listtpl" value="{$data.listtpl}" />
+					</td>
+				</tr>
+				<tr>
+					<td>详情模板</td>
+					<td>
+						<input type="text" name="showtpl" value="{$data.showtpl}" />
+					</td>
+				</tr>
+				<tr>
+					<td>uniApp栏目</td>
+					<td>
+						<input type="text" name="list_uniapp" value="{$data.list_uniapp}" />
+					</td>
+				</tr>
+				<tr>
+					<td>uniApp详情</td>
+					<td>
+						<input type="text" name="show_uniapp" value="{$data.show_uniapp}" />
+					</td>
+				</tr>
+			</table>
+			<div class="btn-row-submit js-submit">保存</div>
+		</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		<script>
+			$(document).on("change",".js-open-btn",function(){
+				var v=$(this).val();
+				var p=$(this).parents(".aBox");
+				if(v==0){
+					p.addClass("aBox-hide");
+				}else{
+					p.removeClass("aBox-hide");
+				}
+			})
+		</script>
+	</body>
+</html>

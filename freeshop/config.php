@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"闲时促销",//模块名称
+	"module"=>"freeshop",//模块目录
+ 	"version"=>1.2,//当前版本
+	"info"=>"闲时促销",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=freeshop&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

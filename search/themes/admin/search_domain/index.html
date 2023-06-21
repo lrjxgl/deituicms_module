@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{$moduleadmin}?m=search_domain">域名管理</a></li>
+     <li ><a href="{$moduleadmin}?m=search_domain&a=add">域名添加</a></li>
+</ul>
+
+<div class="main-body">
+	<table class="table">
+	<tr>
+    	<th>名称</th>
+    	<th>域名</th>
+        <th>url</th>
+        <th>操作</th>
+    </tr>
+    {foreach item=c from=$data}
+    	<tr>
+        	<td>{$c.title}</td>
+            <td>{$c.domain}</td>
+            <td>{$c.url}</td>
+            <td>
+            	<a href="{$moduleadmin}?m=search_domain&a=add&id={$c.id}">编辑</a> 
+                <a href="javascript:;" class="js-delete" url="{$moduleadmin}?m=search_domain&a=delete&id={$c.id}&ajax=1">删除</a>
+                <a href="/module.php?m=search_spider&a=domain&domain={$c.domain}" target="_blank">去采集</a>
+            </td>
+            
+        </tr>
+    {/foreach}
+    
+    </table>
+    <div>{$pagelist}</div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		<div class="flex pd-10 pdl-5 mgb-5 bg-white flex-ai-center">
+			<image gourl="/index.php?m=user&a=user_head" class="wh-60 mgr-5 bd-radius-50" src="{$user.user_head}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="f16 cl1 mgb-5">{$user.nickname}</div>
+				<div class="flex flex-ai-center"> 
+					<div class="mgr-5">赛事</div>
+					<div class="mgr-10 cl-num">{$actNum}</div>
+					<div class="mgr-5">活动</div>
+					<div class="mgr-10 cl-num">{$fswUser.join_num}</div>
+					<div class="mgr-5">积分</div>
+					<div class="mgr-10 cl-num">{$fswUser.grade}</div>
+				</div>
+			</div>
+			<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+		</div>
+			
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=fsw_user&a=add" class="row-item">
+					<div class="row-item-icon icon-edit_light"></div>
+					<div class="flex-1 cl-u ">钓手信息</div>
+				</div>
+				<div gourl="/module.php?m=fsw_activity&a=myjoin" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">我参与的活动</div>
+				</div>
+				<div gourl="/module.php?m=fsw_match&a=myjoin" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">我参与的赛事</div>
+				</div>
+				
+			</div>	
+			
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=fsw_match&a=my" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">我发起的赛事</div>
+				</div>
+				<div gourl="/module.php?m=fsw_match&a=add" class="row-item">
+					<div class="row-item-icon cl-u icon-edit"></div>
+					<div class="flex-1 cl-u ">发起赛事</div>
+				</div>
+				<div gourl="/module.php?m=fsw_activity&a=my" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">我发起的活动</div>
+				</div>
+			</div>
+			 
+			<div class="row-box">
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service_light cl-u"></div>
+					<div class="flex-1 cl-u">在线客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info cl-u"></div>
+					<div class="flex-1 cl-u">关于我们</div>
+				</div> 
+			</div>
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

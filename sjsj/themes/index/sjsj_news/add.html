@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	 
+	<div class="header-title">商机发布</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box">
+    	<form action="/module.php?m=sjsj_news&a=save&ajax=1">
+    		<div class="input-flex">
+    			<div class="input-flex-label">标题</div>
+    			<input name="title" class="input-flex-text" type="text" />
+    		</div>
+    		<textarea name="content" placeholder="请输入内容" class="textarea-flex-text"></textarea>
+    		<div class="pd-10 cl-red">*提供有价值的商机,可以获得赏金</div>
+    		<div class="btn-row-submit js-submit">发布商机</div>
+    	</form>
+    </div> 
+</div>
+{assign var="ftnav" value="add"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+</body>
+</html>

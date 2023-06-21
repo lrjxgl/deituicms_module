@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的Prompt</div>
+	<div gourl="/module.php?m=aichat_prompt&a=add" class="header-right-btn">添加</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div>
+		{foreach item=c from=$list}
+		<div class="row-box js-item mgb-10">
+			<div class="mgb-5">{$c.title}</div>
+			<div class="cl2 js-copy-text">{$c.description}</div>
+			<div class="flex">
+				<div class="flex-1"></div>
+				<div class="btn-mini btn-outline-dark js-copy mgr-5">复制</div>
+				<div gourl="/module.php?m=aichat_prompt&a=add&id={$c.id}" class="btn-mini mgr-5">编辑</div>
+				<div class="btn-mini mgr-5 js-delete" url="/module.php?m=aichat_prompt&a=delete&ajax=1&id={$c.id}">删除</div>
+				
+			</div>
+		</div>
+		{/foreach}
+	</div>
+    	 
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+<script src="/plugin/clipboardjs/clipboard.min.js"></script>
+<script>
+	new ClipboardJS('.js-copy', {
+	    text: function(trigger) {
+			skyToast("复制成功")
+	        return $(trigger).parents(".js-item").find(".js-copy-text").html();
+	    }
+	});
+</script>
+</body>
+</html>

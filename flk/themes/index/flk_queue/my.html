@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的返券</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="tabs-border">
+				<div @click="setType('all')" :class="{'tabs-border-active':type=='all'}" class="tabs-border-item">全部</div>
+				<div @click="setType('uncheck')"  :class="{'tabs-border-active':type=='uncheck'}"  class="tabs-border-item">未生效</div>
+				<div @click="setType('doing')"  :class="{'tabs-border-active':type=='doing'}"  class="tabs-border-item">返还中</div>
+				<div @click="setType('wait')"  :class="{'tabs-border-active':type=='wait'}"  class="tabs-border-item">排队中</div>
+				<div @click="setType('finish')"  :class="{'tabs-border-active':type=='finish'}"  class="tabs-border-item">已完成</div>
+			</div>
+			<div class="list">
+			 
+				 
+				<div v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+					<div class="flex mgb-5">
+						<div :gourl="'/module.php?m=flk_shop&shopid='+item.shopid" class="bd-mp-5">{{item.shop_name}}</div>
+						<div class="flex-1"></div>
+						<div class="cl-status">{{item.status_name}}</div>
+					</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div>全部</div>
+						<div class="cl-num f12">￥{{item.total_money}}</div>
+						<div class="flex-1"></div>
+						<div>已返</div>
+						<div class="cl-num f12">￥{{item.back_money}}</div>
+						<div class="flex-1"></div>
+						<div>待返</div>
+						<div class="cl-num f12">￥{{item.money}}</div>
+					</div>
+					<div class="flex flex-center">
+						
+						<div @click="daxin(item)" v-if="item.status==0 && item.ischeck && item.can_daxin "  class="btn-small mgr-5">尝试打新</div>
+						<div  v-if="item.isfinish==0" @click="showEwm('invite',item.orderid)" class="btn-small mgr-5">邀好友插队</div>
+						<div v-if="item.isfinish==1 && item.isnew==0 && item.status!=4"  @click="showEwm('share',item.orderid)" class="btn-small">炫耀一下</div>
+						<div @click="cancel(item)" v-if="item.status==0 && item.ischeck"  class="btn-small btn-light mgr-5">我要退出</div>
+					</div>
+				</div>
+				<div v-if="per_page>0" @click="getList()" class="loadMore">加载更多</div>
+			</div>
+			<div :class="ewmClass" class="modal-group">
+				<div @click="ewmClass=''" class="modal-mask"></div>
+				<div class="modal">
+					<div class="flex flex-center">
+						<img :src="ewm" />
+					</div>
+					<div class="pd-10 text-center">长按保存图片分享，或者让好友扫一扫</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}flk_queue/my.js"></script>
+	</body>
+
+</html>

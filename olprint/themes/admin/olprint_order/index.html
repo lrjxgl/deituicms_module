@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=olprint_order">{$tabname}</a>
+	 
+</div>
+<div class="main-body">
+	<form autocomplete="off" class="search-form" action="/moduleadmin.php">
+		<input type="hidden" name="m" value="olprint_order">
+		<input type="hidden" name="type" value="{$smarty.get.type|html}" />
+		ID <input type="text"  class="w50" name="orderid" value="{$smarty.get.orderid|intval}" />
+		 
+		用户 <input type="text" name="nickname" class="w100" value="{$smarty.get.nickname|html}" />	 
+		 
+		下单时间 <input name="stime" type="text" id="stime" value="{$smarty.get.stime}" class="w100" /> 到 <input  class="w100" type="text"  name="etime" id="etime"  value="{$smarty.get.etime}" /> 
+		<button type="submit" class="btn" >搜索</button>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+   
+   <td>ptype</td>
+   <td>页数</td>
+   <td>份数</td>
+   <td>配送</td>
+   <td>配货费用</td>
+   <td>每页费用</td>
+   <td>金额</td>
+   <td>createtime</td>
+   <td>支付</td>
+   <td>状态</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.orderid}</td>
+    
+   <td>{$c.ptype_name}</td>
+   <td>{$c.page_num}</td>
+   <td>{$c.print_num}</td>
+   <td>{$c.sendtype_name}</td>
+   <td>￥{$c.send_money}</td>
+   <td>￥{$c.page_money}</td>
+   <td>￥{$c.money}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.ispay_name}</td>
+   <td>{$c.status_name}</td>
+   
+<td>  
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=olprint_order&a=cancel&ajax=1&orderid={$c.orderid}">取消订单</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#stime"
+			})
+			laydate.render({
+				elem:"#etime"
+			});
+		</script>
+</body>
+</html>

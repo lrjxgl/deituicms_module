@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">配置</div>
+		</div>
+
+		<div class="main-body">
+			<form method='post' action='moduleadmin.php?m=collect_config&a=save'>
+				<input type='hidden' name='id' style='display:none;' value='{$data.id}'>
+				<table class="table-add">
+					<tr>
+						<td>
+							使用代理
+						</td>
+						<td>
+							<input type="radio" name="isproxy" {if $data.isproxy neq 1}checked{/if} value="0" /> 不使用
+							<input type="radio" name="isproxy" {if $data.isproxy eq 1}checked{/if}  value="1" /> 使用
+						</td>
+					</tr>
+					<tr>
+						<td>发布用户：</td>
+						<td><textarea name="pi_user" id="pi_user" style=" width:600px; height:100px;">{$data.pi_user}</textarea></td>
+					</tr>
+					<!--
+					<tr>
+						<td>回复内容：</td>
+						<td><textarea name="pi_content" id="pi_content" style=" width:600px; height:100px;">{$data.pi_content}</textarea></td>
+					</tr>
+					<tr>
+						<td>密码：</td>
+						<td><input type='text' name='pwd' id='pwd' value='{$data.pwd}'></td>
+					</tr>
+					<tr>
+						<td>在线人数：</td>
+						<td><input type='text' name='online_num' id='online_num' value='{$data.online_num}'></td>
+					</tr>
+					<tr>
+						<td>执行计划：</td>
+						<td><input type='text' name='pi_cron' id='pi_cron' value='{$data.pi_cron}'></td>
+					</tr>
+					-->
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+
+		{include file="footer.html"}
+	</body>
+</html>

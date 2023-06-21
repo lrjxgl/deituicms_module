@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">回收站入驻申请</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $apply}
+				<div class="pd-10 f14 ">你已提交申请，正在审核中..</div>
+			{/if}
+			<form {if $apply}class="none"{/if}  id="form" >
+				
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">店铺名称</div>
+					<input type="text" name="title" class="input-flex-text" />
+				</div>
+				
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">联系人</div>
+					<input type="text" name="nickname" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">手机</div>
+					<input type="text" id="telephone" name="telephone" class="input-flex-text" />
+				</div>
+				<div class="input-flex">					
+					<div class="input-flex-label">验证码</div>					 
+					<input type="text" name="yzm" class="input-flex-text">				 
+					<div class="input-flex-btn" id="sendSms">获取验证码</div>
+				</div>
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">身份证号码</div>
+					<input type="text" name="userno" class="input-flex-text" />
+				</div> 
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label input-flex-require">身份证照片</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							
+							<div class="upimg-item {if $data.usercard==""}none{/if} js-upimg-btn">
+								<img class="upimg-img" {if $data.usercard}src="{$data.trueusercard}.100x100.jpg"{/if} >								 
+							</div>
+							  
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="usercard" value="{$data.usercard}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg"  /> 
+						</div> 
+					</div>
+				</div> 
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">所在地址</div>
+					<input type="text" name="address" class="input-flex-text" />
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">业务介绍</div>
+					<textarea class="textarea-flex-text" name="description"></textarea>
+				</div>
+				 
+				<div class="btn-row-submit" id="submit">提交申请</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script>
+			$(document).on("click","#sendSms",function(res){
+				var telephone=$("#telephone").val();
+				if(telephone==''){
+					skyToast("请输入手机号码");
+					return false;
+				}
+				$.get("/module.php?m=tutor_shop_apply&a=SendSms&ajax=1",{
+					telephone:$("#telephone").val(),
+				},function(res){
+					skyToast(res.message);
+				},"json");
+			})
+			$(document).on("click","#submit",function(){
+				$.post("/module.php?m=tutor_shop_apply&a=save&ajax=1",$("#form").serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='im_ai/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>名称</td>
+   <td>api名称</td>
+   <td>appid</td>
+   <td>appkey</td>
+   <td>配置内容</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td>{$c.apiname}</td>
+   <td>{$c.appid}</td>
+   <td>{$c.appkey}</td>
+   <td>{$c.content}</td>
+<td><a href="/moduleadmin.php?m=im_ai&a=add&id={$c.id}">编辑</a>
+ 
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=im_ai&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

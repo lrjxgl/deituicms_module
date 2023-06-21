@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+		.tabFixed{
+			position: fixed;
+			left: 0;
+			right: 0;
+			top: 44px;
+			background-color: #fff;
+			z-index: 99;
+		}
+	</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的中奖</div>
+</div>
+<div class="header-row"></div>
+<div id="sTop"></div>
+<div class="main-body" id="App">
+	
+	<div id="tabs"  class="tabs-border">
+		<div @click="setType('all')" :class="type=='all'?'tabs-border-active':''"  class="tabs-border-item">全部</div>
+		<div @click="setType('use')" :class="type=='use'?'tabs-border-active':''"  class="tabs-border-item">待领</div>
+		
+		<div @click="setType('finish')" :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">已领</div>
+	</div>
+ 
+	<div v-for="(item,index) in list" :key="index" class="flexlist-item">
+		<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'" />
+		<div class="flex-1">
+			<div class="flexlist-title mgb-5">{{item.title}}</div>
+			<div class="flex mgb-5">
+				<div class="mgr-5 f14 cl2">价值</div>
+				<div class="cl-money">￥{{item.price}}</div>
+			</div>
+			<div class="flexlist-desc">{{item.description}}</div>
+		</div>
+		<div class="cl-num f14">{{item.status_name}}</div>
+	</div>
+	 
+	 
+</div>
+ 
+{include file="footer.html"}
+<script src="{$skins}mdish_lottery_win/my.js"></script>
+</body>
+</html>

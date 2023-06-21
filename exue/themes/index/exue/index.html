@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}exue/index.css" rel="stylesheet" />
+	<body>
+		
+		<div class="header">
+			<a href="/" class="header-back" ></a>
+			<div class="header-title">福鼎一学堂</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" style="width: 100%;" src="{$c.imgurl}" />		 
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>			
+			</div>
+			{if $navList}
+			<div class="m-navPic">
+				{foreach item=c from=$navList}
+				<a href="{$c.link1}" class="m-navPic-item">
+					<img class="m-navPic-img" src="{$c.imgurl}" />
+					<div class="m-navPic-title">{$c.title}</div>
+				</a>
+				{/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+
+			</div>
+			{/if}
+			<div class="ghd">限时试课</div>
+			{foreach item=c from=$sxList}
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=exue_shop&a=show&shopid={$c.shopid}" class="flex flex-ai-center bd-mp-5">
+					<img src="{$c.shop.imgurl}.100x100.jpg" class="wh-40 bd-radius-50">
+					<div class="flex-1 cl2 fw-600  mgl-5">
+						{$c.shop.title}
+					</div>
+					<div class="cl3 f12">{$c.createtime}</div>  
+				</div>
+				<div gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="flex">
+					<img  src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div  gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-desc">{$c.description}</div>
+						<div class="flex">
+							<div class="cl-money f16 mgr-20">￥{$c.price}</div>
+							<div class="market-price">￥{$c.market_price}</div>
+							<div class="flex-1"></div>
+							<div gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="btn-bm">立即报名</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{/foreach}
+			<div class="ghd">精选好课</div>
+			{foreach item=c from=$recList}
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=exue_shop&a=show&shopid={$c.shopid}" class="flex flex-ai-center  bd-mp-5">
+					<img src="{$c.shop.imgurl}.100x100.jpg" class="wh-40 bd-radius-50">
+					<div class="flex-1 cl2 fw-600  mgl-5">
+						{$c.shop.title}
+					</div>
+					<div class="cl3 f12">{$c.createtime}</div>  
+				</div>
+				<div gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="flex">
+					<img gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div  gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-desc">{$c.description}</div>
+						<div class="flex">
+							<div class="cl-money f16 mgr-20">￥{$c.price}</div>
+							<div class="market-price">￥{$c.market_price}</div>
+							<div class="flex-1"></div>
+							<div gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="btn-bm">立即报名</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			{/foreach}
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/dt-ui-raty.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			var flash = new Swiper("#indexFlash",{
+				pagination: {
+				        el: '.swiper-pagination',
+				      },
+			});
+			$(function() {
+				skyRaty(".sky-raty");
+				
+				$(document).on("click", "#searchBtn", function() {
+					var keyword = $("#keyword").val();
+					window.location = "/module.php?m=b2b_search&keyword=" + encodeURIComponent(keyword);
+				})
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title = "{$seo.title}"; 
+			{if $site.logo}
+			wxshare_imgUrl = "{$site.logo}.100x100.jpg"; 
+			{/if}
+		</script>
+	</body>
+</html>

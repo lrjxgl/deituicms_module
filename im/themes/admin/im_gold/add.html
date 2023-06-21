@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='im_gold/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=im_gold&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>金币：</td>
+						<td><input type="text" name="gold" id="gold" value="{$data.gold}"></td>
+					</tr>
+					<tr>
+						<td>价格：</td>
+						<td><input type="text" name="price" id="price" value="{$data.price}"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1}checked{/if} value="1">上线
+							<input type="radio" name="status" {if $data.status neq 1}checked{/if} value="0">线下
+						</td>
+					</tr>
+
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

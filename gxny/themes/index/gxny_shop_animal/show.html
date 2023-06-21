@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">认养动物</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="row-box mgb-5">
+		<img class="d-img mgb-10" src="{$data.imgurl}" />
+		<div class="d-title">{$data.title}</div>
+		<div class="flex">
+			<div class="cl2">价格：</div>
+			<div class="cl-money">￥{$data.price}</div>
+			<div class="flex-1"></div>
+			<div class="cl3 mgr-5">库存 </div>
+			<div class="cl2">{$data.free_num}</div>
+		</div>
+	</div>
+	<div class="row-box">
+		<div class="d-content">{$data.content}</div>
+	</div>
+    
+    	
+    <div class="footer-row"></div>
+	<div class="footerFix">
+		<div class="flex row-box">
+			<div>可返金额：</div>
+			<div class="cl-money">￥{$data.back_money}</div>
+			<div class="flex-1"></div>
+			<div id="goOrder" class="btn-small">立即认养</div>
+		</div>
+		
+	</div>
+</div>
+{include file="footer.html"}
+<script>
+	var id="{$data.id}"
+	$(function(){
+		$(document).on("click","#goOrder",function(){
+			skyJs.confirm({
+				content:"确认购买吗",
+				success:function(){
+					if(!postCheck.canPost()){
+						return false;
+					}
+					$.ajax({
+						url:"/module.php?m=gxny_shop_animal&a=buy&ajax=1",
+						dataType:"json",
+						data:{
+							id:id
+						},
+						success:function(res){
+							skyToast(res.message);
+							if(res.error){
+								return false;
+							}
+						}
+					})
+				}
+			})
+			
+		})
+		
+	})
+</script>
+</body>
+</html>

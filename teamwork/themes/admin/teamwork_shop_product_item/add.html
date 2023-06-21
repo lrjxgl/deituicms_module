@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='shop_product_item/nav.html'}
+		<form method="post" action="admin.php?m=shop_product_item&a=save">
+			<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+			<table class="table table-bordered">
+				<col width="100" /> 
+				<tr>
+					<td>需求名称：</td>
+					<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+				</tr>
+			 
+				<tr>
+					<td>结束日期：</td>
+					<td>{$data.endtime}</td>
+				</tr>
+				
+				<tr>
+					<td>状态：</td>
+					<td>
+						<select name="status">
+							<option value="0">请选择</option>
+							{foreach item=c key=k from=$statusList}
+							<option value="{$k}" {if $k eq $data.status} selected {/if}>{$c}</option>
+							{/foreach}
+						</select>
+						
+					</td>
+				</tr>
+				<tr>
+					<td>完成时间：</td>
+					<td>{$data.finishtime}</td>
+				</tr>
+				<tr>
+					<td>优先级：</td>
+					<td>
+						<select name="orderindex">
+							<option value="0">请选择</option>
+							{foreach item=c key=k from=$orderList}
+							<option value="{$k}" {if $k eq $data.orderindex} selected {/if}>{$c}</option>
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>类型：</td>
+					<td>
+						<select name="typeid">
+							<option value="0">请选择</option>
+							{foreach item=c key=k from=$typeList}
+							<option value="{$k}" {if $k eq $data.typeid} selected {/if}>{$c}</option>
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>内容：</td>
+					<td><script type="text/plain" name="content" id="content"  style="height: 300px;" >{$data.content}</script></td>
+				</tr>
+				<tr>
+					<td>测试内容：</td>
+					<td><script type="text/plain" name="testing" id="testing"  style="height: 300px;" >{$data.testing}</script></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="保存" class="btn btn-success"></td>
+				</tr>
+			</table>
+		</form>
+		{include file="footer.html"}
+		{php loadEditor(0);}
+		<script language="javascript">
+			var editor=UE.getEditor('content',options)
+			var e2=UE.getEditor('testing',options)
+		</script>
+	</body>
+</html>

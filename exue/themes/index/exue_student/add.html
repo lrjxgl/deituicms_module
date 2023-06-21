@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">学员编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=exue_student&a=save">
+				<input type="hidden" name="stid" style="display:none;" value="{$data.stid}">
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">名字</div>
+					<input type="text" name="truename" value="{$data.truename}" class="input-flex-text" />
+				</div> 
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">头像</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if $data.imgurl==""}	none{/if} js-upimg-btn">
+								<img class="upimg-img" {if $data.imgurl}src="{$data.trueimgurl}.100x100.jpg"{/if} >								 
+							</div>
+							  
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" class="js-upimg-file" type="file" name="upimg" id="upimg" /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">性别</div>
+					<div class="flex flex-ai-center flex-1">
+						<input {if $data.gender eq 1}checked{/if} name="gender" type="radio" value="1"> 男
+						<div class="mgr-10"></div>
+						<input {if $data.gender eq 2}checked{/if}  name="gender"  type="radio" value="2"> 女
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">出生日期</div>
+					<input type="text" id="age" name="age" value="{$data.age}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input type="text" name="telephone" value="{$data.telephone}" class="input-flex-text" />
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">地址</div>
+					<input type="text" name="address" value="{$data.address}" class="input-flex-text" />
+				</div>   
+				<div class="textarea-flex" style="margin-bottom: 0;">
+					<div class="textarea-flex-label">介绍</div>
+					<textarea class="textarea-flex-text h60" name="description">{$data.description}</textarea>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script>
+			
+			laydate.render({
+				elem:"#age"
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width:200px;
+		}
+	</style>
+	 
+	<body>
+		<div class="header">
+			<div url="/module.php?m=car" class="header-back"></div>
+			<div class="header-title">发布车源</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" >
+			<form method="post" action="/module.php?m=car_product&a=save">
+				<input type="hidden" name="productid" style="display:none;" value="{$data.productid}">
+					 
+					<div class="input-flex">
+						<div class="input-flex-label">主题</div>
+						<input type="text" value="{$data.title}" name="title" class="input-flex-text" />
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">价格</div>
+						<input type="text" value="{$data.money}"  name="money" class="input-flex-text" />
+						<div>元</div>
+					</div>  
+					
+					 
+					<div class="input-flex">
+						<div class="input-flex-label">所属分类</div>
+						<select class="input-flex-select mgr-5" name="catid">
+							<option value="0">请选择</option>
+							{foreach item=c from=$catList}
+							<option {if $data.catid eq $c.catid}selected{/if} value="{$c.catid}">{$c.title}</option>
+							{/foreach}
+						</select>
+						
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">所属品牌</div>
+						<select class="input-flex-select mgr-5" name="brandid">
+							<option value="0">请选择</option>
+							{foreach item=c from=$brandList}
+							<option {if $data.brandid eq $c.brandid}selected{/if} value="{$c.brandid}">{$c.title}</option>
+							{/foreach}
+						</select>
+						
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">上牌时间</div>
+						<input type="text"  value="{$data.pai_date}"  name="pai_date" id="pai_date" class="input-flex-text" />
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">表显里程</div>
+						<input type="text"  value="{$data.km}"  name="km"  class="input-flex-text w100" /> Km
+					</div>
+					 <div class="input-flex">
+					 	<div class="input-flex-label">变速箱</div>
+					 	<input type="radio" {if $data.gearbox neq 2}checked{/if} name="gearbox" value="1" /> 手动
+						<input type="radio" {if $data.gearbox eq 2}checked{/if}  name="gearbox" value="2" /> 自动
+					 </div>
+					<div class="textarea-flex">
+						 
+						<textarea placeholder="请输入商品内容" class="textarea-flex-text h100" name="content" id="content">{$data.content}</textarea>
+					</div>
+					<div class="tabs-border-group">
+					<div class="tabs-border">
+						<div class="tabs-border-item tabs-border-active">图片</div>
+						<div  class="tabs-border-item">视频</div>
+					</div>
+					<div class="tabs-border-box bg-white tabs-border-box-active">
+						<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+					{include file="inc/uploader-data.html"}
+					</div>
+					<div  class="input-flex tabs-border-box">
+						 
+						<div class="videoBox flex-1">
+							<div style="display: none;">
+								<input type="file" id="up-video" name="upfile" />
+							</div>
+							<div class="upimg-btn" id="js-upbtn">
+								<div class="upimg-btn-icon">
+					
+								</div>
+							</div>
+					
+							<span id="progress"></span>
+							<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+							<div id="mp4box">
+								{if $data.mp4url}
+								<video controls="" src="' + data.true_mp4url + '" class="video"></video>
+								{/if}
+							</div>
+							<input type="hidden" name="mp4url" id="mp4url" value="{$data.mp4url}" />
+							
+							 
+						</div>
+					</div>
+					
+					</div> 
+									
+					
+					<div class="cl-red text-center row-box">发布后不可更改，请确认信息</div> 
+					<div class="cl3 text-center f12 row-box">
+						发布{$sconfig.post_money}元/条，上架最多{$sconfig.post_num}条
+					</div>
+				<div class="btn-row-submit " id="submit">保存</div>
+			</form>
+
+		</div>
+		{assign var="ftnav" value="add"}
+		 
+		{include file="footer.html"}
+		
+		{if INWEIXIN}
+		<?php wx_jssdk();?>
+		<script src="{$skins}inc/uploader-data-wx.js?{$smarty.now}"></script> 
+		{else} 
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js?v2"></script>
+		{/if}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script src="{$skins}car_product/add.js"></script>
+		<script>
+			var inSubmit=false;
+			laydate.render({
+				elem:"#pai_date"
+			})
+			$(document).on("click", ".tabs-border-item", function() {
+				var $group = $(this).parents(".tabs-border-group");
+				var index = $(this).index();
+				if ($group.length > 0) {
+					$group.find(".tabs-border-box").removeClass("tabs-border-box-active");
+					$group.find(".tabs-border-box").eq(index).addClass("tabs-border-box-active");
+				}
+				$(this).addClass("tabs-border-active").siblings().removeClass("tabs-border-active");
+			}) 
+			$(document).on("click","#submit",function(){
+				if(inSubmit){
+					return false;
+				}
+				inSubmit=true;
+				setTimeout(function(){
+					inSubmit=false;
+				},1000)
+				var form=$(this).parents("form");
+				var imgs=$(".uploader-imgsdata-img");
+				 
+				if(imgs.length>0){
+					var s="";
+					for(var i=0;i<imgs.length;i++){
+						if(i>0){
+							s+=",";
+						}
+						s+=imgs.eq(i).attr("v");		
+					}
+					$("#imgsdata").val(s);
+				}
+				 
+				$.post(form.attr("action")+"&ajax=1",form.serialize(),function(res){
+					skyToast(res.message);
+					inSubmit=false;
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

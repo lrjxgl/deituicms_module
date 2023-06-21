@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='sjsj_news/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>newsid</td>
+   <td>标题</td>
+   <td>创建时间</td>
+    
+   <td>状态</td>
+   <td>推荐</td>
+   <td>用户</td>
+   <td width="300">内容</td>
+   
+    
+   <td>买断</td>
+    
+   <td>打赏</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.newsid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.createtime}</td>
+   
+   <td>
+	   <div url="/moduleadmin.php?m=sjsj_news&a=status&ajax=1&newsid={$c.newsid}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+   <td> <div class="{if $c.isrecommend}yes{else}no{/if}"></div></td>
+   <td>{$c.userid}</td>
+   <td>{$c.content}</td>
+   
+    
+   <td>
+	   <div class="{if $c.isbuy}yes{else}no{/if}"></div>
+   
+   </td>
+  
+   <td>{if $c.issuccess}￥{$c.sj_money}{else}未打赏{/if}</td>
+   
+<td><a href="moduleadmin.php?m=sjsj_news&a=add&newsid={$c.newsid}">编辑</a> 
+<a target="_blank" href="/module.php?m=sjsj_news&a=show&newsid={$c.newsid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="moduleadmin.php?m=sjsj_news&a=delete&ajax=1&newsid={$c.newsid}">删除</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}household/index.css?v1" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<!--<img src="{$site.logo}.100x100.jpg" class="header-logo" />-->
+			<div class="header-title">福鼎家政精选</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		
+		<div class="main-body">
+			
+			<div gourl="/index.php?m=city" class="flex flex-ai-center pd-10">
+				<div class="mgr-5">当前城市：</div>
+				<div class="cl-primary">{if $city}{$city.name}{else}选择城市{/if}</div>
+				<div class="flex-1"></div>
+				<div  class="iconfont icon-location_light"></div>
+			</div>
+			
+			<div >
+				<div class="swiper-container" style="width: 100%;"  id="indexFlash">
+					<div class="swiper-wrapper" >
+						{foreach item=c from=$flashList}
+						<div class="swiper-slide">
+							<img class="wmax"   src="{$c.imgurl}" />
+							 
+						</div>
+						{/foreach}
+					</div>
+					 
+					<div class="swiper-pagination"></div>
+				 
+				</div>
+			</div>
+			{if $navList}
+			<div class="m-navPic">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+					  <div class="m-navPic-title">{$c.title}</div>
+					   
+			    </a>
+				
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+						 
+			</div>
+			{/if}
+			<div class="row-box-hd  pdl-10" >
+				<div class="iconfont mgr-10 icon-likefill cl-f30 f22"></div>
+				<div class="flex-1 ">
+					<div class="f14 fw-600">店长推荐</div>
+					<div class="cl3 f12">大家都会心动的产品</div>
+					</div>
+				<div gourl="/module.php?m=household_group_product&gkey=bimai" class="row-box-more"></div>
+			</div>
+			<div class="">
+			<div class="flexlist">
+			 
+				{foreach item=c from=$bmList}
+				<a href="/module.php?m=household_product&a=show&id={$c.id}" class="flexlist-item">
+					<img src="{$c.imgurl}.small.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+					
+						<div class="flex flex-ai-center mgb-5">
+							<div class="f12 cl2">{$c.addr}</div>
+							<div class="flex-1"></div>
+							<div class="cl-money">￥{$c.price}</div>
+							{if $c.isdj}
+							<div class="cl3 f12 mgl-5">订金</div>
+							{/if}
+						</div>
+						<div class="flexlist-desc">{$c.description}</div>
+					</div>
+					 
+				</a>
+				{/foreach}
+			</div>
+			</div>
+			<div class="row-box-hd  pdl-10" >
+				<div class="iconfont mgr-10 icon-moneybag cl-f30 f20"></div>
+				<div class="flex-1 ">
+					<div class="f14  fw-600">猜你喜欢</div>
+					<div class="cl3 f12">Guess You Like It</div>
+					</div>
+				<div gourl="/module.php?m=household_product&type=recommend" class="row-box-more"></div>
+			</div>
+			<div class="">
+			<div class="flexlist">
+				{foreach item=c from=$recList}
+				<a href="/module.php?m=household_product&a=show&id={$c.id}" class="flexlist-item">
+					<img src="{$c.imgurl}.small.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+					
+						<div class="flex flex-ai-center mgb-5">
+							<div class="f12 cl2">{$c.addr}</div>
+							<div class="flex-1"></div>
+							<div class="cl-money">￥{$c.price}</div>
+							{if $c.isdj}
+							<div class="cl3 f12 mgl-5">订金</div>
+							{/if}
+						</div>
+						<div class="flexlist-desc">{$c.description}</div>
+					</div>
+					 
+				</a>
+				{/foreach}
+			</div>
+			</div>
+			<div class="row-box-hd  pdl-10" >
+				<div class="iconfont mgr-10 icon-hot_light cl-f30 f20"></div>
+				<div class="flex-1 ">
+					<div class="f14  fw-600">热销服务</div>
+					<div class="cl3 f12">Hot Goods</div>
+					</div>
+				<div gourl="/module.php?m=household_product&type=hot" class="row-box-more"></div>
+			</div>
+			<div class="">
+			 
+			<div class="flexlist">
+				{foreach item=c from=$hotList}
+				<a href="/module.php?m=household_product&a=show&id={$c.id}" class="flexlist-item">
+					<img src="{$c.imgurl}.small.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+					
+						<div class="flex flex-ai-center mgb-5">
+							<div class="f12 cl2">{$c.addr}</div>
+							<div class="flex-1"></div>
+							<div class="cl-money">￥{$c.price}</div>
+							{if $c.isdj}
+							<div class="cl3 f12 mgl-5">订金</div>
+							{/if}
+						</div>
+						<div class="flexlist-desc">{$c.description}</div>
+					</div>
+					 
+				</a>
+				{/foreach}
+			</div>
+			</div>
+		</div>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://beian.miit.gov.cn">{$site.icp}</a>
+		</div>   
+		 {assign var="ftnav" value="household_home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function(){
+				var flash=new Swiper("#indexFlash",{
+					loop: true,
+					autoplay:1500,
+					pagination: {
+					  el: '.swiper-pagination'
+					},
+				});
+				$(document).on("click","#searchBtn",function(){
+					var keyword=$("#keyword").val();
+					window.location="/module.php?m=household_search&keyword="+encodeURIComponent(keyword);
+				})
+			})
+			
+		</script>
+		 
+	</body>
+</html>

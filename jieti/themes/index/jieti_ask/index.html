@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">围观</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	 
+		<div @click="goAsk(item.askid)" class="sglist-item" v-for="(item,index) in list" :key="index">
+			<view class="sglist-imgbox">
+				<image class="sglist-img" mode="widthFix" :src="item.imgurl+'.middle.jpg'"></image>
+			</view>
+			<view class="sglist-desc">{{item.description}}</view> 
+		</div> 
+	 
+</div>
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script src="{$skins}jieti_ask/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$group.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<img :src="group.imgurl+'.middle.jpg'" class="d-img mgb-5" />
+			
+			<div class="row-box mgb-5">
+				<div class="bd-mp-10">{{group.title}}</div>
+				<div class="bd-mp-10 cl-info">辈分：{{group.beifen}}</div>
+				
+				<div @click="showMap()" class="pointer flex bd-mp-10">
+					<div>地址：</div>
+					<div class="flex-1">{{group.address}}</div>
+					<div  class="iconfont icon-location_light"></div>
+				</div>
+				
+				<div class="flex bd-mp-10">
+					<div class="mgr-10 cl-primary">联系人</div>
+					<div>{{group.nickname}}</div>
+					<div class="flex-1"></div>
+					<a :href="'tel:'+group.telephone" class="iconfont icon-phone_light"></a>
+				</div>
+				 
+			</div>
+			<div class="row-box mgb-5">
+				<div class="d-content" v-html="group.content"></div>
+			</div>
+			<div class="pd-10 fw-600">家族资讯</div>
+			<div class="flexlist mgb-5">
+				<div @click="goNews(item.id)" v-for="(item,index) in newsList" :key="index" class="flexlist-item">
+					<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{item.title}}</div>
+						<div class="flexlist-desc">{{item.description}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-row"></div>
+			<div class="footerFix bg-white">
+				<div class="flex flex-ai-center pd-10">
+					<div class="cl-primary">族长:{{group.zuzhang}}</div>
+					<div class="flex-1"></div>
+					<div class="btn-small" :gourl="'/module.php?m=zupu_home&gid='+group.gid">进入宗祠</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var gid="{$group.gid}"
+		</script>
+		<script src="{$skins}zupu_group/show.js"></script>
+	</body>
+</html>

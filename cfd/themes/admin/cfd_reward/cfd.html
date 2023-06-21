@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body class="bg-ef">
+<div class="row-box flex mgb-5">
+	<div class="btn-small goBack"  >返回</div>
+</div>
+<div class="header-row"></div> 
+ 
+<div class="main-body" id="App">
+   <div class="list">
+   		<form id="addForm">
+   		<div class="row-box mgb-5">
+   			<input type="hidden" name="cfdid" value="{$cfd.cfdid}" />
+   			<div class="flex mgb-5">
+			名称： <input class="input-flex-text " type="text" class="text"  name="title" />
+   			
+   			</div>
+			<div class="flex flex-ai-center">
+				金额：<input class="input-flex-text w100"  type="text" class="money" name="money" />
+			<div class="flex-1"></div>
+			股权：<input    type="checkbox" value="1" name="typeid" />
+   			<div @click="addSubmit" class="btn-small btn-success">添加</div>
+			</div>
+   		</div>
+   		</form>
+   		<div id="list">
+   		 
+   		<form class="row-box mgb-5" :id="'e'+item.id" v-for="(item,index) in list" :key="index">
+   			<div class="list-item mgb-5">
+   				<input type="hidden" name="id" :value="item.id" />
+				<div class="flex flex-ai-center mgb-5">
+   				名称： <input class="input-flex-text "  type="text" class="text" :value="item.title" name="title" />
+   				股权：<input type="checkbox" value="1" :checked="item.typeid==1" name="typeid" />
+				</div>
+   				<div class="flex flex-ai-center">
+				金额：<input class="input-flex-text  w100"  type="text" class="money" :value="item.money" name="money" />
+   				<div class="flex-1"></div>
+   				<div @click="toggleStatus(item)" :class="item.status==1?'yes':'no'" class="mgr-20"></div>
+				<div @click="editSubmit(item)" class="btn-small mgr-5 btn-success">保存</div>
+   				<div @click="delSubmit(item)"   class="btn-small btn-danger">删除</div>
+				</div>
+			</div>
+   		</form>
+   		 
+   		</div>
+   </div>
+</div>
+{include file="footer.html"}
+<script>
+	var cfdid="{$cfd.cfdid}";
+</script>
+<script src="{$skins}cfd_reward/cfd.js"></script> 
+
+</body>
+</html>

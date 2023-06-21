@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="main-body box960">
+	<div class="{if $data}dbox{else}sbox{/if} ">
+    	<div class="hd">skySearch</div>
+    	<div style=" position:relative; margin:0 auto; width:480px;">
+        <form method="get" action="/module.php">
+        	<input type="hidden" name="m" value="search">
+                	<div class="search-bar">
+                        <input type="text" name="keyword" class="search-input" id="search-word" style="width:400px; height:40px;" value="{$smarty.get.keyword|html}">
+                        <button type="submit" class="search-btn btn-warning" style="background-color: #fff; height:42px;
+  color: #666; border:1px solid #aaa; cursor:pointer;" id="search-submit"><i class="iconfont  icon-search"></i></button>
+                        <div class="clearfix"></div>
+                    
+               		</div>
+         </form>           
+ 
+
+                </div>
+    </div>
+    {if $data}
+    <div class="search-rscount">skySearch为您找到相关结果约{$rscount}个  用时{$searchtime}秒</div>
+    <div class="rlist">
+    	{foreach item=c from=$data}
+    	<div class="item">
+        	<div class="title"><a href="{$c.url}" target="_blank">{$c.title}</a></div>
+            <div class="description">{$c.description}</div>
+            <div class="link"> {$c.url|cutstr:36}  <span class="right">{$c.last_time|date:Y-m-d H:i:s}</span></div>
+        </div>
+        {/foreach}
+    </div>
+    <div class="">{$pagelist}</div>
+    {/if}
+    
+   </div> 
+ {include file="footer.html"}  
+</body>
+</html>

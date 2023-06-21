@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">成员列表</div>
+			<div gourl="/module.php?m=bill_shop_user&a=add&shopid={$shop.shopid}" class="header-right-btn">创建</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="sglist-item js-item">
+				<div class="flex mgb-5">
+					 
+					<div class="cl-money">余额 {$c.money}</div>
+					<div class="flex-1"></div>
+					<div class="cl-money">总金额 {$c.total_money}</div>
+				</div>
+				<div class="sglist-title">{$c.title}</div>
+				<div class="sglist-desc">{$c.description}</div>
+				<div class="flex">
+					<div class="btn mgr-20" gourl="/module.php?m=bill_shop_user&a=show&shopid={$c.shopid}&suid={$c.suid}">查看</div>
+					<div class="btn js-delete"  url="/module.php?m=bill_shop_user&a=delete&ajax=1&shopid={$c.shopid}&suid={$c.suid}">删除</div>
+				</div>
+			</div>
+			{/foreach}
+			
+			<div>{$pagelist}</div>
+
+		</div>
+		{include file="bill_shop/admin-ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

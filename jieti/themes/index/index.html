@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">解题</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div>
+				<image :src="pageData.adImg" @click="goAdd()" mode="widthFix" style="width: 100%;"></image>
+			</div>
+			<div class="pd-10 f20">最新解题</div>
+			<div v-if="pageLoad">
+				<div @click="goAsk(item.askid)" class="sglist-item" v-for="(item,index) in pageData.askList" :key="index">
+					<view class="sglist-imgbox">
+						<image class="sglist-img" mode="widthFix" :src="item.imgurl+'.middle.jpg'"></image>
+					</view>
+					<view class="sglist-desc">{{item.description}}</view> 
+				</div> 
+			</div>
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}index.js"></script>
+	</body>
+</html>

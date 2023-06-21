@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}bianmin/index.css?v3" rel="stylesheet" />
+	<body >
+		<div class="none" :class="'flex-col'" id="App">
+		<div class="header">
+			<div class="header-back pos-relative"></div>
+			<div class="header-search-box">
+				 
+				<input  v-model="keyword" class="header-search pdl-5" placeholder="{$cat.title}" type="text">
+				<div @click="keyword='';search()" v-if="keyword!=''" class="header-search-close iconfont icon-close"></div>
+				<div @click="search" class="header-search-btn bg-primary cl-white iconfont icon-search"></div>
+			</div>
+		</div>
+		<div class="header-row"></div>
+		<a :href="'/module.php?m=fenlei&a=add&catid='+(catid>0?catid:topCat.catid)" class="fixedAdd">发布</a>
+		<div class="main-body">
+			 
+			<div class="flex">
+				<div class="sideLeft"></div>
+				<div class="side">
+					<div @click="setCat(topCat.catid)" :class="catid==topCat.catid?'side-item-active':''"  class="side-hd">{{topCat.title}}</div>
+					<div @click="setCat(item.catid)" :class="catid==item.catid?'side-item-active':''" v-for="(item,index) in catList" class="side-item">{{item.title}}</div>
+				</div>
+				<div class="flex-1">
+					<div class="pos-relative">
+						<div class="tab-select">
+							<div class="tab-select-item" id="tab-scarea">
+								<div class="tab-select-label">{{sc_title}}</div>
+								<div class="tab-select-t3down "></div>	
+							</div>
+						</div>		
+					
+						<div id="scarea-box" class="tab-select-box">
+							<div @click="setArea(0,'所在区域')" class="tab-select-box-item" v="">所在区域</div>
+						 
+							<div @click="setArea(item.sc_id,item.title)"  v-for="(item,index) in scList" :key="index" class="tab-select-box-item" >{{item.title}}</div>
+							 
+						</div>
+					</div>
+					<div class="tabs-toggle-group">
+						<div v-for="(item,index) in list" :key="index" class="tabs-toggle">
+							<div class="tabs-toggle-hd">{{item.title}}</div>
+							<div class="tabs-toggle-box">
+								<div class="flex flex-ai-center mgb-10">
+									<div class="cl-status f14" v-if="item.nickname!=''">{{item.nickname}}</div>
+									<div class="flex-1"></div>
+									<a :href="'tel:'+item.telephone" class="iconfont cl-primary f18 icon-phone_light"></a>
+								</div>
+								<img v-if="item.imgurl!=''" class="wmax mgb-5" :src="item.imgurl+'.small.jpg'" />
+								<div v-if="item.address!=''" class="cl2 f12 mgb-5">地址：{{item.address}}</div>
+								<div class="cl3 f12">{{item.description}}</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="loadMore" v-if="per_page>0" @click="getList()">加载更多</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var catid="{$cat.catid}";
+			 
+			$(document).on("click",".tab-select-item",function(){
+				var index=$(this).index();
+				console.log(index);
+				$(".tab-select-box:eq("+index+")").toggle();
+				$(".tab-select-box:eq("+index+")").siblings(".tab-select-box").hide();
+			})
+		</script>
+		<script src="{$skins}bianmin/index.js?v3"></script>
+		 
+	</body>
+</html>

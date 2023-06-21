@@ -1,0 +1,59 @@
+#guali{
+  position:relative;
+  margin-bottom:20px;
+  clear:both;
+  zoom:1;
+  overflow:hidden;
+  margin: 0 auto;
+}
+#guali ul.month{
+  display:block;
+  margin:10px;
+  padding:0;
+  max-width:480px;
+  width: 100%;
+  float:left;
+  list-style:none;
+  background-color:#F8F8F8
+}
+#guali h3{clear:both;text-align:center;}
+#guali ul.month li{
+  position:relative;
+  display:block;
+  float:left;
+  width:50px;
+  height:50px;
+  margin:0;
+  padding:0;
+  text-align:center;
+  cursor:default;
+  line-height:1em;
+}
+#guali ul.month b{
+  font-size:9px;
+  font-weight:normal;
+  color:#888;
+}
+#guali ul.month i{
+  font-size:9px;
+  font-style:normal;
+  color:#C40000;
+  white-space:nowrap;
+}
+#guali ul.month u{
+  font-size:9px;
+  font-style:normal;
+  text-decoration:none;
+  color:#FFF;
+  position:absolute;
+  right:0;
+  top:0;
+  width:16px;
+  height:16px;
+  text-align:center;
+  line-height:16px;
+  background:#5CB85C;
+}
+#guali ul.month u.work{
+  background:#D9534F;
+}

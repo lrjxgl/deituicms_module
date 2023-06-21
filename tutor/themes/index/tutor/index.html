@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-title">同城家教</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			</div>
+			{/if}
+			<div class="pd-10 fw-600">课程列表</div>
+			{foreach item=item from=$lessonList}
+			<div    class="sglist-item ">
+				 
+				<div class="flex flex-ai-center">
+					<img class="flexlist-img" src="{$item.imgurl}.100x100.jpg" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$item.title}</div>
+						<div class="flex mgb-10">
+							<div class="cl2 mgr-5">库存</div>
+							<div class="cl-money mgr-10">{$item.total_num}份</div>
+							
+							<div class="cl2 mgr-5">已售</div>
+							<div class="cl-num mgr-10">{$item.sold_num}份</div>
+						</div>
+						
+						<div class="flexlist-desc">{$item.description}</div>
+					</div>
+					<div>
+						<div class="mgb-10 cl2">教师：{$item.shop.title}</div>
+						<div gourl="/module.php?m=tutor_lesson&a=show&lessonid={$item.lessonid}" class="btn-small btn-outline-primary" >详情</div> 
+					</div>
+					
+				</div>
+				
+			</div>
+			{/foreach}
+			<div class="pd-10 fw-600">老师列表</div>
+			{foreach item=c from=$shopList}
+			<div class="flexlist-item">
+				<img gourl="/module.php?m=tutor_shop&shopid={$c.shopid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+				<div class="flex-1">
+					<div gourl="/module.php?m=tutor_shop&shopid={$c.shopid}"  class="flexlist-title">{$c.title}</div>
+					<div class="flex mgb-5">
+						<div class="cl2 f12 mgr-5">评价</div>
+						<div class="cl-num f12 mgr-10">{$c.raty_grade}</div>
+						<div class="cl2 f12 mgr-5">订单</div>
+						<div class="cl-num f12 mgr-10">{$c.order_num}</div>
+					</div>
+					<div class="flexlist-desc">
+						{$c.description}
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function(){
+				
+				var flash=new Swiper("#indexFlash");
+				$(document).on("click","#searchBtn",function(){
+					var keyword=$("#keyword").val();
+					window.location="/module.php?m=csc_search&keyword="+encodeURIComponent(keyword);
+				})
+			})
+			
+		</script>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='house_agent/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=house_agent&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>userid：</td>
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}"></td>
+					</tr>
+					<tr>
+						<td>姓名：</td>
+						<td><input type="text" name="truename" id="truename" value="{$data.truename}"></td>
+					</tr>
+					<tr>
+						<td>身份证：</td>
+						<td><input type="text" name="userno" id="userno" value="{$data.userno}"></td>
+					</tr>
+					<tr>
+						<td>头像：</td>
+						<td><input type="text" name="uhead" id="uhead" value="{$data.uhead}"></td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>简介：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+					<tr>
+						<td>微信号：</td>
+						<td><input type="text" name="wxhao" id="wxhao" value="{$data.wxhao}"></td>
+					</tr>
+					<tr>
+						<td>二维码：</td>
+						<td><input type="text" name="wxemw" id="wxemw" value="{$data.wxemw}"></td>
+					</tr>
+					<tr>
+						<td>身份证：</td>
+						<td><input type="text" name="usercard" id="usercard" value="{$data.usercard}"></td>
+					</tr>
+					<tr>
+						<td>创建时间：</td>
+						<td><input type="text" name="dateline" id="dateline" value="{$data.dateline}"></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

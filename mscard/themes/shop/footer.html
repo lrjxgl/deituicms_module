@@ -1,0 +1,15 @@
+<style>
+	 
+	.mfooter .item{
+		line-height: 40px;
+	}
+</style>
+<div style="height: 60px;"></div>
+<div class="mfooter ">
+	<a href="/moduleshop.php?m=mscard" class="item  {if get('m') eq 'mscard' && get('a') eq 'default'}active{/if}">消费</a>
+	<a href="/moduleshop.php?m=mscard&a=list" class="item {if get('m') eq 'mscard' && get('a') eq 'list'}active{/if}">会员</a>
+	<a href="/moduleshop.php?m=mscard_shop" class="item  {if get('m') eq 'mscard_shop'}active{/if}">商家</a>
+	<a href="/moduleshop.php?m=mscard_order"  class="item  {if get('m') eq 'mscard_order'}active{/if}">订单</a>
+	
+	<a href="/moduleshop.php?m=mscard&a=add" class="item {if get('m') eq 'mscard' && get('a') eq 'add'}active{/if}">开卡</a>
+</div>

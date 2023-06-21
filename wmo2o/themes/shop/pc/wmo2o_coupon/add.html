@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">优惠券编辑</div>
+			
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=wmo2o_coupon&a=save&ajax=1">
+				<input type="hidden" name="id" value="{$data.id}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" class="input-flex-text" name="title" value="{$data.title}" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">金额</div>
+					<input type="text" class="input-flex-text w60" name="money" value="{$data.money}" /> 元
+					<div class="flex-1"></div>
+					<div class="mgr-10">最低</div>
+					<input type="text" class="input-flex-text  w60" name="lower_money" value="{$data.lower_money}" />
+					元
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">数量</div>
+					<input type="text" class="input-flex-text w60" name="amount" value="{$data.amount}" /> 份
+					<div class="flex-1"></div>
+					<div class="mgr-10">限领</div>
+					<input type="text" class="input-flex-text  w60" name="limit_num" value="{$data.limit_num}" />
+					份
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">截止时间</div>
+					<input type="text" class="input-flex-text" id="etime" name="end_time" value="{$data.end_time}" />
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<style>
+			.laydate-footer-btns{
+				display: flex !important;
+				flex-direction: row;
+			}
+		</style>
+		<script>
+			laydate.render({
+				elem:"#etime",
+				type: 'datetime'
+			})
+		</script>
+	</body>
+</html>

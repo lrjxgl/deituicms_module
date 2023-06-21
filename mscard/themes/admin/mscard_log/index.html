@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.list .item{
+			margin-bottom: 5px;
+			border-bottom: 1px solid #eee;
+			font-size: 14px;
+		}
+		.list .item .title{
+			font-size: 16px;
+		}
+		.list .item  .money{
+			line-height: 30px;
+			color: #f60;
+		}	
+		.list .item .time{
+			height: 30px;
+			color: #666;
+		}
+		.list .item .con{
+			color: #888;
+			padding-bottom: 5px;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">用卡日志</h1>
+		</header>
+		
+		<div class="mui-content">
+		    <div class="mui-content-padded">
+		    	<div class="list">
+		    		{foreach item=c from=$data}
+		    		<div class="item">
+		    			<div class="title">
+		    				<span class="nickname">{$c.nickname}</span>
+			    			<span class="money">
+			    				金额：{$c.money}
+			    			</span>
+		    			</div>
+		    			<div class="time">
+		    				{$c.dateline|date:Y-m-d H:i:s}
+		    			</div>
+		    			<div class="con">{$c.content}</div>
+		    		</div>
+		    		{/foreach}
+		    	</div>
+		    	{$pagelist}
+		    </div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

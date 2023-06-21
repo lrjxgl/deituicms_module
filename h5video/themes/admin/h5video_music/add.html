@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='h5video_music/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=h5video_music&a=save">
+				<input type="hidden" name="musicid" style="display:none;" value="{$data.musicid}">
+				<table class="table-add">
+					
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>分类：</td>
+						<td><input type="text" name="catid" id="catid" value="{$data.catid}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td>
+							<div class="flex">
+							<input type="hidden" name="url" id="url" value="{$data.url}">
+							
+							<div class="btn" id="upload-music-btn">上传音乐</div>
+							<div id="upload-music-label"></div>
+							<div id="music-progress"></div>
+							<div class="none">
+								<input type="file" name="upfile" id="musicfile" />
+							</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1} checked{/if} value="1" />显示
+							
+							<input type="radio" name="status" {if $data.status neq 1} checked{/if}  value="2" />隐藏
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		<script>
+			$(document).on("click","#upload-music-btn",function(){
+				$("#musicfile").click();
+			})
+			$(document).on("change","#musicfile",function(){
+				skyUpload("musicfile","/index.php?m=upload&a=uploadmp4&ajax=1",function(e){
+					var res=eval("("+e.target.responseText+")");
+					if(!res.error){
+						$("#upload-music-label").html("已上传");
+						$("#url").val(res.imgurl);
+					}
+				},function(e){
+					
+				},function(p){
+					$("#music-progress").html(p.loaded);
+				})
+			})
+		</script>
+	</body>
+</html>

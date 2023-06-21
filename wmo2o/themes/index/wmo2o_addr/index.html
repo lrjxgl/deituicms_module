@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.pdl-20{
+			padding-left:25px;
+		}
+		.aaBox{
+			display:none;
+			position:absolute;
+			top:50px;
+			left:0px;
+			right:0px;
+			bottom:0px;
+			background-color:#fff;
+			padding:10px 20px;
+			box-sizing: border-box;
+		}
+		.header-search-close{
+			display:none;
+			position:absolute;
+			width:30px;
+			height:30px;
+			right:0px;
+			top:0px;
+			font-family:iconfont;
+			align-items: center;
+			 
+			flex-direction: row;
+			text-align: center;
+			justify-content: center;
+		}
+		.ffBox-row{
+			height: 40px;
+		}
+		.ffBox{
+			position: fixed;
+			bottom: 0px;
+			left: 0;
+			right: 0;
+			height: 40px;
+			display: flex;
+			flex-direction: row;
+			text-align: center;
+			background-color: #eee;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">选择地址</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				<div class="flex pd-10 flex-ai-center bg-white">
+					<div class="iconfont icon-location_light"></div>
+					<div @click="gourl('/module.php?m=wmo2o_addr&a=city')" class="mgr-5">{{city}}</div>
+					<div class="flex-1">
+						<div class="header-search-box">
+							<div class="header-search-icon icon-search"></div>
+							<input  v-model="keyword" @click="searchShow" @input="search" placeholder="请输入收货地址" type="search" class="header-search" />				
+							<div @click="aaBoxClass=''" :class="aaBoxClass" class="header-search-close icon-close"></div>
+						</div>
+					</div>
+				</div>
+				<div class="row-box flex flex-ai-center ">
+					<div>
+						{{localAddress}}
+					</div>
+					<div class="flex-1"></div>
+					<div class="flex flex-ai-center" @click="getLocation">
+						<div class="iconfont icon-location_light cl-num"></div>
+						<div class="cl-num">重新定位</div>
+					</div>
+				</div>
+				<div class="row-box">
+					<div class="flex flex-ai-center mgb-10">
+						<div class="iconfont icon-home mgr-10"></div>
+						<div>我的收货地址</div>
+					</div>
+					<div class="pdl-20">
+						<div @click="setLocation(item)" class="bd-mp-10" v-for="(item,index) in addrList" :key="index">
+							<div class="mgb-5 f14">{{item.pct_address}}</div>
+							<div class="cl2 f12">
+								{{item.truename}}
+								{{item.telephone}}
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row-box" style="margin-top: -20px;">
+					<div class="flex flex-ai-center mgb-10">
+						<div class="iconfont icon-location_light mgr-10 "></div>
+						<div>附近地址</div>
+					</div>
+					<div class="pdl-20">
+						<div @click="setGpsLocal(item)" class="bd-mp-10 flex" v-for="(item,index) in nearList" :key="index">
+							<div class="f14 mgb-5 cl1">{{item.name}}</div>
+							<div class="flex-1"></div>
+							<div class="f12 cl3">{{item.distance}}</div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="ffBox-row"></div>
+				<div @click="gourl('/index.php?m=user_address&a=add')" class="ffBox flex-ai-center">
+					<div class="flex-1"></div>
+					<div class="iconfont icon-add_light cl-num"></div>
+					<div class="cl-num">新增收货地址</div>
+					<div class="flex-1"></div>
+				</div>
+				<scroll-div scroll-y="true" class="aaBox" :class="aaBoxClass">
+					<div @click="setGpsLocal(item)" v-for="(item,index) in searchList" :key="index" class="flex bd-mp-5">
+						<div>
+							<div class="f14 mgb-5 cl1">{{item.name}}</div>
+							<div class="f12 cl2">{{item.address}}</div>
+						</div>
+						<div class="flex-1"></div>
+						<div class="f12 cl3">{{item.distance}}</div>
+					</div>
+					
+				</scroll-div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/gps.js"></script>
+		<script src="{$skins}wmo2o_addr/index.js"></script>
+	</body>
+</html>

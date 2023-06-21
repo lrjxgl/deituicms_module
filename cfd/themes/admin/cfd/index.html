@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="shd">{$typename}</div>
+<div class="main-body">
+     
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>cfdid</td>
+   <td>图片</td>
+   <td>名称</td>
+  
+   <td>用户</td>
+   <td>状态</td>
+   <td>结束时间</td>
+   
+   
+   
+   <td>需要金额</td>
+   <td>众筹人数</td>
+   <td>众筹金额</td>
+ 
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.cfdid}</td>
+   <td><img class="wh-60" src="{$c.imgurl|images_site}.100x100.jpg" /></td>
+   <td>{$c.title}</td>
+ 
+   <td>{$c.nickname}</td>
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=cfd&a=status&ajax=1&cfdid={$c.cfdid}"></div>
+   </td>
+   <td>{$c.endtime}</td>
+   
+   
+  
+   <td>{$c.needmoney}</td>
+   <td>{$c.joinnum}</td>
+   <td>{$c.jionmoney}</td>
+ 
+<td><a href="/moduleadmin.php?m=cfd&a=add&cfdid={$c.cfdid}">编辑</a>
+	<a href="/module.php?m=cfd&a=show&cfdid={$c.cfdid}" target="_blank">查看</a> 
+	<br/>
+	<a href="/moduleadmin.php?m=cfd_order&type=all&cfdid={$c.cfdid}">订单管理</a>
+	<a href="/moduleadmin.php?m=cfd_reward&a=cfd&cfdid={$c.cfdid}">报酬管理</a>
+	<a href="javascript:;" class="js-delete"te" url="/moduleadmin.php?m=cfd&a=delete&cfdid={$c.cfdid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+   
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a href="/moduleadmin.php?m=f2c_config_rank" class="item active">分销层级</a>
+		</div>
+		<div class="main-body" id="app">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>名称</td>
+						<td>最低分</td>
+						<td>最高分</td>
+						<td>折扣</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="(item,index) in pageData.list" :vid="item.id" class="js-item" :key="index">
+						<td><input type="text" class="w100" :value="item.title" name="title"  /></td>
+						<td><input type="text" class="w100" :value="item.min_grade" name="min_grade" /></td>
+						<td><input type="text" class="w100" :value="item.max_grade"  name="max_grade" /></td>
+						<td><input type="text" class="w100" :value="item.discount"  name="discount" />%</td>
+						<td>
+							<div class="btn-small js-save" :vid="item.id">保存</div>
+							<div class="btn-small btn-danger js-dele" :url="'/moduleadmin.php?m=f2c_config_rank&a=delete&ajax=1&id='+item.id">删除</div>
+						</td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr class="js-add-item">
+						<td><input type="text" class="w100" name="title"  /></td>
+						<td><input type="text" class="w100"  name="min_grade" /></td>
+						<td><input type="text" class="w100"  name="max_grade" /></td>
+						<td><input type="text" class="w100"  name="discount" />%</td>
+						<td>
+							<div class="btn-small" @click="addSave">保存</div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			 
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}f2c_config_rank/index.js"></script>
+	</body>
+</html>

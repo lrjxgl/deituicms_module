@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">充值选项</div>
+		</div>
+		<div class="main-body" id="app">
+			<div class="flex flex-ai-center bd-mp-5">
+				现金：<input type="text" v-model="paymoney" class="w100" />
+				卡内金额：<input type="text" v-model="money" class="w100 mgr-10" />
+				<div @click="add" class="btn">保存</div>
+			</div>
+			<div class="list">
+				<div v-for="(item,index) in pageData.list" :key="index" class="row-box flex">
+					<div class="flex-1 flex">
+						现金：<div class="cl-money">￥{{item.paymoney}}</div> ，
+						卡内金额：<div class="cl-money">￥{{item.money}}</div>
+					</div>
+					<div class="btn-mini btn-warning" @click="del(item.id)">删除</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}vipcard_option/index.js"></script>
+	</body>
+</html>

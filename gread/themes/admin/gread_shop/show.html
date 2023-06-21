@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>shopid：</td><td>{$data.shopid}</td></tr>
+  <tr><td>店名：</td><td>{$data.title}</td></tr>
+  <tr><td>简介：</td><td>{$data.description}</td></tr>
+  <tr><td>图片：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>地址：</td><td>{$data.address}</td></tr>
+  <tr><td>daytime：</td><td>{$data.daytime}</td></tr>
+  <tr><td>手机：</td><td>{$data.telephone}</td></tr>
+  <tr><td>店主：</td><td>{$data.nickname}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+ </table>
+
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

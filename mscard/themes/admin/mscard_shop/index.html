@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">会员商家</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mui-content-padded">
+		    	<div class="list">
+		    		{foreach item=c from=$data}
+		    		<div class="item">
+		    			<div class="title">{$c.shopname}</div>
+		    			<div class="address">{$c.address}</div>
+		    			
+		    		</div>
+		    		{/foreach}
+		    	</div>
+		    </div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

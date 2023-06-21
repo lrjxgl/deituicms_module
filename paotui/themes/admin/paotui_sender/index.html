@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='paotui_sender/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>senderid</td>
+						 
+						<td>昵称</td>
+						<td>头像</td>
+					 
+						<td>电话</td>
+						<td>姓名</td>
+						<td>员工</td> 
+						<td>余额</td>
+						<td>收入</td>
+						<td>状态</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.senderid}</td>
+					 
+					<td>{$c.nickname}</td>
+					<td>{if $c.imgurl}<img width="60" src="{$c.imgurl}.100x100.jpg" />{/if} </td>
+					 
+					<td>{$c.telephone}</td>
+					<td>{$c.truename}</td>
+					<td>
+						{if $c.isvip}是{else}否{/if}
+					</td> 
+					<td>{$c.money}</td>
+					<td>{$c.income}</td>
+					<td>{$c.status}</td>
+					<td>
+						<a href="/moduleadmin.php?m=paotui_sender&a=add&senderid={$c.senderid}">编辑</a>
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

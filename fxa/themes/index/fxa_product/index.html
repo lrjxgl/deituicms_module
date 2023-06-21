@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+   <td>会员</td>
+   <td>状态</td>
+   <td>产品</td>
+   <td>商家</td>
+   <td>支付状态</td>
+   <td>金额</td>
+   <td>分销收益</td>
+   <td>商家收益</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.status}</td>
+   <td>{$c.productid}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.ispay}</td>
+   <td>{$c.money}</td>
+   <td>{$c.fx_money}</td>
+   <td>{$c.shop_money}</td>
+<td><a href="/module.php?m=fxa_order&a=add&orderid={$c.orderid}">编辑</a> <a href="/module.php?m=fxa_order&a=show&orderid={$c.orderid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=fxa_order&a=delete&ajax=1&orderid={$c.orderid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

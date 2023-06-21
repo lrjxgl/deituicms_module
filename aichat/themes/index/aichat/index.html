@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<meta charset="utf-8">
+		<title>aiChat</title>
+		 
+		<link href="/plugin//iconfont/index/iconfont.css" rel="stylesheet" />
+		<link href="/plugin/dt-ui/dt-ui-h5.css" rel="stylesheet" />
+		<link href="{$skins}aichat/index.css?v122" rel="stylesheet" />
+	</head>
+	<body>
+		<div class="header">
+			<div class="header-title">aiChat</div>
+			
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div>
+				 
+			</div>
+			<div>
+				 
+				<div v-for="(item,index) in list" :key="index" class="row-box mgb-10">
+					<div class="mgb-5">{{item.title}}</div>
+					<div class="cl2">{{item.description}}</div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						<div class="btn-mini btn-outline-dark mgr-5 js-copy" :data-clipboard-text="item.description">复制</div>
+						<div @click="favToggle(item)" v-if="item.isfav" class="btn-mini btn-outline-primary">已收藏</div>
+						<div @click="favToggle(item)" v-else class="btn-mini btn-outline-dark">收藏一下</div>
+					</div>
+				</div>
+				 
+			</div>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/clipboardjs/clipboard.min.js"></script>
+		<script src="{$skins}aichat/index.js?v122"></script>
+	</body>
+</html>

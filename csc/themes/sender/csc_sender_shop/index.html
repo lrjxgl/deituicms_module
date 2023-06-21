@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">关联店铺</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $shop}
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="mgr-5">所属商家:</div>
+					<div>{$shop.shopname}</div>
+					<div class="flex-1"></div>
+					<div class="btn-mini js-cancel">解除绑定</div>
+				</div>
+				
+			</div>
+			{elseif $apply}
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="mgr-5">正在申请加入商家:</div>
+					<div>{$apply.shopname}</div>
+					 
+				</div>
+				
+			</div>
+			{else}
+			{foreach item=c from=$shopList}
+			<div class="row-box mgb-5">
+				<div class="flex">
+					 
+					<div>{$c.shopname}</div>
+					<div class="flex-1"></div>
+					<div class="btn-mini js-apply" shopid="{$c.shopid}">申请绑定</div>
+				</div>
+			</div>
+			{/foreach}
+			{/if}
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-cancel",function(){
+				if(confirm("确定解除绑定吗?")){
+					$.ajax({
+						url:"/sender.php?m=csc_sender_shop&a=cancel&ajax=1",
+						dataType:"json",
+						success:function(res){
+							window.location.reload();
+						}
+					})
+				}
+			})
+			
+			$(document).on("click",".js-apply",function(){
+				if(confirm("确定绑定商家吗?")){
+					$.ajax({
+						url:"/sender.php?m=csc_sender_shop&a=apply&ajax=1",
+						dataType:"json",
+						data:{
+							shopid:$(this).attr("shopid")
+						},
+						success:function(res){
+							window.location.reload();
+						}
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.flexlist:after {
+			direction: block;
+			visibility: hidden;
+			content: ".";
+			height: 0px;
+			clear: both;
+		}
+
+		.flexlist-item {
+			width: 32%;
+			float: left;
+			margin-right: 1%;
+			box-sizing: border-box;
+		}
+
+		.bbhd {
+			text-align: center;
+			padding-bottom: 20px;
+			font-size: 16px;
+			color: #646464;
+		}
+	</style>
+	<body>
+		{include file="header.html"}
+		<div class="main-body">
+			<div class="bbhd">
+				公开课都是由官网精心编写，课程由文档和视频构成。
+			</div>
+
+
+			<div class="flex flex-wrap">
+				{foreach item=c from=$data}
+				<a href="/module.php?m=book&a=show&bookid={$c.bookid}" class="flexlist-item">
+
+					<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flex">
+							{if $c.ispay}
+							<div class="cl2">售价：<span class="cl-money">￥{$c.money}</span></div>
+							{else}
+							<div class="cl3">免费</div>
+							{/if}
+						</div>
+
+					</div>
+
+				</a>
+				{/foreach}
+			</div>
+			{$pagelist}
+
+
+
+
+		</div>
+		{include file="footer.html"}
+		{include file="foot-all.html"}
+	</body>
+</html>

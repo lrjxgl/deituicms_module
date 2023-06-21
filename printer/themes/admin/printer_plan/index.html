@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+<body class="bg-white">
+<div class="shd">打印计划</div>
+ 
+<div class="main-body"> 
+ <table class="tbs">
+	 <thead>
+		 <tr>
+		    <td>id</td>
+		    <td>表名</td>
+		    <td>店铺</td>
+		    <td>打印主题</td>
+		     
+		    <td>打印时间</td>
+		    <td>状态</td>
+		    <td>打印次数</td>
+		    <td>ftable</td>
+		    <td>fid</td>
+		     
+		 <td>操作</td>
+		   </tr>
+	 </thead>
+  
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.tablename}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.title}</td>
+    
+   <td>{$c.last_time}</td>
+   <td>{$c.bstatus}</td>
+   <td>{$c.times}</td>
+   <td>{$c.ftable}</td>
+   <td>{$c.fid}</td>
+    
+<td>  <a href="javascript:;" class="delete" url="/moduleadmin.php?m=printer_plan&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

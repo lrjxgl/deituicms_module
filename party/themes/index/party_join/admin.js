@@ -1,0 +1,68 @@
+var App=new Vue({
+	el:"#App",
+	data:function(){
+		return {
+			list:[],
+			type:"new"
+		}
+	},
+	created:function(){
+		this.getPage();
+	},
+	methods:{
+		setType:function(type){
+			this.type=type;
+			this.getPage();
+		},
+		getPage:function(){
+			var that=this;
+			$.ajax({
+				url:"/module.php?m=party_join&a=admin&ajax=1",
+				dataType:"json",
+				data:{
+					pid:pid,
+					type:this.type
+				},
+				success:function(res){
+					that.list=res.data.list;
+				}
+			})
+		},
+		forbid:function(id){
+			var that=this;
+			skyJs.confirm({
+				content:"确认禁止吗",
+				success:function(){
+					$.ajax({
+						url:"/module.php?m=party_join&a=forbid&ajax=1",
+						dataType:"json",
+						data:{
+							id:id
+						},
+						success:function(res){
+							that.getPage();
+						}
+					})
+				}
+			})
+		},
+		pass:function(id){
+			var that=this;
+			skyJs.confirm({
+				content:"确认审核通过吗",
+				success:function(){
+					$.ajax({
+						url:"/module.php?m=party_join&a=pass&ajax=1",
+						dataType:"json",
+						data:{
+							id:id
+						},
+						success:function(res){
+							that.getPage();
+						}
+					})
+				}
+			})
+		}
+	}
+})

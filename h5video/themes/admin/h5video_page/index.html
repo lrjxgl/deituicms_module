@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='h5video_page/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>pageid</td>
+   <td>vid</td>
+   <td>title</td>
+   <td>status</td>
+   <td>orderindex</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.pageid}</td>
+   <td>{$c.vid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.status}</td>
+   <td>{$c.orderindex}</td>
+<td><a href="/module.php?m=h5video_page&a=add&pageid={$c.pageid}">编辑</a> <a href="/module.php?m=h5video_page&a=show&pageid={$c.pageid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=h5video_page&a=delete&pageid={$c.pageid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

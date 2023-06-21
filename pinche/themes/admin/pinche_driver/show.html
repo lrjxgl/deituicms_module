@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<style>
+			.atr{
+				display: flex;
+				flex-direction: row;
+				margin-bottom: 10px;
+				padding-bottom: 10px;
+				border-bottom: 1px solid #eee;
+			}
+		</style>
+		<div class="shd">司机申请详情</div>
+		<div class="main-body">
+			<div class="atr mgt-10">
+				<div class="flex-1">
+					<div>姓名：{$data.truename}</div>
+					<div>电话：{$data.telephone}</div>
+					<div>地址：{$data.address}</div>
+				</div>
+				<div class="flex-1"><img class="w100" src="{$data.userhead|images_site}.100x100.jpg" /></div>
+				 
+			</div>
+			<div class="atr">
+				<div class="flex-1">身份证：{$data.userno}</div>
+				 
+			</div>
+			<div class="atr">
+				<div class="flex-1">车牌号：{$data.carno}</div>
+				<div class="flex-1"><img class="w100" src="{$data.carpic|images_site}.100x100.jpg" /></div>
+				 
+			</div>
+			 
+			 
+		</div>
+		{include file="footer.html"}
+		<script>
+			var id="{$data.id}"
+			 
+		</script>
+	</body>
+</html>

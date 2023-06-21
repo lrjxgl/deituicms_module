@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">学校登录</div>
+		</div>
+		<div class="header-row"></div>
+		<div >
+			<div class="input-flex">
+				<div class="input-flex-label">账号</div>
+				<input class="input-flex-text" type="text" name="adminname" id="adminname" />
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">密码</div>
+				<input class="input-flex-text" type="password" name="password" id="password" />
+			</div>
+			<div class="btn-row-submit" id="login">登录</div>
+			<div class="row-box">
+				客服：15985840591
+			</div>
+		</div>
+		{include file="footer.html"}
+		 <script>
+			$(function(){
+				$(document).on("click","#login",function(){
+					$.post("/moduleshop.php?m=exue_login&a=save&ajax=1",{
+						adminname:$("#adminname").val(),
+						password:$("#password").val()
+					},function(res){
+						skyToast(res.message);
+						if(!res.error){
+							window.location="/moduleshop.php?m=exue";
+						}
+					},"json")
+				})
+			}) 
+		 </script>
+	</body>
+</html>

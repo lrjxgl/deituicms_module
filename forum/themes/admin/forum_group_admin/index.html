@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='forum_group_admin/nav.html'}
+<div class="main-body">
+	<div class="shd">{$group.title}的版主</div>
+	<form>
+		<div class="input-flex">
+			<div class="input-flex-label">昵称</div>
+			<input type="text" id="nickname" class="input-flex-text" />
+			<div class="input-flex-btn" id="add" >添加</div>
+		</div>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>userid</td>
+    
+   <td>dateline</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.status}</td>
+<td><a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=forum_group_admin&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(function(){
+		$("#add").click(function(){
+			var nickname=$("#nickname").val();
+			if(nickname==''){
+				return false;
+			}
+			$.ajax({
+				url:"/moduleadmin.php?m=forum_group_admin&a=save&ajax=1",
+				dataType:"json",
+				data:{
+					gid:"{$group.gid}",
+					nickname:nickname
+				},
+				method:"POST",
+				success:function(res){
+					skyToast(res.message);
+					if(res.error){
+						
+						return false;
+					} 
+					window.location.reload();
+				}
+			})
+		})
+	})
+</script>
+</body>
+</html>

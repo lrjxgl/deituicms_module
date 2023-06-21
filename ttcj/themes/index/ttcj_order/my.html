@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">天天有奖</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body bg-white">
+   	<div class="flexlist">
+    	{foreach item=c from=$data}
+    		<div class="flexlist-item">
+    		 
+    			<img gourl="/module.php?m=ttcj&a=show&cjid={$c.cjid}" class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+    			 
+    			<div class="flex-1"> 
+	    			<a href="/module.php?m=ttcj&a=show&cjid={$c.cjid}" class="flexlist-title">{$c.title}</a>
+	    			<div class="flexlist-row" >
+	    				 <span class="cl-num">￥{$c.item_money} </span> 
+							 <div class="flex-1"></div>
+	    				 <span class="cl-num">{$c.status_name}</span>
+	    				
+	    			</div>
+	    			<div class="addr">
+	    				
+	    				联系人：{$c.nickname} &nbsp;&nbsp;
+	    				电话：{$c.telephone}<br>
+	    				{$c.address}
+	    			</div>
+	    			 
+    			</div>
+    		</div>
+    	{/foreach}
+    </div>
+   
+	<div>{$pagelist}</div>
+ 
+</div>
+{include file="footer.html"}
+</body>
+</html>

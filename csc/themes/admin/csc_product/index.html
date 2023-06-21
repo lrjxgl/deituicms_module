@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='csc_product/nav.html'}
+		<div class="main-body">
+			<form class="search-form" action="/moduleadmin.php" autocomplete="off">
+				<input type="hidden" name="m" value="csc_product">
+				ID <input type="text"  class="w50" name="id" value="{$smarty.get.id|intval}" />
+				名称 <input type="text" class="w150" name="title" value="{$smarty.get.title}" />
+			 
+				分类 
+				<select name="catid" class="w100">
+					<option value="0">请选择</option>
+					{foreach item=c from=$catlist}
+						<option value="{$c.catid}" {if get("catid") eq $c.catid}selected{/if}>{$c.title}</option>
+						{if $c.child}
+						{foreach item=cc from=$c.child}
+						<option value="{$cc.catid}" {if get("catid") eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+						{/foreach}
+						{/if}
+					{/foreach}
+				</select>
+				创建时间 <input name="stime" type="text" id="stime" value="{$smarty.get.stime}" class="w100" /> 到 <input  class="w100" type="text"  name="etime" id="etime"  value="{$smarty.get.etime}" /> 
+				<button type="submit" class="btn" >搜索</button>
+				 
+			</form>
+			<form id="cForm">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id<input type="checkbox" class="chkall"  /></td>
+						<td>名称</td>
+						<td>分类</td>
+						 
+						<td>图片</td>
+						<td>价格</td>
+						<td>促销价</td>
+					 
+						<td>月销</td>
+						<td>状态</td> 
+						<td>最新</td>
+						<td>最热</td>
+						<td>推荐</td>
+						<td>库存</td>
+						<td>销量</td>
+						
+						 
+						
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td><input type="checkbox" class="ids"  name="ids[]" value="{$c.id}" />{$c.id} </td>
+					<td>{$c.title}</td>
+					<td>{$c.catid_name}</td>
+				 
+					<td><img src="{$c.imgurl}.100x100.jpg" width="60" /> </td>
+					<td>{$c.price}</td>
+					<td>{$c.lower_price}</td>
+					 
+					 
+					<td>{$c.month_buy_num}</td>
+					<td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=csc_product&a=status&id={$c.id}&ajax=1" ></div></td>
+					<td><div class="{if $c.isnew eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=csc_product&a=new&id={$c.id}&ajax=1" ></div></td>
+					<td><div class="{if $c.ishot eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=csc_product&a=hot&id={$c.id}&ajax=1" ></div></td>
+					<td><div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=csc_product&a=recommend&id={$c.id}&ajax=1" ></div></td>
+					<td>{$c.total_num}</td>
+					<td>{$c.buy_num}</td>
+					
+					 
+			 
+					 
+					<td>
+						<a href="/moduleadmin.php?m=csc_product_ks&productid={$c.id}">款式</a>
+						<a href="/moduleadmin.php?m=csc_product&a=add&id={$c.id}">编辑</a> <br />
+					<a target="_blank" href="/module.php?m=csc_product&a=show&id={$c.id}">查看</a>
+					<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=csc_product&a=delete&id={$c.id}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			
+			<div class="flex pd-10">
+				 <input type="checkbox" class="chkall"  />&nbsp;
+				聚合：
+				<select name="gid" class="w100 mgr-5">
+					<option value="0">请选择</option>
+					{foreach item=c from=$groupList}
+					<option value="{$c.gid}">{$c.title}</option>
+					{/foreach}
+				</select>
+				<div  class="btn"  id="changeGroup">聚合产品</div>
+			</div>
+			</form>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#stime"
+			})
+			laydate.render({
+				elem:"#etime"
+			});
+			$(".chkall").click(function(){
+				if($(this).prop("checked")==true){
+					$(".ids").prop("checked",true);
+				}else{
+					$(".ids").prop("checked",false);
+				}
+			});
+			$(document).on("click","#changeGroup",function(){
+				$.post("/moduleadmin.php?m=csc_product&a=group&ajax=1",$("#cForm").serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+						window.location.reload();
+					}
+				},"json");
+			})
+		</script>
+	</body>
+</html>

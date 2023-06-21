@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.outline-none{
+			outline: none;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">搜一下</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			
+			
+			<div id="app" style="display: none;" :class="'flex-col'">
+				 
+				<div class="flex pd-5">
+					<input class="input-flex-text bd-radius-10 outline-none" v-model="keyword" :value="keyword" id="keyword" />
+					<div class="input-flex-btn w60" @click="search">搜一下</div>
+				</div>
+				<pubu-list :data-list="list"></pubu-list>
+				 
+			</div>
+			
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var keyword="{$keyword}";
+		</script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}js/pubu-list.js"></script>
+		<script src="{$skins}b2c_search/index.js"></script>
+	</body>
+</html>

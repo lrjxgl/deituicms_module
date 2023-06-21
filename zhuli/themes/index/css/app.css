@@ -1,0 +1,351 @@
+body {}
+
+ 
+.footer {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	background-color: #607d8b;
+	height: 50px;
+}
+
+.tabs-footer {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+
+.tabs-footer .item {
+	padding: 0px;
+	display: block;
+	float: left;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	flex: 1;
+	color: #fff;
+}
+
+.tabs-footer .item.active {
+	background-color: #9E9E9E;
+}
+
+
+/**助力模块**/
+
+.zlbox {
+	padding: 10px;
+	margin: 0 auto;
+	background-color: #fff;
+	width: 100%;
+}
+
+.zlbox .zbanner {
+	padding: 10px;
+	text-align: center;
+}
+
+.zlbox .title {
+	padding: 10px 0px;
+	font-size: 1.2em;
+}
+
+.zlbox .rprice {
+	height: 30px;
+	line-height: 30px;
+	color: #f60;
+	font-size: 1.6em;
+}
+
+.zlbox .rprice .price {
+	color: #f60;
+}
+
+.zlbox .description {
+	font-size: 1em;
+	line-height: 1.5;
+	padding: 10px;
+}
+
+.zl-ubox {
+	margin-bottom: 10px;
+}
+
+.vstat .item {
+	width: 33.33%;
+	margin: 10px 0px;
+	float: left;
+	text-align: center;
+	font-weight: 600;
+	border-right: 1px solid #eee;
+	margin-left: -1px;
+}
+
+.vstat .item .a1 {
+	font-size: 16px;
+	margin-bottom: 5px;
+}
+
+.vrow {
+	border-bottom: 1px solid #eee;
+	line-height: 25px;
+	padding: 6px 0px;
+	font-size: .9em;
+	display: flex;
+	flex-direction: row;
+}
+
+.vrow .iconfont {
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.vrow .icon-hottopic {
+	color: #E01518;
+}
+
+.vrow .icon-time {
+	color: #f90;
+}
+
+.vrow .icon-desc {
+	color: #17CB63;
+}
+
+.vrow .icon-jiangbei {
+	color: #E12D30;
+}
+
+.vtitle {
+	border-top: 1px solid #eee;
+}
+
+.vtoggle .hd {
+	height: 30px;
+	font-size: 1em;
+}
+
+.vtoggle .vtoggle-icon {
+	float: right;
+}
+
+.vtoggle .box {
+	display: none;
+	width: inherit;
+	color: #999;
+	font-size: 0.8em;
+	border-top: 1px solid #eee;
+	padding-left: 36px;
+	padding-top: 5px;
+}
+
+.vtoggle .icon-fold {
+	display: none;
+}
+
+.vtoggle.von .icon-unfold {
+	display: none;
+}
+
+.vtoggle.von .icon-fold {
+	display: block;
+}
+
+.vtoggle.von .box {
+	display: block;
+}
+
+
+/**助力记录**/
+
+.golist-hd {
+	line-height: 3;
+	font-size: 1.2em;
+	border-bottom: 1px solid #f60;
+	margin-bottom: 10px;
+}
+
+.golist {}
+
+.golist .item {
+	line-height: 2;
+	font-size: 1em;
+	border-bottom: 1px dotted #ccc;
+}
+
+.zl-btns {
+	display: flex;
+	flex-direction: row;
+}
+
+.zl-btn {
+	flex: 1;
+	background-color: #F9274E;
+	cursor: pointer;
+	display: block;
+	width: 90%;
+	margin-right: 10px;
+	text-align: center;
+	line-height: 40px;
+	height: 40px;
+	float: left;
+	color: #fff;
+}
+
+
+/**助力排行**/
+
+.zlph-hd {
+	height: 60px;
+}
+
+.zlph-hd .tp {
+	float: left;
+	margin: 10px;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	width: 100px;
+	font-size: 18px;
+	color: #fff;
+	background-color: #607D8B;
+}
+
+.zlph-hd .r-num {
+	float: right;
+	margin: 10px;
+	height: 40px;
+	line-height: 40px;
+	color: #666;
+	font-size: 1.2em;
+}
+
+.zlph-hd .r-num .num {
+	margin-left: 10px;
+	color: #E5A314
+}
+
+.zlph-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 1.2em;
+}
+
+.zlph-table th {
+	background-color: #aaa;
+	height: 40px;
+	color: #fff;
+	text-align: center;
+	font-size: 16px;
+}
+
+.zlph-table tr {
+	height: 40px;
+	text-align: center;
+	background-color: #ddd;
+}
+
+.zlph-table tr td {
+	color: #333;
+	font-size: 14px;
+}
+
+.zlph-table tr:nth-child(2n) {
+	height: 40px;
+	text-align: center;
+	color: #fff;
+	background-color: #eee;
+}
+
+.pricebox {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 20px;
+	text-align: center;
+	color: #333;
+}
+
+.pricebox .price {
+	color: #FF3300;
+	font-size: 26px;
+	margin-right: 20px;
+	margin-left: 5px;
+}
+
+.pricebox .del-price {
+	text-decoration: line-through;
+	color: #666;
+}
+
+.uplist {}
+
+.uplist .item {
+	display: flex;
+	flex-direction: row;
+	font-size: 14px;
+	background-color: #fff;
+	margin-bottom: 5px;
+	padding: 10px 5px;
+}
+.uplist .item a{
+	color: #333;
+}
+.uplist .item-img {
+	width: 70px;
+	margin-right: 10px;
+}
+
+.uplist .item-img img {
+	width: 100%;
+}
+
+.uplist .item .flex-1 {
+	flex: 1;
+}
+
+.uplist .title {
+	font-size: 14px;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.uplist .row-price {
+	display: flex;
+	flex-direction: row;
+}
+
+.uplist .row-price .num {
+	color: #f60;
+	margin-right: 5px;
+}
+
+.uplist .addr {
+	color: #999;
+	padding: 5px;
+}
+
+.uplist .tools {
+	display: flex;
+	 flex-direction: row;
+	padding: 10px 0px;
+	color: #666;
+	border-top: 1px solid #eee;
+}
+
+.uplist .tools a {
+	margin-right: 10px;
+	font-size: 16px;
+	cursor: pointer;
+	color: #007aff;
+}
+
+.uplist .row-time{
+	color: #666;
+	font-size: 14px;
+}
+.uplist .desc{
+	color: #999;
+	padding: 10px;
+}

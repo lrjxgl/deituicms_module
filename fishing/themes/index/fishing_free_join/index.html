@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>joinid</td>
+   <td>placeid</td>
+   <td>actid</td>
+   <td>userid</td>
+   <td>联系人</td>
+   <td>电话</td>
+   <td>status</td>
+   <td>createtime</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.joinid}</td>
+   <td>{$c.placeid}</td>
+   <td>{$c.actid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.status}</td>
+   <td>{$c.createtime}</td>
+<td><a href="/module.php?m=fishing_free_join&a=add&joinid={$c.joinid}">编辑</a> <a href="/module.php?m=fishing_free_join&a=show&joinid={$c.joinid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=fishing_free_join&a=delete&ajax=1&joinid={$c.joinid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}css/news.css" rel="stylesheet">
+	 
+	<body>
+		<div class="header">
+			<a class="header-back" href="/"></a>
+			<div class="header-title">圈子</div>
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body">
+
+			<div class="glist">
+				{foreach item=c from=$data}
+				<a class="glist-item" href="/module.php?m=group&a=show&gid={$c.gid}">
+					<div class="glist-item-pd">
+						<img class="glist-item-img" src="{$c.glogo|images_site}.100x100.jpg">
+						<div class="glist-item-title">{$c.gname}</div>
+					</div>
+				</a>
+				{/foreach}
+			</div>
+			<div class="newslist" style="padding-top: 10px;">
+				{foreach item=c from=$topiclist}
+				<div class="newslist-item">
+					<div class="newslist-item-user">
+						<img gourl="/index.php?m=news&a=home&userid={$c.userid}" class="newslist-item-head" src="{$c.user_head|images_site}.100x100.jpg">						
+						<span class="newslist-item-nick">{$c.nickname}</span>
+						{if $c.userid neq $ssuser.userid}
+						<div class="newslist-item-follow js-news-follow" userid="{$c.userid}">{if $c.isfollow}已关注{else}关注{/if}</div>
+						{/if}
+					</div>
+					<div class="flex-1">
+
+						<div class="newslist-item-content">{$c.content}</div>
+						{if $c.videourl}
+						<div class="newslist-videobox">
+							<video controls="controls" class="newslist-video" src="{$c.videourl|images_site}"></video>
+						</div>
+						{/if}
+						<div class="sglist-imglist js-thumb-item">
+							{foreach item=p from=$c.imgList}
+							<img class="js-thumb sglist-imglist-img" v="{$p|images_site}" src="{$p|images_site}.100x100.jpg">
+							{/foreach}
+
+						</div>
+						<div class="flex">
+							<span class="cl3 f12 mgr-5 ">{$c.dateline|timeago}</span>
+							<a class="cl-primary mgr-5 f12" href="/module.php?m=group_title&a=show&gid={$c.gid}&id={$c.id}">详情</a>
+
+							<span newsid="{$c.id}" class="zan f12  mgr-5 ">赞 (<span id="zan-num-{$c.id}">{$c.love_num}</span> )</span>
+							<span newsid="{$c.id}" class="comment   mgr-5  f12">评论 (<span id="comment-num-{$c.id}">{$c.comment_num}</span>)</span>
+
+						</div>
+
+
+					</div>
+
+				</div>
+				{/foreach}
+
+			</div>
+
+
+
+
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		{include file="inc/js_thumb.html"}
+		{include file="group_title/comm.html"}
+		 
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">商家推荐</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<div class="tk-list" id="list">
+				{foreach item=c from=$data}
+				<a target="_blank" class="tk-item tk-item-5" href="{$c.linkurl}">
+					<div class="img">
+						<img src="{$c.imgurl|images_site}" />
+
+					</div>
+					<div class="flex-1">
+						<div class="title">{$c.title}</div>
+						<div class="desc">{$c.description}</div>
+					</div>
+				</a>
+				{/foreach}
+			</div>
+
+
+		</div>
+		{assign var="ftnav" value="taoke_shop"}
+		{include file="footer.html"}
+
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title="福鼎淘客-拿优惠券去淘宝购买更便宜";
+ 
+</script>
+		<script id="list-tpl" type="text/html">
+			<%for(var i in data){%>
+		<% var $c=data[i];%>
+		<a target="_blank" class="tk-item tk-item-5" href="<%=$c.linkurl%>">
+			<div class="img">
+				<img src="<%=$c.imgurl%>"  />
+				
+			</div>
+			<div class="flex-1">
+				<div class="title"><%=$c.title%></div>
+			 	<div class="desc"><%=$c.description%></div>
+			</div>
+		</a>
+	<%}%>	
+</script>
+		<script src="/plugin/jquery/listload.js"></script>
+		<script src="/plugin/jquery/template-native.js"></script>
+		<script>
+			var catid = "{$smarty.get.catid|intval}";
+			var tagname = "{$smarty.get.tagname}"
+			var isfirst = false;
+			var per_page = "{$per_page}";
+
+			function getList() {
+				if (!isfirst && per_page == 0) return false;
+				$.get("/index.php?m=taoke&a=list&ajax=1", {
+					per_page: per_page,
+					catid: catid,
+					tagname: tagname
+				}, function(data) {
+					per_page = data.data.per_page
+					var html = template("list-tpl", data.data);
+					$("#list").append(html);
+				}, "json");
+			}
+
+			listload.loadid = "pullup";
+			listload.showload(function() {
+				getList();
+			})
+		</script>
+	</body>
+</html>

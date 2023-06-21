@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='shopmap/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   
+   <td>分类</td>
+   <td>名称</td>
+ <td>图片</td>
+
+   
+   <td>联系人</td>
+   <td>电话</td>
+   <td>地址</td>
+  <td>推荐</td>
+   <td>状态</td>
+  
+   <td>访问数</td>
+   <td>评价数</td>
+   <td>喜欢数</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+    
+   <td>{$c.catid}</td>
+   <td>{$c.title}</td>
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="60"/> </td>
+  
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+    <td>{$c.address}</td>
+	<td>
+		<div class="{if $c.isrecommend==1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=shopmap&a=recommend&ajax=1&id={$c.id}"></div>
+	</td>
+   <td>
+	   <div class="{if $c.status==1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=shopmap&a=status&ajax=1&id={$c.id}"></div>
+   </td>
+   
+   <td>{$c.view_num}</td>
+   <td>{$c.comment_num}</td>
+   <td>{$c.love_num}</td>
+  
+<td><a href="/moduleadmin.php?m=shopmap&a=add&id={$c.id}">编辑</a> 
+<a href="/module.php?m=shopmap&a=show&id={$c.id}" target="_blank">查看</a>
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=shopmap&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

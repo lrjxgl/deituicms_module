@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">旧书回收</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+
+			<form id="actForm"  action="/module.php?m=gread_recycle&a=save&ajax=1">
+
+				<div class="input-flex flex-ai-center">
+					<div class="cl2 mgr-5">联系人：</div>
+					<input type="text" class="input-flex-text w60 mgr-5"  name="nickname" id="nickname" value="">
+				 
+					<div class="cl2 mgr-5">电话：</div>
+					<input type="text" class="input-flex-text"  name="telephone" id="telephone" value="">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">地址：</div>
+					<input type="text" class="input-flex-text" name="address" id="address" value="">
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">书籍描述</div>
+					<textarea placeholder="描述书籍数量，重量" name="description" class="textarea-flex-text h60"></textarea>
+				</div>
+				<div class="text-center cl-red">课外书1折回购</div>
+				<div class="btn-row-submit js-submit">确认下单</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">开奖</div>
+		</div>
+		<div class="main-body">
+			<div class="input-flex">
+				<div class="input-flex-label">开奖时间</div>
+				<input type="text" id="sday" value="{$sday}" />
+			</div>
+			<div class="btn-row-submit js-add">确认开奖</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-add",function(){
+				$.ajax({
+					url:"/moduleadmin.php?m=mdish_lottery_win&a=setwin&ajax=1",
+					data:{
+						sday:$("#sday").val()
+					},
+					dataType:"json",
+					success:function(res){
+						skyToast(res.message)
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

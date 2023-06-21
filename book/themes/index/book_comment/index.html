@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	 <table class="table table-bordered" width="100%">
+  <tr>
+   <td>id</td>
+   <td>userid</td>
+   <td>bookid</td>
+   <td>articleid</td>
+   <td>pid</td>
+   <td>createtime</td>
+   <td>status</td>
+   <td>content</td>
+<td>操作</td>
+  </tr>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.bookid}</td>
+   <td>{$c.articleid}</td>
+   <td>{$c.pid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.status}</td>
+   <td>{$c.content}</td>
+<td><a href="/module.php?m=book_comment&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=book_comment&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="delete" url="/module.php?m=book_comment&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

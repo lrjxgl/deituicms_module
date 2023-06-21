@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='zupu_news/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=zupu_news&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<input type="hidden" name="gid" id="gid" value="{$data.gid}">
+				<table class="table-add">
+				 
+					 
+					<tr>
+						<td>标题：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="upimg-box bg-fff">
+								<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+									<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+								</div>
+								{if !$data.imgurl}	
+								<div class="upimg-btn js-upimg-btn">
+									<i class="upimg-btn-icon"></i>
+								</div>
+								{/if}
+								<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+								<input style="display: none;" class="js-upimg-file" type="file" name="upimg"  /> 
+							</div> 
+					
+						</td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><textarea name="description" id="description"
+								class="textarea-flex-text h60" />{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status" value="2"> 下线
+						</td>
+					</tr>
+					<tr>
+						<td>内容：</td>
+						<td>
+							<script id="content" name="content" type="text/html">{$data.content}</script>
+					
+						</td>
+					</tr>
+					{if $data}<tr>
+						<td>createtime：</td>
+						<td>{$data.createtime}</td>
+					</tr>{/if}
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		{php loadEditor();}
+		
+		<script language="javascript">
+			var editor = UE.getEditor('content', options)
+		</script>
+	</body>
+</html>

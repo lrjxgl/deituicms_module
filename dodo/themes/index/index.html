@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<div class="header-title">战友目标</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="bg-white">
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=dodo&a=show&id={$c.id}" class="row-item">
+					<div class="row-item-title">{$c.content}</div>
+					
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		<div  class="fixRight">
+			<div gourl="/module.php?m=dodo&a=add" class="pd-5 pointer cl-white bdb">发布任务</div>
+			<div gourl="/module.php?m=dodo&a=my" class="pd-5 pointer cl-white" >我的任务</div>
+		</div> 
+		{include file="footer.html"}
+		 <?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+ 
+		</script>
+	</body>
+</html>

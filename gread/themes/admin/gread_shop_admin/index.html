@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">管理员</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=gread_shop_admin&a=save">
+				<input type="hidden" name="shopid" value="{$shopid}" />
+				<table class="table table-add">
+					<tr>
+						<td>账号</td>
+						<td>
+							<input type="text" name="username" value="{$data.username}" />
+						</td>
+					</tr>
+					<tr>
+						<td>手机</td>
+						<td>
+							<input type="text" name="telephone" value="{$data.telephone}" />
+						</td>
+					</tr>
+					<tr>
+						<td>密码</td>
+						<td>
+							<input type="password" name="password" value="" />
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div> 
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

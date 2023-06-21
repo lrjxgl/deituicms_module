@@ -1,0 +1,9 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div class="footer-item icon-home {if $ftnav eq 'index'}footer-active{/if}" gourl="/module.php?m=xiangqin">首页</div>
+	{if XIANGQIN_PARTY_ON}
+	 <div class="footer-item icon-message_light {if $ftnav eq 'party'}footer-active{/if}" gourl="/module.php?m=xiangqin_party">活动</div>
+	{/if}
+	<div class="footer-item icon-message_light {if $ftnav eq 'xiangqin_notice'}footer-active{/if}" gourl="/module.php?m=xiangqin_notice">消息</div>
+	<div class="footer-item icon-my_light {if $ftnav eq 'user'}footer-active{/if}"  gourl="/module.php?m=xiangqin_user">我的</div>
+</div>

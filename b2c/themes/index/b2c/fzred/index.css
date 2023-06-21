@@ -1,0 +1,25 @@
+.msBox{
+	background-color: #aaa;
+	margin: 0px 5px;
+	padding:1px 3px;
+	font-size: 12px;
+}
+.cnav{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 5px; 
+}
+.cnav-item{
+	padding: 6px 8px;
+}
+.cnav-item-active{
+	color: #f60;
+}
+.bg-radius{
+ 
+	border-radius: 10px;
+	 
+}
+.mtlist-item-pd{
+	padding:0px 2px;
+}

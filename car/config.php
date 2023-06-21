@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"买车",//模块名称
+	"module"=>"car",//模块目录
+ 	"version"=>2.2,//当前版本
+	"info"=>"买车租车,新车，二手车，回收车",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=car&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

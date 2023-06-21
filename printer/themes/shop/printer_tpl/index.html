@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">打印设置</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="{$appshop}?m=printer_tpl&a=save&shoptable={$shoptable}">
+				<div class="textarea-flex">
+					<label class="textarea-flex-label">头部</label>
+					<textarea class="textarea-flex-text h60" name="shead">{$data.shead}</textarea>
+				</div>
+
+				<div class="textarea-flex">
+					<label class="textarea-flex-label">尾部</label>
+					<textarea class="textarea-flex-text h60" name="sfoot">{$data.sfoot}</textarea>
+				</div>
+
+				<div class="input-flex" style="display:flex; display:box; display:flexbox;">
+					<label class="input-flex-label">二维码</label>
+					<input class="input-flex-text" type="text" name="sqr" value="{$data.sqr}">
+				</div>
+				<div class="input-flex">
+					<label class="input-flex-label">打印份数</label>
+					<input class="input-flex-text" type="text" name="num" value="{$data.num}">
+				</div>
+				<div class="">
+					<div class="btn-row-submit js-submit">保存</div>
+				</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">添加抽奖</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=mdish_lottery&a=save">
+				<input type="hidden" name="productid" style="display:none;" value="{$data.productid}">
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">所属店铺</div>
+					<select name="shopid" class="input-flex-select">
+						{foreach item=c from=$shoplist}
+						<option value="{$c.shopid}">{$c.title}</option>
+						{/foreach}
+					</select>
+				</div>	 
+				<div class="input-flex">
+					<div class="input-flex-label">奖品名称：</div>
+					<input class="input-flex-text" type="text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">价值：</div>
+					<input class="input-flex-text" type="text" name="price" id="price" value="{$data.price}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">抽奖时间：</div>
+					<div class="input-flex-txt">{$sday}</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">简介：</div>
+					<textarea class="h60 textarea-flex-text flex-1"  type="text" name="description" id="description">{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">图片：</div>
+					<div class="flex-1">
+						<div class="upimg-box ">
+							<div class="upimg-item none js-upimg-btn">
+								<img class="upimg-img" />								 
+							</div>	
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 <input type="hidden" name="imgurl" class="imgurl" value="">
+							 <input class="js-upimg-file" style="display: none;" type="file" name="upimg" id="upimg" /> 
+						</div>
+					</div>
+					
+				</div>
+					
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

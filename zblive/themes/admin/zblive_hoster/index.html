@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=zblive_hoster">管理</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>hostid</td>
+   <td>userid</td>
+   <td>status</td>
+   <td>dateline</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.hostid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.status}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+<td><a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=zblive_hoster&a=delete&ajax=1&hostid={$c.hostid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

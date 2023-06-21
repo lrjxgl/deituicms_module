@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=taoke_shop" class="item">商家列表</div>
+			<div gourl="/moduleadmin.php?m=taoke_shop&a=add" class="item active">编辑商家</div>
+		</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=taoke_shop&a=save">
+				<input type="hidden" name="shopid" style="display:none;" value="{$data.shopid}">
+				<table class="table-add">
+					 
+					<tr>
+						<td>商家名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><textarea name="description" id="description" >{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					<tr>
+						<td>链接：</td>
+						<td><input type="text" name="linkurl" id="linkurl" value="{$data.linkurl}"></td>
+					</tr>
+					<tr>
+						<td>销量：</td>
+						<td><input type="text" name="buy_num" id="buy_num" value="{$data.buy_num}"></td>
+					</tr>
+					<tr>
+						<td>评价：</td>
+						<td><input type="text" class="w100" name="grade" id="grade" value="{$data.grade}"> (1-10分)</td>
+					</tr>
+					<tr>
+							<td>状态：</td>
+							<td style="line-height: 40px;">
+								上线 <input type="radio" name="status" {if $data.status eq 2}checked{/if} id="status" value="2">
+								下线 <input type="radio" name="status" {if $data.status neq 2}checked{/if}  id="status" value="1">
+							</td>
+						</tr>
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+
+</html>

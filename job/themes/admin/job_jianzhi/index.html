@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">兼职管理</div>
+ <div id="searchbox" class="search-form" >
+	<form id="searchform" action="/moduleadmin.php" autocomplete="off">
+		<input type="hidden" name="m" value="job_jianzhi">
+		<input  type="hidden" name="type" value="{$type}"/>
+		ID <input type="text"  class="w50" name="id" value="{$smarty.get.id|intval}" />
+		标题 <input type="text" class="w150" name="title" value="{$smarty.get.title}" />
+	 
+		 
+		创建时间 <input name="stime" type="text" id="stime" value="{$smarty.get.stime}" class="w100" /> 到 <input  class="w100" type="text"  name="etime" id="etime"  value="{$smarty.get.etime}" /> 
+		<button type="submit" class="btn" >搜索</button>
+		 
+	</form>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>标题</td>
+   
+   
+   
+   <td>联系电话</td>
+   <td>工资</td>
+   <td>地址</td>
+   <td>状态</td>
+   <td>推荐</td>
+   <td>支付</td>
+  
+  
+   
+   <td>分类</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   
+   
+    
+   <td>{$c.telephone}</td>
+   <td>￥{$c.money}/天</td>
+   <td>{$c.address}</td>
+   <td><div class="{if $c.status eq 1}yes{else}no{/if} js-status-toggle" v="{$c.id}"></div></td>
+   <td>
+		 
+	   <div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-recommend-toggle" v="{$c.id}"></div>
+	    
+   </td>
+   <td>{if $c.ispay eq 1}已支付{else}未支付{/if}</td>
+ 
+   
+ 
+   <td>{$c.catid}</td>
+<td><a href="/moduleadmin.php?m=job_jianzhi&a=add&id={$c.id}">编辑</a> 
+<a href="/module.php?m=job_jianzhi&a=show&id={$c.id}" target="_blank">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=job_jianzhi&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script src="/plugin/laydate/laydate.js"></script>
+<script>
+	laydate.render({
+		elem:"#stime"
+	})
+	laydate.render({
+		elem:"#etime"
+	});
+</script>
+<script>
+	$(function(){
+		$(document).on("click",".js-recommend-toggle",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/moduleadmin.php?m=job_jianzhi&a=recommend&ajax=1&id="+id,function(res){
+				if(res.data==1){
+					obj.addClass("yes").removeClass("no");
+				}else{
+					obj.addClass("no").removeClass("yes");
+				}
+			},"json")
+		})
+		
+		$(document).on("click",".js-status-toggle",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/moduleadmin.php?m=job_jianzhi&a=status&ajax=1&id="+id,function(res){
+				if(res.data==1){
+					obj.addClass("yes").removeClass("no");
+				}else{
+					obj.addClass("no").removeClass("yes");
+				}
+			},"json")
+		})
+	})
+</script>
+</body>
+</html>

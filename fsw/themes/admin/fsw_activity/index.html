@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='fsw_activity/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>actid</td>
+ 
+   <td>名称</td>
+   <td>介绍</td>
+   <td>图片</td>
+   <td>参与人数</td>
+   <td>status</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.actid}</td>
+    
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+   <td><img src="{$c.imgurl}.100x100.jpg" class="w50" /></td>
+   
+   <td>{$c.user_num}</td> 
+   <td>{$c.status}</td>
+   
+<td><a href="/moduleadmin.php?m=fsw_activity&a=add&actid={$c.actid}">编辑</a>
+ <a target="_blank" href="/module.php?m=fsw_activity&a=show&actid={$c.actid}">查看</a>
+  <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fsw_activity&a=delete&ajax=1&actid={$c.actid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

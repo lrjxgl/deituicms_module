@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+				<div class="item active">圈子分类</div>
+			</div>
+		 
+		<div class="main-body">
+		    <form class="mui-input-group" style="padding: 10px;" method="post" action="/moduleadmin.php?m=group_type&a=save">
+		    	<input style="width: 200px; height:36px;border: 1px solid #eee;" type="text" name="title" />
+		    	<button class="btn-small" type="submit">保存</button>
+		    </form>
+		    <table class="table">
+		    	<tr>
+		    		<td>ID</td>
+		    		<td>名称</td>
+		    		 
+		    		<td>操作</td>
+		    	</tr>
+		    	{foreach item=c from=$data}
+		    	<tr>
+		    		<td>{$c.catid}</td>
+		    		 
+		    		<td>{$c.title}</td>
+		    		<td>
+		    			<a href="javascript:;" class="js-del" url="/moduleadmin.php?m=group_type&a=delete&ajax=1&catid={$c.catid}">删除</a>
+		    			
+		    		</td>
+		    	</tr>
+		    	{/foreach}
+		    </table>
+		</div>
+		<script>
+			$(document).on("click",".js-del",function(){
+				var obj=$(this);
+				$.get($(this).attr("url"),function(data){
+					obj.parents("tr").remove();
+					skyToast(data.message);
+				},"json")
+			})
+		</script>
+		{include file="footer.html"}
+	</body>
+</html>

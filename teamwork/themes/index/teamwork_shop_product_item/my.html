@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我提交的需求</h1>
+</header>
+<div class="mui-content">
+	<div class="tabs-border">
+		<a href="/index.php?m=shop_product_item&a=my" class="item {if get('status') eq 0}active{/if}">全部</a>
+		<a href="/index.php?m=shop_product_item&a=my&status=-1" class="item {if get('status') eq -1}active{/if}">未分配</a>
+		<a href="/index.php?m=shop_product_item&a=my&status=1" class="item {if get('status') eq 1}active{/if}">处理中</a>
+		<a href="/index.php?m=shop_product_item&a=my&status=3" class="item {if get('status') eq 3}active{/if}">已完成</a>
+	</div>
+	
+   {foreach item=c from=$list}
+   <div class="row-box item">
+   		<div class=" flex cor2 f12 mgb-5 pdb-5 bdb">
+   			<div class="flex-1 cor-success">
+   				{$c.status_name}
+   			</div>
+				
+   			<div class="mgr-10">
+   				{$c.timeago}
+   			</div>
+   			<a class="btn-mini btn-outline-success mgr-5 " href="/index.php?m=shop_product_item&a=add&productid={$c.productid}&id={$c.id}">编辑</a>
+   			<a href="javascipt:;" class="js-delete f14 cor-danger" url="/index.php?m=shop_product_item&a=delete&ajax=1&id={$c.id}">删除</a>
+   		</div>
+   		<div class="pointer" onclick="window.location='/index.php?m=shop_product_item&a=show&id={$c.id}'">
+   		<div class="f14 mgb-10">{$c.title}</div>
+   		
+   		<div class="pd-5 f12 cor-2">{$c.content}</div>
+   		</div>
+   </div>
+   {/foreach}
+<div>{$pagelist}</div>
+  
+</div>
+{include file="footer.html"}
+</body>
+</html>

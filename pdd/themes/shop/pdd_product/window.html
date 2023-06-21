@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">橱窗商品</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="flexlist-item js-item">
+				{if $c.imgurl}
+				<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+				{/if}
+				<div class="flex-1">
+					<div class="flexlist-title">{$c.title}</div>
+					<div class="flex mgb-5">
+						<div class="cl-money">￥{$c.price}</div> 
+						<div class="flex-1"></div>
+						<div class="cl2"><div class="{if $c.iswindow eq 1}yes{else}no{/if} js-toggle-status" url="/moduleshop.php?m=pdd_product&a=windowsave&id={$c.id}&ajax=1" ></div> </div>
+					</div>
+					 
+				</div>
+			</div>
+			
+			{/foreach}
+		</div>
+		 
+		{include file="footer.html"}
+	</body>
+</html>

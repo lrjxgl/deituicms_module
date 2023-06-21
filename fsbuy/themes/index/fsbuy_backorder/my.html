@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">拼团返利</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				<div v-if="list.length==0" class="emptyData">
+					暂无返单
+				</div>
+				<div v-else class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-10">
+						<div>金额：</div>
+						<div class="cl-money">￥{{item.money}}</div>
+						<div class="flex-1"></div>
+						<div class="cl3 f12">{{item.createtime}}</div>
+					</div>
+					<div class="flexlist-item" @click="goProduct(item.fsid)">
+						<img class="flexlist-img" :src="item.fsbuy.imgurl+'.100x100.jpg'"/>
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.fsbuy.title}}</div>
+							<div class="cl2 mgb-5">{{item.kstitle}}</div>
+							<div class="cl-money">￥{{item.money}}</div>
+						</div>
+					</div>
+					<div class="cl3 f12">{{item.content}}</div>
+				</div>
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}fsbuy_backorder/my.js"></script>
+	</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">分类管理</div>
+	<div gourl="/moduleshop.php?m=gxny_shop_category&a=add" class="header-right-btn">添加</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{foreach item=c from=$list}
+    <div class="row-box mgb-5">
+		<div class="flex bd-mp-5 mgb-5">
+			<div>{$c.title}</div>
+			<div class="flex-1"></div>
+			<div class="cl-money">￥{$c.money}</div>
+		</div>
+		<div class="cl3 mgb-5">{$c.description}</div>
+		<div class="flex flex-ai-center">
+			{if $c.status eq 1}
+			<div class="yes"></div>
+			{/if}
+			<div class="mgl-10 cl-status">{$c.orderindex}</div>
+			<div class="flex-1"></div>
+			<div gourl="/moduleshop.php?m=gxny_shop_category&a=add&catid={$c.catid}" class="btn-small mgr-5">编辑</div>
+			<div url="/moduleshop.php?m=gxny_shop_category&a=delete&ajax=1&catid={$c.catid}" class="btn-small mgr-5 js-delete">删除</div>
+			<div class="btn-small js-newPro" url="/moduleshop.php?m=gxny_shop_category&a=newpro&ajax=1&catid={$c.catid}">生成菜地</div>
+		</div>
+	</div> 
+	{/foreach}
+    
+</div>
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-newPro",function(){
+			var url=$(this).attr("url");
+			skyJs.confirm({
+				content:"确认生成菜地吗?",
+				success:function(){
+					$.ajax({
+						url:url,
+						dataType:"json",
+						success:function(res){
+							skyJs.toast(res.message)
+						}
+					})
+				}
+			})
+		})
+	})
+</script>
+</body>
+</html>

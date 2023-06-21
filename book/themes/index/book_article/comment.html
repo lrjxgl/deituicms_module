@@ -1,0 +1,173 @@
+ <style>
+ 	.comment-hd{
+ 		display: block;
+ 		padding: 0px 10px;
+ 		background-color: #F20C00;
+ 		color: #fff;
+ 		width: 70px;
+ 		font-size: 12px;
+ 		margin-bottom: 10px;
+ 		margin-top: 5px;
+ 	}
+ 	.cm-list .cm-item{
+ 		display: flex;
+ 		border-bottom: 1px solid #ddd;
+ 		padding-bottom: 10px;
+ 		margin-bottom: 10px;
+ 	}
+ 	.cm-list .cm-item .head{
+ 		margin-right: 5px;
+ 	}
+ 	.flex-1{
+ 		flex: 1;
+ 	}
+ 	.cm-list .head img{
+ 		width: 30px;
+ 	}
+ 	.cm-list .nick{
+ 		font-size: 16px;
+ 		color: #007AFF;
+ 		line-height: 1;
+ 		margin-bottom: 5px;
+ 	}
+ 	.cm-list .info{
+ 		margin-bottom: 10px;
+ 		font-size: 12px;
+ 		color: #666;
+ 		line-height: 1;
+ 	}
+ 	.cm-list .addr{
+ 		margin-right: 5px;
+ 	}
+ 	.cm-list .con{
+ 		 
+ 		font-size: 14px;
+ 		line-height:1.2;
+ 		cursor: pointer;
+ 	}
+ </style>
+<div id="page-comment-list">
+	 
+    <div class="cm-list" v-for="c in data">
+    	<div class="cm-item">
+    		<div class="head">
+    			<img :src="smallImg(c.user_head)"  />
+    		</div>
+    		<div class="flex-1">
+    			<div class="nick">{{c.nickname}}</div>
+    			<div class="info">
+					<span class="addr">{{c.ip_addr}}</span>
+					<span class="time">时间：{{c.timeago}}</span> 
+		 
+				</div>
+    			<div class="cm-con comment_reply_btn" :reply_text="reply_text(c.nickname,c.content)" :pid="c.id">
+	    			{{c.content}}
+	    		</div>
+    		</div>
+    		
+    	</div>
+    </div>
+    <div style="height:50px;"></div>
+    <div id="tools" class="comment-tools">
+		<div class="l">
+			<div id="comment-btn" class="comment-btn">
+  					<span class="iconfont icon-write"></span>写跟帖
+        	</div>
+		</div>
+		<div class="r">
+			<div id="share-btn" class="share-btn" style="">
+				<span class="iconfont icon-fenxiang"></span>
+				
+			</div>
+			 
+		</div>
+	</div>
+	<div id="commentbox" class="commentbox" style="">
+ 
+					<div class="row" style="margin: 5px 5px;">
+					<textarea  id="comment-content" class="comment-content"  name="content"   placeholder="评论内容.."></textarea> 
+				</div>
+					<div style="text-align:center">
+						<button class=" btn  btn-larger btn-primary" type="button" id="comment-submit">评论</button>&nbsp;&nbsp;&nbsp;&nbsp;
+						<button class=" btn  btn-larger btn-danger" type="button" id="comment-cancel">取消</button>
+					</div>         
+	</div> 
+    
+</div>
+
+
+<style>
+.comment-tools{position: fixed;  font-size: 14px;; height: 50px; background-color: #eee; border-top: #eee 1px solid; bottom: 0px; left: 0px; right: 0px;}
+.comment-tools .l{position: absolute; right: 50px; left: 0px;}
+.comment-tools .comment-btn{height: 40px; line-height: 40px; margin-top: 5px; margin-left: 10px; border-radius: 30px; padding-left: 20px; background-color: #fff; border:1px solid #ccc; cursor:pointer;}
+.comment-tools .r{position: absolute; right: 10px;}
+.comment-tools .share-btn{height: 30px; line-height: 30px; width: 30px; margin-top: 10px; text-align: center; border-radius: 50%; border: 1px solid #ccc;}
+.commentbox{position: fixed; display: none;  bottom: 0px; left: 0px; right: 0px; padding-bottom:20px;  background-color:#e8e8e8;}
+.commentbox .comment-content{height:100px; display:block; position:relative; padding:5px;  width:90%; margin:0 auto; left:-5px;}
+</style>
+
+<script language="javascript">
+
+ 
+
+$(function(){
+	var comment_insubmit=false;
+	var bookid="{$data.bookid}";
+	var articleid="{$data.id}";
+	var comment_pid=0
+	getList();
+	function getList(){
+  		$.get('/module.php?m=book_comment&ajax=1',{
+  			articleid:articleid
+  		},function(res){
+  			cm.data=res.data.data;	
+  		},"json")
+  	}
+	$(document).on("click","#comment-btn",function(e){
+		$("#commentbox").show();
+	}); 
+	$(document).on("click","#comment-cancel",function(e){
+		$("#comment-content").val("");
+		$("#commentbox").hide();
+		comment_pid=0;
+	});
+	$(document).on("click","#comment-submit",function(){
+		if(comment_insubmit) return false;
+		comment_insubmit=true;
+		setTimeout(function(){ comment_insubmit=false; },1000);
+		 
+		var pdata={
+				content:$("#comment-content").val(),
+				bookid:bookid,
+				articleid:articleid,
+				pid:comment_pid
+			}
+		$.post("/module.php?m=book_comment&a=save&ajax=1",pdata,function(data){
+			if(data.error==0){
+				$("#comment-content").val("");
+				$("#commentbox").hide();
+				comment_pid=0;
+				getList();
+				skyToast(data.message);
+			}else{
+				
+				if(data.nologin !=undefined){
+					skyToast('请先登录');
+				}else{
+					
+					skyToast(data.message);
+				}
+			}
+		},"json")
+	})
+	
+	$(document).on("click",".comment_reply_btn",function(){
+		$("#commentbox").show();
+		
+		comment_pid=$(this).attr("pid");
+		$("#comment-content").focus().val($(this).attr("reply_text") + " ");
+	});
+
+
+});
+</script>

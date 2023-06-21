@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.uhead {
+			display: flex;
+			flex-direction: row;
+			padding: 10px;
+			background-color: #fff;
+			margin-bottom: 5px;
+		}
+	
+		.uhead-img {
+			width: 80px;
+			height: 80px;
+			margin-right: 10px;
+			display: block;
+			border-radius: 50%;
+		}
+	
+		.uhead-box {
+			flex: 1;
+		}
+	
+		.uhead-nick {
+			margin-bottom: 5px;
+			font-size: 16px;
+		}
+	
+		.uhead-rnum {
+			color: #999;
+			margin-bottom: 10px;
+			line-height: 14px;
+			display: flex;
+			font-size: 14px;
+		}
+		.m-navPic-item{
+			width: 25%;
+		}
+		.cl-u{
+			color: #F30;
+		}
+	</style> 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body">
+		   
+	    	<div class="uhead">
+	    		<img gourl="/index.php?m=user&a=user_head" class="uhead-img" src="{$guser.user_head|images_site}.100x100.jpg">
+	    		<div class="flex-1">
+	    			<div class="uhead-nick">{$guser.nickname}</div>
+					<div class="flex mgb-5">
+						<div class="mgr-5">余额</div>
+						<div  class="cl-money">￥{$user.money}</div>
+						<div class="flex-1"></div>
+						<div gourl="/index.php?m=recharge" class="btn-mini">去充值</div>
+					</div>
+	    			<div class="flex mgb-5">
+	    				<div class="cl2 mgr-5">保证金</div>
+						<span class="cl-money">￥{$guser.bond}</span>
+	    				<div class="flex-1"></div>
+						
+	    			</div>
+					
+	    			<div class="flex cl2 f14">
+	    				借书卡  {$guser.endtime}
+	    			</div>
+	    		</div>
+	    	</div>
+			<div class="m-navPic mgb-5">
+				<div gourl="/module.php?m=gread_backcart&a=books" class="m-navPic-item">
+					<div class="m-navPic-icon icon-book  cl-u"></div>
+					<div class="m-navPic-title">待还图书</div>
+				</div>
+				<div gourl="/module.php?m=gread_order&a=my" class="m-navPic-item">
+					<div class="m-navPic-icon icon-order  cl-u"></div>
+					<div class="m-navPic-title">借书订单</div>
+				</div>
+				<div gourl="/module.php?m=gread_backorder&a=my" class="m-navPic-item">
+					<div class="m-navPic-icon icon-back  cl-u"></div>
+					<div class="m-navPic-title">还书订单</div>
+				</div>
+				<div gourl="/module.php?m=gread_guest" class="m-navPic-item">
+					<div class="m-navPic-icon icon-message_light  cl-u"></div>
+					<div class="m-navPic-title">书店咨询</div>
+				</div>
+				<div gourl="/module.php?m=gread_user_card" class="m-navPic-item">
+					<div class="m-navPic-icon icon-vipcard  cl-u"></div>
+					<div class="m-navPic-title">借书卡</div>
+				</div>
+				<div gourl="/module.php?m=gread_user_bond" class="m-navPic-item">
+					<div class="m-navPic-icon icon-moneybag  cl-u"></div>
+					<div class="m-navPic-title">保证金</div>
+				</div>
+				<div gourl="/module.php?m=gread_zbook&a=my" class="m-navPic-item">
+					<div class="m-navPic-icon icon-ticket  cl-u"></div>
+					<div class="m-navPic-title">我的一折买书</div>
+				</div>
+				 
+				<div gourl="/module.php?m=gread_recycle&a=my" class="m-navPic-item">
+					<div class="m-navPic-icon icon-camerarotate  cl-u"></div>
+					<div class="m-navPic-title">我的旧书回收</div>
+				</div>
+			</div>
+				
+				
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=gread_olprint&a=order" class="row-item">
+					<div class="row-item-icon icon-repair  cl-u"></div>
+					<div class="row-item-title">资料打印订单</div>
+				</div>
+				<div gourl="/module.php?m=party&a=my&tablename=gread" class="row-item">
+					<div class="row-item-icon icon-activity  cl-u"></div>
+					<div class="row-item-title">我发起的读书会</div>
+				</div>
+				<div gourl="/module.php?m=party_join&a=my&tablename=gread" class="row-item">
+					<div class="row-item-icon icon-friend_light  cl-u"></div>
+					<div class="row-item-title">我参与的读书会</div>
+				</div>
+				<div gourl="/module.php?m=party_blog&a=my"  class="row-item">
+					<div class="row-item-icon icon-news  cl-u"></div>
+					<div class="row-item-title">我的动态</div>
+				</div>
+				
+				<div gourl="/module.php?m=party_blog_comment&a=my"  class="row-item">
+					<div class="row-item-icon icon-comment  cl-u"></div>
+					<div class="row-item-title">我的评论</div>
+				</div> 
+			</div>
+			
+			 
+				
+			<div class="row-box mgb-5">	
+				
+				<div gourl="/index.php?m=pay_log&a=my" class="row-item">
+					<div class="row-item-icon icon-vipcard  cl-u"></div>
+					<div class="row-item-title">消费记录</div>
+				</div>
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service_light  cl-u"></div>
+					<div class="row-item-title">平台客服</div>
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="row-item">
+					<div class="row-item-icon icon-settings cl-u"></div>
+					<div class="row-item-title">设置</div>
+				</div>
+			</div>	
+		     
+		</div>
+		{assign var="mfooter" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

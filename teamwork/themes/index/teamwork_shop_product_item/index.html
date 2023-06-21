@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的任务</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	 {foreach item=c from=$list}
+   <div class="row-box item">
+   		<div class=" flex cor2 f12 mgb-5 pdb-5 bdb">
+   			<div class="flex-1 cor-success">
+   				{$c.status_name}
+   			</div>
+   			<div class="mgr-10">
+   				{$c.timeago}
+   			</div>
+   			
+   			 
+   		</div>
+   		<div class="f14 mgb-10">{$c.title}</div>
+   		
+   		<div class="pd-5 f12 cor-2">{$c.content}</div>
+   </div>
+   {/foreach}
+<div>{$pagelist}</div>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

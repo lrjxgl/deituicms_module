@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}csc_paotui/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-title">帮买菜</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			
+			<div class="row-box">
+				<div class="flex" gourl="/module.php?m=csc_shoplist">
+					<div class="iconfont icon-location"></div>
+					<div class="cl2">{{shop.shopname}}</div>
+					<div class="iconfont icon-right"></div>
+					<div class="flex-1"></div>
+					 
+				</div>	
+			</div>
+			
+			<form id="form">
+
+
+				<div class="textarea-flex">
+					<textarea name="content" style="line-height: 1.5; height: 160px;" placeholder="请详细输入要买的东西,如:
+猪肉 买一斤
+鱼黑20元买一条
+白菜买一个"
+					 class="textarea-flex-text"></textarea>
+					<div v-if="cartList.length>0">
+						<div class="pdt-10 mgb-5">联盟商品</div>
+						<div class="pdl-10">
+							<div class="bd-mp-5 cl2" v-for="(c,i) in cartList" :key="i">
+								{{c.title}} x{{c.num}}
+							</div>
+						</div>
+						
+					</div> 
+					<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">跑腿费用</div>
+						<div class="flex-1 cl-money">{{shop.paotui_money}}元</div>
+						<div class="input-flex-label">总费用预计</div>
+						<div class="flex-1 cl-money">{{allMoney}}元</div>
+					</div>
+				</div>
+				<div class="row-box mgb-5">
+					<div class="row-box-hd">
+						<div class="flex-1 f16">收货地址</div>
+						<a class="row-box-more" href="/index.php?m=user_address&a=add">新增地址</a>
+					</div>
+
+					<div @click="changeAddr(item.id)" v-for="(item,index) in addrList" class="row-item-text">
+						<input :checked="item.id==user_address_id?'checked':''" name="user_address_id" class="user_address_id" :value="item.id"
+						 type="radio" />
+						{{item.truename}} {{item.telephone}} <br /> {{item.pct_address}}
+					</div>
+
+				</div>
+
+				<div class="pd-10 text-center cl-red">*只提供生鲜蔬菜粮油水果跑腿服务<br />跑腿费现付，生鲜产品到付</div>
+				<div @click="formSubmit" class="btn-row-submit">确定下单</div>
+			</form>
+			
+			 
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="csc_paotui/ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}csc_paotui/index.js"></script>
+
+	</body>
+</html>

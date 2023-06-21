@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+		<title></title>
+	</head>
+	<body>
+		<div style="height: 50px; line-height: 50px; margin-bottom: 10px; background-color: #006699; color: #fff; text-align: center;">图片本地化</div>
+		<div style="margin: 0 auto; width: 750px;">
+			<form method="post" action="/module.php?m=localimg&a=view">
+			<script type="text/html" name="content" id="content" style="height: 400px; margin-bottom: 20px;"></script>
+			<button type="submit" style="width: 200px; height: 36px; line-height: 36px;">生成</button>
+			</form>
+		</div>
+		
+		<script src="/plugin/jquery/jquery.js"></script>
+		{php loadEditor();}
+
+<script language="javascript">
+ 
+var editor=UE.getEditor('content',options)
+</script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+{if !$site}
+{get data=site model=site fun=get()}
+{/if}
+<title>{if $seo}{$seo.title}{else}{$site.title}{/if}</title>
+<meta name="description" content="{if $seo}{$seo.description}{else}{$site.description}{/if}" />
+	<link href="//at.alicdn.com/t/font_811242_4k6v9f174g7.css" rel="stylesheet">
+<link href="/plugin/dt-ui/dt-ui-h5.css?v3" rel="stylesheet" />
+<link href="/skinscolor/skins.php?color={const.SKINSCOLOR}" rel="stylesheet" /> 
+<style>
+	.main-body{
+		max-width: 640px;
+		margin: 0 auto;
+	}
+	/*分页组件*/
+	.pages {
+		
+		text-align: center;
+		font-size: 0;
+		line-height: 0;
+		display: flex;
+		flex-direction: row;
+		    align-items: center;
+		    justify-content: center;
+		vertical-align: middle;
+		font-size: 16px;
+		margin: 10px;
+	}
+	
+	.pages a,
+	.pages strong {
+		padding: 0 15px;
+		border: 1px solid #d8d8d8;
+		border-left: 0;
+		display: inline-block;
+		height: 40px;
+		line-height: 40px;
+		color: #666;
+		float: left;
+		background-color: #f0f0f0
+	}
+	.pages a:first-child,.pages strong:first-child{
+		border-left: 1px solid #d8d8d8;
+	}
+	/*End 分页*/
+</style>
+</head>
+

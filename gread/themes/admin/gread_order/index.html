@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">借书订单</div>
+		 
+		<div class="main-body" id="App">
+			<div class="tabs-border i5">
+				<div @click="setType('all')" :class="type=='all'?'tabs-border-active':''" class="tabs-border-item ">全部
+				</div>
+				<div @click="setType('new')" :class="type=='new'?'tabs-border-active':''"
+					class="tabs-border-item">新订单</div>
+				<div @click="setType('confirm')" :class="type=='confirm'?'tabs-border-active':''"
+					class="tabs-border-item">已确认</div>
+				<div @click="setType('send')" :class="type=='send'?'tabs-border-active':''" class="tabs-border-item">配送中
+				</div>
+				<div @click="setType('finish')" :class="type=='finish'?'tabs-border-active':''"
+					class="tabs-border-item">已完成</div>
+				<div @click="setType('cancel')" :class="type=='cancel'?'tabs-border-active':''"
+					class="tabs-border-item">已取消</div>
+			</div>
+		    <div class="list">
+				<div v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+					<div class="flex bd-mp-5">
+						<div class="cl-status">{{item.status_name}}</div>
+						<div v-if="item.issend" class="mgl-10">要配送</div>
+						<div class="flex-1"></div>
+						<div class="cl2">{{item.timeago}}</div>
+					</div>
+					 
+					<div v-for="(p,i) in item.pros" :key="i" class="flexlist-item">
+						 
+						<img class="flexlist-img" :src="p.imgurl+'.100x100.jpg'" >
+						<div class="flex-1">
+							<div class="cl2 mgb-5">
+								{{p.title}} 
+								 
+							</div>
+							 
+							<span class="cl-money">￥{{p.price}}</span>
+						</div>
+						
+						
+					</div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						 
+						<div @click="cancel(item)" v-if="item.status==0" class="btn-small btn-warning">取消</div>
+					</div>
+				</div> 
+			</div>
+			<div @click="getList()" v-if="per_page>0" class="loadMore">加载更多</div> 
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}gread_order/index.js?v3"></script>
+	</body>
+</html>

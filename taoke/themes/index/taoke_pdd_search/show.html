@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+ 
+	.fav-btn{
+		width: 36px;
+		height: 36px;
+		text-align: center;
+		line-height: 36px;
+		border-radius: 50%;
+		cursor: pointer;
+		background-color: #333;
+		opacity: 0.9;
+		color: #fff;
+	}
+	
+	.fav-btn:before{
+		color: #666;
+		font-family: iconfont;
+		content: "\e64c";
+	}
+	.fav-btn-active{
+		background-color: #e91e63
+	}
+	.fav-btn-active:before{
+		color: #fff;
+		font-size: 22px;
+	}
+	.shareRight{
+		position: fixed;
+		right: 0px;
+		bottom:160px;
+		height: 60px;
+		background-color: #fd5b76;
+		border-top-left-radius: 20px;
+		border-bottom-left-radius: 20px;
+		color: #fff;
+		text-align: center;
+		padding: 10px 5px 10px 10px;
+		font-size: 12px;
+		cursor: pointer;
+		outline: 0;
+		opacity: 0.8;
+	}
+	.modal-share{
+		position:fixed;
+		top:0;
+		left:0;
+		bottom:0;
+		right:0;
+		display:flex;
+		flex-direction:column;
+		z-index:9999;
+	}
+	.modal-share-close{
+		position:fixed;
+		right:0px;
+		top:10px;
+		background-color:#fff;
+		cursor:pointer;
+		width:30px;
+		height:30px;
+		border-radius:50px;
+	}
+</style>
+<body>
+
+<div class="details-nav">
+    <div href="/" class="goBack" >
+        <img src="{$skins}img/details-back.png" class="fl" alt="">
+    </div>
+    
+</div>
+<div class="main-body">
+	<img style="width: 100%;" src="{$data.imgurl}"  />
+     
+	<div class="p-title">
+		{$data.title}
+	</div>
+	
+	<div class="p-price mgb-10">
+		<span class="price">券后价：￥{$data.price}</span>
+		<span class="sold">销量 {$data.sold_num}</span>
+		<div class="juan-price">
+			<span class="q">券</span>
+			<span class="m">￥{$data.juan_money}</span>
+		</div>
+	</div>
+	 
+	
+ 
+	<div class="flex flex-center mgb-10">
+		<div class="btn-love js-toggle-love {if $islove}btn-love-active{/if}">我想要</div>
+	 
+	</div>
+	<div class="d-content pd-10">
+		{$data.description}
+		
+	</div>
+	<div class="p-detail" style="display: block;">
+		{foreach item=c from=$imgList}
+		<img src="{$c}" class="d-img" />
+		{/foreach}
+	</div>
+	 
+	 
+	
+</div>
+<div style="height: 60px;"></div>
+<div class="bfooter">
+	
+	<div class="flex mgl-10 mgr-10"><span>约省：</span><span class="juan">￥{$data.juan_money}</span> </div>
+	<div class="flex-1 "></div>
+	<div class="pwd " id="get-pwd">前往购买</div>
+ 
+</div>
+<div class="shareRight js-shareRight flex-ai-center flex">
+	<div class="mgr-5 cl-white">
+	分享给好友
+	</div>
+	<div class="iconfont f18 cl-white icon-redpacket"></div>	
+</div>
+<div class="modal-group" id="shareModal">
+	<div class="modal-mask"></div>
+	
+	<div class="modal-share flex-center">
+		<div class="modal-share-close icon-close modal-close flex-center"></div>
+		<img class="wmax" onclick="return false;" id="shareImg" src="">
+	</div>
+</div>
+ 
+{include file="footer.html"}
+ 
+<script>
+	var id="{$data.id}";
+	var ispwd=false;
+	$(function(){
+		$(document).on("click",".js-shareRight",function(){
+			if($("#shareImg").attr("src")==""){
+				$("#shareImg").attr("src","/module.php?m=taoke_pdd_search&a=sharepic&id="+id);
+			}
+			
+			$("#shareModal").show();	
+		})
+		$(document).on("click",".js-toggle-love",function(){
+			var that=$(this);
+			$.get("/module.php?m=taoke_love&a=toggle&ajax=1",{
+				k:"pdd",
+				productid:id
+			},function(res){
+				//skyToast(res.message);
+				if(res.error==1000){
+					window.location="/index.php?m=login";
+					return false;
+				}else{
+					if(res.data.action=='add'){
+						that.addClass("btn-love-active");
+					}else{
+						that.removeClass("btn-love-active");
+					}
+				}
+				
+			},"json")
+		})
+		$(document).on("click","#js-detail",function(){
+			$(".p-detail").toggle();
+		})
+		$(document).on("click","#get-pwd",function(){
+			$.ajax({
+				url:"/module.php?m=taoke_pdd_search&a=getpwd&ajax=1&id="+id,
+				dataType:"json",
+				success:function(res){
+					if(res.error){
+						skyToast(res.message);
+						return false;
+					}
+					window.location=res.data.url; 
+				}
+			})
+			
+		})
+ 
+	})
+</script>
+<?php wx_jssdk();?>
+<script>
+	wxshare_link="{$shareUrl}";
+	wxshare_title="{$data.title}";
+	{if $data.imgurl}
+	wxshare_imgUrl="{$data.imgurl}";
+	{/if}
+</script>
+</body>
+</html>

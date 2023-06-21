@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if $type eq ''}active{/if}" href="{$appadmin}?m=fxa_tixian">待处理</a>
+	<a class="item {if $type eq 'finish'}active{/if}" href="{$appadmin}?m=fxa_tixian&type=finish">已完成</a>
+	<a class="item {if $type eq 'cancel'}active{/if}" href="{$appadmin}?m=fxa_tixian&type=cancel">已取消</a>
+	<a class="item {if $type eq 'all'}active{/if}" href="{$appadmin}?m=fxa_tixian&type=all">全部</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>付款方式</td>
+   <td>收款人</td>
+   <td>收款账户</td>
+   <td>提现金额</td>
+   <td>状态</td>
+   <td>创建时间</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.re_type}</td>
+   <td>{$c.re_username}</td>
+   <td>{$c.re_bankcard}</td>
+   <td>{$c.money}</td>
+   <td>{$c.status_name}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+<td>
+	{if $c.status eq 0}
+	<div class="btn-small js-finish" url="/moduleadmin.php?m=fxa_tixian&a=finish&ajax=1&id={$c.id}" msg="确认完成打款了吗">确认打款</div>
+	<div class="btn-small js-finish" url="/moduleadmin.php?m=fxa_tixian&a=cancel&ajax=1&id={$c.id}" msg="确认取消打款吗">取消打款</div>
+	<a href="javascript:;" class="btn-small js-delete" url="/moduleadmin.php?m=fxa_tixian&a=delete&ajax=1&id={$c.id}">删除</a></td>
+	{/if}
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-finish",function(){
+			var url=$(this).attr("url");
+			var msg=$(this).attr("msg");
+			skyJs.confirm({
+				content:msg,
+				success:function(){
+					$.ajax({
+						url:url,
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message);
+							if(res.error){
+								return false;
+							}
+							setTimeout(function(){
+								window.location.reload();
+							},1000)
+							
+						}
+					})
+				}
+			})
+		})
+	})
+	
+</script>
+</body>
+</html>

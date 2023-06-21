@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}css/chatbox.css" rel="stylesheet" />
+	<link href="/module/kefu/static/emo.css" rel="stylesheet" />
+	<style>
+		.w200 {
+			max-width: 200px;
+		}
+
+		.newMsg {
+			position: fixed;
+			right: 5px;
+			top: 200px;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			border-radius: 20px;
+			text-align: center;
+			background-color: #F4726C;
+			color: #fff;
+			z-index: 99;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$user.nickname}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body "  class="main-body none" :class="'flex-col'" id="app">
+			<div v-if="pageLoad" class="bg-white pd-10" >
+				<div @click="getPage" v-if="hasNew" class="newMsg">新</div>
+				<div class="old">
+					<div v-for="(lsa,lsi) in listArray" :key="lsi" >
+						<div class="oitem"  v-if="lsa">
+						<com-list  :kefu="kefu" :user="user" :list="lsa.list"></com-list>
+						</div>
+					</div>
+					
+				</div>
+				<div class="new">
+					<com-list :kefu="kefu" :user="user" :list="list"></com-list>
+				</div>
+
+				<div style="height: 90px;"></div>
+				<div style="position: fixed; z-index: 10; background-color: #fff; bottom: 0;left: 0;right: 0;">
+					<div class="pdl-5 pdr-5 flex">
+						<input type="text" v-model="content" class="input-flex-text" />
+						<div @click="submit()" class="input-flex-btn" id="submit">发送</div>
+					</div>
+					<div style="height: 40px;" class="flex flex-center">
+						
+						<div @click="choiceImg('pic')" class="flex-1 iconfont icon-pic f20 sendPic"></div>
+						<div @click="choiceVideo('video')" class="flex-1 iconfont icon-video_light f20"></div>
+						<div @click="emoClass='flex-col'" class="flex-1 iconfont icon-emoji f20"></div>
+						<div @click="choiceFile('file')" class="flex-1 iconfont  icon-file f20 "></div>
+						 
+					</div>
+					<div class="none">
+						<input @change="uploadImg" type="file" id="upimg" />
+						<input @change="uploadFile" type="file" id="upFile" />
+						<input name="upimg" @change="uploadVideo" type="file" id="upVideo" />
+					</div>
+				</div>
+				
+				<div v-if="bigModal">
+					<div @click="bigModal=false" class="modal-mask"></div>
+					<div class="modal">
+						<img @click="bigModal=false" :src="bigImg" style="width:100%;height:auto" />
+					</div>
+				</div>
+				<div v-if="videoModal">
+					<div @click="videoModal=false" class="modal-mask"></div>
+					<div class="modal">
+						<video controls="controls"  :src="videourl" style="width:100%;height:auto"  ></video>
+					</div>
+				</div>
+				<div id="emoModal" :class="emoClass" class="modal-group">
+					<div class="modal-mask" @click="emoClass=''"></div>
+					<div class="emoFixbox">
+				
+						<div class="pd-10">
+							<div class="flex flex-wrap">
+								<div @click="addEmo(item)" class="imEmo" :class="'imEmo-'+index" v-for="(item,index) in emoList" :key="index"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="/static/js/ws.js"></script>
+		
+		<script>
+			var kfid = "{$kfid}";
+			var userid = "{$user.userid}";
+		</script>
+		<script src="/module/kefu/static/emo.js"></script>
+		<script src="{$skins}kefu_spmsg/index.js"></script>
+		<script src="{$skins}kefu_spmsg/com-list.js"></script>
+	</body>
+</html>

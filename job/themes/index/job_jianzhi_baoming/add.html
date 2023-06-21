@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	<form method="post" action="/module.php?m=job_jianzhi_baoming&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>兼职：</td>		
+				<td><input type="text" name="objectid" id="objectid" value="{$data.objectid}" ></td>
+				</tr>
+  <tr>
+				<td>用户：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>昵称：</td>		
+				<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}" ></td>
+				</tr>
+  <tr>
+				<td>手机：</td>		
+				<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}" ></td>
+				</tr>
+  <tr>
+				<td>简介：</td>		
+				<td><input type="text" name="description" id="description" value="{$data.description}" ></td>
+				</tr>
+  <tr>
+				<td>状态：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

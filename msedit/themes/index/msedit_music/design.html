@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link  href="{$skins}msedit_music/design.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">音乐制作</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div class="mgb-5">{$data.title}</div>
+				<div class="flex mgb-10">
+					<div @click="showKey=showKey==true?false:true" class="btn-small mgr-10">键盘</div>
+					<div @click="showGu=showGu==true?false:true" class="btn-small mgr-10">架子鼓</div>
+					<div @click="showSound=showSound==true?false:true" class="btn-small mgr-10">乐器</div>
+				</div>
+				<div v-if="showKey" class="pianoBox">
+					<div @click="playOne(item)" class="pianoBox-item" :class="item.indexOf('b')>0?'pianoBox-black':'pianoBox-white'" v-for="(item,index) in orderSounds">{{item}}</div>
+				</div>
+				<div v-if="showGu" class="guBox">
+					<div class="guBox-item" @click="playGu(item)" v-for="(item,index) in guSounds" :key="index">
+						{{item}}
+					</div>
+				</div>
+				<div class="soundBox" v-if="showSound">
+					<div class="soundBox-item" :class="sound==item?'soundBox-active':''" @click="setSound(item)" v-for="(item,index) in soundList" :key="index">
+						{{item}}
+					</div>
+				</div>
+				 
+				<div class="tabs-border">
+					<div @click="eTab='all';eRule=-1" :class="eTab=='all'?'tabs-border-active':''" class="tabs-border-item">全谱</div>
+					<div :class="eRule==index?'tabs-border-active':''"  class="tabs-border-item" @click="editRule(index)" v-for="(item,index) in rules" :key="index">{{item.name}}</div>
+				</div>
+				 
+				<div class="mgb-10">
+					<div v-if="eTab=='all'">
+					<textarea  class="tabIndent mgb-5" style="width:90%;height:300px;" v-model="data.content" id="musicText"></textarea>
+					<div class="flex">
+						
+					<div @click="save" class="btn mgr-10">保存全谱</div>
+					</div>
+					</div>
+					<div  v-if="eTab=='rule'">
+					<textarea  class="tabIndent mgb-5" style="width:90%;height:300px;" v-model="emusic" id="musicText"></textarea>
+					<div class="flex">
+					<div @click="saveRule()" class="btn">保存音轨</div>
+					</div>
+					</div>
+				</div>
+			<div class="flex mgb-5">
+				<div>从</div>
+				<input class="w50 mgl-5 mgr-5" type="text" v-model="startTime"  />
+				<div>秒开始</div>
+			</div>	
+			<div class="flex flex-wrap flex-ai-center">
+				<div @click="play" class="btn-small mgr-10">点击播放</div>
+				<div @click="replay" class="btn mgr-10">重载播放</div> 
+				
+				
+			 
+				<input  type="checkbox" value="true" v-model="isRecord"/>录音
+				<input  type="checkbox" value="true" v-model="isSing"/>唱歌
+				<div @click="stop" class="btn mgl-10">结束</div> 
+			</div>
+			</div>
+			<div id="playM"></div>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}js/tabIndent.js"></script>
+		<script src="{$skins}js/soundBase.js?{$smarty.now}"></script>
+		<script src="{$skins}js/record.js?{$smarty.now}"></script>
+		 
+		
+		<script>
+			var id="{$data.id}";
+		</script>
+		<script src="{$skins}msedit_music/design.js?{$smarty.now}"></script>
+	</body>
+</html>

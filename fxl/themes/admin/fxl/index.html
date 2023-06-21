@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="tabs-border">
+ <a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=fxl">管理</a>
+ <a class="item {if get('a') eq 'add'}active{/if}" href="{$appadmin}?m=fxl&a=add">添加</a> 
+</div>
+<div class="main-body">
+     
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>fxlid</td>
+   <td>图片</td>
+   <td>名称</td>
+   
+   <td>用户</td>
+   <td>状态</td>
+   <td>结束时间</td>
+   
+   
+   
+   <td>需要金额</td>
+   <td>众筹人数</td>
+   <td>众筹金额</td>
+ 
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$list}
+<tr>
+   <td>{$c.fxlid}</td>
+   <td><img class="wh-60" src="{$c.imgurl|images_site}.100x100.jpg" /></td>
+   <td>{$c.title}</td>
+   
+   <td>{$c.userid}</td>
+   <td>{$c.status}</td>
+   <td>{$c.endtime}</td>
+   
+   
+  
+   <td>{$c.needmoney}</td>
+   <td>{$c.joinnum}</td>
+   <td>{$c.joinmoney}</td>
+ 
+<td><a href="/moduleadmin.php?m=fxl&a=add&fxlid={$c.fxlid}">编辑</a>
+<a href="/moduleadmin.php?m=fxl_cert&fxlid={$c.fxlid}">证件列表</a>
+	<a href="/module.php?m=fxl&a=show&fxlid={$c.fxlid}" target="_blank">查看</a> 
+	<br/>
+	<a href="/moduleadmin.php?m=fxl_log&fxlid={$c.fxlid}">进度管理</a>
+	<a href="javascript:;" class="js-delete"te" url="/moduleadmin.php?m=fxl&a=delete&fxlid={$c.fxlid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+   
+</div>
+{include file="footer.html"}
+</body>
+</html>

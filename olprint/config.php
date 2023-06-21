@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"在线打印加盟",//模块名称
+	"module"=>"olprint",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"在线打印加盟",//模块信息
+	"from"=>"在线打印加盟",
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=olprint&a=menu",
+	"check_update"=>"http://www.deituicms.com/index.php?m=checkupdate&product=mod_olprint",
+);
+?>

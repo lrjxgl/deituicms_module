@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">借书清单</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="flexlist">
+	    			{foreach item=c from=$booklist}
+	    				<div class="item">
+	    					<div class="img">
+	    						<img src="{$c.imgurl|images_site}.100x100.jpg">
+	    					</div>
+	    					<div class="flex-1">
+	    						<div class="title">{$c.title}</div>
+	    						<div class="row-price">
+	    							￥<span class="price">{$c.price}</span>
+	    							<div bookid="{$c.bookid}" shopid="{$c.shopid}" class="buy-btn js-buy">借</div>
+	    						</div>
+	    					</div>
+	    				</div>
+	    			{/foreach}
+	    	</div>
+	    	<style>
+	    		.psradio{
+	    			background-color: #fff;
+	    			margin-bottom: 5px;
+	    			padding: 10px;
+	    		}
+	    		.psradio .label{
+	    			margin-right: 20px;
+	    		}
+	    		.psradio .radio{
+	    			display: inline-block;
+	    			height: 30px;
+	    			line-height: 30px;
+	    			color: #fff;
+	    			width: 40px;
+	    			border-radius: 10px;
+	    			background-color: #aaa;
+	    			text-align: center;
+	    			margin-right: 20px;
+	    			cursor: pointer;
+	    		}
+	    		.psradio .radio.active{
+	    			background-color: #008000;
+	    		}
+	    	</style>
+	    	<div class="psradio" >
+	    		<span class="label">是否配送 </span>
+	    		<span id="js-nosend" class="radio active">否</span>
+	    		<span id="js-needsend" class="radio">是</span>
+	    		<input type="hidden" id="issend" value="0" /> 
+	    	</div>
+	    	<div class="ctbox" style="display: none;" id="js-sendbox">
+	    		<div class="input-flex">
+	    			<label class="label">配送费</label>
+	    			<div class="label">￥{$shop.sendmoney}元</div>
+	    		</div>
+	    		<div class="input-flex">
+		    		<label class="label">名称</label>
+		    		<input type="text" class="text" id="nickname" name="nickname" value="{$guser.nickname}" />
+		    	</div>
+		    	<div class="input-flex">
+		    		<label class="label">手机</label>
+		    		<input type="text" class="text" id="telephone" name="telephone" value="{$guser.telephone}" />
+		    	</div>
+		    	
+		    	<div class="input-flex">
+		    		<label class="label">地址</label>
+		    		<input type="text" class="text" id="address" name="address" value="{$guser.address}" />
+		    	</div>
+	    	</div>
+	    	<div class="btn-row-submit" id="js-order">确定借书</div>
+	    	
+	    	<div class="m-note">
+	    		<span class="m-note-label">注意</span>
+	    		为了更好的服务，外借的书籍请在30天内归还。
+	    	</div>
+		</div>
+		<script>
+		$(function(){
+			$(document).on("click",".js-buy",function(){
+				var bookid=$(this).attr("bookid");
+				var shopid=$(this).attr("shopid");
+				var $this=$(this);
+				$.get("/module.php?m=gread_cart&a=toggle&ajax=1",{
+					bookid:bookid,
+					shopid:shopid
+				},function(data){
+					mui.toast(data.message);
+					if(data.data.op=='add'){
+						$this.addClass("active");
+					}else{
+						$this.parents(".item").remove();
+					}
+					
+				},"json")
+			})
+			
+			$(document).on("click","#js-nosend",function(){
+				$("#js-sendbox").hide();
+				$("#issend").val(0);
+				$(this).addClass("active").siblings().removeClass("active");
+			})
+			
+			$(document).on("click","#js-needsend",function(){
+				$("#js-sendbox").show();
+				$("#issend").val(1);
+				$(this).addClass("active").siblings().removeClass("active");
+			})
+			
+			$(document).on("click","#js-order",function(){
+				var issend=$("#issend").val();
+				var shopid="{$shop.shopid}";
+				var nickname=$("#nickname").val();
+				var address=$("#address").val();
+				var telephone=$("#telephone").val();
+				$.post("/module.php?m=gread_order&a=order&ajax=1",{
+					issend:issend,
+					shopid:shopid,
+					nickname:nickname,
+					address:address,
+					telephone:telephone
+				},function(data){
+					mui.toast(data.message);
+					if(!data.error){
+						goBack();
+					}
+				},"json")
+			})
+		})
+	</script>
+	</body>
+</html>

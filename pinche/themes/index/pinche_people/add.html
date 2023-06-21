@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">添加联系人</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=pinche_people&a=save">
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">姓名</div>
+					<input type="text" class="input-flex-text" name="nickname" id="nickname" value="{$data.nickname}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input type="text" class="input-flex-text" id="telephone" name="telephone" value="">
+					<div class="input-flex-btn js-send-sms">发送验证码</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">验证码</div>
+					<input type="text" class="input-flex-text" name="yzm"  value="">
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script>
+		$(function(){
+			$(document).on("click",".js-send-sms",function(){
+				var telephone=$("#telephone").val();
+				var that=this;
+				$.ajax({
+					url:"/module.php?m=pinche_people&a=sendsms&ajax=1",
+					dataType:"json",
+					data:{
+						telephone:telephone
+					},
+					success:function(res){
+						skyJs.toast(res.message);
+					}
+				})
+			})
+		})
+		</script>
+	</body>
+</html>

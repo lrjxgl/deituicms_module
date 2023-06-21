@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}tutor_shop/index.css" rel="stylesheet" />
+	<body>
+		<div url="/module.php?m=freeshop" class="header-back-fixed goBack" style="z-index: 999; color: #fff;"></div>
+		<div class="main-body none" :class="'flex-col'" v-if="pageLoad" id="App">
+			
+			<div class="uBox">
+				<div @click="toggleFollow()" v-if="isFollow" class="fixFollow fixFollow-active">已关注</div>
+				<div @click="toggleFollow()" v-else class="fixFollow fixFollow-active">+关注</div>
+				<div class="flex flex-col flex-center">
+					<img class="uBox-head" :src="shop.imgurl+'.100x100.jpg'" />
+					<div class="uBox-nick">{{shop.title}}</div>
+					<div class="flex mgb-5 flex-ai-center mgr-10">
+						 
+						<div class="cl-white f12 mgr-5">月销</div>
+						<div class="cl-white f12 mgr-10">{{shop.order_num}}笔</div>
+						 
+						<div class="cl-white f12 mgr-5">评价</div>
+						<div class="cl-white f12 mgr-10">{{shop.raty_grade}}分</div>
+						<div class="cl-white  f12 mgr-5">粉丝</div>
+						<div class="cl-white  f12">{{shop.follow_num}}</div>
+					</div>
+				</div>
+				<div class="uBox-desc">{{shop.description}}</div>	
+				
+				
+			</div>
+			 
+			<div class="tabs-border ">
+				<div @click="setTab('all')" :class="tab=='all'?'tabs-border-active':''" class="tabs-border-item">介绍</div>
+				<div @click="setTab('lesson')" :class="tab=='lesson'?'tabs-border-active':''"  class="tabs-border-item">课程</div>
+				<div @click="setTab('raty')" :class="tab=='raty'?'tabs-border-active':''"  class="tabs-border-item">评价</div>
+				 
+			</div> 
+			<div v-if="tab=='all'">
+				<div class="row-box mgb-5">
+					<div class="flex">
+						<div class="flex-col bd pd-10 bd-radius-10 flex-center">
+							
+							<div class="cl-money mgb-5">{{shop.new_order}}人</div>
+							<div class="cl3">新学员</div>
+						</div>
+						<div class="flex-1"></div>
+						<div class="flex-col bd pd-10 bd-radius-10 flex-center">
+							
+							<div class="cl-money mgb-5">{{shop.order_num}}人</div>
+							<div class="cl3">总学员</div>
+						</div>
+						<div class="flex-1"></div>
+						<div class="flex-col bd pd-10 bd-radius-10 flex-center">
+							
+							<div class="cl-money mgb-5">{{shop.raty_grade}}分</div>
+							<div class="cl3">评价</div>
+						</div>
+						<div class="flex-1"></div>
+						<div class="flex-col bd pd-10 bd-radius-10 flex-center">
+							
+							<div class="cl-money mgb-5">￥{{shop.fee}}/时</div>
+							<div class="cl3">收费</div>
+						</div>
+					</div>
+					
+				</div>
+				<div class="row-box mgb-5">
+					<div class="fw-600 mgb-10">证书认证</div>
+					<div>
+						
+						<div @click="goCert(item)" v-for="(item,index) in certList" :key="index" class="row-item ">
+							<div  class="row-item-title">{{item.title}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-box mgb-5">
+					<div class="fw-600 mgb-10">老师介绍</div>
+					<div class="d-content" v-html="shop.content"></div>
+				</div>
+			</div>
+			<div v-if="tab=='lesson' || tab=='all'" class="row-box mgb-5">
+				<div class="fw-600 mgb-10">课程服务</div> 
+				<div v-if="!list || Object.keys(list).length==0 " class="emptyData">暂无课程</div>
+				<div v-for="(item,index) in list" :key="index"  class="flexlist-item flex-ai-center">
+					<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{item.title}}</div>
+						<div class="flexlist-desc">{{item.description}}</div>
+					</div>
+					<div @click="goDetail(item.lessonid)" class="btn-small btn-outline-primary" >查看详情</div> 
+				</div>
+			</div>
+			<div v-if="tab=='all'|| tab=='raty'" >
+				<div v-if="!ratyList || ratyList.length==0">暂无评价</div>
+				<div  v-else>
+					<div class="row-box mgb-5" v-for="(item,index) in ratyList" :key="index">
+						<div class="flex  bd-mp-5">
+							<div class="mgr-5">{{item.nickname}}</div>
+							
+							<sky-raty class="flex-1" label="" grade="10" len="10"></sky-raty>
+							<div class="cl3 f12">{{item.time}}</div>
+						</div>
+						<div class="cl2">{{item.content}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-row"></div>
+			<div class="footerFix ">
+				<div class="row-box flex-ai-center flex">
+					<div class="mgr-10">{{shop.title}}</div>
+					<div class="cl-num">{{shop.raty_grade}}分</div>
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=kefu_msg&tablename=tutor&objectid={$shop.shopid}" class="btn-small btn-outline-primary">咨询一下</div>
+				</div>
+				
+				
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		{include file="inc/js_thumb.html"}
+		<script>
+			var  shopid="{$shopid}";
+			var isFollow="{$isFollow}";
+		</script>
+		<script src="{$skins}tutor_shop/index.js"></script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+	</body>
+</html>

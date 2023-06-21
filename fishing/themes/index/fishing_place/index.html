@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	#goPlace{
+		position: fixed;
+		top: 100px;
+		right: 10px;
+		padding: 10px;
+		width: 20px;
+		z-index: 9999;
+		background-color: #F00056;
+		color: #fff;
+		text-align: center;
+		box-sizing: content-box;
+		 
+		display: none;
+		border-radius: 10px;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">钓点</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    <div class="tabs-border">
+    	<div @click="setTab('recommend')" :class="tab=='recommend'?'tabs-border-active':''" class="tabs-border-item">推荐</div>
+    	<div @click="setTab('near')" :class="tab=='near'?'tabs-border-active':''"  class="tabs-border-item">附近</div>
+    	<div @click="setTab('map')" :class="tab=='map'?'tabs-border-active':''"  class="tabs-border-item">地图</div>
+    	 
+    </div>
+	<div v-if="tab=='recommend' || tab=='near'">
+		<div class="row-box mgb-5">
+			<div class="flex">
+				<div @click="setAllow('all')" :class="place_allow=='all'?'cl-primary':''" class="mgr-5 pointer">全部</div>
+				<div  @click="setAllow('free')" :class="place_allow=='free'?'cl-primary':''"  class="mgr-5 pointer">允许</div>
+				<div  @click="setAllow('warning')" :class="place_allow=='warning'?'cl-primary':''"  class="mgr-5 pointer">限制</div>
+				<div class="flex-1"></div>
+				<div class=" pointer" @click="tagToggle()">
+					<div v-if="place_tag==''">按标签</div>
+					<div v-else>{{place_tag}}</div>
+				</div>	
+			</div>
+		</div> 
+		<div v-if="tagShow" class="row-box mgb-5">
+			<div></div>
+			<div class="flex flex-wrap">
+				<div @click="setPlaceTag('')" class="mgr-5 mgb-5 pointer" >全部</div>
+				<div @click="setPlaceTag(item.title)" class="mgr-5 mgb-5 pointer" v-for="(item,index) in tagList" :key="index">{{item.title}}</div>
+			</div>
+		</div>
+		<div class="row-box">
+			<div class="bd-mp-10 pointer" @click="goPlace(item.placeid)" v-for="(item,index) in placeList" :key="index" >
+				<div>
+					<div class="mgb-10">{{item.title}}</div>
+					<div class="mgb-10 cl3">{{item.address}}</div> 
+					<div class="flex flex-ai-center">
+						
+						 
+						<div v-if="item.is_allow==0" class="tag-a cl-primary">允许</div>
+						 
+						<div v-else-if="item.is_allow==1" class="tag-a cl-warning">限制</div>
+						 
+						<div v-else class="tag-a cl-danger">禁止</div>
+						 
+						<div v-for="(tt,ii) in item.tagsList" :key="ii" class="tag-b">{{tt}}</div>
+						 
+						<div class="flex-1"></div>
+						<div class="cl-num f12">人气 {{item.grade}}</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div gourl="/module.php?m=fishing_place&a=add" class="fixedAdd">发布</div>
+	</div>
+	<div v-if="tab=='map'">
+		<iframe style="border: 0;width:100%;" :height="wHeight" src="/module.php?m=fishing_place&a=map"></iframe>
+	</div>
+    
+</div>
+{include file="footer.html"}
+ <script src="{$skins}fishing_place/index.js"></script>
+
+ 
+</body>
+</html>

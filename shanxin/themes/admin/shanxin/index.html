@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='shanxin/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>sid</td>
+   <td>名称</td>
+   <td>状态</td>
+   
+   <td>图片</td>
+   <td>开始时间</td>
+   <td>截止时间</td>
+   <td>查看人数</td>
+   <td>参与人数</td>
+   <td>完成人数</td>
+   <td>金额</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.sid}</td>
+   <td>{$c.title}</td>
+   <td>{if $c.status eq 1}上线{else}下线{/if}</td>
+  
+   <td>
+		<img src="{$c.imgurl}.100x100.jpg" class="w50" />
+   </td>
+   <td>{$c.stime|date:Y-m-d H:i:s}</td>
+   <td>{$c.etime|date:Y-m-d H:i:s}</td>
+   <td>{$c.view_num}</td>
+   <td>{$c.join_num}</td>
+   <td>{$c.finish_num}</td>
+   <td>{$c.money}</td>
+   
+<td><a href="moduleadmin.php?m=shanxin&a=add&sid={$c.sid}">编辑</a> 
+<a href="/module.php?m=shanxin&a=show&sid={$c.sid}" target="_blank">查看</a> 
+<a href="javascript:;" class="js-delete" url="moduleadmin.php?m=shanxin&a=delete&ajax=1&sid={$c.sid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

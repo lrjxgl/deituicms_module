@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">个人名片</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box">
+		{if $data.imgurl!=''}
+		<img src="{$data.imgurl}.middle.jpg'" class="d-img" />
+		{/if}
+		<div class="bd-mp-5 flex">
+			<div class="mgr-10">姓名</div>
+			<div>{$data.nickname}</div>
+		</div>
+		<div class="bd-mp-5 flex">
+			<div class="mgr-10">所在地</div>
+			<div>{$data.address}</div>
+		</div>
+		{if $data.telephone neq ''}
+		<div class="bd-mp-5 flex">
+			<div class="mgr-10">联系电话</div>
+			<div>{$data.telephone}</div>
+		</div>
+		{/if}
+		<div class="bd-mp-5 flex">
+			<div class="mgr-10">简介</div>
+			<div>{$data.description}</div>
+		</div>
+	</div> 
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

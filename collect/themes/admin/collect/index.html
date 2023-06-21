@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">采集列表</div>
+		</div>
+		<div class="main-body">
+			<form class="search-form" method="get" action="{$appadmin}">
+				<input type="hidden" name="m" value="collect">
+				状态：<select class="w100" name="s_status">
+					<option value="0" {if get('s_status') eq 0} selected{/if}>未采集 </option> 
+					<option value="1" {if get('s_status') eq 1} selected{/if}>已采集 </option> </select> 
+					 
+					 主题：<input type="text" class="w100" name="title" value="{$smarty.get.title}">
+						<input type="submit" value="筛选" class="btn btn-success">
+			</form>
+			<form method="post" action="{$appadmin}?m=collect&a=pidelete">
+				<table class="table table-bordered">
+					<tr>
+						<td>Id<input type="checkbox" id="chkall" /></td>
+						<td>标题</td>
+						<td>所属规则</td>
+
+						<td>所属分类</td>
+						<td>状态</td>
+
+						<td>操作</td>
+					</tr>
+
+					{foreach item=c from=$data}
+					<tr>
+						<td>{$c.id} <input type="checkbox" name="ids[{$c.id}]" class="chk_opt" value="{$c.id}" /></td>
+						<td><a href="{$c.url}" target="_blank">{$c.title}</a></td>
+
+						<td>{$rule_list[$c.rule_id]}</td>
+						<td>{$c.cname}</td>
+						<td>{if $c.status}已采集{else}未采集{/if}</td>
+
+						<td><a href="{$appadmin}?m=collect&a=savebyid&id={$c.id}">采集</a>
+							<a href="javascript:;" class="js-delete"te" url="{$appadmin}?m=collect&a=status&id={$c.id}">删除</a>
+						</td>
+					</tr>
+					{/foreach}
+
+				</table>
+				<button type="submit" class="btn btn-danger">删除所选</button>
+			</form>
+			{$pagelist}
+		</div>
+		</div>
+		{include file="footer.html"}
+		<script language="javascript">
+			$(function() {
+				$("#chkall").bind("click", function() {
+					if ($(this).prop("checked") == true) {
+						$(".chk_opt").prop("checked", true);
+					} else {
+						$(".chk_opt").prop("checked", false);
+					}
+				});
+			});
+		</script>
+		
+	</body>
+</html>

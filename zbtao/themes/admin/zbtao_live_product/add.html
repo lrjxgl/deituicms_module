@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='zbtao_live_product/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=zbtao_live_product&a=save">
+<input type="hidden" name="productid" style="display:none;" value="{$data.productid}" >
+ <table class="table-add">  <tr>
+						<td>liveid：</td>		
+						<td><input type="text" name="liveid" id="liveid" value="{$data.liveid}" ></td>
+						</tr>
+  <tr>
+						<td>ppid：</td>		
+						<td><input type="text" name="ppid" id="ppid" value="{$data.ppid}" ></td>
+						</tr>
+  <tr>
+						<td>描述：</td>		
+						<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+						</tr>
+  <tr>
+						<td>直播时间：</td>		
+						<td><input type="text" name="zbtime" id="zbtime" value="{$data.zbtime}" ></td>
+						</tr>
+  {if $data}<tr>
+						<td>创建时间：</td>		
+						<td>{$data.createtime}</td>
+						</tr>{/if}
+  <tr>
+						<td>积分：</td>		
+						<td><input type="text" name="grade" id="grade" value="{$data.grade}" ></td>
+						</tr>
+  <tr>
+						<td>评价：</td>		
+						<td><input type="text" name="raty_grade" id="raty_grade" value="{$data.raty_grade}" ></td>
+						</tr>
+  <tr>
+						<td>头像：</td>		
+						<td>{include file="inc/uploader-data.html"}</td>
+						</tr>
+  <tr>
+						<td>状态：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+  <tr>
+						<td>关注数：</td>		
+						<td><input type="text" name="followed_num" id="followed_num" value="{$data.followed_num}" ></td>
+						</tr>
+  <tr>
+						<td>喜欢数：</td>		
+						<td><input type="text" name="love_num" id="love_num" value="{$data.love_num}" ></td>
+						</tr>
+  <tr>
+						<td>价格：</td>		
+						<td><input type="text" name="price" id="price" value="{$data.price}" ></td>
+						</tr>
+  <tr>
+						<td>原价：</td>		
+						<td><input type="text" name="market_price" id="market_price" value="{$data.market_price}" ></td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

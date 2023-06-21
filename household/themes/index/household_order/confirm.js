@@ -1,0 +1,70 @@
+var app=new Vue({
+	el:"#app",
+	data:function(){
+		return {
+			pageLoad:false,
+			 
+			coupon_id:0,
+			couponList:[],
+			paytype:"",
+			paytypeList:[],
+			addrList:[],
+			cartList:[],
+			ispin:0,
+			cartid:0,
+			product:"",
+			user_address_id:0,
+			vipcard:{},
+			total_num:0,
+			goods_money:0,
+			total_money:0
+			
+		}
+	},
+	created:function(){
+		this.ispin=ispin;
+		this.cartid=cartid;
+		this.getPage();
+		$("#app").show();
+	},
+	methods:{
+		getPage:function(){
+			var that=this;
+			$.ajax({
+				url:"/module.php?m=household_order&a=confirm&ajax=1",
+				data:{
+					ispin:this.ispin,
+					cartid:this.cartid,
+					user_address_id:this.user_address_id
+				},
+				dataType:"json",
+				success:function(res){
+					that.paytype=res.data.paytype;
+					that.user_address_id=res.data.user_address_id; 
+					that.couponList=res.data.couponList;
+					that.paytypeList=res.data.paytypeList;
+					that.addrList=res.data.addrList;
+					that.cartList=res.data.cartList;
+					that.ispin=res.data.ispin;
+					that.product=res.data.product;
+					that.vipcard=res.data.vipcard;
+					that.total_num=res.data.total_num;
+					that.total_money=res.data.total_money;
+					that.goods_money=res.data.goods_money;
+					that.pageLoad=true;
+				}
+			})
+		},
+		changeAddr:function(user_address_id){
+			this.user_address_id=user_address_id;
+			this.getPage();
+			 
+		},
+		changePaytype:function(paytype){
+			this.paytype=paytype;
+		},
+		setCoupon:function(cid){
+			this.coupon_id=cid;
+		}
+	}
+});

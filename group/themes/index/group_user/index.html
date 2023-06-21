@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.gulist{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		padding: 5px;
+		background-color: #fff;
+	}
+	.gulist:after{
+		clear: both;
+		content: ".";
+		visibility: hidden;
+		height: 0;
+		display: block;
+	}
+	.gulist .item{
+		float: left;
+		width:25%;
+		text-align: center;
+		text-decoration: none;
+		display: block;
+	}
+	
+	.gulist .item .pd{
+		padding: 5px;
+		box-sizing: border-box;
+		border: 1px solid #eee;
+	}
+	.gulist .item .img {
+		width: 100%;
+	}
+	.gulist .item .nick{
+		font-size: 14px;
+		overflow: hidden;
+		height: 25px;
+		color: #666;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">圈子成员</div>
+</div>
+<div class="header-row"></div>
+ 
+<div class="main-body">
+	 
+	 
+ 	<div class="gulist">
+ 		{foreach item=c from=$data}
+ 			<a  class="item">
+ 				<div class="pd">
+	 				<img class="img" src="{$c.user_head|images_site}.100x100.jpg">
+	 				<div class="nick">{$c.nickname}</div>
+ 				</div>
+ 			</a>
+ 		{/foreach}
+ 	</div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='im_gold/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>金币</td>
+   <td>价格</td>
+   <td>状态</td>
+   <td>创建时间</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.gold}</td>
+   <td>{$c.price}</td>
+   <td>{if $c.status eq 1}上线{else}下线{/if}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+<td><a href="/moduleadmin.php?m=im_gold&a=add&id={$c.id}">编辑</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=im_gold&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

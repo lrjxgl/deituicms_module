@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}b2c/xiaomi/index.css" rel="stylesheet" />
+	<body>
+		<div class="mHeader">
+			<div class="flex flex-1">
+				<img class="hdIcon mgl-10" src="{$skins}b2c/xiaomi/demo/top1.jpg" />
+				<div class="mHeader-searchbox">
+					<div class="iconfont f22 icon-search"></div>
+					<input class="mHeader-search" type="text"/>
+					<div class="iconfont f22 icon-scan_light none"></div>
+				</div>
+				 
+				<img class="hdIcon mgr-10" src="{$skins}b2c/xiaomi/demo/top2.jpg" />
+				<div class="pos-relative">
+					<div class="iconfont icon-notice" style="font-size: 3rem;color:#fff;"></div>
+					<div class="badge badge-bg-danger badge-right-top" style="top:0;right:-5px">11</div>
+				</div> 
+			</div>
+		</div>
+		<div style="height: 60px;"></div>
+		<div class="main-body">
+			<div class="banner">
+				<img src="{$skins}b2c/xiaomi/demo/banner.jpg" class="wall" />
+			</div>
+			<div>
+				<img src="{$skins}b2c/xiaomi/demo/zhengpin.jpg" class="wall" />
+			</div>
+			<!--导航-->
+			<div class="m-navPic mgb-5">
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d1.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">小米上新</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d2.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">手机</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d3.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">小米发布</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d4.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">电视</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d5.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">空冰洗</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d6.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">米金商城</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d7.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">小米众筹</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d8.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">电脑平板</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d9.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">生活电器</div>
+				</div>
+				<div class="m-navPic-item">
+					<img src="{$skins}b2c/xiaomi/demo/d10.jpg" class="m-navPic-img" />
+					<div class="m-navPic-title">智能家居</div>
+				</div>
+			</div>
+			<!--二图广告-->
+			{get data=d model=table_data fun=getData("b2c_ab")}
+			<div class="flex">
+				<div class="flex-1 mgr-5">
+					<img src="{$d.a1_img}" class="wall" />
+				</div>
+				<div class="flex-1">
+					<img src="{$d.b1_img}" class="wall" />
+				</div>
+			</div>
+			<!--热销甄选-->
+			{get data=d model=table_data fun=getData("b2c_1to3")}
+			<div class="row-box mgb-5">
+				<div class="sbTitle">
+					<div class="sbTitle-h1">热销臻选</div>
+					<div class="flex-1"></div>
+					<div class="sbTitle-more">更多手机推荐</div>
+					<div class="sbTitle-moreicon iconfont icon-right f12 cl3"></div>
+				</div>
+				<div class="flex">
+					<div class="flex-1">
+						<img gourl="{$d.a1_link}" src="{$d.a1_img}" class="wall" />
+					</div>
+					<div class="flex-1 flex-jc-bettwen">
+						<img gourl="{$d.b1_link}" src="{$d.b1_img}" class="wall" />
+						<img gourl="{$d.b2_link}" src="{$d.b2_img}" class="wall" />
+						<img gourl="{$d.b3_link}" src="{$d.b3_img}" class="wall" />
+					</div>
+				</div>
+			</div>
+			<!--人气上新-->
+			{get data=d model=table_data fun=getData("b2c_a1b2")}
+			<div class="row-box mgb-5">
+				<div class="sbTitle">
+					<div class="sbTitle-h1">人气上新</div>
+					<div class="flex-1"></div>
+					<div class="sbTitle-more">最新上架</div>
+					<div class="sbTitle-moreicon iconfont icon-right f12 cl3"></div>
+				</div>
+				<div class="flex">
+					<div gourl="{$d.a1_link}" class="flex-2">
+						<img src="{$d.a1_img}" class="rqImg" />
+						<div class="rqTitle">{$d.a1_title}</div>
+					</div>
+					<div  gourl="{$d.b1_link}" class="flex-1">
+						<img src="{$d.b1_img}" class="rqImg" />
+						<div class="rqTitle">{$d.b1_title}</div>
+					</div>
+					<div  gourl="{$d.b2_link}" class="flex-1">
+						<img src="{$d.b2_img}" class="rqImg" />
+						<div class="rqTitle">{$d.b2_title}</div>
+					</div>
+				</div>
+			</div>
+			<!--省心优惠-->
+			<div class="row-box mgb-5">
+				<div class="sbTitle">
+					<div class="sbTitle-h1">省心优惠</div>
+					<div class="flex-1"></div>
+					<div class="sbTitle-more">全部优惠</div>
+					<div class="sbTitle-moreicon iconfont icon-right f12 cl3"></div>
+				</div>
+				<div class="flex">
+					<div class="flex-1">
+						<img src="{$skins}b2c/xiaomi/demo/shengxin1.jpg" class="sxImg" />
+						<div class="sxMoney">￥2299</div>
+					</div>
+					<div class="flex-1">
+						<img src="{$skins}b2c/xiaomi/demo/shengxin2.jpg" class="sxImg" />
+						<div class="sxMoney">￥2999</div>
+					</div>
+					<div class="flex-1">
+						<img src="{$skins}b2c/xiaomi/demo/shengxin3.jpg" class="sxImg" />
+						<div class="sxMoney">￥389</div>
+					</div>
+					<div class="flex-1">
+						<img src="{$skins}b2c/xiaomi/demo/shengxin4.jpg" class="sxImg" />
+						<div class="sxMoney">￥539</div>
+					</div> 
+				</div>
+			</div>
+			<!--产品列表-->
+			<div>
+				<div class="flex">
+					<div class="flex-1 mgr-10">
+						<div class="sglist-item">
+							<img src="{$skins}b2c/xiaomi/demo/cp1.jpg" class="sglist-img" />
+							<div class="sglist-title">小米巨省电空调</div>
+							<div class="sglist-desc">风量升级 |&nbsp;  舒适 |&nbsp; 智能</div>
+							<div class="flex">
+								<div class="mgr-5 f16">￥2399</div>
+								<div class="market-price">￥2699</div>
+							</div>
+						</div>
+						<div class="sglist-item">
+							<img src="{$skins}b2c/xiaomi/demo/cp3.jpg" class="sglist-img" />
+							<div class="sglist-title">小米巨省电空调</div>
+							<div class="sglist-desc">风量升级 |&nbsp;  舒适 |&nbsp; 智能</div>
+							
+							<div class="flex">
+								<div class="mgr-5 f16">￥2399</div>
+								<div class="market-price">￥2699</div>
+							</div>
+						</div>
+					</div>
+					<div class="flex-1">
+						
+						<div class="sglist-item">
+							<img src="{$skins}b2c/xiaomi/demo/cp2.jpg" class="sglist-img" />
+							<div class="sglist-title">Redmi 10A</div>
+							<div class="sglist-desc">大电量、大音量、大屏幕</div>
+							<div class="flex mgb-10">
+								<div class="btn-small btn-outline-warning">加价购</div>
+							</div>
+							<div class="flex">
+								<div class="mgr-5 f16">￥2399</div>
+								<div class="market-price">￥2699</div>
+							</div>
+						</div>
+						<div class="sglist-item">
+							<img src="{$skins}b2c/xiaomi/demo/cp4.jpg" class="sglist-img" />
+							<div class="sglist-title">小米巨省电空调</div>
+							<div class="sglist-desc">风量升级 |&nbsp;  舒适 |&nbsp; 智能</div>
+							<div class="flex">
+								<div class="mgr-5 f16">￥2399</div>
+								<div class="market-price">￥2699</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="footer-row"></div>
+		<div class="footer">
+			<div class="footer-item footer-active icon-home">首页</div>
+			<div class="footer-item icon-cascades">分类</div>
+			<div class="footer-item icon-discover">米圈</div>
+			<div class="footer-item icon-cart">购物车
+				<div class="footer-item-num">1</div>
+			</div>
+			<div class="footer-item icon-my_light">我的</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

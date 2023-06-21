@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}css/app.css" rel="stylesheet" />
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<style>
+		.m-navPic-item{
+			width:20%;
+		}
+		.m-navPic-img{
+			width:40px;
+			height: 40px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<img src="{$site.logo}.100x100.jpg" class="header-logo" />
+			<form action="/module.php" class="header-search-box">
+				<input type="hidden" name="m" value="taoke_search" />
+				<input placeholder="搜一下领券购物更省钱" id="keyword" name="word" type="search" class="header-search pdl-5" />
+				<div id="searchBtn" class="header-search-btn  iconfont icon-search"></div>
+			</form>
+
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body">
+			<div class="scale-swiper-box">
+				<div class="swiper-container scale-swiper-container" id="indexFlash">
+					<div class="swiper-wrapper">
+						{foreach item=c from=$flashList}
+						<div class="swiper-slide scale-swiper-slide">
+							<div class="scale-swiper-bgimg" style="background-image: url({$c.imgurl});"></div>
+						</div>
+						{/foreach}
+					</div>
+
+					<div class="swiper-pagination"></div>
+
+				</div>
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+				{foreach item=c from=$navList}
+				<a href="{$c.link1}" class="m-navPic-item">
+					<img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+					<div class="m-navPic-title">{$c.title}</div>
+
+				</a>
+
+				{/foreach}
+			</div>
+			{/if}
+
+			<div class="pd-10 fwb" style="margin-top: -5px;">精品推荐</div>
+			<div class="tk-list">
+				{foreach item=c from=$recList}
+				<a class="tk-item" href="/module.php?m=taoke{if $opmode eq 0}_search{/if}&a=show&id={$c.id}">
+					
+					<div class="img">
+						<img src="{$c.imgurl|images_site}" />
+						<div class="juan-price">券￥{$c.juan_money}</div>
+					</div>
+					<div class="title">{$c.title}</div>
+					<div class="row-price">
+						<span class="price">￥{$c.price}(券后)</span>
+						<span class="sold">销量{$c.sold_num}</span>
+					</div>
+				</a>
+
+				{/foreach}
+			</div>
+			<div class="pd-10 fwb" style="margin-top: -5px;">热门商品</div>
+			<div class="tk-list">
+				{foreach item=c from=$newList}
+				<a class="tk-item" href="/module.php?m=taoke{if $opmode eq 0}_search{/if}&a=show&id={$c.id}">
+					
+					<div class="img">
+						<img src="{$c.imgurl|images_site}" />
+						<div class="juan-price">券￥{$c.juan_money}</div>
+					</div>
+					<div class="title">{$c.title}</div>
+					<div class="row-price">
+						<span class="price">￥{$c.price}(券后)</span>
+						<span class="sold">销量{$c.sold_num}</span>
+					</div>
+				</a>
+
+				{/foreach}
+			</div>
+
+		</div>
+		<div class="flex-center pd-10">
+					<a class="f12 cl3" href="http://beian.miit.gov.cn">{$site.icp}</a>
+				</div> 
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash", {
+					 
+					pagination: {
+						el: '.swiper-pagination'
+					},
+				});
+				$(document).on("click", "#searchBtn", function() {
+					var keyword = $("#keyword").val();
+					window.location = "/module.php?m=taoke_search&word=" + encodeURIComponent(keyword);
+				})
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title="{$seo.title}";
+			 
+		</script>
+	</body>
+</html>

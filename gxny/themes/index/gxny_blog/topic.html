@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">#{$topic.title}#</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			{if $topic.imgurl}
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<img src="{$topic.imgurl}.100x100.jpg" class="wh-60 mgr-5" />
+					<div class="flex-1">
+						<div class="flex mgb-5 flex-ai-center">
+							<div class="mgr-5">主题数</div>
+							<div class="mgr-20 cl-num">{$topic.blog_num}</div>
+							<div class="mgr-5">人气</div>
+							<div class=" cl-num">{$topic.view_num}</div>
+						</div>
+						<div class="cl2 f14">{$c.description}</div>
+					</div>
+				</div> 
+			</div>
+			{/if}
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in pageData.list" :key="index" @click="goBlog(item.id)" class="sglist-item">
+					
+					<div class="sglist-title block" v-html="item.parsecontent"></div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+				</div>
+				
+			</div>
+			
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var title="{$topic.title}";
+		</script>
+		<script src="{$skins}sblog_blog/topic.js"></script>
+	</body>
+</html>

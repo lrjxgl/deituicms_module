@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"微信红包",//模块名称
+	"module"=>"hongbao",//模块目录
+ 	"version"=>2.0,//当前版本
+	"info"=>"微信红包-可以通过问答红包活动吸引用户",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"from"=>"来自福鼎生活网",
+	"adminurl"=>"/moduleadmin.php?m=hongbao&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">确认订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form id="orderForm">
+			<div class="row-box mgb-5">
+				<div class="row-box-hd">
+					<div class="flex-1 f16">收货地址</div>
+					<a class="row-box-more" href="/index.php?m=user_address&a=add">新增地址</a>
+				</div>
+				{foreach item=c from=$addrList}
+				<div class="row-item-text">
+					<input name="user_address_id" class="user_address_id" value="{$c.id}" type="radio" /> {$c.truename} {$c.telephone} <br /> {$c.pct_address}
+				</div>
+				{/foreach}
+			</div>
+			<div class="row-box mgb-5">
+				<div class="row-box-hd">
+					产品列表
+				</div>
+				{foreach item=c from=$cartList}
+				<div class="flexlist-item">
+					<input type="hidden" name="cartid[]" value="{$c.id}" />
+					<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="mgb-5 cl2">{$c.ks_title}</div>
+						<div class="flex">
+							<div class="flex-1 cl-money">￥{$c.price}</div>
+							<div class="">* {$c.amount}</div>
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+			
+			<div class="row-box mgb-5">
+				<div class="row-box-hd mgb-10">支付方式</div>
+
+				<div class="paylist">
+					<input type="hidden" name="paytype" id="paytype" value="">
+					 {foreach item=c key=k from=$paytypeList}
+					<div class="paylist-item" v="{$k}">{$c}</div>
+					{/foreach}
+
+				</div>
+			</div>
+			<div class="row-box">
+				<textarea name="comment" class="textarea-flex-text h60" placeholder="请输入订单备注"></textarea>
+				<div class="pd-10 cl-red flex-center f12 flex">
+					{if $sendTime.out==2}超过{$sendTime.out_time}点 &nbsp;{/if}{$sendTime.sendTime}配送
+				</div>
+				<div class="btn-row-submit" id="order-confirm-submit">确认购买</div>
+			</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(".user_address_id:eq(0)").attr("checked",true);
+				$(".paylist-item:eq(0)").addClass("paylist-item-active");
+				$("#paytype").val($(".paylist-item:eq(0)").attr("v"));
+				$(document).on("click","#order-confirm-submit",function(){
+					$.post("/module.php?m=s2c_order&a=order&ajax=1",$("#orderForm").serialize(),function(res){
+						skyToast(res.message);
+						if(!res.error){
+							if(res.data.action=='pay'){
+								window.location=res.data.payurl;
+							}
+						}
+					},"json");
+				})
+			})
+		</script>
+	</body>
+</html>

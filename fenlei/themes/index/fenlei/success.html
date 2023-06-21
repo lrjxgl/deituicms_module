@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">发布成功</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mg-10 bd-radius-10 ">
+				<div class="flex flex-center mgb-20 mgt-10">
+					<div class="iconfont icon-squarecheck cl-red f36 mgr-5"></div>
+					<div class="">
+						<div class="f18">恭喜信息发布成功</div>
+						<div class="f14">感谢您的支持！</div>
+					</div>
+				</div>
+				<div class="flex flex-jc-center  mgb-20">
+					{if $data}
+					<div class="btn btn-primary mgr-10" gourl="/module.php?m=fenlei&a=show&id={$data.id}">查看帖子</div> 
+					{/if}
+					<div class="btn btn-primary" gourl="/module.php?m=fenlei">返回首页</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.aBox{
+			background-color: #333;
+			padding: 10px;
+			border-radius: 10px;
+			
+			margin: 10px 10px 20px 10px;
+ 
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的钱包</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="aBox mgb-5">
+				<div class="flex flex-ai-center">
+					<div class="flex-1">
+						<div class="cl-white mgb-5">总资(元)</div>
+						<div class="cl-money">
+							{$fxa_user.money}
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			<div class="row-box mgb-5">
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">提现金额</div>
+					<input class="input-flex-text" type="text" id="money" name="money" value="{$fxa_user.money}" />
+					<div class="input-flex-note">元</div>
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label">收款人</div>
+					<input type="text" id="re_username" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">支付宝</div>
+					<input type="text" id="re_bancard" class="input-flex-text" />
+				</div>
+				<div class="text-center">提现金额需大于1元</div>
+				<div class="btn-row-submit" id="txSubmit">申请提现</div>
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#txSubmit",function(){
+				var money=$("#money").val();
+				$.ajax({
+					url:"/module.php?m=fxa_tixian&a=save&ajax=1",
+					dataType:"json",
+					type:"POST",
+					data:{
+						money:$("#money").val(),
+						re_username:$("#re_username").val(),
+						re_bankcard:$("#re_username").val(),
+						re_type:"alipay"
+					},
+					success:function(res){
+						skyToast(res.message)
+						setTimeout(function(){
+							window.location.reload();
+						},1000)
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

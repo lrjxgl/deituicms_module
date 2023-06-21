@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">访问详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div >
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<div class="flex">
+						<div class="cl1">{$c.nickname}</div>
+						<div class="flex-1"></div>
+						<div class="f12">{$c.createtime}</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

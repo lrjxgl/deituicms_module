@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">{$place.title}的VR图</div>
+		<a target="_blank" href="/module.php?m=vr3d_jdo2o&a=place&placeid={$place.placeid}">查看</a>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=jdo2o_place_vr3d&a=save&ajax=1">
+				<input type="hidden" name="placeid" value="{$place.placeid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">1前图px</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.px}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.px|images_site}.100x100.jpg" >								 
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="px" value="{$data.px}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg"  /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">2图nx</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.nx}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.nx|images_site}.100x100.jpg" >								 
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="nx" value="{$data.nx}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg"  /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">3图pz</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.pz}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.pz|images_site}.100x100.jpg" >								 
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="pz" value="{$data.pz}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg"  /> 
+						</div> 
+					</div>
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label">4图nz</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.nz}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.nz|images_site}.100x100.jpg" >								 
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="nz" value="{$data.nz}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg"  /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">5顶图py</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.py}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.py|images_site}.100x100.jpg" >								 
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="py" value="{$data.py}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg"  /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">5底图ny</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.ny}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.ny|images_site}.100x100.jpg" >								 
+							</div>
+							 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							 
+							<input type="hidden" name="ny" value="{$data.ny}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg"  /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">状态</div>
+					<div class="flex-1 flex">
+						<input type="radio" name="status" {if $data.status eq 1}checked{/if} value="1" />上架
+						<input type="radio" name="status" {if $data.status neq 1}checked{/if} value="0" />下架
+					</div>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

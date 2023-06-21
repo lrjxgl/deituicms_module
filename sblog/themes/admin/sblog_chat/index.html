@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/static/emo/emo.css" rel="stylesheet" />
+	<style>
+		.chat-img {
+			width: 100px;
+		}
+
+		.chat-video {
+			width: 150px;
+		}
+	</style>
+	<body>
+		{include file='sblog_chat/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>userid</td>
+
+						<td>content</td>
+						<td style="width: 150px;">操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					<td>{$c.userid}</td>
+
+					<td>{$c.content}</td>
+					<td><a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=sblog_chat&a=delete&ajax=1&id={$c.id}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

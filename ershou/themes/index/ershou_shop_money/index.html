@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">收支记录</div>
+			<div gourl="/module.php?m=ershou_tixian" class="header-right-btn">我要提现</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div>账户余额：</div>
+					<div class="flex-1 cl-money">
+						￥{$shopmoney.balance}
+					</div>
+					<div>总收入：</div>
+					<div class="cl-money">￥{$shopmoney.income}</div>
+				</div>
+			</div>
+			{foreach item=c from=$list}
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center mgb-5">
+					<div class="cl-money">{$c.money}元</div>
+					<div class="flex-1"></div>
+					<div class="f12 cl2">{$c.createtime}</div>
+				</div> 
+				<div class="cl2 f12">
+					{$c.content}
+				</div>
+			</div>
+			
+			
+			{/foreach}
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			 
+		</script>
+	</body>
+</html>

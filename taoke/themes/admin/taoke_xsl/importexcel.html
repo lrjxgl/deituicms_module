@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.bitem{
+			margin-bottom: 10px;
+		}
+	</style>
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=taoke_xsl" class="item active">导入Excel</div>
+			 
+		</div>
+		<div class="main-body">
+		    <div class="bitem">
+		    	<p class="mgb-10">由于淘宝每日精品文件比较大，请使用ftp传到module/taoke/taobes.xsl，PHP内存配置需要大于300M，导入需要时间请耐心等待</p>
+		    	<a href="/moduleadmin.php?m=taoke_xsl&a=ImTaobest" class="btn"  target="_blank">导入淘宝每日精品</a>
+		    </div>
+			<div class="bitem">
+				<form   action="/moduleadmin.php?m=taoke_xsl&a=imtaoself" method="post" enctype="multipart/form-data">
+				<p class="mgb-10">淘宝自选库是用户自己在阿里妈妈选择的，每组最多200个商品。导入需要时间，请耐心等待</p>
+				<div class="btn js-xsl-btn">选择Excel</div>
+				<input class="js-xsl-file" type="file" name="xsl" style="display: none;" />
+				
+				
+				</form>
+			</div>
+		    <div class="bitem">
+		    	<form   action="/moduleadmin.php?m=taoke_xsl&a=ImJdSelf" method="post" enctype="multipart/form-data">
+		    	<p class="mgb-10">京东自选库是用户自己在京东联盟选择的，每组最多60个商品。导入需要时间，请耐心等待</p>
+		    	<div class="btn js-xsl-btn">选择Excel</div>
+		    	<input class="js-xsl-file" type="file" name="xsl" style="display: none;" />
+		    	
+		    	
+		    	</form>
+		    </div>
+		</div>
+	 
+		{include file="footer.html"}
+	<script>
+		$(document).on("click",".js-xsl-btn",function(){
+			$(this).parents("form").find(".js-xsl-file").click();
+		})
+		$(document).on("change",".js-xsl-file",function(){
+			$(this).parents("form").find("js-xsl-btn").html("文件上传中，请稍后");
+			$(this).parents("form").submit();
+		})
+	</script>	 
+		 
+	</body>
+</html>

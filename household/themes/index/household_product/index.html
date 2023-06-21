@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{if get('type') eq 'hot' }热销商品{else}推荐商品{/if}</div>
+		</div>
+		<div class="header-row"></div>
+		
+		<div class="main-body">
+			 
+			<div class="flexlist mgt-5">
+				{foreach item=c from=$list}
+				<a href="/module.php?m=household_product&a=show&id={$c.id}" class="flexlist-item">
+					<img src="{$c.imgurl}.small.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flex">
+							<div class="cl-money">￥{$c.price}</div>
+						</div>
+					</div>
+					 
+				</a>
+				{/foreach}
+				
+			</div>
+			{$pagelist}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

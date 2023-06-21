@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='fsw_activity/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fsw_activity&a=save">
+				<input type="hidden" name="actid" style="display:none;" value="{$data.actid}">
+				<table class="table-add">
+					<tr>
+						<td>mid：</td>
+						<td><input type="text" name="mid" id="mid" value="{$data.mid}"></td>
+					</tr>
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>介绍：</td>
+						<td><textarea name="description" id="description"
+								class="textarea-flex-text h60" />{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					{if $data}<tr>
+						<td>createtime：</td>
+						<td>{$data.createtime}</td>
+					</tr>{/if}
+					<tr>
+						<td>userid：</td>
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}"></td>
+					</tr>
+					<tr>
+						<td>status：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status" value="2"> 下线
+						</td>
+					</tr>
+					<tr>
+						<td>内容：</td>
+						<td>
+							<script type="text/plain" id="content" name="content">{$data.content}</script>
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		{php loadEditor();}
+		<script>
+			var editor = UE.getEditor('content', options);
+		 
+		</script>
+	</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.box{
+			padding: 20px;
+			margin: 10px 10px 5px 10px;
+			border-radius: 20px;
+			background-color: #fff;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">购买宝贝</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="box">
+				<div class="flex">
+					<img src="{$data.imgurl}.100x100.jpg" class="w60 bd-radius-20 mgr-10" />
+					<div class="flex-1 flex-jc-bettwen">
+						<div>{$data.description}</div>
+						<div class="flex">
+							<div class="flex-1"></div>
+							<div class="cl-money">￥{$data.price}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="box">
+				<div @click="user_address_id=item.id" v-for="(item,index) in addrList" :key="index" class="flex flex-ai-center mgb-10">
+					<div class="mgr-20">收货地址</div>
+					<div class="flex-1">
+						<div class="cl2">{{item.nickname}} {{item.telephone}}</div>
+						<div class="cl3">{{item.address}}</div>
+					</div>
+					<div  :class="user_address_id==item.id?'cl-primary':''" class="iconfont pd-10 icon-check"></div>
+				</div>
+				<div class="flex">
+					<div>运费</div>
+					<div class="flex-1"></div>
+					<div class="cl-money">￥0.00</div>
+				</div>
+			</div>
+			<div v-if="bjid" class="box">
+				<div class="flex">
+					<div class="mgr-5">您的报价：</div>
+					<div class="cl-money">{{baojia.money}}元</div>
+				</div>
+				
+			</div>
+			<div class="footerFix">
+				<div class="row-box">
+					<div class="flex flex-ai-center">
+						<div class="flex-1"></div>
+						<div>实付款：</div>
+						<div class="cl-money mgr-20">￥{{total_money}}</div>
+						<div @click="order" class="btn">确认购买</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script>
+			var productid="{$data.productid}"
+			var bjid="{$baojia.id}"
+		</script>
+		<script src="{$skins}ershou_order/confirm.js"></script>
+	</body>
+</html>

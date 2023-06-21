@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='csc_vip/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=csc_vip&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+
+					<tr>
+						<td>vipid：</td>
+						<td><input type="text" name="vipid" id="vipid" value="{$data.vipid}"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td><input type="text" name="status" id="status" value="{$data.status}"></td>
+					</tr>
+					<tr>
+						<td>月费：</td>
+						<td><input type="text" name="month_money" id="month_money" value="{$data.month_money}"></td>
+					</tr>
+					<tr>
+						<td>年费：</td>
+						<td><input type="text" name="year_money" id="year_money" value="{$data.year_money}"></td>
+					</tr>
+					<tr>
+						<td>折扣：</td>
+						<td><input type="text" name="discount" class="w100" id="discount" value="{$data.discount}">%</td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td>
+							<textarea name="description">{$data.description}</textarea>
+						</td>
+					</tr>
+
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

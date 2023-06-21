@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请成为供应商</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $apply}
+				<div class="pd-10 f14 ">你已提交申请，正在审核中..</div>
+			{/if}
+			<form {if $apply}class="none"{/if}  id="form" >
+				
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">公司名称</div>
+					<input type="text" name="title" class="input-flex-text" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label input-flex-require">营业执照</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							
+							<div class="upimg-item {if $data.yyzz==""}none{/if} js-upimg-btn">
+								<img class="upimg-img" {if $data.yyzz}src="{$data.trueyyzz}.100x100.jpg"{/if} >								 
+							</div>
+							{if $data.yyzz==""}	 
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							{/if}
+							<input type="hidden" name="yyzz" value="{$data.yyzz}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg" id="upimg" /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex ">
+					<div class="input-flex-label input-flex-require">联系人</div>
+					<input type="text" name="nickname" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">手机</div>
+					<input type="text" name="telephone" class="input-flex-text" />
+				</div>
+				 
+				 
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">公司地址</div>
+					<input type="text" name="address" class="input-flex-text" />
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">业务介绍</div>
+					<textarea class="textarea-flex-text" name="description"></textarea>
+				</div>
+				<div class="btn-row-submit" id="submit">提交申请</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script>
+			$(document).on("click","#submit",function(){
+				$.post("/module.php?m=s2c_vendor_apply&a=save&ajax=1",$("#form").serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

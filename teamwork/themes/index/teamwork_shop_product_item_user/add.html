@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">分配任务</h1>
+		</header>
+		<div class="mui-content">
+		    <form id="form">
+		    	<input type="hidden" name="itemid" value="{$item.id}" />
+		    	<div class="input-flex">
+		    		<div class="label">任务名称</div>
+		    		<div class="txt">
+		    			{$item.title}
+		    		</div>
+		    	</div>
+		    	<div class="input-flex">
+		    		<div class="label">人员</div>
+		    		<div class="flex-1">
+		    			{foreach item=c from=$userList}
+		    			<input type="checkbox" name="uids[]" value="{$c.userid}" /> {$c.nickname}
+		    			{/foreach}
+		    		</div>
+		    	</div>
+		    	<div class="btn-row-submit" id="submit">添加</div>
+		    </form>
+		</div>
+	<script>
+		$(function(){
+			$(document).on("click","#submit",function(){
+				$.post("/index.php?m=shop_product_item_user&a=save&ajax=1",$("#form").serialize(),function(res){
+					mui.toast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		})
+	</script>	
+	</body>
+</html>

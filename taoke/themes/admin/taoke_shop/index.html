@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<body>
+	<div class="tabs-border">
+		<div gourl="/moduleadmin.php?m=taoke_shop" class="item active">商家列表</div>
+		<div gourl="/moduleadmin.php?m=taoke_shop&a=add" class="item">添加商家</div>
+	</div>
+	<div class="main-body">
+	    <table class="tbs">
+	    	<thead>
+	    		<tr>
+	    			<td>logo</td>
+	    			<td>名称</td>
+	    			<td>描述</td>
+	    			<td>状态</td>
+	    			<td>操作</td>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		{foreach item=c from=$data}
+	    		<tr class="item">
+	    			<td>
+	    				<img src="{$c.imgurl}.100x100.jpg" width="60"  />
+	    			</td>
+	    			<td>{$c.title}</td>
+	    			<td>{$c.description}</td>
+	    			<td>{if $c.status==2}上线{else}下线{/if}</td>
+	    			<td>
+	    				<a href="/moduleadmin.php?m=taoke_shop&a=add&shopid={$c.shopid}">编辑</a>
+	    				<a class="js-delete" href="javascript:;" url="/moduleadmin.php?m=taoke_shop&a=delete&shopid={$c.shopid}">删除</a>
+	    			</td>
+	    		</tr>
+	    		{/foreach}
+	    	</tbody>
+	    </table>
+	</div>
+	{include file="footer.html"}
+</body>
+</html>

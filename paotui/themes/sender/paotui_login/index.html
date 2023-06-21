@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">成为跑腿员</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form id="regForm">
+			
+				<div class="input-flex">
+					<div class="input-flex-label">手机</div>
+					<input class="input-flex-text" id="telephone" name="telephone" placeholder="请输入手机号码" />
+				</div>
+				<div class="input-flex">					
+					<div class="input-flex-label">验证码</div>					 
+					<input type="text" name="yzm" class="input-flex-text">				 
+					<div class="input-flex-btn" id="sendSms">获取验证码</div>
+				</div>
+				<button type="button" id="reg-submit" class="btn-row-submit">立即登录</button>
+			</form> 
+		</div>
+		{include file="footer.html"}
+		<script type="text/javascript">
+			$(document).on("click","#sendSms",function(res){
+				var telephone=$("#telephone").val();
+				$.get("/sender.php?m=paotui_login&a=SendSms&ajax=1",{
+					telephone:$("#telephone").val(),
+				},function(res){
+					skyToast(res.message);
+				},"json");
+			})
+			$(document).on("click","#reg-submit",function(){
+				$.post("/sender.php?m=paotui_login&a=save&ajax=1",$("#regForm").serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){						
+						window.location="/sender.php?m=paotui";
+					}
+				},"json");
+			})
+		</script>
+	</body>
+</html>

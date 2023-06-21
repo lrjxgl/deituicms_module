@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+
+	{include file="head.html"}
+	<style>
+		.btn-song,
+		.btn-shou {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;
+			margin-right: 5px;
+			background-color: #53beb7;
+			font-size: 12px;
+			color: #fff;
+			border-radius: 50%;
+		}
+
+		.btn-shou {
+			background-color: #ec9130;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的任务</div>
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body none" :class="'flex-col'" id="app">
+			<div class="tabs-border">
+				<div @click="setType('all')" :class="{'tabs-border-active':type=='all'}" class="tabs-border-item">全部</div>
+				<div @click="setType('unorder')"  :class="{'tabs-border-active':type=='unorder'}"  class="tabs-border-item">待接单</div>
+				<div @click="setType('unsend')"  :class="{'tabs-border-active':type=='unsend'}"  class="tabs-border-item">办理中</div>
+				<div @click="setType('unreceive')"  :class="{'tabs-border-active':type=='unreceive'}"  class="tabs-border-item">待验收</div>
+				<div @click="setType('finish')"  :class="{'tabs-border-active':type=='finish'}"  class="tabs-border-item">已完成</div>
+			</div>
+			<div class="ptlist">
+
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="mgr-5">{{item.typeid_name}}</div>
+						<div class="cl-money mgr-5">{{item.status_name}}</div>
+						<div class="f12 cl3">{{item.createtime}}</div>
+						<div class="flex-1"></div>
+
+						<div class="flex mgb-5 flex-ai-center">
+							<div class="mgr-5 cl3">{{item.weight}}Kg</div>
+							<div class="cl-money">￥</div>
+							<div class="cl-money">{{item.money}}</div>
+						</div>
+					</div>
+					<div v-if="item.fromaddr && Object.keys(item.fromaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">取</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.fromaddr.truename}}</div>
+								<div class="cl3 f12">{{item.fromaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.fromaddr.address}}
+							</div>
+						</div>
+
+					</div>
+					<div v-if="item.toaddr && Object.keys(item.toaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">收</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.toaddr.truename}}</div>
+								<div class="cl3 f12">{{item.toaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.toaddr.address}}
+							</div>
+						</div>
+
+					</div>
+
+					<div class="mgb-5 cl3 f12">{{item.content}}</div>
+					<div v-if="item.typeid==3" class="flex mgb-10">
+						<div class="f12 cl2">商品估价</div>
+						<div class="cl-num f12">￥{{item.goodsmoney}}</div>
+					</div>
+					
+					<div class="flex mgb-10" v-if="item.senderid>0">
+						<div class="cl-primary mgr-5">配送员</div>
+						<div class="cl2">{{item.sender.nickname}}</div>
+						<div class="flex-1"></div>
+						<a class="cl-primary" :href="'tel:'+item.sender.telephone">{{item.sender.telephone}}</a>
+					</div>
+					
+					<div v-if="item.status==0" class="flex">
+						<div @click="pay(item.id)" v-if="item.ispay==0" class="btn-small mgr-10">去支付</div>
+						<div  @click="showAddMoney(item.id)" @click="showMoney(item.id)" v-if="item.ispay==1" class="btn-small mgr-10">增加赏金</div>
+						<div @click="cancel(item.id)" class="btn-small btn-light">取消订单</div>
+						
+					</div>
+					
+					
+					
+					<div v-if="item.status==2" class="flex">
+						<div class="flex-1"></div>
+						<div @click="finish(item.id)" class="btn-small">验收完成</div>
+					</div>
+					<div v-if="item.status==3 && item.israty==0" class="flex">
+						<div class="flex-1"></div>
+						<div @click="goRaty(item)" class="btn-small">去评价</div>
+					</div>
+
+				</div>
+
+			</div>
+			<div :class="addMoneyClass" class="modal-group">
+				<div @click="addMoneyClass=''" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">增加赏金</div>
+						<div  @click="addMoneyClass=''" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">金额</div>
+							<input v-model="amoney" type="text" class="input-flex-text" value="1" />
+						</div>
+						<div class="flex flex-center">
+							<div @click="addMoney" class="btn">确认增加</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+			
+			<div v-if="showRaty">
+				<div @click="showRaty=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">评价一下</div>
+						<div  @click="showRaty=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">评分</div>
+							<div class="flex">
+								<input type="radio" v-model="raty_grade" name="raty_grade" value="9" /> 很满意
+								<input type="radio" v-model="raty_grade" name="raty_grade" value="6" /> 一般 
+								<input type="radio" v-model="raty_grade" name="raty_grade" value="3" /> 差评 
+							</div>
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">内容</div>
+							<input v-model="raty_content" type="text" class="input-flex-text" value="" />
+						</div>
+						<div class="flex flex-center">
+							<div @click="ratySave" class="btn">确认评价</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}paotui/my.js"></script>
+	</body>
+
+</html>

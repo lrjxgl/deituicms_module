@@ -1,0 +1,128 @@
+.tabs-border .item {
+	width: 20%;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+.mui-progressbar{
+	height: 5px;
+	display: none;
+}
+.emptydata {
+	padding: 20px;
+	color: #999;
+}
+
+.morderlist {
+	background-color: #eee;
+}
+
+.morderlist .item {
+	margin-bottom: 20px;
+	background-color: #fff;
+	line-height: 22px;
+	color: #666;
+}
+
+.morderlist .item .hd {
+	padding: 10px;
+	
+	color: #999;
+	 
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 5px;
+}
+.morderlist .item .hd:after{
+	clear: both;
+	content: ".";
+	display: block;
+	visibility: hidden;
+	height: 0;
+}
+.morderlist .item .status {
+	color: #f60;
+}
+
+.morderlist .item .money {
+	color: #f60;
+}
+
+.morderlist .item .pay {
+	color: #333;
+}
+
+.morderlist .row-money {
+	padding: 5px;
+	border-bottom: 1px solid #eee;
+}
+
+.morderlist .item a {
+	color: #3199e8;
+}
+.morderlist .item .addr{
+	padding: 10px;
+	color: #666;
+	font-size: 14px;
+	line-height: 1.5;
+}
+.morderlist .tools {
+	text-align: right;
+	padding: 5px 0px;
+}
+
+.morderlist .tools a {
+	border: 1px solid #eee;
+	padding: 0px 10px;
+	line-height: 25px;
+	display: inline-block;
+	color: #666;
+	margin-right: 10px;
+	font-size: 12px;
+}
+
+.morderlist .tools .gopay {
+	border-color: #f90;
+	color: #f90;
+}
+
+.pitem {
+	display: flex;
+	margin-bottom: 5px;
+	border-bottom: 1px solid #eee;
+	padding: 5px;
+}
+
+.pitem-img {
+	width: 50px;
+	margin-right: 10px;
+}
+
+.pitem-img img {
+	width: 50px;
+	height: 50px;
+}
+
+.pitem-title {
+	flex: 1;
+	color: #666;
+}
+
+.pitem-title .ks-title {
+	color: #999;
+	font-size: 12px;
+}
+
+.pitem-price {
+	 padding-right: 5px;
+}
+ 
+.pitem-price .price {
+	color: #666;
+	display: block;
+}
+
+.pitem-price .market-price {
+	color: #aaa;
+	text-decoration: line-through;
+	display: block;
+}

@@ -1,0 +1,46 @@
+<script id="item_tpl" type="text/html">
+<%for(var i=0;i<data.length;i++){%>
+<%var $c=data[i];%>
+<div class="item">
+	<div class="g-sd1">
+		 
+		<a href="/index.php?m=news&a=home&userid=<%=$c.userid%>"><img src="<%=images_site($c.user_head)%>.100x100.jpg">   				 
+		<span class="nick"><%=$c.nickname%></span>
+		</a>
+		<div class="follow js-news-follow" userid="<%=$c.userid%>"><%if($c.isfollow){%>已关注<%}else{%>关注<%}%></div>
+	</div>
+	<div class="g-mn1">
+		<div class="g-mn1c">
+			<div class="con"><%=#$c.content%></div>
+			 <%if($c.videourl){%>
+			<div class="videobox">
+				<video controls="controls" class="video" src="<%=images_site($c.videourl)%>"></video>
+			</div>
+			<%}%>
+	<div class="pics js-thumb-item">
+		 
+		<%for(var j=0;j<$c.imgList.length;j++){%>
+			<%var $p=$c.imgList[j];%>
+		<div class="img ">
+			<img class="js-thumb" v="<%=images_site($p)%>" src="<%=images_site($p)%>.100x100.jpg">
+		</div>
+		<%}%>
+		<div class="clearfix"></div>
+	</div>
+	<div class="tools">
+		<span class="time"><%=timeago($c.dateline)%></span>
+		
+		<a href="/module.php?m=group_title&a=show&gid=<%=$c.gid%>&id=<%=$c.id%>">详情</a>
+				 
+				<span newsid="<%=$c.id%>" class="zan js-news-zan-btn">赞 <span id="zan-num-<%=$c.id%>"><%=$c.love_num%></span></span>
+				<span newsid="<%=$c.id%>" class="comment js-news-comment-btn">评论 <span id="comment-num-<%=$c.id%>"><%=$c.comment_num%></span></span>
+	</div>
+	 
+		</div>
+	</div>
+	    			
+</div>	
+
+<%}%>
+
+</script>

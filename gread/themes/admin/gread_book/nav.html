@@ -1,0 +1,11 @@
+{if get('type') eq 'new'}
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=gread_book&type=new">申请审核</a>
+	 
+</div>
+{else}
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=gread_book">书籍列表</a>
+	<a class="item {if get('a') eq 'add'}active{/if}" href="{$appadmin}?m=gread_book&a=add">添加</a>
+</div>
+{/if}

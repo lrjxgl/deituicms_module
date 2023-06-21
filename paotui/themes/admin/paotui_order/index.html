@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=paotui_order">全部订单</a>
+	<a class="item {if get('type') eq 'new'}active{/if}" href="{$appadmin}?m=paotui_order&type=new">新订单</a>
+ 
+	<a class="item {if get('type') eq 'doing'}active{/if}" href="{$appadmin}?m=paotui_order&type=doing">处理中</a>
+	<a class="item {if get('type') eq 'check'}active{/if}" href="{$appadmin}?m=paotui_order&type=check">带验证</a>
+	<a class="item {if get('type') eq 'finish'}active{/if}" href="{$appadmin}?m=paotui_order&type=finish">已完成</a>
+	
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>用户</td>
+   <td>跑腿</td>
+   <td>状态</td>
+   <td>配送员</td>
+   <td>评价</td>
+   <td>处罚</td>
+   <td>金额</td>
+   <td>创建时间</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.paotui.type_name}</td>
+   <td>{$c.status_name}</td>
+   <td>{$c.sender.truename}</td>
+   <td>{if $c.israty}
+		评分：{$c.raty_grade}，{$c.raty_content}
+   {else}未评价{/if}</td>
+   <td>
+	   {if $c.fine_money}扣{$c.fine_money}元{else}无{/if}
+   </td>
+   <td>￥{$c.money}</td>
+   <td>{$c.createtime}</td>
+<td>
+	{if !$c.isfine && $c.raty_grade lt 6}
+	<span class="btn-mini js-fine-btn" v="{$c.id}">处罚</span>
+	{/if}
+	</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	var orderid;
+	$(document).on("click",".js-fine-btn",function(){
+		orderid=$(this).attr("v");
+		var html=`
+			
+			<div class="input-flex">
+				<div class="input-flex-label">处罚金额</div>
+				<input class="input-flex-text" id="fine-money"  type="text" />
+			</div>
+			<div class="btn-row-submit" id="fine-submit">提交处罚</div>
+		`;
+		showbox("处罚",html,320,320)
+	})
+	
+	$(document).on("click","#fine-submit",function(){
+		var money=$("#fine-money").val();
+		$.ajax({
+			url:"/moduleadmin.php?m=paotui_order&a=finesave&ajax=1",
+			dataType:"json",
+			type:"POST",
+			data:{
+				id:orderid,
+				money:money
+			},
+			success:function(res){
+				skyToast(res.message);
+				if(!res.error){
+					//window.location.reload();
+				}
+				
+			}
+		})
+	})
+	
+</script>
+</body>
+</html>

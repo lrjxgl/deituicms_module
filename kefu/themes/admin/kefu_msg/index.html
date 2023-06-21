@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">消息列表</div>
+		<div class="main-body">
+			<div class="list">
+				{foreach item=c from=$list}
+				
+				<div class="row-box mgb-5 js-item">
+					{if $c.ukey=='user'}
+					<div class="flex mgb-10">
+						<div class="mgr-20">来自 {$c.user.nickname}</div>
+						<div>发往{$c.kefu.title}</div>
+						<div class="flex-1"></div>
+						<div>{$c.timeago}</div>
+					</div>
+					{else}
+					<div class="flex mgb-10">
+						<div class="mgr-20">来自 {$c.kefu.title}</div>
+						<div>发往{$c.user.nickname}</div>
+						<div class="flex-1"></div>
+						<div>{$c.timeago}</div>
+					</div>
+					{/if}
+					<div class="mgb-10">
+						{if $c.filetype=='img'}
+						<img url="{$c.fileurl}" class="w100 js-show-img" src="{$c.fileurl}.small.jpg" />
+						{elseif $c.filetype=='video'}
+						<div url="{$c.fileurl}" class="js-show-video">查看视频</div>
+						{elseif $c.filetype=='file'}
+						<div url="{$c.fileurl}" class="js-down-file">查看文件</div>
+						{else}
+						<div class="cl2 mgb-10">{$c.content}</div>
+						{/if}
+						
+					</div>
+									 
+					<div class="flex">
+						{if $c.ukey=='user'}
+						<div userid="{$c.userid}" class="btn-small js-forbid-post mgr-5">禁言</div>
+						<div userid="{$c.userid}" class="btn-small js-join-blacklist mgr-5">拉黑</div>
+						 
+						{/if}
+						<div url="/moduleadmin.php?m=kefu_msg&a=delete&ajax=1&kfid={$c.kfid}" class="btn-small js-delete mgr-5">删除</div>
+					</div>			 				
+				</div>			
+				{/foreach}
+			</div>
+			{$pagelist}
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+		$(function(){
+			$(document).on("click",".js-show-img",function(){
+				var url=$(this).attr("url")
+				var content='<img style="width:100%;" src="'+url+'" />';
+				skyJs.showBox({
+					title:"查看大图",
+					content:content,
+					width:640,
+					height:480
+				})
+			})
+			$(document).on("click",".js-show-video",function(){
+				var url=$(this).attr("url")
+				var content='<video controls style="width:100%;" src="'+url+'" ></video>';
+				skyJs.showBox({
+					title:"查看视频",
+					content:content,
+					width:640,
+					height:480
+				})
+			})
+			$(document).on("click",".js-down-file",function(){
+				var url=$(this).attr("url")
+				console.log(url)
+				var a=document.createElement("a");
+				a.setAttribute("target","_blank");
+				a.setAttribute('download', '');// download属性
+				a.setAttribute('href', url);
+				a.click();
+			})
+		})
+		</script>
+	</body>
+</html>

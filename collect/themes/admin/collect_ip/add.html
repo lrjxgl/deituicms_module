@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">ip添加</div>
+		</div>
+		<div class="main-body">
+			<form id="form" action="/moduleadmin.php?m=collect_ip&a=save&ajax=1">
+				<div>
+					<textarea placeholder="一行一个IP" style="height: 300px;" name="ips"></textarea>
+				</div>
+				<div class="btn-row-submit js-submit">添加</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

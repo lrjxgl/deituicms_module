@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"慈善众筹",//模块名称
+	"module"=>"fxl",//模块目录
+ 	"version"=>1,//当前版本
+	"info"=>"慈善众筹",//模块信息
+	"from"=>"福鼎生活网",
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=fxl&a=menu",
+	"check_update"=>"http://www.deituicms.com/index.php?m=checkupdate&product=mod_fxl",
+);
+?>

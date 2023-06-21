@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+	 
+	#videourl{
+		padding-right: 30px;
+		font-size: 12px;
+	}
+	#upload-video-loading{
+		display: block;
+		position: absolute;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+		right: 40px;
+		top: 0px;
+		background-color: green;
+		color: #fff;
+		opacity: 0.8;
+		display: none;
+		text-align: center;
+	}
+	.upload-video-btn{
+		position: absolute;
+		right: -5px;
+		top: 0px;
+		height: 40px;
+		width: 30px;
+		text-align: center;
+		line-height: 40px;
+		padding: 0px;
+		cursor: pointer;
+		background-color: green;
+		color: #fff;
+		z-index: 99;
+		
+	}
+</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布晒单</div>
+			<div id="post-submit" class="header-right-btn">保存</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=zhuli_shaidan&a=save">
+
+
+				<input type="hidden" id="orderid" name="orderid" value="{$order.orderid}" />
+				 
+
+				<div class="sky-editor-box">
+					<div class="sky-editor-content" contenteditable="" name="content">{if $data}{$data.content}{else}<div>这一刻的想法</div>{/if}</div>
+				</div>
+				{include file="footjs.html"}
+				{include file="zhuli_shaidan/uploader.html"}
+			</form>
+		</div>
+		 
+		 
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script>
+			skyeditor.tools=["h3","pic","color","B","emoji","center"];
+			skyeditor.init();
+			$(function() {
+				 
+				$(document).on("click", "#post-submit", function() {
+					var content = $(".sky-editor-content").html();
+					var imgsdata = "";
+					var orderid = $("#orderid").val();
+					var id = $("#id").val();
+					var tagid = $("#tagid").val();
+					var im = $("#uploaderFiles .weui-uploader__file");
+					var videourl = $("#videourl").val();
+					if (im.length > 0) {
+						for (var i = 0; i < im.length; i++) {
+							if (i > 0) {
+								imgsdata += ",";
+							}
+							imgsdata += im.eq(i).attr("v");
+						}
+					}
+					$.post("/module.php?m=zhuli_shaidan&a=save&ajax=1", {
+						orderid: orderid,
+						content: content,
+
+						imgsdata: imgsdata,
+						videourl: videourl
+					}, function(data) {
+						skyJs.toast(data.message);
+						if (data.error == 0) {
+							setTimeout(function() {
+								window.history.back();
+							}, 1000)
+						}
+
+					}, "json");
+				})
+
+				 
+				 
+			})
+		</script>
+	</body>
+</html>

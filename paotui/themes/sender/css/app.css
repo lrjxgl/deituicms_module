@@ -1,0 +1,11 @@
+.btn-song, .btn-shou {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin-right: 5px;
+    background-color: #53beb7;
+    font-size: 12px;
+    color: #fff;
+    border-radius: 50%;
+}

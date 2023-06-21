@@ -1,0 +1,20 @@
+
+<div class="footer-row"></div>
+<div class="footer">
+	<div gourl="/module.php?m=fenlei" class="footer-item icon-home {if $ftnav eq 'index'}footer-active{/if}">首页</div>
+	<div gourl="/module.php?m=fenlei_category" class="footer-item icon-cascades {if $ftnav eq 'fenlei_category'}footer-active{/if}">分类</div>
+	{if $cat}
+	<div gourl="/module.php?m=fenlei&a=add&catid={$cat.catid}" class="footer-item footer-add">
+		发布
+	</div>
+	{else}
+	<div gourl="/module.php?m=fenlei_category&a=add" class="footer-item footer-add"> 
+		发布
+	</div>
+	{/if}
+	<div gourl="/module.php?m=fenlei_guest&a=index" class="footer-item icon-service_light {if $ftnav eq 'guest'}footer-active{/if}">
+		咨询
+		<div class="footer-item-num"></div>
+	</div>
+	<div gourl="/module.php?m=fenlei&a=user" class="footer-item icon-my_light {if  $ftnav eq 'user' }footer-active{/if}">我的</div>
+</div>

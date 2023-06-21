@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">技工评级</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box">
+				<div class="flex mgb-5 flex-ai-center">
+					<div class="cl2 mgr-5">您当前：</div>
+					<div>{$rank.rank.title}</div>
+					<div class="flex-1"></div>
+					<div class="mgr-5 cl2">积分</div>
+					<div class="cl-num">{$rank.grade}</div>
+				</div>
+				<div class="flex flex-ai-center">
+					<div>您的权益：</div>
+					<div class="cl2 mgr-5">平台折扣</div>
+					<div class="cl-num mgr-10">{$rank.rank.discount}%</div>
+					<div class="cl2 mgr-5">排单率</div>
+					<div class="cl-num mgr-10">{$rank.rank.push_grade}</div>
+					<div class="cl2 mgr-5">接单数</div>
+					<div class="cl-num mgr-10">{$rank.rank.max_order}</div>
+				</div>
+			</div>
+			{foreach item=c from=$logList}
+			<div class="row-box">
+				<div class="flex">
+					<div class="cl2 mgr-5">等级：</div>
+					<div  class="cl2 mgr-10">{$c.title}</div>
+					
+					<div  class="cl2 mgr-5">积分</div>
+					<div class="cl-num">{$c.grade}</div>
+					<div class="flex-1"></div>
+					<div class="flex f13">{$c.createtime}</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

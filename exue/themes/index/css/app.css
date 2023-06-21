@@ -1,0 +1,22 @@
+.btn-bm{
+	background-color:#22c864;
+	padding: 6px 15px;
+	color: #fff;
+	font-size: 12px;
+	border-radius: 20px;
+	line-height: 1;
+}
+.rdBox{
+	margin: 10px;
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 10px;
+	background-color: #fff;
+	box-shadow: 0 0 1px #eee; 
+}
+.xhd{
+	font-weight: 600;
+	font-size: 14px;
+	padding:10px;
+	line-height: 1;
+}

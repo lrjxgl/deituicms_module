@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=exue_course&a=save&ajax=1">
+				<input type="hidden" name="courseid" value="{$data.courseid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" name="title" value="{$data.title}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">平台大类</div>
+					<select name="catid" class="input-flex-select">
+						<option value="0">请选择</option>
+						{foreach item=c from=$catList}
+							<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+							{if $c.child}
+							{foreach item=cc from=$c.child}
+							<option value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+							{/foreach}
+							{/if}
+						{/foreach}
+					</select>
+				</div>
+				<div class="input-flex flex-ai-center">
+							<div class="input-flex-label">封面</div>
+							<div class="flex-1">
+								<div class="upimg-box bg-fff">
+									<div class="upimg-item {if $data.imgurl==""}	none{/if} js-upimg-btn">
+										<img class="upimg-img" {if $data.imgurl}src="{$data.trueimgurl}.100x100.jpg"{/if} >								 
+									</div>
+									 	 
+									<div class="upimg-btn js-upimg-btn">
+										<i class="upimg-btn-icon"></i>
+									</div>
+									 
+									<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+									<input style="display: none;" class="js-upimg-file" type="file" name="upimg" id="upimg" /> 
+								</div> 
+							</div>
+						</div>  
+				<div class="textarea-flex" style="margin-bottom: 0;">
+					<div class="textarea-flex-label">课程介绍</div>
+					<textarea class="textarea-flex-text h60" name="description">{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">课程类型</div>
+					<div class="flex-1 flex">
+						{if $data}
+							{if $data.stype eq 1}试学课程{else}正式课程{/if}
+						
+						{else}
+						<input type="radio" {if $data.stype neq 2}checked{/if} name="stype" value="1" /> 试学课程
+						<input type="radio" {if $data.stype eq 2}checked{/if}  name="stype" value="2" /> 正式课程
+						{/if}
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">价格</div>
+					<input type="text" name="price" value="{$data.price}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">课时</div>
+					<input type="text" name="ke_num" value="{$data.ke_num}" class="input-flex-text" />
+					<div class="mgl-5 mgr-5">节</div>
+				</div> 
+				<div class="input-flex">
+					<div class="input-flex-label">上架</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.status eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.status neq 1}switch-active{/if} js-switch" data-value="2">否</div>
+						<input type="hidden" name="status" value="{$data.status}" class="switch-value" />
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">推荐</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.isrecommend eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.isrecommend neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="isrecommend" value="{$data.isrecommend}" class="switch-value" />
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">新品</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.isnew eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.isnew neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="isnew" value="{$data.isnew}" class="switch-value" />
+					</div>
+				</div>
+				
+				<div class="sky-editor-content" name="content" id="content" contenteditable="true">{$data.content}</div>
+				  
+				<div  class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		 
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script> 
+	</body>
+</html>

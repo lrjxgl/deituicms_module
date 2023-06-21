@@ -1,0 +1,18 @@
+1.每个ip采集一页 休息3秒
+2.每个小时最多采集60次
+3.每天最多采集300次
+
+主站
+	
+	采集程序
+		关键词库+ip池 采集网页->存文本
+		while(1)
+			$word=$collect->getWord();
+			$ip=$collect->getIp();
+			$collect->getContent($word,$ip);
+			$collect->finish($word,$ip);
+		
+关键词 相关搜索需要采集中国数据		
+400GB流量
+183.251.214.64
+183.251.214.64

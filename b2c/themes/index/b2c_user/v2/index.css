@@ -1,0 +1,49 @@
+.aBox{
+				background-color: #fd5954;
+				height: 200px;
+				padding: 20px 10px 20px 10px;
+				
+			}
+			.aBox div{
+				color:#fff;
+			}
+			.btn-vip{
+				padding: 6px 14px;
+				border-radius: 20px;
+				border:2px solid #fff;
+				font-size: 14px;
+				color: #fff;
+				line-height: 1;
+			}
+			.stat-item{
+				flex: 1;
+				text-align: center;
+			}
+			.stat-line{
+				height: 20px;
+				background-color: #fff;
+				width: 1px;;
+			}
+			.bBox{
+				margin: 0px 10px;
+				border-radius: 10px;
+				padding: 30px 10px 30px 10px;
+				background-color: #fff;
+				position: relative;
+				top: -40px;
+			}
+			.oItem{
+				flex: 1;
+				text-align: center;
+			}
+			.oItem-icon{
+				font-size: 22px;
+				margin-bottom: 8px;
+				color:#f34b20;
+			}
+			.oItem-title{
+				font-size: 14px;
+			}
+			.row-item{
+				padding: 15px 5px;
+			}

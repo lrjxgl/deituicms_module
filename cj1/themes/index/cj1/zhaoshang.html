@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+		     
+		    <div class="header-title">活动招商</div>
+		</div>
+		<div class="header-row"></div> 
+		<div class="main-body">
+			<div class="row-box">
+				<div class="d-content">{$data.content}</div>
+			</div>
+		    
+		</div>
+		{assign var="mfooter" value="zhaoshang"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	<?php wx_jssdk();?>
+<script>
+	wxshare_title="{$data.title}";
+ 
+</script> 		
+	</body>
+</html>

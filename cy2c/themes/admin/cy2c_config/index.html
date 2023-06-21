@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">基本设置</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=cy2c_config&a=save&ajax=1">
+				<table class="table-add">
+				 
+					<tr>
+						<td>二维码密钥</td>
+						<td>
+							<input type="text" name="md5code" value="{$data.md5code}" />
+							<div>二维码数据加密，更改二维码会失效</div>
+						</td>
+					</tr> 
+					
+					
+					<tr>
+						<td>结算方式</td>
+						<td>
+							<input  type="radio" name="retype" {if $data.retype eq 0}checked{/if} value="0" />线上
+							<input  type="radio" name="retype" {if $data.retype eq 1}checked{/if}  value="1" />线下
+						</td>
+					</tr>
+					<tr>
+						<td>Vip卡支付</td>
+						<td>
+							<input {if $data.vipcard eq 1}checked{/if} type="radio" name="vipcard" value="1" />开启
+							<input {if $data.vipcard neq 1}checked{/if}  type="radio" name="vipcard" value="1" /> 关闭
+							(需要vipcard模块支持)
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存设置</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

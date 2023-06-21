@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='job_jianli/nav.html'}
+<div class="main-body">
+<form method="post" action="/module.php?m=job_jianli&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>用户：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>名字：</td>		
+				<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}" ></td>
+				</tr>
+  <tr>
+				<td>年龄：</td>		
+				<td><input type="text" name="age" id="age" value="{$data.age}" ></td>
+				</tr>
+  <tr>
+				<td>性别：</td>		
+				<td><input type="text" name="gender" id="gender" value="{$data.gender}" ></td>
+				</tr>
+  <tr>
+				<td>自我介绍：</td>		
+				<td><input type="text" name="description" id="description" value="{$data.description}" ></td>
+				</tr>
+  <tr>
+				<td>工作经历：</td>		
+				<td><input type="text" name="job" id="job" value="{$data.job}" ></td>
+				</tr>
+  <tr>
+				<td>学历：</td>		
+				<td><input type="text" name="xueli" id="xueli" value="{$data.xueli}" ></td>
+				</tr>
+  <tr>
+				<td>照片：</td>		
+				<td><input type="text" name="imgurl" id="imgurl" value="{$data.imgurl}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

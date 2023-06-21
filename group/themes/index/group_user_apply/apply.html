@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">申请加入</div>
+</div>
+<div class="header-row"></div>	
+ 
+<div class="main-body">
+ 
+ 	<div style="padding: 10px;">
+ 		<textarea class="textarea-flex-text h60 mgb-5" id="content" placeholder="请输入加入“{$group.gname}”理由"></textarea>
+ 		<button id="submit" class="btn-row-submit">确定申请</button>
+ 	</div>
+</div>
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click","#submit",function(){
+			$.post("/module.php?m=group_user_apply&a=applysave&ajax=1",{
+				content:$("#content").val(),
+				gid:"{$group.gid}"
+			},function(data){
+				skyJs.toast(data.message);
+				setTimeout(function(){
+					window.history.back();
+				},1000)
+				
+			},"json")
+		})
+	})
+</script>
+</body>
+</html>

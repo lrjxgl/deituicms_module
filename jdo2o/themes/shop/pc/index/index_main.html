@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">商家中心</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5 flex">
+				<img gourl="/moduleshop.php?m=jdo2o_shop&a=logo" class="wh-60 bd-radius-50" src="{$shop.imgurl}.100x100.jpg" />
+				<div class="flex-1 mgl-5 mgr-5">
+					<div class="cl2 mgb-5 f16">{$shop.shopname}</div>
+					<div class="flex flex-ai-center">
+						<div class="f12 cl3">{$timeago}登陆</div>
+						<div id="noticeMp3" class="iconfont cl-num f20 mgl-20 icon-notificationfill icon-notificationforbidfill "></div>
+					</div>
+					
+				</div>
+				<div>
+					<div class="btn-round bg-success icon-home" gourl="/module.php?m=jdo2o_shop&shopid={$shop.shopid}"></div>
+				</div>
+			</div>
+			<div gourl="/moduleshop.php?m=jdo2o_product&a=window" class="upimg-box bg-white mgb-5">
+				
+				<div class="upimg-btn">
+						<i class="upimg-btn-icon"></i>
+					</div>
+				
+				{foreach item=c from=$prolist}
+				<div class="upimg-item">
+					<img class="upimg-img" src="{$c.imgurl}.100x100.jpg"/>
+				</div>
+				{/foreach}
+			</div>
+			 <div class="flex pd-10 bg-white mgb-5">
+			    	<div class="flex-1 text-center">
+			    		<div class="fz20">{$neworder}</div>
+			    		<div class="cl3">新订单</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="fz20">{$dayorder.ordernum|intval}</div>
+			    		<div class="cl3">今日订单</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="fz20">{$dayorder.money|floatval}</div>
+			    		<div class="cl3">今日成交</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="fz20">{$usernum}</div>
+			    		<div class="cl3">客户</div>
+			    	</div>
+			    </div>
+			<div class="m-navPic">
+				<div gourl="/moduleshop.php?m=jdo2o_order_code" class="m-navPic-item">
+					<div class="m-navPic-icon icon-warn"></div>
+					<div class="m-navPic-title">快速验单</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_product" class="m-navPic-item">
+					<div class="m-navPic-icon icon-goods"></div>
+					<div class="m-navPic-title">商品列表</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_shop_product_category" class="m-navPic-item">
+					<div class="m-navPic-icon icon-cascades"></div>
+					<div class="m-navPic-title">商品分类</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_coupon" class="m-navPic-item">
+					<div class="m-navPic-icon icon-ticket"></div>
+					<div class="m-navPic-title">优惠券</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_video" class="m-navPic-item">
+					<div class="m-navPic-icon icon-video"></div>
+					<div class="m-navPic-title">视频库</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_tixian" class="m-navPic-item">
+					<div class="m-navPic-icon icon-moneybag"></div>
+					<div class="m-navPic-title">资金提现</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_shop_user" class="m-navPic-item">
+					<div class="m-navPic-icon icon-people"></div>
+					<div class="m-navPic-title">客户管理</div>
+				</div>
+				<div gourl="/moduleshop.php?m=jdo2o_stat" class="m-navPic-item">
+					<div class="m-navPic-icon icon-all"></div>
+					<div class="m-navPic-title">收入统计</div>
+				</div>
+				
+			</div>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			if(localStorage.getItem("noticeMp3")==1){
+				$("#noticeMp3").removeClass("icon-notificationforbidfill");
+			}else{
+				$("#noticeMp3").addClass("icon-notificationforbidfill");
+			}
+			$(document).on("click","#noticeMp3",function(){
+				var a=localStorage.getItem("noticeMp3");
+				if(a==1){
+					$(this).addClass("icon-notificationforbidfill");
+					localStorage.setItem("noticeMp3",0);
+				}else{
+					localStorage.setItem("noticeMp3",1);
+					$(this).removeClass("icon-notificationforbidfill");
+				}
+			})	
+		</script>
+	</body>
+</html>

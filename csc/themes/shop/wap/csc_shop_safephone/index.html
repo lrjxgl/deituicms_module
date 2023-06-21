@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">安全手机</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $data}
+			<div class="row-box">
+				<div class="flex flex-ai-center">
+					<div class="flex-1">当前安全手机：{$data.telephone}</div>
+					 
+				</div>
+			</div>
+			
+			{/if}
+			<form id="form" action="/moduleshop.php?m=csc" {if $data} style="display: none;" {/if}>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">手机</div>
+					<input type="text" id="telephone" name="telephone" class="input-flex-text" />
+				</div>
+				<div class="input-flex">					
+					<div class="input-flex-label">验证码</div>					 
+					<input type="text" name="yzm" class="input-flex-text">				 
+					<div class="input-flex-btn" id="sendSms">获取验证码</div>
+				</div>
+				 <div class="btn-row-submit btn-danger" id="submit">绑定安全手机</div>
+			 </form>
+			 <div class="flex-center cl-red pd-10">*手机绑定后不可修改</div>
+		</div>
+ 
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#sendSms",function(res){
+				var telephone=$("#telephone").val();
+				if(telephone==''){
+					skyToast("请输入手机号码");
+					return false;
+				}
+				$.get("/moduleshop.php?m=csc_shop_safephone&a=SendSms&ajax=1",{
+					telephone:$("#telephone").val(),
+				},function(res){
+					skyToast(res.message);
+				},"json");
+			})
+			$(document).on("click","#goAdd",function(){
+				$("#form").toggle();
+			})
+			$(document).on("click","#submit",function(){
+				$.post("/moduleshop.php?m=csc_shop_safephone&a=save&ajax=1",$("#form").serialize(),function(res){
+					skyToast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

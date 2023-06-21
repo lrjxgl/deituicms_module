@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+
+		<div class="main-body" id="App">
+			<div class="tabs-border">
+				<div @click="setType('new')" :class="type=='new'?'active':''" class="item">进行中</div>
+				<div @click="setType('finish')" :class="type=='finish'?'active':''"  class="item">已结算</div>
+				<div @click="setType('all')" :class="type=='all'?'active':''"  class="item">全部</div>
+			</div>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>座位</td>
+						<td>开始时间</td>
+						<td>金额</td>
+						<td>状态</td>
+						
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					 
+					<tr v-for="(item,index) in list" :key="index">
+						<td>{{item.place.title}}</td>
+						<td>{{item.createtime}}</td>
+						<td>{{item.money}}元</td>
+						<td>
+							<template v-if="item.isfinish">已结算</template>
+							<template v-else>未结算</template>
+						</td>
+						<td>
+							<div class="flex">
+								<div @click="getProduct(item.poid)" class="btn-small mgr-5">查看菜单</div>
+								<div v-if="item.isfinish==0" @click="finish(item.poid)" class="btn-small">结算一下</div>
+							</div>
+						</td>
+					</tr>
+				 
+				</tbody>
+			</table>
+
+
+			<div v-if="showPro">
+				<div @click="showPro=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">菜单</div>
+						<div  @click="showPro=false"  class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="flexlist">
+							<div class="flexlist-item" v-for="(item,index) in proList" :key="index">
+								<img :src="item.product.imgurl+'.100x100.jpg'" class="flexlist-img" />
+								<div class="flex-1">
+									<div class="flexlist-title">{{item.product.title}}</div>
+									<div class="flex">
+										<div class="cl-money mgr-5">
+											￥{{item.price}}
+										</div>
+										<div class="mgl-10">X {{item.amount}}</div>
+										<div class="flex-1"></div>
+										<div class="cl-status">{{item.status_name}}</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}cy2c_placeorder/index.js?v2"></script>
+	</body>
+</html>

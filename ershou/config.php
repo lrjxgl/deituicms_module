@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"二手市场",//模块名称
+	"module"=>"ershou",//模块目录
+ 	"version"=>2.0,//当前版本
+	"info"=>"二手市场是一种便捷的二手商品发布交易平台",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=ershou&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

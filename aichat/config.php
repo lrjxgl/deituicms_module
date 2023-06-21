@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"Ai对话",//模块名称
+	"module"=>"aichat",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"aichat",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=aichat&a=menu",
+	"check_update"=>"http://www.deituicms.com/module.php?m=down_update&dkey=mod_aichat",
+);
+?>

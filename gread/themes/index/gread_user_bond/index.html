@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">保证金</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body">
+		    <div class="row-box">
+				<div class="flex bd-mp-10">
+					<div class="cl2 mgr-5">闲置保证金</div>
+					 
+					<div class="cl-num mgr-10">{$guser.bond}</div>
+					<div class="cl2 mgr-5">已占用</div>
+					<div class="cl-num">{$guser.out_bond}</div>
+					<div class="flex-1"></div>
+					<div class="btn-danger btn-mini">申请退款</div>
+				</div>
+				
+		    	<div class="pdetail-content">
+					<div>借书需要保证金，借的书籍总金额不能大于保证金</div>
+					<div>借阅的书籍损毁或者丢失则会扣除保证金</div>
+		    		<div>保证金可以申请退还</div>
+					<div>保证金永久有效</div>
+					 
+		    		     		
+		    	</div>
+				 
+		    	<div id="abtn" class="btn-row-submit">我要充值</div>
+		    </div>
+			 
+		</div>
+		<div class="modal-group" id="rcBox">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header" >
+					<div class="modal-title">保证金</div>
+					<div class="modal-close icon-close"></div>
+				</div>
+				<div class="modal-body">
+					<div class="input-flex">
+						<div class="input-flex-label">充值金额</div>
+						<input type="text" id="rc-money" value="100" class="input-flex-text" />
+					</div>
+					<div id="rc-submit" class="btn-row-submit">确认充值</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click","#abtn",function(){
+					$("#rcBox").show();
+				})
+				$(document).on("click","#rc-submit",function(){
+					if(postCheck.canPost()){
+						$.ajax({
+							url:"/module.php?m=gread_user_bond&a=save&ajax=1",
+							dataType:"json",
+							type:"POST",
+							data:{
+								money:$("#rc-money").val()
+							},
+							success:function(res){
+								skyJs.toast(res.message);
+								if(!res.error){
+									window.location.reload();
+								}
+							}
+						})
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.btn-mini{
+			padding: 2px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$group.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			
+			<div class="tabs-border">
+				<div :class="catid==0?'tabs-border-active':''" class="tabs-border-item"  @click="setCat(0)">全部</div>
+ 
+				<div :class="catid==item.catid?'tabs-border-active':''"  v-for="(item,index) in catlist" :key="index"  @click="setCat(item.catid)" class="tabs-border-item" >{{item.title}}</div>
+				 
+			</div>
+			<div class="sglist" id="list">
+				<div v-if="recList">
+					<forum-item :data-list="recList"></forum-item>
+				</div>
+				<div v-if="list">
+				<forum-item :data-list="list"></forum-item>
+				</div>  
+			</div>
+			<div v-if="per_page>0" class="loadMore" @click="getList">加载更多...</div>
+			<div @click="goAdd()" class="fixedAdd">发布</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var gid="{$group.gid}";
+		</script>
+		<script src="{$skins}js/forum-item.js"></script>
+		 <script src="{$skins}forum/list.js"></script>
+		 <?php wx_jssdk();?>
+		 <script type="text/javascript">
+		 	wxshare_title="{$group.title}";
+		 	{if $group.imgurl} 
+		 	 wxshare_imgUrl="{$group.imgurl|images_site}.100x100.jpg";
+		 	 {/if}
+		 </script>
+	</body>
+</html>

@@ -1,0 +1,31 @@
+<div class="flex pdb-10 mgb-10 bdb">
+	<div class="w60 flex-col flex-ai-center mgr-5">
+		
+		<img class="w60 mgb-5 bd-radius-5" src="{$c.user_head|images_site}.100x100.jpg">
+		<span class="cl2 mgb-5 f12 text-center">{$c.nickname}</span>
+		{if $c.userid neq $ssuser.userid}
+		<div class="newslist-item-follow  js-news-follow" userid="{$c.userid}">{if $c.isfollow}已关注{else}关注{/if}</div>
+		{/if}
+	</div>
+	<div class="flex-1">
+		<div class="d-content">{$c.content}</div>
+		
+		<div class="flex flex-wrap js-thumb-item">
+			{foreach item=p from=$c.imgList}
+			<div class="mg-5">
+				<img class="wh-40 js-thumb" v="{$p|images_site}" src="{$p|images_site}.100x100.jpg">
+			</div>
+			{/foreach}
+			<div class="clearfix"></div>
+		</div>
+		<div class="flex">
+			<span class="cl3 f12 mgr-5">{$c.dateline|timeago}</span>
+			<a class="mgr-10 f12 cl-primary" href="/module.php?m=group_title&a=show&gid={$c.gid}&id={$c.id}">详情</a>
+			<div class="flex-1"></div> 
+			<span newsid="{$c.id}" class="flex mgr-5 cl2 f12 js-news-zan-btn">赞 <span id="zan-num-{$c.id}">{$c.love_num}</span></span>
+			<span newsid="{$c.id}" class="flex mgr-5 cl2 f12 js-news-comment-btn">评论 <span id="comment-num-{$c.id}">{$c.comment_num}</span></span>
+			 
+		</div>
+	</div>
+
+</div>

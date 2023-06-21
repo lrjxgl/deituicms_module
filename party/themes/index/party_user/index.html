@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">个人中心</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<img src="{$user.user_head}.100x100.jpg" class="wh-60 mgr-10" />
+					<div class="flex-1">
+						<div class="cl1 mgb-5">{$user.nickname}</div>
+						<div class="flex flex-ai-center">
+							<div class="mgr-5 cl2">发起</div>
+							<div class="cl-num mgr-10"> {$party_createnum}</div>
+							<div class="mgr-5  cl2">参与</div>
+							<div class="cl-num mgr-10"> {$party_joinnum}</div>
+						</div>
+					</div>
+					<div gourl="/index.php?m=user&a=set" class="iconfont icon-settings"></div>
+				</div>
+			</div>
+			
+			<div class="row-box mgb-5">
+				<div gourl="/index.php?m=notice" class="row-item">
+					<div class="row-item-icon icon-notice"></div>
+					<div class="row-item-title">我的消息</div>
+				</div>
+				<div gourl="/module.php?m=party&a=my" class="row-item">
+					<div class="row-item-icon icon-activity"></div>
+					<div class="row-item-title">我创建的活动</div>
+				</div>
+				<div gourl="/module.php?m=party_join&a=my"  class="row-item">
+					<div class="row-item-icon icon-activity"></div>
+					<div class="row-item-title">我参与的活动</div>
+				</div>
+				<div gourl="/module.php?m=party_blog&a=my"  class="row-item">
+					<div class="row-item-icon icon-news"></div>
+					<div class="row-item-title">我的动态</div>
+				</div>
+				
+				<div gourl="/module.php?m=party_blog_comment&a=my"  class="row-item">
+					<div class="row-item-icon icon-comment_light"></div>
+					<div class="row-item-title">我的评论</div>
+				</div>
+				
+			</div>
+			<div class="row-box">
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service  cl-u"></div>
+					<div class="row-item-title">联系客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info  cl-u"></div>
+					<div class="row-item-title">关于我们</div>
+				</div>
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		
+		{include file="footer.html"}
+	</body>
+</html>

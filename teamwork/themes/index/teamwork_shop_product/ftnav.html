@@ -1,0 +1,16 @@
+<div class="mfooter-hd"></div>
+<div class="mfooter">
+	 
+	<a href="/index.php?m=shop_product&a=home&id={$product.id}" class="item {if $mfooter eq 'home'}active{/if}">
+		<i class="iconfont icon-ask"></i>  <br />
+		需求</a>
+	<a href="/index.php?m=shop_product&a=log&id={$product.id}" class="item {if $mfooter eq 'log'}active{/if}">
+		<i class="iconfont icon-comment"></i> <br />
+		进度</a>
+	<a href="/index.php?m=shop_product&a=team&id={$product.id}" class="item {if $mfooter eq 'team'}active{/if}">
+		<i class="iconfont icon-friend"></i> <br />
+		团队</a>
+	<a href="/index.php?m=shop_product&a=show&id={$product.id}" class="item {if $mfooter eq 'show'}active{/if}">
+		<i class="iconfont icon-text"></i> <br />
+		详情</a>
+</div>

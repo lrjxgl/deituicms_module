@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品分类编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		<form method="post" action="/moduleshop.php?m=flk_shop_product_category&a=save">
+			<input type="hidden" name="catid" style="display:none;" value="{$data.catid}">
+			<table class="table-add">
+				<div class="input-flex">
+					<div class="input-flex-label">分类名称：</div>
+					<input class="input-flex-text" type="text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">logo</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+							</div>
+							{if !$data.imgurl}	
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							{/if}
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" id="upimg" /> 
+						</div> 
+					</div>
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">上级分类：</div>
+					 
+						<select  class="input-flex-select" name="pid">
+							<option  value="0">请选择</option>
+							{foreach item=c from=$catlist}
+							<option value="{$c.catid}" {if $c.catid eq $data.pid}selected{/if}>{$c.title}</option>
+							{/foreach}
+						</select>
+					 
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">排序：</div>
+					<input class="input-flex-text"  type="text" name="orderindex" id="orderindex" value="{$data.orderindex}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">状态</div>
+					<div class="flex-1 flex flex-ai-center">
+						<input type="radio" {if $data.status neq 1} checked="" {/if} name="status" value="2" /> 下线
+						<input type="radio" {if $data.status eq 1} checked="" {/if} name="status" value="1" /> 上线
+					</div>
+				</div>
+				 
+			 
+			<div class="btn-row-submit js-submit" >保存</div>
+		</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

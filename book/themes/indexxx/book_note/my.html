@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		{include file="header.html"}
+		<div class="main-body">
+			<div class="flex">
+				{include file="user-side.html"}
+				<div class="flex-1">
+					<div class="mgb-10 cl-primary">我的笔记</div>
+					<div>
+						{foreach item=c from=$list}
+						<div class="row-box mgb-5">
+							<div gourl="/module.php?m=book&a=view&bookid={$c.bookid}&vid={$c.articleid}" class="mgb-5">{$c.title}</div>
+							<div class="cl2 f14 mgb-5">{$c.content}</div>
+							<div class="flex">
+								<div gourl="/module.php?m=book&a=view&bookid={$c.bookid}"  class="f12 cl3">《{$c.book_name}》</div>
+								<div class="flex-1"></div>
+								<div class="f12 cl3">{$c.createtime}</div>
+								
+							</div>
+						</div>
+						{/foreach}
+					</div> 
+					<div>{$pagelist}</div>
+				</div>
+
+			</div>
+		</div>
+		{include file="footer.html"}
+
+	</body>
+
+</html>

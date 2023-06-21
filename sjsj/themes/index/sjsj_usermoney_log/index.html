@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">赏金日志</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{if empty($list)}
+	<div class="emptyData">暂无日志</div>
+	{else}
+    {foreach item=c from=$list}
+	<div class="row-box mgb-5">
+		<div class="flex flex-ai-center">
+			<div class="cl-money mgr-10">￥{$c.money}</div>
+			<div class="f12 cl3">{$c.createtime}</div>
+		</div>
+		<div class="cl2 f12">
+			{$c.content}
+		</div>
+	</div>
+	{/foreach}
+	<div>{$pagelist}</div>
+    {/if}
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,24 @@
+.xbox {
+	background-color: #fff;
+	margin: 20px;
+	padding: 10px;
+	border-radius: 10px;
+}
+.laydate-footer-btns{
+				display: block;
+			} 
+.dd-content{
+	text-align: center;
+	color: #F4726C;
+	line-height: 2;
+} 
+
+.fixRight {
+	position: fixed;
+	right: 5px;
+	bottom: 100px;
+	background-color: #F4726C;
+	color: #fff;
+	border-radius: 5px;
+	opacity: .9;
+}

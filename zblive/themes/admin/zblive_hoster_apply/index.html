@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=zblive_hoster_apply">管理</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>hostid</td>
+   <td>userid</td>
+   <td>status</td>
+   <td>dateline</td>
+   <td>content</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.hostid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.status}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.content}</td>
+<td><a href="/moduleadmin.php?m=zblive_hoster_apply&a=pass&hostid={$c.hostid}">审核通过</a> 
+<a href="/module.php?m=zblive_hoster_apply&a=forbid&hostid={$c.hostid}">不通过</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

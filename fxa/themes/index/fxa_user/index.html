@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.usBox{
+			position: relative;
+			height: 50px;
+			border-bottom: 1px solid #eee;
+			margin-bottom: 20px;
+			display: flex;
+			flex-direction: row;
+			align-items: center; 
+		}
+		.usHead{
+			position: absolute;
+			width: 60px;
+			height: 60px;
+			border-radius: 50%;
+			margin-right: 20px;
+			margin-left: 20px;
+			top: -30px;
+		}
+		.usBox-nick{
+			margin-left: 90px;
+			 
+			margin-right: 10px;
+		}
+		.aBox{
+			background-color: #eee;
+			padding: 20px;
+			flex: 1;
+			border-radius: 20px;
+		}
+		.aBox-title{
+			font-size: 16px;
+			font-weight: 600;
+			margin-bottom: 10px;
+		}
+		.aBox-more{
+			color:#aaa;
+			font-size: 12px;
+			margin-left: 5px;
+		}
+		.cBox{
+			background-color: #eee;
+			padding: 10px 20px;
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 20px;
+			border-radius: 10px;
+			align-items: center;
+		}
+	</style>
+	<body>
+		<div url="/module.php?m=fxa" class="header-back-fixed goBack cl-white"></div> 
+		<div id="App" class="main-body">
+			<div style="height: 80px;">
+				<img src="{$skins}css/ubanner.png" style="width: 100%;" />
+			</div>
+			<div class="row-box" style="border-radius: 20px;margin: 0 10px;">
+				<div class="usBox">
+					<img  gourl="/index.php?m=user&a=user_head" class="usHead" src="{$user.user_head}.100x100.jpg" />
+					<div class="usBox-nick">{$user.nickname}</div>
+					<div>余额</div>
+					<div class="cl-money">{$user.money}元</div>
+					<div class="flex-1"></div>
+					<div gourl="/index.php?m=recharge" class="btn-mini">去充值</div>
+				</div>
+				<div class="flex mgb-20">
+					<div gourl="/module.php?m=fxa_order&a=my" class="aBox">
+						<div class="aBox-title">我的订单</div>
+						<div class="flex flex-ai-center">
+							<span class="mgr-10 f16 cl-num">{$orderNum}</span>
+							<span class="iconfont icon-right aBox-more"></span>
+						</div>
+					</div>
+					<div class="mgl-20"></div>
+					<div gourl="/module.php?m=fxa_tixian" class="aBox">
+						<div class="aBox-title">我的赏金</div>
+						<div class="flex flex-ai-center">
+							<span class="mgr-10 f16 cl-money">{$fxa_user.money}元</span>
+							<span class="iconfont icon-right aBox-more"></span>
+						</div>
+					</div>
+				</div>
+				<div gourl="/module.php?m=fxa_log&a=my" class="cBox">
+					<div>账户日志</div>
+					<div class="flex-1"></div>
+					 
+					<span class="iconfont icon-right cl3"></span>
+				</div>
+				<div gourl="/module.php?m=fxa_tixian&a=list" class="cBox">
+					<div>提现记录</div>
+					<div class="flex-1"></div>
+					 
+					<span class="iconfont icon-right cl3"></span>
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="cBox">
+					<div>账户设置</div>
+					<div class="flex-1"></div>
+					 
+					<span class="iconfont icon-right cl3"></span>
+				</div>
+				<div gourl="/index.php?m=guest&a=add" class="cBox">
+					<div>意见反馈</div>
+					<div class="flex-1"></div>
+					<div class="cl3">前往反馈</div>
+					<span class="iconfont icon-right cl3"></span>
+				</div>
+				<div gourl="/index.php?m=kefu" class="cBox">
+					<div>客服联系</div>
+					<div class="flex-1"></div>
+					<div class="cl3">前往联系</div>
+					<span class="iconfont icon-right cl3"></span>
+				</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		
+	</body>
+</html>

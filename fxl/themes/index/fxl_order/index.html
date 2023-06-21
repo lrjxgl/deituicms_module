@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+   <td>fxlid</td>
+   <td>userid</td>
+   <td>createtime</td>
+   <td>money</td>
+   <td>status</td>
+   <td>ispay</td>
+   <td>留言</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.fxlid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.money}</td>
+   <td>{$c.status}</td>
+   <td>{$c.ispay}</td>
+   <td>{$c.content}</td>
+<td><a href="/module.php?m=fxl_order&a=add&orderid={$c.orderid}">编辑</a> <a href="/module.php?m=fxl_order&a=show&orderid={$c.orderid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=fxl_order&a=delete&ajax=1&orderid={$c.orderid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width:200px;
+		}
+	</style>
+	 
+	<body>
+		<div class="header">
+			<div url="/module.php?m=freeshop" class="header-back"></div>
+			<div class="header-title">发布优惠商品</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=freeshop_product&a=save">
+				 
+					<div class="textarea-flex">
+						 
+						<textarea placeholder="请输入商品内容" class="textarea-flex-text h100" name="content" id="content">{$data.content}</textarea>
+					</div>
+					<div class="input-flex">
+						<div>消费方式</div>
+						<input value="0" {if $data.sendtype eq 0}checked{/if} name="sendtype" type="radio" />到店消费
+						<input value="1" {if $data.sendtype eq 1}checked{/if}  name="sendtype" type="radio" />外卖配送
+					</div> 
+					<div class="input-flex flex-ai-center">
+						<div class="cl2 mgr-5">活动价</div>
+						<input name="price" value="{$data.price}" class="input-flex-text" />
+						<div class="cl2 mgl-5 mgr-5">元</div>
+						<div class="cl2 mgr-5">原价</div>
+						<input name="market_price" value="{$data.market_price}"  class="input-flex-text" />
+						<div class="cl2 mgl-5">元</div>
+					</div>
+					 
+					<div class="input-flex flex-ai-center">
+						<div class="cl2 mgr-5">数量</div>
+						<input name="maxnum" value="{$data.maxnum}" class="input-flex-text" />
+						<div class="mgl-10 mgr-10">份</div> 
+						<div class="cl2 mgr-5">消费时间</div>
+						<select name="freetime" class="input-flex-select" />
+							{foreach item=c key=k from=$timeList}
+							<option {if $data.freetime eq $k}selected{/if} value="{$k}">{$c.title}</option>
+							{/foreach}
+						</select> 
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">所属分类</div>
+						<select class="input-flex-select mgr-5" name="catid">
+							<option value="0">请选择</option>
+							{foreach item=c from=$catList}
+							<option {if $data.catid eq $c.catid}selected{/if} value="{$c.catid}">{$c.title}</option>
+							{/foreach}
+						</select>
+						
+					</div>
+					<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">邀请奖励</div>
+						<input type="text" name="invite_money" value="{$data.invite_money}" class="input-flex-text w50 mgr-5" />
+						<div class="mgr-5">元</div>
+						<div class="cl-red f12">*让更多人帮忙推广</div>
+					</div>
+					<div class="tabs-border-group">
+						<div class="tabs-border">
+							<div class="tabs-border-item tabs-border-active">图片</div>
+							<div  class="tabs-border-item">视频</div>
+						</div>
+						<div class="tabs-border-box bg-white tabs-border-box-active">
+							<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+						{include file="inc/uploader-data.html"}
+						</div>
+						<div  class="input-flex tabs-border-box">
+							 
+							<div class="videoBox flex-1">
+								<div style="display: none;">
+									<input type="file" id="up-video" name="upfile" />
+								</div>
+								<div class="upimg-btn" id="js-upbtn">
+									<div class="upimg-btn-icon">
+						
+									</div>
+								</div>
+						
+								<span id="progress"></span>
+								<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+								<div id="mp4box">
+									{if $data.mp4url}
+									<video controls="" src="' + data.true_mp4url + '" class="video"></video>
+									{/if}
+								</div>
+								<input type="hidden" name="mp4url" id="mp4url" value="{$data.mp4url}" />
+								
+								 
+							</div>
+						</div>
+					
+					</div> 
+									
+					
+					<div class="cl-red text-center row-box">发布后不可更改，请确认信息</div> 
+					<div class="cl3 text-center f12 row-box">
+						发布{$sconfig.post_money}元/条，上架最多{$sconfig.post_num}条
+					</div>
+				<div class="btn-row-submit " id="submit">保存</div>
+			</form>
+
+		</div>
+		{assign var="ftnav" value="add"}
+		 
+		{include file="footer.html"}
+		
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="{$skins}freeshop_product/copy.js"></script>
+		<script>
+			var inSubmit=false;
+			$(document).on("click", ".tabs-border-item", function() {
+				var $group = $(this).parents(".tabs-border-group");
+				var index = $(this).index();
+				if ($group.length > 0) {
+					$group.find(".tabs-border-box").removeClass("tabs-border-box-active");
+					$group.find(".tabs-border-box").eq(index).addClass("tabs-border-box-active");
+				}
+				$(this).addClass("tabs-border-active").siblings().removeClass("tabs-border-active");
+			}) 
+			$(document).on("click","#submit",function(){
+				if(inSubmit){
+					return false;
+				}
+				inSubmit=true;
+				setTimeout(function(){
+					inSubmit=false;
+				},1000)
+				var form=$(this).parents("form");
+				var imgs=$(".uploader-imgsdata-img");
+				 
+				if(imgs.length>0){
+					var s="";
+					for(var i=0;i<imgs.length;i++){
+						if(i>0){
+							s+=",";
+						}
+						s+=imgs.eq(i).attr("v");		
+					}
+					$("#imgsdata").val(s);
+				}
+				 
+				$.post(form.attr("action")+"&ajax=1",form.serialize(),function(res){
+					skyToast(res.message);
+					inSubmit=false;
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

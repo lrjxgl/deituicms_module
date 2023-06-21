@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="vbanner"><img src="{$vote.imgurl|images_site}"></div>
+
+<table class="phtable">
+	<tr>
+    	<th>名次</th>
+        <th>姓名</th>
+        <th>手机号</th>
+        <th>得票数</th> 
+    </tr>
+    {foreach item=c key=k from=$ulist}
+    <tr>
+    	<td>{$k+1}</td>
+        <td>{$c.nickname}</td>
+        <td>{$c.telephone|cutstr:9:**}</td>
+        <td>{$c.vote_num}</td>
+    </tr>
+    {/foreach}
+</table>
+<div class="hdsm">本次活动最终解释权归我所有</div>
+{assign var="ftnav" value="paihang"}
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.aBox{
+			background-color: #fff;
+			border-radius: 10px;
+			margin: 20px;
+			padding: 20px;
+		}
+		.modal-khb{
+			position: fixed;
+			top:50%;
+			left: 50%;
+			margin-left: -150px;
+			margin-top: -225px;
+			width: 300px;
+			height: 450px;
+			z-index: 999;
+		}
+		.khb-money{
+			position: absolute;
+			bottom:200px;
+			flex-direction: row;
+			display: flex;
+			width: 100%;
+			justify-content: center;
+			align-items: flex-end
+		}
+		.khb-money-a{
+			font-size: 32px;
+			color: #d1302d;
+			margin-right: 3px;
+			line-height: 1;
+		}
+		.khb-money-b{
+			font-size: 22px;
+			color: #d1302d;
+			line-height: 1;
+		}
+		.khb-ft{
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			position: absolute;
+			bottom:30px;
+			padding: 0px 30px;
+			justify-content: space-between;
+			left:0;
+			right: 0;
+		}
+		.khb-ft-a,.khb-ft-b{
+			background-color: #fff;
+			border-radius: 20px;
+			width: 100px;
+			text-align: center;
+			line-height: 36px;
+			height: 36px;
+			color: #d1302d;
+			font-weight: bold;
+		}
+		.wx-guide{
+			position: fixed;
+			top: 0;
+			right: 0;
+			width: 200px;
+			z-index: 999;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">每天领红包</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-10">
+				<div class="f16 fwb">一天之计在于晨，每天起床领个小红包，开心度过每一天</div>
+				<div class="text-right cl-num">By 福鼎生活网</div>
+				 
+			</div>
+			<div class="row-box mgb-10">
+					{$html.content}
+					
+				</div>
+			 
+			
+		</div>
+		<div id="backTop" class="back-top">
+			<div class="back-top-icon"></div>
+			<div class="back-top-text">顶</div>
+		</div>
+		
+		
+		{include file="footer.html"}
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			var token="{$token}";
+			wxshare_title="{$seo.title}";
+			wxshare_link="/module.php?m=hongbao_day";
+			$(document).on("click","#backTop",function(){
+				$(window).scrollTop(0);
+			}) 
+		</script> 
+	</body>
+</html>

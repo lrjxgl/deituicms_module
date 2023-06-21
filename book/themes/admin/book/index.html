@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="tabs-border">
+		<a class="item active" href="/moduleadmin.php?m=book">图书列表</a>
+		<a class="item" href="/moduleadmin.php?m=book&a=add">添加图书</a>
+	</div>	
+ <div class="main-body">
+ <table class="tbs">
+ 	<thead>
+  <tr>
+   <td>bookid</td>
+   <td>名称</td>
+   <td>图片</td>
+   <td>价格</td>
+   <td>状态</td>
+   <td>推荐</td>
+   <td>是否公开</td>
+   <td>付费</td>
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.bookid}</td>
+   <td>{$c.title}</td>
+   <td>
+   	<img src="{$c.imgurl|images_site}.100x100.jpg" width="60"  />
+   </td>
+   <td>{$c.money}</td>
+   <td>
+   	{if $c.status eq 2}
+   <img src='{$skins}img/yes.gif' class="ajax_no" url="/moduleadmin.php?m=book&a=status&bookid={$c.bookid}&status=4&ajax=1" rurl='/moduleadmin.php?m=book&a=status&bookid={$c.bookid}&status=2&ajax=1'>
+    {else}
+    <img src='{$skins}img/no.gif' class="ajax_yes" url='/moduleadmin.php?m=book&a=status&bookid={$c.bookid}&status=2&ajax=1' rurl='/moduleadmin.php?m=book&a=status&bookid={$c.bookid}&status=4&ajax=1'>
+    {/if} 
+   </td>
+    <td>
+   	{if $c.isrecommend eq 1}
+   <img src='{$skins}img/yes.gif' class="ajax_no" url="/moduleadmin.php?m=book&a=dorecommend&bookid={$c.bookid}&isrecommend=0&ajax=1" rurl='/moduleadmin.php?m=book&a=dorecommend&bookid={$c.bookid}&isrecommend=1&ajax=1'>
+    {else}
+    <img src='{$skins}img/no.gif' class="ajax_yes" url='/moduleadmin.php?m=book&a=dorecommend&bookid={$c.bookid}&isrecommend=1&ajax=1' rurl='/moduleadmin.php?m=book&a=dorecommend&bookid={$c.bookid}&isrecommend=0&ajax=1'>
+    {/if}
+   	
+   </td>
+   <td>
+   	{if $c.isprivate}私有{else}公开{/if}
+   </td>
+   <td>
+   	{if $c.ispay}付费{else}免费{/if}
+   </td>
+<td><a href="/moduleadmin.php?m=book&a=add&bookid={$c.bookid}">编辑</a> 
+	<a href="/module.php?m=book&a=show&bookid={$c.bookid}" target="_blank">查看</a> 
+	<a href="/moduleadmin.php?m=book&a=write&bookid={$c.bookid}" target="_blank">写书</a> 
+	<a href="javascript:;" class="delete" url="/moduleadmin.php?m=book&a=delete&bookid={$c.bookid}">删除</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}

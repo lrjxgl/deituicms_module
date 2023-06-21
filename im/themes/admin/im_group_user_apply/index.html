@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=im_group_user_apply&type=new" class="item {if $type eq 'new'}active{/if}">待审核</div>
+			<div gourl="/moduleadmin.php?m=im_group_user_apply&type=forbid"  class="item {if $type eq 'forbid'}active{/if}">不通过</div>
+			<div gourl="/moduleadmin.php?m=im_group_user_apply&type=pass"  class="item {if $type eq 'pass'}active{/if}">已通过</div>
+			<div gourl="/moduleadmin.php?m=im_group_user_apply"  class="item {if $type eq ''}active{/if}">全部</div>
+		</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>用户</td>
+						<td>群</td>
+						<td>申请内容</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					{foreach item=c from=$list}
+					<tr class="js-item">
+						<td>{$c.nickname}</td>
+						<td>{$c.group.title}</td>
+						<td>{$c.content}</td>
+						<td>
+							{if $c.status eq 0}
+							<div url="/moduleadmin.php?m=im_group_user_apply&a=pass&ajax=1&id={$c.id}" class="btn-mini js-do">通过</div>
+							<div url="/moduleadmin.php?m=im_group_user_apply&a=forbid&ajax=1&id={$c.id}" class="btn-mini js-do">不通过</div>
+							{/if}
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+				
+			</table>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click",".js-do",function(){
+					var url=$(this).attr("url");
+					var that=$(this);
+					$.get(url,function(res){
+						skyToast(res.message);
+						that.parents(".js-item").remove();
+					},"json")
+				})
+			})
+		</script>
+	</body>
+</html>

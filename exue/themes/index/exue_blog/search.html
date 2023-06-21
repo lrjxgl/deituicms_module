@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back pos-relative"></div>
+			<div class="header-search-box">
+				 
+				<input id="search-word" value="{$smarty.get.keyword|html}" class="header-search pdl-5" placeholder="搜你想要的" type="text">
+				<div id="search-btn" class="header-search-btn bg-primary cl-white iconfont icon-search"></div>
+			</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			 
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in pageData.list" :key="index" @click="goBlog(item.id)" class="sglist-item">
+					
+					<div class="sglist-title flex" v-html="item.content"></div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+				</div>
+				
+			</div>
+			
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}sblog_blog/search.js"></script>
+	</body>
+</html>

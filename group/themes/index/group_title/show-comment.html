@@ -1,0 +1,56 @@
+<div class="cms">
+	<template v-for="(cm,index) in cmList" :key="index">
+		<div class="newslist-item">
+			<div class="newslist-item-user">
+				<img class="newslist-item-head" :src="cm.user_head+'.100x100.jpg'">
+				<div class="newslist-item-nick">{{cm.nickname}}</div>
+			</div>
+			<div class="flex-1">
+				<div class="cm-content">
+					<div v-html="cm.content"></div> 
+					 
+					<img v-if="cm.imgurl!=''" :src="cm.imgurl+'.middle.jpg'">
+					 
+				</div>
+
+				<div class="flex">
+					<span class="cm-time">{{cm.timeago}}</span>
+					<span class="js-cm-btn cl-primary pointer" :v-newsid="cm.newsid" :v-id="cm.id" :v-nick="'@'+cm.nickname+' '">回复</span>
+				 
+					<span v-if="cm.userid==ssuser.userid || group.isadmin"  class="cm-del js-cm-delete" :v-id="cm.id">删除</span>
+				 
+				</div>
+
+			</div>
+
+
+		</div>
+		<div class="mgb-10">
+
+			<div v-for="(cc,ii) in cm.child" :key="ii" class="cms-box cms-child-box">
+				<div class="user_head">
+					<img :src="cc.user_head+'.100x100.jpg'">
+					<div class="cm-nick">{{cc.nickname}}</div>
+				</div>
+				<div class="cm-flex-1">
+					<div class="cm-content">
+						 
+						<div v-html="cc.content"></div>
+						 
+						<img v-if="cc.imgurl!=''" src="cc.imgurl+'.middle.jpg'">
+						 
+					</div>
+
+					<div class="cm-tools">
+						<span class="cm-time">{{cc.timeago}}</span>
+						<span class="js-cm-btn  cl-primary pointer" :v-newsid="cm.newsid" :v-id="cm.id" :v-nick="'@'+cc.nickname+' '">回复</span>
+						 
+						<span v-if="cc.userid==ssuser.userid || group.isadmin" class="cm-del js-cm-delete" :v-id="cm.id">删除</span>
+					 
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</template>
+</div>

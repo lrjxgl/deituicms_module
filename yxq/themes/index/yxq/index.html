@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}yxq/index.css" rel="stylesheet" />
+	<body>
+		<!--
+		<div class="header">
+			<div class="header-title">一线牵</div>
+		</div>
+		<div class="header-row"></div>
+		-->
+		<div class="main-body" id="vApp">
+			<div class="pd-10">
+				<div class="mgb-20">
+					<img class="imgbd" src="{$skins}css/ubanner.png" />
+				</div>
+				<div class="flex flex-center mgb-20">
+					<div class="cl-stat">已有</div>
+					<div class="stat-num">{$total_num}</div>
+					<div class="cl-stat">张纸条</div>
+					<div class="mgr-20"></div>
+					<div class="cl-stat">男生</div>
+					<div class="stat-num">{$boy_num}</div>
+					<div class="cl-stat">张</div>
+					<div class="mgr-20"></div>
+					<div class="cl-stat">女生</div>
+					<div class="stat-num">{$girl_num}</div>
+					<div class="cl-stat">张</div>
+				</div>
+			 
+				<div class="flex mgb-20 flex-jc-center">
+					<div class="xzBox">
+						<div class="zxBox-male">
+							<div class="zxBox-icon iconfont icon-male"></div>
+						</div>
+						<div class="cl-white flex-center mgb-20">相遇即是缘分</div>
+						<div class="flex-1"></div>
+						
+						<div class="flex flex-center">
+							
+							<div onclick="showPost(1)" class="xzBox-btn">放一张男生纸条</div>
+						</div>
+						
+					</div>
+					<div class="mgr-20"></div>
+					<div class="xzBox xzBox2">
+						<div class="zxBox-male zxBox-male2">
+							<div class=" zxBox-icon iconfont icon-female"></div>
+						</div>
+						<div class="cl-white  flex-center  mgb-20">惊喜马上就到</div>
+						<div class="flex-1"></div>
+						
+						<div class="flex flex-center">
+							
+							<div onclick="showPost(2)" class="xzBox-btn">放一张女生纸条</div>
+						</div>
+					</div>
+				</div>
+				<div class="cqBox-title">随机匹配</div>
+				<div class="flex mgb-20">
+					<div @click="getPaper(1,0)" class="cqBox">
+						<div class="cqBox-title">盲盒抽取</div>
+						<div class="cqBox-desc">随机一个男生盲盒</div>
+						<div class="cqBox-logo iconfont icon-male"></div>
+					</div>
+					<div class="mgr-20"></div>
+					<div @click="getPaper(2,0)" class="cqBox cqBox2">
+						<div class="cqBox-title">盲盒抽取</div>
+						<div class="cqBox-desc">随机一个女生盲盒</div>
+						<div class="cqBox-logo iconfont icon-female"></div>
+					</div>
+				</div>
+				<div class="cqBox-title">星座匹配</div>
+				<div class="flex">
+					<div @click="getPaper(1,1)" class="cqBox">
+						<div class="cqBox-title">盲盒抽取</div>
+						<div class="cqBox-desc">匹配男生盲盒</div>
+						<div class="cqBox-logo iconfont icon-male"></div>
+					</div>
+					<div class="mgr-20"></div>
+					<div @click="getPaper(2,1)" class="cqBox cqBox2">
+						<div class="cqBox-title">盲盒抽取</div>
+						<div class="cqBox-desc">匹配女生盲盒</div>
+						<div class="cqBox-logo iconfont icon-female"></div>
+					</div>
+				</div>
+			</div>
+			<div >
+				<div v-if="showPaper" id="paperModal">
+					<div @click="showPaper=false" class="modal-mask"></div>
+					<div class="modal paperBox-modal">
+						<div class="paperBox">
+							<div class="flex flex-center mgb-20">
+								<div id="post-title" class="f18 fw-600">抽到一张男生纸条</div>
+								<div @click="showPaper=false" class="paperBox-close iconfont icon-close"></div>
+							</div>
+							<div>
+								<div class="mgb-10">{{paper.description}}</div>
+								<div class="flex mgb-10 flex-wrap">
+									<img class="paperBox-imgList-img" v-for="(img,index) in paper.imgList" :key="index" :src="img+'.100x100.jpg'" />
+								</div>
+								<div class="flex mgb-10">
+									<div>她留的微信号：</div>
+									<span>{{paper.wxhao}}</span>
+									<div class="flex-1"></div>
+									<div class="btn-mini js-copy" :data-clipboard-text="paper.wxhao">复制</div>
+								</div>
+								<div class=" pd-10">
+									<div>纸条为网友发布，不保证真实性</div>
+									<div>我抽到的纸条，可以在我的中查看</div>
+								</div>
+								<div @click="showPaper=false" class="btn-row-submit">确认</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="postModal">
+			<div onclick="$('#postModal').hide()"  class="modal-mask"></div>
+			<div class="modal postBox-modal">
+				<form id="postForm" class="postBox">
+					<input  type="hidden" name="gender" id="gender"/>
+					<div class="flex flex-center mgb-20">
+						<div id="post-title" class="f18 fw-600">存一张男生纸条</div>
+						<div onclick="$('#postModal').hide()" class="postBox-close iconfont icon-close"></div>
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">微信号</div>
+						<input name="wxhao" class="input-flex-text" />
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">星座</div>
+						<select name="xingzuo" class="input-flex-select">
+							<option value="">请选择</option>
+							{foreach item=c from=$xzList}
+							<option value="{$c}">{$c}</option>
+							{/foreach}
+						</select>  
+					</div>
+					<div class="mgb-10 f16">交友简介</div>
+					<div class="postBox-desc">
+						<textarea name="description" class="postBox-textarea"></textarea>
+						<div class="">
+							<input type="hidden" name="imgsdata" id="imgsdata" value="" />
+							{include file="inc/uploader-data.html"}
+						</div>
+					</div>
+					<div id="postSubmit" class="btn-row-submit">一元存一张</div>
+					
+				</form>
+			</div>
+		</div>
+		
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}js/clipboard.min.js"></script>
+		<script src="/plugin/lrz/lrz.all.bundle.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="{$skins}yxq/index.js"></script>
+		<script>
+		 
+			function showPost(gender){
+				$("#gender").val(gender);
+				$("#postModal").show();
+				var title;
+				if(gender==1){
+					title="存一张男生纸条"
+				}else{
+					title="存一张女生纸条"
+				}
+				$("#post-title").html(title);
+			}
+			function getPaper(gender,type){
+				
+			}
+			
+			$(function(){
+				
+				var clipboard = new Clipboard('.js-copy');
+				clipboard.on('success', function(e) {
+				    $(".js-copy").html("已复制");
+				    setTimeout(function(){
+				    	$(".js-copy").html("一键复制");
+				    },3000)
+				    e.clearSelection();
+				});
+				clipboard.on('error', function(e) {
+				    	skyToast("浏览器不支持，请手动复制");
+				});
+				$(document).on("click","#postSubmit",function(){
+					var that=this;
+					if(!postCheck.canPost()){
+						return false;
+					}
+					$.ajax({
+						url:"/module.php?m=yxq_paper&a=save&ajax=1",
+						dataType:"json",
+						type:"POST",
+						data:$("#postForm").serialize(),
+						success:function(res){
+							skyToast(res.message)
+							if(!res.error){
+								$("#postModal").hide();
+							}
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+</html>

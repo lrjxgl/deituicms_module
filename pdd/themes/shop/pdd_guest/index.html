@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">消息</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if empty($list)}
+			<div class="emptyData">暂无更多消息</div>
+			{/if}
+			{foreach item=c from=$list}
+			<div gourl="/moduleshop.php?m=pdd_guest&a=user&id={$c.productid}&userid={$c.userid}" class="flexlist-item">
+				<img class="flexlist-img" src="{$c[user].user_head}.100x100.jpg" />
+				<div class="flex-1">
+					<div class="flex mgb-5">
+						<div class="flex-1 f16 cl2">{$c[user].nickname}</div>
+						<div class="cl3 f12">{$c.timeago}</div>
+					</div>
+					<div class="flexlist-desc">{$c.content}</div>
+				</div>
+			</div>
+			{/foreach}
+			
+		</div>
+		{assign var="ftnav" value="pdd_guest"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

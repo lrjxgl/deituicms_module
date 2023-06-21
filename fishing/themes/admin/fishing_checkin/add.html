@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='fishing_checkin/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=fishing_checkin&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+						<td>placeid：</td>		
+						<td><input type="text" name="placeid" id="placeid" value="{$data.placeid}" ></td>
+						</tr>
+  <tr>
+						<td>userid：</td>		
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+						</tr>
+  <tr>
+						<td>content：</td>		
+						<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+						</tr>
+  <tr>
+						<td>imgsdata：</td>		
+						<td>{include file="inc/uploader-data.html"}</td>
+						</tr>
+  {if $data}<tr>
+						<td>createtime：</td>		
+						<td>{$data.createtime}</td>
+						</tr>{/if}
+  <tr>
+						<td>status：</td>		
+						<td>
+							<input type="text" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="text" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

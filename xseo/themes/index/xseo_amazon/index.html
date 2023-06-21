@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.table{
+			background-color: #fff;
+		}
+		.table thead td{
+			padding: 8px 10px;
+		}
+		.table tbody td{
+			padding: 8px 10px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">亚马逊</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+				
+				<div class="row-box">
+					<div class="flex flex-ai-center mgb-5">
+						<div>关键词：</div>
+						<input v-model="keyword" class="search-input mgr-5"  type="text"/>
+						<div @click="search" class="btn">搜索</div>
+					</div>
+					<div class="mgb-5 flex flex-ai-center">
+						相关搜索：
+						<span class="mgr-5" @click="searchWord(item)" v-for="(item,index) in wordRow.uws" :key="index">
+							{{item}}
+						</span>
+						 
+					</div>
+				</div>
+				
+				
+				<div>
+					<table class="table">
+						<thead>
+							<tr>
+								<td>排行</td>
+								<td>asin</td>
+								 
+								<td class="w300">产品信息</td>
+								<td class="w100">流量来源</td>
+								<td>全部流量词</td>
+								<td>自然流量词</td>
+								<td>广告流量词</td>
+								<td class="w100">操作</td> 
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr v-for="(item,index) in list" :key="index">
+								<td>{{index+1}}</td>
+								<td>
+									<img :src="item.product.imgurl" class="w100" /><br />
+								{{item.product.asin}} </td>
+								 
+								<td>
+									<div>{{item.product.title}}</div>
+									
+									<div class="flex">
+										<span class="mgr-5">${{item.product.price}}</span>
+										<sky-raty :grade="item.product.raty" len="5"></sky-raty>
+										 
+									</div>
+									<div class="f12">最近更新：{{item.createtime}}</div>
+								</td>
+								<td>
+									<div v-if="item.search_word_num>0">自然搜索</div> 
+									<div v-if="item.ad_word_num>0">广告</div> 
+									<div v-if="item.recommend_word_num>0">官方推荐</div>
+									
+								</td>
+								<td ><div @click="showWord(item,'all')" class="cl-primary">{{item.stat_word_num}}</div></td>
+								<td><div @click="showWord(item,'search')" class="cl-primary">{{item.search_word_num}}</div></td>
+								<td><div @click="showWord(item,'ad')" class="cl-primary">{{item.ad_word_num}}</div></td>
+								<td>
+									<div class="cl-primary">关注该产品</div>
+									<div class="cl-primary">反查流量词</div>
+									<div class="cl-primary">下载流量词</div>
+									<div class="cl-primary">变体流量词</div>
+									<a class="cl-primary" :href="item.product.url" target="_blank">访问亚马逊</a>
+								</td> 
+							</tr>
+						</tbody>
+						
+					</table>
+				</div>
+				<div v-if="showWordModal">
+					<div @click="showWordModal=false" class="modal-mask"></div>
+					<div class="modal">
+						<div class="row-box">
+							<div v-for="(item,index) in wordList" :key="index">
+								{{item}}
+							</div>
+						</div>
+						
+					</div>
+				</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}xseo_amazon/index.js"></script>
+		<script src="/plugin//dt-ui/raty.vue.js"></script>
+	</body>
+</html>

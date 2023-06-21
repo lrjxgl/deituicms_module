@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<img src="{$vote.imgurl|images_site}" class="wmax"> 
+		<div class="row-box">
+			<div class="flex flex-center bd-mp-5">
+				<div class="flex-1 ">
+					<div class="f16">已报名</div>
+					<div class="cl2">{$vote.join_num}</div>
+				</div>
+				<div class="flex-col-line"></div>
+
+				<div class="flex-1">
+					<div class="f16">累计投票</div>
+					<div class="cl2">{$vote.vote_num}</div>
+				</div>
+				<div class="flex-col-line"></div>
+				<div class="flex-1">
+					<div class="f16">访问量</div>
+					<div class="cl2">{$vote.view_num}</div>
+				</div>
+
+			</div>
+
+			<div class="row-item "><i class="row-item-icon icon-hot_light"></i>
+				<div class="flex-1">{$vote.title}</div>
+			</div>
+			<div class="row-item "><i class="row-item-icon icon-time"></i>
+				<div class="flex-1">{$vote.starttime|date:Y.m.d}-{$vote.endtime|date:Y.m.d}</div>
+			</div>
+			<div class="tabs-toggle-group">
+				<div class="tabs-toggle">
+					<div class="tabs-toggle-hd flex-ai-center"><div class="row-item-icon icon-news"></div>活动介绍</div>
+					<div class="tabs-toggle-box">{$vote.content}</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-box">
+			<div class="flex">
+				<input type="text" placeholder="输入编号" id="search-word" class="input-flex-text" value="">
+				<div class="input-flex-btn" id="search-submit"><i class="iconfont  icon-search"></i></div>
+			</div>
+			
+			<div class="  vlist " id="votelist">
+				{foreach item=c from=$ulist}
+				<div class="item ">
+					<div class="pd">
+						<div class="bg">
+							<div class="img"><a href="/module.php?m=vote_join&a=show&shopappid={$shop_app.shopappid}&vid={$c.vid}&id={$c.id}"><img
+									 src="{$c.imgurl|images_site}.100x100.jpg"></a></div>
+							<div class="title">{$c.title}</div>
+							<div class="row-num">
+								<a class="btn" href="/module.php?m=vote_join&a=show&shopappid={$shop_app.shopappid}&vid={$c.vid}&id={$c.id}">投票</a>
+								<div class="num">{$c.vote_num}票</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				{/foreach}
+
+				<div class="clearfix"></div>
+
+
+			</div>
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="footer.html"}
+		<script>
+			$(document).on("click", ".vtoggle", function() {
+				if ($(this).hasClass("von")) {
+					$(this).removeClass("von");
+				} else {
+					$(this).addClass("von");
+				}
+			});
+
+			$(document).on("click", "#search-submit", function() {
+				var keyword = $("#search-word").val();
+				$.get("/module.php?m=vote_join&a=search&ajax=1", {
+					vid: "{$vote.id}",
+					bianhao: keyword
+				}, function(data) {
+					if (data.error) {
+						skyToast(data.message);
+					} else {
+						$("#votelist").html(data.data);
+					}
+				}, "json");
+			});
+		</script>
+	</body>
+</html>

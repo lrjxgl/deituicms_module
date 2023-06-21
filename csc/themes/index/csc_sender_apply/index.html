@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请成为配送员</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/module.php?m=csc_sender_apply&a=save&ajax=1" id="form">
+				<input type="hidden" name="senderid" value="{$data.senderid}" />
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">姓名</div>
+					<input type="text" name="truename" class="input-flex-text" value="{$data.truename}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input type="text" name="telephone" class="input-flex-text" value="{$data.telephone}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">微信号</div>
+					<input type="text" name="wxhao" class="input-flex-text" value="{$data.wxhao}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">身份证号</div>
+					<input type="text" name="userno" class="input-flex-text" value="{$data.userno}" />
+				</div>
+				<div class="upimg-box bg-fff">
+					<div class="input-flex-label">身份证<br/>照片</div>
+					<div class="upimg-item none">
+						<img class="upimg-img" src="">								 
+					</div>	
+					<div class="upimg-btn  js-upimg-btn">
+						<i class="upimg-btn-icon"></i>
+					</div>
+					<input type="hidden" class="imgurl" name="usercard" />
+					<div class="none">
+						<input type="file" name="" class="js-upimg-file" />
+					</div>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

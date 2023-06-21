@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}b2c/fzred/index.css?v1" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<img src="{$site.logo}.100x100.jpg" class="header-logo" />
+			<div class="header-search-box">
+				<input id="keyword" type="search" class="header-search pdl-5" />
+				<div id="searchBtn" class="header-search-btn  iconfont icon-search"></div>
+			</div>
+
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body" id="App">
+			<div>
+				<div class="swiper-container" style="width: 100%;" id="indexFlash">
+					<div class="swiper-wrapper">
+						{foreach item=c from=$flashList}
+						<div class="swiper-slide">
+							<img class="wmax" src="{$c.imgurl}" />
+
+						</div>
+						{/foreach}
+					</div>
+
+					<div class="swiper-pagination"></div>
+
+				</div>
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-10">
+				{foreach item=c from=$navList}
+				<a href="{$c.link1}" class="m-navPic-item">
+					<img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+					<div class="m-navPic-title">{$c.title}</div>
+
+				</a>
+
+				{/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox mgb-10">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+
+			</div>
+			{/if}
+			
+			<div v-if="msList.length>0" class="row-box mgb-10">
+				<div class="flex flex-ai-center mgb-5">
+					<div class="iconfont icon-time mgr-5 f16"></div>
+					<div class="fw-600 cl2">限时秒杀</div>
+					<div class="flex-1"></div>
+					<div class="cl3">距结束</div>
+					<div id="timeout" class="flex flex-ai-center">
+						<span class="msBox">{{h}}</span>
+						<span>:</span>
+						<span class="msBox">{{m}}</span>
+						<span>:</span>
+						<span class="msBox">{{s}}</span>
+					</div>
+					
+				</div>
+				<div class="" style="width: 100%;padding:6px 0px; overflow: auto;">
+					<div class="flex">
+						 
+						<div v-for="(item,index) in msList" @click="goProduct(item.id)" class="pd-10">
+							<img class="w100 bd-radius-20" :src="item.imgurl+'.100x100.jpg'" />
+							<div class="flex flex-ai-center">
+								<div class="f16 cl-money">￥{{item.price}}</div>
+								<div class="flex-1"></div>
+								<div class="market-price f12">￥{{item.market_price}}</div>
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+			</div>
+			<div v-if="msList.length>0" class="row-box mgb-10">
+				<div class="flex flex-ai-center mgb-5">
+					<div class="iconfont icon-group mgr-5 f16"></div>
+					<div class="fw-600 cl2">活力拼团</div>
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=b2c_pintuan" class="cl3">more...</div> 
+					
+				</div>
+				<div class="" style="width: 100%;padding:6px 0px; overflow: auto;">
+					<div class="flex">
+						 
+						<div v-for="(item,index) in ptList" @click="goProduct(item.id)" class="pd-10">
+							<img class="w100 bd-radius-20" :src="item.imgurl+'.100x100.jpg'" />
+							<div class="flex flex-ai-center">
+								<div class="f16 cl-money">￥{{item.pt_price}}</div>
+								<div class="flex-1"></div>
+								<div class="market-price f12">￥{{item.price}}</div>
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+			</div> 
+			<div class="row-box mgb-10">
+				<div style="overflow: auto;">
+					<div class="cnav">
+						<div @click="setCat(0)" :class="catid==0?'cnav-item-active':''" class="cnav-item">推荐</div>
+						
+						<div @click="setCat(item.catid)" :class="catid==item.catid?'cnav-item-active':''"  class="cnav-item" v-for="(item,index) in catList">
+							{{item.title}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div>	
+				<pubu-list :data-list="list"></pubu-list>
+			</div> 
+		</div>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://beian.miit.gov.cn">{$site.icp}</a>
+		</div>
+		{assign var="ftnav" value="b2c_home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}js/pubu-list.js"></script>
+		<script src="{$skins}b2c/fzred/index.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			 
+			$(function() {
+				var flash = new Swiper("#indexFlash", {
+					loop: true,
+					pagination: {
+						el: '.swiper-pagination'
+					},
+				});
+				$(document).on("click", "#searchBtn", function() {
+					var keyword = $("#keyword").val();
+					window.location = "/module.php?m=b2c_search&keyword=" + encodeURIComponent(keyword);
+				})
+			})
+		</script>
+
+	</body>
+</html>

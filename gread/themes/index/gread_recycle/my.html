@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的旧书回收</div>
+	<div gourl="/module.php?m=gread_recycle&a=add" class="header-right-btn">我要卖书</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="sglist">
+		{foreach item=c from=$list}
+		<div class="sglist-item js-item">
+			<div class="flex bd-mp-5">
+				<div class="cl-status">{$c.status_name}</div>
+				<div class="flex-1"></div>
+				<div class="cl3 f12">{$c.createtime}</div>
+			</div>
+			<div class="sglist-title">{$c.description}</div>
+			<div class="flex mgb-5">
+				<div class="cl2 mgr-5">{$c.nickname}</div>
+				<div class="cl2 mgr-5">{$c.telephone}</div>
+			</div>
+			<div class="cl2 f12 mgb-5">{$c.address}</div>
+			{if $c.status eq 0}
+			<div class="flex">
+				<div class="flex-1"></div>
+				<div url="/module.php?m=gread_recycle&a=delete&ajax=1&id={$c.id}" class="btn btn-danger js-delete">取消订单</div>
+			</div>
+			{/if}
+		</div>
+		{/foreach}
+	</div> 
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

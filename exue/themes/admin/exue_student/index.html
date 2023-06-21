@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=exue_student">管理</a>
+ 
+</div>
+<div class="main-body">
+	<form action="/moduleadmin.php" class="search-form">
+		<input type="hidden" name="m" value="exue_student" />
+		<div class="flex flex-ai-center">
+			名字：<input value="{$keyword}" class="w150" type="text" name="keyword" />
+			<button class="btn-small">搜一下</button>
+		</div>
+		
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>stid</td>
+	<td>姓名</td>
+   <td>性别</td>
+   <td>电话</td>
+   
+   
+   <td>照片</td>
+   <td>状态</td>
+    
+   <td>积分</td>
+  
+   <td>生日</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.stid}</td>
+    <td>{$c.truename}</td>
+    
+   <td>{if $c.gender eq 1}男{else}女{/if}</td>
+   <td>{$c.telephone}</td>
+    
+  
+   <td>
+   	   {if $c.imgurl}<img  src="{$c.imgurl|images_site}.100x100.jpg" width="60" />{/if}
+   </td>
+   <td>{if $c.status eq 1}上线{else}下线{/if}</td>
+    
+   <td>{$c.grade}</td>
+   
+   <td>{$c.age}</td>
+<td><a href="/moduleadmin.php?m=exue_student&a=add&stid={$c.stid}">编辑</a> 
+ 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=exue_student&a=delete&ajax=1&stid={$c.stid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

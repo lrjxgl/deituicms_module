@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}ershou_category/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">分类</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body bg-white">
+		<div class="list-side">
+			{foreach item=c from=$catList}
+			<div class="list-side-item">{$c.title}</div>
+			{/foreach}
+			 
+		
+		
+		</div>
+		<div class="list-main">
+			{foreach item=c from=$catList}
+			{foreach item=cc from=$c.child}
+			<div class="list-cat-item">
+				 
+				<div gourl="/module.php?m=ershou_product&a=list&catid={$cc.catid}" class="list-cat-hd">{$cc.title}</div>
+				<div class="list-child">
+					 
+						{foreach item=ccc from=$cc.child}
+						<div gourl="/module.php?m=ershou_product&a=list&catid={$ccc.catid}" class="list-child-item">
+							<img class="list-child-img" src="{$ccc.imgurl}.100x100.jpg" >
+							<div class="list-child-title">{$ccc.title}</div>
+						</div>
+						{/foreach} 
+					
+					<div class="clearfix"></div>
+				</div>
+			</div>
+			{/foreach} 
+			{/foreach}
+			
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}ershou_category/index.js"></script>
+	</body>
+</html>

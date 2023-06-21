@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的表白</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				<div class="tabs-border">
+					<div @click="setType('receive')" :class="type=='receive'?'tabs-border-active':''" class="tabs-border-item">我收到的</div>
+					<div @click="setType('send')"  :class="type=='send'?'tabs-border-active':''"  class="tabs-border-item">我发出的</div>
+				</div>
+				<div v-if="list.length==0" class="emptyData">暂无招呼</div>
+				<div v-else>
+					<div class="flexlist-item" v-for="(item,index) in list" :key="index">
+						<img @click="goPeople(item)" class="flexlist-img pointer" :src="item.people.imgurl+'.100x100.jpg'" />
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div  @click="goPeople(item)" class="pointer">{{item.people.truename}}</div>
+								<div class="flex-1"></div>
+								<div class="cl-status f12">{{item.status_name}}</div>
+							</div>
+							<div class="flexlist-desc">{{item.content}}</div>
+							<div class="flex">
+								<div class="flex-1"></div>
+								<div @click="pass(item)" v-if="item.status==0 && type=='receive'" class="btn-mini mgr-5">接受</div>
+								<div @click="forbid(item)" v-if="item.status==0 && type=='receive'"  class="btn-mini mgr-5">拒绝</div>
+								<div @click="goPm(item)" v-if="item.status==1"  class="btn-mini">聊一聊</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}xiangqin_biaobai/my.js"></script>
+	</body>
+</html>

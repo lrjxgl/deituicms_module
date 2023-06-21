@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body class="bg-ef">
+		<div class="pd-10 f16">当前考卷：{$exam.title}</div>
+		<div class="main-body " id="app">
+			
+			 
+			<div class="search-form">
+				<div class="flex flex-ai-center mgb-5">
+					关键字：<input v-model="keyword" class="w150" type="text" />
+					<div class="btn mgl-5" @click="search">搜一下</div>
+				</div>
+			</div>
+				<div class="modal-group" :style="searchClass">
+					<div class="modal-mask" @click="searchHide"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">搜索结果</div>
+						</div>
+						<div class="modal-body">
+						<div class="slist" v-if="searchList.length>0">
+							<form :id="'addForm'+item.topicid" class="row-box mgb-5" v-for="(item,index) in searchList" :key="index">
+								<input type="hidden" name="topicid" :value="item.topicid" />
+								<div class="mgb-10 flex">
+									<div class="flex-1">{{item.title}}</div>
+									<div>{{item.typeid_title}}</div>
+								</div>
+								<div class="flex flex-ai-center">
+									<div class="pd-5">分数</div>
+									<input type="text" class="w50" name="grade" :value="item.grade" />
+									<div class="pd-5">排序</div>
+									<input type="text" class="w50" name="orderindex" :value="item.orderindex" />
+									<div class="flex-1"></div>
+									<div class="btn mgr-5" @click="add('#addForm'+item.topicid)">添加</div>
+									 
+								</div>
+							</form>
+						</div>
+						</div>
+					</div>
+					<div class="emptyData" v-else>
+						暂无数据
+					</div>	
+				</div>
+			
+			<div class="list">
+				<div v-for="(item,index) in pageData.list" :key="index" class="row-box mgb-5">
+					<div class="mgb-10 flex">
+						<div class="flex-1">{{item.title}}</div>
+						<div>{{item.typeid_title}}</div>
+					</div>
+					<div class="flex flex-ai-center" :id="'ex'+item.id">
+						<input type="hidden" name="exid" :value="item.exid" />
+						<div class="pd-5">分数</div>
+						<input type="text" class="w50" name="grade" :value="item.grade" />
+						<div class="pd-5">排序</div>
+						<input type="text" class="w50" name="orderindex" :value="item.orderindex" />
+						<div class="flex-1"></div>
+						<div class="btn mgr-5" @click="upExam(item.id)">保存</div>
+						<div class="btn btn-warning" @click="del(item.id)">删除</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var exid="{$exam.exid}";
+		</script>
+		<script src="{$skins}exam_ask/index.js?v2"></script>
+	</body>
+</html>

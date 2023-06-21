@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.lineText{
+			border:0;
+			border-bottom: 1px solid #ddd;
+			outline: none;
+			width:60px;
+			padding: 0px 5px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">题库</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		{foreach item=c from=$list}
+		<div class="row-box mgb-5">
+			{if $c.typeid eq 'text'}
+			<div class="flex flex-wrap mgb-5 " style="line-height: 2;">
+				{foreach item=a key=ka from=$c.ask}
+				 
+					{if $a.type=="text"}
+					{$a.content}
+					{else}
+					<input class="lineText" type="text" value="{$a.answer}" />
+					{/if}
+				{/foreach}
+			</div>
+			{elseif $c.typeid eq 'radio'}
+			<div class="f16 cl1 mgb-5">{$c.title}</div>
+			<div>
+				{foreach item=a key=ka from=$c.ask}
+				<div class="radio-flex cl2"><input name="tp[$c.topicid]" type="radio" /> {$ka}、{$a}</div>
+				{/foreach}
+			</div>
+				{elseif $c.typeid eq 'checkbox'}
+			<div class="f16 cl1 mgb-5">{$c.title}</div>
+			<div>
+				{foreach item=a key=ka from=$c.ask}
+				<div class="checkbox-flex cl2"><input name="tp[$c.topicid]" type="checkbox" /> {$ka}、{$a}</div>
+				{/foreach}
+			</div>
+			{else}
+			<div class="f16 cl1 mgb-5">{$c.title}</div>
+			<div><textarea class="textarea-flex-text h60" name="tp[$c.topicid]"></textarea></div>
+			{/if}
+		</div>
+		{/foreach}
+		 
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

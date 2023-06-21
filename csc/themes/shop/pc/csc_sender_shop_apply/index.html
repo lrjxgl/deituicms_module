@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border flex-jc-start">
+			<div class="tabs-border-item tabs-border-active">申请列表</div>
+		</div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="mgr-5">{$c.truename}</div>
+					<div>{$c.telephone}</div>
+					<div class="flex-1"></div>
+					<div class="btn-mini mgr-10 js-accept" senderid="{$c.senderid}">接受</div>
+					<div class="btn-mini js-forbid" senderid="{$c.senderid}">拒绝</div>
+				</div>
+			</div>
+			
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click",".js-accept",function(){
+					if(confirm("确认接受吗")){
+						$.ajax({
+							url:"/moduleshop.php?m=csc_sender_shop_apply&a=accept&ajax=1",
+							dataType:"json",
+							data:{
+								senderid:$(this).attr("senderid")
+							},
+							success:function(res){
+								skyToast(res.message)
+							}
+						})
+					}
+				})
+				$(document).on("click",".js-forbid",function(){
+					if(confirm("确认拒绝吗")){
+						$.ajax({
+							url:"/moduleshop.php?m=csc_sender_shop_apply&a=forbid&ajax=1",
+							dataType:"json",
+							data:{
+								senderid:$(this).attr("senderid")
+							},
+							success:function(res){
+								skyToast(res.message)
+							}
+						})
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

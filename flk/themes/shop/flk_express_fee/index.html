@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">物流费用</div>
+			<div gourl="/moduleshop.php?m=flk_express_fee&a=add" class="header-right-btn">添加</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="bg-white">
+				{foreach item=c from=$list}
+				<div gourl="/moduleshop.php?m=flk_express_fee&a=add&id={$c.id}" class="row-item">
+					<div class="flex-1">
+					<div class="sglist-title">{$c.title}</div>
+					<div class="flex">
+						<div class="flex-1 cl3">首重 {$c.fmoney}元/kg</div>
+						<div class="cl3">续重 {$c.amoney}元/kg</div>
+						
+					</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+	 
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">找人</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div>
+				<div class="row-box mgb-5 flex">
+					<input v-model="keyword" type="text" class="input-flex-text" />
+					<div @click="search" class="input-flex-btn w50">搜</div>
+				</div>
+				<div class="tabs-border">
+					<div @click="setType('recommend')" :class="type=='recommend'?'tabs-border-active':''" class="tabs-border-item">推荐</div>
+					<div @click="setType('vip')"  :class="type=='vip'?'tabs-border-active':''"  class="tabs-border-item">Vip</div>
+					<div @click="setType('new')"  :class="type=='new'?'tabs-border-active':''"  class="tabs-border-item">新人</div>
+					<div @click="setType('all')"  :class="type=='all'?'tabs-border-active':''"  class="tabs-border-item">全部</div>
+				</div>
+				<div v-if="Object.keys(list).length==0" class="emptyData">暂无</div>
+				<div v-for="(item,index) in list" :key="index" class="row-box flex mgb-5">
+					<img @click="goUser(item.userid)" class="wh-60 pointer mgr-5" :src="item.user_head+'.100x100.jpg'" />
+					<div class="flex-1">
+						<div @click="goUser(item.userid)" class="mgb-5 pointer">{{item.nickname}}</div>
+						<div class="flex mgb-5">
+							<div class="mgr-5">关注</div>
+							<div class="mgr-5 cl-num">{{item.follow_num}}</div>
+							<div class="mgr-5">粉丝</div>
+							<div class="cl-num">{{item.followed_num}}</div>
+						</div>
+						<div class="cl2 f12 pd-5">{{item.description}}</div>
+					</div>
+					<div>
+						<div v-if="item.isfollow" @click="followToggle(item)" class="btn-mini">取消关注</div>
+						<div v-else @click="followToggle(item)" class="btn-mini">关注</div>
+					</div>
+				</div>
+				<div @click="getList" v-if="per_page>0" class="loadMore">加载更多</div>
+				 
+			</div>
+		</div>
+		{assign var="ftnav" value="people"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}sblog_people/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="header">
+		    <a href="/" class="header-back"></a>
+		    <div class="header-title">零元抽奖</div>
+		</div>
+		<div class="header-row"></div> 
+		<div class="main-body">
+			<div class="tabs-border">
+				<a href="/module.php?m=cj1" class="tabs-border-item {if get('isfinish') neq 1}tabs-border-active{/if}">活动中</a>
+				<a href="/module.php?m=cj1&isfinish=1" class="tabs-border-item {if get('isfinish') eq 1}tabs-border-active{/if}">已结束</a>
+			</div>
+		    <div class="flexlist">
+		    	{foreach item=c from=$data}
+		    	<a class="flexlist-item" href="/module.php?m=cj1&a=show&id={$c.id}">
+		    		<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" />
+		    		<div class="flex-1">
+		    			<div class="flexlist-title">{$c.title}</div>
+		    			<div class="f12 cl2 mgb-5">开始时间：{$c.starttime|date:Y-m-d H:i}</div>
+		    			<div class="flex">
+		    			 价值：<span class="cl-money">￥{$c.price}</span> 
+						 &nbsp;&nbsp;	成团数：<span class="cl-num">{$c.need_num}</span> 
+		    			</div>
+		    		</div>
+		    	</a>
+		    	{/foreach}
+		    </div>
+		</div>
+	{assign var="mfooter" value="index"}
+	{include file="ftnav.html"}
+	{include file="footer.html"}
+		<?php wx_jssdk();?>
+<script>
+	wxshare_title="福鼎生活网零元购天天免费抢红包";
+ 	wxshare_imgUrl="http://www.fd175.com/static/lyg_logo.png";
+</script>
+	</body>
+</html>

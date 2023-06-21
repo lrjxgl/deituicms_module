@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">订单详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <div  class="flexlist-item" >
+    	 	<img gourl="/module.php?m=fxa_product&a=show&id={$product.id}" class="flexlist-img" src="{$product.imgurl}.100x100.jpg" />
+    	 	<div class="flex-1">
+    	 		<div gourl="/module.php?m=fxa_product&a=show&id={$product.id}" class="flexlist-title">{$product.title}</div>
+    	 		<div class="flex">
+    	 			<div class="cl-money">￥{$order.money}</div>
+    	 			<div class="flex-1"></div>
+    	 			<div class="cl-status">{$order.status_name}</div>
+    	 		</div>
+    	 		
+    	 	</div>
+    	 </div>
+		 
+		 <div class="row-box mgb-5">
+			 <div class="fw-600 mgb-10">收货信息</div>
+			
+			 <div class="flex bd-mp-5">
+				 <div class="mgr-10">联系人</div>
+			 	 <div class="">{$order.nickname}</div>
+			 	
+			 </div>
+			 <div class="flex bd-mp-5">
+			 	<div class="mgr-10">电话</div>
+			 	 <div class="">{$order.telephone}</div>
+			 	
+			 </div>
+			 <div class="flex bd-mp-5">
+			 	 <div class="mgr-10">地址</div>
+			 	 <div class="">{$order.address}</div>
+			 	
+			 </div>
+			 {if !empty($order.express_no)}
+			 <div class="flex bd-mp-5">
+			 			 <div>快递单号：</div>
+			 			 <div>{$order.express_no}</div>
+			 </div>
+			 {/if}
+		 </div>
+		 
+		 {if $order.send_type eq 1} 
+		 <div  class="row-box">
+			 <div class="fwb">消费说明</div>
+			 <div>{$product.usedesc}<br/>到门店出示本订单二维码，商家扫码即可消费</div>
+			 <div class="flex-center">
+				 <img class="wh-150" src="{$ewm}" />
+				 <div class="f12 cl-red">请不要将二维码给别人</div>
+			 </div>
+		 </div>
+		{/if}
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

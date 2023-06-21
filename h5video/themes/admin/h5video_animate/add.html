@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		#aniClass{
+			width: 120px;
+		 
+			background-color: #007AFF;
+			cursor: pointer;
+			color: #fff;
+			padding: 10px;
+		}
+	</style>
+	<link href="/plugin/dt-ui/animate.css" rel="stylesheet" />
+	<body>
+		{include file='h5video_animate/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=h5video_animate&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>动画类名：</td>
+						<td>
+							<div>
+							<input type="text" name="animate" id="animate" value="{$data.animate}">
+							</div>
+							<div id="aniClass" class="animated {$data.animate}">刷新一下</div>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>状态</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1} checked{/if} value="1" />显示
+							
+							<input type="radio" name="status" {if $data.status neq 1} checked{/if}  value="2" />隐藏
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var animate="";
+			$(document).on("keyup","#animate",function(){
+				if(animate!=$(this).val()){
+					var cls="animated "+$(this).val();
+					animate=$(this).val();
+					$("#aniClass").attr("class",cls);
+				}
+			})
+			$(document).on("click","#aniClass",function(){
+				var cls=$(this).attr("class");
+				$("#aniClass").attr("class","");
+				setTimeout(function(){
+					$("#aniClass").attr("class",cls);
+				},30);
+				
+			})
+		</script>
+	</body>
+</html>

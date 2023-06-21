@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="shd">砍价订单</div>
+	 
+		<div class="main-body">
+			<div class="tabs-border i5">
+				{foreach item=c key=k from=$statuslist}
+				<a class="item {if get('status') eq $k}active{/if}" href="/moduleadmin.php?m=zhuli_order&status={$k}">{$c}</a>
+				{/foreach}
+ 
+			</div>
+		    <div class="flexlist">
+		    	{foreach item=c from=$orderlist}
+		    		<div class="flexlist-item item">
+		    			<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+		    			<div class="flex-1"> 
+			    			<a href="/moduleadmin.php?m=zhuli&id={$c.zlid}" class="f14 flex-col mgb-5">{$c.title}</a>
+			    			<div class="flex mgb-5" >
+			    				<span class="mgr-5 cl2">价格</span> 
+								<span class="cl-money mgr-20">￥{$c.money} </span> 	 
+								<span class="mgr-5 cl2">状态</span>
+			    				<span class="cl-status">{$c.status_name}</span>
+								<div class="flex-1"></div>
+			    				<div class="f12 cl3">{$c.createtime}</div>
+								
+			    			</div>
+			    			<div class="flex mgb-5">
+			    				<div class="cl2 f12">联系人：{$c.nickname}</div>
+			    				<div class="cl2 f12">联系电话：{$c.telephone}</div>
+			    				<div class="cl2 f12">收货地址：{$c.address} </div> 
+			    				
+								
+			    			</div>
+			    			<div class="cl2 f12 mgb-10">
+			    				备注：{$c.comm}
+			    			</div>
+			    			<div class="flex">
+			    				{if $c.status eq 0} 
+			    				<a href="javascript:;" data-orderid="{$c.orderid}" class="js-confirm btn-mini mgr-20">确认订单</a>
+								<a href="javascript:;"  data-orderid="{$c.orderid}"  class="js-cancel btn-mini mgr-20">取消订单</a>
+								{/if}
+								{if $c.status lt 3}
+								 <a href="javascript:;"  data-orderid="{$c.orderid}"  class="js-send btn-mini mgr-20">确认发货</a>
+			    				 
+								 <a href="javascript:;"  data-orderid="{$c.orderid}"  class="js-finish btn-mini mgr-20">确认完成</a>
+			    				{/if} 
+			    			</div>
+		    			</div>
+		    		</div>
+		    	{/foreach}
+		    </div>
+		    {$pagelist}
+		</div>
+	<script>
+		$(function(){
+			$(document).on("click",".js-confirm",function(){
+				var orderid=$(this).attr("data-orderid");
+				var $obj=$(this);
+				$.get("/moduleadmin.php?m=zhuli_order&a=confirm&ajax=1&orderid="+orderid,function(data){
+					skyJs.toast(data.message);
+					if(!data.error){
+						$obj.parents(".item").find(".status-name").html(data.message);
+						$obj.remove();
+					}
+				},"json")
+			})
+			$(document).on("click",".js-send",function(){
+				var orderid=$(this).attr("data-orderid");
+				var $obj=$(this);
+				$.get("/moduleadmin.php?m=zhuli_order&a=send&ajax=1&orderid="+orderid,function(data){
+					skyJs.toast(data.message);
+					if(!data.error){
+						$obj.parents(".item").find(".status-name").html(data.message);
+						$obj.remove();
+					}
+				},"json")
+			})
+			
+			$(document).on("click",".js-finish",function(){
+				var orderid=$(this).attr("data-orderid");
+				var $obj=$(this);
+				$.get("/moduleadmin.php?m=zhuli_order&a=finish&ajax=1&orderid="+orderid,function(data){
+					skyJs.toast(data.message);
+					if(!data.error){
+						$obj.parents(".item").find(".status-name").html(data.message);
+						$obj.remove();
+					}
+				},"json")
+			})
+			
+			$(document).on("click",".js-cancel",function(){
+				var orderid=$(this).attr("data-orderid");
+				var $obj=$(this);
+				$.get("/moduleadmin.php?m=zhuli_order&a=cancel&ajax=1&orderid="+orderid,function(data){
+					skyJs.toast(data.message);
+					if(!data.error){
+						$obj.parents(".item").find(".status-name").html(data.message);
+						$obj.remove();
+					}
+				},"json")
+			})
+		})
+	</script>	
+	</body>
+</html>

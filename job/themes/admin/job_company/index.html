@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a href="/moduleadmin.php?m=job_company" class="item {if $type eq ''}active{/if}">全部公司</a>
+	<a href="/moduleadmin.php?m=job_company&type=new" class="item {if $type eq 'new'}active{/if}">待审核</a>
+	<a href="/moduleadmin.php?m=job_company&type=pass" class="item {if $type eq 'pass'}active{/if}">已通过</a>
+	<a href="/moduleadmin.php?m=job_company&type=forbid" class="item {if $type eq 'forbid'}active{/if}">已禁止</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>comid</td>
+   <td>标题</td>
+   <td>描述</td>
+  
+   <td>发布时间</td>
+   <td>联系人</td>
+   <td>联系电话</td>
+   <td>地址</td>
+   <td>状态</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.comid}</td>
+   <td>{$c.title}</td>
+   
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="50"/></td>
+   <td>{$c.createtime}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+   <td>
+	    <div url="/moduleadmin.php?m=job_company&a=status&ajax=1&id={$c.id}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+  
+<td><a href="/moduleadmin.php?m=job_company&a=add&comid={$c.comid}">编辑</a> 
+
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=job_company&a=delete&comid={$c.comid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

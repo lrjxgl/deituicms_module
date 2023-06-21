@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">邻里拼团</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box mgb-5">
+		<img src="{$data.imgurl}" class="d-img mgb-10" />
+		<div class="d-title">{$data.title}</div>
+		
+		<div class="flex mgb-5">
+			<div class="cl2 mgr-5">服务时间</div>
+			<div class="cl-red">{$data.dotime}</div>
+		</div> 
+		<div class="cl3 mgb-5">{$data.description}</div>
+	</div>
+	<div class="row-box mgb-10">
+		<div class="fw-600 mgb-10">拼团说明</div>
+		<div class="mgb-10 cl2 f12">参与拼团越多越优惠,约上邻居一起拼团</div>
+		<div>
+			<div class="flex bg-info pd-10">
+				<div class="w100 cl-white">服务数量</div>
+				<div class="flex-1 cl-white">服务价格</div>
+			</div>
+			{foreach item=c from=$setList}
+			<div class="flex flex-ai-center pd-5">
+				<div class="w100 pdl-5">{$c.user_num}</div>
+				<div>{$c.price}元</div>
+			</div>
+			{/foreach}
+		</div>
+	</div>
+	<div class="row-box mgb-10">
+		<div class="d-content">{$data.content}</div>
+	</div> 
+    	 
+
+    
+</div>
+
+
+<div class="modal-group" id="orderModal">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">我要参与</div>
+			<div class="modal-close icon-close "></div>
+		</div>
+		<div class="modal-body">
+			<form id="orderForm">
+				<input type="hidden" name="gid" value="{$data.gid}" />
+			<div class="input-flex">
+				<div class="input-flex-label">服务数量</div>
+				<input name="num" type="text" class="input-flex-text" /> 
+				<div class="pd-5">台</div>
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">联系人</div>
+				<input name="nickname" type="text" class="input-flex-text" />
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">电话</div>
+				<input name="telephone" type="text" class="input-flex-text" />
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">地址</div>
+				<input name="address"  type="text" class="input-flex-text" />
+			</div>
+			
+			<div id="orderSubmit" class="btn-row-submit">确认参与</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="shareModal" class="modal-group">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">邀请好友</div>
+			<div class="modal-close icon-close "></div>
+		</div>
+		<div class="modal-body">
+			<div>邀请好友方法：</div>
+			<div class="mgb-5">
+				一、微信右上角点击···，将页面链接转发给朋友
+			</div>
+			<div>
+				<p>二、长按二维码图片保存，将图片分享给好友</p>
+				<div>
+					<img src="{$ewm}" style="max-width: 320px;margin: 0 auto;" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="footer-row"></div>
+<div class="footerFix row-box">
+	<div class="flex flex-ai-center">
+		
+		
+		<div class="cl2">已拼团</div>
+		<div class="cl-num">{$data.join_num}</div>
+		<div class="cl2 mgr-10">份</div>
+		<div class="flex-1"></div>
+		<!--<div class="cl2">定金</div>
+		<div class="cl-num">{$data.dj_money}元</div>
+		<div class="cl2 mgr-10">/份</div>-->
+		<div id="showOrder" class="btn-small btn-outline-primary">立即参与</div>
+		<div id="showShare" class="btn-small btn-outline-primary mgl-10">邀请好友</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script src="{$skins}lltuan_group/show.js"></script>
+</body>
+</html>

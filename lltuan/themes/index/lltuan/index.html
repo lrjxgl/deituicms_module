@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">邻里团</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				
+			</div>
+			<div class="sglist">
+				<div class="sglist-item" v-for="(item,index) in list" :key="index">
+					<img  @click="go(item)"  class="sglist-img" :src="item.imgurl+'.middle.jpg'" />
+					 
+					<div  @click="go(item)"  class="flexlist-title">{{item.title}}</div>
+					<div class="cl3 mgb-10 f12">{{item.description}}</div>
+					<div class="flex">
+						<div class="cl-red f14">服务时间：{{item.dotime}}</div>
+						<div class="flex-1"></div>
+						<div @click="go(item)" class="btn-small">立即参团</div>
+					</div>
+					 
+					
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}lltuan/index.js"></script>
+	</body>
+</html>

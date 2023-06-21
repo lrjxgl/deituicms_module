@@ -1,0 +1,58 @@
+.flexstat{
+	display: flex;
+	flex-direction: row;
+}
+.flexstat .item{
+	flex: 1;
+	text-align: center;
+	color: #333;
+	font-size: 16px;
+}
+.flexstat .l{
+	width: 1px;
+	height: 40px;
+	background-color: #aaa;
+	position: relative;
+	top: 5px;
+}
+.flexstat .num{
+	color: #0088CC;
+	font-size: 16px;
+}
+
+
+
+.winlist .item{
+	display: flex;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 10px;
+	color: #444;
+}
+.winlist .item .user{
+	width: 60px;
+	overflow: hidden;
+	line-height: 1;
+}
+.winlist .item .user img{
+	margin-bottom: 1px;
+}
+.winlist .item .nick{
+	margin-bottom: 5px;
+}
+.winlist .con{
+	font-size: 14px;
+	color: #666;
+}
+
+.gift-get{
+	position: fixed; 
+	right: 1px;
+	top: 100px;
+	width: 30px;
+	background-color: #008000;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+	padding: 10px 0px;
+	opacity: 0.8;
+}

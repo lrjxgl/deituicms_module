@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请赛事活动</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=fsw_match&a=save">
+				<input type="hidden" name="mid" style="display:none;" value="{$data.mid}">
+				<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">介绍：</div>
+					<textarea name="description" id="description"
+						class="textarea-flex-text h60" />{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">图片：</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.trueimgurl}.100x100.jpg">
+							</div>
+
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" />
+						</div>
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">联系人：</div>
+					<input type="text" name="nickname" id="nickname" class="input-flex-text" value="{$data.nickname}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话：</div>
+					<input type="text" name="telephone" id="telephone" class="input-flex-text" value="{$data.telephone}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">地址：</div>
+					<input type="text" name="address" id="address" class="input-flex-text" value="{$data.address}" />
+				</div>
+				<div class="sky-editor-content" name="content" contenteditable="true">{$data.content}</div>  
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+	</body>
+</html>

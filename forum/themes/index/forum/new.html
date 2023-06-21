@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.btn-mini{
+			padding: 2px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">最新帖子</div>
+			<div id="getNew" class="header-right-btn">刷新</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			 
+			<div class="sglist" id="list">
+				 
+				<div v-if="list">
+					<forum-item :data-list="list"></forum-item>
+				</div>  
+			</div>
+			<div v-if="per_page>0" class="loadMore" @click="getList">加载更多...</div>
+		</div>
+		<a href="/module.php?m=forum&a=add" class="fixedAdd">发布</a>
+		{include file="footer.html"}
+		 <script src="{$skins}js/forum-item.js"></script>
+		 <script src="{$skins}forum/new.js?v=23"></script>
+		 
+	</body>
+</html>

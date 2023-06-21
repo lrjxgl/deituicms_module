@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">视频库</div>
+			<div gourl="/moduleshop.php?m=flk_video&a=add" class="header-right-btn">发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="list">
+				{foreach item=c from=$list}
+				<div class="sglist-item js-item">
+					<img src="{$c.imgurl}.middle.jpg" class="sglist-img" />
+					<div class="sglist-title">{$c.title}</div>
+					<div class="flex flex-ai-center">
+						<div class="flex-1"></div>
+						<div gourl="/moduleshop.php?m=flk_video&a=add&id={$c.id}" class="btn-small mgr-10">编辑</div>
+						<div url="/moduleshop.php?m=flk_video&a=delete&id={$c.id}" class="btn-small btn-danger js-delete">删除</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+	</body>
+</html>

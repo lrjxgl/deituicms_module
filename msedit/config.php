@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"在线编曲",//模块名称
+	"module"=>"msedit",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"在线编曲音乐制作",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=msedit&a=menu",
+	"check_update"=>"https://www.deituicms.com",
+);
+?>

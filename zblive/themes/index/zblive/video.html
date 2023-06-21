@@ -1,0 +1,22 @@
+ 
+ 
+<template v-if="zblive.zbstatus==1 || (zblive.zbstatus==2 && zblive.isback==1)">
+<div  ></div>
+<div   >
+	
+	<video-js id="video" :width="videoWidth" :height="videoHeight" class="vjs-default-skin" controls>
+	  <source v-if="zblive.zbstatus==1" :src="m3u8url" type="application/x-mpegURL">
+	  <source v-else :src="mp4url" type="video/mp4"></source>
+	  
+	</video-js>
+ 
+</div>
+</template>
+
+<div v-else-if="zblive.zbstatus==0" class="row-box">
+	<div class="flex flex-center cl-red">即将开始直播</div>
+</div>
+<div v-else class="row-box">
+	<div class="flex flex-center cl-red">直播已经结束，稍后可看回放。</div>
+</div>
+ 

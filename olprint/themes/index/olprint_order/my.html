@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+		 
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="tabs-border">
+				<div gourl="/module.php?m=olprint_order&a=my" class="tabs-border-item {if get('type') eq ''}tabs-border-active{/if}">全部</div>
+				<div gourl="/module.php?m=olprint_order&a=my&type=unpay"  class="tabs-border-item {if get('type') eq 'unpay'}tabs-border-active{/if}">待支付</div>
+				<div gourl="/module.php?m=olprint_order&a=my&type=new"  class="tabs-border-item {if get('type') eq 'new'}tabs-border-active{/if}">待接单</div>
+				<div gourl="/module.php?m=olprint_order&a=my&type=unreceive"  class="tabs-border-item {if get('type') eq 'unreceive'}tabs-border-active{/if}">待收货</div>
+				<div gourl="/module.php?m=olprint_order&a=my&type=finish"  class="tabs-border-item {if get('type') eq 'finish'}tabs-border-active{/if}">已完成</div>
+			</div>
+			<div>
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="cl-status mgr-5">{$c.status_name}</div>
+						
+						<div class="flex-1"></div>
+						<div class="cl-money">￥{$c.money}</div>
+						
+					</div>
+					<div>
+						<div class="flex mgb-5">
+							<div class="cl2 f12 mgr-5">类型：</div>
+							<div class="cl-num f12 mgr-10">{$c.ptype_name}</div>
+							<div class="cl2 f12 mgr-5">页数：</div>
+							<div class="cl-num f12 mgr-10">{$c.page_num}</div>
+							 
+							<div class="cl2 f12 mgr-5">份数：</div>
+							<div class="cl-num f12">{$c.print_num}</div>
+						</div>
+						{if $c.bookid}
+						<div class="flex mgb-10">
+							<div class="cl3">{$c.book.title}</div>
+							<div class="flex-1"></div>
+							<div class="cl-primary" gourl="/module.php?m=olprint_book&a=show&bookid={$c.bookid}">详情</div>
+						</div>
+						
+						{/if}
+						{if $c.sendtype eq 1}
+						<div class="flex flex-ai-center mgb-5">
+							<div class="cl2 f12 mgr-5">收货人</div>
+							<div class="cl2 f12 mgr-5">{$c.nickname}</div>
+							<div class="flex-1"></div>
+							<div class="f12 cl-primary">{$c.telephone}</div>
+						</div>
+						<div class="cl3 f12 mgb-5">{$c.address}</div>
+						{/if}
+					</div>
+					<div class="flex mgb-5">
+						<div class="cl1 f12">{$c.sendtype_name}</div>
+						<div class="flex-1"></div>
+						<div class="cl3 f12">{$c.createtime}</div>
+					</div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						{if $c.ispay eq 0 && $c.status eq 0}
+						<div gourl="/module.php?m=olprint_order&a=pay&orderid={$c.orderid}" class="btn-mini mgr-10">去支付</div>
+						{/if}
+						{if $c.status eq 0}
+						<div class="btn-mini btn-warning mgr-10">取消打印</div>
+						{/if}
+						{if  $c.status <3}
+						<div  v="{$c.orderid}" class="btn-mini mgr-10 js-finish">确认收货</div>
+						{/if}
+						{if $c.status eq 3 && $c.israty eq 0}
+						<div gourl="/module.php?m=olprint_order&a=raty&orderid={$c.orderid}" class="btn-mini">去评价</div>
+						{/if}
+					</div>
+				</div>
+				{/foreach}
+				{$pagelist}
+			</div>
+		</div>
+		{assign var="ftnav" value="order"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click",".js-finish",function(){
+					var that=this;
+					var orderid=$(this).attr("v"); 
+					skyJs.confirm({
+						 
+						content:"确认已经收到打印资料吗",
+						success:function(){
+							$.ajax({
+								url:"/module.php?m=olprint_order&a=finish&ajax=1",
+								dataType:"json",
+								 
+								data:{
+									orderid:orderid
+								},
+								success:function(res){
+									skyToast(res.message)
+									if(res.error){
+										return false;
+									}
+									window.location.reload();
+								}
+							})
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+</html>

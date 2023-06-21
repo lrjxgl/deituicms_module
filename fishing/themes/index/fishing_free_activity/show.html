@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.ulist{
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	.uitem{
+		width: 20%;
+		padding: 5px;
+		box-sizing: border-box;
+	}
+	.uitem-head{
+		width: 50px;
+		margin-bottom: 10px;
+		border-radius: 50%;
+	}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">公益放流活动</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="row-box mgb-5">
+    	<img src="{$data.imgurl}.middle.jpg" class="d-img mgb-5" />
+    	<div class="d-title">{$data.title}</div>
+		<div class="flex mgb-5">
+			<div gourl="/module.php?m=fishing_free_place&a=show&placeid={$place.placeid}" class="cl-primary flex-1">位置：{$place.address}</div>
+			<div class="cl3 mgr-5">{$data.stime}</div>
+			<div class="cl-status">{$data.atype_title}</div>
+		</div>
+    	
+		
+    	<div class="cl3">{$data.description}</div>
+    </div>
+</div>	
+<div class="main-body" id="App">	
+	<div class="tabs-border">
+		<div @click="setTab('detail')" :class="tab=='detail'?'tabs-border-active':''" class="tabs-border-item">详情</div>
+		<div @click="setTab('join')" :class="tab=='join'?'tabs-border-active':''"  class="tabs-border-item">参与列表</div>
+	</div>
+	<div v-if="tab=='detail'" class="row-box">
+		<div class="d-content">{$data.content}</div>
+	</div>
+   <div  v-if="tab=='join'" class="row-box">
+   	 
+	<div class="ulist">
+		<div class="uitem" v-for="(item,index) in joinList" :key="index">
+			<img class="uitem-head" :src="item.user_head+'.100x100.jpg'" />
+			<div class="uitem-nickname">{{item.nickname}}</div>
+		</div>
+	</div>
+   </div>
+	<div class="footer-row"></div>
+	<div class="footerFix">
+		<div class="flex row-box">
+	 	<div class="cl3">参与增殖放流，贡献一份爱心</div>
+			<div class="flex-1"></div>
+			 
+			<template v-if="data.atype=='baoming'"> 
+			<div v-if="isJoin==0"  @click="joinModal=true"  class="btn-small">我要参加</div>
+		 
+			<div v-else class="cl-status">已参加</div>
+			</template> 
+			 
+			<div v-else-if="data.atype=='doing'" class="cl-status">比赛中</div>
+			 
+			<div v-else class="cl-status">已结束</div>
+			 
+		</div>
+	</div>
+	
+	<div v-if="joinModal">
+		<div @click="joinModal=false" class="modal-mask"></div>
+		<div class="modal">
+			<div class="modal-header">
+				<div class="modal-title">报名参加</div>
+				<div  @click="joinModal=false"  class="modal-close icon-close"></div>
+			</div>
+			<div class="modal-body">
+				<div class="input-flex">
+					<div class="input-flex-label">名字：</div>
+					<input id="join-nickname" v-model="addr.nickname" type="text" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话：</div>
+					<input id="join-telephone" v-model="addr.telephone" type="text" class="input-flex-text" />
+				</div>
+				<div @click="joinSubmit" class="btn-row-submit">确认参加</div>
+			</div>
+		</div>
+	</div>
+    
+</div>
+{include file="footer.html"}
+<script>
+	var actid={$data.actid}
+</script>
+<script src="{$skins}fishing_free_activity/show.js"></script>
+
+</body>
+</html>

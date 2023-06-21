@@ -1,0 +1,106 @@
+#frame {
+ 	top: 75px;
+ 	left: 0px;
+ 	right: 0px;
+ 	bottom: 10px;
+ 	position: absolute;
+ 	display: block;
+ 	background-color: #fff;
+ }
+
+ #main-frame {
+ 	border: 0;
+ 	width: 100%;
+ 	height: 100%;
+ }
+
+ body {
+ 	background-color: #13284f;
+ }
+
+ .clearfix:after {
+ 	clear: both;
+ 	display: block;
+ 	content: ".";
+ 	visibility: hidden;
+
+ }
+
+ .tp {
+ 	background-color: #143058;
+ 	padding-top: 20px;
+
+ 	height: inherit;
+ }
+
+ .tp .logo {
+ 	float: left;
+ 	margin-right: 20px;
+ 	margin-left: 20px;
+ 	padding: 10px 20px;
+ 	font-size: 20px;
+ 	color: #fff;
+ 	font-weight: 600;
+	margin-top: -15px;
+ }
+
+ .tp .logo .img {
+ 	width: 60px;
+ 	float: left;
+ 	margin-top: -16px;
+ }
+
+ .tp .tpnav {
+ 	float: left;
+ }
+
+ .tpnav .item {
+ 	float: left;
+ 	margin-right: 10px;
+ 	display: block;
+ 	padding: 15px 20px;
+ 	color: #fff;
+ 	cursor: pointer;
+ 	text-decoration: none;
+ 	position: relative;
+ }
+
+ .tpnav .item .iconfont {
+ 	margin-right: 2px;
+ }
+
+ .tpnav .item.active {
+ 	background-color: #fff;
+ 	color: #444;
+ }
+
+ .tpnav .childbox {
+ 	position: absolute;
+ 	top: 50px;
+ 	left: 0;
+ 	visibility: hidden;
+ 	height: 0px;
+ 	min-width: 100%;
+ 	z-index: 99999;
+ }
+ 
+ .tpnav .active .childbox {
+ 	display: block;
+ 	visibility: visible;
+ 	height: auto;
+ }
+
+ .tpnav .childbox a {
+ 	display: block;
+ 	white-space: nowrap;
+ 	background-color: #fff;
+ 	padding: 10px 20px;
+	color:#333;
+	text-decoration: none;
+ }
+
+ .tpnav .childbox a:hover,
+ .tpnav .childbox a:active {
+ 	color: #0000FF;
+ 	text-decoration: none;
+ }

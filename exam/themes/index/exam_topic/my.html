@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的题库</div>
+			<div gourl="/module.php?m=exam_topic&a=add" class="header-right-btn">添加</div>
+		</div>
+		<div class="header-row"></div>
+ 
+
+<div class="main-body bg-white">
+	<form action="/module.php" class=" mgb-5 pd-5 flex flex-ai-center">
+		<input type="hidden" name="m" value="exam_topic" />
+		<input type="hidden" name="a" value="my" />
+		<div class="mgr-5">题目</div> 
+		<input class="w150 input-flex-text" type="text" value="{$keyword}" name="keyword" />
+		<button class="input-flex-btn" type="submit">搜一下</button>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>topicid</td>
+	 <td>类型</td>
+   <td>题目</td>
+   <td>状态</td>
+   <td>创建时间</td>
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.topicid}</td>
+	 <td>{$c.typeid_title}</td>
+   <td>{$c.title}</td>
+   <td> 
+			<div class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}" url="/module.php?m=exam_topic&a=status&ajax=1&topicid={$c.topicid}"></div>
+	 </td>
+   <td>{$c.createtime}</td>
+   
+<td><a href="/module.php?m=exam_topic&a=add&topicid={$c.topicid}">编辑</a>
+ <a href="javascript:;" class="js-delete" url="/module.php?m=exam_topic&a=delete&topicid={$c.topicid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">热门直播</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    
+	<div class="mtlist">
+		 
+		<div @click="goLive(item.liveid)" v-for="(item,index) in list" :key="index" class="mtlist-item">
+			<div class="mtlist-item-bd">
+				<img class="mtlist-img mgb-5" :src="item.imgurl+'.small.jpg'" />
+				<div class="mtlist-title">{{item.title}}</div>
+			</div>
+		</div>
+		 
+	</div>
+    
+</div>
+{assign var="ftnav" value="live"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script src="{$skins}zbtao_live/index.js"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=csc_product&a=save&ajax=1">
+				<input type="hidden" name="id" value="{$data.id}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" name="title" value="{$data.title}" class="input-flex-text" />
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label">平台大类</div>
+					<select name="catid" class="input-flex-select">
+						<option value="0">请选择</option>
+						{foreach item=c from=$catlist}
+							<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+							{if $c.child}
+							{foreach item=cc from=$c.child}
+							<option value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+							{/foreach}
+							{/if}
+						{/foreach}
+					</select>
+				</div>
+				<!--
+				 <div class="input-flex">
+				 	<div class="input-flex-label">店铺分类</div>
+				 	<select name="shop_catid" class="input-flex-select">
+				 		<option value="0">请选择</option>
+				 		{foreach item=c from=$shop_catlist}
+				 			<option value="{$c.catid}" {if $data.shop_catid eq $c.catid}selected{/if}>{$c.title}</option>
+				 			{if $c.child}
+				 			{foreach item=cc from=$c.child}
+				 			<option value="{$cc.catid}" {if $data.shop_catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+				 			{/foreach}
+				 			{/if}
+				 		{/foreach}
+				 	</select>
+				 </div>
+				 -->
+				<div class="input-flex">
+					<div class="input-flex-label">供应商</div>
+					<select name="supid" class="input-flex-select">
+						<option value="0">请选择</option>
+						{foreach item=c from=$supList}
+							<option value="{$c.supid}" {if $data.supid eq $c.supid}selected{/if}>{$c.title}</option>
+							 
+						{/foreach}
+					</select>
+				</div>  
+				<div class="textarea-flex" style="margin-bottom: 0;">
+					<div class="textarea-flex-label">产品介绍</div>
+					<textarea class="textarea-flex-text h60" name="description">{$data.description}</textarea>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">价格</div>
+					<input type="text" name="price" value="{$data.price}" class="input-flex-text w60" />  
+					<span class="mgr-10">元</span>
+					<div class="input-flex-label">保护价</div>
+					<input type="text" name="safe_price" value="{$data.safe_price}" class="input-flex-text w60" />  
+					<span>元</span>
+					<div class="flex-1"></div>
+					<div class="input-flex-label w50">份量</div>
+					<input type="text" name="fenliang" value="{$data.fenliang}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">库存</div>
+					<input type="text" name="total_num" value="{$data.total_num}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">上架</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.status eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.status neq 1}switch-active{/if} js-switch" data-value="2">否</div>
+						<input type="hidden" name="status" value="{$data.status}" class="switch-value" />
+					</div>
+					<div class="flex-1"></div>
+					<div class="input-flex-label">预定</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.isplan eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.isplan neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="isplan" value="{$data.isplan}" class="switch-value" />
+					</div>
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">推荐</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.isrecommend eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.isrecommend neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="isrecommend" value="{$data.isrecommend}" class="switch-value" />
+					</div>
+					<div class="flex-1"></div>
+					<div class="input-flex-label">热门</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.ishot eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.ishot neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="ishot" value="{$data.ishot}" class="switch-value" />
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">标准产品</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.isfixed eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.isfixed neq 1}switch-active{/if} js-switch" data-value="0">否</div>
+						<input type="hidden" name="isfixed" value="{$data.isfixed}" class="switch-value" />
+					</div>
+				</div> 
+				<div class="bg-fff mgb-5">
+					<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+				{include file="inc/uploader-data.html"}
+				</div>
+				<div class="flex bg-fff pd-10 mgb-5" id="vdApp">
+					<div class="input-flex-label">商品视频</div>
+					<div class="flex-1">
+						<input type="hidden" v-model="videoid" name="videoid" id="videoid" />
+						
+						<div class="flex mgb-5">
+							<div @click="videoClass='flex-col'" class="btn" id="js-choice-video">视频库</div>
+						</div>
+						<div class="flex-col">
+							<img class="wmax" :src="videobg" />
+						</div>
+						<div :class="videoClass" class="modal-group">
+							<div @click="videoClass=''" class="modal-mask"></div>
+							<div class="modal">
+								<div class="modal-header">
+									<div class="modal-title">选择视频</div>
+									<div  @click="videoClass=''"  class="modal-close icon-close"></div>
+								</div>
+								<div class="modal-body">
+									<div v-for="(item,index) in list" :key="index" class="row-item-text">
+										<div class="flex-1">{{item.title}}</div>
+										<div @click="choiceVideo(item)" class="btn-small">选择</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="sky-editor-content" name="content" id="content" contenteditable="true">{$data.content}</div>
+				<div id="tableFieldBox">
+					{include file="csc_product/tablefields.html"}
+				</div> 
+				<div  class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		 
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script >
+			var vdApp=new Vue({
+				el:"#vdApp",
+				data:function(){
+					return {
+						list:[],
+						videoid:0,
+						videobg:"",
+						videoClass:""
+					}
+				},
+				created:function(){
+					this.getPage();
+					{if $data}
+						this.videoid="{$data.videoid}";
+						this.videobg="{$data.videobg}";
+					{/if}
+				},
+				methods:{
+					choiceVideo:function(item){
+						this.videoid=item.id;
+						this.videobg=item.imgurl;
+						this.videoClass="";
+					},
+					getPage:function(){
+						var that=this;
+						$.ajax({
+							url:"/moduleshop.php?m=csc_video&type=online&ajax=1",
+							dataType:"json",
+							success:function(res){
+								that.list=res.data.list;
+							}
+						})
+					}
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">优惠买单</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				<div class="flex-center mgb-5 row-box">
+					<img :src="shop.imgurl+'.100x100.jpg'" class="w60 mgb-5" />
+					<div>{{shop.shopname}}</div>
+					
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">支付金额</div>
+					<input v-model="money" type="text" class="input-flex-text" />
+					<div class="mgl-5">元</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">备注</div>
+					<input v-model="content" placeholder="说点什么" type="text" class="input-flex-text" />
+				</div>
+				<div @click="submit" class="btn-row-submit">优惠买单</div>
+			</div>
+		</div>	
+		
+		{include file="footer.html"}
+		<script>
+		var shopid="{$shop.shopid}"
+		</script>
+		<script src="{$skins}wmo2o_offpay/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.side{
+			width: 80px;
+			background-color: #fff;
+			position: fixed;
+			left: 0;
+			top: 50px;
+			bottom:0;
+		}
+		.side-item{
+			padding: 5px;
+			color: #646464;
+			cursor: pointer;
+		}
+		.side-active{
+			color: #F30;
+		}
+		.side-main{
+			margin-left: 82px;
+			flex: 1;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">图书库</div>
+			
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			
+			<div class="flex">
+				<div class="side">
+					<div @click="setCat(0)" :class="0==catid?'side-active':''" class="side-item">全部</div>
+					<div 
+					 @click="setCat(item.catid)"
+					v-for="(item,index) in catList" 
+					:class="item.catid==catid?'side-active':''" 
+					:key="index" class="side-item">{{item.title}}</div>
+				</div>
+				<div class="side-main">
+					<div class="pd-5 bg-white mgb-5">
+						<div class="flex flex-ai-center">
+							 
+							<input placeholder="请输入关键字" v-model="keyword" type="text" class="input-flex-text mgr-5" />
+							<div @click="search" class="btn-small">搜一下</div>
+						</div>
+					</div>
+					<div class="flexlist">
+						<div class="emptyData flex" v-if="keyword!='' && Object.keys(list).length==0">
+							<a class="btn" href="/moduleshop.php?m=gread_book&a=add">新书申请添加</a> 
+						</div>
+						<div v-for="(item,index) in list" :key="index" class="flexlist-item">
+							<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+							<div class="flex-1">
+								<div class="flexlist-title">{{item.title}}</div>
+								 
+								<div class="flex">
+									<div class="flex-1"></div>
+									<div v-if="!item.inshop" @click="add(item)" class="btn-mini mgr-5">添加</div>
+									<div v-else class="cl3">已添加</div> 
+								</div>
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+			</div>
+			
+			 
+			 
+
+		</div>
+		
+		{include file="footer.html"}
+		<script src="{$skins}gread_book/index.js"></script>
+		 
+	</body>
+</html>

@@ -1,0 +1,117 @@
+
+.tbs{
+	width: 100%;
+	border: 0;
+	border-collapse: collapse;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+}
+.tbs thead tr{
+	background-color: #f2f2f2;
+	color: #323232;
+}
+ 
+.tbs   td{
+	border: 1px solid #ddd;
+	 
+	padding: 10px 10px;
+}
+.tbs thead td{
+	padding: 0px 10px; 
+	line-height: 40px;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+}
+.mgt-5{
+	margin-top: 5px;
+}
+.ftbox{
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 50px;
+	display: flex;
+	flex-direction: row;
+	background-color: #f0f0f0;
+}
+.ftbox .ns{
+	flex: 1;
+	line-height: 50px;
+	padding: 0px 10px;
+	color: #555;
+	margin-right: 5px;
+	font-size: 16px;
+	flex-direction: row;
+}
+.ftbox .ns .num{
+	color: #f60;
+}
+.ftbox .bt{
+	width: 100px;
+	line-height: 50px;
+	background-color: #0034FF;
+	color: #fff;
+	font-size: 16px;
+	text-align: center;
+	cursor: pointer;
+}
+.ftbox .bt-disable{
+	background-color: #969696;
+}
+
+.uplist {}
+
+.uplist .item {
+	display: flex;
+	font-size: 14px;
+	background-color: #fff;
+	margin-bottom: 5px;
+	padding: 10px 5px;
+}
+
+.uplist .item-img {
+	width: 70px;
+	margin-right: 10px;
+}
+
+.uplist .item-img img {
+	width: 100%;
+}
+
+.uplist .item .flex-1 {
+	flex: 1;
+}
+
+.uplist .title {
+	font-size: 16px;
+}
+
+.uplist .row-price {
+	padding: 10px 0px;
+}
+
+.uplist .row-price .num {
+	color: #f60;
+	margin-right: 5px;
+}
+
+.uplist .addr {
+	color: #999;
+	padding: 5px;
+}
+
+.uplist .tools {
+	text-align: center;
+	padding: 10px 0px;
+	color: #666;
+}
+
+.uplist .tools a {
+	margin-right: 10px;
+}
+
+.uplist .row-time{
+	color: #666;
+	font-size: 14px;
+}

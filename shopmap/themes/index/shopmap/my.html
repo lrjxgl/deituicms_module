@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的名片</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flexlist">
+				{foreach item=c from=$data}
+				<div class="flexlist-item js-item">
+					<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img">
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-desc">{$c.address}</div>
+						<div class="flex">
+							<div class="btn-small mgr-10" gourl="/module.php?m=shopmap&a=show&id={$c.id}">查看</div>
+							<div class="btn-small mgr-10" gourl="/module.php?m=shopmap&a=add&id={$c.id}">编辑</div>
+							<div class="btn-small btn-danger js-delete" url="/module.php?m=shopmap&a=delete&id={$c.id}">删除</div>
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{assign var="ftnav" value="my"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

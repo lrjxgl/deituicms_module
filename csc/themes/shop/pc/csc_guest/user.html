@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.w200{
+			max-width: 200px;
+		}
+		.newMsg{
+			position: fixed;
+			right: 5px;
+			top: 200px;
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			border-radius: 20px;
+			text-align: center;
+			background-color: #F4726C;
+			color: #fff;
+			z-index: 99;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">消息</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="app" >
+			<div v-if="pageLoad" class="list" >
+				<div @click="getPage" v-if="hasNew" class="newMsg">新</div>  
+				<div v-for="(item,index) in pageData.list" :key="index" class="bg-white pd-10">
+					 
+					<div class="flex" v-if="item.author=='user'">
+						<img :src="item.user_head+'.100x100.jpg'" class="wh-40 mgr-10" />
+						
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="cl2 flex-1">{{item.nickname}}</div>
+								<div class="cl3 f12">{{item.timeago}}</div>
+							</div>
+							<div class="cl3">{{item.content}}</div>
+						</div>
+					</div>
+					<div class="flex" v-else>
+					<div class="flex-1"></div>
+					<div class="w200">
+						
+						<div class="cl2 mgb-5 flex">
+							<div class="flex-1"></div>
+							{{pageData.shop.shopname}}
+						</div>
+						<div class="cl3">{{item.content}}</div>
+					</div>
+				 
+					<img :src="pageData.shop.imgurl+'.100x100.jpg'" class="wh-40 mgl-10" />
+					</div>
+				</div>
+				<div class="loadMore" @click="getList" v-if="per_page>0">加载更多</div>
+			</div>
+			<div style="height: 60px;"></div>
+			<div style="position: fixed;bottom: 0;left: 0;right: 0;">
+				<div class="input-flex">
+					<input type="text" id="content" class="input-flex-text" />
+					<div class="input-flex-btn" id="submit">发送</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var id="{$csc.id}";
+			var shopid="{$shopid}";
+			var userid="{$user.userid}";
+			var app=new Vue({
+				el:"#app",
+				data:function(){
+					return {
+						pageLoad:false,
+						pageData:[],
+						isFirst:true,
+						per_page:0,
+						hasNew:false
+					}
+				},
+				created:function(){
+					this.getPage();
+				},
+				methods:{
+					checkNew:function(){
+						var that=this;
+						$.ajax({
+							url:"/moduleshop.php?m=csc_guest&a=csc&a=checkNew&ajax=1",
+							data:{
+								shopid:shopid,
+								userid:userid
+							},
+							dataType:"json",
+							success:function(res){
+								if(res.num==1){
+									that.hasNew=1;
+								}else{
+									that.hasNew=0;
+								}
+							}
+						})
+					},
+					getPage:function(){
+						var that=this;
+						$.ajax({
+							url:"/moduleshop.php?m=csc_guest&a=csc&ajax=1",
+							data:{
+								shopid:shopid,
+								userid:userid
+							},
+							dataType:"json",
+							success:function(res){
+								that.pageLoad=true;
+								that.pageData=res.data;
+								that.per_page=res.data.per_page;
+								that.hasNew=0; 
+							}
+						})
+					},
+					getList:function(){
+						var that=this;
+						if(!that.isFirst && that.per_page==0) return false;
+						$.ajax({
+							dataType:"json",
+							url:"/moduleshop.php?m=csc_guest&ajax=1",
+							data:{
+								per_page:that.per_page,
+								shopid:shopid,
+								userid:userid,
+							},
+							success:function(res){
+								if(that.isFirst){
+									that.list=res.data.list;
+									that.isFirst=false;
+								}else{
+									for(var i in res.data.list){
+										that.list.push(res.data.list[i]);
+									}
+								}
+								that.per_page=res.data.per_page;						
+							}
+						})
+					},
+					submit:function(){
+						
+					}
+				}
+			})
+			$(function(){
+				setInterval(function(){
+					app.checkNew();
+				},10000);
+				$(document).on("click","#submit",function(){
+					var content=$("#content").val();
+					$.post("/moduleshop.php?m=csc_guest&a=save&ajax=1",{
+						content:content,
+						id:id,
+						shopid:shopid,
+						userid:userid
+					},function(res){
+						app.getPage();
+						$("#content").val("");
+					},"json")
+				})
+			})
+		</script>
+	</body>
+</html>

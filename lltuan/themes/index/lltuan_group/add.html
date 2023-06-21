@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">创建邻里团</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=lltuan_group&a=save">
+				<input type="hidden" name="gid" style="display:none;" value="{$data.gid}">
+				<div class="input-flex">
+					<div class="input-flex-label">所在位置：</div>
+
+					<select class="input-flex-select" name="placeid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$placeList}
+						<option {if $data.placeid eq $c.placeid}selected{/if} value="{$c.placeid}">{$c.title}</option>
+						{/foreach}
+					</select>
+
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">所属服务：
+					</div>
+					<select class="input-flex-select"  name="productid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$proList}
+						<option {if $data.productid eq $c.productid}selected{/if} value="{$c.productid}">{$c.title}
+						</option>
+						{/foreach}
+					</select>
+				</div>
+		
+
+		 
+		<div class="input-flex">
+			<div class="input-flex-label">地点：</div>
+			<input type="text" name="address" id="address" class="input-flex-text" value="{$data.address}" />
+		</div>
+
+
+		<div class="btn-row-submit js-submit">保存</div>
+		</form>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div> 
+	<div class="header-title">钓鱼联赛</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    
+	<div class="tabs-border">
+		<div :class="type=='recommend'?'tabs-border-active':''" @click="setType('recommend')" class="tabs-border-item">推荐</div>
+		<div :class="type=='near'?'tabs-border-active':''"  @click="setType('near')"  class="tabs-border-item">附近</div>
+		<div :class="type=='hot'?'tabs-border-active':''"  @click="setType('hot')"  class="tabs-border-item">热门</div>
+	</div>
+    <div>
+		<div class="sglist">
+			 
+			<div @click="goDetail(item)" v-for="(item,index) in list" :key="index" class="sglist-item pointer">
+				<img class="sglist-img" :src="item.imgurl+'.middle.jpg'" />
+				<div class="sglist-title">{{item.title}}</div>
+				<div class="flex mgb-5">
+					<div class="cl2 flex-1">地址：{{item.address}}</div>
+					<div class="cl2">联赛积分：</div>
+					<div class="cl-num">{{item.grade}}</div>
+					 
+				</div> 
+				<div class="sglist-desc">{{item.description}}</div>
+			</div>
+			 
+		</div>
+	</div> 
+    
+</div>
+ 
+{include file="footer.html"}
+<script src="{$skins}fsw_match/index.js"></script>
+</body>
+</html>

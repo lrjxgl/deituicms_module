@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}ershou_product/show.css" rel="stylesheet" />
+ 
+<body>
+<div id="App">
+	<div class="header">
+		<div class="header-back pos-relative"></div>
+		<head-search   @call-parent="search"></head-search>
+		 
+		<head-more></head-more>
+		 
+	</div>
+	<div class="header-row"></div>
+	<div class="main-body">
+		<!--发布用户-->
+		<div class="row-box">
+			<div class="flex flex-ai-center">
+				<img @click="goHome()" style="width: 60px;border-radius: 50%; margin-right: 10px;" src="{$author.user_head}.100x100.jpg" />
+				<div class="flex-1">
+					<div @click="goHome()" style="margin-bottom: 3px;">{$author.nickname}</div>
+					<div class="flex">
+						<span class="mgr-5 cl3 f12">{$data.timeago}</span>   
+						<span class="cl3 f12">{$data.address}</span>
+					</div>
+				</div>
+				<div @click="followToggle()"  v-if="isFollow" class="btn-small btn-outline-primary">已关注</div>
+				<div @click="followToggle()"   v-else class="btn-small btn-outline-dark">+关注</div>
+			</div>
+		</div>
+		<div class="row-box">
+			<div class="flex flex-ai-end mgb-5">
+				<div class="cl-money f12">￥</div>
+				<div class="cl-money f16 fw-600 mgr-20">{$data.price}</div>
+				<!--<div class="tag  tag-warning">仅自提</div>-->
+			</div>
+			<div class="flex">
+				<div class="market-price">￥{$data.market_price}</div>
+				<div class="flex-1"></div>
+				<div class="mgr-10 cl3">{$data.love_num}人想要</div>
+				<div class="cl3">{$data.view_num}浏览</div>
+			</div>
+			
+		</div>
+		<div class="row-box">
+			<div class="d-content">{$data.description}</div>
+			<div>
+				{foreach item=c from=$imgList}
+				<img src="{$c}" class="wall" />
+				{/foreach}
+			</div>
+		</div>	 
+		<div class="footer-row"></div>
+		<div class="footer" >
+			<div class="flex pd-10" style="width: 100%;">
+				<div class="flex-1 flex flex-center mgr-10">
+					<div @click="cjBox=true" class="flex-1">
+						<div class="iconfont icon-moneybag"></div>
+						<div class="cl2">出价</div>
+					</div>
+					<div @click="cmBox=true" class="flex-1">
+						<div class="iconfont icon-comment_light"></div>
+						<div class="cl2">{{data.comment_num}}</div>
+					</div>
+					
+					<div @click="favToggle()" class="flex-1">
+						<div :class="isFav?'cl-warning':''" class="iconfont icon-favor_light"></div>
+						<div  :class="isFav?'cl-warning':''" class="cl2">{{data.fav_num}}</div>
+					</div>
+				</div>
+				
+				 
+				 
+				<div @click="buy()" class="zbtn zbtn2">我想要</div>
+			</div>
+		</div>
+		<div  v-if="cjBox">
+			<div @click="cjBox=false" class="modal-mask"></div>
+			<div class="cjBox">
+				<div class="flex flex-ai-center pd-10">
+					<img src="{$author.user_head}.100x100.jpg" class="cjBox-head" />
+					<div class="mgr-5">出价</div>
+					<input v-model="price" readonly placeholder="￥感兴趣就出个心理价" class="cjBox-text"  type="text"/>
+				</div>
+				<div class="flex">
+					<div class="table flex-1">
+						<div class="tr">
+							<div @click="writePrice(1)" class="td">1</div>
+							<div @click="writePrice(2)" class="td">2</div>
+							<div @click="writePrice(3)" class="td">3</div>
+							
+						</div>
+						<div class="tr">
+							<div @click="writePrice(4)" class="td">4</div>
+							<div @click="writePrice(5)" class="td">5</div>
+							<div @click="writePrice(6)" class="td">6</div>
+							
+						</div>
+						<div class="tr">
+							<div @click="writePrice(7)" class="td">7</div>
+							<div @click="writePrice(8)" class="td">8</div>
+							<div @click="writePrice(9)" class="td">9</div>
+							
+						</div>
+						<div class="tr">
+							<div class="td"></div>
+							<div @click="writePrice(0)" class="td">0</div>
+							<div class="td">
+								<img @click="cjBox=false" src="{$skins}img/jianpan.png" style="width: 30px;" />
+							</div>
+							
+						</div>
+					</div>
+					<div style="width: 80px;">
+						<div class="td2">
+							<div @click="removePrice()"  class="iconfont icon-close fw-600 f20"></div>
+						</div>
+						<div  @click="baojia()"  class="td2" style="background-color:#ffe60f;font-weight: 600;">出价</div>
+					</div>
+				</div>
+				
+				
+				
+			</div>
+		</div>
+		
+		<div v-if="cmBox" style="">
+			<div @click="cmBox=false" class="modal-mask"></div>
+			<div class="cmModal" style="">
+				<page-comment></page-comment>
+			</div>
+			
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script>
+	var productid="{$data.productid}"
+</script>
+<script src="/plugin/lrz/lrz.bundle.js"></script>
+<script src="{$skins}js/head-search.js"></script>
+		<script src="{$skins}js/head-more.js"></script>
+<script src="{$skins}ershou_product/page-comment.js"></script>
+<script src="{$skins}ershou_product/show.js"></script>
+</body>
+</html>

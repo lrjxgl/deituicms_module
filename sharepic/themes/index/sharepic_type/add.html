@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	<form method="post" action="/module.php?m=sharepic_type&a=save">
+<input type="hidden" name="typeid" style="display:none;" value="{$data.typeid}" >
+ <table class="table-add">  <tr>
+				<td>名称：</td>		
+				<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+				</tr>
+  <tr>
+				<td>图片：</td>		
+				<td><input type="text" name="imgurl" id="imgurl" value="{$data.imgurl}" ></td>
+				</tr>
+  <tr>
+				<td>用户：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>状态：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

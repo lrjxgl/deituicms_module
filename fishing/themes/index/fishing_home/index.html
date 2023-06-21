@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}fishing_home/index.css" rel="stylesheet" />
+	<body>
+		<div url="/module.php?m=fishing" class="header-back-fixed goBack" style="z-index: 999; color: #fff;"></div>
+		<div class="main-body none" :class="'flex-col'" v-if="pageLoad" id="App">
+			
+			<div class="uBox">
+				<div @click="followToggle(user)" v-if="user.isFollow" class="fixFollow fixFollow-active">已关注</div>
+				<div @click="followToggle(user)" v-else class="fixFollow fixFollow-active">+关注</div>
+				<div class="flex flex-center">
+					<img class="uBox-head" :src="user.user_head+'.100x100.jpg'"> 
+				</div>
+				<div class="flex flex-center">
+					<div class="uBox-nick">{{user.nickname}}</div>
+				</div>
+				<div class="flex mgb-10 flex-center">
+					<div class="mgr-5 cl-white">粉丝</div>
+					<div class="mgr-10  cl-white">{{user.followed_num}}</div> 
+					<div class="mgr-5  cl-white">关注</div>
+					<div class="cl-white">{{user.follow_num}}</div>
+					<div class="btn-pm  cl-white" @click="goPm(user.userid)">私信</div>
+				</div>
+				<div v-if="user.description==''" class="uBox-desc">该用户一句话也没留下</div>
+				<div v-else class="uBox-desc">{{user.description}}</div>
+			</div>
+			<div class="tabs-border">
+				<div @click="setTab('blog')" :class="tab=='blog'?'tabs-border-active':''" class="tabs-border-item">Ta的动态</div>
+				<div @click="setTab('fsw_activity')" :class="tab=='fsw_activity'?'tabs-border-active':''"  class="tabs-border-item">钓鱼比赛</div>
+				<div @click="setTab('free_activity')" :class="tab=='free_activity'?'tabs-border-active':''"  class="tabs-border-item">公益放流</div>
+				<div @click="setTab('fenlei')" :class="tab=='fenlei'?'tabs-border-active':''"  class="tabs-border-item">渔获交易</div> 
+			</div>
+			<div v-if="tab=='blog'">
+				<page-blog></page-blog>
+			</div>
+			<div v-if="tab=='fsw_activity'">
+				<fsw-activity></fsw-activity>
+			</div>
+			<div v-if="tab=='free_activity'">
+				<free-activity></free-activity>
+			</div>
+			<div v-if="tab=='fenlei'">
+				<page-fenlei></page-fenlei>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var  userid="{$userid}"
+		</script>
+		<script src="{$skins}fishing_home/blog.js"></script>
+		<script src="{$skins}fishing_home/fsw_activity.js"></script>
+		<script src="{$skins}fishing_home/free_activity.js"></script>
+		<script src="{$skins}fishing_home/fenlei.js"></script>
+		<script src="{$skins}fishing_home/index.js"></script>
+	</body>
+</html>

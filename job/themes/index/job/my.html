@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex pd-10 mgb-10 bg-white flex-ai-center">
+				<image class="wh-60 mgr-5 bd-radius-50" gourl="/index.php?m=user&a=user_head" src="{$user.user_head}.100x100.jpg" />
+				<div class="flex-1">
+					<div class="mgb-10 f16 flex">
+						<div>{$user.nickname}</div>
+						<div class="flex-1"></div>
+						
+					</div>
+					<div class="flex">
+						{if $invitecode}
+						<div class="cl2 mgr-5">邀请码</div>
+						<div class="cl-num">{$invitecode}</div>
+						{/if}
+					</div>
+					 
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+			</div>
+			<div class="row-box-hd  pdl-10">找工作</div>
+			<div class="row-box mgb-5">
+				
+				<div class="row-item">
+					<div gourl="/module.php?m=job_jianzhi_baoming" class="flex-1">兼职应聘</div>
+				</div>
+				<div class="row-item">
+					<div gourl="/module.php?m=job_quanzhi_baoming" class="flex-1">全职应聘</div>
+				</div>
+				<div class="row-item">
+					<div gourl="/module.php?m=job_jianli&a=my" class="flex-1">微简历</div>
+				</div>
+			</div>
+			<div class="row-box-hd pdl-10">找人才</div>
+			<div class="row-box mgb-5">
+				<div class="row-box-hd">兼职</div>
+				<div class="row-item">
+					<div gourl="/module.php?m=job_jianzhi&a=my" class="flex-1">兼职管理</div>
+				</div>
+				<div class="row-item">
+					<div gourl="/module.php?m=job_jianzhi&a=add" class="flex-1">发布兼职</div>
+				</div> 
+			</div>
+			
+			<div class="row-box">
+				<div class="row-box-hd">全职</div>
+				<div class="row-item">
+					<div gourl="/module.php?m=job_quanzhi&a=my" class="flex-1">全职管理</div>
+				</div>
+				<div class="row-item">
+					<div gourl="/module.php?m=job_quanzhi&a=add" class="flex-1">发布全职</div>
+				</div>
+				<div class="row-item">
+					<div gourl="/module.php?m=job_company&a=my" class="flex-1">公司信息</div>
+				</div>
+			</div>
+		</div>
+		
+		{include file="ftnav.html"}
+		{include file="footer.html"}	
+	</body>
+</html>

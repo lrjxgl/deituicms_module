@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">资讯</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    <div class="row-box mgb-5">
+		<img src="{$data.imgurl}.middle.jpg" class="d-img mgb-5" />
+		<div class="d-title">{$data.title}</div>
+		
+	</div>	 
+	<div class="row-box">
+		
+		<div class="d-content">{$data.content}</div>
+		<div>
+			{foreach item=c from=$imgList}
+			<img src="{$c.trueimgurl}.middle.jpg" class="max mgb-5" />
+			{/foreach}
+		</div>
+	</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

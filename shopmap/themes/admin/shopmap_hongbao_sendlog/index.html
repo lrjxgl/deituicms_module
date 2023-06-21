@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+	<div class="tabs-border">
+		<div class="item active">红包发送记录</div>
+	</div>
+		<div class="main-body">
+			<table class="tbs" width="100%">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>用户</td>
+						<td>金额</td>
+						<td>时间</td>
+						<td>状态</td>
+						<td>消息</td>
+
+						<td>操作</td>
+					</tr>
+				</thead>
+				{foreach item=c from=$data}
+				<tr>
+					<td>{$c.id}</td>
+					<td>{$c.nickname}</td>
+					<td>{$c.money}</td>
+					<td>{$c.dateline|date:Y-m-d}</td>
+					<td>{$c.status}</td>
+					<td>{$c.msg}</td>
+
+					<td>
+						{if $c.status neq 'SUCCESS'}
+						<a href="javascript:;" v="{$c.id}" class="js-send">重新发送</a>
+						{/if}
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+
+		{assign var="mfooter" value="sendlog"}
+		{include file="footer.html"}
+		<script>
+			$(document).on("click", ".js-send", function() {
+				var obj = $(this);
+				$.get("/moduleadmin.php?m=shopmap_hongbao_sendlog&a=send&ajax=1&id=" + $(this).attr("v"), function(data) {
+					skyToast(data.message);
+					obj.parents("tr").remove();
+				}, "json")
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,15 @@
+body,.mui-content{
+	background-color: #fff;
+}
+.table{
+	border-collapse: collapse;
+	width:100%;
+	
+}
+.table thead td{
+	height: 40px;
+}
+.table  td{
+	border-bottom:1px solid #eee;
+	padding: 5px;
+} 

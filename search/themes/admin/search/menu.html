@@ -1,0 +1,52 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>管理后台</title>
+<link type="text/css" rel="stylesheet" href="/themes/admin/css.css?v=1463716186">
+<script language="javascript" src="/static/js/jquery.js"></script>
+<script language="javascript">
+$(document).ready(function()
+{
+	$(".mtitle").click(function()
+	{
+		if($(this).next(".menu").css("display")=="block")
+		{
+			$(".menu").css("display","none")
+		 
+		}else
+		{
+			$(".menu").css("display","none")
+			$(this).next(".menu").css({display:"block"});
+		}
+	});
+	parent['main-frame'].location.href=$("a:eq(0)").attr("href");
+	$("ul li a:eq(0)").addClass('on'); 
+	$('ul li a').click(function(){
+		$('ul li a').removeClass('on');
+		$(this).addClass('on');
+	});
+});
+</script>
+</head>
+
+<body id="menu-body">
+<div class="mtitle">skySearch</div>
+<div class="menu" style="display:block">
+<ul>
+ 
+<li><a href="/moduleadmin.php?m=search_domain"  target="main-frame">域名管理</a></li>
+<li><a href="/moduleadmin.php?m=search_config"  target="main-frame">搜素设置</a></li>
+ 
+</ul>
+</div>
+<a href="/moduleadmin.php?m=search_domain"></a>
+<div style="display:none;">
+<div class="ztitle">版权声明</div>
+<div class="zbox" style="">
+
+版权归<a href="http://www.deitui.com" target="_blank">得推网络</a>所有<br>
+</div>
+</div>
+</body>
+</html>

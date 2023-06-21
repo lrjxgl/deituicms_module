@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div url="/module.php?m=gxny" class="header-back"></div>
+			<div class="header-title">{$shop.shopname}</div>
+			<div id="js-setShop" class="header-right-btn ">选中</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<img style="max-height: 480px;" class="d-img" :src="shop.imgurl" />
+			<div class="tabs-border mgb-5">
+				<div @click="pageTab='index'" :class="pageTab=='index'?'tabs-border-active':''" class="tabs-border-item">基地</div>
+				<div @click="pageTab='product'" :class="pageTab=='product'?'tabs-border-active':''"  class="tabs-border-item">菜园</div>
+				<div @click="pageTab='blog'" :class="pageTab=='blog'?'tabs-border-active':''"  class="tabs-border-item">动态</div>
+			</div>
+			<div v-if="pageTab=='index'" class="">
+				<div class="row-box mgb-5">
+			
+					<div class="row-item-text">
+						<div class="row-item-icon icon-shop"></div>
+						<div class="flex-1">{{shop.shopname}}</div>
+					</div>
+			
+					<div class="row-item-text">
+						<div class="row-item-icon icon-profile_light"></div>
+						<div class="mgr-10">{{shop.nickname}}</div>
+						<a :href="'tel:'+shop.telephone" class="flex-1">{{shop.telephone}}</a>
+					</div>
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-location_light"></div>
+						<div class="flex-1">{{shop.address}}</div>
+					</div>
+					<div class="flex">
+						<img :src="'https://api.map.baidu.com/staticimage/v2?ak=F73283d678ec76619500152b1a0835c0&mcode=666666&center='+shop.lng+','+shop.lat+'&width=300&height=200&zoom=11'" />
+					</div>
+			
+			
+			
+			
+				</div>
+				<div class="row-box mgb-5">
+					<div class="row-item-text mgb-10">
+						<div class="row-item-icon icon-read"></div>
+						<div class="flex-1">基地介绍</div>
+					</div>
+					<div v-html="shop.content" class="d-content">
+					 
+					</div>
+				</div>
+			</div>	
+			<div  v-if="pageTab=='product'" >
+				<div class="aTab mgb-5">
+					<div class="mgr-10">菜园状态</div> 
+					<div :class="type=='free'?'aTab-item-active':''" @click="setType('free')" class="aTab-item">闲置</div>				
+					<div :class="type=='sold'?'aTab-item-active':''" @click="setType('sold')"  class="aTab-item">已售</div>
+					<div :class="type=='look'?'aTab-item-active':''" @click="setType('look')"  class="aTab-item">围观</div>
+				</div>
+				<div class="aTab mgb-5">
+					<div class="mgr-10">菜园类型</div> 
+					<div v-for="(item,index) in catList" :key="index"
+						:class="catid==item.catid?'aTab-item-active':''"
+						@click="setCat(item.catid)" 
+						class="aTab-item">{{item.title}}</div>				
+					 
+				</div>
+				<div  style="max-height: 320px; overflow-y: auto; margin-bottom: 5px;" class="cdBox">
+					<div class="emptyData" v-if="list.length==0">暂无菜园</div>
+					<div @click="choiceProduct(item)"  :class="item.isused?'cdItem-active':''" class="cdItem" v-for="(item,index) in list" :key="index">
+						 {{item.no}} 
+					</div>
+				</div>
+				<div v-if="Object.keys(newPro).length>0"  class="row-box">
+					 
+					<div class="flex mgb-10 flex-ai-center">
+						<div class="mgr-5 cl-primary">菜园：#{{newPro.no}}</div>
+						<div class="flex-1"></div>
+						<div class="mgr-5 cl2">价格</div>
+						<div class="cl-money">{{newPro.cat.money}}元</div>
+						 
+					</div>
+					<div class="cl2 mgb-10">{{newPro.cat.description}}</div>
+					<div class="flex flex-ai-center">
+						<div class="flex-1"></div>
+							<div @click="buy(newPro)" class="btn-small">购买菜园</div>
+						</div>
+				</div>
+			</div>
+			
+			<div v-if="pageTab=='blog'">
+				<div class="emptyData" v-if="blogList.length==0">暂无帖子</div>
+				<div v-else   class="sglist">
+					 
+					<div v-for="(item,index) in  blogList" :key="index" @click="goBlog(item.id)" class="sglist-item">
+						
+						<div class="sglist-title flex" v-html="item.content"></div>
+						<div class="sglist-imglist">
+							 
+							<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+							
+						</div>
+						 
+						<div class="sglist-ft">
+							<div class="sglist-ft-love">{{item.love_num}}</div>
+							<div class="sglist-ft-cm">{{item.comment_num}}</div>
+							<div class="sglist-ft-view">{{item.view_num}}</div>
+						</div> 
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shopid}";
+			$(function(){
+				$(document).on("click","#js-setShop",function(){
+					$.ajax({
+						url:"/module.php?m=gxny_shop&a=setshop&shopid="+shopid,
+						success:function(){
+							window.location="/module.php?m=gxny"
+						}
+					})
+				})
+			})
+		</script>
+		<script src="{$skins}gxny_shop/index.js"></script>
+	</body>
+</html>

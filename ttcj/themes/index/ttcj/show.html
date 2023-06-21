@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		fieldset {
+			margin: 10px;
+			padding: 5px;
+			border-color: #eee;
+		}
+
+		fieldset legend {
+			margin: 0 auto;
+			color: #333;
+		}
+		.jList{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+		.jList-item{
+			width: 25%;
+			padding: 10px;
+		}
+		.jList-img{
+			width: 100%;
+			margin-bottom:5px;
+		}
+		.jList-nick{
+			text-align: center;
+			color:#666;
+			font-size: 12px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">抽奖详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body bg-white">
+
+			<img class="d-img" :src="data.imgurl">
+
+			<div class="row-box">
+				<div class="d-title">{{data.title}}</div>
+				<div class="cl2 f16 mgb-10">
+					截止时间：{{data.endtime}}
+				</div>
+				
+				<div v-if="data.isopen" class="flex bd mgb-10 bd-primary pd-10">
+					<img class="wh-60 mgr-5" :src="win_user.user_head+'.100x100.jpg'" />
+					<div class="flex-1 ">
+						<div class="flex cl2">
+							<span>恭喜</span> <span class="cl-num">{{win_user.nickname}}</span>
+							</div>
+						<div class="flex cl2">
+							<span>获得了价值￥</span>
+							<span class="cl-num">{{win_item.money}}</span> 
+							<span>的{{win_item.title}}</span>
+							
+						</div>
+					</div>
+				</div>
+
+
+
+				<fieldset>
+					<legend>奖品列表</legend>
+					<table class="tbs">
+
+
+						<thead>
+							<tr>
+								<td>奖项</td>
+								<td>价值</td>
+								<td>所需人数</td>
+							</tr>
+						</thead>
+						 
+						<tr v-for="(item,index) in itemList" :key="index">
+							<td>{{item.title}}</td>
+							<td>￥{{item.money}}</td>
+							<td>{{item.join_num}}</td>
+						</tr>
+						 
+					</table>
+				</fieldset>
+
+				<div v-html="data.content" class="d-content"></div>
+			</div>
+			<fieldset class="bg-white">
+				<legend>参与列表</legend>
+				<div class="jList " id="joinlist">
+					<div v-for="(item,index) in joinList" :key="index" class="jList-item">
+						<img class="jList-img" :src="item.user_head+'.100x100.jpg'" />
+						<div class="jList-nick">{{item.nickname}}</div>
+					</div>
+
+				</div>
+
+			</fieldset>
+			<div class="loadMore" @click="getOrderList()" v-if="per_page>0">加载更多</div>
+
+			<div v-if="showJoin">
+				<div class="modal-mask" @click="showJoin=false"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">确认信息</div>
+						<div class="modal-close" @click="showJoin=false">关闭</div>
+					</div>
+					<div class="modal-body">
+						<div>
+							<div class="input-flex">
+								<label class="input-flex-label">联系人</label>
+								<input v-model="addr.nickname" class="input-flex-text" type="text" />
+							</div>
+							<div class="input-flex">
+								<label class="input-flex-label">电话</label>
+								<input   v-model="addr.telephone" class="input-flex-text" type="text" />
+							</div>
+							<div class="input-flex">
+								<label class="input-flex-label">地址</label>
+								<input v-model="addr.address" class="input-flex-text" type="text" />
+							</div>
+							<div @click="joinSubmit()" class="btn-row-submit">确认参与</div>
+						</div>
+					</div>
+					<div style="height:30px"></div>
+				</div>
+			</div>
+			<div style="height:51px"></div>
+			<div class="ftbox">
+				<div class="ns">人数
+					<span class="num">{{data.join_num}}</span>
+				</div>
+				<div class="ns">奖金
+					<span class="num">{{win_money}}</span>
+				</div>
+				 
+				<div v-if="!data.isopen" @click="showJoin=true" class="bt">我要参与</div>
+				 
+				<div v-else class="bt bt-disable">已结束</div>
+			 
+			</div>
+		</div>
+		
+
+		{include file="footer.html"}
+		<script>
+			var cjid = "{$data.cjid}";
+		</script>
+
+		<script src="{$skins}/ttcj/show.js?v3"></script>
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_title = "{$data.title}"; 
+			{if $data.imgurl}
+			wxshare_imgUrl = "{$data.imgurl}"; 
+			{/if}
+		</script>
+	</body>
+</html>

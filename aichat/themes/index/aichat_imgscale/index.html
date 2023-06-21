@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">图片放大</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div class="mgb-10">
+					<input class="none" id="upimg" @change="uploadImg" type="file" />
+					<div class="flex">
+						<div class="flex-1">
+							<div v-if="true_oimg==''" class="flex flex-center bg-white" style="height: 300px;">
+								<div @click="upClick" class="btn-small">上传图片</div>
+							</div>
+							<img @click="upClick"  v-if="true_oimg!=''" class="wmax" :src="true_oimg" />
+						</div>
+						<div class="flex-1">
+							<img v-if="imgurl!=''" class="wmax" :src="imgurl" />
+						</div>
+					</div>
+				</div>
+				<div class="mgb-10 ">
+					<div>点击上传图片，然后再点击开始生成，就可以生成高清图片了。点击左边图片可以重新上传</div>
+					
+				</div>
+				<div class="flex">
+					
+					<div class="flex-1"></div>
+					<div @click="submit" class="btn-small">开始生成</div>
+				</div>
+				
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}aichat_imgscale/index.js?{$smarty.now}"></script>
+	</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='shop_product_item_test/nav.html'}
+ <table class="table table-bordered" width="100%">
+  <tr>
+   <td>id</td>
+   <td>shopid</td>
+   <td>itemid</td>
+   <td>productid</td>
+   <td>userid</td>
+   <td>createtime</td>
+   <td>content</td>
+   <td>ispass</td>
+<td>操作</td>
+  </tr>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.itemid}</td>
+   <td>{$c.productid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.content}</td>
+   <td>{$c.ispass}</td>
+<td><a href="admin.php?m=shop_product_item_test&a=add&id={$c.id}">编辑</a> <a href="admin.php?m=shop_product_item_test&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="delete" url="admin.php?m=shop_product_item_test&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+{include file="footer.html"}
+</body>
+</html>

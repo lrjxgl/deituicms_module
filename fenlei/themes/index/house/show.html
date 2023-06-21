@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">租房详情</div>
+</div>
+<div class="header-row"></div>
+<a href="/module.php?m=fenlei&a=add&catid={$cat.catid}" class="fixedAdd">发布</a>
+<div class="main-body">
+	{if $imgsdata}
+	<div class="swiper-container" id="indexFlash">
+		<div class="swiper-wrapper" >
+			{foreach item=c from=$imgsdata}
+			<div class="swiper-slide">
+				<img class="imgWidth" src="{$c}" />
+			</div>
+			{/foreach}
+		</div>
+		 
+		<div class="swiper-pagination"></div>
+	 
+	</div>
+	{elseif $data.imgurl}
+	<div>
+		<img class="d-img" src="{$data.imgurl}" />
+	</div>
+	{/if}
+	<div class="row-box mgb-5">
+		
+		<div class="d-title">{$data.title}</div>
+		<div class="flex mgb-10">
+			<div class="flex-1 flex">
+				<div class="flex flex-ai-center flex-1 cl2  f12"><div class="iconfont icon-time"></div>{$data.timeago}</div>
+				<div class="flex  cl2  mgr-10 iconfont icon-attention">{$data.view_num}</div>
+			</div>
+			 
+			
+		</div>
+		<div class="flex bd-mp-10">
+			{if $data.typeid}
+			<div class="flex-1">
+				<div class="mgb-10 cl2">{$cat.typeLabel}</div>
+				<div class="cl1">{$data.typeid_name}</div>
+			</div>
+			{/if}
+			<div class="flex-1">
+				<div class="mgb-10 cl2">{$cat.moneyLabel}</div>
+				<div class="cl-money">￥{$data.money}</div>
+			</div>
+			<div class="flex-1">
+				<div class="mgb-10 cl2">所在区域</div>
+				<div class="cl1">{$data.sc_id_name}</div>
+			</div>
+		</div>
+		<div class="d-content">{$data.description}</div>
+		
+	</div>
+	<!--扩展属性-->
+	<div class="mgb-5 f16 pd-10">房间描述</div>
+	{if $fieldsList}
+	<div class="row-box mgb-5">
+		{foreach item=c from=$fieldsList}
+		{if $c.fieldtype=='text'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1">{$c.value}</div>					
+		</div>
+		{elseif $c.fieldtype=='textarea'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1">
+				{$c.value}
+			</div>					
+		</div>
+		{elseif $c.fieldtype=='html'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1 d-content">
+				{$c.value}
+			</div>					
+		</div>
+		{elseif $c.fieldtype=='img'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1">
+				<img src="{$c.value}" class="wmax" />
+			</div>					
+		</div>
+		{elseif $c.fieldtype=='map'}
+		<div class="flex bd-mp-10 flex-ai-center">
+			<div class="w100">{$c.title}</div>
+			<div class="flex-1 flex">
+				<img  src="http://api.map.baidu.com/staticimage/v2?ak={const.BDMAPKEY}&mcode=666666&center={$c.value}&markers={$c.value}&width=300&height=200&zoom=11 " class="wmax"  />
+			</div>					
+		</div>
+		{/if}
+		{/foreach}
+	</div>
+	{/if}
+	{if $com.typeid==1}
+	<div class="row-box mgb-5">
+		<div class="flex">
+			<img src="{$com.imgurl}.100x100.jpg" class="wh-60 mgr-10"/> 
+			<div class="flex-1">
+				<div class="mgb-5 cl2">{$com.title}</div>
+				<div class="cl3 flex"><i class="iconfont icon-location_light"></i>{$com.address}</div>
+			</div>
+		</div>
+	</div>
+	{/if}
+	{if $recList}
+	<div class="sglist">
+		<div class="pd-5 bdb pdt-10 bg-fff f16">推荐信息</div>
+		{foreach item=c from=$recList}
+		<a href="/module.php?m=fenlei&a=show&id={$c.id}" class="flexlist-item">
+			{if $c.imgurl}
+			<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg" />
+			{/if}
+				 <div class="flex-1">
+					<div class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-row">
+							<div class="cl-money">￥{$c.money}</div>
+						</div>
+					  <div class="flexlist-desc">
+						  {$c.description}
+					  </div>
+				</div>
+		</a>
+		{/foreach}
+	</div> 
+	{/if} 
+	 
+	
+</div>
+<div class="footer-row"></div>
+ <div class="footer">
+	 <div class="footer-item icon-share js-share-btn">分享</div>
+	 <div class="btn-fav flex-col js-fav-toggle bd-0 {if $isfav}btn-fav-active{/if} mgr-10" tablename="mod_fenlei" objectid="{$data.id}">收藏</div>
+	 <div gourl="/module.php?m=fenlei_guest&a=user&id={$data.id}" class="footer-item icon-service_light">咨询</div>
+	 {if $data.telephone}
+	 <a href="tel:{$data.telephone}" class="footer-item icon-phone">电话</a>
+	 {/if}
+ </div>
+ <div class="wx-share-guide">
+	 <img src="/static/images/wx_guide.png" class="wx-share-guide-img" />
+ </div>
+{include file="footer.html"}
+<style>
+	.wx-share-guide{
+		position: fixed;
+		right: 0;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		z-index: 999;
+		background-color: #333;
+		opacity: .8;
+		text-align: right;
+		display: none;
+	}
+	.wx-share-guide-img{
+		position: absolute;
+		right: 0;
+		top: 10px;
+		width: 200px;
+	}
+	.iconfont:before{
+		margin-right: 3px;
+	}
+	.imgWidth {
+    width: 100%;
+}
+	.swiper-container{
+		width: 100%;
+		padding-bottom: 62.5%;
+		height: 0;
+		overflow: hidden;
+	}
+	.swiper-wrapper{
+		width: 100%;
+		flex-direction: row;
+	}
+</style>
+<script src="/plugin/swiper/js/swiper.min.js"></script>
+<script>
+	$(function(){
+		var flash=new Swiper("#indexFlash");
+		$(document).on("click",".js-share-btn",function(){
+			$(".wx-share-guide").show();
+		})
+		$(document).on("click",".wx-share-guide",function(){
+			$(".wx-share-guide").hide();
+		})
+	})
+	
+</script>
+<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+</body>
+</html>

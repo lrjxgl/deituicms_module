@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的账户</div>
+			<div gourl="/module.php?m=bill_shop&a=add" class="header-right-btn">创建</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if !$list}
+			<div class="emptyData">还没有财务账户，请先创建</div>
+			{/if}
+			{foreach item=c from=$list}
+			<div class="sglist-item">
+				<div class="sglist-title">{$c.title}</div>
+				<div class="sglist-desc">{$c.description}</div>
+				<div class="flex">
+					<div class="btn mgr-20" gourl="/module.php?m=bill_log&shopid={$c.shopid}">查看</div>
+					<div class="btn" gourl="/module.php?m=bill_shop&a=admin&shopid={$c.shopid}">去管理</div>
+				</div>
+			</div>
+			{/foreach}
+
+			<div>{$pagelist}</div>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

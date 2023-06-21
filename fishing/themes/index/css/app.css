@@ -1,0 +1,23 @@
+.tag-a,.tag-b{
+		border: 1px solid #EE3300;
+		padding: 2px 3px;
+		border-radius: 5px;
+		margin-right: 10px;
+		font-size: 12px;
+	}
+	.tag-b{
+		border-color: #0062CC;
+	}
+	.goRight{
+		
+		font-size: 1.5rem;
+		background-color: #f30;
+		color: #fff;
+		position: fixed;
+		right: 10px;
+		bottom:150px;
+		width: 30px;
+		padding: 5px;
+		text-align: center;
+		border-radius: 5px;
+	}

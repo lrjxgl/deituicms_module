@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='job_jianzhi_baoming/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>兼职</td>
+					 
+						<td>姓名</td>
+						<td>手机</td>
+						<td>简介</td>
+					 
+						<td>创建时间</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					<td>{$c.objectid}</td>
+				 
+					<td>{$c.nickname}</td>
+					<td>{$c.telephone}</td>
+					<td>{$c.description}</td>
+				 
+					<td>{$c.createtime}</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

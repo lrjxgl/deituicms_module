@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我管理的位置</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				{if empty($list)}
+				<div class="emptyData">暂无位置</div>
+				{/if}
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<img gourl="/module.php?m=fishing_free_place&a=show&placeid={$c.placeid}"  src="{$c.imgurl}.middle.jpg" class="sglist-img" />
+					<div gourl="/module.php?m=fishing_free_place&a=show&placeid={$c.placeid}" class="mgb-5">{$c.title}</div>
+					<div class="mgb-10 cl3">{$c.description}</div>
+					<div class="flex">
+						<div gourl="/module.php?m=fishing_free_place&a=add&placeid={$c.placeid}" class="btn-mini mgr-5">编辑</div>
+						<div gourl="/module.php?m=fishing_free_activity&a=add&placeid={$c.placeid}" class="btn-mini mgr-5">+活动</div>
+						<div gourl="/module.php?m=fishing_free_activity&a=my&placeid={$c.placeid}" class="btn-mini mgr-5">活动列表</div>
+						<div gourl="/module.php?m=fishing_free_account&placeid={$c.placeid}" class="btn-mini mgr-5">账户管理</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

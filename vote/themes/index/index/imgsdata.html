@@ -1,0 +1,48 @@
+{if $imgsdata}
+<div id="slides-flash"  style="height:248px;" class="swipejs">
+    <div class='swipejs-wrap'> {foreach item=c from=$imgsdata name=t1}
+      <div class="item" style="height:248px;"><a href="javascript:;" style="text-align:center;" ><img class="img" src="{const.IMAGES_SITE}{$c.imgurl}.middle.jpg" style=" max-width:100%;  max-height:248px;"  ></a>
+         
+      </div>
+      {/foreach} </div>
+    <div class="swipejs-num"></div>
+    <div class="swipejs-prev" onclick='mySwipe.prev()'><i class="iconfont icon-zuo"></i></div>
+    <div   class="swipejs-next" onclick='mySwipe.next()'><i class="iconfont icon-you"></i></div>
+   
+ 
+  </div>
+  <link href="/plugin/skyweb/swipe/swipe.css" rel="stylesheet">
+<script src="/plugin/skyweb/swipe/swipe.js"></script>
+ <script>
+   
+	 $(function() {
+		var elem = document.getElementById('slides-flash');
+		window.mySwipe_total=$("#slides-flash .item").length;
+		
+		$("#slides-flash .total").html(mySwipe_total);
+		for(var i=0;i<mySwipe_total;i++){
+			$("#slides-flash .swipejs-num").append("<i></i>");
+		}
+		$("#slides-flash .swipejs-num i").eq(0).addClass("active");
+		window.mySwipe = Swipe(elem, {
+		  startSlide: 0,
+		  auto: 3000,
+		   callback: function(pos, element) {
+			    if (mySwipe_total < 3) {
+                            i = ((pos + 1) > 2) ? (pos - 1) : (pos + 1)
+                        } else {
+                            i = pos + 1;
+                        }
+				$("#slides-flash .swipejs-num i").removeClass("active");		
+				$("#slides-flash .swipejs-num i").eq(i-1).addClass("active")		
+				 
+				  
+			}
+		});
+		
+		 
+	}); 
+   
+  </script>
+
+{/if} 

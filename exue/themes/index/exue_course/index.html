@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">课程</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=exue_shop&a=show&shopid={$c.shopid}" class="flex flex-ai-center  bd-mp-5">
+					<img src="{$c.shop.imgurl}.100x100.jpg" class="wh-40 bd-radius-50">
+					<div class="flex-1 cl2 fw-600  mgl-5">
+						{$c.shop.title}
+					</div>
+					<div class="cl3 f12">{$c.createtime}</div>  
+				</div>
+				<div gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="flex">
+					<img gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div  gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-desc">{$c.description}</div>
+						<div class="flex">
+							<div class="cl-money f16 mgr-20">￥{$c.price}</div>
+							<div class="market-price">￥{$c.market_price}</div>
+							<div class="flex-1"></div>
+							<div gourl="/module.php?m=exue_course&a=show&courseid={$c.courseid}" class="btn-bm">立即报名</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			{/foreach}
+			<div>{$pagelist}</div>
+
+		</div>
+		{assign var="ftnav" value="course"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

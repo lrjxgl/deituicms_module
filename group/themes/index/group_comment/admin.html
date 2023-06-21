@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ 
+<body>
+	<div class="header">
+		<div class="header-back"></div> 
+		<div class="header-title">评论管理</div>
+	</div>
+	<div class="header-row"></div>
+ 
+<div class="main-body">
+	<div class="list">
+		{foreach item=c from=$list}
+		<div class="row-box item mgb-5">
+			<div class="d-content">{$c.content}</div>
+			<div class="flex">
+				<div class="f12 cl3">{$c.dateline|timeago} </div>
+				<div class="flex-1"></div>
+				
+				<a href="javascript:;" v="{$c.id}" class="f12 cl-danger mgr-10 js-cdel">删除</a> 
+				<a href="javascript:;" class="f12 cl-danger mgr-10 js-user-forbid" gid="{$c.gid}" userid="{$c.userid}">禁言</a> 
+			</div>
+		</div>
+		{/foreach}
+	</div>
+</div>
+{include file="admin_footer.html"}
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-cdel",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			skyJs.confirm({
+				content:"确认删除吗？",
+				success:function(){
+					$.get("/module.php?m=group_comment&a=delete&ajax=1&id="+id,function(data){
+						obj.parents(".item").remove();
+					},"json")
+				}
+			})
+			
+		})
+	})
+</script>
+</body>
+</html>

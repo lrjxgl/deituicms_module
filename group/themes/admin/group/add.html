@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="tabs-border">
+				<div class="item active">圈子编辑</div>
+			</div>
+		 
+		<div class="main-body">
+		    
+		    	 
+				<form method="post" action="/moduleadmin.php?m=group&a=save">
+					<input type="hidden" name="gid" style="display:none;" value="{$data.gid}">
+					<table class="table-add">
+						<tr>
+							<td>类别</td>
+							<td>
+								<select name="catid">
+									<option value="0">请选择</option>
+									{foreach item=c from=$typelist}
+									<option value="{$c.catid}" {if $data.catid eq $c.catid} selected {/if}>{$c.title}</option>
+									{/foreach}
+								</select>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>名称：</td>
+							<td><input type="text" name="gname" id="gname" value="{$data.gname}"></td>
+						</tr>
+						<tr>
+							<td>Logo：</td>
+							<td>
+								<div class="upimg-box bg-fff">
+									
+									<div class="upimg-item {if $data.glogo==""}none{/if} js-upimg-btn">
+										<img class="upimg-img" {if $data.glogo}src="{$data.glogo|images_site}.100x100.jpg"{/if} >								 
+									</div>
+								 	 
+									<div class="upimg-btn js-upimg-btn">
+										<i class="upimg-btn-icon"></i>
+									</div>
+								 
+									<input type="hidden" name="glogo" value="{$data.glogo}" class="imgurl" />
+									<input style="display: none;" type="file" name="upimg" class="js-upimg-file" /> 
+								</div> 
+								
+							</td>
+						</tr>
+						<tr>
+							<td>主题：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+						<tr>
+							<td>关键字：</td>
+							<td><input type="text" name="keywords" id="keywords" value="{$data.keywords}"></td>
+						</tr>
+						<tr>
+							<td>简介：</td>
+							<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+						</tr>
+						 <tr>
+							<td>积分：</td>
+							<td><input type="text" name="grade" id="grade" value="{$data.grade}"></td>
+						</tr>
+						{if $data}
+						<tr>
+							<td>时间：</td>
+							<td>{$data.dateline|date:Y-m-d H:m}</td>
+						</tr>{/if}
+						<tr>
+							<td>状态：</td>
+							<td><input type="text" name="status" id="status" value="{$data.status}"></td>
+						</tr>
+						<tr>
+							<td>用户数：</td>
+							<td><input type="text" name="user_num" id="user_num" value="{$data.user_num}"></td>
+						</tr>
+						<tr>
+							<td>关注数：</td>
+							<td><input type="text" name="follow_num" id="follow_num" value="{$data.follow_num}"></td>
+						</tr>
+						<tr>
+							<td>banner：</td>
+							<td><input type="text" name="banner" id="banner" value="{$data.banner}"></td>
+						</tr>
+						<tr>
+							<td>推荐：</td>
+							<td><input type="text" name="is_recommend" id="is_recommend" value="{$data.is_recommend}"></td>
+						</tr>
+						<tr>
+							<td>最新：</td>
+							<td><input type="text" name="isnew" id="isnew" value="{$data.isnew}"></td>
+						</tr>
+						<tr>
+							<td>热门：</td>
+							<td><input type="text" name="ishot" id="ishot" value="{$data.ishot}"></td>
+						</tr>
+						<tr>
+							<td>主题数：</td>
+							<td><input type="text" name="topic_num" id="topic_num" value="{$data.topic_num}"></td>
+						</tr>
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="submit" value="保存" class="btn btn-success"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+		{php loadEditor();}
+
+<script language="javascript">
+ 
+var editor=UE.getEditor('content',options)
+</script>
+	<script src="/plugin/lrz/lrz.bundle.js"></script>
+	<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$cat.title}</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="tabs-border">
+				<div @click="setOrder('')" :class="{'tabs-border-active':orderby==''}" class="tabs-border-item">综合</div>
+				<div @click="setOrder('buy_num')"  :class="{'tabs-border-active':orderby=='buy_num'}" class="flex flex-center tabs-border-item">
+					<span class="mgr-5">销量</span>
+					<span class="iconfont icon-godown"></span>
+				</div>
+				<div @click="setOrder('discount')"  :class="{'tabs-border-active':orderby=='discount'}" class="tabs-border-item flex flex-center ">
+					<span class="mgr-5">折扣</span>
+					<span class="iconfont icon-godown"></span>
+				</div> 
+			</div> 
+			<div v-if="rscount==0" class="emptyData">暂无产品</div> 
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				
+				<div v-for="(item,index) in list" :key="index" @click="goBlog(item.productid)" class="sglist-item">
+					
+					<div class="mgb-5 flex flex-ai-center">
+						<div class="btn-recommend">荐</div>
+						<div>{{item.title}}</div>
+					</div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div class="mgr-5 cl2">售价</div>
+						<div class="cl-money mgr-10">￥{{item.money}}</div>
+						<div class="cl2 f12 mgr-10">{{item.brand_title}}</div>
+						<div class="flex-1"></div> 
+						<div class="cl2 f12 mgr-10">上牌：{{item.pai_date}}</div> 
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+					 
+				</div>
+				
+			</div>
+			
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var catid="{$cat.catid}"
+		</script>
+		<script src="{$skins}car_product/list.js"></script>
+	</body>
+</html>

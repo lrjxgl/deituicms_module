@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=household_bankcard">管理</a> 
+ 
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>senderid</td>
+   <td>status</td>
+   <td>银行名称</td>
+   <td>银行卡号码</td>
+   <td>银行卡户名</td>
+   <td>电话</td>
+   <td>开户地址</td>
+   <td>支付方式</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.senderid}</td>
+   <td>{if $c.status eq 1}上线{else}下线{/if}</td>
+   <td>{$c.yhk_name}</td>
+   <td>{$c.yhk_haoma}</td>
+   <td>{$c.yhk_huming}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.yhk_address}</td>
+   <td>{$c.paytype}</td>
+<td> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=household_bankcard&a=delete&id={$c.id}">删除</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

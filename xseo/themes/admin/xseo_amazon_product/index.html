@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='xseo_amazon_product/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+   <td>asin</td>
+   <td>title</td>
+    
+    
+   <td>raty</td>
+   <td>price</td>
+   <td>lower_price</td>
+    
+   <td>pageindex</td>
+   <td>status</td>
+   <td>raty_num</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+   <td><img src="{$c.imgurl}" class="w100"/>
+   </br>
+   {$c.asin}</td>
+   <td>{$c.title}</td>
+   
+    
+   <td>{$c.raty}</td>
+   <td>{$c.price}</td>
+   <td>{$c.lower_price}</td>
+ 
+   <td>{$c.pageindex}</td>
+   <td>{$c.status}</td>
+   <td>{$c.raty_num}</td>
+<td><a href="/moduleadmin.php?m=xseo_amazon_product&a=add&productid={$c.productid}">编辑</a> <a href="/module.php?m=xseo_amazon_product&a=show&productid={$c.productid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=xseo_amazon_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

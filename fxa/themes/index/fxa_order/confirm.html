@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">确认下单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex pd-10 mgt-20">
+				<div class="mgr-20">
+					<img style="width:100px; margin-left: 20px; height: auto;" src="{$product.imgurl|images_site}.small.jpg" />
+				</div>
+			
+				<div class="flex-1 flex-jc-bettwen">
+					<div class="cl2">{$product.title}</div>
+					<div class="cl-money">￥{$product.price}</div>
+				</div>
+			</div>
+			<div class="flex pdl-10">
+				<div>本人已知悉并同意</div>
+				<div class="cl-red pointer" onclick="$('#xyBox').show()">订单不退相关规则</div>
+				<div class="flex-1"></div>
+				<div class="iconfont icon-squarecheck cl-red"></div>
+			</div>
+			<div class="footer-row" style="height: 80px;"></div>
+			<div class="footer pd-10">
+				<div class="mgr-10">订单金额：</div>
+				<div class="cl-money">￥{$product.price}</div>
+				<div class=" flex-1"></div>
+			
+				<div class="btn" id="order">立即购买</div>
+			</div>
+			
+			<div class="modal-group" id="xyBox">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="pd-10">
+						<div class="flex-center pd-10">拼单不退相关规则</div>
+						<div class="f12">
+							1.本次活动所有用户均可参与，本次活动只针对移动端用户;
+							<br />
+							2.用户在拼单过程中可以选择商品支付，商品成功支付后，不支持退款;
+							<br />
+							3. 用户在拼单过程中支付购买可享受本次活动专属的商品优惠，但不再享受其他任何促销活动及优惠;
+							<br />
+							4.凡以不正常手段（包括但不限于作弊、虚假交易、扰乱系统、实时网络攻击等）参与本次活动的用户，公司有权终止其参与活动资格
+							<br />
+							5.如出现不可抗力或情势变更情形（包括但不限于重大自然灾害、活动受政府机关指令影响需要停止举办或者调整的、活动遭受严重网络攻击或因系统故障需要暂停举办的）,则公司有权根据相关法律法规的规定主张免责。
+							<br/>
+							6.公司在相关法律法规允许的范围内可对本活动进行解释。
+						</div>
+					</div>
+			
+				</div>
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var productid = "{$product.id}";
+
+			$(document).on("click", "#order", function() {
+				$.ajax({
+					url: "/module.php?m=fxa_order&a=order&ajax=1&productid=" + productid,
+					dataType: "json",
+					success: function(res) {
+						
+						skyToast(res.message);
+						if(res.error){
+							return false;
+						}
+						window.location = res.data.payurl;
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

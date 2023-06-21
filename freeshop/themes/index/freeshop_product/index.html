@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">闲时优惠</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="tabs-border mgb-5">
+				<div @click="setType('')" :class="{'tabs-border-active':type==''}" class="tabs-border-item">推荐</div>
+				<div @click="setType('hot')" :class="{'tabs-border-active':type=='hot'}" class="tabs-border-item">最热</div>
+				<div @click="setType('new')" :class="{'tabs-border-active':type=='new'}" class="tabs-border-item">最新</div>
+				
+			</div>
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in pageData.list" :key="index" @click="goBlog(item.productid)" class="sglist-item">
+					
+					<div class="sglist-title flex" v-html="item.content"></div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="flex mgb-10">
+						<div class="mgr-5 cl2">优惠价</div>
+						<div class="cl-money mgr-10">￥{{item.price}}</div>
+						<div class="mgr-5 cl2"></div>
+						<div class="cl2 mgr-10">{{item.discount}}折</div>
+						<div class="flex-1"></div>
+						<div class="cl3 f12">原价</div>
+						<div class="market-price">￥{{item.market_price}}</div>
+					</div>
+					<div class="flex">
+						<div class="mgr-5 cl2">销量</div>
+						<div class="cl-num mgr-10">{{item.buynum}}</div>
+						<div class="mgr-5 cl2">库存</div>
+						<div class="cl-num mgr-10">{{item.maxnum}}</div>
+						<div class="flex-1"></div>
+						<div class="cl-status">{{item.status_name}}</div>
+					</div>
+				</div>
+				
+			</div>
+			
+		</div>
+		<a href="/module.php?m=freeshop_product&a=add" class="fixedAdd">发布</a>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}freeshop_product/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<body >
+		<div class="header">
+			<div class="header-title">{$site.sitename}</div>
+		</div>
+		<div class="header-title"></div>
+		<div class="topBox">
+			{if empty($team)}
+			<div class="topBox-main">
+				<div class="flex mgb-10">
+					<div class="topBox-title cl-white"></div>
+					<div gourl="/module.php?m=s2c_team" class="row-box-more cl-white">选择团长</div>
+				</div>
+				 
+			</div>
+			{else}
+			<div class="topBox-main">
+				<div class="flex mgb-10">
+					<div class="topBox-title cl-white">{$team.title}</div>
+					<div gourl="/module.php?m=s2c_team" class="row-box-more cl-white">切换</div>
+				</div>
+				<div class="cl-white f12">{$team.address}</div>
+			</div>
+			<div class="topBox-head">
+				<div>
+					<img src="{$team.userhead}.100x100.jpg" class="topBox-head-img">
+				</div>
+				<div class="topBox-head-nick">{$team.nickname}</div>
+			</div>
+			{/if}
+		</div>
+		{if !empty($flashList)} 
+		<div class="swiper-box">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide mgr-10">
+						<img class="wmax bd-radius-10" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+
+				<div class="swiper-pagination flex flex-jc-center"></div>
+
+			</div>
+		</div>
+		{/if}
+		{if !empty($adList)}
+		<div class="adBox">
+			{foreach item=c from=$adList}
+			<div class="adBox-item">
+				<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+			</div>
+			{/foreach}
+					 
+		</div>
+		{/if}
+		<div class="main-body">
+
+			<div class="noticeBox">
+				<i class="iconfont icon-home mgr-5"></i>
+				<div class="flex-1 flex flex-wrap">
+					<div class="cl-fc f12">招募团长，一社区一团长，</div>
+					<div class="cl-fc f12">咨询：15985840591</div>
+				</div>
+			</div>
+			<div class="tsBox">
+				<div class="tsBox-line-a"></div>
+				<div class="tsBox-line-b"></div>
+				<div class="tsBox-bd">
+					<div class="tsBox-title">正在抢购</div>
+					<div class="tsBox-desc mgb-5">当日下单 次日可到</div>
+					
+				</div>
+			</div>
+			 
+			{if $sendTime.out==2}
+			<div class="cl-warning pd-5 mgb-5 text-center f12">超过{$sendTime.out_time}点 &nbsp;{$sendTime.sendTime}配送</div>
+			{/if} 
+			<div id="app" style="display: none;" :style="'display:block'" v-if="pageLoad">
+				<div id="catNav" class="catNav">
+					<div class="swiper-wrapper">
+						<div @click="setCat(0)" v-bind:class="catActive" class="swiper-slide catNav-swiper-slide">推荐</div>
+						<div @click="setCat(item.catid)" v-bind:class="item.catid==catid?'catNav-swiper-slide-active':''" class="swiper-slide catNav-swiper-slide" v-for="(item,index) in pageData.catList" :key="index">{{item.title}}</div>
+						 
+						<div class="bar">
+							<div class="color"></div>
+						</div>
+					</div>
+				</div>
+				<div class="catNav-fixed-show"></div>
+				
+				<div class="flexlist">
+					<div class="flexlist-item" v-for="(item,index) in pageData.list" :key="index">
+						<img @click="goProduct(item.id)" class="flexlist-img pointer bd-radius-5" :src="item.imgurl" />
+						<div class="flex-1">
+							<div @click="goProduct(item.id)" class="flexlist-title pointer">{{item.title}}</div>
+							<div class="flex mgb-5">
+								<div class="cl-money">￥{{item.price}}</div> 
+								 
+							 
+								<div class="flex-1"></div>
+								<div v-if="item.isksid>0">
+									<div @click="ksBox(item.id)" class="btn-small btn-outline-success">选规格</div>
+								</div>
+								<div class="pdb-5" v-else>
+									
+									<div v-if="item.incart" class="numbox prolist-numbox">
+										<div @click="minusCart(item.id,item.cart_amount)" class="numbox-minus">-</div>
+										<input type="text" name="amount" :value="item.cart_amount" class="numbox-num" />
+										<div @click="plusCart(item.id,item.cart_amount)" class="numbox-plus">+</div>	
+									</div>
+									<div @click="addCart(item.id)"  class="btn-buy iconfont icon-cart" v-else></div>
+								</div>
+						</div>
+						</div>
+					</div>
+				</div>
+				<div     v-if="ksShow">
+					<div class="modal-mask" @click="ksHide"></div>
+					<div class="modal">
+						<div class="modal-header">
+							<div class="modal-title">选择款式</div>
+							<div class="modal-close icon-close" @click="ksHide"></div>
+						</div>
+						<div class="modal-body pdt-10">	
+							<div class="ksBox mgb-10">
+								<div class="kslist mgb-10">
+									<div class="kslist-label">{{ksproduct.ks_label_name}}</div>
+									<div @click="ks1(item.id)" v-bind:class="{'kslist-active':item.id==ksid1}" class="kslist-item" v-for="(item,index) in ksList" :key="index">{{item.title}}</div>
+								</div>
+								<div class="kslist">
+									<div class="kslist-label">{{ksproduct.ks_label_size}}</div>
+									<div class="kslist-item" @click="ks2(item.id)"  v-bind:class="{'kslist-active':item.id==ksid}" v-for="(item,index) in ksList2" :key="index">{{item.size}}</div>
+								</div>
+							</div>
+							<div class="flex">
+								<div class="cl2 mgr-10 mgl-10">价格</div>
+								<div class="cl-money">￥{{ksproduct.price}}</div>
+								<div class="flex-1"></div>
+								<div v-if="ksproduct.incart" class="numbox prolist-numbox">
+									<div @click="ksMinusCart(ksproduct.id,ksproduct.cart_amount)" class="numbox-minus">-</div>
+									<input type="text" name="amount" :value="ksproduct.cart_amount" class="numbox-num" />
+									<div @click="ksPlusCart(ksproduct.id,ksproduct.cart_amount)" class="numbox-plus">+</div>	
+								</div>
+								<div @click="ksAddCart(ksproduct.id)"  class="btn-buy" v-else>买</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div> 
+		</div>
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://www.beian.miit.gov.cn">{$site.icp}</a>
+		</div>
+		{assign var="ftnav" value="index"}  
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+	 
+		
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash", {
+					pagination: {
+						el: '.swiper-pagination',
+					}
+				});
+				
+			})
+		</script>
+		<script src="{$skins}index.js"></script>
+		<?php wx_jssdk()?>
+	</body>
+</html>

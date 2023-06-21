@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">我的反馈</h1>
+</header>
+<div class="mui-content">
+	<div class="flex-col pd-10 bg-fff">
+	{foreach item=c from=$list}
+ 
+		<a href="/index.php?m=shop_product_item_comment&a=show&id={$c.id}" class="flex-item">
+			<div class="flex-1">{$c.title}</div>
+			<div class="f12">{$c.timeago}</div>
+		</a>
+		 
+	
+	{/foreach}
+	</div>
+	 
+     
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

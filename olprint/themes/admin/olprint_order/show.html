@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='olprint_order/nav.html'}
+<div class="main-body">
+ <table class="table table-bordered" width="100%">
+  <tr><td>orderid：</td><td>{$data.orderid}</td></tr>
+  <tr><td>shopid：</td><td>{$data.shopid}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>ptype：</td><td>{$data.ptype}</td></tr>
+  <tr><td>页数：</td><td>{$data.page_num}</td></tr>
+  <tr><td>份数：</td><td>{$data.print_num}</td></tr>
+  <tr><td>配送：</td><td>{$data.sendtype}</td></tr>
+  <tr><td>配货费用：</td><td>{$data.send_money}</td></tr>
+  <tr><td>每页费用：</td><td>{$data.page_money}</td></tr>
+  <tr><td>金额：</td><td>{$data.money}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>支付：</td><td>{$data.ispay}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+  <tr><td>siteid：</td><td>{$data.siteid}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">动物管理</div>
+	<div gourl="/moduleshop.php?m=gxny_shop_animal&a=add" class="header-right-btn">添加</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="flexlist">
+		{foreach item=c from=$list}
+		 <div class="flexlist-item js-item">
+			 <img src="{$c.imgurl}.small.jpg" class="flexlist-img" />
+			 <div class="flex-1">
+				 <div class="flexlist-title">{$c.title}</div>
+				 <div class="flex mgb-5">
+					 <div class="mgr-5">总量：{$c.total_num}</div>
+					 <div class="mgr-5">销量：{$c.sold_num}</div>
+					 <div class="mgr-5">库存：{$c.free_num}</div>
+				 </div>
+				 <div class="flex">
+					 状态：<div class="{if $c.status eq 1}yes{else}no{/if}"></div>
+					 开售：<div class="{if $c.isopen eq 1}yes{else}no{/if}"></div>
+					<div class="flex-1"></div>
+					 <div class="btn-mini mgr-5" gourl="/moduleshop.php?m=gxny_shop_animal&a=add&id={$c.id}">编辑</div>
+					 <div class="btn-mini js-delete" url="/moduleshop.php?m=gxny_shop_animal&a=delete&id={$c.id}">删除</div>
+				 </div>
+			 </div>
+		 </div>
+		{/foreach} 
+	</div>
+
+	<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

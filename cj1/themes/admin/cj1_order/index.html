@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="shd">中奖订单</div>
+<div class="main-body">
+    <div class="mui-content-padded">
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>orderid</td>
+   <td>名称</td>
+   <td>用户</td>
+   <td>使用</td>
+   <td>时间</td>
+   
+   
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.nickname}</td>
+   <td>{if $c.isuse}已使用{else}未使用{/if}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   
+   
+<td> 
+	  
+	<a href="javascript:;" class="js-use" v="{$c.orderid}" url="/moduleadmin.php?m=cj1_order&a=use&ajax=1&orderid={$c.orderid}">使用</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    </div>
+</div>
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-use",function(){
+		var that=$(this);
+		skyJs.confirm({
+			content:"确认用户已经使用了",
+			success:function(){
+				$.ajax({
+					url:that.attr("url"),
+					dataType:"json",
+					success:function(res){
+						skyToast(res.message);
+						if(!res.error){
+							setTimeout(function(){
+								window.location.reload();
+							},600)
+							
+						}
+					}
+				})
+			}
+		})
+		
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='bzy_product/nav.html'}
+<div class="main-body">
+	<div class="pd-10">{$event.title}</div>
+ <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+   
+   <td>名称</td>
+   <td>赛程</td>
+   <td>状态</td>
+   <td>简介</td>
+   <td>图片</td>
+   
+   <td>排名范围</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+ 
+   <td>{$c.title}</td>
+   <td>{if $c.etype eq 0}初赛{else}决赛{/if}</td>
+   <td><div class="{if $c.status eq 1}yes{else}no{/if}"></div></td>
+   <td>{$c.description}</td>
+   <td>
+	   {if $c.imgurl!=''}
+	   <img src="{$c.imgurl|images_site}.100x100.jpg" class="wh-40" />
+	   {/if}
+   </td>
+   
+   <td>
+	   <input type="text" class="w100 js-blur-update" url="/moduleadmin.php?m=bzy_product&a=gailv&productid={$c.productid}" name="gailv"  value="{$c.gailv}"> 
+   </td>
+    
+<td><a href="/moduleadmin.php?m=bzy_product&a=add&productid={$c.productid}">编辑</a> 
+ 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=bzy_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("focusout",".js-blur-update",function(){
+		var url=$(this).attr("url");
+		$.ajax({
+			url:url+"&ajax=1",
+			data:{
+				gailv:$(this).val()
+			},
+			dataType:"json",
+			success:function(res){
+				skyToast(res.message)
+			}
+		})
+		
+	})
+</script>
+</body>
+</html>

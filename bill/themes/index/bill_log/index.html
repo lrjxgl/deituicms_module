@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">{$shop.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			
+			<div class="flex row-box mgb-5">
+				<div class="flex-1 flex-center">
+					<div class="cl-money">￥{$shop.money}</div>
+					<div>余额</div>
+				</div>
+				<div class="flex-1 flex-center">
+					<div class="cl-money">￥{$income}</div>
+					<div>总收入</div>
+				</div>
+				<div class="flex-1 flex-center">
+					<div class="cl-money">￥{$outcome}</div>
+					<div>总支出</div>
+				</div>
+			</div>
+			<form class="row-box mgb-5" action="/module.php">
+				<input type="hidden" name="m" value="bill_log" />
+				<input type="hidden" name="shopid" value="{$shop.shopid}" />
+				<div class="flex mgb-10 flex-ai-center">
+					账单时间：<input type="text" class="input-flex-text" id="cdate" name="cdate" value="{$cdate}" />
+					分类：<select class="input-flex-select" name="catid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$catList}
+						<option {if get("catid","i") eq $c.catid}selected{/if} value="{$c.catid}">{$c.title}</option>
+						{/foreach}
+					</select>
+					
+				</div>
+				<div class="flex flex-ai-center">
+					<div class="f12 cl-money">合计{$sumMoney}元</div>
+					<div class="flex-1"></div>
+					<button type="submit" class="btn-small">筛选</button>
+				</div>
+				
+			</form>
+			<div>
+				{foreach item=item from=$list}
+				<div class="row-box mgb-5"  :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="cl-money mgr-10">{$item.money}</div>
+						<div class="cl-primary f12 mgr-5">{$item.catid_title}</div>
+						<div class="flex-1"></div>
+						
+						<div class="f12 cl3">{$item.cdate}</div>
+					</div>
+					<div class="mgb-5">{$item.title}</div>
+					<div class="cl3">{$item.content}</div>
+					<div class="cl2 f12">{$item.logdesc}</div>
+				</div>
+				{/foreach}
+			</div>	
+			<div>{$pagelist}</div>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#cdate",
+				type:"date"
+			})
+		 	
+		</script>	
+	</body>
+</html>

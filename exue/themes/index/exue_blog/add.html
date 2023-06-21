@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width:100%;
+			height: auto;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=exue_blog&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				
+				 
+					 
+					<div class="textarea-flex">
+						 
+						<textarea placeholder="请输入内容" class="textarea-flex-text" name="content" id="content">{$data.content}</textarea>
+					</div>
+					<div class="tabs-border-group"> 
+					<div class="tabs-border">
+						<div class="tabs-border-item tabs-border-active">图片</div>
+						<div  class="tabs-border-item">视频</div>
+					</div>
+					<div class="tabs-border-box bg-white tabs-border-box-active">
+						<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+					{include file="inc/uploader-data.html"}
+					</div>
+					<div  class="input-flex tabs-border-box">
+						 
+						<div class="videoBox flex-1">
+							<div style="display: none;">
+								<input type="file" id="up-video" name="upfile" />
+							</div>
+							<div class="upimg-btn" id="js-upbtn">
+								<div class="upimg-btn-icon">
+					
+								</div>
+							</div>
+					
+							<span id="progress"></span>
+							<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+							<div id="mp4box">
+							</div>
+							<input type="hidden" name="mp4url" id="url" value="{$data.url}" />
+							
+							<input type="hidden" name="imgurl" id="imgurl" value="{$data.imgurl}" />
+						</div>
+					</div>
+					
+					</div> 
+				<div class="btn-row-submit " id="submit">保存</div>
+			</form>
+
+		</div>
+		{assign var="ftnav" value="add"}
+		 
+		{include file="footer.html"}
+		
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="{$skins}exue_blog/add.js"></script>
+		<script>
+			var inSubmit=false;
+			 $(document).on("click", ".tabs-border-item", function() {
+			 	var $group = $(this).parents(".tabs-border-group");
+			 	var index = $(this).index();
+			 	if ($group.length > 0) {
+			 		$group.find(".tabs-border-box").removeClass("tabs-border-box-active");
+			 		$group.find(".tabs-border-box").eq(index).addClass("tabs-border-box-active");
+			 	}
+			 	$(this).addClass("tabs-border-active").siblings().removeClass("tabs-border-active");
+			 })
+			$(document).on("click","#submit",function(){
+				if(inSubmit){
+					return false;
+				}
+				inSubmit=true;
+				setTimeout(function(){
+					inSubmit=false;
+				},1000)
+				var form=$(this).parents("form");
+				var imgs=$(".uploader-imgsdata-img");
+				 
+				if(imgs.length>0){
+					var s="";
+					for(var i=0;i<imgs.length;i++){
+						if(i>0){
+							s+=",";
+						}
+						s+=imgs.eq(i).attr("v");		
+					}
+					$("#imgsdata").val(s);
+				}
+				 
+				$.post(form.attr("action")+"&ajax=1",form.serialize(),function(res){
+					skyToast(res.message);
+					inSubmit=false;
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

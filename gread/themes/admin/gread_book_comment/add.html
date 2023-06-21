@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_book_comment/nav.html'}
+<form method="post" action="/module.php?m=gread_book_comment&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>bookid：</td>		
+				<td><input type="text" name="bookid" id="bookid" value="{$data.bookid}" ></td>
+				</tr>
+  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>raty：</td>		
+				<td><input type="text" name="raty" id="raty" value="{$data.raty}" ></td>
+				</tr>
+  <tr>
+				<td>content：</td>		
+				<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+ 
+{include file="footer.html"}
+</body>
+</html>

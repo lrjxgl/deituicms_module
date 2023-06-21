@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">动态审核</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+
+
+						<td>content</td>
+						<td>imgsdata</td>
+
+						<td>status</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr class="js-item">
+					<td>{$c.id}</td>
+
+
+					<td>{$c.content}</td>
+					<td>
+						{foreach item=cc from=$c.imgsList}
+						<img src="{$cc}.100x100.jpg" class="wh-60 mgr-5" />
+						{/foreach}
+					</td>
+
+					<td>{$c.status}</td>
+					<td>  
+						<div v="{$c.id}" class="btn-mini js-pass">通过</div>
+						<div v="{$c.id}" class="btn-mini js-forbid">禁止</div>
+						<div class="btn-mini js-delete" url="/moduleadmin.php?m=fishing_blog&a=delete&ajax=1&id={$c.id}">删除</div>
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-pass",function(){
+				var that=this;
+				
+				skyJs.confirm({
+					content:"确认审核通过吗?",
+					success:function(){
+						var id=$(that).attr("v");
+						$.ajax({
+							url:"/moduleadmin.php?m=fishing_blog&a=pass&ajax=1",
+							dataType:"json",
+							data:{
+								id:id
+							},
+							success:function(res){
+								$(that).parents(".js-item").remove();
+							}
+						})
+					}
+				})
+			})
+			$(document).on("click",".js-forbid",function(){
+				var that=this;
+				
+				skyJs.confirm({
+					content:"确认禁止吗?",
+					success:function(){
+						var id=$(that).attr("v");
+						$.ajax({
+							url:"/moduleadmin.php?m=fishing_blog&a=forbid&ajax=1",
+							dataType:"json",
+							data:{
+								id:id
+							},
+							success:function(res){
+								$(that).parents(".js-item").remove();
+							}
+						})
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

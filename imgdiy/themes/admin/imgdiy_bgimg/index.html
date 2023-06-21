@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='imgdiy_bgimg/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>名称</td>
+   <td>状态</td>
+   <td>图片</td>
+   <td>创建时间</td>
+   <td>尺寸</td>
+   
+   <td>分类</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td>{if $c.status eq 1}显示{else}隐藏{/if}</td>
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="50" /></td>
+   <td>{$c.createtime}</td>
+   <td>{$c.width}*{$c.height}</td>
+   <td>{$c.catid_name}</td>
+<td><a href="/moduleadmin.php?m=imgdiy_bgimg&a=add&id={$c.id}">编辑</a>
+ <a href="javascript:;" class="delete" url="/moduleadmin.php?m=imgdiy_bgimg&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

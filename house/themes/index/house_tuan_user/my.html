@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的看房团</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="flexlist">
+			 
+				<div v-for="(item,index) in list" :key="index"  class="flexlist-item js-item">
+					<img @click="goDetail(item.id)" :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+					<div class="flex-1">
+						<div  @click="goDetail(item.id)" class="flexlist-title">{{item.title}}</div>
+						<div class="cl2 f12 mgb-5">活动时间：{{item.stime}}</div>
+						<div class="flexlist-desc mgb-10">{{item.description}}</div>
+						<div class="flex">
+							<div class="cl-status">
+								<template v-if="item.status == 1">已签道</template>
+								<template v-else>未签到</template>
+								 
+							</div>
+							<div class="flex-1"></div>
+							<div v-if="item.israty==0 && item.status == 1" @click="goRaty(item)" class="btn-mini">评价一下</div>
+							<div v-else>已评价</div>
+						</div>
+					</div>
+					
+				</div>
+				 
+			</div>
+			<div class="modal-group" id="ratyModal">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">评价</div>
+						<div class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div>
+							<sky-raty fields="v-raty-grade" grade="8" mod="1" len="10"></sky-raty>
+						</div>
+						<div>
+							<textarea class="textarea-flex-text h60" name="raty_content" v-model="raty_content"></textarea>
+						</div>
+						
+						<div @click="ratySubmit" class="btn-row-submit">评价一下</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}house_tuan_user/my.js"></script>
+	</body>
+</html>

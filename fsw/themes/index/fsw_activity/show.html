@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">活动详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<div class="row-box mgb-5">
+				<img src="{$data.imgurl}" class="d-img mgb-5" />
+				<div class="d-title">{$data.title}</div>
+				<div class="flex mgb-5">
+					<div class="mgr-5 cl2">比赛日期</div>
+					<div class="cl-info">{$data.sday}</div>
+					<div class="flex-1"></div>
+					<div class="cl-status">{$data.atype_title}</div>
+				</div>
+				<div class="d-desc">{$data.description}</div>
+			</div>
+		</div>	
+		<div class="main-body" id="App">
+			<div class="tabs-border-group">
+				<div class="tabs-border">
+					<div class="tabs-border-item tabs-border-active js-tabs-border-item">详情</div>
+					<div class="tabs-border-item js-tabs-border-item">{if $data.isfinish}积分排行{else}参赛用户{/if}</div>
+				</div>
+				<div class="row-box tabs-border-box tabs-border-box-active">
+					<div class="d-content">{$data.content}</div>
+				</div>
+				<div class="row-box tabs-border-box">
+					<div>
+						 
+						<div v-for="(item,index) in joinList" :key="index" class="flexlist-item">
+							<img :src="item.user_head+'.100x100.jpg'" class="flexlist-img" />
+							<div class="flex-1">
+								<div class="flex mgb-10">
+									<div>{{item.nickname}}</div>
+									<div class="flex-1"></div>
+									<div @click="showJoin(item)" class="cl-primary">渔获详情</div>
+								</div>
+								 
+								<div class="flex">
+									<div>重量：</div>
+									<div class="cl-num mgr-5">{{item.weight}}</div>
+									<div>kg</div>
+									<div class="flex-1"></div>
+									<div>积分：</div>
+									<div class="cl-num">{{item.grade}}</div>
+								</div>
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+			</div>
+			<div class="footer-row"></div>
+			<div class="footerFix">
+				<div class="flex row-box">
+			 	<div class="cl3">参与钓鱼比赛，乐趣更多</div>
+					<div class="flex-1"></div>
+					{if $data.atype=='baoming'}
+					<div @click="joinModal=true" class="btn-small">我要参加</div>
+					{elseif $data.atype=='doing'}
+					<div class="cl-status">比赛中</div>
+					{else}
+					<div class="cl-status">已结束</div>
+					{/if}
+				</div>
+			</div>
+			
+			<div v-if="joinModal">
+				<div @click="joinModal=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">报名参加</div>
+						<div @click="joinModal=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">名字：</div>
+							<input v-model="fswUser.nickname" type="text" class="input-flex-text" />
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">电话：</div>
+							<input  v-model="fswUser.telephone" type="text" class="input-flex-text" />
+						</div>
+						<div @click="joinSubmit" class="btn-row-submit">确认参加</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="showModal">
+				<div @click="showModal=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">渔获详情</div>
+						<div  @click="showModal=false"  class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="mgb-5">{{join.description}}</div>
+						<div >
+							<img class="wmax" :src="item" v-for="(item,index) in join.imgList" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			 
+		</script>
+		<script>
+			var  actid="{$data.actid}"
+		</script>
+		<script src="{$skins}fsw_activity/show.js"></script>
+	</body>
+</html>

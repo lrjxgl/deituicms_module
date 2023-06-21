@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">看房团</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="sglist">
+    	{foreach item=c from=$list}
+    	<a href="/module.php?m=house_tuan&a=show&id={$c.id}" class="sglist-item js-item">
+    		<div class="sglist-imgbox">
+				<img src="{$c.imgurl}.middle.jpg" class="wmax" />
+			</div>
+			<div class="sglist-title">{$c.title}</div>
+			<div class="cl2 f12 mgb-5">活动时间：{$c.stime}</div>
+			<div class="sglist-desc">{$c.description}</div>
+			
+    	</a>
+    	{/foreach}
+    </div>   
+<div>{$pagelist}</div>
+    
+</div>
+{assign var="ftnav" value="tuan"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+</body>
+</html>

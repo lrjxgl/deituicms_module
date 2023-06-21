@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="tabs-border">
+				<div @click="setType('all')" :class="type=='all'?'tabs-border-active':''" class="tabs-border-item">全部</div>
+				<div @click="setType('unpay')"  :class="type=='unpay'?'tabs-border-active':''"  class="tabs-border-item">待支付</div>
+				<div @click="setType('finish')"  :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">已完成</div>
+			 
+			</div>
+			<div class="list">
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex mgb-10">
+						<div>{{item.line_title}}</div>
+						<div class="flex-1"></div>
+						<div v-if="item.ispay==0" class="cl-status">待支付</div>
+						<div v-else class="cl-status">{{item.status_name}}</div>
+					</div>
+					<div class="flex">
+						<div class="f12 cl2">下单时间</div>
+						<div class="f12 cl2">{{item.timeago}}</div>
+						<div class="flex-1"></div>
+						<div class="cl-money">{{item.money}}元</div>
+					</div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						<div v-if="item.ispay==0" @click="goPay(item.orderid)" class="btn-small">去支付</div>
+						<div v-else-if="item.status==1" @click="goDetail(item.orderid)" class="btn-small">查看</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}pinche_order/index.js"></script>
+	</body>
+</html>

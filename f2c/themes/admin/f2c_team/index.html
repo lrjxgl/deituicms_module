@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='f2c_team/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>teamid</td>
+   <td>状态</td>
+   <td>姓名</td>
+    <td>头像</td>
+   <td>电话</td>
+   <td>地址</td>
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.teamid}</td>
+   <td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=f2c_team&a=status&teamid={$c.teamid}&ajax=1" ></div></td>
+   <td>{$c.nickname}</td>
+   <td><img src="{$c.userhead}.100x100.jpg" width="50" /></td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+ 
+   
+<td>
+	 
+	<a href="/moduleadmin.php?m=f2c_team&a=add&teamid={$c.teamid}">编辑</a>
+ 
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=f2c_team&a=delete&teamid={$c.teamid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+			$(document).on("click",".js-unbind",function(){
+				var obj=$(this);
+				if(confirm("确认解绑团长社区吗?")){
+					$.get("/moduleadmin.php?m=f2c_team&a=unbind&ajax=1",{
+						teamid:$(this).attr("teamid")
+					},function(res){
+						if(res.error){
+							skyToast(res.message)
+							return ;
+						}
+						obj.parents("tr").remove();
+					},"json")
+				}
+			})
+		</script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div url="/" class="header-back"></div>
+			<div class="header-title">闲时优惠</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container" style="width:100%;" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+					  <div class="m-navPic-title">{$c.title}</div>
+					   
+			    </a>
+				
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+						 
+			</div>
+			{/if}
+		</div>
+		<div class="main-body" id="app">
+			<div class="tabs-border mgb-5">
+				<div @click="setType('recommend')" :class="{'tabs-border-active':type=='recommend'}" class="tabs-border-item">推荐</div>
+				<div @click="setType('follow')" :class="{'tabs-border-active':type=='follow'}" class="tabs-border-item">关注</div>
+				<div @click="setType('near')" :class="{'tabs-border-active':type=='near'}" class="tabs-border-item">附近</div>
+				<div @click="setType('new')" :class="{'tabs-border-active':type=='new'}" class="tabs-border-item">最新</div>
+				<div @click="setType('history')" :class="{'tabs-border-active':type=='history'}" class="tabs-border-item">往届</div>
+			</div>
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				<div class="emptyData" v-if="!list || Object.keys(list).length==0">暂无数据</div> 
+				<div v-else>
+					<div v-for="(item,index) in  list" :key="index" @click="goBlog(item.productid)" class="sglist-item pointer">
+						<div class="flex flex-ai-start  mgb-5">
+							<div v-if="item.catid" class="btn-type mgr-5">{{item.catid_name}}</div>
+							<div v-if="item.invite_money>0" class="btn-type cl-money mgr-5">赏</div>
+							<div class="flex-1" v-html="item.content"></div>
+						</div> 
+						
+						<div class="sglist-imglist">
+							 
+							<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+							
+						</div>
+						<div class="flex mgb-10 flex-ai-center">
+							<div class="mgr-5 cl2">优惠价</div>
+							<div class="cl-money mgr-10">￥{{item.price}}</div>
+							<div class="mgr-5 cl2"></div>
+							<div class="cl2 mgr-10">{{item.discount}}折</div>
+							<div class="flex-1"></div>
+							<div class="cl3 f12">原价</div>
+							<div class="market-price">￥{{item.market_price}}</div>
+						</div>
+						<div class="flex flex-ai-center">
+							<div class="mgr-5 cl2">销量</div>
+							<div class="cl-num mgr-10">{{item.buynum}}</div>
+							<div class="mgr-5 cl2">库存</div>
+							<div class="cl-num mgr-10">{{item.maxnum}}</div>
+							<div class="flex-1"></div>
+							<div class="cl-status">{{item.status_name}}</div>
+						</div>
+						  
+					</div>
+					<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+				</div>
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script src="/plugin/dt-ui/GPS.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			var lat=0,lng=0;
+			var geolocation = new BMap.Geolocation();
+			var latlng=GPS.get();
+			 
+			if(!latlng){
+				
+				geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					lat=r.point.lat;
+					lng=r.point.lng;
+					GPS.set({
+						lat:lat,
+						lng:lng
+					});
+				}
+				else {			
+				}        
+				},{enableHighAccuracy: true})
+			}else{
+				lat=latlng.lat;
+				lng=latlng.lng;
+			}
+			$(function(){
+			 
+				var flash=new Swiper("#indexFlash");
+				 
+			})
+			
+		</script>
+		<script src="{$skins}freeshop/index.js"></script>
+		<?php wx_jssdk();?>
+		 
+	</body>
+</html>

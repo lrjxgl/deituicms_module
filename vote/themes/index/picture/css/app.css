@@ -1,0 +1,32 @@
+.flex-col-line{
+	width: 1px;
+	background-color: #eee;
+	height: 30px;
+}
+.phtable {
+	width: 100%;
+	border-collapse: collapse;
+	border: 0px;
+	border-spacing: 0;
+}
+
+.phtable th {
+	background-color: #f0f0f0;
+	height: 30px;
+	color: #000;
+	text-align: center;
+	border: 1px solid #eee;
+}
+
+.phtable td {
+	background-color: #fafafa;
+	height: 30px;
+	color: #666;
+	text-align: center;
+	border: 1px solid #eee;
+}
+.hdsm {
+	text-align: center;
+	padding: 10px 0px;
+	font-size: 14px;
+}

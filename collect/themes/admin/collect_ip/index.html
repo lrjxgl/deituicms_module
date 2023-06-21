@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="tabs-border">
+		<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=collect_ip">可用IP列表</a>
+		<a class="item {if get('type') eq 'all'}active{/if}" href="{$appadmin}?m=collect_ip&type=all">全部IP列表</a>
+		
+		<a target="_blank" href="/moduleadmin.php?m=collect_ip&a=Testip&type=new" class="item">ip新检</a>
+		<a target="_blank" href="/moduleadmin.php?m=collect_ip&a=Testip&type=yes" class="item">ip复检</a>
+		<a target="_blank" href="/moduleadmin.php?m=collect_ip&a=Testip" class="item">ip检测</a>
+	</div>
+		<div class="main-body" id="App">
+			<form class="search-form" >
+				<input class="w150" v-model="ip" type="text" id="ip" />
+			 
+				<div class="btn" @click="search" id="searchBtn">搜索</div>
+			</form>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>ip</td>
+						<td>状态</td>
+						 
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead>  
+				<tr v-for="(item,index) in pageData.list" :key="index">
+					<td>{{item.id}}</td>
+					<td>{{item.ip}}</td>
+					<td>
+						<span v-if="item.status=='1'">可用</span>
+						<span v-else>不可用</span>
+					</td>
+				 
+					<td> 
+						<a href="javascript:;" class="js-delete" :url="'/moduleadmin.php?m=collect_ip&ajax=1&a=delete&id='+item.id">删除</a></td>
+				</tr>
+				 
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		<script  src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var type="{$type}";
+		</script>
+		<script src="{$skins}collect_ip/index.js"></script>
+	</body>
+</html>

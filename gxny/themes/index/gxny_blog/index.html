@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">菜园动态</div>
+			<div gourl="/module.php?m=gxny_blog&a=add" class="header-right-btn">发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="emptyData" v-if="list.length==0">暂无帖子</div>
+			<div v-else   class="sglist">
+				 
+				<div v-for="(item,index) in  list" :key="index" @click="goBlog(item.id)" class="sglist-item">
+					
+					<div class="sglist-title flex" v-html="item.content"></div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					 
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+				</div>
+				
+			</div>
+		</div>
+		{assign var="ftnav" value="blog"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}gxny_blog/index.js"></script>
+	</body>
+</html>

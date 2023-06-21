@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a href="/moduleadmin.php?m=s2c_done&a=last" class="item active">上月业绩</a>
+		</div>
+		<div class="main-body">
+			<form class="search-form" method="get" action="/moduleadmin.php">
+				<input type="hidden" name="m" value="s2c_done" />
+				<input type="hidden" name="a" value="last" />
+				团长：<input value="{$smarty.get.team_nickname|html}" class="w100" type="text"  name="team_nickname" />
+				 
+				<button type="submit" class="btn">搜索</button>
+			</div>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>团长</td>
+						 
+						<td>月份</td>
+						<td>收入</td>
+						
+					</tr>
+				</thead>
+				{foreach item=c from=$list}
+				<tr>
+					<td>{$c.team_nickname}</td>
+					 
+					<td>{$c.smonth}</td>
+					<td>￥{$c.money}</td>
+					
+				</tr>
+				{/foreach}
+			</table>
+			{$pagelist}
+		</div>
+	</body>
+</html>

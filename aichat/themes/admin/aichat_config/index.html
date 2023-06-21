@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">AI设置</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=aichat_config&a=save">
+				<table class="table-add">
+					<tr>
+						<td>平台Token</td>
+						<td>
+							<input name="apptoken" value="{$data.apptoken}"  type="text" class="w300" /> 
+							<div>对外接口访问token</div>
+						</td>
+					</tr>
+					<tr>
+						<td>新人赠送</td>
+						<td>
+							<input name="new_user_token" value="{$data.new_user_token}"  type="text" class="w100" />个Token
+						</td>
+					</tr>
+					<tr>
+						<td>聊天价格</td>
+						<td>
+							<input name="chat_token" value="{$data.chat_token}"  type="text" class="w100" />个Token/10字
+						</td>
+					</tr>
+					<tr>
+						<td>chat_api_key</td>
+						<td>
+							<input name="chat_api_key" value="{$data.chat_api_key}"  type="text" class="w300" /> 
+							<div>聊天三方api_key</div>
+						</td>
+					</tr>
+					<tr>
+						<td>聊天Api</td>
+						<td>
+							<input name="chat_api_host" value="{$data.chat_api_host}"  type="text" class="w300" /> 
+						</td>
+					</tr>
+					<tr>
+						<td>图片Api</td>
+						<td>
+							<input name="img_api_host" value="{$data.img_api_host}"  type="text" class="w300" /> 
+						</td>
+					</tr>
+					<tr>
+						<td>慢图价格</td>
+						<td>
+							<input name="img_pay_token" value="{$data.img_pay_token}"    type="text" class="w100" />个Token/张
+						</td>
+					</tr>
+					<tr>
+						<td>快图价格</td>
+						<td>
+							<input name="img_pay_token_quick" value="{$data.img_pay_token_quick}"    type="text" class="w100" />个Token/张
+						</td>
+					</tr>
+					<tr>
+						<td>文章Api</td>
+						<td>
+							<input name="text_api_host" value="{$data.text_api_host}"  type="text" class="w300" /> 
+						</td>
+					</tr>
+					<tr>
+						<td>慢文价格</td>
+						<td>
+							<input name="text_pay_token" value="{$data.text_pay_token}"    type="text" class="w100" />个Token/篇
+						</td>
+					</tr>
+					<tr>
+						<td>快文价格</td>
+						<td>
+							<input name="text_pay_token_quick" value="{$data.text_pay_token_quick}"    type="text" class="w100" />个Token/篇
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

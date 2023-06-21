@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.w200{
+			max-width: 200px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$touser.nickname}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div v-if="pageLoad" style="display: none;" :class="'flex-col'" class="list" id="app">
+				<div v-if="list.length==0" class="emptyData">暂无对话</div>
+				<div v-else>
+					<div v-for="(item,index) in list" :key="index" class="bg-white pd-10">
+						 
+						<div class="flex" v-if="item.isme">
+							<img :src="item.user_head+'.100x100.jpg'" class="wh-40 mgr-10" />
+							
+							<div class="flex-1">
+								<div class="cl2 mgb-5">
+									{{item.nickname}}
+								</div>
+								<div class="cl3">{{item.content}}</div>
+							</div>
+						</div>
+						<div class="flex" v-else>
+						<div class="flex-1"></div>
+						<div class="w200">
+							
+							<div class="cl2 mgb-5 flex">
+								<div class="flex-1"></div>
+								{{item.to_nickname}}
+							</div>
+							<div class="cl3">{{item.content}}</div>
+						</div>
+					 
+						<img :src="item.to_user_head+'.100x100.jpg'" class="wh-40 mgl-10" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-row"></div>
+			<div style="position: fixed;bottom: 0;left: 0;right: 0;">
+				<div class="input-flex">
+					<input type="text" id="content" class="input-flex-text" />
+					<div class="input-flex-btn" id="submit">发送</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var id="{$fenlei.id}";
+			var touserid="{$touserid}";
+			
+		</script>
+		<script src="{$skins}fenlei_guest/user.js"></script>
+	</body>
+</html>

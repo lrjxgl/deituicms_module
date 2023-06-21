@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"得推外卖O2O",//模块名称
+	"module"=>"wmo2o",//模块目录
+ 	"version"=>5.1,//当前版本
+	"info"=>"外卖O2O平台",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"from"=>"福鼎生活网",
+	"adminurl"=>"/moduleadmin.php?m=wmo2o&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

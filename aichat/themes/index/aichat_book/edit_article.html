@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">章节编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body" style="max-width: 1024px;">
+			<div class="flex row-box">
+				<div class="w300 mgr-10">
+					<div>
+						<div class="flex mgb-10">
+							<div class="flex-1">《{{book.title}}》</div>
+							<div class="pointer cl-primary" @click="getPage">刷新</div>
+						</div>
+						
+						<div @click="getArticle(item)" class="bd-mp-5 pointer" v-for="(item,index) in list" :key="index">
+							{{item.title}}
+						</div>
+					</div>
+				</div>
+				<div class="flex-1">
+					<div>
+						<form >
+							<input  type="hidden" name="bookid" v-model="article.id"/>
+							<div class="input-flex">
+								<div class="input-flex-label">标题</div>
+								<input class="input-flex-text" name="title" v-model="article.title" />
+							</div>
+							
+						
+							
+							<div>文章内容</div>
+							<div contenteditable="true" class="textarea-flex-text  mgb-10 sky-editor-content" name="content" id="content" v-html="article.content"></div>
+							<div class="flex mgt-20 flex-center" v-if="article.create_status==1">
+								<div @click="submit" class="btn-small mgr-10">保存编辑</div>
+								<div @click="newAnswer" class="btn-small mgr-10">重新生成</div>
+								<div @click="yhShow=true" class="btn-small mgr-10">继续优化</div>
+								
+							</div>
+							<div v-else>
+								<div>Ai正在生成中</div>
+							</div>
+						</form>
+						<div v-if="yhShow">
+							<div @click="yhShow=false" class="modal-mask"></div>
+							<div class="modal">
+								<div class="modal-header">
+									<div class="modal-title">继续优化</div>
+									<div  @click="yhShow=false" class="modal-close icon-close"></div>
+								</div>
+								<div class="modal-body">
+									<div>
+										<textarea v-model="prompt" class="textarea-flex-text h60"></textarea>
+									</div>
+									<div class="flex">
+										<div @click="reAnswer" class="btn-row-submit">提交</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var bookid="{$book.bookid}"
+		</script>
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}aichat_book/edit_article.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+	</body>
+</html>

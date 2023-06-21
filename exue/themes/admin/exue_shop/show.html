@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>shopid：</td><td>{$data.shopid}</td></tr>
+  <tr><td>名称：</td><td>{$data.title}</td></tr>
+  <tr><td>公司：</td><td>{$data.company}</td></tr>
+  <tr><td>地址：</td><td>{$data.address}</td></tr>
+  <tr><td>昵称：</td><td>{$data.nickname}</td></tr>
+  <tr><td>电话：</td><td>{$data.telephone}</td></tr>
+  <tr><td>图片：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>描述：</td><td>{$data.description}</td></tr>
+  <tr><td>lat：</td><td>{$data.lat}</td></tr>
+  <tr><td>lng：</td><td>{$data.lng}</td></tr>
+  <tr><td>综合评分：</td><td>{$data.raty_grade}</td></tr>
+  <tr><td>硬件评分：</td><td>{$data.raty_yj}</td></tr>
+  <tr><td>教师评分：</td><td>{$data.raty_jc}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+  <tr><td>推荐：</td><td>{$data.isrecommend}</td></tr>
+  <tr><td>热门：</td><td>{$data.ishot}</td></tr>
+  <tr><td>最新：</td><td>{$data.isnew}</td></tr>
+  <tr><td>内容：</td><td>{$data.content}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

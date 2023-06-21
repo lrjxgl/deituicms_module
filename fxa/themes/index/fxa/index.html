@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">单品分销</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=fxa_product&a=show&id={$c.id}" class="flexlist-item">
+					<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-desc">
+							{$c.description}
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}fishing/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">福鼎钓鱼圈</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container mgb-5" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+		</div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div @click="setTab('article')" :class="tab=='article'?'tabs-border-active':''"  class="tabs-border-item">推荐</div>
+				<div @click="setTab('blog')" :class="tab=='blog'?'tabs-border-active':''" class="tabs-border-item">动态</div>
+				<div @click="setTab('fenlei')" :class="tab=='fenlei'?'tabs-border-active':''"  class="tabs-border-item">渔获交易</div>
+				<div @click="setTab('fsw')" :class="tab=='fsw'?'tabs-border-active':''"  class="tabs-border-item">钓鱼比赛</div>
+				<div @click="setTab('place')" :class="tab=='place'?'tabs-border-active':''"  class="tabs-border-item">热门钓点</div>
+				
+			</div>
+			<div>
+				<div v-if="tab=='article'">
+					<div class="sglist">
+						<div @click="goArticle(item.id)" class="sglist-item " v-for="(item,index) in articleList" :key="index">
+							<div v-if="item.imgurl!=''" class="sglist-imgbox">
+								<img class="sglist-img" :src="item.imgurl+'.middle.jpg'" />
+							</div>
+							
+							<div class="sglist-title">{{item.title}}</div>
+							<div class="sglist-desc">{{item.description}}</div>
+							<div class="sglist-ft">
+								<div class="sglist-ft-love">{{item.love_num}}</div>
+								<div class="sglist-ft-cm">{{item.comment_num}}</div>
+								<div class="sglist-ft-view">{{item.view_num}}</div>
+							</div> 
+						</div>
+					</div>
+				</div>
+				<div v-if="tab=='blog'">
+					<div class="sglist">
+						<div class="sglist-item " v-for="(item,index) in blogList" :key="index">
+							<div class="flex mgb-5">
+								<img  @click="goHome(item.userid)" :src="item.user_head+'.100x100.jpg'" class="wh-40 bd-radius-50" />
+								<div class="flex-1 mgl-5">
+									<div @click="goHome(item.userid)" class="f14 fw-600 mgb-5">{{item.nickname}}</div>
+									<div class="flex">
+										<div class="f12 cl3">{{item.timeago}}</div>
+										<div class="flex-1"></div>
+										<div v-if="item.placeid>0" @click="goPlace(item.placeid)" class="cl-primary f12">来自：{{item.place.title}}</div>
+									</div>
+								</div>
+								 
+							</div>
+							<div @click="goBlog(item.id)" class="sglist-desc">{{item.content}}</div>
+							<div @click="goBlog(item.id)"  v-if="item.imgsList" class="sglist-imglist">
+								 
+								<img v-for="(cc,ii) in item.imgsList" :key="ii" :src="cc+'.100x100.jpg'" class="sglist-imglist-img" />
+								 
+							</div>
+						</div>
+					</div>
+					<div gourl="/module.php?m=fishing_blog" class="loadMore cl-primary"  >前往钓友日志</div>
+					<div gourl="/module.php?m=fishing_blog&a=add" class="goRight">发布日志</div> 
+				</div>
+				<div v-if="tab=='fenlei'">
+					<div class="sglist">
+						<div v-if="!flList || flList.length==0" class="emptyData">暂无渔获交易信息</div>
+						<div @click="goFenlei(item.id)" v-for="(item,index) in flList" :key="index" class="sglist-item pointer">
+							<div class="flex mgb-5">
+								<div v-if="item.hb_on" class="bc-red mgr-5">红</div>
+								<div class="f14">{{item.title}}</div>
+							</div>						 								 
+							<div v-if="item.money>0" class="flexlist-row">
+								<div class="cl-money">￥{{item.money}}</div>
+							</div>						 
+							<div class="sglist-desc">{{item.description}}</div>
+							<div class="sglist-imglist">
+										 
+								<img v-for="(img,imgIndex) in item.imgsdata" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+							</div>
+							<div class="cl3 f12">发布于{{item.createtime}}</div>
+						</div>
+					</div>
+					<div gourl="/module.php?m=fenlei&a=add&catid=78" class="goRight">发布渔获</div>
+					<div gourl="/module.php?m=fenlei&a=list&catid=78" class="loadMore cl-primary"  >前往渔获交易市场</div> 
+				</div>
+				<div v-if="tab=='fsw'">
+					<div class="sglist">
+						 
+						<div @click="goFsw(item.actid)" v-for="(item,index) in fswList" :key="index" class="sglist-item pointer">
+							<img class="sglist-img" :src="item.imgurl+'.middle.jpg'" />
+							<div class="sglist-title">{{item.title}}</div>
+							<div class="flex mgb-5">
+								<div class="mgr-5 cl2">比赛日期</div>
+								<div class="cl-num">{{item.sday}}</div>
+								<div class="flex-1"></div>
+								<div class="cl-status">{{item.atype_title}}</div>
+							</div>
+							<div class="sglist-desc">{{item.description}}</div>
+						</div>
+						 
+					</div>
+					<div gourl="/module.php?m=fsw" class="loadMore cl-primary"  >前往钓鱼微赛事</div> 
+				</div>
+				<div class="pdt-10 " v-if="tab=='place'">
+					<div class="row-box mgb-5">
+						<div class="flex">
+							<div @click="setAllow('all')" :class="place_allow=='all'?'cl-primary':''" class="mgr-5 pointer">全部</div>
+							<div  @click="setAllow('free')" :class="place_allow=='free'?'cl-primary':''"  class="mgr-5 pointer">允许</div>
+							<div  @click="setAllow('warning')" :class="place_allow=='warning'?'cl-primary':''"  class="mgr-5 pointer">限制</div>
+							<div class="flex-1"></div>
+							<div class=" pointer" @click="tagToggle()">
+								<div v-if="place_tag==''">按标签</div>
+								<div v-else>{{place_tag}}</div>
+							</div>	
+						</div>
+					</div> 
+					<div v-if="tagShow" class="row-box mgb-5">
+						<div></div>
+						<div class="flex flex-wrap">
+							<div @click="setPlaceTag('')" class="mgr-5 mgb-5 pointer" >全部</div>
+							<div @click="setPlaceTag(item.title)" class="mgr-5 mgb-5 pointer" v-for="(item,index) in tagList" :key="index">{{item.title}}</div>
+						</div>
+					</div>
+					<div class="row-box">
+						<div class="bd-mp-10 pointer" @click="goPlace(item.placeid)" v-for="(item,index) in placeList" :key="index" >
+							<div>
+								<div class="mgb-10">{{item.title}}</div>
+								<div class="mgb-10 cl3">{{item.address}}</div> 
+								<div class="flex flex-ai-center">
+									
+									 
+									<div v-if="item.is_allow==0" class="tag-a cl-primary">允许</div>
+									 
+									<div v-else-if="item.is_allow==1" class="tag-a cl-warning">限制</div>
+									 
+									<div v-else class="tag-a cl-danger">禁止</div>
+									 
+									<div v-for="(tt,ii) in item.tagsList" :key="ii" class="tag-b">{{tt}}</div>
+									 
+									<div class="flex-1"></div>
+									<div class="cl-num f12">人气 {{item.grade}}</div>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+					<div gourl="/module.php?m=fishing_place&a=add" class="fixedAdd">发布</div>
+				</div>
+				<div v-if="tab=='bang'">
+					<div class="row-box">
+						<div class="flex tr-a">
+							<div class="td-a">排名</div>
+							<div class="td-f">用户</div>
+							<div class="td-b">联赛积分</div>
+							<div class="td-c">参赛次数</div>
+						</div>
+						<div v-for="(item,index) in phList" :key="index" class="flex tr-b">
+							<div class="td-a">{{index+1}}</div>
+							<div class="td-f">
+							<img :src="item.user_head+'.100x100.jpg'" class="pic" />
+							{{item.nickname}}</div>
+							<div class="td-b">{{item.grade}}</div>
+							<div class="td-c">{{item.join_num}}</div>
+						</div>
+					</div>
+					
+					<div gourl="/module.php?m=fsw_user&a=add" class="goRight">成为钓手</div>
+					
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"} 
+		{include file="footer.html"}
+		<script src="{$skins}fishing/index.js?v31"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash", {
+						autoplay:true,
+							pagination: {
+								el: '.swiper-pagination',
+							}
+						});
+			})
+		</script>
+	</body>
+</html>

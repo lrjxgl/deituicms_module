@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">商圈</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="mtlist pdt-5">
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=wmo2o_cbd&a=show&cbdid={$c.cbdid}" class="mtlist-item">
+					<div class="mtlist-item-bd">
+						<div class="mtlist-imgbox">
+						<img class="mtlist-img" src="{$c.imgurl|images_site}.small.jpg" />
+						</div>
+						<div class="mtlist-item-pd">
+						<div class="mtlist-title">{$c.title}</div>
+						</div>
+					</div>
+					
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

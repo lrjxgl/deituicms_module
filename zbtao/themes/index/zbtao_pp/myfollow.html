@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">关注的主播</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    
+	<div class="flexlist">
+		 
+		<div @click="goPP(item.ppid)" v-for="(item,index) in list" :key="index" class="flexlist-item">
+			<img class="flexlist-img " :src="item.imgurl+'.small.jpg'" />
+			<div class="flex-1">	
+				<div class="flexlist-title">{{item.nickname}}</div>
+				<div class="flex">
+					<div class="mgr-5">粉丝</div>
+					<div class="cl-num mgr-10">{{item.followed_num}}</div>
+					<div class="mgr-5">评价</div>
+					<div class="cl-num mgr-10">{{item.raty_grade}}</div>
+					<div class="mgr-5">积分</div>
+					<div class="cl-num mgr-10">{{item.grade}}</div>
+				</div>
+			</div>
+		</div>
+		 
+	</div>
+    
+</div>
+ 
+{include file="footer.html"}
+<script src="{$skins}zbtao_pp/myfollow.js"></script>
+</body>
+</html>

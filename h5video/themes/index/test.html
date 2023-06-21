@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head> 
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	<title>h5动画生成视频</title>
+	<link href="/plugin/dt-ui/dt-ui-h5.css" rel="stylesheet" />
+	<link href="/plugin/dt-ui/animate.css" rel="stylesheet" />
+	<link href="//at.alicdn.com/t/font_811242_4k6v9f174g7.css" rel="stylesheet">
+	</head>
+	
+	<body>
+		<div class="movieCanvas" style="background-color: #007BFF;">
+			
+			{foreach item=c from=$videoData}
+				<div class="moviePage animated none" >
+					<input type="hidden" class="moviePage-text" value="{$c.allText}" />
+					{foreach item=cc from=$c.items}
+					{if $cc.itype eq 'img'}
+					<img src="{$cc.imgurl}"  class="pos-abs animated {$cc.animate}" style="left:{$cc.x}px;top: {$cc.y}px;" />
+					{else}
+					<div class="pos-abs pd-10 animated {$cc.animate}" style="left:{$cc.x}px;right:{$cc.x}px;top: {$cc.y}px;">{$cc.content}</div>
+					{/if}
+					
+					{/foreach}
+				</div>
+			{/foreach}
+			
+			<div class="movie-bgMp3 movie-bgMp3-active"></div>
+		</div>
+		<div class="moviePageTools flex flex-center">
+			<div class="lastPage f22 mgr-20 iconfont icon-fold" style="display: none;"></div>
+			<div class="nextPage f22 iconfont icon-unfold"></div>
+		</div>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}
+			.movie-bgMp3{
+				position: fixed;
+				top: 5px;
+				right: 5px;
+				z-index: 999;
+				cursor: pointer;
+			}
+			.movie-bgMp3:after{
+				font-family: iconfont;
+				content:"\e796";
+				color:#999;
+				font-size: 24px;
+			}
+			.movie-bgMp3-active:after{
+				font-family: iconfont;
+				content:"\e795";
+				color:#f30;
+				font-size: 24px;
+			}
+			.movieCanvas{
+				width: 320px;
+				height: 568px;
+				transform-origin:top left;
+			}
+			.moviePage{
+				background-color: #00BCD4;
+				position: relative;
+				display: block;
+			}
+			 
+			.moviePage div{
+				position: absolute;
+			}
+			.moviePageTools{
+				width: 120px;
+				height: 30px;
+				left: 50%;
+				bottom:5px;
+				margin-left: -60px;
+				position: fixed;
+				z-index: 999;
+				text-align: center;
+			}
+			img{
+				max-width: 100%;
+				height: auto;
+			}
+			.a{
+				width: 100px;
+				height: 100px;
+				background-color: #007BFF;
+				top:100px;
+				left: 60px;
+			}
+			
+		</style>
+		<script src="/plugin/jquery/jquery.js"></script>
+		<script src="/plugin/jquery/jquery.touchSwipe.min.js"></script>
+		<script>
+			 
+			var pageIndex=0;
+			var ads=$(".moviePage-text");
+			var audios=[];
+			//首页
+			$(".moviePage:eq(0)").removeClass("none");
+			//设置放大比例
+			var winWidth=$("body").width();
+			var scalePage=winWidth/320;
+			console.log(scalePage);
+			$(".movieCanvas").css({transform: 'scale('+scalePage+','+scalePage+')'});
+			//背景音乐
+			var bgAudio=document.createElement("audio");
+			bgAudio.src="/module.php?m=tts&text=这是背景音乐哦，会一直循环下去哦";
+			bgAudio.loop=1;
+			bgAudio.volume=0.2;
+			bgAudio.addEventListener("canplay",function(){
+				bgAudio.play();
+			})
+			//全部语音
+			for(var i=0;i<ads.length;i++){
+				audios[i]=document.createElement("audio");
+				audios[i].src="/module.php?m=tts&text="+encodeURIComponent($(".moviePage-text:eq("+i+")").val());
+				
+			}
+			audios[0].addEventListener("canplay",function(){
+				audios[0].play();
+			},false);
+			function nextPage(){
+				var len=$(".moviePage").length;
+				if(pageIndex==len-1){	
+					return false;
+				}
+				$(".lastPage").show();
+				$(".moviePage").addClass("none");	
+				audios[pageIndex].pause();
+				pageIndex++;
+				audios[pageIndex].currentTime=0;
+				audios[pageIndex].play();
+				$(".moviePage").eq(pageIndex).removeClass("none").removeClass("slideInDown").addClass("slideInUp");;
+				if(pageIndex==len-1){
+					$(".nextPage").hide();
+				}
+			}
+			function lastPage(){
+				if(pageIndex==0){
+					return false;
+				}
+				$(".moviePage").addClass("none");;
+				
+				
+				audios[pageIndex].pause();
+				pageIndex--;
+				audios[pageIndex].currentTime=0;
+				audios[pageIndex].play();
+				$(".moviePage").eq(pageIndex).removeClass("none").removeClass("slideInUp").addClass("slideInDown");
+				$(".nextPage").show();
+				if(pageIndex==0){
+					$(".lastPage").hide();
+				}
+			}
+			$(document).on("click",".nextPage",function(){
+				nextPage();
+			})
+			$(document).on("click",".lastPage",function(){
+				lastPage();
+			})
+			$(".movieCanvas").swipe({
+				swipeUp:function(){
+					nextPage();
+					console.log("swipeUp")
+				},
+				swipeDown:function(){
+					lastPage();
+					console.log("swipeDown")
+				}
+			})
+			$(document).on("click",".movie-bgMp3",function(){
+				if($(this).hasClass("movie-bgMp3-active")){
+					$(this).removeClass("movie-bgMp3-active");
+					bgAudio.pause();
+				}else{
+					$(this).addClass("movie-bgMp3-active");
+					bgAudio.play();
+				}
+			})
+		</script>
+	</body>
+</html>

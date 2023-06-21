@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<link rel="stylesheet" href="{$skins}css/bobing.css" />
+	<link href="{$skins}bzy_event/show.css" rel="stylesheet" /> 
+	<body>
+		<div class="header">
+			<div url="/module.php?m=bzy" class="header-back"></div>
+			<div class="header-title">福鼎中秋博状元</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="app" class="main-body">
+			<div class="ftab">
+				<div @click="setTab('home')" :class="tab=='home'?'ftab-active':''" class="ftab-item">博状元</div>
+				<div @click="setTab('reward')"  :class="tab=='reward'?'ftab-active':''"  class="ftab-item">奖品说明</div>
+				<div @click="setTab('rule')"  :class="tab=='rule'?'ftab-active':''"  class="ftab-item">游戏规则</div>
+				<div @click="setTab('paihang')"  :class="tab=='paihang'?'ftab-active':''"  class="ftab-item">排行榜</div>
+			</div>
+			<div  v-if="tab=='home'" id="home">
+				<div style="margin-bottom: 10px;">
+					<img src="{$event.banner}" class="wmax" />
+				</div>
+				<div class="bowl" id="dicebox">
+					<img class="bg_img" src="{$skins}img/port.jpg" />
+					<div class="dicebox-logo">福鼎生活网<br/>祝大家中秋节快乐</div>
+				</div>
+				
+				<div class="flex flex-center mgb-10">
+					<input class="btn" type="button" value="开始" @click="play()" />
+				</div>
+				
+				<div class="flex flex-center">
+					<div class="mgr-5">您的积分：{{grade}}</div>
+					<div v-if="has_num>0">还剩{{has_num}}次</div>
+					<div v-else>今日已用完</div>
+				</div>
+				
+			</div>
+			<div class="row-box" v-show="tab=='reward'" id="reward">
+				<div class="d-content" v-html="event.reward"></div>
+			</div>
+			<div class="row-box" v-show="tab=='rule'" id="rule">
+				<div class="d-content " v-html="event.rule"></div>
+			</div>
+			<div  v-show="tab=='paihang'" id="paihang">
+				<div class="tabs-border">
+					<div @click="setRank('day')" :class="rankType=='day'?'tabs-border-active':''" class="tabs-border-item">今日榜</div>
+					<div @click="setRank('lastday')" :class="rankType=='lastday'?'tabs-border-active':''"  class="tabs-border-item">昨日榜</div>
+					<div @click="setRank('all')" :class="rankType=='all'?'tabs-border-active':''"  class="tabs-border-item">总分榜</div>
+				</div>
+				<div v-if="rankList.length==0" class="emptyData">暂无积分</div>
+				<div v-else>
+					<div class="flex ph-hd">
+						<div class="ph-a">排行</div>
+						<div class="ph-b">昵称</div>
+						<div class="ph-c">积分</div>
+					</div>
+					
+					<div v-for="(item,index) in rankList" :key="index" class="flex ph-con">
+						<div  class="ph-a" :class="'phc'+index">{{index+1}}</div>
+						<div  class="ph-b">{{item.nickname}}</div>
+						<div  class="ph-c">{{item.grade}}</div>
+					</div>
+				</div>
+				
+			</div>
+			<audio style="position: absolute;bottom:-100px;" id="tzmp3" src="{$skins}/img/tz.mp3"></audio>
+		</div>
+		
+		
+		
+		{include file="footer.html"}
+		 
+		
+		<script>
+		var eventid="{$event.eventid}"
+		 
+		var App;
+		</script>
+		<script src="{$skins}bzy_event/show.js?v2"></script>
+	</body>
+</html>

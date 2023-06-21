@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.side{
+			width: 120px;
+			border-right: 1px solid #eee;
+			padding: 10px;
+			background-color: #fff;
+			margin-right: 5px;
+		}
+		.h5Page{
+			width: 320px;
+			border: 0;
+			height: 588px;
+			background-color: #fff;
+			margin-left: 5px;
+		}
+		.flex0{
+			flex:0;
+		}
+		body{
+			background-color: #efefef;
+		}
+		[type='text'],select{
+			height: 24px;
+			line-height: 24px;
+			border-radius: 5px;
+			padding-left: 5px;
+			border: 1px solid #ddd;
+			margin-bottom: 5px;
+			width: 100px;
+		}
+		.flex{
+			flex-wrap: wrap;
+		}
+		.w40{
+			width: 40px;
+		}
+		.modal-color{
+			left: 50%;
+			right: inherit;
+			margin-left: -110px;
+		}
+	</style>
+	<body>
+		<div id="app">
+			<div v-if="pageLoad" style="display: none;" :class="'flex-col'">
+				<div class="tabs-border" v-if="iswap">
+					<div @click="setTab('pagelist')" :class="{'tabs-border-active':pageTab=='pagelist'}" class="tabs-border-item">页面列表</div>
+					<div v-if="pageid>0" @click="setTab('design')" :class="{'tabs-border-active':pageTab=='design'}" class="tabs-border-item">设计</div>
+					<div @click="setTab('view')" :class="{'tabs-border-active':pageTab=='view'}" class="tabs-border-item">预览</div>
+				</div>
+				<div class="flex">
+					<div :style="iswap?'width:100%':''" v-if="pageTab=='pagelist' || !iswap" class="side">
+						<div class="pd-10">页面设计</div>
+						<div @click="setPage(item.pageid)" class="row-item" v-for="(item,index) in pages" :key="index">
+							<div class="row-item-title">{{item.title}}</div>
+						</div>
+						<div class="mgb-5"></div>
+						<div id="addPage" class="btn mgb-5" @click="addPageBox">添加</div>
+						<div id="ViePage" class="btn mgb-5" @click="viewPage">预览</div>
+						<a class="btn"  href="/module.php?m=h5video&a=show&vid={$data.vid}" target="_blank">H5页面</a>
+					</div>
+					<div v-if="(pageTab=='design' || !iswap) && pageShow" class="flex-1" >
+						<form :id="'pageform'+page.pageid" class="row-box mgb-5">
+							<input type="hidden" name="pageid" :value="page.pageid" />
+							<input type="hidden" name="vid" :value="page.vid" />
+							<div class="flex flex-ai-center">
+								<div class="pd-5">页面名称</div>
+								<input type="text" class="w100" name="title" :value="page.title" />
+								<div class="pd-5">排序</div>
+								<input type="text" class="w40" name="orderindex" :value="page.orderindex" />
+								<div class="btn-small mgr-10" @click="savePage('#pageform'+page.pageid)">保存</div>
+								<div class="btn-small btn-danger"  @click="delPage(page.pageid)">删除</div>
+							</div>
+						</form>
+						<div class="row-box mgb-10" v-for="(item,index) in items">
+							<form :id="'itemform'+index">
+								<input type="hidden" name="vid" :value="item.vid" />
+								<input type="hidden" name="pageid" :value="item.pageid" />
+								<input type="hidden" name="id" :value="item.id" />
+								<div class="flex flex-wrap">
+									<div class="pd-5">名称</div>
+									<input type="text" class="w100" :value="item.title" class="w200" name="title" />
+									<div class="pd-5">排序</div>
+									<input type="text" class="w40" name="orderindex" :value="item.orderindex" />
+									<div class="pd-5">类型</div>
+									<select name="itype" v-model="item.itype" class="flex-select flex0">
+										<option  v-for="(it,itIndex) in itypeList" :key="itIndex" :value="itIndex">{{it}}</option>
+										 
+									</select>
+								</div>
+								<div class="flex flex-wrap flex-ai-center mgb-5">
+									<div class="pd-5">X</div>
+									<input type="text" name="x" :value="item.x" class="w60" />
+									<div class="pd-5">Y</div>
+									<input type="text" name="y" :value="item.y" class="w60" />
+									<div class="pd-5">W</div>
+									<input type="text" name="w" :value="item.w" class="w60" />
+									<div class="pd-5">H</div>
+									
+									<input type="text" name="h" :value="item.h" class="w60" />
+									<div class="pd-5">zindex</div>
+									<input type="text" name="zindex" :value="item.zindex" class="w60" />
+									<div class="pd-5 mgl-5 mgr-5 btn-small">动画</div>
+									<select name="animate" v-model="item.animate" class="w100">
+										<option value="">无动画</option>
+										<option :value="ani.animate" v-for="(ani,anIndex) in aniList" :key="anIndex">{{ani.title}}</option>
+									</select>
+									<div class="flex" v-if="item.itype=='plugin'">
+									<div class="pd-5 mgl-5 mgr-5 btn-small">组件</div>
+									<select v-model="item.pluginid" name="pluginid" class="w100">
+										<option value="">无组件</option>
+										<option :value="pIndex"  v-for="(plugin,pIndex) in pluginList" :key="pIndex">{{plugin}}</option>
+									</select>
+									</div>
+									<div class="flex mgl-5">
+										<div class="btn" @click="showStyle('#addStyle'+item.id,item.id)">样式</div>
+										<div :id="'addStyle'+item.id">
+											<div class="style-label">{{item.style_title}}</div>
+											<input type="hidden" name="styleid" :value="item.styleid" class="style-value" />
+										</div>
+									</div>
+								</div>
+								<div v-if="item.itype=='text'" class="flex flex-wrap flex-ai-center mgb-5">
+									 
+									<div>颜色</div>
+									<input @click="choiceColor(item.id)" :style="'background-color:'+item.color"  v-model="item.color" class="w60" type="text"  name="color" />
+									<div>大小</div>
+									<input class="w60" type="text" :value="item.fontsize" name="fontsize" />
+									<div>对齐</div>
+									<select v-model="item.textalign"  name="textalign" class="w100">
+										<option value="left">左对齐</option>
+										<option value="center">居中对齐</option>
+										<option value="right">右对齐</option>
+									</select>
+								 
+									<textarea class="textarea-flex-text h60" name="content">{{item.content}}</textarea>
+								</div>
+								<div v-if="item.itype=='link'" >
+									<div class="flex flex-wrap flex-ai-center mgb-5"> 
+									<div>颜色</div>
+									<input @click="choiceColor(item.id)" :style="'background-color:'+item.color"  v-model="item.color" class="w60" type="text"  name="color" />
+									<div>大小</div>
+									<input class="w60" type="text" :value="item.fontsize" name="fontsize" />
+									<div>对齐</div>
+									<select v-model="item.textalign"  name="textalign" class="w100">
+										<option value="left">左对齐</option>
+										<option value="center">居中对齐</option>
+										<option value="right">右对齐</option>
+									</select>
+									</div>
+									<div class="flex flex-wrap flex-ai-center mgb-5">
+										文字：<input type="text"  class="w150"  :value="item.content" name="content" />
+										网址：<input type="text"  class="w150"  :value="item.linkurl" name="linkurl" />
+									</div>	
+									 
+								</div> 
+								<div class="flex" v-if="item.itype=='img'">
+									<div class="pd-5">图片：</div>
+									<div class="flex-1">
+										<div class="js-upload-item flex">
+											<input type="file" :id="'up'+item.id" class="js-upload-file" style="display: none;" />
+											<div v-if="item.imgurl==''" class="upimg-btn js-upload-btn">+</div>
+											<input type="hidden" name="imgurl" class="js-imgurl" :value="item.imgurl" />
+											<div   class="js-imgbox js-upload-btn flex">
+												<img class="wh-60" :src="item.trueimgurl+'.100x100.jpg'" />
+											</div>
+										</div>
+								
+									</div>
+								</div>
+								<div class="flex">
+									<textarea placeholder="请输入css" :value="item.itemcss" name="itemcss"></textarea>
+								</div>
+								<div class="flex mgt-5">
+								<div class="btn mgr-10" @click="saveItem('#itemform'+index)">保存</div>
+								<div class="btn btn-warning" @click="delItem(item.id)">删除</div>
+								</div>
+							</form>
+						</div>
+						<form class="row-box" id="itemAddForm">
+							<input type="hidden" name="vid" :value="h5video.vid" />
+							<input type="hidden" name="pageid" :value="pageid" />
+							<div class="flex flex-wrap">
+								<div class="pd-5">名称</div>
+								<input type="text"  class="w100" name="title" />
+								<div class="pd-5">排序</div>
+								<input type="text" value="11" class="w40" name="orderindex"  />
+								<div class="pd-5">类型</div>
+								<select name="itype" v-model="itype" class="flex-select w100 flex0">
+									<option  v-for="(it,itIndex) in itypeList" :key="itIndex" :value="itIndex">{{it}}</option>
+									 
+								</select>
+							</div>
+							<div class="flex flex-wrap flex-ai-center mgb-5">
+								<div class="pd-5">X</div>
+								<input type="text" name="x"  class="w60" />
+								<div class="pd-5">Y</div>
+								<input type="text" name="y" class="w60" />
+								<div class="pd-5">W</div>
+								<input type="text" name="w"  class="w60" />
+								<div class="pd-5">H</div>
+								<input type="text" name="h" class="w60" />
+								<div class="pd-5">zindex</div>
+								<input type="text" value="9" name="zindex"  class="w60" />
+								<div class="pd-5 mgl-5 mgr-5 btn-small">动画</div>
+								<select name="animate" class="w100">
+									<option value="">无动画</option>
+									<option :value="ani.animate"  v-for="(ani,anIndex) in aniList" :key="anIndex">{{ani.title}}</option>
+								</select>
+								<div class="flex"  v-if="itype=='plugin'" >
+								<div class="pd-5 mgl-5 mgr-5 btn-small">组件</div>
+								<select name="pluginid" class="w100">
+									<option value="">无组件</option>
+									<option :value="pIndex"  v-for="(plugin,pIndex) in pluginList" :key="pIndex">{{plugin}}</option>
+								</select>
+								</div>
+								<div class="flex mgl-5">
+									<div class="btn" @click="showStyle('#addStyle')">样式</div>
+									<div id="addStyle">
+										<div class="style-label"></div>
+										<input type="hidden" name="styleid" class="style-value" />
+									</div>
+								</div>
+								
+							</div>
+							<div v-if="itype=='text'" >
+								<div class="flex flex-wrap flex-ai-center mgb-5"> 
+									<div>颜色</div>
+									
+									<input @click="choiceColor(0)" v-model="colors" :style="'background-color:'+colors" class="w60" type="text"   name="color" />
+									<div>大小</div>
+									<input class="w60" type="text" value="16" name="fontsize" />
+									<div>对齐</div>
+									<select  name="textalign" class="w100">
+										<option value="left">左对齐</option>
+										<option value="center">居中对齐</option>
+										<option value="right">右对齐</option>
+									</select>
+								</div>	
+								<div class="textarea-flex">
+									<textarea placeholder="请输入内容" class="textarea-flex-text h60" name="content"></textarea>
+								</div>
+							</div>
+							<div v-if="itype=='link'" >
+								<div class="flex flex-wrap flex-ai-center mgb-5"> 
+									<div>颜色</div>
+									
+									<input @click="choiceColor(0)" v-model="colors" :style="'background-color:'+colors" class="w60" type="text"   name="color" />
+									<div>大小</div>
+									<input class="w60" type="text" value="16" name="fontsize" />
+									<div>对齐</div>
+									<select  name="textalign" class="w100">
+										<option value="left">左对齐</option>
+										<option value="center">居中对齐</option>
+										<option value="right">右对齐</option>
+									</select>
+								</div>
+								<div class="flex flex-wrap flex-ai-center mgb-5">
+									文字：<input type="text" class="w150"  name="content" />
+									网址：<input type="text" class="w150"   name="linkurl" />
+								</div>	
+								 
+							</div> 
+							<div class="flex" v-if="itype=='img'">
+								<div class="pd-5">图片：</div>
+								<div class="flex-1">
+									<div class="js-upload-item">
+										<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+										<div class="upimg-btn js-upload-btn">+</div>
+										<input type="hidden" name="imgurl" class="js-imgurl" value="" />
+										<div class="js-imgbox flex">
+											
+										</div>
+									</div>
+							
+								</div>
+							</div>
+							<div class="flex">
+								<textarea placeholder="请输入css" name="itemcss"></textarea>
+							</div>
+							<div class="flex">
+							<div class="btn" @click="saveItem('#itemAddForm')">添加</div>
+							</div>
+						</form>
+					</div>
+					<iframe v-if="pageTab=='view' || !iswap" class="h5Page" :src="viewPageUrl"></iframe>
+				</div>
+				<div class="modal-group" :style="addPageCss">
+					<div class="modal-mask" @click="hideAddPage"></div>
+					<div class="modal">
+						<form id="pageForm">
+							<input type="hidden" name="vid" :value="h5video.vid" />
+							<div class="input-flex">
+								<div class="input-flex-label">名称</div>
+								<input type="text" class="input-flex-text" name="title" />
+							</div>
+							<div class="btn-row-submit" @click="savePage('#pageForm')">保存</div>
+						</form>
+					</div>
+				</div>
+				<div class="modal-group" :style="styleBox">
+					<div class="modal-mask" @click="hideStyle"></div>
+					<div class="modal">
+						<div class="modal-body">
+							<div class="flex flex-wrap pd-10">
+								<div class="mgr-5 mgb-5 pointer" @click="setStyle(0,'无')">无</div>
+								<div @click="setStyle(item.id,item.title)" class="pointer mgr-5 mgb-5" v-for="(item,index) in styleList" :key="index">
+									<image v-if="item.stype=='img'" :style="item.content" ></image>
+									<div v-else  :style="item.content">{{item.title}}</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-group" :style="colorCss" >
+					<div class="modal-mask" @click="hideColorCss"></div>
+					<div class="modal modal-color">
+						<div class="modal-header">
+							<div class="modal-title">选择颜色</div>
+							<div class="modal-close icon-close" @click="hideColorCss"></div>
+						</div>
+						<div class="modal-body" style=" max-height:inherit; padding: 10px; margin: 0 auto;">
+							<sketch-picker :value="colors" @input="changeColor" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<link href="/module.php?m=h5video_style&a=allcss" rel="stylesheet" />
+		<script>
+			var vid = "{$data.vid}";
+			var iswap="{$iswap}";
+		</script>
+		<script src="/static/admin/js/upload.js"></script>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="/plugin/vue/vue-color.min.js"></script>
+		<style>
+			.vc-sketch-controls,.vc-sketch-field{
+				display: flex;
+				flex-direction: row;
+			}
+			.vc-sketch-presets{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+			}
+		</style>
+		<script src="{$skins}h5video/design.js"></script>
+	</body>
+</html>

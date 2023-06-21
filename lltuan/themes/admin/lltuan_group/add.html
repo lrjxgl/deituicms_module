@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='lltuan_group/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=lltuan_group&a=save">
+				<input type="hidden" name="gid" style="display:none;" value="{$data.gid}">
+				<table class="table-add">
+					<tr>
+						<td>所在位置：</td>
+						<td>
+							<select name="placeid">
+								<option value="0">请选择</option>
+								{foreach item=c from=$placeList}
+								<option {if $data.placeid eq $c.placeid}selected{/if} value="{$c.placeid}">{$c.title}</option>
+								{/foreach}
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>所属服务：</td>
+						<td>
+							<select name="productid">
+								<option value="0">请选择</option>
+								{foreach item=c from=$proList}
+								<option {if $data.productid eq $c.productid}selected{/if} value="{$c.productid}">{$c.title}</option>
+								{/foreach}
+							</select>
+						</td>
+					</tr>
+					 
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>服务时间：</td>
+						<td>
+							<input  class="w150" type="text" name="dotime" value="{$data.dotime}"/>
+						</td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>审核状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status" value="2"> 下线
+						</td>
+					</tr>
+					<tr>
+						<td>拼团状态：</td>
+						<td>
+							<input type="radio" name="group_status" {if $data.group_status eq 1}checked{/if} value="1">上架
+							<input type="radio" name="group_status"  {if $data.group_status neq 1}checked{/if} value="0">下架
+						</td>
+					</tr>
+					<tr>
+						<td>参与数量：</td>
+						<td>
+							<div class="flex flex-ai-center">
+							<input class="w150 mgr-10" type="text" name="join_num" id="join_num" value="{$data.join_num}">
+							<div class="mgr-10">实际成交：</div>
+							<input class="mgr-10 w150" type="text" name="finish_num" id="finish_num" value="{$data.finish_num}">
+						</div>
+						</td>
+					</tr>
+					 
+					
+					{if $data}<tr>
+						<td>createtime：</td>
+						<td>{$data.createtime}</td>
+					</tr>{/if}
+					<tr>
+						<td>内容：</td>
+						<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		{php loadEditor();}
+		<script>
+			var editor=UE.getEditor('content',options)
+		</script>
+	</body>
+</html>

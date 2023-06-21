@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	<form method="post" action="/module.php?m=fxl_log&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>fxlid：</td>		
+				<td><input type="text" name="fxlid" id="fxlid" value="{$data.fxlid}" ></td>
+				</tr>
+  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>status：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>内容：</td>		
+				<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

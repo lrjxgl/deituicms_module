@@ -1,0 +1,90 @@
+html,
+body {
+	background-color: #fff;
+}
+
+.tBtn {
+	padding: 6px 15px;
+	border-radius: 20px;
+	border: 1px solid #eee;
+	font-size: 14px;
+	color: #999;
+}
+
+textarea::placeholder {
+	color: #b8b8b8;
+	font-size: 1.6rem;
+}
+
+.upimg-goleft,
+.upimg-goright {
+	display: block;
+	cursor: pointer;
+	width: 30px;
+	height: 20px;
+	color: #f40;
+}
+
+.upimg-goleft {
+	margin-right: 10px;
+}
+
+.upimg-item,
+.upimg-img {
+	width: 10rem;
+	height: 10rem;
+}
+
+.cat-label {
+	background: #fff06f;
+	color: #d68931;
+	padding: 4px 10px;
+	border-radius: 15px;
+	font-size: 1.2rem;
+}
+.catBox{
+	position: fixed;
+	z-index: 99;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #fff;
+	padding: 10px;
+}
+.catList{
+	flex: 1;
+	height: 300px;
+	overflow: auto;
+	 
+}
+.catItem{
+	margin-bottom: 10px;
+}
+.catItem-active{
+	color:#f60;
+	font-weight: 600;
+}
+
+/*区域*/
+.areabox {
+	position: absolute;
+	bottom: 0;
+	 
+	left: 0;
+	right: 0px;
+	z-index: 99;
+	background-color: #fff;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding-bottom: 20px;
+}	
+.area-item{
+	margin-bottom: 10px;
+	padding: 10px 20px;
+}
+.area-item-active{
+	background-color: #fff;
+	border-left: 1px solid #f30;
+	color:#f30;
+}
+ 

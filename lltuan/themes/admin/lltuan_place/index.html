@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='lltuan_place/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>placeid</td>
+   <td>名称</td>
+   <td>状态</td>
+   <td>地址</td>
+   <td>创建时间</td>
+     
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.placeid}</td>
+   <td>{$c.title}</td>
+   <td>
+	   <div url="/moduleadmin.php?m=lltuan_place&a=toggle&ajax=1&placeid={$c.placeid}" class="{if $c.status eq 1}yes{else}0{/if} js-toggle-status"></div>
+   </td>
+   <td>{$c.address}</td>
+   <td>{$c.createtime}</td>
+ 
+<td><a href="/moduleadmin.php?m=lltuan_place&a=add&placeid={$c.placeid}">编辑</a> <a href="/module.php?m=lltuan_place&a=show&placeid={$c.placeid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=lltuan_place&a=delete&ajax=1&placeid={$c.placeid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

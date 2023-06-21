@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.abox{
+			border-radius: 10px;
+			background-color: #fff;
+			padding: 10px;
+			margin: 10px 10px;
+		}
+		.abox-item{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			border-bottom: 1px solid #eee;
+			margin-bottom: 5px;
+			padding-bottom: 5px;
+			
+		}
+		.abox-usernum{
+			height: 25px;
+			line-height: 25px;
+			border: 1px solid #eee;
+			border-radius: 5px;
+			margin-right: 5px;
+			padding: 0px 5px;
+			width: 60px;
+		}
+		.cbox{
+			padding: 20px;
+		}
+		.btn-round-small{
+			background-color: #fdfdfd;
+			align-items: center;
+			justify-content: center;
+			width:50px;
+			height: 50px;
+			line-height: 50px;
+			border-radius: 50px;
+			margin-bottom: 10px;
+			color: darkblue;
+			
+		}
+		.flex-jc-space-evenly{
+			justify-content: space-evenly;
+		}
+		.modalMap{
+			position: fixed;
+			bottom:200px;
+			left:10px;
+			right:10px;
+			z-index: 999;
+			background-color: #fff;
+		}
+		.map{
+			width:100%;
+			height: 240px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<div class="header-title">福鼎拼车</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="banner">
+				<img class="wmax" src="{$skins}img/banner.jpg" />
+			</div>
+			<div class="abox">
+				<div class="abox-item pointer" @click="lineClass='flex-col'">
+					<div class="iconfont icon-repeal mgr-5"></div>
+					<div v-if="Object.keys(activeLine).length>0">{{activeLine.title}}</div>
+					<div v-else>请选择拼车线路</div>
+					<div class="flex-1"></div>
+					<div class="iconfont icon-right"></div>
+				</div>
+				
+				<div class="abox-item">
+					<div class="iconfont icon-my_light mgr-5"></div>
+					<input class="abox-usernum" min="1" max="4" type="number" v-model="usernum" />
+					<div>人</div>
+					
+				</div>
+				<template  v-if="Object.keys(activeLine).length>0" >
+				<div class="abox-item pointer" @click="startAddrShow">
+					<div class="iconfont icon-goup mgr-5"></div>
+					<div v-if="start_addr!=''">{{start_addr}}</div>
+					<div v-else-if="Object.keys(activeLine).length>0">{{activeLine.start_addr}}</div>
+					<div v-else>请选择上车位置</div>
+					<div class="flex-1"></div>
+					<div class="iconfont icon-right"></div>
+				</div>
+				<div class="abox-item pointer"  @click="endAddrClass='flex-col'">
+					<div class="iconfont icon-godown mgr-5"></div>
+					<div v-if="end_addr!=''">{{end_addr}}</div>
+					<div v-else-if="Object.keys(activeLine).length>0">{{activeLine.end_addr}}</div>
+					<div v-else>请选择下车位置</div>
+					<div class="flex-1"></div>
+					<div class="iconfont icon-right"></div>
+				</div>
+					<div class="radioList-group mgb-5">
+						<div class="flex mgb-5">
+							<div class=" cl-primary">请选择乘客</div>
+							<div class="flex-1"></div>
+							<a class="cl-primary" href="/module.php?m=pinche_people&a=add">去添加</a>
+						</div>
+						
+						<div @click="ppitem=item" :class="ppitem.ppid==item.ppid?'radioList-item-active':''" v-for="(item,index) in ppList" :key="index" class="radioList-item">
+							{{item.nickname}}
+						</div>
+					</div>
+					
+					<div class="abox-item ">
+						<div class="cl2">线路费用说明:</div>
+						<div class="mgr-5">白天 </div>
+						<div class="cl-money mgr-20">￥{{activeLine.bai_money}}</div>
+						<div class="mgr-5">晚上</div>
+						<div class="cl-money"> ￥{{activeLine.hei_money}}</div>
+						
+						
+					</div>
+					<div class="abox-item">
+						<div class="cl2">当前费用:</div>
+						<div class="cl-money mgr-5">￥{{activeLine.basemoney}}</div>
+						 
+						<div class="cl2">，非站点接送另付费用</div>
+						<div class="cl-money">￥{{activeLine.sendmoney}}/千米</div>
+					</div>
+					<div class="abox-item">
+						<div class="mgr-5">预计车费</div>
+						<div class="cl-money">￥{{totalmoney}}</div>
+					</div>
+					
+					
+					<div>
+						<div @click="orderSubmit" class="btn-row-submit">确认拼车</div>
+					</div>
+				</template>
+			</div>
+			
+			
+			<div class="abox text-center">
+				福鼎拼车帮助提升乡镇交通便利
+			</div>
+			<div class="cbox">
+				<div class="flex flex-jc-space-evenly">
+					<div gourl="/module.php?m=pinche_dache" class="pointer">
+						<div class="iconfont btn-round-small icon-taxi"></div>
+						<div>叫快车</div>
+					</div>
+					<div gourl="/module.php?m=pinche_baoche" class="pointer">
+						<div class="iconfont btn-round-small icon-taxi"></div>
+						<div>包辆车</div>
+					</div>
+					
+					<div gourl="/module.php?m=pinche_driver_apply" class="pointer">
+						<div class="iconfont btn-round-small icon-taxi"></div>
+						<div>车主招募</div>
+					</div>
+					
+					<div  gourl="/module.php?m=pinche_coupon" class="pointer">
+						<div class="iconfont btn-round-small icon-ticket"></div>
+						<div>邀请有奖</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-group" :class="lineClass">
+				<div @click="lineClass=''" class="modal-mask"></div>
+				<div class="modal">
+					<div class="pd-10">
+						<div class="row-item-text pointer" @click="choiceLine(item)" v-for="(item,index) in lineList" :key="index">							
+							{{item.title}}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-group" :class="startAddrClass">
+				<div @click="startAddrClass=''" class="modal-mask"></div>
+				<div class="modalMap">
+					<div class="pd-10">
+						<div class="flex mgb-10">
+							
+							<div  @click="choiceStartAddr('',0)"  class="cl-primary pointer">{{activeLine.start_addr}}</div>
+							<div class="flex-1"></div>
+							
+						</div>
+						<div class="flex">
+							<input placeholder="请输入地点或编号" v-model="startAddr_input" class="input-flex-text" type="text" />
+							<div @click="choiceStartAddr(startAddr_input)" class="input-flex-btn">当前定位</div>
+						</div>
+						<div id="localMap" class="map none"></div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-group" :class="endAddrClass">
+				<div @click="endAddrClass=''" class="modal-mask"></div>
+				<div class="modalMap">
+					<div class="pd-10">
+						<div class="cl-primary pointer"  @click="choiceEndAddr('')">{{activeLine.end_addr}}</div>
+						<div class="row-item-text" @click="choiceEndAddr(item)" v-for="(item,index) in endList" :key="index">
+							{{item.addr}}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script>
+			var map;
+			var geolocation = new BMap.Geolocation();
+			var geoLat,geoLng;
+			
+			function initMap(){
+				map = new BMap.Map("localMap");
+				var point = new BMap.Point(116.331398,39.897445);
+				map.enableScrollWheelZoom();
+				 
+				map.centerAndZoom(point,18);
+				console.log("why")	
+			}
+			function getGps(){
+				geolocation.getCurrentPosition(function(r){
+					if(this.getStatus() == BMAP_STATUS_SUCCESS){
+						geoLat=r.point.lat;
+						geoLng=r.point.lng;
+					}
+					else {
+						alert('failed'+this.getStatus());
+					}        
+				},{enableHighAccuracy: true})
+			}
+			function mapGps(){
+				
+				geolocation.getCurrentPosition(function(r){
+					if(this.getStatus() == BMAP_STATUS_SUCCESS){
+						var mk = new BMap.Marker(r.point);
+						map.addOverlay(mk);
+						map.panTo(r.point);
+						geoLat=r.point.lat;
+						geoLng=r.point.lng;
+						//alert('您的位置：'+r.point.lng+','+r.point.lat);
+					}
+					else {
+						alert('failed'+this.getStatus());
+					}        
+				},{enableHighAccuracy: true})
+			}
+			//获取gps
+			getGps();
+		</script>
+		<script src="{$skins}index.js?vaaasd"></script>
+		<?php wx_jssdk()?>
+		<script>
+			wxshare_title="福鼎拼车帮助提升乡镇交通便利";
+		</script>
+	</body>
+</html>

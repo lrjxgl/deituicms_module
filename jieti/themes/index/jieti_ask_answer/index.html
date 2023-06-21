@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		{include file="header.html"}
+		<div class="layui-main">
+			<div class="layui-row">
+	         	<div class="layui-col-md3">{include file="[c]/sidebar.html"}</div>
+				<div class="layui-col-md9">
+					{include file='jieti_ask_answer/nav.html'}  <table class="tbs">
+<thead>  <tr>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+<td><a href="/module.php?m=jieti_ask_answer&a=add&={$c.}">编辑</a> <a href="/module.php?m=jieti_ask_answer&a=show&={$c.}">查看</a> <a href="javascript:;" class="delete" url="/module.php?m=jieti_ask_answer&a=delete&={$c.}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+				</div>
+
+			</div>
+		</div>	
+		{include file="footer.html"}
+
+	</body>
+
+</html>

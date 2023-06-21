@@ -1,0 +1,25 @@
+.mood-check{
+				border: 1px solid #0034FF;
+				border-radius: 5px;
+			}
+.moodIcon{
+	width: 20px;
+	height: 20px;
+	background-size: 100%;
+}
+.moodIcon0{
+	background-image: url(mood/0.png) ;
+	
+}
+.moodIcon1{
+	background-image: url(mood/1.png) ;
+ 
+}
+.moodIcon2{
+	background-image: url(mood/2.png) ;
+	 
+}
+.moodIcon3{
+	background-image: url(mood/3.png) ;
+	 
+}

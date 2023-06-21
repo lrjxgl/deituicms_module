@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+<script language="javascript">
+function movenew()
+{
+	document.location='{$url}';
+}
+setTimeout(movenew,2000);
+
+</script>
+<div class="tabs-border"><div class="item active">跳转中</div></div>
+<div class="gomsg">
+{$message}，如果没有自动跳转请点击 <a href="{$url}">跳转</a>
+
+</div> 
+
+</body>
+</html>

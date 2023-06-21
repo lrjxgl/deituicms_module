@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">快速验单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div>
+				<div  v-if="!isorder">
+				<div class="input-flex">
+					<div class="input-flex-label">验证码</div>
+					<input type="text" class="input-flex-text" name="ordercode" v-model="ordercode" />
+				</div>
+				<div class="pd-10 bg-white">
+					请输入用户手机中的订单验证码
+				</div>
+				<div class="pd-10 cl-red" v-if="errorMsg!=''">{{errorMsg}}</div>
+				<div @click="checkOrder" class="btn-row-submit">检测验证码</div>
+				</div>
+				<div v-if="isorder">
+					<div class="flex bg-fff pd-10 mgb-5">
+						<div class="flex-1 cl2">单号：{{order.orderno}}</div>
+						<div class="f12 cl3 mgr-10">{{order.timeago}}</div>
+						<div class="cl-primary">{{order.status_name}}</div>
+					</div>
+					<div class="flexlist">
+						 
+						<div v-for="(item,index) in prolist" :key="index" class="flexlist-item mgb-0">
+							
+							<div  class="flexlist-imgbox">
+								<image :src="item.imgurl+'.100x100.jpg'" class="flexlist-img"></image>
+							</div>
+							
+							<div class="flex-1">
+								<div class="flexlist-title" >{{item.title}}</div>
+								<div class="flex">
+									<div class="cl2 mgr-10">{{item.ks_title}}</div>
+									<div class="cl-num mgr-10">￥{{item.price}} </div>
+									<div class="flex-1"></div>
+									<div class="cl2">x {{item.amount}}</div>	
+								</div>		
+							</div>
+						</div>
+						 
+						 
+					</div>
+					<div class="row-box mgb-5">
+						<div class="flex mgb-5">
+							共 <div class="cl-num">{{order.total_num}}</div> 件商品， 合计
+							<div class="cl-num">￥{{order.money}}</div>元， 含运费
+							<div class="cl-num">{{order.express_money}}</div>元
+						</div>
+						<div class="f14 mgb-5">备注</div>
+						<div class="bg-light pd-10 cl3 bd-radius-10">
+							{{order.comment}}
+						</div>
+					</div>
+					<div  class="row-box" v-if="order.ispay==0">当前订单，还未支付</div>
+					<div v-else-if="order.status<3" @click="finishOrder" class="btn-row-submit">确认验单</div>
+					 
+					<div class="row-box">{{finishMsg}}</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var ordercode="{$smarty.get.ordercode|html}";
+		</script>
+		<script src="{$skins}fsbuy_order_shop/checkorder.js"></script>
+	</body>
+</html>

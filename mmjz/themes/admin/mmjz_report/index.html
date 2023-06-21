@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=mmjz_report">待处理</a>
+	<a class="item  {if get('type') eq 'doing'}active{/if}" href="{$appadmin}?m=mmjz_report&type=doing">正处理</a>
+	<a class="item  {if get('type') eq 'finish'}active{/if}" href="{$appadmin}?m=mmjz_report&type=finish">已完成</a>
+	<a class="item  {if get('type') eq 'all'}active{/if}" href="{$appadmin}?m=mmjz_report&type=all">全部</a>
+</div>
+<div class="main-body">
+	<div class="sglist">
+		{foreach item=c from=$list}
+		<div class="sglist-item bd-mp-10">
+			<div class="flex mgb-5">
+				<div class="mgr-20">{$c.shopname}</div>
+				<div class="f12 cl2">{$c.createtime}</div>
+				<div  class="flex-1"></div>
+				{if $c.status==0}
+				<div class="btn-mini mgr-10 js-do-btn" msg="确认去处理吗" url="/moduleadmin.php?m=mmjz_report&a=status&ajax=1&status=1&id={$c.id}">正处理</div>
+				{/if}
+				{if $c.status<2}
+				<div class="btn-mini js-do-btn" msg="确认处理完毕吗" url="/moduleadmin.php?m=mmjz_report&a=status&ajax=1&status=2&id={$c.id}">处理完毕</div>
+				{/if}
+			</div>
+			<div class="sglist-desc">{$c.content}</div>
+			<div class="sglist-imglist">
+				{foreach item=img from=$c.imglist}
+				<div class="sglist-imgbox">
+					<img src="{$img}.100x100.jpg" class="sglist-imglist-img"/>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{/foreach}
+	</div>
+	
+  
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script src="/plugin/dt-ui/skyJs.js"></script>
+<script>
+	$(function(){
+		$(document).on("click",".js-do-btn",function(){
+			var url=$(this).attr("url")
+			skyJs.confirm({
+				content:$(this).attr("msg"),
+				success:function(){
+					$.get(url,function(res){
+						skyJs.toast(res.message);
+						window.location.reload();
+					},"json")
+				}
+			})
+		})
+	})
+</script>
+</body>
+</html>

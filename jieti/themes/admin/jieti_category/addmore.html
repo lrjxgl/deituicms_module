@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='jieti_category/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=jieti_category&a=savemore">
+ 
+ <table class="table-add">  <tr>
+				<td>上级分类：</td>		
+				<td> 
+						<select name="pid">
+							<option value ="0">请选择</option>
+							{foreach item=c from=$catlist}
+							<option value ="{$c.catid}" >{$c.title}</option>
+							{/foreach}
+						</select>
+				</td>
+				</tr>
+  <tr>
+				<td>名称：</td>		
+				<td>
+					<textarea name="content" style="height: 200px;"></textarea>
+					
+				</td>
+				</tr>
+ 
+ 
+   
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

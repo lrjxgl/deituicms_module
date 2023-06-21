@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">报名管理</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flexlist" id="App">
+				<div class="flexlist-item" v-for="(item,index) in userList" :key="index">
+					<img class="flexlist-img" :src="item.user_head+'.100x100.jpg'" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{item.truename}}</div>
+						<div class="flex flex-ai-center mgb-10">
+							<span class="iconfont icon-phone_light"></span>
+							<a :href="'tel:'+item.telephone" class="cl-red">{{item.telephone}}</a>
+						</div>
+						<div class="flex">
+							<div class="cl-status">
+								<template v-if="item.status == 1">已签道</template>
+								<template v-else>未签到</template>
+								 
+							</div>
+							<div class="flex-1"></div>
+							<div v-if="item.status==0" @click="qiandao(item)" class="btn-mini mgr-5">确认签道</div>
+							<div v-if="item.ishongbao==0" @click="send(item)" class="btn-mini mgr-5">发送红包</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>  
+		</div>
+		
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var tid="{$tuan.id}"
+		</script>
+		<script src="{$skins}house_tuan_user/admin.js"></script>
+	</body>
+</html>

@@ -1,0 +1,5 @@
+<div class="tabs-border">
+	<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=pinche_driver_apply">待审核</a>
+	<a class="item {if get('type') eq 'pass'}active{/if}" href="{$appadmin}?m=pinche_driver_apply&type=pass">已通过</a>
+	<a class="item {if get('type') eq 'cancel'}active{/if}" href="{$appadmin}?m=pinche_driver_apply&type=cancel">已禁止</a>
+</div>

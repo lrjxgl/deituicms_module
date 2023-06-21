@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发起活动</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box">所属赛事：{$match.title}</div>
+			<form method="post" action="/module.php?m=fsw_activity&a=save">
+				{if !$iscopy}
+				<input type="hidden" name="actid" style="display:none;" value="{$data.actid}">
+				{/if}
+				<input type="hidden" name="mid"  class="input-flex-text" value="{$match.mid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">比赛日期：</div>
+					<input type="text" name="sday" id="sday" readonly class="input-flex-text" value="{$data.sday}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">介绍：</div>
+					<textarea name="description" id="description"
+						class="textarea-flex-text h60" />{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">图片：</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.trueimgurl}.100x100.jpg">
+							</div>
+
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" />
+						</div>
+					</div>
+				</div>
+				 
+				 
+				<div class="sky-editor-content" name="content" contenteditable="true">{$data.content}</div> 
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#sday",
+				type:"datetime"
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div url="/moduleadmin.php?m=freeshop" class="header-back"></div>
+			<div class="header-title">发布优惠商品</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=freeshop_product&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+ 
+					 
+					<div class="textarea-flex">
+						 
+						<textarea placeholder="请输入商品内容" class="textarea-flex-text h100" name="content" id="content">{$data.content}</textarea>
+					</div>
+					<div class="input-flex">
+						<div>消费方式</div>
+						<input value="0" checked name="sendtype" type="radio" />到店消费
+						<input value="1" name="sendtype" type="radio" />外卖配送
+					</div> 
+					<div class="input-flex flex-ai-center">
+						<div class="cl2 mgr-5">活动价</div>
+						<input name="price" class="input-flex-text" />
+						<div class="cl2 mgl-5 mgr-5">元</div>
+						<div class="cl2 mgr-5">原价</div>
+						<input name="market_price" class="input-flex-text" />
+						<div class="cl2 mgl-5">元</div>
+					</div>
+					 
+					<div class="input-flex flex-ai-center">
+						<div class="cl2 mgr-5">数量</div>
+						<input name="maxnum" class="input-flex-text" />
+						<div class="mgl-10 mgr-10">份</div> 
+						<div class="cl2 mgr-5">消费时间</div>
+						<select name="freetime" class="input-flex-select" />
+							{foreach item=c key=k from=$timeList}
+							<option value="{$k}">{$c.title}</option>
+							{/foreach}
+						</select> 
+					</div> 
+					<div class="row-box mgb-5">
+						<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+						{include file="inc/uploader-data.html"}
+					</div>
+					
+					<div class="cl-red text-center row-box">发布后不可更改，请确认信息</div> 
+				<div class="btn-row-submit " id="submit">保存</div>
+			</form>
+
+		</div>
+	 
+		 
+		{include file="footer.html"}
+		
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="{$skins}freeshop_product/add.js"></script>
+		<script>
+			var inSubmit=false;
+			 
+			$(document).on("click","#submit",function(){
+				if(inSubmit){
+					return false;
+				}
+				inSubmit=true;
+				setTimeout(function(){
+					inSubmit=false;
+				},1000)
+				var form=$(this).parents("form");
+				var imgs=$(".uploader-imgsdata-img");
+				 
+				if(imgs.length>0){
+					var s="";
+					for(var i=0;i<imgs.length;i++){
+						if(i>0){
+							s+=",";
+						}
+						s+=imgs.eq(i).attr("v");		
+					}
+					$("#imgsdata").val(s);
+				}
+				 
+				$.post(form.attr("action")+"&ajax=1",form.serialize(),function(res){
+					skyToast(res.message);
+					inSubmit=false;
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+		</script>
+	</body>
+</html>

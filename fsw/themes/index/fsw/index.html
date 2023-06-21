@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<a href="/module.php?m=fishing" class="header-back"></a> 
+			<div class="header-title">钓鱼微赛事</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div  @click="setType('all')" :class="type=='all'?'tabs-border-active':''" class="tabs-border-item">全部比赛</div>
+				<div  @click="setType('baoming')"  :class="type=='baoming'?'tabs-border-active':''" class="tabs-border-item">报名中</div>
+				<div  @click="setType('doing')"  :class="type=='doing'?'tabs-border-active':''" class="tabs-border-item">正在比赛</div>
+				<div  @click="setType('finish')"  :class="type=='finish'?'tabs-border-active':''" class="tabs-border-item">往届比赛</div>
+			</div>
+			<div class="sglist">
+				 
+				<div @click="goDetail(item)" v-for="(item,index) in list" :key="index" class="sglist-item pointer">
+					<img class="sglist-img" :src="item.imgurl+'.middle.jpg'" />
+					<div class="sglist-title">{{item.title}}</div>
+					<div class="flex mgb-5">
+						<div class="mgr-5 cl2">比赛日期</div>
+						<div class="cl-num">{{item.sday}}</div>
+						<div class="flex-1"></div>
+						<div class="cl-status">{{item.atype_title}}</div>
+					</div>
+					<div class="sglist-desc">{{item.description}}</div>
+				</div>
+				 
+			</div>
+		</div>
+		{assign var="ftnav" value="fsw"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}fsw/index.js"></script>
+	</body>
+</html>

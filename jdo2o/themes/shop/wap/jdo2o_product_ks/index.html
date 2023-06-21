@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.input-flex-label{
+			width: 50px;
+		}
+		.input-flex-text{
+			width: 80px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">商品款式</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div id="App">
+				<div v-for="(item,index) in pageData.list" :key="index" class="row-box ksitem mgb-5">
+					<input type="hidden" class="ks-id" :value="item.id">
+					<div class="input-flex">
+						<div class="input-flex-label">{$product.ks_label_name}</div>
+						<input type="text" :value="item.title" class="input-flex-text ks-title"  placeholder="{$product.ks_label_name}"  >
+						<div class="flex-1"></div>					
+						<div class="input-flex-label">{$product.ks_label_size}</div>
+						<input type="text" :value="item.size" class="input-flex-text ks-size" placeholder="{$product.ks_label_size}"  >
+					</div>
+					 
+					<div class="input-flex">
+						<div class="input-flex-label">价格</div>
+						<input type="text" :value="item.price" class="input-flex-text ks-price" placeholder="价格"  >
+						<div class="flex-1"></div>	
+						<div class="input-flex-label">库存</div>
+						<input type="text" :value="item.total_num" class="input-flex-text ks-total-num" placeholder="库存"  >
+					</div>
+					 
+					<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">销量</div>
+						<input type="text" :value="item.buy_num" class="input-flex-text ks-buy-num" placeholder="销量"  >
+						<div class="flex-1"></div>	
+						<div class="ks-add btn mgr-5"  >保存</div>
+						<div class="ks-del btn btn-danger"  >删除</div>
+					</div>
+				</div>
+			</div> 
+			<div class="row-box ksitem">
+				<input type="hidden" class="ks-id" value="0">
+				<div class="input-flex">
+					<div class="input-flex-label">{$product.ks_label_name}</div>
+					<input type="text"  class="input-flex-text ks-title"  placeholder="{$product.ks_label_name}"  >
+					<div class="flex-1"></div>					
+					<div class="input-flex-label">{$product.ks_label_size}</div>
+					<input type="text" class="input-flex-text ks-size" placeholder="{$product.ks_label_size}"  >
+				</div>
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">价格</div>
+					<input type="text" class="input-flex-text ks-price" placeholder="价格"  >
+					<div class="flex-1"></div>	
+					<div class="input-flex-label">库存</div>
+					<input type="text" class="input-flex-text ks-total-num" placeholder="库存"  >
+				</div>
+				 
+				<div class="input-flex ">
+					<div class="input-flex-label">销量</div>
+					<input type="text" class="input-flex-text ks-buy-num" placeholder="销量"  >
+					<div class="flex-1"></div>	
+					<div class="ks-add btn"  >添加</div>
+				</div>
+				
+			</div>
+		</div>
+		
+		 
+		{include file="footer.html"}
+		<script>
+			var productid="{$product.id}";
+		</script>
+		<script src="{$skins}jdo2o_product_ks/index.js"></script>
+	</body>
+</html>

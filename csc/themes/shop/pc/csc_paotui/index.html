@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.conBox{
+			border: 1px solid #f60;
+			padding:5px;
+			border-radius: 5px;
+			line-height: 1.5;
+			margin-bottom: 8px;
+			font-size: 14px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">跑腿订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="tabs-border">
+				<div @click="setType('all')" :class="{'tabs-border-active':type=='all'}" class="tabs-border-item">全部</div>
+				<div @click="setType('unpay')"  :class="{'tabs-border-active':type=='unpay'}"  class="tabs-border-item">未支付</div>
+				<div @click="setType('unorder')"  :class="{'tabs-border-active':type=='unorder'}"  class="tabs-border-item">待接单</div>
+				<div @click="setType('unsend')"  :class="{'tabs-border-active':type=='unsend'}"  class="tabs-border-item">办理中</div>
+				<div @click="setType('unreceive')"  :class="{'tabs-border-active':type=='unreceive'}"  class="tabs-border-item">待验收</div>
+				
+			</div>
+			<div class="ptlist">
+			
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="mgr-5">{{item.typeid_name}}</div>
+						<div class="cl-money mgr-5">{{item.status_name}}</div>
+						<div class="f12 cl3">{{item.createtime}}</div>
+						<div class="flex-1"></div>
+			
+						<div class="flex mgb-5 flex-ai-center">
+							 
+							<div class="cl-money">￥</div>
+							<div class="cl-money">{{item.paotui_money}}</div>
+						</div>
+					</div>
+					<div class="conBox" v-html="item.content"></div>
+					<div  class="flex mgb-5">
+						 
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 cl3 f12">{{item.truename}}</div>
+								<div class="cl3 f12">{{item.telephone}}</div>
+							</div>
+							<div class="cl3 f12">
+								{{item.address}}
+							</div>
+						</div>
+			
+					</div>
+					 
+			
+					
+					 
+					<div v-if="item.status==0" class="flex">
+						 
+						<div @click="uconfirm(item.id)" class="btn-small btn-primary mgr-20">确认接单</div> 
+						<div @click="cancel(item.id)" class="btn-small btn-light">取消订单</div>
+						
+					</div>
+					
+					<div v-else-if="item.status < 3" class="flex">
+						<div class="flex-1"></div>
+						<div @click="finish(item.id)" class="btn-small">配送完成</div>
+					</div>
+			
+				</div>
+			
+			</div>
+		</div>
+	 
+		{include file="footer.html"}
+		<script src="{$skins}csc_paotui/index.js"></script>
+	</body>
+</html>

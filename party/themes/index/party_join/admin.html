@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">参与人员管理</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	<div class="tabs-border">
+		<div @click="setType('new')" :class="type=='new'?'tabs-border-active':''" class="tabs-border-item">待审核</div>
+		<div @click="setType('pass')" :class="type=='pass'?'tabs-border-active':''"  class="tabs-border-item">已通过</div>
+		<div @click="setType('forbid')" :class="type=='forbid'?'tabs-border-active':''"  class="tabs-border-item">未通过</div>
+		<div @click="setType('unpay')" :class="type=='unpay'?'tabs-border-active':''"  class="tabs-border-item">待支付</div>
+	</div>
+	<div class="flexlist">
+		<div v-if="!list || list.length==0" class="emptyData">暂无数据</div>
+		<div v-for="(item,index) in list" :key="index" class="flexlist-item">
+			<img :src="item.user_head+'.100x100.jpg'" class="flexlist-img" />
+			<div class="flex-1">
+				<div class="flex">
+					<div>{{item.nickname}}</div>
+					<div class="flex-1"></div>
+					<a :href="'tel:'+ item.telephone" class="iconfont cl-primary icon-mobile"></a>
+				</div>
+				<div class="flexlist-desc">{{item.description}}</div>
+				<div class="flex">
+					<div class="cl-status">{{item.status_name}}</div>
+					<div class="flex-1"></div>
+					<div @click="pass(item.id)" v-if="item.status==0 && item.ispay  " class="btn-mini btn-outline-primary mgr-10">通过</div>
+					<div @click="forbid(item.id)" v-if="item.status==0  "  class="btn-mini btn-outline-primary">不通过</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+</div>
+{include file="footer.html"}
+<script>
+var pid="{$party.id}";
+</script>
+<script src="{$skins}party_join/admin.js"></script>
+</body>
+</html>

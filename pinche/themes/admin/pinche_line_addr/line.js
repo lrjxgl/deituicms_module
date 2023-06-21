@@ -1,0 +1,83 @@
+App=new Vue({
+	el:"#App",
+	data:function(){
+		return {
+			list:[],
+			price:0,
+			addr:"",
+			lat:0,
+			lng:0,
+			showMap:false,
+			mapUrl:"/index.php?m=map"
+		}
+	},
+	created:function(){
+		this.getPage();
+	},
+	methods:{
+		getPage:function(){
+			var that=this;
+			$.ajax({
+				url:"/moduleadmin.php?m=pinche_line_addr&ajax=1",
+				dataType:"json",
+				data:{
+					lineid:lineid,
+					stype:stype
+				},
+				success:function(res){
+					that.list=res.data.list;
+				}
+			})
+		},
+		del:function(addrid){
+			var that=this;
+			if(confirm("确认删除吗")){
+				$.ajax({
+					url:"/moduleadmin.php?m=pinche_line_addr&a=delete&ajax=1",
+					dataType:"json",
+					data:{
+						addrid:addrid 
+					},
+					success:function(res){
+						that.getPage();
+					}
+				})
+			}
+			
+		},
+		add:function(){
+			var that=this;
+			$.ajax({
+				url:"/moduleadmin.php?m=pinche_line_addr&a=save&ajax=1",
+				dataType:"json",
+				type:"POST",
+				data:{
+					lineid:lineid,
+					stype:stype,
+					addr:this.addr,
+					lat:this.lat,
+					lng:this.lng,
+					price:this.price
+				},
+				success:function(res){
+					if(res.error){
+						skyToast(res.message);
+						return false;
+					}
+					that.lat=0;
+					that.lng=0;
+					that.addr="";
+					that.getPage();
+				}
+			})
+		},
+		setMap:function(){
+			this.mapUrl="/index.php?m=map";
+			this.showMap=true;
+		},
+		viewMap:function(item){
+			this.mapUrl="/index.php?m=map&a=show&lat="+item.lat+"&lng="+item.lng;
+			this.showMap=true;
+		}
+	}
+})

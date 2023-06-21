@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='pinche_driver_apply/nav.html'}
+<div class="main-body">
+	<form action="/moduleadmin.php" class="search-form">
+		<input  type="hidden" name="m" value="pinche_driver_apply"/>
+		<div class="flex flex-ai-center">
+			<span class="mgr-5">名字</span>
+			<input  type="text" class="w100 mgr-5" name="truename" value="{$truename}" />
+			<span class="mgr-5">电话</span>
+			<input  type="text" class="w100 mgr-5" name="telephone" value="{$telephone}" />
+			<span class="mgr-5">车牌号</span>
+			<input  type="text" class="w100 mgr-5" name="carno" value="{$carno}" />
+			<button class="btn" type="submit">搜索</button>
+		</div>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>名字</td>
+  <td>电话</td>
+  <td>地址</td>
+   <td>状态</td>
+   <td>申请时间</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.truename}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+   <td>{$c.status}</td>
+ 
+   <td>{$c.dateline|date:Y-m-d}</td>
+<td>
+	<a href="/moduleadmin.php?m=pinche_driver_apply&a=show&id={$c.id}">详情</a>
+	</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

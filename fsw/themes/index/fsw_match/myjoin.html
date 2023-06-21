@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我参与的赛事</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=fsw_match&a=show&mid={$c.mid}" class="row-box mgb-5">
+					<img src="{$c.imgurl}.middle.jpg" />
+					<div class="mgb-5">{$c.title}</div>
+					 
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

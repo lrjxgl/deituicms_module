@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.listflex .item{
+			display: flex;
+			font-size: 14px;
+		}
+		.listflex .img{
+			width: 60px;
+			margin-right: 10px;
+		}
+		.listflex .img img{
+			width: 100%;
+		}
+		.listflex .flex-1{
+			flex: 1;
+		}
+		.listflex .title{
+			line-height: 30px;
+			color: #444;
+			font-size: 16px;
+		}
+		.listflex .address{
+			line-height: 30px;
+			color: #888;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">默认书店</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mui-content-padded">
+		    	<div>请先选个常去的书店吧</div>
+		    	<div class="listflex">
+		    		{foreach item=c from=$data}
+		    			<div class="item">
+		    				<div class="img">
+		    					<img src="{$c.imgurl|images_site}.100x100.jpg">
+		    				</div>
+		    				<div class="flex-1">
+		    					<div class="title">{$c.title}</div>
+		    					<div class="address">{$c.address}</div>
+		    					<div class="">
+		    						设为默认书店
+		    					</div>
+		    				</div>
+		    				
+		    			</div>
+		    		{/foreach}
+		    	</div>
+		    </div>
+		</div>
+	</body>
+</html>

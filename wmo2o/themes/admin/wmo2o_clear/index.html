@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">数据清理</div>
+		<div class="main-body">
+			<div class="flex">
+				<div class="flex-1">购物车</div>
+				<div class="btn mgr-10 js-clear" day="3">清除三天前</div>
+				<div class="btn mgr-10  js-clear" day="5">清除五天前</div>
+				<div class="btn mgr-10  js-clear" day="7">清除七天前</div>
+			</div>
+			
+			
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-clear",function(){
+				$.ajax({
+					url:"/moduleadmin.php?m=wmo2o_clear&a=cart&ajax=1",
+					dataType:"json",
+					data:{
+						day:$(this).attr("day")
+					},
+					success:function(res){
+						skyToast(res.message)
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

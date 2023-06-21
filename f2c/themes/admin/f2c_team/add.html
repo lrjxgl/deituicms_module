@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='f2c_team/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=f2c_team&a=save">
+				<input type="hidden" name="teamid" style="display:none;" value="{$data.teamid}">
+				<table class="table-add">
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>userid：</td>
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}"></td>
+					</tr>
+					<tr>
+						<td>昵称：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					<tr>
+						<td>头像：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="userhead" class="js-imgurl" value="{$data.userhead}" />
+								<div class="js-imgbox">
+									{if $data.userhead}
+									<img src="{$data.userhead|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					 
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+</html>

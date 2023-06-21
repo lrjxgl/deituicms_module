@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="header">
+			<div class="header-title">共享菜园</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div  class="flex flex-ai-center">
+					<div class="iconfont icon-location_light"></div>
+					<div gourl="/module.php?m=gxny_shop" class="cl-primary">{$shop.shopname}</div>
+					<div class="flex-1"></div>
+					<div  gourl="/module.php?m=gxny_shoplist" class="flex">
+						<div class="cl-primary">选基地</div>
+						<div class="cl-primary pdr-5 iconfont  icon-right"></div>
+					</div>
+					
+				</div>
+			</div>
+			
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+		</div>
+		<div id="App" class="main-body">
+			<div   class="mgb-5">
+				<div class="pd-10 fw-600">我的菜园</div> 
+				<div class="cdBox">
+					<div class="emptyData" v-if="list.length==0">暂无菜园</div>
+					<div @click="choiceProduct(item)" class="cdItem cdItem-active" v-for="(item,index) in list" :key="index">
+						 {{item.no}} 
+					</div>
+				</div>
+			</div>
+			<div  >
+				<div class="pd-10 fw-600">菜园动态</div>
+				<div   class="sglist">
+					 
+					<div v-for="(item,index) in  blogList" :key="index" @click="goBlog(item.id)" class="sglist-item">
+						
+						<div class="sglist-title flex" v-html="item.content"></div>
+						<div class="sglist-imglist">
+							 
+							<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+							
+						</div>
+						 
+						<div class="sglist-ft">
+							<div class="sglist-ft-love">{{item.love_num}}</div>
+							<div class="sglist-ft-cm">{{item.comment_num}}</div>
+							<div class="sglist-ft-view">{{item.view_num}}</div>
+						</div> 
+					</div>
+					
+				</div>
+			</div>
+			<div class="row-box">
+				<div   class="d-content">{$shop.content}</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shopid}"
+		</script>
+		<script src="{$skins}gxny/index.js"></script>
+	</body>
+</html>

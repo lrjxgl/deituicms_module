@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">需求反馈</h1>
+</header>
+<div class="mui-content">
+ 
+	{foreach item=c from=$list}
+		<div class="row-box">
+			<div class="cor2">
+				{$c.nickname}
+				<span class="fr"> {$c.timeago} </span>
+			</div>
+			<div class="d-content">{$c.content}</div>
+		</div>
+	{/foreach}
+  
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

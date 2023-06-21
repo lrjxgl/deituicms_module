@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" style="display: none;" :style="{display:'block'}" id="app" v-if="pageLoad">
+			 
+			<div class="tabs-border " id="js-tabs-order">
+				<div :class="tab==''?'tabs-border-active':''" @click="setType('')" class="tabs-border-item">全部</div>
+				<div :class="tab=='unpay'?'tabs-border-active':''"  @click="setType('unpay')" class="tabs-border-item">待付款</div>
+				<div :class="tab=='unreceive'?'tabs-border-active':''"  @click="setType('unreceive')" class="tabs-border-item">待收货</div>
+				<div :class="tab=='unraty'?'tabs-border-active':''"  @click="setType('unraty')" class="tabs-border-item">待评价</div>
+				 
+			</div>
+			 
+			<div class="morderlist" id="list">
+				<div v-if="Object.keys(list).length==0" class="emptyData">暂无订单</div>
+				<div v-else>
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex bd-mp-5">
+						<div class="mgr-10 btn-type" v-if="item.sendtype==0">到店</div>
+						<div class="mgr-10 btn-type-wm" v-else>外卖</div>
+						<div class="flex-1 cl-num">{{item.status_name}}</div>
+						<div class="cl3 f12">{{item.timeago}}</div>
+					</div>
+					<div class="flexlist-item" @click="goProduct(item.fsid)">
+						<img class="flexlist-img" :src="item.product.imgurl+'.100x100.jpg'"/>
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.product.content}}</div>
+							 
+							<div class="cl-money">￥{{item.product.price}}</div>
+						</div>
+					</div>
+					<div v-if="item.sendtype==1" class="mgb-5">
+	    			 
+	    				<div class="cl3">联系人：{{item.nickname}}</div>
+	    				<div class="cl3">联系电话：{{item.telephone}}</div>
+	    				<div class="cl3">收货地址：{{item.address}}</div>
+	    			</div>
+					<div class="flex flex-center">
+						<a v-if="item.status==0 && item.ispay==0" class="btn-small mgr-10  btn-outline-primary" @click="goPay(item.orderid)">去支付</a>
+						<div v-if="item.status==1" class="btn-small">确认收货</div>
+						<div @click="goDetail(item.orderid)" class="btn-small btn-outline-primary">订单详情</div>
+					</div>
+					 	
+				</div>
+				</div>
+			</div>
+			<div class="loadMore"  v-if="per_page>0" @click="loadMore">加载更多</div>
+			 
+		</div>
+	{assign var="ftnav" value="order"}	
+	{include file="ftnav.html"}
+	{include file="footer.html"}
+ 
+	 <script>
+	 		 var type="{$type}";
+	 </script>
+	 <script src="{$skins}freeshop_order/my.js?v=33"></script>
+	</body>
+
+</html>

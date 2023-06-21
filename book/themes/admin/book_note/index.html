@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='book_note/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td width="60">id</td>
+   <td>内容</td> 
+   
+   <td width="100">status</td>
+   
+   
+<td width="100">操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.content}</td> 
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if}"></div>
+   </td>
+    
+   
+<td> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=book_note&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

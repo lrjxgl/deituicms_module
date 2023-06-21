@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file="header.html"}
+		<div class="main-body" >
+			<div style="background-color: #fff; padding: 10px;">
+				<div style="margin-bottom: 10px;" class="d-title">{$book.title}之{$data.title}</div>
+				<div style="margin-bottom: 10px;" ><a href="/module.php?m=book&a=show&bookid={$book.bookid}"  style="color: #f30; margin-bottom: 5px;">查看视频教程或者获取有关《{$book.title}》更多信息</a> </div>
+				<div class="d-content">
+					{$data.content}
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script type="text/javascript" charset="utf-8" src="/plugin/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+		<link rel="stylesheet" type="text/css" href="/plugin/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" />
+		<script>
+			SyntaxHighlighter.highlight();
+		</script>
+	</body>
+</html>

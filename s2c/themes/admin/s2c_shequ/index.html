@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=s2c_shequ">全部社区</a>
+			<a class="item {if get('type') eq 'bind'}active{/if}" href="{$appadmin}?m=s2c_shequ&type=bind">已开通</a>
+			<a class="item {if get('type') eq 'unbind'}active{/if}" href="{$appadmin}?m=s2c_shequ&type=unbind">未开通</a>
+			
+		</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>scid</td>
+						<td>社区名称</td>
+						<td>图片</td>
+						<td>状态</td>
+						<td>地址</td>
+						<td>团长</td> 
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.scid}</td>
+					<td>{$c.title}</td>
+					<td>
+						{if $c.imgurl}
+						<img src="{$c.imgurl}.100x100.jpg" class="wh-40" />
+						{/if}
+					</td>
+					<td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=s2c_shequ&a=status&scid={$c.scid}&ajax=1" ></div></td>
+					<td>{$c.address}</td>
+					<td>{$c.team_nickname}</td>
+					<td>
+						{if $c.teamid}
+						<a href="javascript:;" class="js-unbind" scid="{$c.scid}">解绑团长</a>
+						{else}
+						<a href="/moduleadmin.php?m=s2c_shequ&a=bind&scid={$c.scid}" >绑定团长</a>
+						{/if}
+						
+						
+						 
+						<a href="/moduleadmin.php?m=s2c_shequ&a=add&scid={$c.scid}">编辑</a> 
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=s2c_shequ&a=delete&scid={$c.scid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-unbind",function(){
+				var obj=$(this);
+				if(confirm("确认解绑社区团长吗?")){
+					$.get("/moduleadmin.php?m=s2c_shequ&a=unbind&ajax=1",{
+						scid:$(this).attr("scid")
+					},function(res){
+						if(res.error){
+							skyToast(res.message)
+							return ;
+						}
+						obj.parents("tr").remove();
+					},"json")
+				}
+			})
+		</script>
+	</body>
+</html>

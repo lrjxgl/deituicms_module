@@ -1,0 +1,15 @@
+<script src="/plugin/jquery/jquery.js"></script>
+<script src="/plugin/vue/vue.min.js"></script>
+	<script src="/plugin/dt-ui/dt-ui-h5.js"></script>
+<script src="{$skins}js/app.js"></script>	
+<?php
+wx_jssdk();
+?>    
+<script>
+	wxshare_title="{$seo.title}";
+	wxshare_link=window.location.href;
+	wxshare_imgUrl="{$vote.imgurl|images_site}";
+	setTimeout(function(){
+		$.get("/module.php?m=vote&a=StatView&id={$vote.id}")
+	},3000);
+</script>

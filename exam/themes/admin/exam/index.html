@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='exam/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>exid</td>
+						<td>题目</td>
+						<td>发布</td> 
+						<td>状态</td>
+						<td>创建时间</td>
+					 
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.exid}</td>
+					<td>{$c.title}</td>
+					<td><div class="js-toggle-status {if $c.isonline eq 1}yes{else}no{/if}" url="/moduleadmin.php?m=exam&a=online&ajax=1&exid={$c.exid}"></div></td> 
+					<td><div class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}" url="/moduleadmin.php?m=exam&a=status&ajax=1&exid={$c.exid}"></div></td>
+					<td>{$c.createtime}</td>
+					 
+					<td>
+						<a href="/moduleadmin.php?m=exam_ask&exid={$c.exid}">试题管理</a>
+							<a href="/moduleadmin.php?m=exam_answer&exid={$c.exid}">答卷管理</a>
+						<a href="/moduleadmin.php?m=exam&a=add&exid={$c.exid}">编辑</a> 
+					<a href="/module.php?m=exam&a=test&exid={$c.exid}" target="_blank">查看</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=exam&a=delete&ajax=1&exid={$c.exid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

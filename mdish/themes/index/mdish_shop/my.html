@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的商家</div>
+	<div gourl="/module.php?m=mdish_shop&a=add" class="header-right-btn">添加</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div>
+		{foreach item=c from=$list}
+		<div class="flexlist-item">
+			<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="flexlist-title">{$c.title}</div>
+				<div class="flex mgb-5">
+					<div>{$c.nickname}</div>
+					<div class="flex-1"></div>
+					<div>{$c.telephone}</div>
+					
+				</div>
+				<div class="cl2 mgb-5">{$c.address}</div>
+				<div class="flexlist-desc">{$c.description}</div>
+			</div>
+		</div>
+		{/foreach}
+	</div>
+    	 
+
+<div>{$pagelist}</div>    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+		    <a class="header-back"></a>
+		    <h1 class="header-title">我的订单</h1>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		    <div class="flexlist">
+		    	{foreach item=c from=$data}
+		    	<a href="/module.php?m=cj1&a=show&id={$c.id}" class="flexlist-item">
+		    		<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg">
+		    		<div class="flex-1">
+		    			<div class="flexlist-title">{$c.title}</div>
+		    			<div class="flex">
+		    				 价值：<span class="cl-num">￥{$c.price}</span>
+							  &nbsp;&nbsp;	成团数：<span class="cl-num">{$c.need_num}</span> 
+		    			</div>
+		    		</div>
+		    	</a>
+		    	{/foreach}
+		    </div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

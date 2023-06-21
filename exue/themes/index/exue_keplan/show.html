@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>用户：</td><td>{$data.userid}</td></tr>
+  <tr><td>商家：</td><td>{$data.shopid}</td></tr>
+  <tr><td>老师：</td><td>{$data.tcid}</td></tr>
+  <tr><td>学生：</td><td>{$data.stid}</td></tr>
+  <tr><td>上课时间：</td><td>{$data.ketime}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

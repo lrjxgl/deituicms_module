@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>{include file="head.html" }
+	<body>
+
+		<div class="tabs-border">
+			<a class="item active" href="/moduleadmin.php?m=vote">投票管理</a>
+			<a class="item" href="/moduleadmin.php?m=vote&a=add">投票添加</a>
+		</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>标题</td>
+						<td>添加时间</td>
+						<td>状态</td>
+						<td>开始时间</td>
+						<td>结束时间</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					{foreach item=c from=$data}
+					<tr>
+						<td>{$c.id}</td>
+						<td>{$c.title}</td>
+						<td>{$c.dateline|date:Y-m-d}</td>
+						<td><div url="/moduleadmin.php?m=vote&a=status&id={$c.id}&ajax=1" class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}"></div> </td>
+
+
+						<td>{$c.starttime|date:Y-m-d }</td>
+						<td>{$c.endtime|date:Y-m-d}</td>
+						<td>
+							<a href="/moduleadmin.php?m=vote_join&vid={$c.id}">参与选手</a>
+							<a href="/moduleadmin.php?m=vote&a=add&id={$c.id}">编辑</a>
+							<a href="/module.php?m=vote&a=home&id={$c.id}" target="_blank">查看</a>
+
+
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html" }
+	</body>
+</html>

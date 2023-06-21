@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a class="item active" href="/moduleadmin.php?m=fenlei_config">分类设置</a>
+			 
+		</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fenlei_config&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>置顶首页费用：</td>
+						<td><input class="w150" type="text" name="dingmoney" id="dingmoney" value="{$data.dingmoney}">
+							元
+						</td>
+					</tr>
+					<tr>
+						<td>更新费用：</td>
+						<td><input class="w150" type="text" name="update_money"  value="{$data.update_money}">
+							元
+						</td>
+					</tr>
+					<tr>
+						<td>开启红包：</td>
+						<td>
+							<input {if $data.hb_on}checked{/if}  type="radio" name="hb_on" value="1">开启
+							<input {if $data.hb_on eq 0}checked{/if} type="radio" name="hb_on" value="0">关闭
+							 
+						</td>
+					</tr>
+					<tr>
+						<td>红包条件：</td>
+						<td>
+							<input {if $data.hb_wx_follow eq 1}checked{/if} name="hb_wx_follow" type="radio" value="1" /> 关注公众号
+							<input {if $data.hb_wx_follow eq 0}checked{/if}  name="hb_wx_follow" type="radio" value="0" /> 无条件 
+						</td>
+					</tr>
+					<tr>
+						<td>等级优惠</td>
+						<td>
+							<input  type="radio" name="rank_on" {if $data.rank_on eq 1}checked{/if} value="1" /> 开启
+							<input  type="radio" name="rank_on" {if $data.rank_on neq 1}checked{/if} value="0" /> 关闭
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

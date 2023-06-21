@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">取出保证金</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="cl2">您的保证金：</div>
+					<div class="cl-money">￥{{data.money}}元</div>
+					<div class="flex-1"></div>
+					 
+				</div>
+				<div class="pd-10 cl2">提取说明</div>
+			</div>
+			<div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">金额</div>
+					<input v-model="money" type="text" class="input-flex-text" />
+					<div class="cl2 mgl-10">元</div>
+				</div>
+				<div class="row-box">
+					<div class=" bd-mp-10">提现账户</div>
+					<div  v-for="(item,index) in bankList"
+						:key="index" 
+						@click="bankid=item.id"
+						:class="bankid==item.id?'radioList-item-active':''"
+						class="radioList-item">
+							{{item.yhk_name}} {{item.yhk_huming}} {{item.yhk_haoma}}
+						</div> 
+					 
+					 
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">支付密码</div>
+					<input type="password" v-model="paypwd" class="input-flex-text" />
+				</div>
+				<div @click="save" class="btn-row-submit">确认提取</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}b2b_shop_earnest/out.js"></script>
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.list{
+			background-color: #fff;
+			padding: 10px;
+		}
+		.list .item{
+			margin-bottom: 5px;
+			border-bottom: 1px solid #eee;
+			padding-bottom: 5px;
+			display: flex;
+			flex-direction: row;
+		}
+		.list .item .title{
+			flex: 1;
+		}
+		
+		.list .item .num{
+			width: 100px;
+			text-align: center;
+		}
+		.list .item .cart{
+			width: 100px;
+			text-align: center;
+		}
+		 
+		
+		.list .item .buy-btn {
+		    display: inline-block;
+		    height: 30px;
+		    line-height: 30px;
+		    text-align: center;
+		    width: 30px;
+		    background-color: #83c44e;
+		    color: #fff;
+		    border-radius: 50%;
+		    float: right;
+		    cursor: pointer;
+		}
+		.list .item  .cart-active .buy-btn{
+			display: none;
+		}
+	</style>
+	<body>
+		<div class="header">
+				<div class="header-back"></div>
+				<div class="header-title">书籍进货</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			 
+				<div class="list">
+					<div class="item">
+						<div class="title">名称</div>
+						<div class="num">我的库存</div>
+						<div class="cart">操作</div>
+					</div>
+					{foreach item=c from=$books}
+					<div class="item">
+						<div class="title">
+							{$c.title}
+						</div>
+						<div class="num">
+							{$c.product_num}
+						</div>
+						<div class="cart {if $c.cart_num}cart-active{/if}" bookid="{$c.bookid}" >
+							 
+							<div class="numbox {if !$c.cart_num}none{/if}">
+                        		<div  bookid="{$c.bookid}" class="numbox-minus js-cart-minus">-</div>
+                        		<input id="amount-{$c.bookid}" type="text" name="amount" value="{$c.cart_num}" class="numbox-num">
+                        		<div  bookid="{$c.bookid}" class="numbox-plus js-cart-add">+</div>	
+                        	</div>
+                        	 
+							<div  bookid="{$c.bookid}" class="buy-btn js-cart-add">买</div>
+						 
+						</div>
+						
+					</div>
+					{/foreach}
+				</div>
+				<div class="btn-row-submit" id="js-cart-buy">确认进货</div>
+			 
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}js/gread_shop_incart.js?{$smarty.now}"></script>
+	</body>
+</html>

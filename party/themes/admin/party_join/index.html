@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{include file='head.html'}
+	<style>
+	.jItem{
+		width: 100px;
+		padding: 10px;
+		box-sizing: border-box;
+		justify-content: center;
+		align-items: center;
+		 text-align:center; 
+		margin-bottom: 10px;
+	}
+	</style>
+	<body>
+		<div class="shd">参与人员</div>
+		<div class="main-body">
+			<div class="flex flex-wrap">
+				{foreach item=c from=$list}
+				<div class="jItem">
+					<img class="wh-60 bd-radius-50 mgb-5" src="{$c.user_head}.100x100.jpg" />
+					<div class="f12 text-center cl2">{$c.nickname}</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+	</body>
+</html>

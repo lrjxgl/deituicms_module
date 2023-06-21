@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">{$type_name}</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>昵称</td>
+   <td>性别</td>
+   <td>状态</td>
+   
+   <td>ispay</td>
+   <td>isfinish</td>
+   <td>user_num</td>
+    
+   
+   <td>wxhao</td>
+   <td>xingzuo</td>
+   <td>description</td>
+   <td>imgsdata</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.nickname}</td>
+   <td>{if $c.gender eq 1}男{else}女{/if}</td>
+   <td>
+	   <div url="/moduleadmin.php?m=yxq_paper&a=status&ajax=1&id={$c.id}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+   
+   <td><div class="{if $c.ispay eq 1}yes{else}no{/if}"></div></td>
+    <td><div class="{if $c.isfinish eq 1}yes{else}no{/if}"></div></td>
+   <td>{$c.user_num}</td>
+ 
+   
+   <td>{$c.wxhao}</td>
+   <td>{$c.xingzuo}</td>
+   <td>{$c.description}</td>
+   <td>
+	   {foreach item=img from=$c.imgList}
+	   <img src="{$img}.100x100.jpg" class="w50" />
+	   {/foreach}
+	   
+   </td>
+    
+<td>
+<a href="javascript:;" class="js-delete" url="moduleadmin.php?m=yxq_paper&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

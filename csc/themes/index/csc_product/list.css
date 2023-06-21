@@ -1,0 +1,44 @@
+.side {
+	position: fixed;
+	top: 45px;
+	left: 0px;
+	width: 80px;
+	bottom: 0px;
+	background-color: #fff;
+	overflow: auto;
+}
+
+.side-menu {
+	cursor: pointer;
+	padding: 10px 5px;
+	border-bottom: 1px solid #eee;
+	color: #646464;
+	font-size: 14px;
+}
+
+.side-menu-active {
+	color: #f30;
+}
+
+.main {
+	margin-left: 82px;
+}
+
+.mgr-2 {
+	margin-right: 2px;
+}
+
+.iActive {
+	color: #007AFF;
+}
+
+.circle{
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	border: 1px solid #0088CC;
+	border-radius: 50%;
+	color: #0088CC;
+	font-size: 12px;
+	text-align: center;
+}

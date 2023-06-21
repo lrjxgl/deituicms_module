@@ -1,0 +1,16 @@
+{if empty($hhconfig)}
+{get data=hhconfig model=mod_household_config fun=selectRow(" 1 ")}
+{/if} 
+<div class="footer-row"></div>
+<div class="footer">
+	<div class="footer-item icon-home {if $ftnav eq 'household_home'}footer-active{/if}" gourl="/module.php?m=household">首页</div>
+	{if $hhconfig.forum_gid>0}
+	<div class="footer-item icon-group {if $ftnav eq 'household_bbs'}footer-active{/if}" gourl="/module.php?m=household_bbs">家电论坛</div>
+	{/if} 
+	{if $hhconfig.ftnav_cat==1}
+	<div class="footer-item icon-cascades {if $ftnav eq 'household_category'}footer-active{/if}" gourl="/module.php?m=household_category">服务分类</div>  
+	{/if}
+	<div class="footer-item icon-cart {if $ftnav eq 'household_cart'}footer-active{/if}" gourl="/module.php?m=household_cart">服务清单</div>
+	
+	<div class="footer-item icon-my_light {if $ftnav eq 'household_user'}footer-active{/if}"  gourl="/module.php?m=household_user">我的</div>
+</div>

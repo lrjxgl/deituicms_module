@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='fsw_user/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fsw_user&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					 
+					<tr>
+						<td>grade：</td>
+						<td><input type="text" name="grade" id="grade" value="{$data.grade}"></td>
+					</tr>
+					<tr>
+						<td>join_num：</td>
+						<td><input type="text" name="join_num" id="join_num" value="{$data.join_num}"></td>
+					</tr>
+					<tr>
+						<td>status：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status" value="2"> 下线
+						</td>
+					</tr>
+					<tr>
+						<td>nickname：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>telephone：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>user_head：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="user_head" class="js-imgurl" value="{$data.user_head}" />
+								<div class="js-imgbox">
+									{if $data.user_head}
+									<img src="{$data.user_head|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>address：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					<tr>
+						<td>description：</td>
+						<td><textarea name="description" id="description"
+								class="textarea-flex-text h60" />{$data.description}</textarea></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+	</body>
+</html>

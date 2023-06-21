@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=collect_rule" class="item">规则列表</div>
+			<div gourl="/moduleadmin.php?m=collect_rule&a=add"  class="item active">规则添加</div>
+		</div>
+		<div class="main-body">
+    <form method='post' id="t_form" action='moduleadmin.php?m=collect_rule&a=save'>
+      <input type='hidden' name='id' style='display:none;' value='{$data.id}' >
+      <table class="table-add">
+        <tr>
+          <td>名称：</td>
+          <td><input type='text' name='title' id='title' value='{$data.title}' > <a id="copy_rule" class="btn btn-success" href="{$appadmin}?m=collect_rule&a=copy&id={$data.id}">复制规则</span></td>
+        </tr>
+        <tr>
+			<td>客户端</td>
+			<td>
+				<input type="radio" {if $data.iswap eq 1}checked{/if} name="iswap" value="1" />手机
+				<input type="radio" {if $data.iswap neq 1}checked{/if}  name="iswap" value="0" />电脑
+			</td>
+		</tr>
+        <tr>
+        	<td>代理：</td>
+            <td><input type="text" name="dl_url" value="{$data.dl_url}" class="w600" /> <br />(若采集Ip被禁，可以使用代理，否则为空)</td>
+        </tr>
+        <tr>
+			<td>curl</td>
+			<td>
+				<input type="radio" {if $data.iscurl eq 1}checked{/if} name="iscurl" value="1" />是
+				<input type="radio" {if $data.iscurl neq 1}checked{/if}  name="iscurl" value="0" />否
+			</td>
+		</tr>
+        {if $data}
+        <tr>
+          <td>添加时间：</td>
+          <td>{$data.dateline|date:Y-m-d H:m}</td>
+        </tr>
+        {/if}
+        <tr>
+          <td>规则分类：</td>
+          <td>
+          		<select name="type_id">
+                {foreach item=c key=k from=$type_list}
+                <option value="{$k}" {if $data.type_id eq $k} selected="selected"{/if}>{$c}</option>
+                {/foreach}
+                </select>
+          </td>
+        </tr>
+		<tr>
+			<td>所属插件</td>
+			<td>
+				<select id="mdname" name="mdname">
+					{foreach item=c key=k from=$moduleList}
+					<option value="{$k}" {if $k eq $data.mdname}selected{/if}>{$c}</option>
+					{/foreach}
+				</select>
+			</td>
+		</tr>
+        {get data=ms model=model fun=getlist()}
+        <tr>
+        	<td>产品分类：</td>
+            <td>
+            	<select id="catid" name="catid">
+                {foreach item=c from=$catlist}
+                <option value="{$c.catid}" {if $data.catid eq $c.catid} selected="selected"{/if}>{$c.title}</option>
+                {foreach item=c_2 from=$c.child}
+                	<option value="{$c_2.catid}" {if $data.catid eq $c_2.catid} selected="selected"{/if} class="o_c_2">|__{$c_2.title}</option>
+                    {foreach item=c_3 from=$c_2.child}
+                    <option value="{$c_3.catid}" {if $data.catid eq $c_3.catid} selected="selected"{/if} class="o_c_3">|____{$c_3.title}</option>
+                    {/foreach}
+                {/foreach}
+                {/foreach}
+                </select>
+            </td>
+        </tr>
+        
+        
+        <tr>
+        	<td>所属店铺：</td>
+            <td><input type="text" name="shopid" value="{$data.shopid}" /></td>
+        </tr>
+        
+        <tr>
+          <td>域名：</td>
+          <td><input type='text' name='domain' id='domain' value='{$data.domain}' style="width:90%" ></td>
+        </tr>
+        
+        <tr>
+        	<td>列表地址</td>
+            <td><input type="text" name="page_url" value="{$data.page_url}" style="width:90%;" /></td>
+        </tr>
+        
+        <tr>
+        	<td>开始页</td>
+            <td>
+            <input type="text" name="start_page" value="{$data.start_page}" class="w100" />
+             结束页 <input type="text" name="end_page" value="{$data.end_page}" class="w100" />
+             当前页 <input type="text" name="now_page" value="{$data.now_page}" class="w100" />
+             (如：开始页 1 结束页  40 当前页：40) 
+             </td>
+        </tr>
+        
+        <tr>
+        	<td>页记录数</td>
+            <td>
+            	<input type="text" name="pagesize" class="w100" value="{if !$data}1{else}{$data.pagesize}{/if}" />
+                (有的分页是1-25-50 这样就写25)
+            </td>
+        </tr>
+        <!--
+        <tr>
+        	<td>列表页</td>
+            <td><textarea name="page_content" style="width:600px; height:200px;">{$data.page_content}</textarea></td>
+        </tr>
+        -->
+        <tr>
+          <td>列表地址：</td>
+          <td><input type='text' name='list_url' id='list_url' value='{$data.list_url}'  style="width:90%" >
+          <br />
+          <button class="btn btn-primary" type="button" id="test-list">测试列表</button>
+          </td>
+        </tr>
+        <tr>
+          <td>列表规则：</td>
+          <td><p>
+            <textarea name="list_rule" id="list_rule" style="width:90%; height:100px;">{$data.list_rule}</textarea>
+            </p>
+            <p>规则说明：1.c=&gt;&gt;&lt;div class=&quot;news_list&quot;&gt; 根据html裁剪<br />
+              2.a=&gt;&gt;&lt;a href=&quot;({url=.*})&quot;.*&gt;({title=.*})&lt;/a&gt; 根据正则匹配<br />
+              3.r=&gt;&gt;&lt;p style=&quot;text-align:center;&quot;&gt; 根据html删除内容<br />
+              4.rp=&gt;&gt;&lt;a href=&quot;[^&quot;]*&quot; class=&quot;a_self pull-right btn btn-primary askAuthor&quot;[^&gt;]*&gt;&lt;i class=&quot;icon-question-sign icon-white&quot;&gt;&lt;/i&gt;向作者提问&lt;/a&gt;</p> 
+          </td>
+        </tr>
+        <tr>
+        	<td>采集图片</td>
+            <td><input type="checkbox" name="remote_img" value="1" {if $data.remote_img} checked="checked"{/if}  /> 是</td>
+        </tr>
+        <tr>
+        	<td>采集图集：</td>
+            <td><input type="checkbox" name="filter_img" value="1" {if $data.filter_img} checked="checked"{/if}  /> 是 (图片模型)</td>
+        </tr>
+        <tr>
+          <td>内容地址：</td>
+          <td><input type='text' name='content_url' id='content_url' value='{$data.content_url}'  style="width:90%" >
+          <br />
+          <button class="btn btn-primary" type="button" id="test-content">测试内容</button>
+          </td>
+        </tr>
+        <tr>
+          <td>内容规则：</td>
+          <td><textarea name="content_rule" id="content_rule" style="width:90%;height:100px;">{$data.content_rule}</textarea></td>
+        </tr>
+        
+      </table>
+	  <div class="btn-row-submit js-submit">保存</div>
+    </form>
+  </div>
+</div>
+
+
+<style type="text/css">
+#showbox_container{overflow-y:scroll;}
+</style>
+
+{include file="footer.html"}
+<script language="javascript">
+$(document).ready(function(){
+	$("#test-list").bind("click",function(){
+		$.post("/moduleadmin.php?m=collect_rule&a=testlist",$("#t_form").serialize(),function(data){
+			showbox("测试采集列表",data,600,400);
+		})
+	});
+	
+	$("#test-content").bind("click",function(){
+		$.post("/moduleadmin.php?m=collect_rule&a=testcontent",$("#t_form").serialize(),function(data){
+			showbox("测试采集内容",data,600,400);
+		}) 
+	});
+	
+	$(document).on("change","#mdname",function(){
+		var tablename=$(this).val();
+		$.get("/moduleadmin.php?m=collect_rule&a=catlist&ajax=1&tablename="+tablename,function(res){
+			var html='<option value="0">请选择</option>';
+			for(var i in res.data){
+				html=html+'<option value="'+res.data[i].catid+'">'+res.data[i].title+'</option>';
+				if(res.data[i].child!=null){
+					for(var j in res.data[i].child){
+						var child=res.data[i].child[j];
+						html=html+'<option value="'+child.catid+'">|--'+child.title+'</option>';
+					}
+				}
+			}
+			 
+			$("#catid").html(html);
+		},"json");
+	})
+});
+</script>
+</body>
+</html>

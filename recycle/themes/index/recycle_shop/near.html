@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">附近的回收站</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+		     
+	    	<div class="flexlist">
+	    		<div  v-for="(item,index) in list" :key="index" class="flexlist-item">
+	    			<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'">
+	    			<div class="flex-1">
+	    				<div class="flexlist-title">{{item.title}}</div>
+	    				<div class="flexlist-desc">{{item.address}}</div>
+	    			</div>
+	    			<div @click="goShop(item.shopid)" class="btn-small btn-round btn-round-small bg-success">选择</div>
+	    		</div>
+	    	</div>
+		   
+		</div>
+		 
+		{include file="footer.html"}
+		
+	 
+	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=<?=BDMAPKEY?>"></script>
+	<script src="{$skins}recycle_shop/near.js?v=3"></script>
+	</body>
+</html>

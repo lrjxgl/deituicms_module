@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<link href="/plugin/videojs/video-js.css" rel="stylesheet">
+		<link href="{$skins}zblive/goods/show.css?{$smarty.now}" rel="stylesheet" />
+		<div id="App" class="none" :class="'flex-col'" v-if="pageLoad">
+			<div class="header-fixtop">
+				<div class="header-back"></div>
+			</div> 
+			<div class="main-body">
+				{include file="zblive/video.html"}
+				<div :style="{height:ftBoxHeight+'px'}" class="ftBox-mask"></div>
+				
+				<div :style="{height:ftBoxHeight+'px'}" class="ftBox">
+					<div class="tabs-border mgb-5" style="background-color:#e3e3e3;">
+						<div @click="setTab('comment')" :class="tab=='comment'?'tabs-border-active':''" class="tabs-border-item">咨询服务</div>
+						<div @click="setTab('product')"  :class="tab=='product'?'tabs-border-active':''"  class="tabs-border-item">直播产品</div>
+						<div class="flex-1"></div>
+						<div class="flex flex-ai-center">
+							
+							<div  class="btn-mini goBack" url="/" >返回</div>
+							<div class="btn-mini mgl-5 pointer" @click="window.location.reload()">刷新</div>
+						</div>
+						
+					</div>
+					<template  v-if="tab=='comment'">
+						<div class="msgList flex-1">
+							<div v-for="(item,index) in msgList" :key="index" class="msgList-item">
+								<div class="msgList-nick">{{item.nickname}}</div>
+								<div class="msgList-desc">{{item.content}}</div>
+							</div>
+							 
+						</div>
+						<div class="flex flex-ai-center">
+							 
+							<template v-if="zblive.zbstatus==1">
+							<div class="flex-1 pd-5">
+								<input v-model="cmContent" placeholder="发布你想了解的信息" class="ftBox-text" type="text" />
+							</div>
+							<div @click="sendMsg" class="btn-send iconfont icon-fasong"></div>
+							</template>
+							<template v-else>
+								<div class="flex-1 pd-5">
+									<input disabled v-model="cmContent" placeholder="直播结束，不能发布消息了" class="ftBox-text" type="text" />
+								</div>
+							</template>
+						</div>
+					</template>
+					<template  v-if="tab=='product'">
+						<div class="flexlist">
+							<div v-for="(item,index) in proList" :key="index" class="flexlist-item">
+								<img class="flexlist-img" :src="item.imgurl" />
+								<div class="flex-1">
+									<div class="flexlist-title">{{item.title}}</div>
+									<div class="flex">
+										<div>价格</div>
+										<div class="cl-money mgr-5">￥{{item.price}}</div>
+									
+										<div class="flex-1"></div>
+										<a  @click="goProduct(item.id)" class="btn-small ">立即购买</a>
+									</div>
+								</div>
+							</div>
+							 
+						</div>
+					</template>
+					
+				</div>
+				<div v-if="newGoodOn">
+					<div @click="newGoodOn=false" class="modal-mask"></div>
+					<div class="newGoodsBox">
+						<div class="flexlist-item">
+							<img class="flexlist-img" :src="newGood.imgurl" />
+							<div class="flex-1">
+								<div class="flexlist-title">{{newGood.title}}</div>
+								<div class="flex">
+									<div>价格</div>
+									<div class="cl-money mgr-5">￥{{newGood.price}}</div>
+								
+									<div class="flex-1"></div>
+									<a  @click="goProduct(newGood.id)" class="btn-small ">立即购买</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				 
+				 
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/videojs/video.js"></script>
+		<script src="/plugin/videojs/videojs-http-streaming.min.js"></script>
+		
+		<script>
+			var room_id="{$zblive.id}";
+			var ws_gid="{$ws_gid}";
+			var ws_uid="{$ws_uid}";
+			var ws_host="{$ws_host}";
+			var video;
+			var ssuser;
+			var iswap={if ISWAP}1{else}0{/if};
+			var msApp;
+		</script>
+		<script src="{$skins}zblive/goods/msg.js"></script>	
+		<script src="{$skins}zblive/goods/show.js?{$smarty.now}"></script>
+		<script>
+			
+			var touchFirst=true;
+			var w=$(window).width();
+			var h=$(window).innerHeight();
+			
+			$(document).on("click","#videoPlay",function(){
+				video.play();
+				$(this).hide();
+				
+			})
+			$(document).on("click","#modal-group-goods-btn",function(){
+				$("#modal-group-goods").show();
+			})
+			 
+			$(document).on("click",".js-get-quan",function(){
+				$("#modal-group-share").show();
+			}) 
+		</script>
+		  
+	</body>
+</html>

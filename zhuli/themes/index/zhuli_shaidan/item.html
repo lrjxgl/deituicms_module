@@ -1,0 +1,35 @@
+<div class="item">
+	<div class="g-sd1">
+
+		<a href="/index.php?m=news&a=home&userid={$c.userid}"><img src="{$c.user_head|images_site}.100x100.jpg">
+			<span class="nick">{$c.nickname}</span>
+		</a>
+	 
+	</div>
+	<div class="g-mn1">
+		<div class="g-mn1c">
+			<div class="con">{$c.content}</div>
+			{if $c.videourl}
+			<div class="videobox">
+				<video controls="controls" class="video" src="{$c.videourl|images_site}"></video>
+			</div>
+			{/if}
+			<div class="pics js-thumb-item">
+				{foreach item=p from=$c.imgsdata}
+				<div class="img ">
+					<img class="js-thumb" v="{$p|images_site}" src="{$p|images_site}.100x100.jpg">
+				</div>
+				{/foreach}
+				<div class="clearfix"></div>
+			</div>
+			<div class="tools">
+				<span class="time">{$c.createtime|cutstr:10}</span>
+				{if $c.gold}
+				<span class="gold">奖励金币 <span class="num">{$c.gold}</span> 个 </span>
+				{/if} 
+			</div>
+
+		</div>
+	</div>
+
+</div>

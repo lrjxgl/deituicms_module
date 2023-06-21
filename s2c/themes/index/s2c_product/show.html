@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}/s2c_product/show.css" rel="stylesheet" />
+<body>
+ <div class="header">
+	 <div class="header-back"></div>
+	 <div class="header-title">产品详情</div>
+ </div>
+ <div class="header-row"></div>
+ <div class="main-body">
+	 {if $data.videourl}
+	 <video src="{$data.videourl}" class="vmax"></video>
+	 {else}
+	 <image src="{$data.imgurl}" class="d-img"></image>
+	 {/if}
+ 			
+ 			<div class="row-box mgb-5">
+ 				<div class="d-title bd-mp-10">{$data.title}</div>
+				 
+ 				
+ 				{if $data.isksid}
+ 				<div id="ks1" class="kslist bd-mp-10">
+ 					<div class="kslist-label">{$data.ks_label_name}</div>
+					{foreach item=c from=$ksList}
+ 					<div class="kslist-item" v="{$c.id}">{$c.title}</div>
+					{/foreach}
+ 					 
+ 				</div>
+ 				<div id="ks2" class="kslist bd-mp-10">
+ 					<div class="kslist-label">{$data.ks_label_size}</div>
+					<div class="flex kslist-list">
+						{foreach item=c from=$ksList2}
+						<div class="kslist-item" v="{$c.id}">{$c.size}</div>
+						{/foreach}
+					</div>
+ 				</div>
+				{/if}
+				<div class="flex flex-ai-center bd-mp-10">
+					价格 <div class="flex-1 cl-money f22 mgl-5" id="price">￥{$data.price}</div>
+					<div class="numbox">
+						<div class="numbox-minus">-</div>
+						<input class="numbox-num" id="cart-amount" readonly="" value="{$cart_amount}" />
+						<div class="numbox-plus">+</div>
+					</div>
+					 
+				</div>
+ 				 
+ 			</div>
+ 			<div class="pd-10 bg-fff">
+ 				
+ 				
+ 				 
+ 				<div class="d-content">
+ 					
+ 					{$data.content}
+ 					
+ 				</div>
+ 			</div>
+ 		</div>
+ 		<div class="h60"></div>
+ 		<div class="flcart">
+ 			<div gourl="/module.php?m=s2c" class="flcart-f1">
+ 				<div class="flcart-icon iconfont icon-home"></div>
+ 				首页</div>
+ 			<div gourl="/module.php?m=s2c_cart" class="flcart-f1">
+ 				<div class="flcart-icon iconfont icon-cart"></div>
+ 				购物车</div>
+ 			<div class="flcart-f2" id="addCart">加入购物车</div>
+ 			<div id="goBuy" class="flcart-f2 bg-f30">立即购买</div>
+ 		</div>
+{include file="footer.html"}
+<script>
+	var ksid="{$ksid}";
+	var productid="{$data.id}"
+</script>
+<script src="{$skins}/s2c_product/show.js"></script>
+ 
+</body>
+</html>

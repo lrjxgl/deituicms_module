@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布晒单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=taoke_shaidan&a=save">
+	 
+				<input type="hidden" name="orderno" value="{$order.orderno}" />
+				<div class="row-box">
+					<textarea name="content" class="textarea-flex-text h60" placeholder="请输入内容"></textarea>
+					<input type="hidden" id="imgsdata" name="imgsdata" />
+					{include file="inc/uploader-data.html"}
+				</div>
+				 	
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+	
+		
+	</body>
+</html>

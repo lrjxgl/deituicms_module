@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=flk_queue_log">管理</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>用户</td>
+   <td>商家</td>
+   <td>金额</td>
+   <td>xfrom</td>
+   <td>时间</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.shop_name}</td>
+   <td>{$c.money}</td>
+   <td>{$c.xfrom}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+<td> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=flk_queue_log&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

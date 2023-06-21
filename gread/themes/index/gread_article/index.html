@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">资讯中心</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			 
+			<div class="pd-10 bg-fff">
+				{foreach item=c from=$list}
+				<a href="/module.php?m=gread_article&a=show&id={$c.id}" class="sglist-item">
+					{if $c.imgurl}
+					<div class="sglist-imgbox">
+						<img class="sglist-img" src="{$c.imgurl}.middle.jpg" />
+					</div>
+					{/if}
+					<div class="sglist-title">{$c.title}</div>
+					<div class="sglist-desc">{$c.description}</div>
+					 
+				</a>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+		
+	</body>
+</html>

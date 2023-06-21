@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">老雷AI作图</div>
+			<div gourl="/module.php?m=aichat_img&a=create" class="header-right-btn">我要作图</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			
+			<div>
+				<div class="tabs-border">
+					<div @click="setTab('recommend')" :class="tab=='recommend'?'tabs-border-active':''" class="tabs-border-item">推荐</div>
+					<div @click="setTab('hot')"  :class="tab=='hot'?'tabs-border-active':''"  class="tabs-border-item">热门</div>
+					<div @click="setTab('new')"  :class="tab=='new'?'tabs-border-active':''"  class="tabs-border-item">最新</div>
+				</div> 
+				<div>
+					<img gourl="/module.php?m=aichat_onetask&a=newuser" src="{$skins}img/newuser.jpg" class="wall" />
+				</div>
+				<div class="flex">
+					<div class="flex-1 mgr-5"  >
+						<template  v-for="(item,index) in list" :key="index">
+							<div class="row-box mgb-5" v-if="index%2==0">
+								<img  @click="showItem(item)"  class="wall"   :src="item.imgurl+'.small.jpg'"/>
+							</div>
+						</template>
+					</div>
+					<div class="flex-1">
+						<template  v-for="(item,index) in list" :key="index">
+							<div  class="row-box mgb-5" v-if="index%2==1">
+								<img  @click="showItem(item)"  class="wall"   :src="item.imgurl+'.small.jpg'"/>
+							</div>
+						</template>
+					</div>
+				</div>
+				<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+			</div>
+			
+			<div v-if="showArticle">
+				<div  @click="showArticle=false"  class="modal-mask"></div>
+				<div class="modal" :style="picModal">
+					<div class="modal-header">
+						<div class="modal-title">查看图片</div>
+						<div @click="goLast()" class="mgr-10 pointer cl-primary">上一张</div>
+						<div @click="goNext()" class="mgr-10  pointer cl-primary">下一张</div>
+						<div @click="showArticle=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="pd-10">
+						<img :src="article.imgurl" class="wall mgb-5" style="max-width: 500px;" />
+						<div class="mgb-5">
+							<div>{{article.prompt}}</div>
+							
+						</div>
+						<div class="flex flex-ai-center">
+							<div class="cl2 mgr-5">浏览</div>
+							<div class="cl3 mgr-5">{{article.view_num}}</div>
+							<div class="cl2 mgr-5">点赞</div>
+							<div class="cl3 mgr-5">{{article.love_num}}</div>
+							<div class="flex-1"></div>
+							<div class="btn-mini btn-outline-dark mgr-5 js-copy" :data-clipboard-text="article.prompt">复制文案</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		
+		<script src="{$skins}aichat_img/index.js?{$smarty.now}"></script>
+		<script src="/plugin/clipboardjs/clipboard.min.js"></script>
+		
+	</body>
+</html>

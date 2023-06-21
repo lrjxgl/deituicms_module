@@ -1,0 +1,21 @@
+<style>
+	.footer-add:after{
+		background-color: #ffe60f;
+		width: 5rem;
+		height: 5rem;
+		line-height: 5rem;
+		font-weight: 600;
+	}
+</style>
+<div class="footer-row"></div>
+<div class="footer">
+	<div gourl="/module.php?m=ershou" class="footer-item  icon-home {if $ftnav eq 'index'}footer-active{/if}">首页</div>
+	<div gourl="/module.php?m=ershou_wan" class="footer-item icon-discover {if $ftnav eq 'wan'}footer-active{/if}">会玩</div>
+	<div gourl="/module.php?m=ershou_product&a=add" class="footer-item footer-add">
+		
+	</div>
+	<div gourl="/module.php?m=ershou_message" class="footer-item icon-message_light {if $ftnav eq 'message'}footer-active{/if}">消息
+		<div class="footer-item-num">1</div>
+	</div>
+	<div gourl="/module.php?m=ershou_user" class="footer-item icon-my_light {if $ftnav eq 'my'}footer-active{/if}">我的</div>
+</div>

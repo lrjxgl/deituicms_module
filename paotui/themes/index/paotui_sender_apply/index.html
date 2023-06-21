@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">跑腿接单员申请</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/module.php?m=paotui_sender_apply&a=save&ajax=1">
+				<div class="input-flex">
+					<div class="input-flex-label">姓名</div>
+					<input class="input-flex-text" type="text" name="truename" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label f12">身份证号码</div>
+					<input class="input-flex-text" type="text" name="userno" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input class="input-flex-text" type="text" name="telephone" />
+				</div>
+				<div class="pd-10">身份信息不可更改，请确保身份信息属实</div>
+				<div class="btn-row-submit js-submit">确认申请</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

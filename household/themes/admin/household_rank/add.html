@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='household_rank/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=household_rank&a=save">
+<input type="hidden" name="rankid" style="display:none;" value="{$data.rankid}" >
+ <table class="table-add">  <tr>
+				<td>名称：</td>		
+				<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+				</tr>
+  <tr>
+				<td>max_grade：</td>		
+				<td><input type="text" name="max_grade" id="max_grade" value="{$data.max_grade}" ></td>
+				</tr>
+  <tr>
+				<td>min_grade：</td>		
+				<td><input type="text" name="min_grade" id="min_grade" value="{$data.min_grade}" ></td>
+				</tr>
+  <tr>
+				<td>排序：</td>		
+				<td><input type="text" name="orderindex" id="orderindex" value="{$data.orderindex}" ></td>
+				</tr>
+  <tr>
+				<td>状态：</td>		
+				<td>
+						<input type="radio" name="status" {if $data.status eq 1}checked{/if}  value="1" >上架
+						<input type="radio" name="status" {if $data.status neq 1}checked{/if}  value="2" >下架
+				</td>
+				</tr>
+  <tr>
+				<td>折扣：</td>		
+				<td><input type="text" class="w100" name="discount" id="discount" value="{$data.discount}" >%</td>
+				</tr>
+  <tr>
+				<td>派单率：</td>		
+				<td><input type="text" class="w100" name="push_grade" id="push_grade" value="{$data.push_grade}" >%</td>
+				</tr>
+  <tr>
+				<td>接单数：</td>		
+				<td><input type="text" class="w100" name="max_order" id="max_order" value="{$data.max_order}" >笔</td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

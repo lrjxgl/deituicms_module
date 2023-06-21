@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.p-price {
+			padding: 20px 6px;
+			color: #666;
+			font-size: 16px;
+			line-height: 2;
+		}
+
+		.p-price .price {
+			color: #f60;
+			font-size: 18px;
+		}
+
+		.p-price .buy-btn {
+
+			margin-left: 10px;
+			background-color: #5f98d2;
+			color: #fff;
+			display: inline-block;
+			text-align: center;
+			line-height: 30px;
+			font-size: 14px;
+			padding: 0px 10px;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+	</style>
+	<body>
+		{include file="header.html"}
+		<div class="main-body">
+
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<a   href="/">首页</a>
+					<i class="iconfont icon-right"></i>
+					<a  href="/module.php?m=book">图书</a>
+					<i class="iconfont icon-right"></i>
+					<a  href="">{$data.title}</a>
+					<i class="iconfont icon-right"></i>
+					<a><cite>正文</cite></a>
+				</div>
+				
+
+			</div>
+			<div class="flex">
+				<div class="flex-1">
+					<div class="row-box">
+						<div class="d-title">{$data.title}</div>
+						<div class="d-desc">
+							描述：{$data.description}
+						</div>
+
+						<div class="p-price">
+							{if $data.ispay}
+							课程价格：<span class="price">￥ {$data.money}</span>元
+							{/if}
+							{if !$isbuy}
+							<a href="JavaScript:;" class="js-buy buy-btn" gold="{$data.gold}" bookid="{$data.bookid}">立即购买</a>
+							{else}
+							<a class="buy-btn" target="_blank" href="/module.php?m=book&a=view&bookid={$data.bookid}">去阅读</a>
+							{/if}
+						</div>
+
+						<div class="d-content">
+
+
+							{$data.content}
+
+
+						</div>
+					</div>
+				</div>
+				<div class="page-side">
+					<div class="row-box">
+						<h3 class="fly-panel-title">热门书籍</h3>
+						<div class="">
+							{foreach item=c from=$reclist}
+							<a class="row-item-text" href="/module.php?m=book&a=show&bookid={$c.bookid}">
+								{$c.title}
+							</a>
+							{/foreach}
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+
+		</div>
+		{include file="footer.html"}
+		{include file="foot-all.html"}
+
+
+
+		<script>
+			$(document).on("click", ".js-buy", function() {
+				var bookid = $(this).attr("bookid");
+				var gold = $(this).attr("gold");
+				$.post("/module.php?m=book_order&a=order&ajax=1", {
+					bookid: bookid
+				}, function(data) {
+					skyToast(data.message);
+					if (data.error) {
+						if (data.error == 1000) {
+							window.location = '/index.php?m=login'
+						}else if(data.error==1){
+							window.location = data.url;
+						} else if (data.data.action == "buygold") {
+							window.location = "/index.php?m=gold&a=buy&gold=" + gold
+						}
+						return false;
+					}
+					if (data.error == 0) {
+						if (data.data.action == 'success') {
+							window.location = "/module.php?m=book&a=view&bookid=" + bookid
+						} else if (data.data.action == "pay") {
+							window.location = data.data.payurl
+						}
+					}
+				}, "json")
+			})
+		</script>
+	</body>
+</html>

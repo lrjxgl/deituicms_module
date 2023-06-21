@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}car_home/index.css" rel="stylesheet" />
+	<body>
+		<div url="/module.php?m=car" class="header-back-fixed goBack" style="z-index: 999; color: #fff;"></div>
+		<div class="main-body" v-if="pageLoad" id="App">
+			
+			<div class="uBox">
+				<div @click="toggleFollow()" v-if="isFollow" class="fixFollow fixFollow-active">已关注</div>
+				<div @click="toggleFollow()" v-else class="fixFollow fixFollow-active">+关注</div>
+				<div class="flex flex-col flex-center">
+					<img class="uBox-head" :src="shop.imgurl+'.100x100.jpg'" />
+					<div class="uBox-nick">{{shop.shopname}}</div>
+					<div class="flex mgb-5 flex-ai-center mgr-10">
+						 
+						 
+						<div class="cl-white f12 mgr-5">评价</div>
+						<div class="cl-white f12 mgr-10">{{shop.grade}}分</div>
+						<div class="cl-white  f12 mgr-5">粉丝</div>
+						<div class="cl-white  f12">{{shop.follow_num}}</div>
+					</div>
+				</div>
+				<div class="uBox-desc">{{shop.description}}</div>	
+				
+				
+			</div>
+			<!--
+			<div class="tabs-border ">
+				<div class="tabs-border-item tabs-border-active">主页</div>
+				<div class="tabs-border-item">评价</div>
+				<div class="tabs-border-item">商家</div>
+			</div> 
+			-->
+			<div v-if="!list || Object.keys(list).length==0 " class="emptyData">暂无产品</div>
+			<div v-for="(item,index) in list" :key="index" @click="goDetail(item)" class="sglist-item pointer">
+				
+				<div class="mgb-5 flex flex-ai-center">
+					<div class="btn-recommend">荐</div>
+					<div>{{item.title}}</div>
+				</div>
+				<div class="sglist-imglist">
+					 
+					<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+					
+				</div>
+				<div v-if="item.typeid==2" class="flex flex-ai-center mgb-10">
+					<div class="mgr-5 cl2">租金</div>
+					<div class="cl-money mgr-10">￥{{item.money}}</div>
+					<div class="cl2 f12 mgr-10">{{item.brand_title}}</div>
+					 
+					
+				</div>
+				<div v-else class="flex flex-ai-center mgb-10">
+					<div class="mgr-5 cl2">售价</div>
+					<div class="cl-money mgr-10">￥{{item.money}}</div>
+					<div class="cl2 f12 mgr-10">{{item.brand_title}}</div>
+					<div class="flex-1"></div> 
+					<div class="cl2 f12 mgr-10">上牌：{{item.pai_date}}</div> 
+					
+				</div>
+				<div class="sglist-ft">
+					<div class="sglist-ft-love">{{item.love_num}}</div>
+					<div class="sglist-ft-cm">{{item.comment_num}}</div>
+					<div class="sglist-ft-view">{{item.view_num}}</div>
+				</div> 
+			</div>
+			<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var  shopid="{$shopid}";
+			var isFollow={$isFollow};
+		</script>
+		<script src="{$skins}car_home/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.olist .item{
+			margin-bottom: 10px;
+			font-size: 14px;
+			border-bottom: 10px solid #eee;
+		}
+		.olist .item .hd{
+			padding: 0px 10px;
+			line-height: 30px;
+			border-bottom: 1px solid #eee;
+			margin-bottom: 10px;
+		}
+		.olist .item .hd .status{
+			color: #f60;
+			float: right;
+		}
+		.olist .pros{
+			padding-left: 10px;
+			border-bottom: 1px solid #eee;
+		}
+		.olist .pro{
+			display: flex;
+			margin-bottom: 5px;
+			color: #999;
+		}
+		.olist .pro-img{
+			width: 40px;
+			margin-right: 5px;
+		}
+		.olist .pro-img img{
+			width: 100%;
+			
+		}
+		.olist .pro-title{
+			flex: 1;
+		}
+		.olist .pro-num{
+			width: 100px;
+			text-align: center;
+			color: #f60;
+		}
+		.olist .tools{
+			text-align: center;
+			line-height: 40px;
+			
+		}
+		.olist .tools a{
+			margin-right: 20px;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">进货管理</h1>
+		</header>
+		<div class="mui-content">
+		   	<div class="tabs-border i4">
+		   		<a class="item active" href="/moduleshop.php?m=gread_shop_inorder">全部</a>
+		   		<a class="item" href="/moduleshop.php?m=gread_shop_inorder">未审核</a>
+		   		<a class="item" href="/moduleshop.php?m=gread_shop_inorder">送货中</a>
+		   		<a class="item" href="/moduleshop.php?m=gread_shop_inorder">已完成</a>
+		   	</div>
+		   	<div class="olist">
+		   		{foreach item=c from=$data}
+		   			<div class="item">
+		   				<div class="hd">{$c.daytime}
+		   					<span class="status">{$c.status_name}</span>
+		   				</div>
+		   				<div class="pros">
+		   					{foreach item=p from=$c.pros}
+		   						<div class="pro">
+		   						 <div class="pro-img">
+		   						 	<img src="{$p.imgurl|images_site}.100x100.jpg">		   						 	
+		   						 </div>	
+		   						 <div class="pro-title">{$p.title}</div>
+		   						 <div class="pro-num">￥{$p.price} x {$p.num}</div>
+		   						</div>
+		   					{/foreach}
+		   				</div>
+		   				{if $c.status lt 3}
+		   				<div class="tools">
+		   					{if $c.status eq 0}
+		   					<a href="javascript:;" orderid="{$c.orderid}" class="js-cancel">取消订单</a>
+		   					{/if}
+		   					
+					   		<a href="javascript:;" orderid="{$c.orderid}"  class="js-recived">确认收货</a>
+					   		
+					   	</div>
+					   	{/if}
+		   			</div>
+		   			
+		   		{/foreach}
+		   	</div>
+		   	
+		   	
+		   	
+		</div>
+	
+	<script>
+		$(function(){
+			$(document).on("click",".js-cancel",function(){
+				var $this=$(this);
+				$.get("/moduleshop.php?m=gread_shop_inorder&a=cancel&ajax=1&orderid="+$(this).attr("orderid"),function(data){
+					mui.toast(data.message);
+					$this.parents(".item").find(".status").html("已取消");
+					$this.parents(".item").find(".tools").hide();
+				},"json");
+			})
+			
+			$(document).on("click",".js-recived",function(){
+				var $this=$(this);
+				$.get("/moduleshop.php?m=gread_shop_inorder&a=finish&ajax=1&orderid="+$(this).attr("orderid"),function(data){
+					mui.toast(data.message);
+					$this.parents(".item").find(".status").html("已完成");
+					$this.parents(".item").find(".tools").hide();
+				},"json");
+			})
+			
+		})
+	</script>
+	</body>
+</html>

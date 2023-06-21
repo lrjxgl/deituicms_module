@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>{include file="head.html" }
+<body>
+ 
+ <div class="tabs-border">
+	 <a class="item active" href="/moduleadmin.php?m=vote_join">选票管理</a>
+ </div>
+ <div class="main-body">
+ 
+ 
+<table class="tbs">
+	<thead>
+  <tr>
+   <td>id</td>
+  <td>用户</td>
+   <td>投票时间</td>
+<td>投给选手</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+  <td>{$c[user].nickname}</td>
+   <td>{$c.time}</td>
+  
+   
+    
+<td> 
+	{$c[join].nickname}
+ 
+
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    </div>
+  
+
+{include file="footer.html" } 
+</body>
+</html>
+		

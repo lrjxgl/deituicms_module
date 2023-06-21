@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">会员开卡</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<form id="form" method="post" action="/moduleshop.php?m=mscard&a=save">
+					<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+					<table class="table" width="100%">
+						<tr>
+							<td width="80">名称：</td>
+							<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+						</tr>
+						<tr>
+							<td>手机：</td>
+							<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+						</tr>
+						<tr>
+							<td>验证码						
+							</td>
+							<td>
+								<input type="text" name="smsYzm" style="width: 90px; height: 33px;" />
+								<div class="mui-btn " id="sendSms">发送验证码</div>
+							</td>
+						</tr>
+						<tr>
+							<td>身份证：</td>
+							<td><input type="text" name="idcard" id="idcard" value="{$data.idcard}"></td>
+						</tr>
+						 
+						<tr>
+							<td>备注：</td>
+							<td><textarea type="text" name="description" id="description">{$data.description}</textarea></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><div id="submit"  class="mui-btn mui-btn-primary mui-btn-block  ">确认开卡</div></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#submit",function(){
+				$.post("/moduleshop.php?m=mscard&a=save&ajax=1",$("#form").serialize(),function(data){
+					mui.toast(data.message);
+					if(!data.error){
+						$("#form input").val("");
+					}
+				},"json")
+			})
+			$(document).on("click","#sendSms",function(){
+				var telephone=$("#telephone").val();
+				$.get("/moduleshop.php?m=mscard&a=sendSms&ajax=1&telephone="+telephone,function(data){
+					mui.toast(data.message);
+				},"json")
+			})
+		</script>
+	</body>
+
+</html>

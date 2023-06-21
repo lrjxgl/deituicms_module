@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品分类</div>
+			<div gourl="/moduleshop.php?m=pdd_shop_product_category&a=add" class="header-right-btn">添加</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="list">
+				{foreach item=c from=$catlist}
+				<div class="row-box">
+					<div class="flex flex-ai-center">
+						<div class="cl1 f16 mgb-5">{$c.title}</div>
+						
+						<div class="flex-1"></div>
+						<div class="cl2 mgr-10"><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleshop.php?m=pdd_shop_product_category&a=status&catid={$c.catid}&ajax=1" ></div></div>
+						<div gourl="/moduleshop.php?m=pdd_shop_product_category&a=add&catid={$c.catid}" class="btn-small mgr-5">编辑</div>
+						<div url="/moduleshop.php?m=pdd_shop_product_category&a=delete&ajax=1&catid={$c.catid}" class="btn-small btn-warning js-delete">删除</div>
+					</div>
+					 
+				</div>
+				{foreach item=cc from=$c.child}
+					<div class="row-box">
+						<div class="flex flex-ai-center">
+							<div class="cl1 f16 mgb-5 pdl-10">|-{$cc.title}</div>
+							
+							<div class="flex-1"></div>
+							<div class="cl2 mgr-10"><div class="{if $cc.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleshop.php?m=pdd_shop_product_category&a=status&catid={$cc.catid}&ajax=1" ></div></div>
+							<div gourl="/moduleshop.php?m=pdd_shop_product_category&a=add&catid={$cc.catid}" class="btn-small mgr-5">编辑</div>
+							<div url="/moduleshop.php?m=pdd_shop_product_category&a=delete&ajax=1&catid={$cc.catid}"  class="btn-small btn-warning">删除</div>
+						</div>
+						 
+					</div>
+				{/foreach}
+				{/foreach}
+			</div>
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

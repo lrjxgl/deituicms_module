@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}css/add.css" rel="stylesheet" />
+	<style>
+	.video{
+		width: 320px;
+	}
+	</style>
+	<body class="bg-white">
+		<div class="shd">景点编辑</div>
+		<div class="main-body">
+			<form method="post" action="/moduleshop.php?m=jdo2o_place&a=save">
+				<input type="hidden" name="placeid" style="display:none;" value="{$data.placeid}">
+				<table class="table-add">
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>主图：</td>
+						<td>
+							<div class="upimg-box bg-fff">
+								<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+									<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+								</div>
+								 
+								<div class="upimg-btn js-upimg-btn">
+									<i class="upimg-btn-icon"></i>
+								</div>
+								 
+								<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+								<input style="display: none;" type="file" class="js-upimg-file" name="upimg" id="upimg" /> 
+							</div> 
+					  </td>
+					</tr>
+					
+					<tr>
+						<td>视频：</td>
+						<td>
+							<div class="videoBox">
+								<div style="display: none;">
+									<input type="file" id="up-video" name="upfile" />
+								</div>
+								<div class="upimg-btn" id="js-upbtn">
+									<div class="upimg-btn-icon">
+													
+									</div>
+								</div>
+													
+								<span id="progress"></span>
+								<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+								<div id="mp4box">
+									{if $data.mp4url}
+									<video class="video" controls="" src="' + data.true_mp4url + '" class="video"></video>
+									{/if}
+								</div>
+								<input type="hidden" name="mp4url" id="mp4url" value="{$data.mp4url}" />
+								
+								 
+							</div>
+						</td>
+					</tr>
+					{if $data}
+					<tr>
+						<td>创建时间：</td>
+						<td>{$data.createtime}</td>
+					</tr>
+					{/if}
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status neq 1}checked{/if}  name="status" value="2"> 下线
+						</td>
+					</tr>
+					<tr>
+						<td>推荐：</td>
+						<td>
+							<input type="radio" {if $data.isrecommend eq 1}checked{/if} name="isrecommend"  value="1"> 是
+							<input type="radio" {if $data.isrecommend neq 1}checked{/if}  name="isrecommend"  value="0"> 否
+						</td>
+					</tr>
+					<tr>
+						<td>浏览数：</td>
+						<td>{$data.view_num}</td>
+					</tr>
+					<tr>
+						<td>喜欢数：</td>
+						<td>{$data.love_num}</td>
+					</tr>
+					<tr>
+						<td>评论数：</td>
+						<td>{$data.comment_num}</td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td>
+							<div class="input-flex">
+								
+								<input type="text" id="address" class="input-flex-text" name="address" value="{$data.address}" />
+								<input type="hidden" name="lat" value="{$data.lat}" id="lat" />
+								<input type="hidden" name="lng" value="{$data.lng}" id="lng" />
+								<div class="input-flex-btn w60 flex-center iconfont icon-location_light js-map-show"></div>
+							</div>
+						</td>
+					</tr>
+				 
+					<tr>
+						<td>图集</td>
+					  <td>
+					  	<input type="hidden" id="imgsdata" name="imgsdata" value="{$data.imgsdata}" />
+					     	 {include file="inc/uploader-data.html"} 
+					  </td>
+					</tr>
+					<tr>
+						<td>内容</td>
+						<td>
+							<script class="d-content" type="text/plain" id="content" name="content" >{$data.content}</script>
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		<!--百度地图-->
+		<div class="baiduMap">
+			<div id="mapCanvas" style="width:100%; height:300px; margin-bottom: 10px;"></div>
+			<div class="flex flex-center">
+				<div class="btn mgr-10" onclick="hideMap()">取消</div>
+				<div class="btn" onclick="sureAddressFn()">确定</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		{php loadEditor();}
+		 
+		<script>
+		var lat="{$data.lat}", lng="{$data.lng}";
+		</script> 
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="{$skins}jdo2o_place/map.js"></script>
+		<script language="javascript">
+		 
+		var editor=UE.getEditor('content',options);
+		$(document).on("click", "#js-upbtn", function() {
+			$("#up-video").click();
+		})
+		
+		function onprogress(evt) {
+			var loaded = evt.loaded; //已经上传大小情况 
+			var tot = evt.total; //附件总大小 
+			var per = Math.floor(100 * loaded / tot); //已经上传的百分比 
+			$("#progress").html(per + "%");
+			$("#progress").css("width", per + "%");
+			if (per >= 100) {
+				$("#progress").hide();
+			}
+		}
+		
+		$(document).on("change", "#up-video", function() {
+			var fdata = new FormData();
+		
+			$.get("/index.php?m=ossupload&a=auth&ajax=1", function(data) {
+				var file = document.querySelector("#up-video").files[0];
+		
+				if (file == undefined) {
+					console.log("Empty");
+					return false;
+				}
+			
+				fdata.append("OSSAccessKeyId", data.accessid);
+				fdata.append("policy", data.policy);
+				fdata.append("Signature", data.sign);
+				fdata.append("key", data.key + file.name);
+				fdata.append("callback", data.callback);
+		
+				fdata.append("file", file);
+				
+				$.ajax({
+					url: data.url,
+					type: 'POST',
+					data: fdata,
+					contentType: false,
+					processData: false,
+					dataType: "json",
+					xhr: function() {
+						var xhr = $.ajaxSettings.xhr();
+						if (onprogress && xhr.upload) {
+							xhr.upload.addEventListener("progress", onprogress, false);
+							return xhr;
+						}
+					},
+					success: function(data) {
+						console.log(data);
+						$("#mp4url").val(data.filename);
+						var html = '<video class="video" controls="" src="' + data.truename + '" class="video"></video>';
+						$("#mp4box").html(html);
+		
+					},
+					error: function(returndata) {
+						console.log(returndata);
+		
+					}
+				});
+			}, "json")
+		
+		})
+		</script>
+	</body>
+</html>

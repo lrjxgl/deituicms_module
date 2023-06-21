@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<template v-if="data.tablename==''">
+			<div class="flex bg-fff pd-10 mgb-5">
+				<div class="flex-1 cl2">单号：{{order.orderno}}</div>
+				<div class="f12 cl3 mgr-10">{{order.timeago}}</div>
+				<div class="cl-primary">{{data.status_name}}</div>
+			</div>
+			<div class="flexlist mgb-5">
+				 
+				<div v-for="(item,index) in prolist" :key="index" class="flexlist-item mgb-0">
+		
+					<div  class="flexlist-imgbox">
+						<image :src="item.imgurl+'.100x100.jpg'" class="flexlist-img"></image>
+					</div>
+		
+					<div class="flex-1">
+						<div class="flexlist-title" >{{item.title}}</div>
+						<div class="flex">
+							<div class="cl-red f12 mgr-10">{{item.sup_title}}</div>
+							<div class="cl-num mgr-10">￥{{item.price}} </div>
+							<div class="flex-1"></div>
+							<div class="cl2">x {{item.amount}}</div>	
+						</div>		
+					</div>
+				</div>
+				 
+				 
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex mgb-5">
+					共 <div class="cl-num">{{order.total_num}}</div> 件商品，
+					合计 <div class="cl-num">￥{{order.money}}</div>元，
+					本单送费{{data.money}}元
+				</div>
+				<div class="f14 mgb-5">备注</div>
+				<div class="bg-light pd-10 cl3 bd-radius-10">
+					{{order.comment}}
+				</div>
+			</div>
+			</template>
+			<template v-if="data.tablename=='paotui'">
+				<div class="flex bg-fff pd-10 mgb-5">
+					<div class="cl-primary">{{data.status_name}}</div>
+					<div class="flex-1"></div>
+					<div class="f12 cl3 mgr-10">{{data.timeago}}</div>
+					
+				</div>
+				<div class="row-box">
+					<div class="f14 cl1 mgb-5">配送的商品</div>
+					<div class="d-content" v-html="paotui.content"></div>
+				</div>
+				
+			</template>
+			<div class="row-box pdt-0 mgb-5">
+				 
+				<div class="flex-table">
+					<div class="flex-table-label">联系人：</div>
+					<div class="flex-table-box text-right">
+						{{addr.truename}}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">手机：</div>
+					<div class="flex-table-box text-right">
+						{{addr.telephone}}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">收货地址：</div>
+					<div class="flex-table-box text-right">
+						{{addr.address}}
+					</div>
+				</div>
+			</div>
+			
+				
+				<div v-if="data.status<2"  class="row-box pdt-0">
+					<div class="row-box flex flex-center">
+						
+						<div class="flex-1"></div>
+						<template v-if="data.status==0">
+							<div @click="confirm(data.ptorderid)"  class="btn btn-outline-success mgl-5">确认接单</div>
+							<div class="btn btn-outline-dark mgl-5" @click="cancel(order.ptorderid)">取消接单</div>
+						</template>
+						<template v-if="data.status==1">
+							<div @click="send(data.ptorderid)" class="btn btn-outline-success mgl-5">确认送完</div>
+						</template>
+						
+						 
+					</div>
+				</div>
+				 
+			 
+		</div>
+			
+			
+		 
+		{include file="footer.html"}
+		<script>
+			var ptorderid="{$data.ptorderid}"
+		</script>
+		<script src="{$skins}csc_sender_order/show.js"></script>
+	</body>
+</html>

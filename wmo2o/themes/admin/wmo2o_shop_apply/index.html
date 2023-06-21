@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=wmo2o_shop_apply">待审核列表</a>
+	<a class="item {if get('type') eq 'pass'}active{/if}" href="{$appadmin}?m=wmo2o_shop_apply&type=pass">已通过列表</a>
+	<a class="item {if get('type') eq 'forbid'}active{/if}" href="{$appadmin}?m=wmo2o_shop_apply&type=forbid">已禁止列表</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>名称</td>
+   <td>联系人</td>
+   <td>电话</td>
+   <td>地址</td>
+   <td>营业执照</td>
+  
+   <td>业务介绍</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+   <td><img src="{$c.yyzz}.100x100.jpg" width="50" /> </td>
+   
+   <td>{$c.description}</td>
+<td>
+	<div class="btn js-pass" v="{$c.id}">通过</div>
+	<div class="btn btn-danger js-forbid" v="{$c.id}">不通过</div>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-pass",function(){
+		var id=$(this).attr("v");
+		var obj=$(this);
+		$.get("/moduleadmin.php?m=wmo2o_shop_apply&a=pass&ajax=1&id="+id,function(res){
+			obj.parents("tr").remove();
+		},"json")
+	})
+	$(document).on("click",".js-forbid",function(){
+		var id=$(this).attr("v");
+		var obj=$(this);
+		$.get("/moduleadmin.php?m=wmo2o_shop_apply&a=forbid&ajax=1&id="+id,function(res){
+			obj.parents("tr").remove();
+		},"json")
+	})
+</script>
+</body>
+</html>

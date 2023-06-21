@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='house_agent_apply/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id</td>
+						<td>userid</td>
+						<td>姓名</td>
+							<td>电话</td>
+						<td>身份证号</td>
+						<td>身份证照</td>
+						<td>头像</td>
+					
+						<td>简介</td>
+						 
+						
+						<td>创建时间</td>
+						<td>status</td>
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.id}</td>
+					<td>{$c.userid}</td>
+					<td>{$c.truename}</td>
+					<td>{$c.telephone}</td>
+					<td>{$c.userno}</td>
+					<td><img src="{$c.usercard|images_site}.100x100.jpg" width="50" /></td>
+					<td><img src="{$c.uhead|images_site}.100x100.jpg" width="50" /></td>
+					
+					<td>{$c.description}</td>
+					 
+					
+					<td>{$c.dateline|date:Y-m-d}</td>
+					<td>{if $c.status eq 0}待审核{elseif $c.status eq 1}已通过{else}已禁止{/if}</td>
+					<td>
+						{if $c.status eq 0}
+						<div class="btn-small js-pass" v="{$c.id}">通过</div> 
+						<div class="btn-small js-forbid"  v="{$c.id}">不通过</div>
+						{/if}
+						</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-pass",function(){
+				if(confirm("确认通过审核吗")){
+					$.ajax({
+						url:"/moduleadmin.php?m=house_agent_apply&a=pass&ajax=1&id="+$(this).attr("v"),
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message);
+							window.location.reload();
+						}
+					})
+				}
+			})
+			$(document).on("click",".js-forbid",function(){
+				if(confirm("确认审核不通过吗")){
+					$.ajax({
+						url:"/moduleadmin.php?m=house_agent_apply&a=forbid&ajax=1&id="+$(this).attr("v"),
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message);
+							window.location.reload();
+						}
+					})
+				}
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+基于chatglm的AI画图
+1、chatglm
+2、image2text
+3、text2image
+4、img+text2image
+
+prompt->chatglm->img prompt-img
+
+user：画只猫
+Ai: img[猫]
+user: 在猫旁边加只狗
+AI：img[猫]=>img[猫+狗]
+user:给我描述一下这幅图 img[猫抓老鼠]
+AI：猫在抓老鼠
+
+核心难点：如何实现基于图片的文字微调生成新的图片，如：img[猫]=>img[猫+狗]
+img[猫]=>SAM=>img[猫]+img[background]=>img[猫]+img[狗]+img[background]=>img[猫+狗]

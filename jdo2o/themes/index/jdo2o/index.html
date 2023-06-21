@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}jdo2o/index.css?vqwe" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<!--<img src="{$site.logo}.100x100.jpg" class="header-logo" />-->
+			<div class="header-title">福鼎同城游</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		
+		<div class="main-body">
+			<div class="row-box">
+				<div class="flex" >
+					<div gourl="/module.php?m=jdo2o_shoplist" class="flex">
+						<div class="iconfont icon-location"></div>
+						<div class="cl2">{$shop.shopname}</div>
+						<div class="iconfont icon-right"></div>
+					</div>
+					
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=jdo2o_shop&a=detail" class="cl-status">
+					景点详情
+					</div>
+				</div>	
+			</div>
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			  
+		</div>
+		<a href="/module.php?m=jdo2o_blog&a=add" class="fixedAdd">发布</a>
+		<div class="main-body" id="App">
+			<div class="tabs-border">
+				<div @click="tab='list1'" :class="tab=='list1'?'tabs-border-active':''" class="tabs-border-item">景区热帖</div>
+				<div @click="tab='list2'" :class="tab=='list2'?'tabs-border-active':''"  class="tabs-border-item">景区资讯</div>			
+				<div @click="tab='list3'" :class="tab=='list3'?'tabs-border-active':''"  class="tabs-border-item">景点推荐</div>
+				<div @click="tab='list4'" :class="tab=='list4'?'tabs-border-active':''"  class="tabs-border-item">同城热门</div>	
+			</div>
+			<div>
+				<index-blog v-if="tab=='list1'"></index-blog>
+				<index-article v-if="tab=='list2'"></index-article>
+				<index-place v-if="tab=='list3'"></index-place>
+				<index-all v-if="tab=='list4'"></index-all>
+			</div>
+		</div>
+		
+		<div class="flex-center pd-10">
+			<a class="f12 cl3" href="http://beian.miit.gov.cn">{$site.icp}</a>
+		</div>  
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}jdo2o/list-article.js"></script>
+		<script src="{$skins}jdo2o/list-blog.js?v3"></script>
+		<script src="{$skins}jdo2o/list-place.js?v3"></script>
+		<script src="{$skins}jdo2o/list-all.js"></script>
+		<script src="{$skins}jdo2o/index.js"></script>  
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function(){
+				
+				var flash=new Swiper("#indexFlash");
+				$(document).on("click","#searchBtn",function(){
+					var keyword=$("#keyword").val();
+					window.location="/module.php?m=csc_search&keyword="+encodeURIComponent(keyword);
+				})
+			})
+			
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			{if $site.logo} 
+			 wxshare_imgUrl="{$site.logo}.100x100.jpg";
+			 {/if}
+		</script>
+		 
+	</body>
+</html>

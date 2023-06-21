@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='youyao_product/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+  
+   <td>类别</td>
+   <td>名称</td>
+  
+   <td>状态</td>
+   <td>站点审核</td>
+   <td>价格</td>
+   <td>市场价格</td>
+ 
+   <td>主图</td>
+   <td>描述</td>
+   
+   
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+ 
+   <td>{$c.catid}</td>
+   <td>{$c.title}</td>
+    
+   <td>{$c.status}</td>
+   <td>{$c.sitecheck}</td>
+   <td>{$c.price}</td>
+   <td>{$c.market_price}</td>
+  
+   <td>
+	<img src="{$c.imgurl}.100x100.jpg" class="w100" />
+   </td>
+   <td>{$c.description}</td>
+    
+<td><a href="/moduleadmin.php?m=youyao_product&a=add&productid={$c.productid}">编辑</a> <a href="/module.php?m=youyao_product&a=show&productid={$c.productid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=youyao_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

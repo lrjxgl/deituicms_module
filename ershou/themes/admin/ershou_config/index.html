@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">基本设置</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=ershou_config&a=save&ajax=1">
+				<table class="table-add">
+				 
+					 
+					<tr>
+						<td>发布费用</td>
+						<td>
+							<input type="text" class="w100" name="post_money" value="{$data.post_money}" class="input-flex-text" />
+							元/条
+						</td>
+					</tr>
+					<tr>
+						<td>推荐费用</td>
+						<td>
+							<input type="text" class="w100" name="recommend_money" value="{$data.recommend_money}" class="input-flex-text" />
+							元/条
+						</td>
+					</tr>
+					<tr>
+						<td>发布数量</td>
+						<td>
+							<input type="text" class="w100" name="post_num" value="{$data.post_num}" class="input-flex-text" />
+							条
+						</td>
+					</tr>
+					<tr>
+						<td>商家入驻奖励</td>
+						<td>
+							<input type="text" class="w100" name="shop_join_money" value="{$data.shop_join_money}" class="input-flex-text" />
+							元
+						</td>
+					</tr>
+					<tr>
+						<td>折扣</td>
+						<td>
+							从
+							<input type="text" class="w100" name="min_discount" value="{$data.min_discount}" /> 
+							到
+							<input type="text" class="w100" name="max_discount" value="{$data.max_discount}" />折
+							
+						</td>
+					</tr>
+					 
+					<tr>
+						<td>数量</td>
+						<td>
+							从
+							<input type="text" class="w100" name="min_num" value="{$data.min_num}" />
+							到
+							<input type="text" class="w100" name="max_num" value="{$data.max_num}" />份
+							
+						</td>
+					</tr>
+					 
+				</table>
+				<div class="btn-row-submit js-submit">保存设置</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

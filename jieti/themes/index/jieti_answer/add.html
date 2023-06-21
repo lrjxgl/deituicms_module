@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		{include file="header.html"}
+		<div class="layui-main">
+			<div class="layui-row">
+	         	<div class="layui-col-md3">{include file="[c]/sidebar.html"}</div>
+				<div class="layui-col-md9">
+					{include file='jieti_answer/nav.html'} <form method="post" action="/module.php?m=jieti_answer&a=save">
+<input type="hidden" name="answerid" style="display:none;" value="{$data.answerid}" >
+ <table class="table-add">  <tr>
+				<td>用户：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>年级：</td>		
+				<td><input type="text" name="typeid" id="typeid" value="{$data.typeid}" ></td>
+				</tr>
+  <tr>
+				<td>图片：</td>		
+				<td><input type="text" name="imgurl" id="imgurl" value="{$data.imgurl}" ></td>
+				</tr>
+  <tr>
+				<td>内容：</td>		
+				<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+				</tr>
+  <tr>
+				<td>mp3url：</td>		
+				<td><input type="text" name="mp3url" id="mp3url" value="{$data.mp3url}" ></td>
+				</tr>
+  <tr>
+				<td>mp4url：</td>		
+				<td><input type="text" name="mp4url" id="mp4url" value="{$data.mp4url}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+				</div>
+
+			</div>
+		</div>	
+		{include file="footer.html"}
+
+	</body>
+
+</html>

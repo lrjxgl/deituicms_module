@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width: 100%;
+		}
+	</style>
+	<body>
+		<div class="header-back-fixed goBack" style="z-index: 999;"></div>
+	 
+		<div class="main-body pd-10 bg-fff mgb-10">
+			<div class="d-userbox">
+				<image gourl="/module.php?m=fishing_home&userid={$author.userid}" class="d-userbox-head" src="{$author.user_head}.100x100.jpg"></image>
+				<div class="flex-1">
+					<div gourl="/module.php?m=fishing_home&userid={$author.userid}" class="d-userbox-nick">{$author.nickname}</div>
+					<div class="mgb-5 d-userbox-follows flex-ai-center">
+						<text class="mgr-5">粉丝</text>
+						<text class="cl-num mgr-5 ">{$author.followed_num}</text>
+						<text class="mgr-5">关注</text>
+						<text class="cl-num">{$author.follow_num}</text>
+						
+						
+					</div>
+					<div class="mgb-5 f12 cl3">{$data.timeago} </div> 
+				</div>
+				<div class="btn-small btn-outline-success js-follow-toggle" data-userid="{$author.userid}">{if $author.isFollow}已{/if}关注</div>
+			</div>
+		 
+			
+			{if $data.mp4url}
+			<div>
+				<video autoplay="autoplay" controls="controls" class="video" src="{$data.mp4url}"></video>
+			</div>
+			{/if}
+			<div class="d-content block">{$data.parsecontent}</div>
+			<div class="flex-center mgb-10">
+				{foreach item=c from=$imgslist}
+				<img src="{$c}" class="wmax mgb-5" />
+				{/foreach}
+			</div>
+			{if $data.placeid>0}
+			<div class="flex mgb-10">
+				<div class="flex-1"></div>
+				<div class="cl3">来自：</div>
+				<div class="cl-primary" gourl="/module.php?m=fishing_place&a=show&placeid={$place.placeid}">{$place.title}</div>
+			</div>
+			{/if}
+			<div class="flex flex-center mgb-10">
+				<div class="btn-love js-love-toggle {if $islove}btn-love-active{/if} mgr-10" tablename="mod_fishing_blog" objectid="{$data.id}">
+					喜欢
+				</div>
+
+				
+			</div>
+			{if $isadmin}
+			<div class="flex flex-center">
+				{if !$data.isrecommend}
+				<div id="adminRecommend" class="btn-mini js-admin-btn btn-outline-success mgr-10">推荐</div>
+				{/if}
+				<div id="adminDel" class="btn-mini js-admin-btn btn-outline-danger mgr-10">删除</div>
+				<!--
+				<div title="拉黑作者" v="blackList" class="btn-mini js-admin-btn btn-outline-warning mgr-10">拉黑</div>
+				<div title="禁言" v="forbidPost" class="btn-mini js-admin-btn btn-outline-warning mgr-10">禁言</div>
+				-->
+			</div>
+			{/if}
+		</div>
+		<div class="main-body">
+			{include file="inc/comment.html"}
+		</div>
+		
+		<a href="/module.php?m=fishing_blog&a=add&placeid={$data.placeid}" class="fixedAdd">发布</a>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}inc/comment.js"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+		<script>
+			var id="{$data.id}"
+		</script>
+		<script src="{$skins}fishing_blog/show.js"></script>
+	</body>
+</html>

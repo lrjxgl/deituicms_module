@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我发布的商机</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div v-if="list.length==0" class="emptyData">还未发布商机</div>
+			<div v-else>
+				<div class="list">
+					<div class="row-box mgb-10" v-for="(item,index) in list" :key="index">
+						 
+						<div class="cl1 mgb-5">{{item.title}}</div>
+						<div class="cl2 mgb-5" v-html="item.content"></div>
+						<div class="flex flex-ai-center">
+							<div class="cl-status">已通过</div>
+							<div class="flex-1"></div>
+							<div class="f12 cl2">咨询</div>
+							<div class="f12 cl-num">10</div>
+							<div class="f12 cl2">人</div>
+							<div v-if="item.isbuy==1" class="mgl-10 cl-red">已被购买</div>
+							<div class="mgl-10" @click="goDetail(item)">查看</div>
+						</div>
+					</div>	
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}sjsj_news/my.js"></script>
+	</body>
+</html>

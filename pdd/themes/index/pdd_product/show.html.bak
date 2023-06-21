@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}/pdd_product/show.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $data.videourl}
+			<video src="{$data.videourl}" class="vmax"></video>
+			{else}
+			<image src="{$data.imgurl}" class="d-img"></image>
+			{/if}
+			<div class="row-box mgb-5">
+				<div class="d-title bd-mp-10">{$data.title}</div>
+				 
+				
+				{if $data.isksid}
+				<div id="ks1" class="kslist bd-mp-10">
+					<div class="kslist-label">{$data.ks_label_name}</div>
+					{foreach item=c from=$ksList}
+					<div class="kslist-item" v="{$c.id}">{$c.title}</div>
+					{/foreach}
+					 
+				</div>
+				<div id="ks2" class="kslist bd-mp-10">
+					<div class="kslist-label">{$data.ks_label_size}</div>
+					<div class="flex kslist-list">
+						{foreach item=c from=$ksList2}
+						<div class="kslist-item" v="{$c.id}">{$c.size}</div>
+						{/foreach}
+					</div>
+				</div>
+				{/if}
+				<div class="flex flex-ai-center bd-mp-10">
+					价格 <div class="flex-1 cl-money f22 mgl-5" id="price">￥{$data.price}</div>
+					<div class="numbox">
+						<div class="numbox-minus">-</div>
+						<input class="numbox-num" id="cart-amount" readonly="" value="{$cart_amount}" />
+						<div class="numbox-plus">+</div>
+					</div>
+					 
+				</div>
+				<div class="flex">
+					<div class="flex-1 cl3">EMS:免运费</div>
+					<div class="flex-1 cl3">月销216</div>
+					<div class="flex-1 cl3">福建福鼎</div>
+					<div class="pointer iconfont icon-share"></div>
+				</div> 
+			</div>
+			 
+			<div class="row-box mgb-5 none">
+				<div class="flex">
+					<div class="mgr-10 cl3">优惠</div>
+					<div class="flex-1 cl2">暂无优惠</div>
+				</div>
+				<div class="flex">
+					<div class="mgr-10 cl3">服务</div>
+					<div class="flex-1 cl2">
+						不支持7天无理由.运费险
+					</div>
+				</div>
+
+			</div>
+			<div class="row-box mgb-5 none">
+				 
+				<div class="flex">
+					<div class="mgr-10 cl3">参数</div>
+					<div class="flex-1 cl2 pointer">
+						查看型号
+					</div>
+					<div class="iconfont icon-right cl3"></div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<img gourl="/module.php?m=pdd_shop&shopid={$shop.shopid}" class="wh-60 mgr-5" src="{$shop.imgurl}.100x100.jpg">
+					<div class="flex-1">
+						<div gourl="/module.php?m=pdd_shop&shopid={$shop.shopid}" class="f16 cl1 mgb-10">{$shop.shopname}</div>
+						<div readonly="1" class="sky-raty" len="5" mod="2" grade="{$shop.raty_grade}" label="综合评价"></div>
+						
+						
+					</div>
+					 
+				</div>
+			</div>
+			<div class="pd-10 bg-fff">
+
+
+
+				<div class="d-content">
+
+					{$data.content}
+
+				</div>
+			</div>
+		</div>
+		<div class="h60"></div>
+		<div class="flcart">
+			<div gourl="/module.php?m=pdd_shop&shopid={$shop.shopid}" class="flcart-f1">
+				<div class="flcart-icon iconfont icon-shop cl-money"></div>
+				店铺
+			</div>
+			
+			<div gourl="/module.php?m=pdd_guest&a=user&shopid={$shop.shopid}&id={$data.id}" class="flcart-f1">
+				<div class="flcart-icon iconfont icon-service"></div>
+				客服
+			</div>
+			<div  class="flcart-f1 none">
+				<div class="flcart-icon iconfont icon-favor"></div>
+				收藏
+			</div>
+			<div class="flcart-f2" id="addCart">加入购物车</div>
+			<div id="goBuy" class="flcart-f2 bg-f30">立即购买</div>
+		</div>
+		{include file="footer.html"}
+		<div class="modal-group">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<img src="{$shareImg}" style="width: 100%;" />
+			</div>
+		</div>
+		<script>
+			var ksid = "{$ksid}";
+			var productid = "{$data.id}";
+			var shopid="{$shop.shopid}";
+		</script>
+		<script src="{$skins}/pdd_product/show.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-raty.js"></script>
+		<script>
+			skyRaty(".sky-raty");
+			
+		</script>
+
+	</body>
+</html>

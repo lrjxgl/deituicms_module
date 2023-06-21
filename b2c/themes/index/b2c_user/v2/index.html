@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}b2c_user/v2/index.css" rel="stylesheet" />
+	<body>
+		<div class="main-body">
+			
+			<div class="aBox">
+				<div class="flex mgb-20 flex-ai-center">
+					<img src="{$user.user_head}.100x100.jpg" class="wh-60 bd-radius-50" />
+					<div class="mgl-10">
+						<div class="mgb-5">{$user.nickname}</div>
+						<div>{$user.telephone}</div>
+					</div>
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=vipcard&a=apply" class="btn-vip">开通会员</div>
+				</div>
+				
+				<div class="flex flex-ai-center" style="padding: 0px 10px;">
+					<div gourl="/module.php?m=b2c_history" class="stat-item">
+						<div>{$history_num}</div>
+						<div>足迹</div>
+					</div>
+					<div class="stat-line"></div>
+					<div  gourl="/module.php?m=b2c_fav&a=my" class="stat-item">
+						<div>{$fav_num}</div>
+						<div>收藏</div>
+					</div>
+					<div class="stat-line"></div>
+					<div gourl="/module.php?m=b2c_love&a=my" class="stat-item">
+						<div>{$love_num}</div>
+						<div>喜欢</div>
+					</div>
+					<div class="stat-line"></div>
+					<div gourl="/index.php?m=coupon_user" class="stat-item">
+						<div>{$coupon_num}</div>
+						<div>优惠券</div>
+					</div>
+					 
+				</div>
+			</div>
+			
+			<div class="bBox">
+				<div class="flex">
+					<div gourl="/module.php?m=b2c_order&a=my&type=unpay" class="oItem">
+						<div class="iconfont icon-pay oItem-icon"></div>
+						<div class="oItem-title">待付款</div>
+					</div>
+					<div  gourl="/module.php?m=b2c_order&a=my&type=unsend" class="oItem">
+						<div class="iconfont icon-deliver  oItem-icon"></div>
+						<div class="oItem-title">待发货</div>
+					</div>
+					<div  gourl="/module.php?m=b2c_order&a=my&type=unreceive" class="oItem">
+						<div class="iconfont icon-roundcheck  oItem-icon"></div>
+						<div class="oItem-title">待收货</div>
+					</div>
+					<div  gourl="/module.php?m=b2c_order&a=my&type=cancel" class="oItem">
+						<div class="iconfont icon-service_light  oItem-icon"></div>
+						<div class="oItem-title">售后</div>
+					</div>
+					<div  gourl="/module.php?m=b2c_order&a=my" class="oItem">
+						<div class="iconfont icon-order  oItem-icon"></div>
+						<div class="oItem-title">全部订单</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-box" style="margin-top:-20px;">
+				<div gourl="/module.php?m=checkin" class="row-item">
+					<div class="row-item-icon icon-calendar"></div>
+					<div class="row-item-title">每日签到</div>
+					<div class="flex-1"></div>
+					<div class="cl3">去签到</div>
+				</div>
+				<div gourl="/index.php?m=recharge" class="row-item">
+					<div class="row-item-icon icon-pay"></div>
+					<div class="row-item-title">充值中心</div>
+					<div class="flex-1"></div>
+					 
+				</div>
+				<div gourl="/index.php?m=invite&a=my" class="row-item">
+					<div class="row-item-icon icon-moneybag"></div>
+					<div class="row-item-title">邀请有礼</div>
+					<div class="flex-1"></div>
+					<div class="cl3">最高得100元</div>
+				</div>
+				<div gourl="/module.php?m=b2c_pintuan" class="row-item">
+					<div class="row-item-icon icon-group_light"></div>
+					<div class="row-item-title">超级拼团</div>
+					<div class="flex-1"></div>
+					 
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="row-item">
+					<div class="row-item-icon icon-settings_light"></div>
+					<div class="row-item-title">设置中心</div>
+					<div class="flex-1"></div>
+					 
+				</div>
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="b2c_user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

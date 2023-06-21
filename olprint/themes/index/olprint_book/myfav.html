@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的收藏</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div id="app" class="none" :class="'flex-col'">
+				<div v-if="pageLoad">
+					<div class="emptyData" v-if="list.length==0">暂无收藏</div>
+					<div class="sglist">
+						<div :gourl="'/module.php?m=olprint_book&a=show&bookid='+item.bookid" class="sglist-item" v-for="(item,index) in list" :key="index">
+							<div class="mgb-5">{{item.title}}</div>
+							<div class="flex flex-ai-center mgb-5">
+								<div class="cl-money mgr-10">￥{{item.money}}</div>
+								
+								<div class="flex-1"></div>
+								<div class="cl2 f12 mgr-10">共{{item.page_num}}页</div>
+								<div class="cl2 f12 mgr-10">/</div>
+								<div class="cl2 f12">打印{{item.print_num}}次</div>
+								
+							</div>
+							<div class="cl3 f12">{{item.description}}</div>
+							 
+						</div>
+					</div>
+					<div @click="loadMore" v-if="per_page>0" class="loadMore">点我加载更多...</div>
+				</div>
+			</div>
+			 
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}olprint_book/myfav.js"></script>
+	</body>
+</html>

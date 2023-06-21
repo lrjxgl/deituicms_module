@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑考卷</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/module.php?m=exam&a=save&ajax=1">
+				<input type="hidden" name="exid" value="{$data.exid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">考卷名称</div>
+					<input type="text" name="title" value="{$data.title}" class="input-flex-text" />
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">简介</div>
+					<textarea name="description" class="textarea-flex-text">{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div>只考一次</div>
+					<input {if $data.isone eq 1}checked{/if} type="checkbox" name="isone" value="1" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">考卷时间</div>
+					<input type="text" name="extime" value="{$data.extime}" class="input-flex-text" />
+					<span>秒 (时间不限为0)</span>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">页面模板</div>
+					<div class="flex-1 flex flex-ai-center">
+						<input {if $data.tpl neq 'fullpage'}checked{/if} type="radio" name="tpl" value="" /> 单页
+						<input {if $data.tpl eq 'fullpage'}checked{/if}  type="radio" name="tpl" value="fullpage" /> 单题
+					</div>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

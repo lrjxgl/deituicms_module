@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">平台抽成</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form>
+				<div class="input-flex mgb-10 flex-ai-center">
+					<div class="input-flex-label">抽成比例</div>
+					<input type="text" id="per" name="per" value="{$commission.per}" class="input-flex-text" />
+					<div> %</div>
+				</div>
+				<div class="mgb-10 text-center cl2 f12">七天内只能设置一次，下次可改时间：{$commission.etime|date:Y-m-d H:i:s}</div>
+				<div class="text-center cl-red">抽成比例2%-20%，抽成越多平台支持力度越大</div>
+				
+				<div class="btn-row-submit" id="submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script>
+			$(document).on("click","#submit",function(){
+				var that=$(this);
+				skyJs.confirm({
+					content:"七天内只能设置一次，确认设置吗",
+					success:function(){
+						$.ajax({
+							url:"/module.php?m=freeshop_shop_commission&a=save&ajax=1",
+							dataType:"json",
+							method:"POST",
+							data:{
+								per:$("#per").val()
+							},
+							success:function(res){
+								skyJs.toast(res.message,"error")
+							}
+						})
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

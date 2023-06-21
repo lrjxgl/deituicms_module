@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="tabs-border">
+			<a href="/moduleadmin.php?m=hongbao_html" class="item">活动招商</a>
+			 <a href="/moduleadmin.php?m=hongbao_html&a=add" class="item active">添加</a>
+		</div>
+		<div class="main-body">
+				<form id="form" method="post" action="/moduleadmin.php?m=hongbao_html&a=save">
+					<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+					<table class="table-add">
+						<tr>
+							<td>标题：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+						<tr>
+							<td>word：</td>
+							<td><input type="text" name="word" id="word" value="{$data.word}"></td>
+						</tr>
+						 
+						<tr>
+							<td>描述：</td>
+							<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+						</tr>
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+						 
+					</table>
+					<div id="submit" class="btn-row-submit">保存</div>
+				</form>
+		 
+		</div>
+		{include file="footer.html"}
+{include file="footer.html"}
+				{php loadEditor();}
+
+<script language="javascript">
+ 
+var editor=UE.getEditor('content',options);
+$(document).on("click", "#submit", function() {
+		editor.sync();
+		$.post("/moduleadmin.php?m=hongbao_html&a=save&ajax=1", $("#form").serialize(), function(data) {
+			if(data.error) {
+				mui.toast(data.message);
+
+			} else {
+				goBack();
+			}
+		}, "json")
+	})
+</script>		
+		
+	</body>
+
+</html>

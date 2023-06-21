@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_shop_inorder/nav.html'}
+ <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+   <td>shopid</td>
+   <td>createtime</td>
+   <td>money</td>
+   <td>telephone</td>
+   <td>address</td>
+   <td>nickname</td>
+   <td>bookmoney</td>
+   <td>status</td>
+   <td>isrecived</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.money}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.bookmoney}</td>
+   <td>{$c.status}</td>
+   <td>{$c.isrecived}</td>
+<td><a href="/module.php?m=gread_shop_inorder&a=add&orderid={$c.orderid}">编辑</a> <a href="/module.php?m=gread_shop_inorder&a=show&orderid={$c.orderid}">查看</a> <a href="javascript:;" class="delete" url="/module.php?m=gread_shop_inorder&a=delete&orderid={$c.orderid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

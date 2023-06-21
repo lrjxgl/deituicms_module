@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">购买Token</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div class="mgb-10">Token可用于文章生成，图片生成</div>
+				<div class="mgb-10">您当前还有{{aiuser.token}}个Token.</div>
+				<div>
+					<div class="flex flex-ai-center mgb-10" v-for="(item,index) in list" :key="index">
+						<input name="tokenid" v-model="tokenid" :value="item.tokenid" class="radio" type="radio"/>	{{item.num}}个，{{item.price}}元
+					</div>
+				</div>
+				 
+				<div @click="goBuy()" class="btn-row-submit">立即购买</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}aichat_token/buy.js"></script>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='fishing_free_admin/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>placeid</td>
+ 
+   <td>联系人</td>
+   <td>头像</td>
+   <td>电话</td>
+   <td>自我介绍</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.place.title}</td>
+   
+   
+   <td>{$c.nickname}</td>
+   <td>
+	<img src="{$c.user_head|images_site}.100x100.jpg" class="w60" />
+   </td>
+   <td>{$c.telephone}</td>
+   <td>{$c.description}</td>
+<td><a href="/moduleadmin.php?m=fishing_free_admin&a=add&id={$c.id}">编辑</a>
+{if $c.status eq 0}
+ <a href="javascript:;" msg="同意他当河道管理员吗" class="js-delete" url="/moduleadmin.php?m=fishing_free_admin&a=pass&ajax=1&id={$c.id}">同意</a>
+  <a href="javascript:;" msg="确认不同意吗" class="js-delete" url="/moduleadmin.php?m=fishing_free_admin&a=forbid&ajax=1&id={$c.id}">不同意</a>
+ {/if}
+  </td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

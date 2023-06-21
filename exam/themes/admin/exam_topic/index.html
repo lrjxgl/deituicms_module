@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='exam_topic/nav.html'}
+
+<div class="main-body">
+	<form action="/moduleadmin.php" class="search-form flex flex-ai-center">
+		<input type="hidden" name="m" value="exam_topic" />
+		<div>题目</div> <input class="w150" type="text" value="{$keyword}" name="keyword" />
+		<button class="btn-small" type="submit">搜一下</button>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>topicid</td>
+	 <td>类型</td>
+   <td>题目</td>
+   <td>状态</td>
+   <td>创建时间</td>
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.topicid}</td>
+	 <td>{$c.typeid_title}</td>
+   <td>{$c.title}</td>
+   <td> 
+			<div class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}" url="/moduleadmin.php?m=exam_topic&a=status&ajax=1&topicid={$c.topicid}"></div>
+	 </td>
+   <td>{$c.createtime}</td>
+   
+<td><a href="/moduleadmin.php?m=exam_topic&a=add&topicid={$c.topicid}">编辑</a>
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=exam_topic&a=delete&ajax=1&topicid={$c.topicid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

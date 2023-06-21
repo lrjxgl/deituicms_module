@@ -1,0 +1,9 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div class="footer-item icon-home {if get('m') eq 'b2b'}footer-active{/if}" gourl="/module.php?m=b2b">首页</div>
+	<div class="footer-item icon-cascades {if get('m') eq 'b2b_category'}footer-active{/if}" gourl="/module.php?m=b2b_category">分类</div>
+ 
+	<div class="footer-item icon-cart {if get('m') eq 'b2b_cart'}footer-active{/if}" gourl="/module.php?m=b2b_cart">购物车</div>
+	<div  gourl="/module.php?m=b2b_msg" class="footer-item icon-message_light  {if $ftnav eq 'b2b_msg'}footer-active{/if}">消息<span id="ft-msg-num" style="display:none;" class="footer-item-num"></span></div> 
+	<div class="footer-item icon-my_light {if get('m') eq 'b2b_user'}footer-active{/if}"  gourl="/module.php?m=b2b_user">我的</div>
+</div>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">老雷</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div  class="fixRight">
+				<div class="pd-5 pointer cl-white" id="dodoShow">发布任务</div>
+				<div class="pd-5 pointer cl-white" >我的任务</div>
+			</div>
+			<div id="dodoBox" class="modal-group">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">发布任务</div>
+						<div class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">截止日期</div>
+							<input autocomplete="off" id="etime" class="input-flex-text" type="text" />
+						</div>
+						<div class="textarea-flex">
+							<textarea id="dd-content" class="textarea-flex-text" placeholder="任务内容"></textarea>
+						</div>
+					</div>
+					<div id="dodoSubmit" class="btn-row-submit">确认发布</div>
+				</div>
+			</div>
+
+		</div>
+		 
+		<script src="/plugin/jquery/jquery.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-h5.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#etime",
+				type:"datetime"
+			})
+			$(document).on("click","#dodoShow",function(){
+				$("#dodoBox").show();
+			})
+			$(document).on("click","#dodoSubmit",function(){
+				$.ajax({
+					url:"/module.php?m=dodo&a=save&ajax=1",
+					dataType:"json",
+					type:"POST",
+					data:{
+						content:$("#dd-content").val(),
+						etime:$("#etime").val()
+					},
+					success:function(res){
+						skyToast(res.message)
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

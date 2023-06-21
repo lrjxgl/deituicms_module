@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=dodo_record">日志列表</a>
+ 
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>用户</td>
+ 
+   <td>内容</td>
+   <td>发布时间</td>
+   <td>鼓励</td>
+   <td>图片</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.nickname}</td>
+   
+   <td>{$c.content}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.love_num}</td>
+   <td>
+	<div class="js-thumb-item">
+		{if $c.imgslist}
+			{foreach item=cc from=$c.imgslist}
+			<img class="js-thumb" v="{$cc}" src="{$cc}.100x100.jpg" width="50" />
+			{/foreach}
+		{/if}
+	</div>
+   </td>
+<td> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=dodo_record&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+{include file="inc/js_thumb.html"}
+</body>
+</html>

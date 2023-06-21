@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='aichat_book/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>bookid</td>
+   <td>title</td>
+   <td>prompt</td>
+ 
+   <td>userid</td>
+   <td>createtime</td>
+   <td>status</td>
+   <td>orderindex</td>
+   <td>num</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.bookid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.prompt}</td>
+  
+   <td>{$c.userid}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.status}</td>
+   <td>{$c.orderindex}</td>
+   <td>{$c.num}</td>
+<td><a href="/moduleadmin.php?m=aichat_book&a=add&bookid={$c.bookid}">编辑</a> <a href="/module.php?m=aichat_book&a=show&bookid={$c.bookid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=aichat_book&a=delete&ajax=1&bookid={$c.bookid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

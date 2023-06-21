@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"零元抽奖",//模块名称
+	"module"=>"cj1",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"零元抽奖",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=cj1",
+	"check_update"=>"http://www.skymvc.com",
+);
+?>

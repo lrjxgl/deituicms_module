@@ -1,0 +1,42 @@
+.sideLeft{
+	width: 80px;
+	margin-right: 5px;
+}
+.side{
+	width: 80px;
+	background-color: #fff;
+	padding: 5px;
+	position: fixed;
+	left: 0;
+	top: 45px;
+	bottom: 1px;
+	overflow: auto; 
+}
+.side-hd{
+	line-height: 40px;
+	border-bottom: 1px solid #eee;
+	font-weight: 600;
+	cursor: pointer;
+}
+.side-item{
+	line-height: 40px;
+	border-bottom: 1px solid #eee;
+	cursor: pointer;
+}
+.side-item-active{
+	color: #f60;
+}
+.tabs-toggle-hd{
+	cursor: pointer;
+}
+.header-search-close{
+	position: absolute;
+	    width: 30px;
+	    height: 30px;
+	    right: 40px;
+	    top: 2px;
+	    color: #969696;
+	    cursor: pointer;
+	    line-height: 30px;
+	    text-align: center;
+}

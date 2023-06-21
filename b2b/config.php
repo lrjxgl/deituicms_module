@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"B2B2C商城",//模块名称
+	"module"=>"b2b",//模块目录
+ 	"version"=>4.7,//当前版本
+	"info"=>"B2B商城",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"from"=>"福鼎生活网",
+	"adminurl"=>"/moduleadmin.php?m=b2b&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

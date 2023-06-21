@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">已购课程</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				{foreach item=c from=$list}
+					<li class="mui-table-view-cell">
+						<a href="/module.php?m=book&a=show&bookid={$c.bookid}" class="mui-navigate-right">
+							{$c.title}
+						</a>
+					</li>
+				{/foreach}	
+				 
+				</ul>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

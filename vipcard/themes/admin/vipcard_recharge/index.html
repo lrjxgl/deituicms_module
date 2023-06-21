@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">充值</div>
+		</div>
+		<div class="main-body">
+			<form>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">用户</div>
+					<input readonly="" class="w100 mgr-10" value="{$user.nickname}" type="text" name="nickname"  />
+					{$user.telephone}
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">充值现金</div>
+					<input type="text" name="paymoney" class="w100" />
+					<div class="input-flex-label mgl-20">平台金额</div>
+					<input type="text" name="money" class="w100" />
+				</div>
+				<div class="btn-row-submit " id="submit">确认充值</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script>
+			 
+			$(document).on("click","#submit",function(){
+				if(!postCheck.canPost()){
+					return false;
+				}
+				var form=$(this).parents("form");
+				$.ajax({
+					url:"/moduleadmin.php?m=vipcard_recharge&a=save&ajax=1",
+					data:form.serialize(),
+					method:"post",
+					dataType:"json",
+					success:function(res){
+						skyToast(res.message);
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

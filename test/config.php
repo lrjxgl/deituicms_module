@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"test",//模块名称
+	"module"=>"test",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"test",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=test&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

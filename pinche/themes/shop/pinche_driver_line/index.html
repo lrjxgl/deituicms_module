@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">拼车线路</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" :class="'flex-col'" class="main-body none">
+			<div class="pd-10 cl2">每人最多能添加6条线路</div>
+			<div class="row-box mgb-10">
+				<div class="input-flex flex-ai-center">
+					<div class="mgr-5">路线</div>
+					<input type="text" v-model="keyword" class="input-flex-text" />
+					<div @click="search()" class="input-flex-btn">搜一下</div>
+				</div>
+				<div  v-if="page=='search'">
+					<div class="flex">
+						<div class="flex-1"></div>
+						<div @click="page='all'" class="btn-mini btn-outline-dark no pointer"></div>
+					</div>
+					
+					<div v-for="(item,index) in scList" :key="index" class="row-box mgb-5">
+						<div class="flex">
+							<div class="f14 mgb-5">{{item.title}}</div>
+							<div class="flex-1"></div>
+							<div class="cl-money">￥{{item.basemoney}}</div>
+						</div>
+						
+						<div class="f12 cl2">开始：{{item.start_addr}}</div>
+						<div class="f12 cl2">结束：{{item.end_addr}}</div>
+						
+						<div class="flex">
+							 
+							<div class="flex-1"></div>
+							<div @click="choice(item.lineid)" class="btn-mini">选择</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div v-if="page=='all'">
+				<div  v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+					<div class="flex">
+						<div class="f14 mgb-5">{{item.title}}</div>
+						<div class="flex-1"></div>
+						<div class="cl-money">￥{{item.basemoney}}</div>
+					</div>
+					
+					<div class="f12 cl2">开始：{{item.start_addr}}</div>
+					<div class="f12 cl2">结束：{{item.end_addr}}</div>
+					
+					<div class="flex">
+						<div @click="toggleStatus(item.id)" :class="item.status==1?'yes':'no'" ></div>
+						<div class="flex-1"></div>
+						<div @click="del(item.id)" class="btn-mini btn-danger">删除</div>
+					</div>
+				</div>
+			</div> 
+			
+			 
+		</div>
+		{assign var="ftnav" value="line"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}pinche_driver_line/index.js"></script>
+	</body>
+</html>

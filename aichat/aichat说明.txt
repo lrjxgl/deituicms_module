@@ -1,0 +1,6 @@
+aichat
+	prompt-category 提示分类
+	prompt	提示
+	message	消息记录
+	skill 技能
+	

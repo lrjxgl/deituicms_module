@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"得推跑腿",//模块名称
+	"module"=>"paotui",//模块目录
+ 	"version"=>3.1,//当前版本
+	"info"=>"得推跑腿",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=paotui&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

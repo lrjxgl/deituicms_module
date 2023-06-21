@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+ <html>
+ 	{include file="head.html"}
+
+ 	<body>
+ 		<div class="header">
+ 			<div class="header-back"></div>
+ 			<div class="header-title">在线课程</div>
+ 		</div>
+ 		<div class="header-row"></div>
+ 		<div class="main-body">
+ 			<div class="row-box mgb-10">
+ 				<div class="d-title">{$data.title}</div>
+ 				<div class="d-desc mgb-10">
+ 					描述：{$data.description}
+ 				</div>
+
+ 				<div class="flex">
+ 					{if $data.ispay}
+ 					价格：<span class="cl-money">{$data.money}</span> 元
+ 					{/if}
+ 					{if !$isbuy}
+ 					<a href="JavaScript:;" class="js-buy btn-small btn-outline-primary"
+ 						bookid="{$data.bookid}">立即购买</a>
+ 					{else}
+ 					<a class="btn-small btn-outline-primary"
+ 						href="/module.php?m=book&a=view&bookid={$data.bookid}">去阅读</a>
+ 					{/if}
+ 				</div>
+ 			</div>
+ 			<div class="row-box">
+
+ 				<div class="d-content">
+ 					{$data.content}
+ 				</div>
+ 			</div>
+
+
+
+ 		</div>
+ 		{include file="footer.html"}
+
+ 		<script>
+ 			$(document).on("click", ".js-buy", function() {
+ 				var bookid = $(this).attr("bookid");
+ 				$.post("/module.php?m=book_order&a=order&ajax=1", {
+ 					bookid: bookid
+ 				}, function(data) {
+ 					skyToast(data.message);
+ 					if (data.error == 1000) {
+ 						window.location = '/index.php?m=login';
+ 						return false;
+ 					}
+ 					if (data.error == 0) {
+ 						if (data.data.action == 'success') {
+ 							window.location = "/module.php?m=book&a=view&bookid=" + bookid
+ 						} else if (data.data.action == "pay") {
+ 							window.location = data.data.payurl
+ 						}
+
+ 					}
+ 				}, "json")
+ 			})
+ 		</script>
+ 		<?php wx_jssdk();?>
+ 		<script type="text/javascript">
+ 			wxshare_title = "{$data.title}";
+
+ 			wxshare_imgUrl = "{$data.imgurl|images_site}.100x100.jpg";
+ 		</script>
+ 	</body>
+ </html>

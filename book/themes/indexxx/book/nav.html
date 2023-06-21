@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs">
+	<li class="active"><a href="{$appadmin}?m=book">管理</a></li>
+	<li ><a href="{$appadmin}?m=book&a=add">添加</a></li>
+</ul>
+<div class="tabs-border">
+ <a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=book">管理</a>
+ <a class="item {if get('a') eq 'add'}active{/if}" href="{$appadmin}?m=book&a=add">添加</a> 
+</div>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">配送员</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5 flex">
+				<img class="wh-60 bd-radius-50" src="{$sender.userhead}.100x100.jpg" />
+				<div class="flex-1 mgl-5 mgr-5">
+					<div class="cl2 mgb-5 f16">{$sender.truename}</div>
+					<div class="flex flex-ai-center">
+						<div class="cl2 mgr-5">余额</div>
+						<div class="cl-money mgr-10"> ￥{$smoney.balance}</div> 
+						<div gourl="/sender.php?m=csc_sender_tixian" class="mgr-10 cl2">我要提现</div>
+						<div id="noticeMp3" class="iconfont cl-num f20 icon-notificationfill icon-notificationforbidfill "></div>
+					</div>
+					
+				</div>
+				<div id="loginOut" class="pointer cl-danger pdt-10">注销</div> 
+			</div>
+			 
+			 <div class="flex pd-10 bg-white mgb-5">
+			    	<div class="flex-1 text-center">
+			    		<div class="fz20">{$neworder}</div>
+			    		<div class="cl3">待配送</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="fz20">{$finishOrder|intval}</div>
+			    		<div class="cl3">今日订单量</div>
+			    	</div>
+			    	<div class="flex-1 text-center">
+			    		<div class="fz20">{$finishMoney|floatval}</div>
+			    		<div class="cl3">今日交易额</div>
+			    	</div>
+			    	 
+			    </div>
+				
+				
+				<div class="row-box">
+					<div gourl="/sender.php?m=csc_sender_shop"  class="row-item">
+						<div class="row-item-icon icon-newshot"></div>
+						<div class="row-item-title">关联店铺</div>
+					</div> 
+					<div gourl="/sender.php?m=csc_sender_tixian&a=list"  class="row-item">
+						<div class="row-item-icon icon-newshot"></div>
+						<div class="row-item-title">提现记录</div>
+					</div>
+					<div gourl="/sender.php?m=csc_sender_bankcard" class="row-item">
+						<div class="row-item-icon icon-vipcard"></div>
+						<div class="row-item-title">银行账号</div>
+					</div>
+					<div gourl="/sender.php?m=csc_sender_money"  class="row-item">
+						<div class="row-item-icon icon-newshot"></div>
+						<div class="row-item-title">收支记录</div>
+					</div>
+					<div gourl="/sender.php?m=csc_sender_paypwd" class="row-item">
+						<div class="row-item-icon icon-password"></div>
+						<div class="row-item-title">支付密码</div>
+					</div>
+				</div>
+				
+				
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			if(localStorage.getItem("noticeMp3")==1){
+				$("#noticeMp3").removeClass("icon-notificationforbidfill");
+			}else{
+				$("#noticeMp3").addClass("icon-notificationforbidfill");
+			}
+			$(document).on("click","#noticeMp3",function(){
+				var a=localStorage.getItem("noticeMp3");
+				if(a==1){
+					$(this).addClass("icon-notificationforbidfill");
+					localStorage.setItem("noticeMp3",0);
+				}else{
+					localStorage.setItem("noticeMp3",1);
+					$(this).removeClass("icon-notificationforbidfill");
+				}
+			})	
+			$(document).on("click","#loginOut",function(){
+				$.ajax({
+					url:"/sender.php?m=csc_login&a=loginout&ajax=1",
+					dataType:"json",
+					success:function(res){
+						window.location='/sender.php?m=csc_login';
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}css/news.css" rel="stylesheet"  />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">晒单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if empty($data)}
+		    <div class="emptyData">暂无晒单</div>
+		    {else}
+		    	<div class="newslist" id="list">
+				{foreach item=c from=$data}
+					{include file="zhuli_shaidan/item.html"}
+				{/foreach}
+			   	</div>
+		    {/if}
+		    {$pagelist}
+		</div>
+		{include file="footjs.html"}
+		{include file="inc/js_thumb.html"}
+		{assign var="mfooter" value="shaidan"}
+		{include file="footer.html"}
+	</body>
+</html>

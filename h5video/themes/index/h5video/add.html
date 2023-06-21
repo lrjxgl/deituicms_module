@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">创建幻灯片</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=h5video&a=save">
+				<input type="hidden" name="vid" style="display:none;" value="{$data.vid}">
+				<div>
+					<div class="input-flex">
+						<div class="input-flex-label">名称：</div>
+						<input class="input-flex-text" type="text" name="title" id="title" value="{$data.title}">
+					</div>
+					
+				 
+					<div class="input-flex">
+						<div class="input-flex-label">背景颜色</div>
+						
+						<input class="input-flex-text" style="color: {$data.bgcolor};"  type="text" id="bgcolor" name="bgcolor" value="{$data.bgcolor}" />
+						
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">背景音乐：</div>
+						 
+							<select  class="input-flex-select"  name="bgmp3">
+								<option value="">无</option>
+								{foreach item=c from=$musicList}
+								<option {if $c.musicid eq $data.bgmp3}selected{/if} value="{$c.musicid}">{$c.title}</option>
+								{/foreach}
+							</select>
+						 
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">语音播报</div>
+						<div class="flex-1 flex">
+							<input type="radio" name="istts" {if $data.istts eq 1} checked{/if} value="1" />开启
+							
+							<input type="radio" name="istts" {if $data.istts neq 1} checked{/if}  value="0" />关闭
+						</div>
+					</div>
+					 
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/colpick/js/colpick.js"></script>
+		<link href="/plugin/colpick/css/colpick.css" rel="stylesheet" />
+		<script>
+			$('#bgcolor').colpick({
+				layout:'hex',
+				color:$('#bgcolor').val(),
+				submit:0,
+				onChange:function(hsb,hex,rgb,el,bySetColor) {
+					$(el).val('#'+hex).css('color','#'+hex);;
+				}
+			});
+		</script>
+	</body>
+</html>

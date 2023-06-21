@@ -1,0 +1,47 @@
+.btn-pin-cycle{
+	width:20px;
+	height: 20px;
+	font-size: 12px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: #f30;
+	border-radius: 50%;
+	color: #fff;
+}
+.btn-service-round{
+	width:30px;
+	height: 30px;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: #009688;
+	border-radius: 50%;
+	color: #fff;
+}
+.btn-service-round::before{
+	margin-right: 0;
+}
+.kslist {
+ 	display: flex;
+ 	flex-direction: row;
+ 	align-items: center;
+ 	padding-left: 10px;
+ }
+
+ .kslist-label {
+ 	margin-right: 6px;
+ 	color: #646464;
+ }
+
+ .kslist-item {
+ 	border: 1px solid #eee;
+ 	padding: 4px 8px;
+ 	margin-right: 10px;
+ }
+
+ .kslist-active {
+ 	color: #007AFF;
+ }

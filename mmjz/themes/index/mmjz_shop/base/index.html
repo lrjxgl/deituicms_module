@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<link href="{$skins}mmjz_shop/base/index.css" rel="stylesheet" />
+		<div id="App" class="none" :class="'flex-col'">
+			<div v-if="globalData.pageTab!='product'">
+				<div class="header-back-fixed goBack"></div>
+
+				<div @click="favShopToggle(shop.shopid)" :class='shopFavClass'
+					class="header-fav-btn iconfont icon-favor">收藏</div>
+
+				<div class="modal-group" id="header-more-box">
+					<div class="modal-mask"></div>
+					<div class="header-fixtop-menu">
+						<div class="row-item-text pointer">
+							<div class="row-item-icon icon-share"></div>分享店铺
+						</div>
+						<div class="row-item-text pointer">
+							<div class="row-item-icon icon-warn_light"></div>举报商家
+						</div>
+					</div>
+				</div>
+
+				<div class="wshop-logo">
+					<image model="widthFix" class="wshop-logo-img" :src="shop.imgurl+'.100x100.jpg'"></image>
+				</div>
+				<div class="wshop mgb-5">
+
+					<div>
+						<div class="wshop-shopname mgb-10">{{shop.shopname}}</div>
+						<div class="flex flex-center cl2">
+							{{shop.description}}
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+			<template v-if="globalData.pageTab=='index'">
+				<div class="flex">
+					<div class="side">
+						<div @click="setCat(0)" :class="catid==0?'side-item-active':''" class="side-item">全部</div>
+						<div @click="setCat(item.catid)" :class="catid==item.catid?'side-item-active':''"
+							class="side-item" v-for="(item,index) in catList" :key="index">
+							{{item.title}}
+						</div>
+
+					</div>
+					<div class="main">
+						<div class="mtlist">
+							<div @click="goProduct(item.id)" class="mtlist-item" v-for="(item,index) in list">
+								<div class="mtlist-item-bd">
+									<img :src="item.imgurl+'.small.jpg'" class="mtlist-img">
+									<div class="mtlist-title">{{item.title}}</div>
+									<div class="flex flex-ai-center mgb-5">
+										<div class="cl-money f12">￥</div>
+										<div class="cl-money f14 mgr-5">{{item.price}}</div>
+										<div class="flex-1"></div>
+
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+					<div v-if="per_page>0" @click="getProduct" class="loadMore">加载更多</div>
+			</template>
+			<template v-if="globalData.pageTab=='detail'">
+				<shop-detail :shopid="shop.shopid"></shop-detail>
+			</template>
+			<template v-if="globalData.pageTab=='product'">
+				<product-detail :productid="globalData.productid"></product-detail>
+			</template>
+			<template v-if="globalData.pageTab=='index' || globalData.pageTab=='detail'">
+				<div class="footer-row"></div>
+				<div class="footer">
+					<div :class="globalData.pageTab=='index'?'footer-active':''" @click="globalData.pageTab='index'"
+						class="footer-item icon-home">商家首页</div>
+					<div :class="globalData.pageTab=='detail'?'footer-active':''" @click="globalData.pageTab='detail'"
+						class="footer-item icon-location_light">联系我们</div>
+				</div>
+			</template>
+		</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var shopid = "{$shop.shopid}";
+		</script>
+
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}mmjz_shop/base/store.js"></script>
+		<script src="{$skins}mmjz_shop/base/index.js"></script>
+		<script src="{$skins}mmjz_shop/base/detail.js"></script>
+		<script src="{$skins}mmjz_shop/base/product.js"></script>
+	</body>
+</html>

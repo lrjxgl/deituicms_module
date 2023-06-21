@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">超级会员</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div v-if="myvip" class="row-box mgb-5">
+				<div class="flex-center">
+					<div class="mgb-5 cl-primary f16">{{myvip.title}}</div>
+					<div class="mgb-5 cl3 f14 pd-5" v-html="myvip.description"></div>
+					<div class="flex">
+						<div class="cl2 f12 mgr-10">{{myvip.etime}}到期</div>
+						<div class="cl-primary f12">续费</div>
+					</div>
+					 
+				</div>
+				
+				
+			</div>
+			<div v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+				<div class="mgb-5 cl-primary f16">{{item.title}}</div>
+				<div class="pdl-10 cl2 f14 mgb-10" v-html="item.description"></div>
+				<div class="flex">
+					<div class="flex cl-red"><input type="radio" @click="setVip(item.vipid,'month',item.month_money)" name="bb"> 月费{{item.month_money}}元</div>
+					<div class="flex-1"></div>
+					<div class="flex cl-red"><input type="radio" @click="setVip(item.vipid,'year',item.year_money)"  name="bb"> 年费{{item.year_money}}元</div>
+				</div>
+			</div>
+			<div class="row-box text-center cl-money">
+				需支付{{money}}元
+			</div>
+			<div @click="buy" class="btn-row-submit">确认购买</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}csc_vip/index.js"></script>
+	</body>
+</html>

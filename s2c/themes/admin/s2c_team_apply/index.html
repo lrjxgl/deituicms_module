@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=s2c_team_apply">待审核列表</a>
+	<a class="item {if get('type') eq 'pass'}active{/if}" href="{$appadmin}?m=s2c_team_apply&type=pass">已通过列表</a>
+	<a class="item {if get('type') eq 'forbid'}active{/if}" href="{$appadmin}?m=s2c_team_apply&type=forbid">已禁止列表</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>teamid</td>
+   
+   <td>姓名</td>
+   <td>电话</td>
+   <td>地址</td>
+  
+   
+   <td>身份证</td>
+   <td>身份证号码</td>
+   <td>微信号</td>
+   <td>小区名称</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.teamid}</td>
+    
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+    
+   
+   <td><img src="{$c.usercard}.100x100.jpg" width="50" /></td>
+   <td>{$c.usernum}</td>
+   <td>{$c.wxhao}</td>
+   <td>{$c.shequ}</td>
+  
+<td>	
+ {if $c.status eq 0}
+	<div class="btn js-pass" teamid="{$c.teamid}">通过</div>
+	
+	<div class="btn btn-danger js-forbid"  teamid="{$c.teamid}">不通过</div>
+	{/if}
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-pass",function(){
+		var teamid=$(this).attr("teamid");
+		var obj=$(this);
+		$.get("/moduleadmin.php?m=s2c_team_apply&a=pass&ajax=1&teamid="+teamid,function(res){
+			obj.parents("tr").remove();
+		},"json")
+	})
+	$(document).on("click",".js-forbid",function(){
+		var teamid=$(this).attr("teamid");
+		var obj=$(this);
+		$.get("/moduleadmin.php?m=s2c_team_apply&a=forbid&ajax=1&teamid="+teamid,function(res){
+			obj.parents("tr").remove();
+		},"json")
+	})
+</script>
+</body>
+</html>

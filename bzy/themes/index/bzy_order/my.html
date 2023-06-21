@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="list">
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<div class="flex">
+						<div class="cl-status">{$c.status_name}</div>
+						<div class="flex-1"></div>
+						<div class="cl3">{$c.time}</div>
+					</div>
+					<div class="flexlist-item">
+						<img class="flexlist-img" src="{$c.product.imgurl}.100x100.jpg" />
+						<div class="flex-1">
+							<div class="flexlist-title">{$c.product.title}</div>
+							<div class="flex">
+								<div class="flex-1"></div>
+								<div class="btn-small btn-outline-primary">领奖码</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

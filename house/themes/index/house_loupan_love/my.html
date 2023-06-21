@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">关注的楼盘</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flexlist">
+				{foreach item=c from=$list}
+				<a href="/module.php?m=house_loupan&a=show&id={$c.id}" class="flexlist-item">
+					<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flex mgb-5">
+							<span class="cl-num">{if $c.isbuy eq 1}在售{else}未售{/if}</span>
+							<div class="flex-1"></div>
+							<span class="cl2">{$c.price}元/平</span>
+						</div>
+						<div class="cl3 f12">{$c.address}</div>
+					</div>
+				</a>
+				{/foreach}
+			</div>   
+		</div>
+		
+		{include file="footer.html"}
+	</body>
+</html>

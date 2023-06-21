@@ -1,0 +1,14 @@
+<?php
+$config=array(
+	"title"=>"快递查询",//模块名称
+	"module"=>"kuaidi",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"快递查询",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"cat_tpl"=>"",
+	"list_tpl"=>"",
+	"show_tpl"=>"",
+	"adminurl"=>"/moduleadmin.php?m=kuaidi&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

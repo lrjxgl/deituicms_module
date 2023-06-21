@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+	.footer-item{
+		line-height: 45px;
+	}
+	
+	</style>
+	<body>
+		<div class="header">
+			<div url="/module.php?m=zupu" class="header-back"></div>
+			<div class="header-title">{$group.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div v-if="page=='index'">
+				<img :src="group.imgurl+'.middle.jpg'" class="d-img" />
+				
+				<div class="row-box mgb-5">
+					<div class="bd-mp-10">{{group.title}}</div>
+					<div class="bd-mp-10 cl-info">辈分：{{group.beifen}}</div>
+					
+					<div class="flex bd-mp-10">
+						<div>地址：</div>
+						<div class="flex-1">{{group.address}}</div>
+						<div @click="showMap()" class="iconfont icon-location_light"></div>
+					</div>
+					<div class="bd-mp-10 cl2">{{group.description}}</div>
+					
+				</div>
+				<div class="pd-10 fw-600">家族新闻</div>
+				<div class="flexlist mgb-5">
+					<div @click="goNews(item.id)" v-for="(item,index) in newsList" :key="index" class="flexlist-item">
+						<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.title}}</div>
+							<div class="flexlist-desc">{{item.description}}</div>
+						</div>
+					</div>
+				</div>
+				<div class="row-box">
+					<div class="d-content" v-html="group.content"></div>
+				</div>
+				
+				
+			</div>
+			<page-news v-if="page=='news'"  :gid="group.gid"></page-news>
+			<page-chat v-if="page=='chat'"  :gid="group.gid"></page-chat>
+			<page-zupu v-if="page=='zupu'"  :gid="group.gid"></page-zupu>
+			<div class="footer-row"></div>
+			<div class="footer">
+				<div @click="setPage('index')" :class="page=='index'?'footer-active':''"  class="footer-item">家园</div>
+				
+				<div @click="setPage('news')" :class="page=='news'?'footer-active':''"  class="footer-item">资讯</div> 
+				<div @click="setPage('chat')" :class="page=='chat'?'footer-active':''"  class="footer-item">聊天</div> 
+				<div @click="setPage('zupu')" :class="page=='zupu'?'footer-active':''" class="footer-item">族谱</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		
+		<script src="{$skins}zupu_home/index.js"></script>
+		<script src="{$skins}zupu_home/zupu.js"></script>
+		<script src="{$skins}zupu_home/news.js"></script>
+		<script src="{$skins}zupu_home/chat.js"></script>
+	</body>
+</html>

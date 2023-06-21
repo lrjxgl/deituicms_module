@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">搜一下</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="pd-5">
+			<form class="header-search-box">
+				<div class="header-search-icon icon-search"></div>
+				<input id="keyword" value="{$keyword}" type="text" class="header-search" />
+				<div id="searchBtn" class="header-search-btn">搜</div>
+			</form>
+			</div>
+			{foreach item=item from=$list}
+			<div   class="flexlist-item">
+				<img   class="flexlist-img" src="{$item.imgurl}.100x100.jpg" />
+				<div class="flex-1">
+					<div   class="flexlist-title">{$item.title}</div>
+					<div class="flexlist-desc">{$item.address}</div>
+					<div class="flexlist-desc">{$item.description}</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click", "#searchBtn", function() {
+				var keyword = $("#keyword").val();
+				window.location = "/module.php?m=exue_shop&a=search&keyword=" + encodeURIComponent(keyword);
+			})
+		</script>
+	</body>
+	
+</html>

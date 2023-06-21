@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="flex pd-5 mgb-20 bg-white flex-ai-center">
+			<image class="wh-60 mgr-5 bd-radius-50" src="{$user.user_head}.100x100.jpg" />
+			<div class="flex-1">
+				<div>{$user.nickname}</div>
+				<div>提交 {$spUser.apply_num|intval} 家  成功 {$spUser.pass_num|intval} 家 获得 {$spUser.money|intval} 元</div>
+			</div>
+			
+		</div>
+		<div class="main-body">
+			<div class="aBox">
+				<div class="aBox-hd">我的战绩</div>
+				<div class="flexlist">
+					{foreach item=c from=$shopList}
+					<div class="flexlist-item">
+						<image class="flexlist-img" src="{$c.imgurl}.100x100.jpg"></image>
+						<div class="flex-1">
+							<div class="flexlist-title">{$c.title}</div>
+							<div class="flexlist-desc">{$c.address}</div>
+						</div>
+					</div>
+					{/foreach}
+				</div>
+			</div>
+		</div>
+		{include file="shopmap_apply/ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

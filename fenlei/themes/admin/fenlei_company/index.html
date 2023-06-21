@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('status') eq 0}active{/if}" href="{$appadmin}?m=fenlei_company">待审核</a>
+	<a class="item {if get('status') eq 1}active{/if}" href="{$appadmin}?m=fenlei_company&status=1">已通过</a>
+	<a class="item {if get('status') eq 2}active{/if}" href="{$appadmin}?m=fenlei_company&status=2">已禁止</a>
+	 
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>comid</td>
+   <td>名称</td>
+   
+   <td>logo</td>
+    
+   <td>联系人</td>
+   <td>联系电话</td>
+   <td>地址</td>
+   <td>状态</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.comid}</td>
+   <td>{$c.title}</td>
+   
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="60" /> </td>
+    
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=fenlei_company&a=status&comid={$c.comid}&ajax=1" ></div>
+   </td>
+    
+<td><a href="/moduleadmin.php?m=fenlei_company&a=add&comid={$c.comid}">编辑</a> 
+ </td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

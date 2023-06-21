@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$tags.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<a href="/module.php?m=house_resource&a=show&id={$c.id}" class="sglist-item js-item">
+				<div class="sglist-title">{$c.description}</div>
+				
+				<div class="sglist-imglist">
+					{foreach item=img from=$c.imgslist}
+					<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+					{/foreach}
+				</div>
+				<div class="flex">
+					<div class="mgr-10 cl2">总价</div>
+					<div class="mgb-5 cl-money">￥{$c.total_money}</div>
+					<div class="cl2">万元</div>
+				</div>  
+			</a>
+			{/foreach}
+		</div>
+	</body>
+</html>

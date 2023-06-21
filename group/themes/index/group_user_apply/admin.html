@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ 
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">申请审核</div>
+</div>
+<div class="header-row"></div>	
+<div class="main-body">
+  <div class="flexlist">	
+  {foreach item=c from=$list}
+  <div class="flexlist-item">
+  	
+  	<img class="flexlist-img" src="{$c.user_head|images_site}.100x100.jpg">
+   
+  	<div class="flex-1">
+		<div class="f12 mgb-5 cl2">{$c.nickname}</div>
+  		<div class="flexlist-desc">{$c.content}</div>
+  		<div class="flex">
+  			<span class="cl3 f12">{$c.daytime}</span>
+			<div class="flex-1"></div>
+  			<a href="javascript:;" v="{$c.id}" class="yes btn-mini">接受</a>
+  			<a href="javascript:;" v="{$c.id}"  class="no btn-mini">拒绝</a>
+   
+  		</div>
+  	</div>
+  	
+  </div>
+  {/foreach}
+  </div>	
+</div>
+ 
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".yes",function(){
+			var p=$(this).parents(".item");
+			$.get("/module.php?m=group_user_apply&a=yes&ajax=1&gid={$group.gid}&id="+$(this).attr("v"),function(data){
+				skyJs.toast(data.message);
+				p.remove();
+			},"json")
+		})
+		
+		$(document).on("click",".no",function(){
+			var p=$(this).parents(".item");
+			$.get("/module.php?m=group_user_apply&a=no&ajax=1&gid={$group.gid}&id="+$(this).attr("v"),function(data){
+				skyJs.toast(data.message);
+				p.remove();
+			},"json")
+		})
+	})
+</script>
+</body>
+</html>

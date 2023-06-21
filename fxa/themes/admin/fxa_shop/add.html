@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='fxa_shop/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fxa_shop&a=save">
+				<input type="hidden" name="shopid" style="display:none;" value="{$data.shopid}">
+				<table class="table-add">
+					<tr>
+						<td>标题：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					
+					<tr>
+						<td>logo：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					<tr>
+						<td>营业执照号码：</td>
+						<td><input type="text" name="shopno" id="shopno" value="{$data.shopno}"></td>
+					</tr>
+					 
+					<tr>
+						<td>营业执照：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="yyzh" class="js-imgurl" value="{$data.yyzh}" />
+								<div class="js-imgbox">
+									{if $data.yyzh}
+									<img src="{$data.yyzh|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					<tr>
+						<td>联系人：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1}checked{/if} value="1">上线
+							<input type="radio" name="status" {if $data.status neq 1}checked{/if}  value="2">下线
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script> 
+	</body>
+</html>

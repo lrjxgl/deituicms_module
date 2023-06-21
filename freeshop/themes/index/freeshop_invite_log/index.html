@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">邀请奖励</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex mgb-10 flex-ai-center">
+					<div class="flex-1 flex-center">
+						<div class="cl-money">{$account.money}</div>
+						<div class="f12 cl2">可用</div>
+					</div>
+					<div class="flex-1 flex-center">
+						<div class="cl-money">{$account.income}</div>
+						<div class="f12 cl2">总奖金</div>
+					</div>
+					{if $account.money>=1}
+					<div class="flex">
+						<div id="send" class="btn-small btn-outline-primary">红包提现</div>
+					</div>
+					{/if}
+				</div>
+				<div class="cl2 f12">关注绑定微信公众号，当可用金额超过1元，则可以提现到红包</div>
+			</div> 
+			{if !$rscount}
+				<div class="emptyData">暂无奖励日志</div>
+			 
+			{else}
+				{foreach item=item from=$list}
+				<div class="row-box mgb-5">
+					<div class="flex bd-mp-5">
+						<div class="cl1">{$item.timeago}</div>
+						<div class="flex-1"></div>
+						<div class="cl-money">￥{$item.money}</div>
+					</div>
+					<div class="cl3">{$item.content}</div>
+
+				</div>
+				{/foreach}
+			{/if}
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#send",function(){
+				$.ajax({
+					url:"/module.php?m=freeshop_invite_log&a=send&ajax=1",
+					dataType:"json",
+					success:function(res){
+						if(res.error){
+							skyToast(res.message);
+							return false;
+						}
+						window.location.reload();
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">话题</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="tabs-border">
+				<div @click="setType('hot')" :class="{'tabs-border-active':type=='hot'}" class="tabs-border-item">热门</div>
+				<div @click="setType('all')"  :class="{'tabs-border-active':type=='all'}" class="tabs-border-item">全部</div>
+			</div> 
+			 <div class="blogList none" :class="'flex'">
+				 
+				 <div @click="goTopic(item.id)" v-for="(item,index) in pageData.topicList" :key="index" class="blogList-item">{{item.title}}</div>
+				 
+			 </div>
+			 <div @click="getList" v-if="pageData.per_page!=0" class="loadMore">点我加载更多...</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}sblog_topic/index.js"></script>
+		
+	</body>
+</html>

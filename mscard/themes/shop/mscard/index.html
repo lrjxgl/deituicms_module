@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">会员卡</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<form id="form" class="mui-input-group">
+				    <div class="mui-input-row">
+				        <label>手机号码</label>
+				        <input type="text" id="telephone" class="mui-input-clear" value="{$smarty.get.telephone|html}" placeholder="请输入手机号码">
+				    </div>
+				    
+				    <div class="mui-input-row">
+				        <label>金额</label>
+				        <input type="text" id="money" class="mui-input-clear" placeholder="请输消费金额">
+				    </div>
+				    
+				    <textarea id="content" style="height: 200px; margin-bottom: 5px;" placeholder="消费详情"></textarea>
+				    
+				    	<button type="button" id="payBtn" class="mui-btn mui-btn-block mui-btn-primary">确认</button>
+				   
+				    
+				</form>
+					 
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script >
+			$(function(){
+				var sm=false;
+				$(document).on("click","#payBtn",function(){
+					if(sm) return false;
+					var telephone=$("#telephone").val();
+					var money=$("#money").val();
+					var content=$("#content").val();
+					if(telephone==''){
+						$("#telephone").focus();
+						mui.toast("手机不能为空");
+						return false;
+					}
+					if(money<=0){
+						$("#money").focus();
+						mui.toast("消费金额不能小于0");
+						return false;
+					}
+					sm=true;
+					$.post("/moduleshop.php?m=mscard_order&a=pay&ajax=1",{
+						telephone:telephone,
+						money:money,
+						content:content
+					},function(data){
+						mui.toast(data.message);
+						sm=false;
+						if(!data.error){
+							$("#telephone").val("");
+							$("#money").val("");
+							$("#content").val("");
+						}
+						
+					},"json");
+				})
+			})
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">{$type_name}</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+    <td>nickname</td>
+    <td>telephone</td>
+    <td>user_head</td>
+   <td>grade</td>
+   <td>join_num</td>
+   <td>status</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td><img src="{$c.user_head|images_site}" class="w50" /></td>
+   <td>{$c.grade}</td>
+   <td>{$c.join_num}</td>
+   <td>{$c.status}</td>
+   
+<td><a href="/moduleadmin.php?m=fsw_user&a=add&id={$c.id}">编辑</a> 
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fsw_user&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">报单返现</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form id="form">
+				<div class="input-flex">
+					<div class="raty-label">所属平台</div>
+					<input type="radio" checked name="xfrom" value="taobao" /> 淘宝
+					<input type="radio" name="xfrom" value="pdd" /> 拼多多
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">订单号</div>
+					<input class="input-flex-text" type="text" id="orderno" name="orderno" />
+				</div>
+				 
+				<div class="pd-10 cl-red">
+					*报单后审核通过后，才会显示在订单列表
+				</div>
+				<div id="submit" class="btn-row-submit">确认报单</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click","#submit",function(){
+					$.ajax({
+						url:"/module.php?m=taoke_order&a=baodansave&ajax=1",
+						data:$("#form").serialize(),
+						dataType:"json",
+						type:"POST",
+						success:function(res){
+							skyToast(res.message);
+							$("#orderno").val('');
+						}
+					})
+				})
+				
+			})
+		</script>
+	</body>
+</html>

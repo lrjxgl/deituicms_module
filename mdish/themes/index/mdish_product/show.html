@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.video{
+		width: 100%;
+	}
+		.mhead{
+			width:30px;
+			height: 30px;
+			margin: 5px;
+		}
+	</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" style="display: none;" :style="{display:'block'}" v-if="pageLoad" id="App">
+	<video controls="controls"  x5-playsinline="" playsinline="" webkit-playsinline=""  controlsList="nodownload" autoplay="autoplay" class="video" v-if="data.mp4url!=''" :src="data.mp4url"></video>
+	<img v-else :src="data.imgurl+'.middle.jpg'" class="d-img" />
+	<div class="row-box mgb-5">
+		<div class="d-title">{{data.title}}</div>
+		<div class="f14 cl3">{{data.description}}</div>
+		
+		<div class="flex flex-center">
+			<div @click="loveToggle" class="iconfont cl-red icon-like mgr-2"></div>
+			<div class="mgr-20 cl-red">{{data.love_num}}</div>
+		 
+			<div class="iconfont cl2 icon-attention_light mgr-2"></div>
+			<div class="cl2">{{data.view_num}}</div>
+		</div>
+		
+	</div>
+	<div class="row-box mgb-5">
+		<div>
+			<div class="row-item-text">
+				<div class="iconfont icon-shop"></div>
+				<div class="cl2 f16">{{shop.title}}</div>
+			</div>
+			<div class="row-item-text">
+				<div class="iconfont icon-location_light"></div>
+				<div class="cl2 f14">{{shop.address}}</div>
+			</div>
+			 
+		</div>
+	</div>
+	
+    <div v-if="loveList.length>0" class="row-box mgb-5">
+		<div class="row-item-text mgb-5 icon-love">
+			<div class="iconfont icon-like cl-red"></div>
+			<div class="row-item-title cl-red">喜爱的朋友</div>
+		</div>
+    	<div class="flex flex-wrap">
+			<div v-for="(item,index) in loveList" :key="index">
+				<img class="mhead" :src="item.user_head+'.100x100.jpg'" />
+			</div>
+		</div>
+    </div>
+	 
+</div>
+{include file="footer.html"}
+<script>
+	var productid="{$data.productid}";
+</script>
+<script src="{$skins}mdish_product/show.js"></script>
+<?php wx_jssdk();?>
+		<script>
+			wxshare_title="{$data.title}";
+ 
+		</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="tabs-border">
+			<a href="/moduleadmin.php?m=hongbao" class="item">活动列表</a>
+			<a href="/moduleadmin.php?m=hongbao&a=add" class="item active">活动添加</a>
+		</div>
+		<div class="main-body">
+			<div class="mui-content-padded">
+				<form id="form" method="post" action="/module.php?m=hongbao&a=save">
+					<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+					<table class="table-add">
+						<tr>
+							<td width="100">名称：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+						<tr>
+							<td>图片：</td>
+							<td>
+								<div class="js-upload-item">
+									<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+									<div class="upimg-btn js-upload-btn">+</div>
+									<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+									<div class="js-imgbox">
+										{if $data.imgurl}
+										<img src="{$data.imgurl|images_site}.100x100.jpg">
+										{/if}
+									</div>
+								</div> 
+								
+							</td>
+						</tr>
+						<tr>
+							<td>状态：</td>
+							<td style="line-height: 40px;">
+								上线 <input type="radio" name="status" {if $data.status eq 1}checked{/if} id="status" value="1">
+								下线 <input type="radio" name="status" {if $data.status neq 1}checked{/if}  id="status" value="2">
+							</td>
+						</tr>
+						<tr>
+							<td>总金额：</td>
+							<td><input type="text" name="total_money" id="total_money" value="{$data.total_money}"></td>
+						</tr>
+						<tr>
+							<td>总数：</td>
+							<td><input type="text" name="total_num" id="total_num" value="{$data.total_num}"></td>
+						</tr>
+						<tr>
+							<td>最大红包：</td>
+							<td><input type="text" name="max_money" id="max_money" value="{$data.max_money}"></td>
+						</tr>
+						<tr>
+							<td>截止时间：</td>
+							<td><input type="text" name="endtime" id="endtime" value="{$data.endtime|date:Y-m-d H:i:s}"></td>
+						</tr>
+						{if $data}
+						<tr>
+							<td>生成红包：</td>
+							<td style="padding: 10px 0;">
+								{if !$data.iscreate}
+								未生成  <a class="btn-small" href="javascript:;" v="{$data.id}" id="js-create">生成</a>
+								{else}
+								已生成
+								{/if}
+								 
+							</td>
+						</tr>
+						{/if}
+						<tr>
+							<td>描述：</td>
+							<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+						</tr>
+						<tr>
+						<td>开启问答</td>
+						<td>
+							<input type="radio" name="isask" value="1" {if $data.isask eq 1} checked {/if} /> 是 
+							<input type="radio" name="isask" value="0" {if $data.isask neq 1} checked {/if}/> 否
+						</td>
+					</tr>
+						<tr>
+							<td>问题：</td>
+							<td><input type="text" name="ask" id="ask" value="{$data.ask}"></td>
+						</tr>
+						
+						<tr>
+							<td>答案：</td>
+							<td><input type="text" name="answer" id="answer" value="{$data.answer}"></td>
+						</tr>
+						<tr>
+							<td>模板</td>
+							<td>
+								<input type="text" name="tpl" value="{if $data.tpl}{$data.tpl}{else}show.html{/if}" />
+							</td>
+						</tr>
+						<tr>
+							<td>参与方法：</td>
+							<td><script type="text/plain" id="joindesc" name="joindesc" >{$data.joindesc}</script></td>
+						</tr>
+						
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+						 
+					</table>
+					<div class="btn-row-submit" id="submit">保存</div>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+				{php loadEditor(0);}
+
+<script language="javascript">
+ 
+var editor=UE.getEditor('content',options);
+var e_join=UE.getEditor('joindesc',options);
+</script>
+<script src="/plugin/laydate/laydate.js"></script>
+ 
+<script>
+	laydate.render({
+	  elem: '#endtime',
+	  type: 'datetime'
+	});
+	$(document).on("click", "#submit", function() {
+		editor.sync();
+		e_join.sync();
+		$.post("/moduleadmin.php?m=hongbao&a=save&ajax=1", $("#form").serialize(), function(data) {
+			if(data.error) {
+				skyToast(data.message);
+
+			} else {
+				goBack();
+			}
+		}, "json")
+	})
+	
+	$(document).on("click","#js-create",function(){
+		var id=$(this).attr("v");
+		$.get("/moduleadmin.php?m=hongbao&a=create&ajax=1&id="+id,function(data){
+			skyToast(data.message);
+		},"json")
+	})
+</script>	
+	</body>
+
+</html>

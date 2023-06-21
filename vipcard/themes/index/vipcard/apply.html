@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">申请办理VIP会员卡</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/module.php?m=vipcard&a=applysave&ajax=1">
+				<div class="input-flex">
+					<div class="input-flex-label">姓名</div>
+					<input class="input-flex-text" type="text" name="nickname" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">身份证</div>
+					<input class="input-flex-text" type="text" name="idcard" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">手机</div>
+					<input class="input-flex-text" type="text" name="telephone" />
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

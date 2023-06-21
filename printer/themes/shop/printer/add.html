@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+<body>
+
+<div class="header" >
+    <div  class="header-back" ></div>
+    <div class="header-title">打印机编辑</div>
+ 
+ </div>
+ <div class="header-row"></div>
+ 
+ 
+ <div class="main-body">
+ <form id="printer-form" action="{$appshop}?m=printer&a=save&ajax=1&shoptable={$shoptable}&ajax=1">
+ 			<input type="hidden" name="id" value="{$data.id}">
+            <div class="input-flex">
+                <label class="input-flex-label">名称</label>
+                <input name="title" class="input-flex-text" value="{$data.title}" type="text" placeholder="名称"></div>
+            <div class="input-flex">
+                <label class="input-flex-label">主机</label>
+                <input name="printer_host" class="input-flex-text" value="{$data.printer_host}" type="text" placeholder="ip/主机"></div>
+            <div class="input-flex">
+                <label class="input-flex-label">端口</label>
+                <input name="printer_port"  class="input-flex-text"value="{$data.printer_port}" type="text" value="80"></div>
+            <div class="input-flex">
+                <label class="input-flex-label">SN码</label>
+                <input name="printer_sn" class="input-flex-text" value="{$data.printer_sn}" class="v" type="text" placeholder="sn码"></div>
+            <div class="input-flex">
+                <label class="input-flex-label">Key</label>
+                <input name="printer_token" class="input-flex-text" value="{$data.printer_token}"  type="text" placeholder="key/token"></div>
+            <div>
+                <div class="btn-row-submit js-submit">增加</div>
+            </div> 
+        </form>   
+ </div>
+ 
+ {include file="footer.html"}
+  
+</body>
+</html>

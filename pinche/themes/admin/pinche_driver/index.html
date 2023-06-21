@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">司机列表</div>
+<div class="main-body">
+	<form action="/moduleadmin.php" class="search-form">
+		<input  type="hidden" name="m" value="pinche_driver"/>
+		<div class="flex flex-ai-center">
+			<span class="mgr-5">名字</span>
+			<input  type="text" class="w100 mgr-5" name="truename" value="{$truename}" />
+			<span class="mgr-5">电话</span>
+			<input  type="text" class="w100 mgr-5" name="telephone" value="{$telephone}" />
+			<span class="mgr-5">车牌号</span>
+			<input  type="text" class="w100 mgr-5" name="carno" value="{$carno}" />
+			<button class="btn" type="submit">搜索</button>
+		</div>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>driverid</td>
+   <td>名字</td>
+   <td>电话</td>
+   <td>头像</td>
+   <td>介绍</td>
+   <td>车牌号</td>
+   <td>车辆图片</td>
+   <td>状态</td>
+   
+   <td>保证金</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.driverid}</td>
+   <td>{$c.truename}</td>
+   <td>{$c.telephone}</td>
+   <td><img src="{$c.userhead|images_site}.100x100.jpg" class="wh-40" /> </td>
+   <td>{$c.description}</td>
+   <td>{$c.carno}</td>
+   <td><img src="{$c.carpic|images_site}.100x100.jpg" class="wh-40" /></td>
+   <td>{$c.status}</td>
+ 
+   <td>{$c.bzmoney}</td>
+<td><a href="/moduleadmin.php?m=pinche_driver&a=add&driverid={$c.driverid}">编辑</a>
+
+ <a href="/moduleadmin.php?m=pinche_driver&a=show&driverid={$c.driverid}">详情</a>
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=pinche_driver&a=delete&ajax=1&driverid={$c.driverid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

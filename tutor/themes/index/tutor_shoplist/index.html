@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.side{
+			position: absolute;
+			bottom: 50px;
+			top: 45px;
+			left: 0px;
+			width: 80px;
+			background-color: #fff;
+			padding: 0px;
+			box-sizing: border-box;
+		}
+		.side-menu{
+			padding: 6px 8px 6px 10px;
+			cursor: pointer;
+		}
+		.side-menu-active{
+			color: #F60;
+		}
+		.main{
+			flex: 1;
+			margin-left: 82px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">找老师</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="flex">
+				<div class="side">
+					<div @click="setCat(0)" :class="catid==0?'side-menu-active':''" class="side-menu">全部</div>
+					<div  @click="setCat(item.catid)" :class="catid==item.catid?'side-menu-active':''"  class="side-menu" v-for="(item,index) in catList" :key="index">
+						{{item.title}}
+					</div>
+				</div>
+				<div class="main">
+					<div class="tabs-border">
+						<div @click="setTab('')" :class="orderby==''?'tabs-border-active':''" class="tabs-border-item">综合</div>
+						<div @click="setTab('raty_grade')" :class="orderby=='raty_grade'?'tabs-border-active':''"  class="tabs-border-item">评价</div>
+						<div @click="setTab('sold_num')" :class="orderby=='sold_num'?'tabs-border-active':''"  class="tabs-border-item">销量</div>
+					</div>
+					<div class="flexlist">
+						 
+						<div v-for="(item,index) in list" :key="index" class="flexlist-item">
+							<img @click="goShop(item.shopid)"  :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+							<div class="flex-1">
+								<div  @click="goShop(item.shopid)"  class="flexlist-title">{{item.title}}</div>
+								<div class="flex mgb-5">
+									<div class="cl2 f12 mgr-5">评价</div>
+									<div class="cl-num f12 mgr-10">{{item.raty_grade}}</div>
+									<div class="cl2 f12 mgr-5">订单</div>
+									<div class="cl-num f12 mgr-10">{{item.order_num}}</div>
+								</div>
+								<div class="flexlist-desc">
+									{{item.description}}
+								</div>
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="tutor_shoplist"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+		var catid="{$catid}"
+		</script>
+		<script src="{$skins}tutor_shoplist/index.js?v=2"></script>
+	</body>
+</html>

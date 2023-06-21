@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">新增账单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=bill_log&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<input type="hidden" name="shopid" value="{$shop.shopid}" />
+				<div class="input-flex">
+					<div class="input-flex-label">账单名称：</div>
+					<input type="text" class="input-flex-text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">账单金额：</div>
+					<input type="text" class="input-flex-text" name="money" id="money" value="{$data.money}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">账单时间：</div>
+					<input type="text" class="input-flex-text" name="cdate" id="cdate" value="{$data.cdate}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">账单类型：</div>
+					<select class="input-flex-select" name="catid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$catList}
+						<option value="{$c.catid}">{$c.title}</option>
+						{/foreach}
+					</select>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">相关人员：</div>
+					<select class="input-flex-select" name="suid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$uList}
+						<option value="{$c.suid}">{$c.title}</option>
+						{/foreach}
+					</select>
+				</div>
+				<div class="bg-fff mgb-5">
+					<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+					{include file="inc/uploader-data.html"}
+				</div>
+				<textarea name="content" class="textarea-flex-text" id="content">{$data.content}</textarea>
+				<div class="btn-row-submit" id="submit">保存</div>
+			</form>
+
+		</div>
+		{include file="bill_shop/admin-ftnav.html"}
+		{include file="footer.html"}
+		{if INWEIXIN}
+		<?php wx_jssdk();?>
+		<script src="{$skins}inc/uploader-data-wx.js?{$smarty.now}"></script> 
+		{else} 
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js?v2"></script>
+		{/if}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#cdate",
+				type:"datetime"
+			})
+			$(document).on("click","#submit",function(){
+				if(!postCheck.canPost()){
+					return false;
+				}
+				if(confirm("已经确认好账单吗")){
+					var obj=$(this);
+					$.post(
+						$(this).parents("form").attr("action")+"&ajax=1",
+						$(this).parents("form").serialize(),
+						function(data){
+							skyToast(data.message);
+							if(data.error){
+								return false;
+							}
+							if(obj.attr("ungo")=="1"){
+								return true;
+							}else{
+								setTimeout(function(){
+									window.history.back();
+								},1000)
+								
+							}
+						},
+						"json"
+					);
+				}
+			})
+		</script>
+	</body>
+</html>

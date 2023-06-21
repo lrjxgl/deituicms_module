@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.follow-btn{
+		color: #666;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 5px 10px;
+		font-size: 12px; 
+	}
+	.follow-btn-active{
+		color: #f30;
+		border: 1px solid #f30;
+	}
+</style> 
+<body>
+<div class="fixtop">
+	<div class="header-back-fixed goBack"></div>
+</div>
+<div class="main-body">
+	<div class="row-box mgb-5">
+		<div class="flex flex-ai-center">
+			<img gourl="/module.php?m=exue_shop&a=show&shopid={$shop.shopid}" class="d-userbox-head" src="{$shop.imgurl}.100x100.jpg">
+			<div class="flex-1">
+				<div gourl="/module.php?m=exue_shop&a=show&shopid={$shop.shopid}" class="f14 cl1 mgb-5">{$shop.title}</div>
+				<div class="flex mgb-5 flex-ai-center">
+					<div class="cl2 f12 mgr-5">粉丝</div>
+					<div class="f12 cl-num mgr-5 ">{$shop.follow_num}</div>
+				 
+				</div>
+				<div class="cl3 f12">{$shop.description}</div>
+			</div>
+			<div class="follow-btn {if $shop.isFollow}follow-btn-active{/if} js-sfollow-toggle" shopid="{$shop.shopid}">{if $shop.isFollow}已关注{else}+关注{/if}</div>
+		</div>
+		
+	</div>
+    <img class="d-img" src="{$data.imgurl}.middle.jpg" />
+	<div class="rdBox">
+		<div class="d-title">{$data.title}</div>
+		<div class="flex mgb-5">
+			<div class="mgr-20 cl2">时间</div>
+			<div class="cl2">{$data.createtime}</div>
+		</div>
+		<div class="flex mgb-5">
+			<div class="mgr-20 cl2">学校</div>
+			<div gourl="/module.php?m=exue_shop&a=show&shopid={$shop.shopid}" class="cl2">{$shop.title}</div>
+		</div>
+		<div class="flex">
+			<div class="mgr-20 cl2">地址</div>
+			<div class="cl2">{$shop.address}</div>
+		</div> 
+	</div>
+	<div class="rdBox">
+		<div class="tabs-border-group">
+			<div class="tabs-border mgb-5">
+				<div class="tabs-border-item js-tabs-border-item tabs-border-active">课程简介</div>			
+				<!--<div class="tabs-border-item js-tabs-border-item">动态</div>-->
+				<div class="tabs-border-item js-tabs-border-item">相关老师</div>
+				<div class="tabs-border-item js-tabs-border-item">学员评价</div>
+			</div>
+			<div class="tabs-border-box tabs-border-box-active">
+				<div class="d-content">
+					{$data.content}
+				</div>
+			</div>
+			<!--
+			<div class="tabs-border-box">
+				{foreach item=c from=$blogList}
+				<div gourl="/module.php?m=exue_blog&a=show&id={$c.id}" class="sglist-item">
+					
+					<div class="sglist-title">{$c.content}</div>
+					{if $c.imgslist}
+					<div class="sglist-imglist">
+						{foreach item=p from=$c.imgslist} 
+						<img  src="{$p}.100x100.jpg" class="sglist-imglist-img" />
+						{/foreach}
+					</div>
+					{/if}
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{$c.love_num}</div>
+						<div class="sglist-ft-cm">{$c.comment_num}</div>
+						<div class="sglist-ft-view">{$c.view_num}</div>
+					</div> 
+				</div>
+				{/foreach}
+			</div>
+			-->
+			<div class="tabs-border-box">
+				{foreach item=c from=$tcList}
+				<div gourl="/module.php?m=exue_teacher&a=show&tcid={$c.tcid}" class="flexlist-item">
+					<img gourl="/module.php?m=exue_teacher&a=show&tcid={$c.tcid}" src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div gourl="/module.php?m=exue_teacher&a=show&tcid={$c.tcid}" class="flexlist-title">{$c.nickname}</div>
+						<div class="flexlist-desc">{$c.description}</div>
+						 
+					</div>
+				</div>
+				{/foreach}
+			</div>
+			<div class="tabs-border-box">
+				{foreach item=c from=$ratyList}
+				<div class="item">
+					<div class="flex flex-ai-center">
+						<div class="mgr-10">{$c.nickname}</div>
+						 
+						<div class="zm-raty" mod="1" grade="{$c.raty_grade}" len="10"></div>
+					</div>
+					<div class="cl3 f14 mgb-5">
+						{$c.raty_content}
+					</div>
+					<div class="flex">
+						<div class="cl3 f12">{$c.raty_time}</div>
+					</div>
+					
+				</div>
+				{/foreach}
+			</div>
+		</div>
+	</div>	
+</div>
+<div class="footer-row"></div>
+<div class="footerFix  ">
+	<div class="row-box flex flex-ai-center">
+		<div class="mgr-10">限时优惠</div>
+		<div class="cl-money f16">￥{$data.price}</div>
+		<div class="flex-1"></div>
+		<div id="bm-btn" class="btn">立即报名</div>
+	</div>
+	
+</div>
+<div class="modal-group" id="bm-box">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">报名</div>
+			<div class="modal-close iconfont icon-close"></div>
+		</div>
+		<div class="modal-body">
+			<form>
+				<div class="input-flex">
+					<div class="input-flex-label">联系人</div>
+					<input id="bm-nickname" type="text" name="nickname" value="{$addr.nickname}" class="input-flex-text" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input id="bm-telephone" type="text" name="telephone" value="{$addr.telephone}" class="input-flex-text" />
+				</div>
+				
+				<div id="bm-submit" class="btn-row-submit">确认报名</div>
+			</form>
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script>
+	var courseid="{$data.courseid}"
+	$(function(){
+		$(document).on("click","#bm-btn",function(){
+			$("#bm-box").show();
+		})
+		$(document).on("click","#bm-close",function(){
+			$("#bm-box").hide();
+		})
+		$(document).on("click",".js-sfollow-toggle",function(){
+			var that=$(this);
+			$.ajax({
+				url:"/module.php?m=exue_shop&a=toggleFollow&ajax=1",
+				dataType:"json",
+				data:{
+					shopid:that.attr("shopid")
+				},
+				success:function(res){
+					if(res.error){
+						skyToast(res.message);
+						return false;
+					}
+					if(res.data.isFollow==1){
+						that.addClass("follow-btn-active");
+						that.html("已关注")
+					}else{
+						that.removeClass("follow-btn-active");
+						that.html("+关注")
+					}
+				}
+			})
+		})
+		$(document).on("click","#bm-submit",function(){
+			var nickname=$("#bm-nickname").val();
+			var telephone=$("#bm-telephone").val();
+			$.ajax({
+				url:"/module.php?m=exue_order&a=order&ajax=1",
+				dataType:"json",
+				type:"POST",
+				data:{
+					courseid:courseid,
+					nickname:nickname,
+					telephone:telephone
+				},
+				success:function(res){
+					if(res.error){
+						skyToast(res.message);
+						if(res.error==11){
+							$("#bm-box").hide();
+						}
+						return false;
+					}
+					window.location=res.data.payurl;
+				}
+			})
+		})
+	})
+</script>
+<script src="/plugin/dt-ui/dt-ui-raty.js"></script>
+		<script>
+			skyRaty(".zm-raty")
+		</script>
+<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title = "{$seo.title}"; 
+			 
+			wxshare_imgUrl = "{$data.imgurl}.100x100.jpg"; 
+		 
+		</script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.mscardlist{
+			
+		}
+		.mscardlist .item{
+			display: block;
+			margin-bottom: 5px;
+			border-bottom: 1px solid #eee;
+			font-size: 14px;
+		}
+		.mscardlist .item .title{
+			line-height: 30px;
+			color: #333;
+			font-size: 16px;
+		}
+		.mscardlist .item .tel{
+			float: right;
+		}
+		.mscardlist .item .idcard{
+			color: #888;
+			line-height: 30px;
+		}
+		.mscardlist .item .nums{
+			color: #777;
+			margin-bottom: 5px;
+			line-height: 30px;
+			text-align: center;
+		}
+		.mscardlist .item .money,.mscardlist .item .grade,.mscardlist .item .gold{
+			color: #f60;
+			margin-right: 10px;
+			margin-left: 3px;
+			font-size: 16px;
+		}
+		.mscardlist .tools{
+			text-align: center;
+			line-height: 30px;
+		}
+		.mscardlist .tools a{
+			margin-right: 10px;
+		}
+		.rechargeBox{
+			position: fixed;
+			top: 50%;
+			margin-top: -100px;
+			left: 0px;
+			right: 0px;
+			padding: 10px;
+			background-color: #fff;
+			height: 200px;
+			z-index: 9999;
+			display: none;
+		}
+		.rechargeBox .nick{
+			text-align: center;
+			line-height: 40px;
+			border-bottom: 1px solid #eee;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">会员卡</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded">
+				<div class="mscardlist">
+					{foreach item=c from=$data}
+					<div class="item">
+						<div class="title">
+							<span class="nick">{$c.nickname}</span>
+							<a href="tel:{$c.telephone}" class="tel">{$c.telephone}</a>
+						</div>
+						
+						<div class="idcard">身份证：{$c.idcard}</div>
+						<div class="idcard">所属商家：{$c.shopname}</div>
+						<div class="nums">
+							余额<span class="money">￥{$c.money}</span>
+							积分<span class="grade">{$c.grade}</span>
+							金币<span class="gold">{$c.gold}</span>
+						</div>
+						<div class="tools">
+							 
+							<a href="/module.php?m=mscard_order&cardid={$c.id}">消费记录</a>
+							<a href="/module.php?m=mscard_log&cardid={$c.id}">用卡日志</a> 
+						</div>
+					</div>
+					{/foreach}
+				</div>
+				 
+			</div>
+		</div>
+	 
+		 
+		{include file="footer.html"}
+	</body>
+
+</html>

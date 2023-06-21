@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=dodo">目标列表</a>
+	 
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>用户</td>
+   
+   
+   <td>内容</td>
+   <td>截止时间</td>
+   <td>鼓励</td>
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr class="js-item">
+   <td>{$c.id}</td>
+   <td>{$c.nickname}</td>
+   
+   
+   <td>{$c.content}</td>
+   <td>{$c.etime|date:Y-m-d H:i:s}</td>
+   <td>{$c.love_num}</td>
+ 
+<td><a href="/module.php?m=dodo&a=show&id={$c.id}" target="_blank">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=dodo&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

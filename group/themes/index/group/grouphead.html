@@ -1,0 +1,25 @@
+<div class="grouphead">
+		<div class="img">
+			<img src="{$group.glogo|images_site}.100x100.jpg">
+		</div>
+		<div class="flex-1">
+			<div class="gname">{$group.gname}</div>
+			<div class="title">{$group.title}</div>
+			<div class="tjnum">
+				会员数 <a href="/module.php?m=group_user&gid={$group.gid}" class="num">{$group.user_num}</a> 
+				主题数 <a href="/module.php?m=group_title&gid={$group.gid}" class="num">{$group.topic_num}</a> 
+				
+			{if !$group.isjoin}
+			<a href="/module.php?m=group_user_apply&a=apply&gid={$group.gid}" gid="{$group.gid}">申请加入</a>
+			{else}
+			<a class="cl-danger" href="/module.php?m=group_user&a=quit&gid={$group.gid}" gid="{$group.gid}">我要退群</a>
+			{/if}
+			<div class="flex-1"></div>
+			{if $group.isadmin}
+			<a class="gl" href="/module.php?m=group_title&a=admin&gid={$group.gid}">管理圈子</a>
+			{/if}
+			</div>
+			
+		</div>
+		
+	</div>

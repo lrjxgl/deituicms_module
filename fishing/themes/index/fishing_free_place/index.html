@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>placeid</td>
+   <td>名称</td>
+   <td>描述</td>
+   <td>地址</td>
+   <td>lat</td>
+   <td>lng</td>
+   <td>status</td>
+   <td>创建时间</td>
+   <td>访问人数</td>
+   <td>打卡人数</td>
+   <td>图集</td>
+   <td>主图</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.placeid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+   <td>{$c.address}</td>
+   <td>{$c.lat}</td>
+   <td>{$c.lng}</td>
+   <td>{$c.status}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.view_num}</td>
+   <td>{$c.join_num}</td>
+   <td>{$c.imgsdata}</td>
+   <td>{$c.imgurl}</td>
+<td><a href="/module.php?m=fishing_free_place&a=add&placeid={$c.placeid}">编辑</a> <a href="/module.php?m=fishing_free_place&a=show&placeid={$c.placeid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=fishing_free_place&a=delete&ajax=1&placeid={$c.placeid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

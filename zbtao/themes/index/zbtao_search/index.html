@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div id="App">
+
+
+			<div class="header">
+				<div class="header-back"></div>
+				<div class="header-title">搜一下</div>
+
+			</div>
+			<div class="header-row"></div>
+			<div class="main-body">
+				<div>
+					<div class="tabs-border">
+						<div @click="setTab('product')" :class="{'tabs-border-active':tab=='product'}"
+							class="tabs-border-item">商品</div>
+						<div @click="setTab('pp')" :class="{'tabs-border-active':tab=='pp'}" class="tabs-border-item">主播
+						</div>
+					</div>
+					<div class="flex pd-5">
+						<input class="input-flex-text bd-radius-10 outline-none" v-model="keyword" :value="keyword"
+							id="keyword" />
+						<div class="input-flex-btn w60" @click="search">搜一下</div>
+					</div>
+				</div>
+				<div v-if="tab=='product'">
+					<div v-if="proList.length==0" class="emptyData">暂无数据</div>
+					<div v-else class="flexlist">
+
+						<div @click="goLive(item.liveid)" v-for="(item,index) in proList" :key="index"
+							class="flexlist-item">
+							<img class="flexlist-img" :src="item.imgurl+'.small.jpg'" />
+							<div class="flex-1">
+
+								<div class="flexlist-title">{{item.title}}</div>
+								<div class="flex">
+									<div class="cl-money">{{item.price}}</div>
+									<div class="flex-1"></div>
+									<div class="market-price">{{item.market_price}}</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div v-if="tab=='pp'">
+
+					<div v-if="ppList.length==0" class="emptyData">暂无数据</div>
+					<div v-else class="mtlist">
+
+						<div @click="goPP(item.ppid)" v-for="(item,index) in ppList" :key="index" class="mtlist-item">
+							<div class="mtlist-item-bd">
+								<img class="mtlist-img mgb-5" :src="item.imgurl+'.small.jpg'" />
+								<div class="mtlist-title">{{item.nickname}}</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div v-if="per_page>0" @click="getPage()" class="loadMore">加载更多</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var keyword = "{$keyword}";
+		</script>
+		<script src="{$skins}zbtao_search/index.js"></script>
+	</body>
+</html>

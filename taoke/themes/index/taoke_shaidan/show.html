@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">晒单详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	
+    <div class="row-box">
+		<div class="d-userbox">
+			<image class="d-userbox-head" src="{$author.user_head}.100x100.jpg"></image>
+			<div class="flex-1">
+				<div class="d-userbox-nick">{$author.nickname}</div>
+				<div class="d-userbox-follows flex-ai-center">
+					<text>粉丝</text>
+					<text class="cl-num mgr-5 ">{$author.followed_num}</text>
+					<text>关注</text>
+					<text class="cl-num">{$author.follow_num}</text>
+					 
+				</div>
+			</div>
+			 
+		</div>
+    	<div class="pd-10 mgb-5">{$data.content}</div>
+		 
+    	<div class="flex-center mgb-10">
+    		{foreach item=c from=$imgslist}
+    		<img src="{$c}" class="wmax mgb-5" />
+    		{/foreach}
+    	</div> 
+		 
+	</div>
+	{if $taoke}
+    <div   style="border:1px solid #F01A61; margin: 10px; padding: 10px;">
+		<div class="flex">
+			<img class="wh-60 mgr-10" src="{$taoke.imgurl}"/>
+			<div class="flex-1">
+				<div class="cl2 mgb-5">{$taoke.title}</div>
+				<div class="flex">
+					<div class="cl2 mgr-10">卷后￥{$taoke.price}</div>
+					<div class="cl2 mgr-5">优惠券</div>
+					<div class="cl-money">￥{$taoke.juan_money}</div>
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=taoke&a=show&id={$taoke.id}" class="btn-small">去看看</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{/if}
+</div>
+{include file="footer.html"}
+</body>
+</html>

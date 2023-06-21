@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的测试</div>
+			<div gourl="/module.php?m=exam&a=add" class="header-right-btn">创建</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="row-box js-item mgb-5">
+				<div class="cl1 f14 mgb-5">{$c.title}</div>
+				<div class="cl2 f14 mgb-5">{$c.description}</div>
+				<div class="flex">
+					{if !$c.isonline}
+					<div class="btn-small mgr-5 js-exam-pass" exid="{$c.exid}">发布考卷</div>
+					<div gourl="/module.php?m=exam_ask&exid={$c.exid}" class="btn-small mgr-10">试题管理</div>
+					{/if}
+					<div gourl="/module.php?m=exam_answer&exid={$c.exid}" class="btn-small mgr-10">答卷管理</div>
+					
+					<div gourl="/module.php?m=exam&a=test&exid={$c.exid}" class="btn-small mgr-10">查看</div>
+					<div class="btn-small mgr-10 js-ewm-btn" url="{$c.ewm}">二维码</div>
+					<div gourl="/module.php?m=exam&a=add&exid={$c.exid}" class="btn-small mgr-10">编辑</div>
+					<div url="/module.php?m=exam&a=delete&exid={$c.exid}&ajax=1" class="btn-small js-delete">删除</div>
+				</div>
+			</div>
+			{/foreach}
+			{$pagelist}
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-exam-pass",function(){
+				var exid=$(this).attr("exid");
+				if(confirm("考卷发布后不可修改，确认发布吗？")){
+					$.ajax({
+						url:"/module.php?m=exam&a=online&ajax=1&exid="+exid,
+						dataType:"json",
+						success:function(res){
+							skyToast(res.message);
+							setTimeout(function(){
+								window.location.reload();
+							},1000)
+							
+						}
+					})
+				}
+			})
+			$(document).on("click",".js-ewm-btn",function(){
+				var url=$(this).attr("url")
+				var html='<div><img class="wmax" src="'+url+'" /></div>';
+				showbox("二维码",html,300,200);
+			})
+		</script>
+	</body>
+</html>

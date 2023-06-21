@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.usBox{
+			position: relative;
+			height: 50px;
+			border-bottom: 1px solid #eee;
+			margin-bottom: 20px;
+			display: flex;
+			flex-direction: row;
+			align-items: center; 
+		}
+		.usHead{
+			position: absolute;
+			width: 60px;
+			height: 60px;
+			margin-right: 20px;
+			margin-left: 20px;
+			top: -30px;
+		}
+		.usBox-nick{
+			margin-left: 90px;
+			 
+			margin-right: 10px;
+		}
+		.aBox{
+			background-color: #eee;
+			padding: 20px;
+			flex: 1;
+			border-radius: 20px;
+		}
+		.aBox-title{
+			font-size: 16px;
+			font-weight: 600;
+			margin-bottom: 10px;
+		}
+		.aBox-more{
+			color:#aaa;
+			font-size: 12px;
+			margin-left: 5px;
+		}
+		.cBox{
+			background-color: #eee;
+			padding: 20px;
+			display: flex;
+			flex-direction: row;
+			margin-bottom: 20px;
+			border-radius: 10px;
+			align-items: center;
+		}
+	</style>
+	<body>
+		 
+		<div id="App" class="main-body">
+			<div style="height: 80px;">
+				<img src="{$skins}css/ubanner.png" style="width: 100%;" />
+			</div>
+			<div class="row-box" style="border-radius: 20px;margin: 0 10px;">
+				<div class="usBox">
+					<img class="usHead" src="{$user.user_head}.100x100.jpg" />
+					<div class="usBox-nick">{$user.nickname}</div>
+					<div>余额</div>
+					<div class="cl-money">{$user.money}元</div>
+					<div class="flex-1"></div>
+					<div gourl="/index.php?m=recharge" class="btn-mini">去充值</div>
+				</div>
+				<div class="flex mgb-20">
+					<div gourl="/module.php?m=yxq_paper&a=my" class="aBox">
+						<div class="aBox-title">我的纸条</div>
+						<div class="flex">
+							<span class="aBox-more">查看详情</span>
+							<span class="iconfont icon-right aBox-more"></span>
+						</div>
+					</div>
+					<div class="mgl-20"></div>
+					<div gourl="/index.php?m=invite&a=my" class="aBox">
+						<div class="aBox-title">邀请好友</div>
+						<div class="aBox-more">查看详情</div>
+					</div>
+				</div>
+				<div gourl="/index.php?m=guest&a=add" class="cBox">
+					<div>意见反馈</div>
+					<div class="flex-1"></div>
+					<div class="cl3">前往反馈</div>
+					<span class="iconfont icon-right cl3"></span>
+				</div>
+				<div gourl="/index.php?m=kefu" class="cBox">
+					<div>客服联系</div>
+					<div class="flex-1"></div>
+					<div class="cl3">前往联系</div>
+					<span class="iconfont icon-right cl3"></span>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

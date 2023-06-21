@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	
+		
+		<div class="main-body none" :class="'flex-col'" id="app">
+			<div class="tabs-border">
+				<div :class="typeid==0?'tabs-border-active':''" class="tabs-border-item" @click="setType(0)">全部</div>
+				<div @click="setType(item.typeid)" v-for="(item,index) in typelist" :class="item.typeid==typeid?'tabs-border-active':''"
+				 :index="index" class="tabs-border-item">{{item.title}}</div>
+		
+			</div>
+			<div class="flex pd-10">
+				<div class="cl-num">共{{rscount}}条记录</div>
+				<div class="flex-1"></div>
+				<input type="radio" v-model="status" name="status" value="0" />新任务
+				<input type="radio" v-model="status" name="status" value="1" />已接单
+				<input type="radio" v-model="status" name="status" value="2" />待确认
+				<input type="radio" v-model="status" name="status" value="3" />已完成
+				<input type="radio" v-model="status" name="status" value="-1" />全部
+			</div>
+			
+			<div class="ptlist">
+		
+				<div class="bd-mp-10" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="mgr-5">{{item.typeid_name}}</div>
+						<div class="cl-num mgr-5">{{item.status_name}}</div>
+						<div class="f12 cl3">{{item.createtime}}</div>
+						<div class="flex-1"></div>
+		
+						<div class="flex mgb-5 flex-ai-center">
+							<div class="mgr-5 cl3">{{item.weight}}Kg</div>
+							<div class="cl-money">￥</div>
+							<div class="cl-money">{{item.money}}</div>
+						</div>
+					</div>
+					<div v-if="item.fromaddr && Object.keys(item.fromaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">取</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.fromaddr.truename}}</div>
+								<div class="cl3 f12">{{item.fromaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.fromaddr.address}}
+							</div>
+						</div>
+		
+					</div>
+					<div v-if="item.toaddr && Object.keys(item.toaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">收</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.toaddr.truename}}</div>
+								<div class="cl3 f12">{{item.toaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.toaddr.address}}
+							</div>
+						</div>
+		
+					</div>
+		
+					<div class="mgb-5 cl3 f12">{{item.content}}</div>
+					<div v-if="item.typeid==3" class="flex mgb-10">
+						<div class="f12 cl2">商品估价</div>
+						<div class="cl-num f12">￥{{item.goodsmoney}}</div>
+					</div>
+					
+					<div v-if="item.status==0" class="flex flex-jc-center">
+						<div :v="item.id" class="btn-small js-cancel">取消任务</div>
+		
+					</div>
+		
+				</div>
+		
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}paotui/index.js?{$smarty.now}"></script>
+		<script>
+			$(function() {
+				 
+				$(document).on("click", ".js-cancel", function() {
+					var obj = $(this);
+					if(confirm("确认取消任务吗")){
+						$.get("/moduleadmin.php?m=paotui&a=cancel&ajax=1&id=" + $(this).attr("v"), function(data) {
+							if (!data.error) {
+								window.location.reload();
+							}
+							skyToast(data.message);
+						}, "json")
+					}
+					
+				})
+
+			})
+		</script>
+		{include file="footer.html"}

@@ -1,0 +1,34 @@
+<div class="footer-row"></div>
+{get data=tkconfig model=mod_taoke_config fun=selectRow("1")}
+<div class="footer">
+
+	<a href="/module.php?m=taoke" class="footer-item icon-home {if $ftnav eq 'home'}footer-active{/if}">
+
+		首页</a>
+	{if $tkconfig.opmode==1}
+	<a href="/module.php?m=taoke&a=99" class="footer-item  icon-hot {if $ftnav  eq '99'}footer-active{/if}">
+		9块9</a>
+	{else}
+	<a href="/module.php?m=taoke_search&a=gaofan" class="footer-item  icon-hot {if $ftnav  eq 'gaofan'}footer-active{/if}">
+		高返商品</a>
+	{/if}
+	
+	<a href="/module.php?m=taoke_search" class="footer-item icon-goods_new_light  {if $ftnav  eq 'search'}footer-active{/if}">
+		省钱搜
+	</a>
+	 
+	
+	{if $tkconfig.opmode==1}
+	<a href="/module.php?m=taoke_category" class="footer-item icon-sort  {if $ftnav eq 'category'}footer-active{/if}">
+		商品分类
+	</a>
+	{else}
+	<a href="/module.php?m=taoke_search&a=category" class="footer-item icon-sort  {if $ftnav eq 'category'}footer-active{/if}">
+		商品分类
+	</a>
+	{/if}
+	
+
+	<a href="/module.php?m=taoke_user" class="footer-item icon-my_light {if $ftnav  eq 'taoke_user'}footer-active{/if}">
+		我的</a>
+</div>

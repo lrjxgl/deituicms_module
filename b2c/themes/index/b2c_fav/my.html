@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的收藏</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="mtlist">
+				<div @click="goProduct(item.id)" v-for="(item,index) in list" :key="index" class="mtlist-item">
+					<div class="mtlist-item-bd">
+						<image mode="widthFix" class="mtlist-img" :src="item.imgurl+'.small.jpg'"></image>
+						<div class="mtlist-item-pd">
+							<div class="mtlist-item-money">
+								<div class="mtlist-item-money-flex">￥
+									<span class="mtlist-item-money_money">{{item.price}}</span>
+								</div>
+								<div class="mtlist-item-money_num">月销{{item.buy_num}}件</div>
+							</div>
+							<div class="mtlist-title">{{item.title}}</div>
+							<div class="mtlist-desc">{{item.description}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}b2c_fav/my.js"></script>
+	</body>
+</html>

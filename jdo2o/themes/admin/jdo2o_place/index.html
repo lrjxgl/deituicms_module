@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">景点列表</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>placeid</td>
+						<td>名称</td>
+						<td>图片</td>
+						<td>地址</td>
+						<td>浏览量</td>
+						<td>喜欢数</td>
+						<td>评论数</td>
+
+
+						<td>状态</td>
+						<td>推荐</td>
+						
+
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.placeid}</td>
+					<td>{$c.title}</td>
+					<td>
+						<img src="{$c.imgurl|images_site}.100x100.jpg" class="w50" />
+					</td>
+					<td>{$c.address}</td>
+					<td>{$c.view_num}</td>
+					<td>{$c.love_num}</td>
+					<td>{$c.comment_num}</td>
+
+
+					<td>{$c.status}</td>
+					<td>{$c.isrecommend}</td>
+					
+
+					<td>
+						<a target="_blank" href="/module.php?m=jdo2o_place&a=ewm&placeid={$c.placeid}">二维码</a>
+						<a href="/moduleadmin.php?m=jdo2o_place&a=add&placeid={$c.placeid}">编辑</a> 
+					<a target="_blank" href="/module.php?m=jdo2o_place&a=show&placeid={$c.placeid}">查看</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=jdo2o_place&a=delete&ajax=1&placeid={$c.placeid}">删除</a>
+						</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

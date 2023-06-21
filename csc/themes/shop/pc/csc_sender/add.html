@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑配送员</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=csc_sender&a=save&ajax=1" id="form">
+				<input type="hidden" name="senderid" value="{$data.senderid}" />
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">姓名</div>
+					<input type="text" name="truename" class="input-flex-text" value="{$data.truename}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input type="text" name="telephone" class="input-flex-text" value="{$data.telephone}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">身份证</div>
+					<input type="text" name="userno" class="input-flex-text" value="{$data.userno}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">上架</div>
+					<div class="switch-group">
+						<div class="switch-left {if $data.status eq 1}switch-active{/if} js-switch" data-value="1">是</div>
+						<div class="switch-right {if $data.status neq 1}switch-active{/if} js-switch" data-value="2">否</div>
+						<input type="hidden" name="status" value="{$data.status}" class="switch-value" />
+					</div>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

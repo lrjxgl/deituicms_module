@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>{include file="head.html" }
+<body>
+ 
+<div class="tabs-border">
+	<a class="item active" href="/moduleadmin.php?m=vote_join&vid={$vote.id}">选手管理</a>
+</div>
+<div class="main-body">
+ <div class="row-box-hd">当前活动：{$vote.title}</div>
+ 
+
+<form action="/moduleadmin.php?m=vote_join&a=Save&ajax=1" class="vjform" id="joinForm">
+	<input type="hidden" name="vid" value="{$vote.id}">
+    <input type="hidden" name="id" value="{$data.id}">
+  
+    <table class="table table-add">
+    	<tr>
+        	<td >姓名</td>
+            <td> <input type="text" name="nickname" value="{$data.nickname}"></td>
+        </tr>
+        
+        <tr>
+        	<td class="a1">手机</td>
+            <td> <input type="text" name="telephone" value="{$data.telephone}"></td>
+        </tr>
+        
+        <tr>
+        	<td class="a1">主题</td>
+            <td> <input type="text" name="title" class="w98" value="{$data.title}"></td>
+        </tr>
+        <tr>
+        	<td>编号</td>
+        	<td>
+        		<input type="text" name="bianhao" value="{$data.bianhao}" />
+        	</td>
+        </tr>
+        
+        <tr>
+        	<td class="a1">简介</td>
+            <td>
+            	<textarea name="description" class="w96 h60">{$data.description}</textarea>
+            </td>
+        </tr>
+        <tr>
+        	<td >图片：</td>
+        	<td>
+        		<div class="js-upload-item">
+        			<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+        			<div class="upimg-btn js-upload-btn">+</div>
+        			<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+        			<div class="js-imgbox">
+        				{if $data.imgurl}
+        				<img src="{$data.imgurl|images_site}.100x100.jpg">
+        				{/if}
+        			</div>
+        		</div>
+        	</td>
+        </tr> 
+        {if $vote.typeid eq 3 }
+		<tr>
+			<td>音频</td>
+			<td>
+				<div>
+				<input type="hidden" type="text"  id="url" name="url" value="{$data.url}" >
+				<audio width="200" src="{$data.trueurl}" controls></audio>
+				</div>
+			</td>
+		</tr>
+		{elseif $vote.typeid eq 4}
+        <tr>
+        	<td class="a1">视频</td>
+            <td>
+				<div>
+				<input type="hidden" type="text"  id="url" name="url" value="{$data.url}" >
+				<video width="400" height="200" src="{$data.trueurl}" controls></video>
+				</div>
+            
+            </td>
+        </tr>
+        
+        {elseif $vote.typeid eq 2}
+        <tr>
+        	<td class="a1">作品<br>内容</td>
+            <td>
+            	<textarea name="content" class="w96 h200">{$data.content}</textarea>
+            </td>
+        </tr>
+		{else}
+		<tr>
+			<td>图集</td>
+			<td>
+				<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+				<div class="upimg-box uploader-imgsdata-imgslist js-zzimg-album">
+					<input  type="file"  multiple="" class="none uploader-imgsdata-file" />
+					<div class="upimg-btn">
+						<div class="upimg-btn-icon"></div>
+						
+					</div>
+					{foreach item=c from=$imgsdata}
+					<div class="upimg-item uploader-imgsdata-img js-zzimg" data-src="{$c.trueimgurl}" v="{$c.imgurl}" trueimg="{$c.trueimgurl}">
+						<img class="upimg-img" src="{$c.trueimgurl}.100x100.jpg"/>
+						<i class="upimg-del   js-imgdel"></i>
+					</div>
+					{/foreach}
+					 
+				</div>
+			</td>
+		</tr>
+        {/if}
+        
+        <td>状态：</td>
+          <td><input type="radio" name="status" value="2" {if $data.status neq 1} checked="checked"{/if} />禁止 &nbsp; 
+          <input type="radio" name="status" value="1" {if $data.status eq 1} checked="checked"{/if} />通过</td>
+        
+        
+        
+      
+    </table>
+	<div class="btn-row-submit js-submit">保存</div>
+</form>
+</div>
+ 
+
+{include file="footer.html" } 
+<script src="/plugin/lrz/lrz.bundle.js"></script> 
+<script language="javascript" src="/static/admin/js/upload.js"></script>
+
+<script src="{$skins}vote_join/upload-data.js"></script>
+ 
+</body>
+</html>
+		

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='dzp_product/nav.html'}
+<div class="main-body">
+	<div class="pd-10">{$event.title}</div>
+ <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+   
+   <td>名称</td>
+   <td>状态</td>
+   <td>库存/销量</td>
+   <td>图片</td>
+   <td>ptype</td>
+   <td>概率</td>
+   <td>有奖</td>
+   <td>排序</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+ 
+   <td>{$c.title}</td>
+   <td><div class="{if $c.status eq 1}yes{else}no{/if}"></div></td>
+   <td>{$c.max_num}/{$c.sold_num}</td>
+   <td>
+	   {if $c.imgurl!=''}
+	   <img src="{$c.imgurl|images_site}.100x100.jpg" class="wh-40" />
+	   {/if}
+   </td>
+   <td>{$c.ptype}</td>
+   <td>
+	   <input type="text" class="w100 js-blur-update" url="/moduleadmin.php?m=dzp_product&a=gailv&productid={$c.productid}" name="gailv"  value="{$c.gailv}">/{$c.event.gailv} 
+   </td>
+   <td>{if $c.isorder}是{else}否{/if}</td>
+   <td>{$c.orderindex}</td>
+<td><a href="/moduleadmin.php?m=dzp_product&a=add&productid={$c.productid}">编辑</a> 
+ 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=dzp_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("focusout",".js-blur-update",function(){
+		var url=$(this).attr("url");
+		$.ajax({
+			url:url+"&ajax=1",
+			data:{
+				gailv:$(this).val()
+			},
+			dataType:"json",
+			success:function(res){
+				skyToast(res.message)
+			}
+		})
+		
+	})
+</script>
+</body>
+</html>

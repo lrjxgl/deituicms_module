@@ -1,0 +1,15 @@
+.side{
+	position: fixed;
+	left:0;
+	width:80px;
+	bottom:0;
+	top:45px;
+	padding:5px;
+	background-color: #fff;
+}
+.side-active{
+			color: #f60;
+		}
+.main{
+	margin-left: 85px;
+}

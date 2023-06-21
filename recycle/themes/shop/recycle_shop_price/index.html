@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">回收价格</div>
+	<div gourl="/moduleshop.php?m=recycle_shop_price&a=add" class="header-right-btn">发布回收价</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    {foreach item=c from=$list}
+	<div class="row-box">
+		<div class="bd-mp-10 fw-600">{$c.createtime}</div>
+		<div>{$c.content|nl2br}</div>
+	</div>
+	{/foreach}
+    	  
+	<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

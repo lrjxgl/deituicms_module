@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$shop.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box">
+				<img class="d-img" src="{$shop.imgurl}" />
+				<div class="row-item-text ">
+					<div class="row-item-icon icon-title"></div>
+					<div class="flex-1">{$shop.title}</div>
+				</div>
+				
+				<div class="row-item-text ">
+					<div class="row-item-icon icon-location_light"></div>
+					<div class="flex-1">{$shop.address}</div>
+					 
+				</div>
+				<div id="mapModal" class="modal-group">
+					<div class="modal-mask"></div>
+					<div class="modal">
+						<iframe style="border: 0;  width: 100%; height:300px;" src="/index.php?m=map&a=show&lat={$shop.lat}&lng={$shop.lng}" id="mapFrame"></iframe>
+						 
+					</div>
+				</div> 
+				
+				<div  class="d-content">
+					{$shop.content} 
+				</div>
+			</div>
+		</div>
+		<div class="footer-row"></div>
+		<div class="footer">
+			<a href="tel:{$shop.telephone}" class="footer-item icon-phone_light">电话</a>
+			<div gourl="/module.php?m=jdo2o_guest&a=user&shopid={$shop.shopid}" class="footer-item icon-message">咨询</div>
+			<div id="showMap" class="footer-item icon-location_light">导航</div>
+		</div>
+		{include file="footer.html"}
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$shop.shopname}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$shop.imgurl}.100x100.jpg";
+			 {/if}
+			 $(document).on("click","#showMap",function(){
+				 $("#mapModal").show();
+			 })
+		</script>
+	</body>
+</html>

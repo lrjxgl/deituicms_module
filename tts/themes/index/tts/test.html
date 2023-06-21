@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">语音合成</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box">
+				<textarea id="content" class="textarea-flex-text h100" placeholder="请输入描述"></textarea>
+				<div id="getAudio" class="btn-row-submit">生成语音</div>
+				<div id="result"></div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click","#getAudio",function(){
+					$.ajax({
+						url:"/module.php?m=tts&a=api&ajax=1",
+						dataType:"json",
+						data:{
+							text:$("#content").val()
+						},
+						success:function(res){
+							$("#result").html('<audio autoplay="true" src="'+res.data+'" controls></audio>');
+						}
+					})
+					
+				})
+			})
+		</script>
+	</body>
+</html>

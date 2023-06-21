@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}	
+<style>
+	.mapBox{
+		width: 100%;
+		background-color: #fff;
+		top:0;
+		bottom: 0;
+		position: fixed;
+		margin-left: -200%;
+		z-index: 9999;
+	}
+	.mapBox-active{
+		margin-left: 0;
+	}
+	.map{
+		width: 100%; 
+		height: 320px;	
+	}
+</style>
+<body>
+	<div class="mapBox">
+		<div id="allmap" class="map"></div>
+		<div class="btn-group pd-10">
+			<div class="btn mgr-10" id="setGps" onclick="getGps()">定位一下</div>
+			<div class="btn" id="mapClose">确定</div>
+		</div>
+	</div>	
+	<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑名片</div>
+	</div>
+	 <div class="header-row"></div>
+	<div>
+		<form>
+			<input type="hidden" name="id" value="{$data.id}" />
+		<div class="input-flex">
+			<div class="input-flex-label">商家名称</div>
+			<input type="text" class="input-flex-text" value="{$data.title}" name="title"  />
+		</div>
+		<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">头像</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img src="{if $data.imgurl}{$data.imgurl|images_site}.100x100.jpg{/if}" class="upimg-img" >								 
+							</div>	
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							<input type="hidden" value="{$data.imgurl}" name="imgurl" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" /> 
+						</div> 
+					</div>
+				</div>
+		<div class="input-flex">
+			<div class="input-flex-label">联系人</div>
+			<input type="text" value="{$data.nickname}" class="input-flex-text" name="nickname"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">联系电话</div>
+			<input type="text" value="{$data.telephone}" class="input-flex-text" name="telephone"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">微信</div>
+			<input type="text" value="{$data.wxhao}" class="input-flex-text" name="wxhao"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">QQ</div>
+			<input type="text" value="{$data.qqhao}" class="input-flex-text" name="qqhao"  />
+		</div>
+		
+		<div class="input-flex">
+			<div class="input-flex-label">抖音号</div>
+			<input type="text" value="{$data.dyhao}" class="input-flex-text" name="dyhao"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">快手号</div>
+			<input type="text" value="{$data.kshao}" class="input-flex-text" name="kshao"  />
+		</div>
+		
+		<div class="input-flex">
+			<div class="input-flex-label">微博</div>
+			<input type="text" value="{$data.wbhao}" class="input-flex-text" name="wbhao"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">拼多多</div>
+			<input type="text" value="{$data.pdd}" class="input-flex-text" name="pdd"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">淘宝店</div>
+			<input type="text" value="{$data.taobao}" class="input-flex-text" name="taobao"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">微信公众号</div>
+			<input type="text" value="{$data.wxgzh}" class="input-flex-text" name="wxgzh"  />
+		</div>
+		<div class="input-flex">
+			<div class="input-flex-label">商家地址</div>
+			<input type="text" class="input-flex-text" value="{$data.address}" name="address" placeholder="请输入地址"  />
+			<input type="hidden" name="lat" id="lat" value="{$data.lat}" />
+			<input type="hidden" name="lng" id="lng" value="{$data.lng}" />
+			<div class="input-flex-btn " style="width: 50px;" id="mapShow">位置</div>
+		</div>
+		
+		<div class="textarea-flex">
+			<div class="textarea-flex-label">商家简介</div>
+			<textarea class="textarea-flex-text h60" placeholder="请填写商家经营信息,如小吃店,服装鞋子,理发店"  name="description">{$data.description}</textarea>
+		</div>
+		<div class="pd-10 cl2">完整填写信息，能够更快通过审核</div>
+		<div class="btn-row-submit" id="submit">保存</div>
+		</form>
+	</div>
+	{include file="footer.html"}
+	<script src="/plugin/lrz/lrz.bundle.js"></script>
+	<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	
+	<script>
+		$(document).on("click","#submit",function(){
+			var form=$(this).parents("form");
+			$.post("/module.php?m=shopmap&a=save&ajax=1",form.serialize(),function(res){
+				skyToast(res.message);
+				if(!res.error){
+					goBack();
+				}
+			},"json")
+		})
+		 
+	</script>
+	<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+	<script>
+		var lat,lng;
+		var map = new BMap.Map("allmap");    // 创建Map实例
+		map.enableScrollWheelZoom(true);
+		map.addControl(new BMap.MapTypeControl({
+			mapTypes:[
+							BMAP_NORMAL_MAP,
+							BMAP_HYBRID_MAP
+					]}));
+		map.enableScrollWheelZoom(true);
+		map.setMapType(BMAP_HYBRID_MAP)
+		map.enableScrollWheelZoom(true);
+		 
+		map.centerAndZoom(new BMap.Point(120.240986, 27.316632), 18);
+		//地理位置
+		var geolocation = new BMap.Geolocation();
+		var latlng=GPS.get()
+		if(latlng){
+			lat=latlng.lat;
+			lng=latlng.lng;
+			var point=new BMap.Point(lng, lat);
+			map.centerAndZoom(point, 17);
+			$("#lat").val(lat);
+			$("#lng").val(lng);
+			map.clearOverlays();
+			var marker = new BMap.Marker(point);  
+			map.addOverlay(marker);
+		}else{
+			getGps();
+		}
+		
+		 
+		function getAddr(e){
+			var marker = new BMap.Marker(e.point);  
+			map.clearOverlays();
+			map.addOverlay(marker);
+			//alert(e.point.lng + ", " + e.point.lat);
+			$("#lat").val(e.point.lat);
+			$("#lng").val(e.point.lng);
+			
+		}
+		map.addEventListener("click", getAddr);
+		function getGps(){
+			geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				map.centerAndZoom(r.point, 18);
+				$("#lat").val(r.point.lat);
+				$("#lng").val(r.point.lng);
+				map.clearOverlays();
+				var marker = new BMap.Marker(r.point);  
+				map.addOverlay(marker);	
+			}
+			else {
+				alert('获取GPS失败'+this.getStatus());
+			}        
+			},{enableHighAccuracy: true})
+		}
+		//
+		$(document).on("click","#mapClose",function(){
+			$(".mapBox").removeClass("mapBox-active");
+		})
+		$(document).on("click","#mapShow",function(){
+			$(".mapBox").addClass("mapBox-active");
+		})
+	</script>
+</body>	
+</html>	

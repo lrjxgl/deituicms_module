@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"创业众筹",//模块名称
+	"module"=>"cfd",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"创业众筹",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=cfd&a=menu",
+	"check_update"=>"http://www.skymvc.com",
+);
+?>

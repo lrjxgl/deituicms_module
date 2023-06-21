@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">资金管理</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+				<div>账户余额：</div>
+				<div class="flex-1 cl-money">
+					￥{$shop.balance}
+				</div>
+				
+				<div>保证金：</div>
+				<div class="cl-money">￥{$shop.earnest}</div>
+				</div>
+			</div>
+			<div class="tabs-border-group">
+				<div class="tabs-border">
+					<div class="tabs-border-item js-tabs-border-item tabs-border-active">充值</div>
+					<div class="tabs-border-item js-tabs-border-item">提现</div>
+				</div>
+				<div class="row-box"> 
+				<div class="tabs-border-box tabs-border-box-active ">
+					<div class="input-flex flex-ai-center">
+						<div class="w60">金额</div>
+						<input type="number" class="input-flex-text js-recharge-money" placeholder="请输入充值金额" />
+					</div>
+					<div class="paylist flex-jc-center">
+						{if INWEIXIN}
+						<div class="paylist-item js-recharge-wxpay">微信支付</div>
+						{else}
+						<div class="paylist-item  js-recharge-alipay">支付宝支付</div>
+						{/if}
+					
+					</div>
+					<div class="btn-row-submit">确认充值</div>
+				</div>
+				
+				<div class="tabs-border-box">
+					<div class="input-flex">
+						<div class="input-flex-label">提现金额</div>
+						<input type="text" name="money" class="input-flex-text" />
+					</div>
+					<div class="pd-10">
+						<div class=" bd-mp-10">提现账户</div>
+						{foreach item=c from=$bankList}
+						<div class="row-item-text">
+						 <input type="radio" name="bankid" value="{$c.id}" />	{$c.yhk_name} {$c.yhk_huming} {$c.yhk_haoma}
+						</div>
+						{/foreach}
+					</div>
+					 
+					<div class="btn-row-submit">确认提现</div>
+				</div>
+				</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+	</body>
+</html>

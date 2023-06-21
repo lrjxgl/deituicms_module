@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body class="bg-fff">
+<header class="mui-bar mui-bar-nav">
+    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{$data.title}</h1>
+	{if $isauthor or $isadmin}
+	{if $data.status lt 2}
+	<div class="mui-bar-nav-link" id="cancel-submit" v="{$data.id}">取消任务</div>
+	{/if}
+	{/if}
+</header>
+<div class="mui-content">
+    <div class="d-title"><div class="m-order-{$data.orderindex}"></div>{$data.title}</div>
+		<div class="d-tools flex-col">
+			<div class="flex mgb-5">
+				<div class="item">
+					发布者：{$user.nickname}
+				</div> 
+				<div class="flex-1"></div>
+				<div class="item">{$data.timeago}</div>
+			</div>
+			<div class="flex">
+				<div class="flex-1 f12 cor2">截止时间：<span class="cor-success">{$data.endtime}</span> </div>
+				<div class="btn-mini btn-outline-success">{$data.status_name}</div>
+			</div>
+		</div>
+			
+		<div class="d-content">{$data.content}</div>
+		<div class="row-box">
+			<div class="row mgb-10">
+				<div class="btn btn-outline-primary">功能测试</div>
+			</div>
+			<div>{$data.testing}</div>
+		</div>	
+		<div class="row-box">
+			<div class="row mgb-10">
+				<div class="btn-small btn-outline-success">需求反馈</div>
+				<a class="fr" href="/index.php?m=shop_product_item_comment&a=list&itemid={$data.id}">更多</a>
+			</div>
+			{foreach item=c from=$commentList}
+			<a href="/index.php?m=shop_product_item_comment&a=show&id={$c.id}" class="flex-item">
+				<div class="nickname mgr-10">
+					{$c.nickname} 
+				</div>
+				<div class="flex-1">{$c.content}</div>	
+				<span class="f12 mgl-20">{$c.timeago}</span>		
+			</a>
+			{/foreach}
+			
+			 
+		</div>
+		 
+		{if $data.status>0}
+		<div id="list" class="row-box">
+			<div class="row mgb-10"><div class="btn-small btn-outline-success"> 任务进度</div></div>
+			{foreach item=c from=$logList}
+			<a href="/index.php?m=shop_product_item_log&a=show&id={$c.id}" class="flex-item">
+				<div class="flex-1">{$c.title}</div>
+				<div class="f12">{$c.timeago}</div>
+			</a>
+			{/foreach}
+		</div>
+		<div class="row-box">
+			<div class="row mgb-10">
+				<div class="btn-small btn-outline-success">测试报告</div>				
+			</div>
+			{foreach item=c from=$testList}
+			<a href="/index.php?m=shop_product_item_test&a=show&id={$c.id}" class="flex-item">
+				<div class="nickname">
+					{$c.nickname}
+					{if $c.ispass}
+					<div class="btn-mini btn-outline-primary">通过</div>
+					{else}
+					<div class="btn-mini btn-outline-danger">未通过</div>
+					{/if}
+					
+				</div>
+				<div class="flex-1">{$c.content}</div>
+				<div class="f12">{$c.timeago}</div>
+			</a>
+			{/foreach}
+		</div>
+		{/if}
+		 
+		{if $data.status<3}
+		<div style="height: 40px;"></div>
+		<div class="fixBtm pdb-10 center">
+			{if $isauthor or $isadmin}
+			<a class="btn btn-success" href="/index.php?m=shop_product_item&a=add&id={$data.id}&productid={$data.productid}">编辑</a>
+				{if $data.status eq 1}
+				<div class="btn btn-danger" id="test-submit" v="{$data.id}" >提交测试</div>
+				{/if}
+				{if $data.canFinish}
+				<div class="btn btn-danger" id="finish-submit" v="{$data.id}" >完成任务</div>
+				{/if}
+				
+			{/if}
+			<a class="btn" href="/index.php?m=shop_product_item_comment&a=add&itemid={$data.id}&productid={$data.productid}">提交反馈</a>
+			{if $data.status eq 2}
+			<a class="btn" href="/index.php?m=shop_product_item_test&a=add&itemid={$data.id}&productid={$data.productid}">参与测试</a>
+			{/if}
+			<a class="btn" href="/index.php?m=shop_product_item_log&a=add&itemid={$data.id}&productid={$data.productid}">提交进度</a>
+		</div>	
+		{/if}
+		
+</div>
+ <script>
+	$(document).on("click","#finish-submit",function(){
+		$.post("/index.php?m=shop_product_item&a=finish&ajax=1&id="+$(this).attr("v"),function(res){
+			mui.toast(res.message);
+			if(!res.error){
+				window.location.reload();
+			}
+		},"json");
+	})
+	
+	$(document).on("click","#cancel-submit",function(){
+		$.post("/index.php?m=shop_product_item&a=cancel&ajax=1&id="+$(this).attr("v"),function(res){
+			mui.toast(res.message);
+			if(!res.error){
+				window.location.reload();
+			}
+		},"json");
+	})
+	$(document).on("click","#test-submit",function(){
+		$.post("/index.php?m=shop_product_item&a=test&ajax=1&id="+$(this).attr("v"),function(res){
+			mui.toast(res.message);
+			if(!res.error){
+				window.location.reload();
+			}
+		},"json");
+	})
+ </script>
+</body>
+</html>

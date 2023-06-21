@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='mdish_lottery/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=mdish_lottery&a=save">
+<input type="hidden" name="ltid" style="display:none;" value="{$data.ltid}" >
+ <table class="table-add">  <tr>
+				<td>shopid：</td>		
+				<td><input type="text" name="shopid" id="shopid" value="{$data.shopid}" ></td>
+				</tr>
+  <tr>
+				<td>title：</td>		
+				<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+				</tr>
+  <tr>
+				<td>description：</td>		
+				<td><input type="text" name="description" id="description" value="{$data.description}" ></td>
+				</tr>
+  <tr>
+				<td>imgurl：</td>		
+				<td><input type="text" name="imgurl" id="imgurl" value="{$data.imgurl}" ></td>
+				</tr>
+  <tr>
+				<td>price：</td>		
+				<td><input type="text" name="price" id="price" value="{$data.price}" ></td>
+				</tr>
+  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>isnew：</td>		
+				<td><input type="text" name="isnew" id="isnew" value="{$data.isnew}" ></td>
+				</tr>
+  <tr>
+				<td>ishot：</td>		
+				<td><input type="text" name="ishot" id="ishot" value="{$data.ishot}" ></td>
+				</tr>
+  <tr>
+				<td>isrecommend：</td>		
+				<td><input type="text" name="isrecommend" id="isrecommend" value="{$data.isrecommend}" ></td>
+				</tr>
+  <tr>
+				<td>view_num：</td>		
+				<td><input type="text" name="view_num" id="view_num" value="{$data.view_num}" ></td>
+				</tr>
+  <tr>
+				<td>love_num：</td>		
+				<td><input type="text" name="love_num" id="love_num" value="{$data.love_num}" ></td>
+				</tr>
+  <tr>
+				<td>status：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>dateline：</td>		
+				<td><input type="text" name="dateline" id="dateline" value="{$data.dateline}" ></td>
+				</tr>
+  <tr>
+				<td>sday：</td>		
+				<td><input type="text" name="sday" id="sday" value="{$data.sday}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

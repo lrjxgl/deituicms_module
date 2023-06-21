@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div url="/" class="header-back" ></div> 
+			<div class="header-title">车行</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex pd-5">
+				<input class="input-flex-text bd-radius-10 outline-none"  value="{$keyword}" id="keyword" />
+				<div id="searchBtn" class="input-flex-btn w60" >搜一下</div>
+			</div>
+			<div class="flexlist">
+				{foreach item=c from=$list}
+				<a href="/module.php?m=car_home&shopid={$c.shopid}" class="flexlist-item">
+					<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.shopname}</div>
+						<div class="flex mgb-5">
+							<div class="cl2 f12 mgr-10">评价</div>
+							<div class=" f12 cl-num">{$c.grade}</div>
+							<div class="flex-1"></div>
+							<div class=" f12 cl2 mgr-10">粉丝</div>
+							<div class=" f12 cl-num">{$c.follow_num}</div>
+						</div>
+						<div class="flexlist-desc">
+							{$c.description}
+						</div>
+					</div>
+				</a>
+				{/foreach}
+			</div>
+		</div>
+		{assign var="ftnav" value="car_shoplist"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#searchBtn",function(){
+				var keyword=$("#keyword").val();
+				window.location="/module.php?m=car_shoplist&keyword="+encodeURIComponent(keyword);
+			}) 
+		</script>
+	</body>
+</html>

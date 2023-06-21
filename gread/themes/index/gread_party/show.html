@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+.jItem{
+	width: 20%;
+	padding: 10px;
+	box-sizing: border-box;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 10px;
+}
+</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">活动详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    <div class="row-box mgb-5">
+		<div class="flex flex-ai-center bd-mp-10">
+			<img class="wh-40 bd-radius-50 mgr-5" src="{$data.user_head}.100x100.jpg">
+			<div class="cl2">{$data.nickname}</div>
+			<div class="flex-1"></div>
+			<div class="cl3 f12">{$data.createtime}</div>
+		</div>
+		<div class="d-title">{$data.title}</div>
+		
+		<div class="flex mgb-5">
+			<div class="cl2 mgr-5">限制人数</div>
+			<div class="cl-num">{$data.max_num}</div>
+			<div class="flex-1"></div>
+			<div class="cl2 mgr-5">参与人数</div>
+			<div class="cl-num">{$data.join_num}</div>
+		</div>
+		<div class="cl2">地址：{$data.address}</div>
+	</div>
+	<div class="row-box">
+		<div class="tabs-border-group">
+			<div class="tabs-border mgb-5">
+				<div class="tabs-border-item tabs-border-active js-tabs-border-item">活动详情</div>
+				<div class="tabs-border-item js-tabs-border-item">参与用户</div>
+			</div>
+			<div class="tabs-border-box tabs-border-box-active">
+				<div class="d-content">{$data.content}</div>
+			</div>
+			
+			<div class="tabs-border-box">
+				<div  id="jApp">
+					<div v-if="Object.keys(list).length==0" class="emptyData">暂无参与用户</div>
+					<div v-else class="flex flex-wrap">
+						<div class="jItem" v-for="(item,index) in list" :key="index">
+							<img class="wh-40 bd-radius-50 mgb-5" :src="item.user_head" />
+							<div class="f12 cl2">{{item.nickname}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div> 
+    
+</div>
+<div class="footer-row"></div>
+<div class="footerFix pd-5 bg-white">
+	<div class="flex flex-ai-center">
+		<div class="cl2 mgr-5">活动费用</div>
+		<div class="cl-money">￥{$data.money}</div>
+		<div class="flex-1"></div>
+		<div id="actJoin" class="btn btn-outline-primary">我要参与</div>
+	</div>
+</div>
+<div class="modal-group" id="actBox">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">活动参与</div>
+			<div class="modal-close icon-close"></div>
+		</div>
+		<div class="modal-body">
+			<form id="actForm">
+			<input type="hidden" name="pid" value="{$data.id}" />
+			<div class="input-flex">
+				<div class="input-flex-label">联系人：</div>
+				<input type="text" class="input-flex-text"  name="nickname" id="nickname" value="{$data.nickname}">
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label">电话：</div>
+				<input type="text" class="input-flex-text"  name="telephone" id="telephone" value="{$data.telephone}">
+			</div>
+			<div class="flex flex-center mgb-5">
+				<div class="cl2 mgr-5">活动费用</div>
+				<div class="cl-money">￥{$data.money}</div>
+			</div>
+			<div id="actSubmit" class="btn-row-submit">确认参与</div>
+			</form>
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script> 
+var pid="{$data.id}"
+</script>
+<script src="{$skins}gread_party/show.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">消息通知</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="list ">
+				 
+				<div v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+					<div class="flex bd-mp-5">
+						<div class="cl-status">{{item.status_name}}</div>
+						<div class="flex-1"></div>
+						<div class="f12 cl2">{{item.timeago}}</div>
+					</div>
+					<div class="cl3 bd-mp-5">{{item.content}}</div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						<div v-if="item.status==0" @click="read(item)" class="btn-mini btn-outline-primary mgr-5">已阅</div>
+						<div :gourl="item.linkurl" class="btn-mini btn-outline-primary">去查看</div>
+					</div>
+				</div>
+				 
+				 
+			</div>
+			<div v-if="per_page>0" class="loadMore" @click="getList()">加载更多</div> 
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}household_sender_notice/index.js"></script>
+	</body>
+</html>

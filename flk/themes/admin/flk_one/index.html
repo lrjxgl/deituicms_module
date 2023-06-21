@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=flk_one&type=new" class="item {if get('type') eq 'new'}active{/if}">待审核</div>
+			<div gourl="/moduleadmin.php?m=flk_one&type=doing"  class="item {if get('type') eq 'doing'}active{/if}">活动中</div>
+			<div gourl="/moduleadmin.php?m=flk_one&type=will"  class="item {if get('type') eq 'will'}active{/if}">即将开始</div>
+			<div gourl="/moduleadmin.php?m=flk_one&type=finish"  class="item {if get('type') eq 'finish'}active{/if}">已结束</div>
+			<div gourl="/moduleadmin.php?m=flk_one&type=forbid"  class="item {if get('type') eq 'forbid'}active{/if}">已拒绝</div>
+ 
+		</div>
+		<div class="main-body">
+			 
+			<form id="cForm">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>id<input type="checkbox" class="chkall"  /></td>
+						<td width="200">名称</td>
+						 
+						 
+						<td>图片</td>
+						<td>原价</td>
+						<td>促销价</td>
+						<td>抽成</td>
+						<td>返利</td>
+						 
+						<td>库存</td>
+						<td>开始</td>
+						<td>结束</td>
+						 
+						
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td><input type="checkbox" class="ids"  name="ids[]" value="{$c.id}" />{$c.id} </td>
+					<td>{$c.title}</td>
+					 
+					<td><img src="{$c.imgurl}.100x100.jpg" width="60" /> </td>
+					<td>{$c.price}</td>
+					<td>{$c.one_price}</td>
+					<td>{$c.one_discount}%</td> 
+					<td>{$c.one_flk_discount}%</td> 
+					<td>{$c.total_num}</td>
+					<td>{$c.one_stime}</td> 
+					<td>{$c.one_etime}</td>  
+					<td>
+						{if $c.one_status eq 0}
+					<a class="js-pass pointer" url="/moduleadmin.php?m=flk_one&a=pass&ajax=1&id={$c.id}">允许</a>
+					<a class="js-forbid pointer" url="/moduleadmin.php?m=flk_one&a=forbid&ajax=1&id={$c.id}">禁止</a>
+					{/if}
+					<a href="/moduleadmin.php?m=flk_one&a=add&id={$c.id}">编辑</a>  
+					<a target="_blank" href="/module.php?m=flk_product&a=show&id={$c.id}">查看</a>
+					 </td>
+				</tr>
+				{/foreach}
+			</table>
+			
+			 
+			</form>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script>
+			laydate.render({
+				elem:"#stime"
+			})
+			laydate.render({
+				elem:"#etime"
+			});
+			$(document).on("click",".js-pass",function(){
+				var that=$(this);
+				if(confirm("确认允许参加活动码")){
+					$.ajax({
+						type:"GET",
+						dataType:"json",
+						url:$(this).attr("url"),
+						success:function(res){
+							that.parents("tr").remove();
+						}
+					})
+				}
+			})
+			$(document).on("click",".js-forbid",function(){
+				var that=$(this);
+				if(confirm("确认禁止参加活动码")){
+					$.ajax({
+						type:"GET",
+						dataType:"json",
+						url:$(this).attr("url"),
+						success:function(res){
+							that.parents("tr").remove();
+						}
+					})
+				}
+			}) 
+		</script>
+	</body>
+</html>

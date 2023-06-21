@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="shd">{$type_name}</div>
+<div class="main-body">
+	<div id="searchbox" class="search-form">
+	<form id="searchform" action="/moduleadmin.php" autocomplete="off">
+		<input type="hidden" name="m" value="tutor_lesson" />
+		<input type="hidden" name="type" value="{$type}" /> 
+		ID <input type="text" class="w50" name="id" value="{$smarty.get.id|intval}" />
+		主题 <input type="text" class="w150" name="title" value="{$smarty.get.title}" />
+		 
+			<input type="checkbox" {if get("isrecommend") eq 1}checked{/if} name="isrecommend" value="1" />推荐
+			<button type="submit" class="btn">搜索</button>
+	
+	</form>
+	</div>
+ <table class="tbs">
+<thead>  <tr>
+   <td>lessonid</td>
+   <td>名称</td>
+   <td>图片</td>
+   <td>分类</td>
+   <td>推荐</td>
+   <td>状态</td>
+    
+   
+   <td>订单数</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.lessonid}</td>
+   <td>{$c.title}</td>
+   <td>
+	   <img src="{$c.imgurl|images_site}.100x100.jpg" class="wh-40" />
+   </td>
+   <td>{$c.cat.title}</td>
+   <td> 
+	<div url="/moduleadmin.php?m=tutor_lesson&a=recommend&ajax=1&lessonid={$c.lessonid}" class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+   <td>
+	   <div url="/moduleadmin.php?m=tutor_lesson&a=status&ajax=1&lessonid={$c.lessonid}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+    
+    
+   
+   <td>{$c.order_num}</td>
+<td><a href="/moduleadmin.php?m=tutor_lesson&a=add&lessonid={$c.lessonid}">编辑</a> 
+<a target="_blank" href="/module.php?m=tutor_lesson&a=show&lessonid={$c.lessonid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=tutor_lesson&a=delete&ajax=1&lessonid={$c.lessonid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

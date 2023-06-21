@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=paotui_addr">管理</a>
+	 
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>addrid</td>
+   <td>用户</td>
+   <td>名称</td>
+   <td>地址</td>
+   <td>电话</td>
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.addrid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.truename}</td>
+   <td>{$c.address}</td>
+   <td>{$c.telephone}</td>
+   <td>{if $c.status eq 1}上线{else}下线{/if}</td>
+<td>
+  <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=paotui_addr&a=delete&addrid={$c.addrid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

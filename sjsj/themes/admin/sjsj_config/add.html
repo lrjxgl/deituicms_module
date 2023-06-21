@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">基础配置</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=sjsj_config&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>买断价格：</td>
+						<td><input type="text" name="sold_money" id="sold_money" value="{$data.sold_money}"></td>
+					</tr>
+					<tr>
+						<td>平台抽成：</td>
+						<td><input type="text" name="pt_per" id="pt_per" value="{$data.pt_per}"></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

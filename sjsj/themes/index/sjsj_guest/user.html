@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.w200{
+			max-width: 200px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$touser.nickname}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app" v-if="pageLoad" style="display: none;" :class="'flex-col'">
+			
+			<div v-if="list.length==0" class="emptyData">暂无对话</div>
+			<div v-else class="list" >
+				 
+				<div v-for="(item,index) in  list" :key="index" class="bg-white pd-10">
+					 
+					<div class="flex" v-if="item.isme">
+						<img :src="item.user_head+'.100x100.jpg'" class="wh-40 mgr-10" />
+						
+						<div class="flex-1">
+							<div class="cl2 mgb-5">
+								{{item.nickname}}
+							</div>
+							<div class="bd bd-radius-5 pd-5">
+								<div class="cl3">{{item.content}}</div>
+							</div>
+						</div>
+						<div class="w100"></div>
+					</div>
+					<div class="flex" v-else>
+					<div class="flex-1"></div>
+					<div class="w200">
+						
+						<div class="cl2 mgb-5 flex">
+							<div class="flex-1"></div>
+							{{item.to_nickname}}
+						</div>
+						<div class="bd bd-radius-5 pd-5">
+							<div class="cl3">{{item.content}}</div>
+						</div>
+						
+					</div>
+				 
+					<img :src="item.to_user_head+'.100x100.jpg'" class="wh-40 mgl-10" />
+					</div>
+				</div>
+	 
+			</div>
+			<div class="footer-row"></div>
+			<div style="position: fixed;bottom: 0;left: 0;right: 0;">
+				<div class="row-box">
+					<div>{{news.title}}</div>
+					
+				</div>
+				<div class="input-flex flex-ai-center">
+					<input type="text" v-model="content" class="input-flex-text" />
+					<div class="mgl-5 btn-small btn-outline-primary" @click="submit">发送</div>
+					<div  @click="buy(news)" class="btn-small btn-outline-info mgl-5">买断</div>
+				</div>
+				
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var newsid="{$news.newsid}";
+			var touserid="{$touserid}";
+			
+		</script>
+		<script src="{$skins}sjsj_guest/user.js"></script>
+	</body>
+</html>

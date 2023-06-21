@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<div class="header-title">福鼎买房</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex pd-5">
+				<input class="input-flex-text bd-radius-10 outline-none" placeholder="搜一下"
+					id="keyword" />
+				<div class="input-flex-btn w60" id="search">搜一下</div>
+			</div>
+			<div>
+				<div class="swiper-container" id="indexFlash">
+					<div class="swiper-wrapper">
+						{foreach item=c from=$flashList}
+						<div class="swiper-slide">
+							<img gourl="{$c.link1}" style="width: 100%;" src="{$c.imgurl}" />		 
+						</div>
+						{/foreach}
+					</div>
+				
+					<div class="swiper-pagination"></div>			
+				</div>
+			</div>
+			{if $navList}
+			<div class="m-navPic">
+				{foreach item=c from=$navList}
+				<a href="{$c.link1}" class="m-navPic-item">
+					<img class="m-navPic-img" src="{$c.imgurl}" />
+					<div class="m-navPic-title">{$c.title}</div>
+				</a>
+				{/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+			<div class="f18 cl1 pd-10">楼盘推荐</div>
+			<div class="flexlist">
+				{foreach item=c from=$loupanList}
+				<a href="/module.php?m=house_loupan&a=show&id={$c.id}" class="flexlist-item">
+					<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flex mgb-5">
+							<span class="cl-num">{if $c.isbuy eq 1}在售{else}未售{/if}</span>
+							<div class="flex-1"></div>
+							<span class="cl-money">{$c.price}元/平</span>
+						</div>
+						<div class="cl3 f12">{$c.address}</div>
+					</div>
+				</a>
+				{/foreach}
+			</div>
+			<div class="f18 cl1 pd-10">房源推荐</div>
+			 
+			 {foreach item=c from=$recList}
+			 <a href="/module.php?m=house_resource&a=show&id={$c.id}" class="sglist-item js-item">
+			 	<div class="sglist-title">{$c.description}</div>
+			 	 
+			 	<div class="sglist-imglist">
+			 		{foreach item=img from=$c.imgslist}
+			 		<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+			 		{/foreach}
+			 	</div>
+			 	<div class="flex">
+			 		<div class="mgr-10 cl2">总价</div>
+			 		<div class="mgb-5 cl-money">￥{$c.total_money}</div>
+			 		<div class="cl2">万元</div>
+			 	</div>   
+			 </a>
+			 {/foreach}
+			 
+			<div class="f18 cl1 pd-10">最新房源</div>
+			{foreach item=c from=$newList}
+			 <a href="/module.php?m=house_resource&a=show&id={$c.id}" class="sglist-item js-item">
+			 	<div class="sglist-title">{$c.description}</div>
+			 	 
+			 	<div class="sglist-imglist">
+			 		{foreach item=img from=$c.imgslist}
+			 		<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+			 		{/foreach}
+			 	</div>
+			 	<div class="flex">
+			 		<div class="mgr-10 cl2">总价</div>
+			 		<div class="mgb-5 cl-money">￥{$c.total_money}</div>
+			 		<div class="cl2">万元</div>
+			 	</div>   
+			 </a>
+			{/foreach}
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash");
+				$(document).on("click","#search",function(){
+					var word=$("#keyword").val();
+					window.location="/module.php?m=house_search&keyword="+encodeURI(word)
+				})
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			{if $site.logo} 
+			 wxshare_imgUrl="{$site.logo}.100x100.jpg";
+			 {/if}
+		</script>
+	</body>
+</html>

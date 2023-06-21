@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<body>
+		
+		<div class="topTab" style="display: none;">
+			<div class="topTab-item topTab-active">热门</div>
+			
+			{foreach item=c from=$catList}
+			<div  class="topTab-item">
+				{$c.title}
+			</div>
+			{/foreach}
+			
+		</div>
+		<div class="header">
+			<img src="{$site.logo}.100x100.jpg" class="header-logo" />
+			<div class="header-search-box">
+				<input id="keyword" type="search" class="header-search pdl-5" />
+				<div id="searchBtn" class="header-search-btn  iconfont icon-search"></div>
+			</div>
+			 
+		</div>
+	 
+		<div class="header-row"></div>
+		
+		<div class="main-body">
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper" >
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+				 
+				<div class="swiper-pagination"></div>
+			 
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+						 
+			</div>
+			{/if}
+			
+			<div class="flexlist">
+				{foreach item=c from=$recList}
+				<a href="/module.php?m=pdd_product&a=show&id={$c.id}&shopid={$c.shopid}" class="flexlist-item">
+					<img class="wh-100 mgr-5" src="{$c.imgurl}.100x100.jpg" />
+						<div class="flex-1 flex-col">
+							<div class="f12 mgb-5 cl1">{$c.title}</div>
+							<div class="cl3 f12 mgb-5">{$c.shop.shopname}</div>
+							<div class="flex-1"></div>
+							<div class="flex mgb-5">
+								<div class="flexlist-hybg mgr-5">好友买过</div>
+								<div class="flexlist-tk">极速退款</div>
+							</div>
+							<div class="flex">
+								<div class="cl-money f12">￥</div>								
+								<div class="cl-money f14 mgr-10">{$c.price}</div>
+								<div class="cl3 f12">已拼{$c.buy_num}件</div>
+								<div class="flex-1"></div>
+							</div>
+							
+							 
+						</div>
+				
+				</a>
+				{/foreach}
+			</div>
+			
+		</div> 
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/dt-ui-raty.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function(){
+				skyRaty(".sky-raty");
+				var flash=new Swiper("#indexFlash");
+				$(document).on("click","#searchBtn",function(){
+					var keyword=$("#keyword").val();
+					window.location="/module.php?m=pdd_search&keyword="+encodeURIComponent(keyword);
+				})
+			})
+			
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+			{if $site.logo} 
+			 wxshare_imgUrl="{$site.logo}.100x100.jpg";
+			 {/if}
+		</script>
+		 
+	</body>
+</html>

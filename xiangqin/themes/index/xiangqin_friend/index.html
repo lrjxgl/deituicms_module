@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">互动好友</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			{if empty($list)}
+				<div class="emptyData">暂无好友</div>
+			{/if}
+			<div class="flexlist">
+				{foreach item=c from=$list}
+				<div class="flexlist-item">
+					<img gourl="/module.php?m=xiangqin_people&a=show&userid={$c.userid}" class="flexlist-img" src="{$c.imgurl}.small.jpg" />
+					<div class="flex-1">
+						<div gourl="/module.php?m=xiangqin_people&a=show&userid={$c.userid}"  class="flexlist-title">{$c.truename}</div>
+						<div class="flex mgb-5">
+							<div class="cl3 f12 mgr-10">{$c.gender_title}</div>
+							<div class="cl3 f12">{$c.age}岁</div>
+							<div class="flex-1"></div>
+							<div class="mgr-5 f12 cl3">{$c.zhiye}</div>
+							<div class="cl-primary f12">收入：{$c.income}万</div>
+						</div>
+						
+						
+						<div class="flexlist-desc mgb-5">{$c.self_desc}</div>
+						<div class="flex">
+							<div class="flex-1"></div>
+							<div class="btn-mini btn-outline-primary mgr-5" gourl="/index.php?m=pm&a=detail&userid={$c.userid}">聊聊</div>
+							 
+							<div class="btn-mini btn-outline-danger js-delete  mgr-5" url="/module.php?m=xiangqin_friend&a=delete&ajax=1&touserid={$c.touserid}">删除</div>
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

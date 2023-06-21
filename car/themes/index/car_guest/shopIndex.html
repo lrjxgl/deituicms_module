@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div> 
+			<div class="header-title">客户咨询</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div v-if="list.length==0" class="emptyData">暂无咨询</div>
+			 <template v-else> 
+			<div @click="goDetail(item)" v-for="(item,index) in list" :key="index"  class="flexlist-item pointer">
+				<img class="flexlist-img" :src="item.user.user_head+'.100x100.jpg'" />
+				<div class="flex-1">
+					<div class="flex mgb-5">
+						<div class="flex-1 f16 cl2">{{item.user.nickname}}</div>
+						<div class="cl3 f12">{{item.timeago}}</div>
+					</div>
+					<div class="flexlist-desc">{{item.content}}</div>
+				</div>
+			</div>
+			<div class="loadMore" @click="getList" v-if="per_page>0">加载更多</div>
+			</template>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}car_guest/shopIndex.js"></script>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+<div class="footer-row"></div>
+<div class="footer">
+	<div class="footer-item icon-home {if get('m') eq 'pdd'}footer-active{/if}" gourl="/module.php?m=pdd">首页</div>
+	<div class="footer-item icon-goodsfavor {if $ftnav eq 'pdd_prolist'}footer-active{/if}" gourl="/module.php?m=pdd_prolist">推荐</div>
+	<div class="footer-item icon-cascades {if $ftnav eq 'pdd_category'}footer-active{/if}" gourl="/module.php?m=pdd_category">分类</div>
+	<div class="footer-item  icon-message_light {if $ftnav eq 'pdd_guest'}footer-active{/if}" gourl="/module.php?m=pdd_guest">聊天</div>
+	
+	<div class="footer-item icon-my_light {if get('m') eq 'pdd_user'}footer-active{/if}"  gourl="/module.php?m=pdd_user">个人中心</div>
+</div>

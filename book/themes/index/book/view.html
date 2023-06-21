@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}book/view.css" rel="stylesheet" />
+	<body>
+		<div id="App">
+			<div v-if="page=='menu'">
+				<div class="header">
+					<div   class="header-back"></div>
+					<div class="header-title">{{book.title}}</div>
+				</div>
+				<div class="header-row"></div>
+				<div class="aBox" v-for="(aa,index) in artList" :key="index">
+					<div class="aBox-title">
+						<span  @click="setDetail(aa)" class="flex-1">{{aa.title}}</span>
+						<span v-if="aa.haschild" @click="foldToggle(aa)" :class="aa.openFold?'fold':'unfold'" ></span>
+					</div>
+					<div  v-if="aa.haschild && aa.openFold" class="bBox">
+						<div  class="bBox-item" :key="ib" v-for="(bb,ib) in aa.child">
+							<div class="bBox-title">
+								<span  @click="setDetail(bb)" class="flex-1">|--{{bb.title}}</span>
+								<span v-if="bb.haschild" @click="foldToggle(bb)" :class="bb.openFold?'fold':'unfold'"></span>
+							</div>
+							<div v-if="bb.haschild && bb.openFold"     class="cBox">
+								<div @click="setDetail(cc)" class="cBox-item" :key="ic" v-for="(cc,ic) in bb.child">
+									|---- {{cc.title}} 
+									 
+								</div>
+							</div>
+							
+						</div>
+					</div>
+				</div> 
+			</div>
+			<div v-if="page=='detail'">
+				<div class="header">
+					<div @click="goMenu()" class="header-back-only"></div>
+					<div class="header-title">{{article.title}}</div>
+				</div>
+				<div class="header-row"></div>
+				<div class="main-body">
+					<div class="row-box mgb-5">
+						<div class="d-title">{{article.title}}</div>
+					</div>
+					
+					<div class="tabs-border mgb-5">
+						<div @click="dTabSet('detail')" :class="dTab=='detail'?'tabs-border-active':''" class="tabs-border-item">文章内容</div>
+						<div @click="dTabSet('comment')" :class="dTab=='comment'?'tabs-border-active':''"  class="tabs-border-item">评论列表</div>
+						<div @click="dTabSet('note')" :class="dTab=='note'?'tabs-border-active':''"  class="tabs-border-item">笔记列表</div>
+					</div>
+					<div v-if="dTab=='detail'" class="row-box mgb-5">
+						<div class="d-content" v-html="article.content"></div>
+					</div>
+					<div v-if="dTab=='comment'"  >
+						<div>
+							<div class="mgb-10 pd-10">咨询列表</div>
+							<div   class="cm-list">
+								<div  v-for="c in cmList" class="row-box flex mgb-5">
+									<div class="mgr-5">
+										<img class="wh-30 bd-radius-5" :src="c.user_head+'.100x100.jpg'"  />
+									</div>
+									<div class="flex-1">
+										<div class="flex mgb-5">
+											<div class="cl3 f12">{{c.nickname}}</div>
+											<div class="flex-1"></div>
+											<span class="cl3 f12 mgr-5">{{c.ip_addr}}</span>
+											<span class="cl3 f12">时间：{{c.timeago}}</span> 
+										</div>
+										
+										<div class="cl2 f12 comment_reply_btn"  :pid="c.id">
+							    			{{c.content}}
+							    		</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+						<div class="row-box">
+							<textarea class="textarea-flex-text mgb-10 h60" v-model="plContent"></textarea>
+							<div class="flex">
+								<div class="flex-1"></div>
+								<div @click="saveComment()" class="btn-small">写评论</div>
+							</div>
+						</div>
+					</div>
+					<div v-if="dTab=='note'"  >
+						<div v-for="(c,index) in noteList" :key="index" class="row-box flex mgb-5">
+							<div class="mgr-5">
+								<img class="wh-30 bd-radius-5" :src="c.user_head+'.100x100.jpg'"  />
+							</div>
+							<div class="flex-1">
+								<div class="flex mgb-5">
+									<div class="cl3 f12">{{c.nickname}}</div>
+									<div class="flex-1"></div>
+									 
+									<span class="cl3 f12">时间：{{c.createtime}}</span> 
+								</div>
+								
+								<div class="cl2 f12 comment_reply_btn"  :pid="c.id">
+									{{c.content}}
+								</div>
+							</div>
+						</div>
+						<div class="row-box">
+							<textarea  class="textarea-flex-text  mgb-10  h60" v-model="noteContent"></textarea>
+							<div class="flex">
+								<div class="flex-1"></div>
+								<div @click="saveNote()" class="btn-small">写笔记</div>
+							</div>
+						</div>
+					</div>
+					
+					
+				</div>
+				
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+		var bookid="{$book.bookid}"
+		</script>
+		<script src="{$skins}book/view.js"></script>
+	</body>
+</html>

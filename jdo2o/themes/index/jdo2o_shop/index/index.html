@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<link href="{$skins}jdo2o_shop/index/index.css" rel="stylesheet" />
+		<div id="App" class="none" :class="'flex-col'">
+			<div  v-if="pageLoad">
+				<div class="header-back-fixed goBack"></div>
+				 
+				<div @click="favShopToggle(shop.shopid)" :class='shopFavClass' class="header-fav-btn iconfont icon-favor">收藏</div>
+				
+				<div class="modal-group" id="header-more-box">
+					<div class="modal-mask"></div>
+					<div class="header-fixtop-menu">
+						<div class="row-item-text pointer"><div class="row-item-icon icon-share"></div>分享店铺</div>
+						<div  class="row-item-text pointer"><div class="row-item-icon icon-warn_light"></div>举报商家</div>
+					</div>
+				</div>
+				
+				<div class="wshop-logo">
+					<image model="widthFix" class="wshop-logo-img" :src="shop.imgurl+'.100x100.jpg'"></image>
+				</div>
+				<div class="wshop mgb-5">
+					
+					<div >
+						<div class="wshop-shopname mgb-10">{{shop.shopname}}</div>
+						<div class="flex flex-center">
+							<div class="f12 cl2 mgr-20">月销 {{shop.buy_num}}</div>
+							<div class="f12 cl2">评价 {{shop.raty_grade}}</div>
+						</div> 
+						 
+					</div>
+				
+				</div>
+				<div id="esDot"></div>
+				<div :class="tabClass" class="tabs-border">
+					<div @click="page='product'" :class="{'tabs-border-active':page=='product'}" class="tabs-border-item">商品</div>
+					<div @click="page='raty'" :class="{'tabs-border-active':page=='raty'}" class="tabs-border-item">评价</div>
+					<div @click="page='detail'" :class="{'tabs-border-active':page=='detail'}" class="tabs-border-item">商家</div>
+				</div>
+				<div :class="tabRowClass"></div> 
+			</div>
+			<div v-if="page=='product'">
+				<shop-product :dclass="sideClass" :shopid="shopid"></shop-product>
+				
+			</div>
+			
+			<div v-else-if="page=='raty'">
+				<shop-raty :shopid="shopid"></shop-raty>		
+			</div>
+			<div v-else>
+				<shop-detail :shopid="shopid"></shop-detail>
+			</div>	
+			
+			
+			<div @click="backTop" class="back-top">
+				<div class="back-top-icon"></div>
+				<div class="back-top-text">顶</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var shopid = "{$shop.shopid}";
+		</script>
+		<script src="/plugin/dt-ui/dt-ui-touch.js"></script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}jdo2o_shop/index/cart.js"></script>
+		<script src="{$skins}jdo2o_shop/index/product.js"></script>
+		
+		<script src="{$skins}jdo2o_shop/index/raty.js"></script>
+		<script src="{$skins}jdo2o_shop/index/detail.js"></script>
+		<script src="{$skins}jdo2o_shop/index/index.js"></script>
+	</body>
+</html>

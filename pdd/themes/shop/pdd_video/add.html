@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width: 100%;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">视频编辑</div>
+
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/moduleshop.php?m=pdd_video&a=save&ajax=1">
+				<input type="hidden" name="id" value="{$data.id}" />
+				<div class="input-flex">
+					<div class="input-flex-label">名称</div>
+					<input type="text" class="input-flex-text" name="title" value="{$data.title}" />
+				</div>
+				{if !$data}
+				<div class="input-flex">
+					<div class="input-flex-label">上传视频</div>
+					<div class="videoBox flex-1">
+						{if !$data.url}
+						<div class="upimg-btn" id="js-upbtn">
+							<div class="upimg-btn-icon">
+
+							</div>
+						</div>
+
+						<span id="progress"></span>
+						<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+						<div id="mp4box">
+						</div>
+						<input type="hidden" name="url" id="url" value="{$data.url}" />
+						{else}
+						<div id="mp4box">
+
+							<video controls="" src="{$data.url|images_site}" class="video"></video>
+
+						</div>
+						{/if}
+						<input type="hidden" name="imgurl" id="imgurl" value="{$data.imgurl}" />
+					</div>
+				</div>
+				{/if}
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		<div style="display: none;">
+			<input type="file" id="up-video" name="upfile" />
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}pdd_video/add.js"></script>
+	</body>
+</html>

@@ -1,0 +1,129 @@
+html,body{
+			background-color: #12143a;
+		}
+		.imgbd{
+			width: 100%;
+			border-radius: 20px;
+		}
+		.cl-stat{
+			color: #ebdcdc;
+		}
+		.stat-num{
+			color:#aaa120;
+			margin-left: 3px;
+			margin-right: 3px;
+		}
+		.xzBox{
+			flex:1;
+			height: 180px;
+			border-radius: 20px;
+			background-color: #669dfd;
+			 
+			padding: 10px;
+		}
+		.xzBox2{
+			background-color: #faaf59;
+		}
+		.zxBox-male{
+			width: 60px;
+			height: 60px;
+			line-height: 60px;
+			text-align: center;
+			align-items: center;
+			border-radius: 50%;
+			margin: 0 auto;
+			background-color: #375edc;
+			margin-bottom: 10px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+		.zxBox-male2{
+			background-color: #f67f35;
+		}
+		.zxBox-icon{
+			font-size: 30px;
+			color:#fff;
+		}
+		.xzBox-btn{
+			color: #333;
+			text-align: center;
+			margin-bottom: 10px;
+			border: 1px solid #eee;
+			background-color: #fff;
+			border-radius: 20px;
+			padding: 5px 10px;
+			
+		}
+		.cqBox-title{
+			color:#fff;
+			margin-bottom: 20px;
+			font-weight: 600;
+		}
+		.cqBox{
+			flex:1;
+			height: 80px;
+			background-color: #49bfe2;
+			border-radius: 20px;
+			padding: 10px;
+			position:relative;
+		}
+		.cqBox2{
+			background-color: #ef6bb7;
+		}
+		.cqBox-title{
+			color: #fff;
+			margin-bottom: 10px;
+		}
+		.cqBox-desc{
+			font-size: 12px;
+			color: #fff;
+		}
+		.cqBox-logo{
+			position: absolute;
+			bottom: 20px;
+			right: 10px;
+			color:#fff;
+			font-size: 18px;
+		}
+		#postModal{
+			display: none;
+		}
+		.postBox-modal,.paperBox-modal{
+			left:10px;
+			right:10px;
+		}
+		.postBox,.paperBox{
+			padding: 10px;
+			position: relative;
+		}
+		.postBox-close,.paperBox-close{
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background-color: #375edc;
+			color: #fff;
+		}
+		.postBox-desc{
+			background-color: #eee;
+			padding: 10px;
+		}
+		.postBox-textarea{
+			height: 60px;
+			border: 0;
+			background-color: inherit;
+			margin-bottom: 10px;
+		}
+		.postBox-textarea:hover{
+			border: 0;
+		}
+		.upimg-btn{
+			background-color: #fff;
+		}
+		.paperBox-imgList-img{
+			width: 50px;
+			margin: 10px;
+		}

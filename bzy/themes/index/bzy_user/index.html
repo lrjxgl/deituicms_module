@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">个人中心</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<img src="{$user.user_head}.100x100.jpg" class="wh-60 mgr-10" />
+					<div class="flex-1">
+						<div class="cl1 mgb-5">{$user.nickname}</div>
+						<div class="flex flex-ai-center">
+							<div class="mgr-5 cl2">金币</div>
+							<div class="cl-num mgr-10"> {$user.gold}</div>
+							 
+						</div>
+					</div>
+					<div gourl="/index.php?m=user&a=set" class="iconfont icon-settings"></div>
+				</div>
+			</div>
+			
+			<div class="row-box">
+				<div gourl="/index.php?m=notice" class="row-item">
+					<div class="row-item-icon icon-message_light  cl-u"></div>
+					<div class="row-item-title">我的消息</div>
+				</div>
+			
+				<div gourl="/module.php?m=bzy_join&a=my"  class="row-item">
+					<div class="row-item-icon icon-activity  cl-u"></div>
+					<div class="row-item-title">我的参与</div>
+				</div>
+				<div gourl="/module.php?m=bzy_order&a=my"  class="row-item">
+					<div class="row-item-icon icon-order  cl-u"></div>
+					<div class="row-item-title">中奖订单</div>
+				</div>
+				<div gourl="/module.php?m=bzy_event_log&a=my"  class="row-item">				
+					<div class="row-item-icon icon-news_light  cl-u"></div>
+					<div class="row-item-title">博饼记录</div>
+				</div>
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service  cl-u"></div>
+					<div class="row-item-title">联系客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info  cl-u"></div>
+					<div class="row-item-title">关于我们</div>
+				</div> 
+				
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		
+		{include file="footer.html"}
+	</body>
+</html>

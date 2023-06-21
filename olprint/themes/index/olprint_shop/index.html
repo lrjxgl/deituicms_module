@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$shop.shopname}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<img class="d-img" src="{$shop.imgurl}" />
+			 
+			<div class="row-box mgb-5">
+				<div class="d-title">{$shop.shopname}</div>
+			</div>
+			<div class="row-box mgb-5">
+				
+				
+				<div class="flex-table">
+					<div class="flex-table-label">联系人</div>
+					<div class="flex-table-box">
+						{$shop.nickname}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">电话</div>
+					<div class="flex-table-box">
+						<a href="tel:{$shop.telephone}">{$shop.telephone}</a>
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">地址</div>
+					<div class="flex-table-box">
+						{$shop.address}
+					</div>
+				</div>
+				
+			</div>
+			<div class="row-box">
+				<div class="d-content">{$shop.content}</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

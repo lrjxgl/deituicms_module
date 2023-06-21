@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="tabs-border">
+	<a href="/moduleadmin.php?m=fsbuy_order&fsid={$fsid}" class="item {if get('type') eq ''}active{/if}">全部订单</a>
+	<a href="/moduleadmin.php?m=fsbuy_order&fsid={$fsid}&type=unpay" class="item {if get('type') eq 'unpay'}active{/if}">待支付</a>
+	<a href="/moduleadmin.php?m=fsbuy_order&fsid={$fsid}&type=new" class="item {if get('type') eq 'new'}active{/if}">待确认</a>
+	<a href="/moduleadmin.php?m=fsbuy_order&fsid={$fsid}&type=finish" class="item {if get('type') eq 'finish'}active{/if}">已完成</a>
+	<a href="/moduleadmin.php?m=fsbuy_order&fsid={$fsid}&type=cancel" class="item {if get('type') eq 'cancel'}active{/if}">已取消</a>
+</div>
+<div class="main-body bg-ef">
+    <div class="pd-10">
+		
+		总计:{$rscount}单
+		{if $fsbuy}，
+		当前活动：{$fsbuy.title}
+		{/if}
+	</div> 
+    <div class="flexlist">
+    	{foreach item=c from=$data}
+    	<div class="row-box mgb-5">
+    		<div class="flex">
+    			<div class="cl-num">{$c.status_name}</div>
+				<div class="flex-1"></div>
+    			<div class="cl2 f12">{$c.timeago}</div>  		
+    		</div>
+    		<div class="flexlist-item">
+    			<img class="flexlist-img" src="{$c[fsbuy].imgurl}.100x100.jpg">
+    			<div class="flex-1">
+    				<div class="flexlist-title">{$c[fsbuy].title}</div>
+					<div>{$c.kstitle}</div>
+    				<div class="flex">
+    					<span class="cl-money">￥{$c.money}</span> 
+    				</div>
+    			</div>
+    		</div>
+		 
+    		<div class="flex flex-ai-center mgb-5">
+				<img src="{$c.user_head}.100x100.jpg" class="w50 mgr-5">
+	    		<div class="mgr-10">联系人：{$c.nickname} </div>
+				<a href="tel:{$c.telephone}" class="mgr-10">联系电话：{$c.telephone} </a>
+				<div class="mgr-10">收货地址：{$c.address}</div> 		
+	    	</div>
+    		<div class="flex">
+    			<span>{if $c.ispay}
+    			已支付
+    			{else}
+    			未支付
+    			{/if}
+    			</span>
+    			<a class="mgl-10" href="/moduleadmin.php?m=fsbuy_order&a=show&orderid={$c.orderid}">查看</a>
+    		</div>
+    	</div>
+    	{/foreach}
+    </div>
+	<div>{$pagelist}</div>
+   
+</div>
+{include file="footer.html"}
+</body>
+</html>

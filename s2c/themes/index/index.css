@@ -1,0 +1,175 @@
+.swiper-container {
+	width: 100%;
+	padding-bottom: 62.5%;
+	height: 0;
+}
+
+.swiper-wrapper {
+	width: 100%;
+	flex-direction: row;
+}
+
+.mtt10 {
+	margin-top: -10px;
+}
+
+.topBox {
+	background-color: #f75451;
+	display: flex;
+	flex-direction: row;
+	padding: 20px 20px 10px 20px;
+}
+
+.topBox-main {
+	flex: 1;
+}
+
+.topBox-head {}
+
+.topBox-head-img {
+	width: 30px;
+	border-radius: 50%;
+	margin-bottom: 5px;
+}
+
+.topBox-head-nick {
+	color: #fff;
+	font-size: 14px;
+}
+
+.topBox-title {
+	color: #fff;
+	font-size: 16px;
+	margin-right: 15px;
+
+}
+
+.swiper-box {
+	padding: 10px 20px;
+	background-color: #f75451;
+}
+
+.row-box-more,
+.row-box-more:after {
+
+	font-size: 14px;
+	align-items: center;
+}
+
+.adBox {
+	display: flex;
+	flex-direction: row;
+	overflow: auto;
+}
+
+.adBox-item {
+	flex:1;
+	margin: 5px;
+}
+
+.adBox-img {
+	width: 100%;
+	border-radius: 10px;
+}
+
+.noticeBox {
+	border-radius: 30px;
+	background-color: #fff9f4;
+	color: #f75451;
+	margin: 10px 10px 20px 10px;
+	padding: 5px 10px;
+	flex-direction: row;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.cl-fc {
+	color: #f75451;
+}
+
+.cl-fc:after {
+	color: #ff685a;
+}
+
+.cl-white:after {
+	color: #fff;
+}
+
+.tsBox {
+	width: 200px;
+	margin: 0 auto;
+	text-align: center;
+	position: relative;
+	height: 60px;
+
+}
+
+.tsBox-line-a,
+.tsBox-line-b {
+	height: 1px;
+	background-color: #f75451;
+	position: absolute;
+	top: 10px;
+	width: 10px;
+}
+
+.tsBox-line-a {
+	left: 2px;
+}
+
+.tsBox-line-b {
+	right: 2px;
+}
+
+.tsBox-title {
+	letter-spacing: 16px;
+	text-align: center;
+	font-size: 16px;
+	color: #f75451;
+	margin-bottom: 5px;
+}
+
+.tsBox-bd {
+	margin: 0px 10px;
+
+}
+
+.tsBox-desc {
+	letter-spacing: 6px;
+	text-align: center;
+	font-size: 12px;
+	color: #f75451;
+}
+
+.catNav {
+	background-color: #fff;
+	overflow: hidden;
+	border-bottom: 1px solid #eee;
+}
+
+.catNav-fixed {
+	position: fixed;
+	top: 44px;
+	left: 0;
+	right: 0;
+	z-index: 999;
+}
+
+.catNav-fixed-show {
+	height: 51px;
+	display: none;
+}
+
+.catNav-swiper-slide {
+	float: left;
+	width: 120px;
+	text-align: center;
+	line-height: 50px;
+	cursor: pointer;
+}
+
+.catNav-swiper-slide-active {
+	color: #f60;
+
+}

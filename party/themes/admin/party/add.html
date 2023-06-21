@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='party/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=party&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>开始时间：</td>
+						<td>
+							<input type="text"  class="w150"  name="stime" id="stime" value="{$data.stime}">
+						</td>
+						
+					</tr>
+					<tr>
+						<td>限制人数：</td>
+						<td>
+							<input class="w100" type="text" name="max_num"  value="{$data.max_num}"> 人
+							<span class="mgl-10">已参与 {$data.join_num} 人</span>
+						</td>
+					</tr>
+					<tr>
+						<td>活动费用：</td>
+						<td>
+							<input type="text" class="w150"  name="money"  value="{$data.money}">
+							<span class="mgl-5 cl2">元</span>
+						</td>
+						
+					</tr>
+					<tr>
+						<td>支付类型：</td>
+						<td>
+						<input type="radio"  class="radio"  name="retype" {if $data.retype==0}checked{/if}  value="0"> 线下支付
+						<input type="radio" class="radio"   name="retype" {if $data.retype==1}checked{/if}  value="1"> 在线支付
+						</td> 
+					</tr>
+					<tr>
+						<td>联系人：</td>
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+					</tr>
+					<tr>
+						<td>电话：</td>
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+					</tr>
+					<tr>
+						<td>地址：</td>
+						<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+					</tr>
+					 
+					<tr>
+						<td>createtime：</td>
+						<td>{$data.createtime}</td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+					 
+					<tr>
+						<td>内容：</td>
+						<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		{php loadEditor();}
+		
+		<script language="javascript">
+		 
+		var editor=UE.getEditor('content',options)
+		</script>
+	</body>
+</html>

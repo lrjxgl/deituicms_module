@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title>{$seo.title}</title>
+		<link href="//at.alicdn.com/t/font_811242_4k6v9f174g7.css" rel="stylesheet">
+		<link href="/plugin/dt-ui/dt-ui-h5.css" rel="stylesheet">
+	</head>
+	<body>
+
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<div class="header-title">微投票</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="flexlist">
+			{foreach item=c from=$data}
+			<div class="flexlist-item">
+				<a href="/module.php?m=vote&a=home&id={$c.id}">
+					<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" />
+				</a>
+				<div class="flex-1">
+					<a class="flexlist-title" href="/module.php?m=vote&a=home&id={$c.id}">{$c.title}</a>
+					<div class="flexlist-desc">
+						{$c.description}
+					</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		<script src="/plugin/jquery/jquery.js"></script>
+			<script src="/plugin/dt-ui/dt-ui-h5.js"></script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}ershou_order/index.css" rel="stylesheet"  />
+	<body>
+		<div class="shd">{$label}</div> 
+		<div class="main-body" id="app" v-if="pageLoad">
+			 
+			
+			 
+			<div class="morderlist" id="list">
+				<div v-if="pageData.list.length==0" class="emptydata">暂无订单</div>
+				<div v-else>
+				<div class="row-box mgb-5" v-for="(item,index) in pageData.list" :key="index">
+					<div class="flex bd-mp-5">
+						<div class="flex-1 cl-num">{{item.status_name}}</div>
+						<div class="cl3 f12">{{item.timeago}}</div>
+					</div>
+					<div class="flexlist-item" @click="goProduct(item.fsid)">
+						<img class="flexlist-img" :src="item.ershou.imgurl+'.100x100.jpg'"/>
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.ershou.title}}</div>
+							<div class="cl2 mgb-5">{{item.kstitle}}</div>
+							<div class="cl-money">￥{{item.money}}</div>
+						</div>
+					</div>
+					<div v-if="item.sendtype==1" class="mgb-5">
+	    			 
+	    				<div class="cl3">联系人：{{item.nickname}}</div>
+	    				<div class="cl3">联系电话：{{item.telephone}}</div>
+	    				<div class="cl3">收货地址：{{item.address}}</div>
+	    			</div>
+					<div class="flex flex-center">
+						 
+						<div @click="goDetail(item.orderid)" class="btn-small btn-outline-primary">订单详情</div>
+					</div>
+					 	
+				</div>
+				</div>
+			</div>
+			<div class="loadMore"  v-if="pageData.per_page>0" @click="loadMore">加载更多</div>
+			 
+		</div>
+	 
+	{include file="footer.html"}
+	 <script src="/plugin/vue/vue.min.js"></script>
+	 <script src="{$skins}ershou_order/index.js"></script>
+	</body>
+
+</html>

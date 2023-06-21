@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">{$typename}</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+	
+   <td>产品</td>
+   <td>活动</td>
+   <td>联系人</td>
+   
+   <td>
+	   状态
+   </td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr class="js-item">
+   <td>{$c.orderid}</td>
+   
+   <td>{$c.product.title}</td>
+   <td>{$c.event.title}</td>
+   <td>{$c.nickname}</td>
+    
+   <td>{$c.status_name}</td>
+<td> 
+<a href="/moduleadmin.php?m=bzy_order&a=show&orderid={$c.orderid}">查看</a>
+{if $c.status==0}
+<a class="js-delete pointer" url="/moduleadmin.php?m=bzy_order&ajax=1&a=delete&orderid={$c.orderid}">删除</a>
+{/if}
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

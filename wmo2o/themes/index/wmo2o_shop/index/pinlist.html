@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">大家都在拼</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="list">
+				{foreach item=c from=$pts}
+				<div class="row-box mgb-5">
+					<div class="flex flex-ai-center mgb-5">
+						<img class="wh-30 mgr-5 bd-radius-50" src="{$c.user.user_head}.100x100.jpg" />
+						<div class="mgr-5">{$c.user.nickname}</div>
+						<div class="cl3 f12 js-timego" v="{$c.timego}">剩余 00：50：10 </div>
+					</div>
+					<div class="flex">
+						<img class="wh-60 mgr-10" src="{$c.product.imgurl}.100x100.jpg">
+						<div class="flex-1 flex-jc-bettwen">
+							<div class="cl2">{$c.product.title}</div>
+							<div class="flex">
+								<div class="cl-money f12">￥</div>
+								<div class="f14 cl-money mgr-5">{$c.product.pt_price}</div>
+								<div class="cl3 f12">已拼{$c.product.buy_num}件</div>
+								<div class="flex-1"></div>
+								<div gourl="/module.php?m=pdd_product&a=show&id={$c.productid}&orderid={$c.orderid}" class="btn-small">参与拼团</div>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var $objs=$(".js-timego");
+			var times=Array();
+			for(var i=0;i<$objs.length;i++){
+				var $obj=$objs.eq(i);
+				var html="";
+				var atime=parseInt($obj.attr("v"));
+				console.log(atime)
+				times.push(atime);
+			}
+			var timeLeft=function(){
+				for(var i=0;i<$objs.length;i++){
+					atime=times[i];
+					times[i]-=1;
+					if(atime<=0){
+						html="已结束";
+					}else{
+						if(atime>3600){
+							var h=parseInt(atime/3600);
+							var m=parseInt((atime-h*3600)/60);
+							var s=atime%60;
+							var t=h+":"+m+":"+s;
+						}else if(atime>60){
+							var m=parseInt(atime/60);
+							var s=atime%60;
+							var t="00:"+m+":"+s;
+						}else{
+							t=atime;
+						}
+						
+						html="还剩"+t;
+					}
+					$objs.eq(i).html(html);
+				}
+				console.log(atime)
+				setTimeout(timeLeft,1000);
+			}
+			timeLeft();
+		</script>
+	</body>
+</html>

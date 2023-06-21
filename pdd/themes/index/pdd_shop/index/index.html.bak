@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}pdd_shop/index/index.css" rel="stylesheet" />
+	<body>
+		<div style="position: fixed;left:0px; right: 0px;">
+		<div class="header-back-fixed goBack"></div>
+		<div class="header-fixtop-right">
+			<div class="header-fixtop-icon pointer icon-search none"></div>
+			<div class="header-fixtop-icon pointer icon-like shop-fav-toggle {if $isfav}shop-fav-active{/if}" tablename="mod_pdd_shop" objectid="{$shop.shopid}"></div>
+			<div id="header-more-btn" class="header-fixtop-icon pointer icon-more_light"></div>
+		</div>
+		<div class="modal-group" id="header-more-box">
+			<div class="modal-mask"></div>
+			<div class="header-fixtop-menu">
+				<div class="row-item-text pointer"><div class="row-item-icon icon-share"></div>分享店铺</div>
+				<div gourl="/module.php?m=pdd_report&a=add&shopid={$shop.shopid}" class="row-item-text pointer"><div class="row-item-icon icon-warn_light"></div>举报商家</div>
+			</div>
+		</div>
+		<div style="height: 20px; background-color: #ed6d53;"></div>
+		<div class="wshop">
+			<div class="wshop-logo">
+				<img class="wshop-logo-img" src="{$shop.imgurl}.100x100.jpg">
+			</div>
+			<div class="flex-1">
+				<div class="wshop-shopname">{$shop.shopname}</div>
+				<div class="wshop-welcome mgb-10">欢迎光临，很高兴为你服务</div>
+				<div class="flex">
+					<div class="cl-white mgr-20">月销 {$shop.month_buy_num}笔</div>
+					<div class="cl-white mgr-20">评价 {$shop.raty_grade}分</div>
+					<div class="cl-white pointer js-coupon-btn flex"><div class="iconfont icon-ticket cl-white">&nbsp;</div>优惠券</div>
+				</div>
+				
+			</div>
+
+		</div>
+		</div>
+		<div style="height: 163px;"></div>
+		<div class="modal-group" id="modal-coupon">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header">
+					<div class="modal-title">优惠券</div>
+					<div class="modal-close icon-close"></div>
+				</div>
+				<div class="modal-body">
+					<div class="flex">
+						{if $couponList}
+						{foreach item=c from=$couponList}
+						<div class="btn-small">{$c.title}</div>
+						{/foreach}
+						{else}
+						<div class="emptyData">暂无优惠券</div>
+						{/if}
+					</div>
+				</div>
+			</div>
+		</div>	
+		
+		<div id="App" style="display: none;" :style="'display:block;'" v-if="pageLoad">
+			<div style="position: fixed; left: 0;right: 0; top:120px;">
+			<div class="tabs-border mgb-5">
+				<div @click="setPage('product')" :class="{'tabs-border-active':page=='product'}" class="tabs-border-item ">产品分类</div>
+				<div @click="setPage('raty')" :class="{'tabs-border-active':page=='raty'}" class="tabs-border-item">商家评价</div>
+				<div @click="setPage('detail')" :class="{'tabs-border-active':page=='detail'}" class="tabs-border-item">商家信息</div>
+			</div>
+			</div>
+			<div class="page" v-if="page=='product'" id="page-product">
+
+				<div class="side">
+					<div :class="{'side-menu-active':catid==0}" @click="setCat(0)" class="side-menu">全部</div>
+					<div :class="{'side-menu-active':catid==item.catid}" @click="setCat(item.catid)" v-for="(item,index) in pageData.catList"
+					 :key="index" class="side-menu">{{item.title}}</div>
+
+
+				</div>
+				<div class="side-main">
+					<div v-for="(item,index) in pageData.list" class="flexlist-item">
+						<img @click="goProduct(item.id)" class="flexlist-img" :src="item.imgurl+'.100x100.jpg'">
+						<div class="flex-1">
+							<div @click="goProduct(item.id)" class="flexlist-title pointer">{{item.title}}</div>
+							<div class="flex mgb-5">
+								<div class="flex-1 cl3">库存 {{item.total_num}}</div>
+								<div class="cl3">已售 {{item.buy_num}}</div>
+							</div>
+							<div class="flex">
+								<div class="flex-1"></div>
+								<div v-if="item.isksid>0">
+									<div @click="ksBox(item.id)" class="btn-mini  btn-outline-success">选规格</div>
+								</div>
+								<div class="pdb-5" v-else>
+
+									<div v-if="item.incart" class="numbox prolist-numbox">
+										<div @click="minusCart(item.id,item.cart_amount)" class="numbox-minus">-</div>
+										<input type="text" name="amount" :value="item.cart_amount" class="numbox-num" />
+										<div @click="plusCart(item.id,item.cart_amount)" class="numbox-plus">+</div>
+									</div>
+									<div @click="addCart(item.id)" class="btn-buy   iconfont icon-cart" v-else></div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<div v-if="ksShow">
+						<div class="modal-mask" @click="ksHide"></div>
+						<div class="modal">
+							<div class="modal-header">
+								<div class="modal-title">选择款式</div>
+								<div class="modal-close icon-close" @click="ksHide"></div>
+							</div>
+							<div class="modal-body pdt-10">
+								<div class="ksBox mgb-10">
+									<div class="kslist mgb-10">
+										<div class="kslist-label">{{ksproduct.ks_label_name}}</div>
+										<div @click="ks1(item.id)" v-bind:class="{'kslist-active':item.id==ksid1}" class="kslist-item" v-for="(item,index) in ksList"
+										 :key="index">{{item.title}}</div>
+									</div>
+									<div class="kslist">
+										<div class="kslist-label">{{ksproduct.ks_label_size}}</div>
+										<div class="kslist-item" @click="ks2(item.id)" v-bind:class="{'kslist-active':item.id==ksid}" v-for="(item,index) in ksList2"
+										 :key="index">{{item.size}}</div>
+									</div>
+								</div>
+								<div class="flex">
+									<div class="cl2 mgr-10 mgl-10">价格</div>
+									<div class="cl-money">￥{{ksproduct.price}}</div>
+									<div class="flex-1"></div>
+									<div v-if="ksproduct.incart" class="numbox prolist-numbox">
+										<div @click="ksMinusCart(ksproduct.id,ksproduct.cart_amount)" class="numbox-minus">-</div>
+										<input type="text" name="amount" :value="ksproduct.cart_amount" class="numbox-num" />
+										<div @click="ksPlusCart(ksproduct.id,ksproduct.cart_amount)" class="numbox-plus">+</div>
+									</div>
+									<div @click="ksAddCart(ksproduct.id)" class="btn-buy iconfont icon-cart" v-else></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="footer-row"></div>
+					<div class="footerBox pd-5">
+						<div @click="goGuest" class=" w60 pointer flex-center mgr-5">
+							<div class="iconfont icon-service cl-primary f18"></div>
+							<div class="f12">客服</div>
+						</div>
+						<div v-if="pageData.cart_total_num==0" class="flex-1 flex">
+							<div class="cl2">暂无商品，快去选购吧</div>
+						</div>
+						<div class="flex-1" v-if="pageData.cart_total_num>0">
+							<div class="cl-money">￥{{pageData.cart_total_money}}</div>
+							<div>运费金额 ￥{{pageData.express_money}}</div>
+						</div>
+						<div v-if="pageData.cart_total_num>0" class="btn" onclick="window.location='/module.php?m=pdd_order&a=confirm&shopid={$shop.shopid}'">去结算</div>
+					</div>
+				</div>
+			</div>
+			<div class="page" id="page-raty" v-if="page=='raty'">
+				<div v-if="ratyPage.ratyList.length==0" class="emptyData">暂无评价</div>
+				<div v-else>
+					<div class="flexlist-item flex-ai-center">
+						<img class="flexlist-img" :src="ratyPage.shop.imgurl+'.100x100.jpg'" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{ratyPage.shop.shopname}}</div>
+							<sky-raty len="5" groupclass="" mod="2" label="综合" readonly="1" :grade="ratyPage.shop.raty_grade"></sky-raty>
+							<sky-raty len="5" groupclass="" mod="2" label="产品" readonly="1" :grade="ratyPage.shop.raty_grade_product"></sky-raty>
+							<sky-raty len="5" groupclass="" mod="2" label="物流" readonly="1" :grade="ratyPage.shop.raty_grade_express"></sky-raty>
+						</div>
+					</div>
+					<div v-for="(item,index) in ratyPage.ratyList" :key="index" class="bg-white pd-10 flex mgb-5">
+						<img class="wh-60 mgr-10" :src="item.user_head+'.100x100.jpg'">
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="flex-1">{{item.nickname}}</div>
+								<div class="cl3"> {{item.timeago}}</div>
+							</div>
+							<sky-raty len="10" readonly="1" label="评价" :grade="item.raty_service"></sky-raty>
+							<div class="cl2">{{item.content}}</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="page" id="page-raty" v-if="page=='detail'">
+				<div class="row-box">
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-location_light"></div>
+						<div class="flex-1">{{detailPage.shop.address}}</div>
+					</div>
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-time"></div>
+						<div class="flex-1">{{detailPage.shop.yystart}}-{{detailPage.shop.yyend}}</div>
+					</div>
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-selection"></div>
+						<div class="flex-1">
+							<div class="cl1">证件信息</div>
+
+						</div>
+					</div>
+					<div class="sglist-imglist mgb-10">
+						<img v-for="(item,index) in detailPage.zzimgsdata" :key="index" class="sglist-imglist-img" :src="item+'.100x100.jpg'">
+
+					</div>
+					<div class="row-item-text ">
+						<div class="row-item-icon icon-read"></div>
+						<div class="flex-1">公司简介</div>
+					</div>
+					<div class="pdl-10 pdr-10">
+						{{detailPage.shop.content}}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{include file="footer.html"}
+		<script>
+			var shopid = "{$shop.shopid}";
+		</script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}pdd_shop/index/index.js"></script>
+
+	</body>
+</html>

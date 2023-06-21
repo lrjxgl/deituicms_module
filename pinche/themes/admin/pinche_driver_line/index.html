@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='pinche_driver_line/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>司机</td>
+   <td>线路</td>
+   <td>freetime</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.driverid}</td>
+   <td>{$c.lineid}</td>
+   <td>{$c.freetime}</td>
+   <td>{$c.status}</td>
+<td><a href="/moduleadmin.php?m=pinche_driver_line&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=pinche_driver_line&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=pinche_driver_line&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

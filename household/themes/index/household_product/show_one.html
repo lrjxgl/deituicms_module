@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}/household_product/show.css?2" rel="stylesheet" />
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<style>
+		.kslist{
+			overflow: auto;
+		}
+		.kslist-item{
+			padding:  6px 10px;
+			cursor: pointer;
+		}
+		.kslist-active{
+			border: 1px solid #1da36b;
+			
+			border-radius: 10px;
+		}
+		.wx-share-guide{
+			position: fixed;
+			right: 0;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			z-index: 999;
+			background-color: #333;
+			opacity: .8;
+			text-align: right;
+			display: none;
+		}
+		.wx-share-guide-img{
+			position: absolute;
+			right: 0;
+			top: 10px;
+			width: 200px;
+		}
+	</style>
+	<body>
+		 
+		<div class="d-fixTop">
+			<div url="/module.php?m=household" class="d-fixTop-back iconfont icon-back goBack"></div>
+			<div class="flex-1"></div>
+			
+			<div></div>
+		</div>
+		
+		
+		<div class="main-body">
+			{if $data.videourl}
+			<div class="flex flex-ai-center">
+				<video src="{$data.videourl}" autoplay="autoplay"  x5-playsinline="" playsinline="" webkit-playsinline=""  controlsList="nodownload" controls style="width: 100%;"></video>
+			</div>
+			
+			{elseif !empty($imgsdata)}
+			 
+			<div>
+				<div class="swiper-container id="indexFlash">
+					<div class="swiper-wrapper" >
+						{foreach item=c from=$imgsdata}
+						<div class="swiper-slide">
+							<img class="wmax"src="{$c}" /> 
+							
+						</div>
+						{/foreach}
+					</div>
+					 
+					<div class="swiper-pagination flex flex-jc-center"></div>
+				 
+				</div>
+			</div> 
+			{else}
+			<image src="{$data.imgurl}" class="d-img"></image>
+			{/if}
+			<div class="row-box mgb-5">
+				<div class="d-title mgb-10">{$data.title}</div>
+				
+				 
+			</div>
+			{if $data.isksid}
+			<div class="row-box mgb-5 kslist" id="ks1">
+				{foreach item=c from=$ksList}
+				<div class="kslist-item" v="{$c.id}">
+					<div>{$c.title}</div>
+					<div class="cl-money">￥{$c.price}</div>
+				</div>
+				{/foreach}
+			</div>
+			{else}
+			<div class="row-box">
+				<div class="flex mgb-10 flex-ai-center">
+					<div class="cl-money mgr-10 f18">￥{$data.price}</div>
+					<div class="market-price f12">￥{$data.market_price}</div>
+				</div>
+				<div class="flex">
+					<div class="mgr-10 f14 cl-red">*服务区域</div>
+					<div class="flex-1 f14 cl2 cl-red">{$data.addr}</div>
+				</div>
+			</div>
+			{/if}
+			
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="flex flex-1">
+						<div class="yes"></div>
+						<div class="cl2">官方自营</div>
+					</div>
+					<div class="flex flex-1">
+						<div class="yes"></div>
+						<div class="cl2">优质服务</div>
+					</div>
+					<div class="flex flex-1">
+						<div class="yes"></div>
+						<div class="cl2">平台监管</div>
+					</div> 
+				</div>
+			</div>
+			<div class="row-box">
+				<div class="tabs-border-group">
+					<div class="tabs-border mgb-10">
+						<div class="tabs-border-item tabs-border-active js-tabs-border-item">服务内容</div>
+						<div class="tabs-border-item js-tabs-border-item">费用说明</div>
+						<div class="tabs-border-item js-tabs-border-item">用户评价</div>
+					</div>
+					<div class="tabs-border-box tabs-border-box-active">
+						<div class="d-content">{$data.content}</div>
+						<div class="row-box mgb-5 {if !$fieldsList}none{/if}">
+							
+							{if $fieldsList}
+							<div class="flex flex-ai-center  pointer" id="attBox-show">
+								<div class="mgr-5 cl3">参数</div>
+								<div class="flex-1 f12">
+								{foreach from=$fieldsList name=aa index=k item=f}
+									{if $smarty.foreach.aa.index lt 2}
+									{$f["title"]}					
+									{/if}
+								{/foreach}
+								</div>
+								<div class="iconfont icon-right f14 cl3"></div>
+							</div> 
+							{/if}
+						
+						</div>
+						
+					</div>
+					<div class="tabs-border-box">
+						<div class="d-content">{$data.fysm}</div>
+						
+					</div>
+					<div class="tabs-border-box">
+						<div class="row-box mgb-5 none" :class="'flex-col'" id="cmApp" >
+							<div v-if="rscount>0">
+								<div class="flex mgb-10" gourl="/module.php?m=household_product&a=raty&id={$data.id}">
+									
+									<div class="cl2">商品评价 ({{rscount}})</div>
+									<div class="flex-1"></div>
+									<div class="f12 cl-money">查看全部</div>
+									<div class="iconfont cl-money icon-right f14 cl3"></div>
+								</div>
+								
+								<div class="bd-mp-5" v-for="(item,index) in list" :key="index" >
+									<div class="flex mgb-5 flex-ai-center">
+										<img :src="item.user_head+'.100x100.jpg'" class="wh-30 mgr-5" />
+										<div class="flex-1">
+											<div class="f12 mgb-5 cl3">{{item.nickname}}</div>
+											<sky-raty style="margin-left: -10px;margin-bottom: 5px;" readonly="1" len="10" :grade="item.raty_grade"></sky-raty>
+										
+											<div class="cl1 f12">
+												
+												{{item.raty_content}}
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+							<div class="emptyData" v-else>暂无评价</div>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+			</div>	
+			
+			 
+			 
+		</div>
+		 
+		<style>
+			.btn-fav-active .iconfont,.btn-fav-active {
+				color: red !important;
+			}
+			.fnone{
+				display: none;
+			}
+		</style>
+		<div class="h60"></div>
+		<div class="flcart">
+			<div gourl="/index.php?m=kefu" class="flcart-f1 cl2">
+				<div class="flcart-icon iconfont icon-service_light cl2"></div>
+				客服
+			</div>
+			<div  class="flcart-f1 js-share-btn cl2">
+				<div class="flcart-icon iconfont icon-share cl2"></div>
+				分享
+			</div> 
+			<div class="flcart-f2 flcart-f3 " id="goBuy" goBuy="1">立即下单</div>
+		</div>
+		<div class="wx-share-guide">
+			 <img src="/static/images/wx_guide.png" class="wx-share-guide-img" />
+		</div>
+		<div id="ppBox" class="modal-group ">
+			<div class="modal-mask"></div>
+			 
+			<div class="ppBox ani-bottom">
+				<div id="ppBox-close" class="ppBox-close iconfont icon-close"></div>
+				<div class="flex flex-jc-center mgb-10">
+					<img class="wh-80 mgr-10" src="{$data.imgurl}.100x100.jpg" />
+					<div class="flex-1 flex-jc-center">
+						<div class="cl-money mgb-5" id="price">￥{$data.price}</div>
+						 
+					</div>
+				</div>
+				{if $data.isksid}
+				<div class="kslist-label mgb-5">{$data.ks_label_name}</div>
+				<div id="ks1" class="kslist bd-mp-10 pdl0">
+					
+					{foreach item=c from=$ksList}
+					<div class="kslist-item" v="{$c.id}">{$c.title}</div>
+					{/foreach}
+				
+				</div>
+				<div class="kslist-label mgb-5">{$data.ks_label_size}</div>
+				<div id="ks2" class="kslist bd-mp-10 pdl0">
+					
+					<div class="flex kslist-list ">
+						{foreach item=c from=$ksList2}
+						<div class="kslist-item" v="{$c.id}">{$c.size}</div>
+						{/foreach}
+					</div>
+				</div>
+				{/if}
+				<div class="flex flex-ai-center bd-mp-10">
+					<div class="f14">购买数量</div>
+					<div class="flex-1"></div>
+					<div class="numbox">
+						<div class="numbox-minus">-</div>
+						<input class="numbox-num" id="cart-amount" readonly="" value="{$cart_amount}" />
+						<div class="numbox-plus">+</div>
+					</div>
+				
+				</div>
+				<div class="btn-row-submit" id="addCart">确定</div>
+			</div>
+		</div>
+		
+		<div id="attBox" class="modal-group">
+			<div class="modal-mask"></div>
+			<div class="ppBox ani-bottom">
+				<div class="text-center mgb-10">产品参数</div>
+				{include file="household_product/tablefields.html"}
+				<div class="btn-row-submit" id="attBox-close">关闭</div>
+			</div>	
+		</div>
+		
+		
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function(){
+				if($("#indexFlash .swiper-slide").length>0){
+					var flash = new Swiper("#indexFlash", {
+						pagination: {
+							el: '.swiper-pagination',
+						}
+					});
+				}else{
+					$("#indexFlash").hide();
+				}
+				
+			})
+			$(document).on("click",".js-share-btn",function(){
+				$(".wx-share-guide").show();
+			})
+			$(document).on("click",".wx-share-guide",function(){
+				$(".wx-share-guide").hide();
+			})
+		</script>
+		<script>
+			var ksid = "{$ksid}";
+			var productid = "{$data.id}";
+			
+		</script>
+		<script src="{$skins}/household_product/show.js?v=2"></script>
+ 
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}household_product/show.comment.js?v2"></script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+	</body>
+</html>

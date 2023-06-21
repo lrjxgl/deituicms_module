@@ -1,0 +1,14 @@
+<?php
+$config=array(
+	"title"=>"在线课程",//模块名称
+	"module"=>"book",//模块目录
+ 	"version"=>2.0,//当前版本
+	"info"=>"在线课程是一款可以付费购买的线上课程应用",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"cat_tpl"=>"",
+	"list_tpl"=>"",
+	"show_tpl"=>"",
+	"adminurl"=>"/moduleadmin.php?m=book&a=amenu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

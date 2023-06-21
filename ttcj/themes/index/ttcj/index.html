@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">天天抽奖</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="flexlist mgt-5">
+    	{foreach item=c from=$data}
+    	<a class="flexlist-item" href="/module.php?m=ttcj&a=show&cjid={$c.cjid}">
+	    	 
+	    		<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg" />
+	     
+	    	<div class="flex-1">
+	    		<div class="flexlist-title">{$c.title}</div>
+	    		<div class="flex flex-ai-center cl2">
+	    			截止时间：<span class="cl2 f12">{$c.endtime}</span>
+	    		</div>
+	    		<div class="flexlist-desc">
+	    			{$c.description}
+	    		</div>
+	    	</div>
+    	</a>
+    	{/foreach}
+    </div> 
+	<div>{$pagelist}</div>
+ 
+</div>
+
+{assign var="mfooter" value="index"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+</body>
+</html>

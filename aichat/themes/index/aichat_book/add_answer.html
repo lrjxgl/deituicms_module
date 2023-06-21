@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑章节</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<textarea class="textarea-flex-text mgb-10" id="answer">{$data.answer}</textarea>
+				<div class="flex flex-center">
+					<div id="save" class="btn-small mgr-10">保存章节</div>
+					<div id="create" class="btn-small mgr-10">生成文章</div>
+				</div>
+			</div>
+			
+			
+			
+		</div>
+		{include file="footer.html"}
+		<script>
+			var bookid="{$data.bookid}"
+			$(function(){
+				$(document).on("click","#save",function(){
+					var that=this;
+					$.ajax({
+						url:"/module.php?m=aichat_book&a=answersave&ajax=1",
+						dataType:"json",
+						type:"POST",
+						data:{
+							bookid:bookid,
+							answer:$("#answer").val(),
+							create_article:0
+						},
+						success:function(res){
+							skyToast(res.message)
+						}
+					})
+				})
+				$(document).on("click","#create",function(){
+					var that=this;
+					$.ajax({
+						url:"/module.php?m=aichat_book&a=answersave&ajax=1",
+						dataType:"json",
+						type:"POST",
+						data:{
+							bookid:bookid,
+							answer:$("#answer").val(),
+							create_article:1
+						},
+						success:function(res){
+							skyToast(res.message)
+						}
+					})
+				})
+			})
+			
+		</script>
+	</body>
+</html>

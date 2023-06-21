@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_recycle_shop/nav.html'}
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>店名</td>
+  
+  
+   <td>地址</td>
+    
+   <td>手机</td>
+   <td>店主</td>
+ 
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+ 
+   <td>{$c.address}</td>
+   
+   <td>{$c.telephone}</td>
+   <td>{$c.nickname}</td>
+  
+   <td>{$c.status}</td>
+<td><a href="/moduleadmin.php?m=gread_recycle_shop&a=add&id={$c.id}">编辑</a> 
+<a href="/module.php?m=gread_recycle_shop&a=show&id={$c.id}" target="_blank">查看</a>
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=gread_recycle_shop&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">分类</div>
+		</div>
+		<div class="header-row"></div>
+		<style>
+			.side{
+				position: fixed;
+				left: 0;
+				top:50px;
+				bottom:50px;
+				overflow: auto;
+				width:80px;
+				background-color: #fff;
+			}
+			.sideItem{
+				padding: 8px 10px;
+				cursor: pointer;
+				text-align: center;
+			}
+			.sideItem-active{
+				background-color: #f2f2f2;
+				border-left: 5px solid #f60;
+				color: #F01A61;
+			}
+			.main{
+				flex: 1;
+				position: relative;
+				margin-left: 90px;
+			}
+			.catBox{
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				background: #fff;
+				border-radius: 10px;
+				padding: 5px;
+			}
+			.catItem{
+				width:33%;
+				box-sizing: border-box;
+				padding: 5px;
+				cursor: pointer;
+			}
+			.catItem-img{
+				width:50px;
+				height: 50px;
+				border-radius: 50px;
+				margin-bottom: 5px;
+			}
+			
+		</style>
+		<div class="flex none" :class="'flex'" id="App">
+			<div class="side">
+				 
+				<div :class="pid==item.industryId?'sideItem-active':''" @click="setPid(item.industryId)" class="sideItem" v-for="(item,index) in industryList" :key="index">{{item.industryName}}</div>
+				 
+			</div>
+			<div class="main">
+				<div v-for="(item,index) in moduleList" :key="index">
+					<div class="fwb pd-10">{{item.title}}</div>
+					<div class="catBox">
+						<div @click="goDetail(cat.catmap,cat.search_name)" class="catItem"  v-for="(cat,catindex) in item.items" :key="catindex">
+							<img class="catItem-img" :src="cat.pic" />
+							<div class="catItem-title">{{cat.show_name}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="category"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}taoke_search/category.js"></script> 
+	</body>
+</html>

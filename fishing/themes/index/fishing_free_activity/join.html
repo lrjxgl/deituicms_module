@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">参与用户</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="emptyData" v-if="list.length==0">暂无参与用户</div> 
+			<template v-else>
+			<div v-for="(item,index) in list" :key="index" class="flex flex-ai-center row-box mgb-5">
+				<img :src="item.user_head+'.100x100.jpg'" class="w50 mgr-5 bd-radius-50" />
+				<div class="flex-1">
+					<div class="cl2 mgb-5">{{item.nickname}}</div>
+					<a class="cl-primary" :href="'tel:'+item.telephone">{{item.telephone}}</a>
+				</div>
+				 
+				<div class="cl-info" v-if="item.ischeck">已签到</div>
+				 
+				<div @click="checkin(item)" v-else class="btn-mini">签到</div>
+				 
+			</div>
+			</template> 
+		</div>
+		{include file="footer.html"}
+		<script>
+			var  actid="{$actid}"
+		</script>
+		<script src="{$skins}fishing_free_activity/join.js"></script>
+	</body>
+</html>

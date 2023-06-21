@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.cmhead {
+			width: 30px;
+			border-radius: 50%;
+			margin-right: 5px;
+		}
+
+		.cmText {
+			width: 100%;
+			padding: 8px 30px 8px 15px;
+			box-sizing: border-box;
+			border: 0;
+			outline: 0;
+			background-color: #fafafa;
+			border-radius: 20px;
+		}
+
+		.cmForm {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			z-index: 999;
+		}
+
+		.cmEmo {
+			width: 20px;
+			height: 20px;
+			border-radius: 50%;
+			margin-right: 10px;
+		}
+
+		.zbtn {
+			cursor: pointer;
+			padding: 5px 10px;
+			border-radius: 20px;
+			background-color: #ffe71a;
+			color: #666;
+			font-family: fangsong;
+			font-weight: 600;
+		}
+
+		.btn-follow {
+			border: 1px solid #ddd;
+			padding: 3px 10px;
+			border-radius: 20px;
+			margin-right: 10px;
+			font-weight: 600;
+		}
+		.btn-follow-active{
+			background-color: #ffe71a;
+		}
+	</style>
+	<body>
+		<div id="App">
+			<div class="header">
+				<div class="header-back pos-relative"></div>
+				<img :src="data.user_head+'.100x100.jpg'" style="width: 30px;border-radius: 50%;margin-right: 6px;" />
+				<div>{{data.nickname}}</div>
+				<div class="flex-1"></div>
+				<div @click="followToggle()"  v-if="isFollow" class="btn-follow  btn-follow-active"> 已关注</div>
+				<div @click="followToggle()" v-else class="btn-follow"> + 关注</div>
+				<div class="iconfont icon-more_light f20 mgr-10"></div>
+			</div>
+			<div class="header-row"></div>
+			<div class="main-body">
+				<div class="row-box mgb-5">
+					<div class="mgb-5">
+						<img v-for="(im,imIndex) in data.imgsdata" :key="imIndex" :src="im" class="wmax" />
+
+					</div>
+					<div v-html="data.content"></div>
+
+				</div>
+				<div v-if="Object.keys(openData).length>0" class="row-box mgb-5">
+					<div class="flex flex-ai-center">
+						<div class="flex-1">{{openData.description}}</div>
+						<div :gourl="'/module.php?m=ershou_product&a=show&productid='+openData.productid">
+							<div class="cl-money mgb-5">￥{{openData.price}}</div>
+							<div class="cl-primary">去看看</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<div v-if="data.gid>0" class="row-box">
+					<div class="flex flex-ai-center" style="background-color: #fafafa;padding:10px;">
+						<img class="w50" :src="group.glogo+'.100x100.jpg'" />
+						<div class="flex-1 mgl-10">
+							<div class="mgb-5">{{group.gname}}</div>
+							<div class="cl3">{{group.user_num}}人在交流</div>
+						</div>
+						<div @click="goGroup(group.gid)" class="zbtn mgl-10" style="">进圈子</div>
+					</div>
+				</div>
+				<div class="row-box">
+					<div class="cl3 mgb-10">{{data.timeago}}</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div class="iconfont none icon-forward"></div>
+						<div class="flex-1"></div>
+						<div :class="isFav?'cl-red':''" class="iconfont icon-favor_light"></div>
+						<div @click="favToggle()" :class="isFav?'cl-red':''" class="mgr-20 cl3 f12">{{data.fav_num}}
+						</div>
+						<div class="iconfont icon-comment_light"></div>
+						<div class="mgr-20 cl3 f12">{{data.comment_num}}</div>
+						<div :class="isLove?'cl-red':''" class="iconfont icon-appreciate"></div>
+						<div @click="loveToggle()" :class="isLove?'cl-red':''" class="cl3 f12">{{data.love_num}}</div>
+					</div>
+
+					<div class="bdb mgb-20"></div>
+					<div class="mgb-20 fw-600">全部评论·{{data.comment_num}}</div>
+					<div>
+						<div v-for="(cm,index) in cmList" :key="index" class="flex flex-ai-start">
+							<img :src="cm.user_head+'.100x100.jpg'" class="cmhead" />
+							<div class="flex-1">
+								<div class="flex mgb-5">
+									<div class="mgr-10">{{cm.nickname}}</div>
+									<div class="tag">作者</div>
+								</div>
+								<div @click="showForm(cm.id)" class="mgb-10" v-html="cm.content"></div>
+								<div v-if="cm.imgurl!=''">
+									<image mode="widthFix" class="max" :src="cm.imgurl+'.small.jpg'"></image>
+								</div>
+								<div class="f12 mgb-10">{{cm.timeago}}</div>
+								<!--回复列表-->
+								<div v-if="cm.child && Object.keys(cm.child).length>0">
+									<div v-for="(cc,ii) in cm.child" :key="ii" class="flex flex-ai-start">
+										<img :src="cc.user_head+'.100x100.jpg'" class="cmhead" />
+										<div class="flex-1">
+											<div class="flex mgb-5">
+												<div class="mgr-10">{{cc.nickname}}</div>
+
+											</div>
+											<div @click="showForm(cm.id)" v-html="cc.content" class="mgb-10"></div>
+											<div v-if="cc.imgurl!=''">
+												<image mode="widthFix"  class="max"  :src="cm.imgurl+'.small.jpg'"></image>
+											</div>
+											<div class="f12 mgb-10">{{cc.timeago}}</div>
+										</div>
+										<div  @click="cmLoveToggle(cc)" class="mgl-10">
+											<div class="iconfont icon-appreciate cl3"></div>
+											<div class="cl3">{{cc.love_num}}</div>
+										</div>
+									</div>
+
+								</div>
+
+
+							</div>
+							<div @click="cmLoveToggle(cm)" class="mgl-10">
+								<div class="iconfont icon-appreciate cl3"></div>
+								<div class="cl3">{{cm.love_num}}</div>
+							</div>
+						</div>
+					</div>
+					<!--评论框-->
+					<div>
+						<div class="flex">
+							<input @click="showForm(0)" readonly placeholder="觉得好玩说两句" class="cmText" />
+							<div class="flex" style="margin-left: -30px;">
+								<div class="iconfont icon-appreciate"></div>
+							</div>
+						</div>
+					</div>
+					<div v-if="cmForm">
+						<div @click="cmForm=false" class="modal-mask"></div>
+						<div class="cmForm">
+							<div class="flex pd-10 bg-white">
+								<div @click="cmEmo(emo)" class="cmEmo" v-for="(emo,emoIndex) in emoList" v-html="emo">
+								</div>
+
+							</div>
+							<div v-if="cm_pics.length>0" class="row-box">
+								<div class=" flex">
+									<div v-for="(img,index) in cm_pics" :key="index">
+										<img :src="img.trueimgurl" />
+									</div>
+								</div>
+							</div>
+
+							<div style="padding: 10px; background-color: #fafafa;">
+								<div class="flex flex-ai-center">
+									<input v-model="cm_content"
+										style="flex:1;border:0;outline:0; height: 30px; line-height: 30px; margin-right: 5px;"
+										type="text" placeholder="聊两句呗" />
+									<div @click="clickFile('news-comment-file')" class="iconfont icon-pic f22 mgr-10">
+									</div>
+									<input type="file" id="news-comment-file" name="upimg" class="none"
+										@change="upFile" />
+									<div @click="cmSubmit()" class="zbtn">发送</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script>
+			var id = "{$data.id}";
+		</script>
+		<script src="{$skins}group_title/show.js"></script>
+	</body>
+</html>

@@ -1,0 +1,41 @@
+$(function(){
+	$(document).on("click",".js-pass",function(){
+		var that=$(this);
+		skyJs.confirm({
+			content:"确认通过审核吗",
+			success:function(){
+				$.ajax({
+					url:"/moduleadmin.php?m=ershou_product&a=pass&ajax=1",
+					dataType:"json",
+					data:{
+						productid:that.attr("productid")
+					},
+					success:function(res){
+						skyToast(res.message)
+						that.parents("tr").remove()
+					}
+				})
+			}
+		})
+	})
+	
+	$(document).on("click",".js-forbid",function(){
+		var that=$(this);
+		skyJs.confirm({
+			content:"确认审核不通过吗",
+			success:function(){
+				$.ajax({
+					url:"/moduleadmin.php?m=ershou_product&a=forbid&ajax=1",
+					dataType:"json",
+					data:{
+						productid:that.attr("productid")
+					},
+					success:function(res){
+						skyToast(res.message)
+						that.parents("tr").remove()
+					}
+				})
+			}
+		})
+	})
+})

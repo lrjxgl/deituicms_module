@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='mdish_product/nav.html'}
+<div class="main-body">
+ <table class="table table-bordered" width="100%">
+  <tr><td>productid：</td><td>{$data.productid}</td></tr>
+  <tr><td>shopid：</td><td>{$data.shopid}</td></tr>
+  <tr><td>title：</td><td>{$data.title}</td></tr>
+  <tr><td>description：</td><td>{$data.description}</td></tr>
+  <tr><td>imgurl：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>view_num：</td><td>{$data.view_num}</td></tr>
+  <tr><td>love_num：</td><td>{$data.love_num}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+  <tr><td>dateline：</td><td>{$data.dateline}</td></tr>
+  <tr><td>grade：</td><td>{$data.grade}</td></tr>
+  <tr><td>imgsdata：</td><td>{$data.imgsdata}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>{include file="head.html" }
+<body>
+<div class="tabs-border">
+	<a class="item {if get('op') eq '' or get('op') eq 'pass'}active{/if}" href="/moduleadmin.php?m=vote_join&vid={$vote.id}&op=pass">已通过</a>
+    <a class="item {if  get('op') eq 'none'}active{/if}" href="/moduleadmin.php?m=vote_join&vid={$vote.id}&op=none">未审核</a>
+    <a class="item {if  get('op') eq 'forbid'}active{/if}" href="/moduleadmin.php?m=vote_join&vid={$vote.id}&op=forbid">已禁止</a>
+</div>
+ 
+ <div class="main-body">
+ {if $vote}
+ <div class="row-box-hd">当前活动：{$vote.title}</div> 
+ {/if}   	
+
+ 
+<table class="table table-bordered" width="100%">
+  <tr>
+   <td>id</td>
+  <td>标题</td>
+   <td>添加时间</td>
+   
+   
+    
+   <td>票数</td>
+   <td>联系人</td>
+   <td>电话</td>
+   <td>状态</td>
+   <td>推荐</td>
+<td>操作</td>
+  </tr>
+ {foreach item=c from=$data}
+<tr class="js-item">
+   <td>{$c.id}</td>
+  <td>{$c.title}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+  
+   
+   <td>{$c.vote_num}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+    <td><div url="/moduleadmin.php?m=vote_join&a=status&id={$c.id}&ajax=1" class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}"></div></td>
+<td>
+	 <div url="/moduleadmin.php?m=vote_join&a=recommend&id={$c.id}&ajax=1" class="js-toggle-status {if $c.isrecommend eq 1}yes{else}no{/if}"></div></td>
+<td> 
+	<a href="/moduleadmin.php?m=vote_join&a=add&vid={$c.vid}&id={$c.id}">编辑</a>
+	<div class="js-delete" url="/moduleadmin.php?m=vote_join&a=delete&ajax=1&vid={$c.vid}&id={$c.id}">删除</div>
+<a href="/module.php?m=vote_join&a=show&id={$c.id}&vid={$c.vid}" target="_blank">查看</a>
+ 
+
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    </div>
+ </div>
+
+{include file="footer.html" } 
+</body>
+</html>
+		

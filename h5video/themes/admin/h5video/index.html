@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='h5video/nav.html'}
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>vid</td>
+						<td>标题</td>
+						<td>状态</td>
+						<td>推荐</td>
+						<td>图片</td>
+						<td>模板</td>
+
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr class="js-item">
+					<td>{$c.vid}</td>
+					<td>{$c.title}</td>
+					<td>
+						<div url="/moduleadmin.php?m=h5video&a=status&ajax=1&vid={$c.vid}" class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}"></div>
+					</td>
+					<td>
+						<div url="/moduleadmin.php?m=h5video&a=recommend&ajax=1&vid={$c.vid}" class="js-toggle-status {if $c.isrecommend eq 1}yes{else}no{/if}"></div>
+					</td>
+					<td>{if $c.imgurl}<img src="{$c.imgurl|images_site}.100x100.jpg" width="50" />{/if}</td>
+					<td>
+						<div url="/moduleadmin.php?m=h5video&a=tpl&ajax=1&vid={$c.vid}" class="js-toggle-status {if $c.istpl eq 1}yes{else}no{/if}"></div>
+					</td>
+
+
+					<td><a href="/moduleadmin.php?m=h5video&a=add&vid={$c.vid}">编辑</a>
+						<a target="_blank" href="/moduleadmin.php?m=h5video&a=design&vid={$c.vid}">设计</a>
+						<br />
+						<a class="pointer js-copy" vid="{$c.vid}">复制一份</a>
+						<a target="_blank" href="/module.php?m=h5video&a=show&vid={$c.vid}">查看</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=h5video&a=delete&ajax=1&vid={$c.vid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click", ".js-copy", function() {
+				var vid = $(this).attr("vid");
+				$.get("/moduleadmin.php?m=h5video&a=copy&ajax=1&vid=" + vid, function(res) {
+					skyToast(res.message);
+				}, "json")
+			})
+		</script>
+	</body>
+</html>

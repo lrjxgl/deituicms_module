@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">优惠券</div>
+		<div class="main-body">
+			{foreach item=c from=$data}
+			<div class="bd-mp-10 js-item">
+				<div class="flex mgb-10">
+					<div class="mgr-10">{$c.title}</div>
+					<div class="cl-status">{$c.status_name}</div>
+				</div>
+				
+				<div class="cl2 f12 mgb-5">
+					金额 {$c.money}元
+					&nbsp;&nbsp;
+					领取 {$c.get_num} 人
+					&nbsp;&nbsp;
+					使用 {$c.use_num} 人
+				</div>
+				<div class="flex flex-ai-center">
+					<div class="cl3 f12">截止时间：{$c.end_day}</div>
+					<div class="flex-1"></div>
+					<div class="btn-small mgr-10 js-delete" url="/moduleadmin.php?m=wmo2o_coupon&a=status&status=2&id={$c.id}">下架</div>
+					<div class="btn-small btn-danger js-delete" url="/moduleadmin.php?m=wmo2o_coupon&a=delete&ajax=1&id={$c.id}">删除</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+
+		{include file="footer.html"}
+	</body>
+</html>

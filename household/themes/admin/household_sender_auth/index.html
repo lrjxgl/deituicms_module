@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('type') eq 'new'}active{/if}" href="{$appadmin}?m=household_sender_auth&type=new">待审</a>
+	<a class="item {if get('type') eq 'pass'}active{/if}" href="{$appadmin}?m=household_sender_auth&type=pass">通过</a>
+	<a class="item {if get('type') eq 'forbid'}active{/if}" href="{$appadmin}?m=household_sender_auth&type=forbid">不通过</a>
+	<a class="item {if get('type') eq 'all'}active{/if}" href="{$appadmin}?m=household_sender_auth">全部</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+ 
+   <td>姓名</td>
+   <td>身份证</td>
+   <td>照片</td>
+   <td>电话</td>
+ 
+ 
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+    
+   <td>{$c.truename}</td>
+   <td>{$c.userno}</td>
+   <td>
+	   <img src="{$c.usercard|images_site}.100x100.jpg" class="w100" />
+   </td>
+   <td>{$c.telephone}</td>
+  
+   
+<td>
+{if $c.status eq 0}	
+<a class="btn-small js-pass" v="{$c.id}">通过</a> 
+ <a  class="btn-small js-forbid" v="{$c.id}">不通过</a>
+ {/if}
+  {if $c.status neq 1}
+	<a href="javascript:;" class="js-delete btn-small" url="/module.php?m=household_sender_auth&a=delete&id={$c.id}">删除</a>
+	{/if}
+	</td>
+ 
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-pass",function(){
+		if(confirm("确认通过审核吗?")){
+			var that=$(this);
+			$.ajax({
+				url:"/moduleadmin.php?m=household_sender_auth&a=pass&ajax=1&id="+$(this).attr("v"),
+				dataType:"json",
+				success:function(res){
+					skyToast(res.message);
+					if(!res.error){
+						that.parents("tr").remove();
+					}
+					
+				}
+			})
+		}
+	})
+	$(document).on("click",".js-forbid",function(){
+		if(confirm("确认不通过审核吗?")){
+			var that=$(this);
+			$.ajax({
+				url:"/moduleadmin.php?m=household_sender_auth&a=forbid&ajax=1&id="+$(this).attr("v"),
+				dataType:"json",
+				success:function(res){
+					skyToast(res.message);
+					if(!res.error){
+						that.parents("tr").remove();
+					}
+					
+				}
+			})
+		}
+	})
+</script>
+</body>
+</html>

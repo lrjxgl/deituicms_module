@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	{include file="head.html"}
+	<style>
+		.video{
+			width: 100%;
+			height: auto;
+		}
+	</style>
+
+	<body>
+	 
+		<img class="wmax" src="{$vote.imgurl|images_site}">
+		<div class="flex mgb-10 bg-white pd-10">
+			<img class="wh-60 mgr-10 bd-radius-5" src="{$author.user_head}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="flex mgb-5">
+					<div class="mgr-20">{$join.nickname}</div>
+				</div>
+				<div class="flex flex-ai-center mgb-5">
+					<div class="cl2">作品编号：</div>
+					<div class="cl-num">{$join.bianhao}</div>
+				</div>	
+				<div class="flex flex-ai-center cl3 mgb-5">排名：<div class="cl-num"> {$join.paiming}</div>
+					&nbsp; 得票：<div class="cl-num">{$join.vote_num}</div> &nbsp;票</div>
+				
+			</div>
+		</div>
+		<div class="row-box mgb-10">
+			<div class="mgb-5">
+				<video 
+				 poster="{$join.imgurl}" 
+				 class="video" 
+				 src="{$join.url}"  
+				 x5-playsinline="true"
+				 x-webkit-airplay="true"
+				  playsinline="true" 
+				  webkit-playsinline="true" 
+				 autoplay controls></video>
+			</div>
+			<div class="text-center cl2">{$join.title}</div>
+
+			
+		</div>
+		<div class="row-box mgb-5">
+			 
+			<div class="btn-group">
+				<div class="btn mgr-10" onClick="vote_vote({$vote.id},{$join.id})" style="background-color:#FF5B48;">投TA一票</div>
+				<a class="btn" href="/module.php?m=vote_join&a=join&id={$vote.id}" style="background-color:#3D9AEA;">我要参加</a>
+			</div>
+		</div>
+		<div class="row-box mgb-5">
+			<div class="row-box-hd">活动介绍</div>
+			<div class="pd-10 cl2">{$vote.description}</div>
+		</div>
+
+		<style>
+			.goHome{
+				position: fixed;
+				right:1px;
+				bottom: 100px;
+				width: 30px;
+				padding: 5px 10px;
+				text-align: center;
+				background-color: #0eb78a;
+				color: #fff;
+				border-radius: 10px;
+				font-size: 12px;
+				cursor: pointer;
+			}
+		</style>
+		<div gourl="/module.php?m=vote&a=home&id={$vote.id}" class="goHome">活动首页</div>
+		{include file="footjs.html"}
+		{include file="inc/comment.html"}
+		<script src="{$skins}inc/comment.js"></script>
+	</body>
+</html>

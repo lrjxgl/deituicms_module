@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">租车</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="pos-relative">
+				<div class="tab-select">
+					<div @click="togglePriceClass()"  class="tab-select-item">
+						<div class="tab-select-label">{{price_label}}</div>
+						<div class="tab-select-t3down"></div>
+					</div>
+					<div @click="toggleCatClass()" class="tab-select-item">
+						<div class="tab-select-label">{{cat_label}}</div>
+						<div class="tab-select-t3down"></div>
+					</div>
+					<div @click="toggleBrandClass()"  class="tab-select-item">
+						<div class="tab-select-label">{{brand_label}}</div>
+						<div class="tab-select-t3down"></div>
+					</div>
+					  
+					 
+				</div>
+				<div :class="catBoxShow?'block':''" class="tab-select-box">
+					<div class="flex pd-5 mgb-5">
+						<div class="flex-1 cl2">选择类型</div>
+						<div @click="setCat(0,'类型')" class="cl2 pointer">清空选择</div>
+					</div>
+					<div @click="setCat(item.catid,item.title)" class="tab-select-box-item" v-for="(item,index) in catList" :key="index">{{item.title}}</div>
+				</div>
+				<div :class="brandBoxShow?'block':''" class="tab-select-box">
+					<div class="flex pd-5 mgb-5">
+						<div class="flex-1 cl2">选择品牌</div>
+						<div @click="setBrand(0,'选择品牌')" class="cl2 pointer">清空选择</div>
+					</div>
+					<div @click="setBrand(item.brandid,item.title)" class="tab-select-box-item" v-for="(item,index) in brandList" :key="index">{{item.title}}</div>
+				</div>
+				<div :class="priceBoxShow?'block':''" class="tab-select-box">
+					<div class="flex pd-5 mgb-5">
+						<div class="flex-1 cl2">选择价格</div>
+						<div @click="setPrice('价格')" class="cl2 pointer">清空选择</div>
+					</div>
+					<div @click="setPrice(item)" class="tab-select-box-item" v-for="(item,index) in priceList" :key="index">{{item}}</div>
+				</div>
+				 
+			</div>
+			
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in list" :key="index" @click="goBlog(item.productid)" class="sglist-item">
+					
+					<div class="mgb-5 flex flex-ai-center">
+						<div class="btn-recommend">荐</div>
+						<div>{{item.title}}</div>
+					</div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div class="mgr-5 cl2">租金</div>
+						<div class="cl-money mgr-10">￥{{item.money}}</div>
+						<div class="cl2 f12 mgr-10">{{item.brand_title}}</div>
+						<div class="flex-1"></div> 
+						 
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+				</div>
+				
+			</div>
+			
+			
+			
+		</div>
+		 
+		{assign var="ftnav" value="zuche"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}car_zuche/index.js"></script>
+	</body>
+</html>

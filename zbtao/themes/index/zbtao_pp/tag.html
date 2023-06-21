@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">{$tag.title}</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    
+	<div class="mtlist">
+		 
+		<div @click="goPP(item.ppid)" v-for="(item,index) in list" :key="index" class="mtlist-item">
+			<div class="mtlist-item-bd">
+				<img class="mtlist-img mgb-5" :src="item.imgurl+'.small.jpg'" />
+				<div class="mtlist-title">{{item.nickname}}</div>
+			</div>
+		</div>
+		 
+	</div>
+    
+</div>
+ 
+{include file="footer.html"}
+<script>
+var tagid="{$tag.tagid}"
+</script>
+<script src="{$skins}zbtao_pp/tag.js"></script>
+</body>
+</html>

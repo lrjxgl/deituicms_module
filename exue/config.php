@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"得推培训",//模块名称
+	"module"=>"exue",//模块目录
+ 	"version"=>2.1,//当前版本
+	"info"=>"得推培训",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"from"=>"福鼎生活网",
+	"adminurl"=>"/moduleadmin.php?m=exue&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">活动动态</div>
+			<div gourl="/module.php?m=party_blog&a=add" class="header-right-btn">发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="tabs-border mgb-5">
+				<div @click="setType('')" :class="{'tabs-border-active':type==''}" class="tabs-border-item">推荐</div>
+				<div @click="setType('hot')" :class="{'tabs-border-active':type=='hot'}" class="tabs-border-item">最热</div>
+				<div @click="setType('new')" :class="{'tabs-border-active':type=='new'}" class="tabs-border-item">最新</div>
+				
+			</div>
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in pageData.list" :key="index" @click="goBlog(item.id)" class="sglist-item">
+					
+					<div class="sglist-title">{{item.content}}</div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+				</div>
+				
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="blog"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<a href="/module.php?m=party_blog&a=add" class="fixedAdd">发布</a>
+		<script src="{$skins}party_blog/index.js"></script>
+	</body>
+</html>

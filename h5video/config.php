@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"h5宣传设计",//模块名称
+	"module"=>"h5video",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"h5动态页宣传设计，，支持背景音乐，支持文字转语音，可以自动播放",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=h5video&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

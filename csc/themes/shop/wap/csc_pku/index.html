@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品管理</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="flex row-box mgb-5">
+				<input class="input-flex-text" />
+				<div class="input-flex-btn">搜一下</div>
+			</div>
+			<div class="list">
+				 
+				<div v-for="(item,index) in list" :index="index" class="flexlist-item js-item">
+				
+					<img v-if="item.imgurl!=''" :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+					 
+					<div class="flex-1">
+						<div class="flexlist-title">{{item.title}}</div>
+						<div class="flex mgb-5">
+							<div class="cl-money">￥{{item.price}}</div> 
+							<div class="flex-1"></div>
+							<div class="cl2">{{item.catid_name}}</div>
+						</div>
+						<div class="flex flex-center">
+							<div class="flex-1"></div>
+							<div  class="btn-small mgr-5  ">添加</div>	 
+						</div>
+					</div>
+				</div>
+				
+			 
+			</div>
+			<div class="loadMore" v-if="per_page>0" @click="getList()">加载更多</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}csc_pku/index.js"></script>
+	</body>
+</html>

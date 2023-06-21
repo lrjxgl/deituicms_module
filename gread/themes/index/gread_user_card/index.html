@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">借书卡</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body">
+		    <div class="row-box">
+				<div class="flex bd-mp-10">
+					<div class="cl2 mgr-5">借书卡到期时间</div>
+					<div class="cl-num">{$guser.endtime}</div>
+				</div>
+				
+		    	<div class="pdetail-content">
+					<div>借书卡每月费用{$shop.usermoney}元</div>
+		    		<div>需要借书卡才能借书</div>
+					<div>借书卡有效期为30天</div>
+					<div>借书卡购买后不能退</div> 
+		    		     		
+		    	</div>
+				 
+		    	<a href="/module.php?m=gread_user_card&a=add" class="btn-row-submit">我要办理</a>
+		    </div>
+			<div class="row-box">
+				<div class=" bd-mp-10 fw-600">购买记录</div>
+				{foreach item=c from=$list}
+				<div class="flex flex-ai-center bd-mp-10">
+					<div class="cl2 f12">{$c.createtime}</div>
+					<div class="flex-1"></div>
+					<div class="cl-money">￥ {$c.money}</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

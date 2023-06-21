@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+				<div gourl="/moduleadmin.php?m=taoke_pdd_config" class="item active">淘客设置</div>
+				<a class="item" target="_blank" href="/moduleadmin.php?m=taoke_pdd_config&a=beian">授权备案</a> 
+			</div>
+		<style>
+			.input-flex .label{
+				width: 120px;
+			}
+		</style>
+		<div class="main-body">
+		    <form id="form">
+		    	<div class="input-flex">
+		    		<div class="label">Appkey</div>
+		    		<input type="text" class="text" name="appkey" value="{$data.appkey}" />
+		    	</div>
+		    	
+		    	<div class="input-flex">
+		    		<div class="label">secretKey</div>
+		    		<input type="text" class="text" name="secretKey" value="{$data.secretKey}" />
+		    	</div>
+		    	
+		    	
+		    	<div class="input-flex">
+					<div class="label">推广位pid</div>
+					<input type="text" class="text" name="pid" value="{$data.pid}" />
+				</div>
+		    	
+				<div class="input-flex">
+					<div class="label">custom_parameters</div>
+					<input type="text" class="text" name="custom_parameters" value="{$data.custom_parameters}" />
+				</div> 
+		    	
+		    	<div id="submit" class="btn-row-submit">保存</div>
+		    </form>
+		</div>
+		{include file="footer.html"}
+	<script>
+		$(function(){
+			
+			$(document).on("click","#submit",function(){
+				$.post("/moduleadmin.php?m=taoke_pdd_config&a=save&ajax=1",$("#form").serialize(),function(data){
+					skyToast(data.message);
+				},"json")
+			})
+			
+		})
+	</script>	
+	</body>
+</html>

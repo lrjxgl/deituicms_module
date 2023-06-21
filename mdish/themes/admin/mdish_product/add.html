@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='mdish_product/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=mdish_product&a=save">
+				<input type="hidden" name="productid" style="display:none;" value="{$data.productid}">
+				<table class="table-add">
+				 
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><textarea name="description" id="description">{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+					
+						</td>
+					</tr>
+					<tr>
+						<td>视频：</td>
+						<td>
+							<div id="upmp4-btn" class="btn mgb-10">上传视频</div>
+							{if $data.mp4url}
+							<div id="mp4-delete" class="btn btn-danger">删除视频</div>
+							{/if}
+							<span id="progress"></span>
+							<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+							<div id="mp4box">
+								{if $data.mp4url}
+								<video controls="" src="{$data.mp4url|images_site}" class="video"></video>
+								{/if}
+							</div>
+							
+							<input type="hidden" name="mp4url" id="mp4url" value="{$data.mp4url}" />
+						 
+							<div style="display: none;">
+								<input type="file" id="upvideo" name="upfile" />
+							</div>
+							 
+						
+						</td>
+					</tr>
+					<tr>
+						<td>view_num：</td>
+						<td><input type="text" name="view_num" id="view_num" value="{$data.view_num}"></td>
+					</tr>
+					<tr>
+						<td>love_num：</td>
+						<td><input type="text" name="love_num" id="love_num" value="{$data.love_num}"></td>
+					</tr>
+					<tr>
+						<td>状态：</td>
+						<td style="line-height: 40px;">
+							<select name="status">
+								{foreach item=c key=k from=$statusList}
+								<option value="{$k}" {if $data.status eq $k}selected{/if}>{$c}</option>
+								{/foreach}
+								 
+							</select>
+							 
+						</td>
+					</tr>
+					<tr>
+						<td>创建时间：</td>
+						<td>{$data.dateline}</td>
+					</tr>
+					<tr>
+						<td>grade：</td>
+						<td><input type="text" name="grade" id="grade" value="{$data.grade}"></td>
+					</tr>
+					
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}/mdish_product/upload-video.js"></script>
+		<script src="/static/admin/js/upload.js"></script>
+		<script>
+			$(document).on("click","#mp4-delete",function(){
+				$("#mp4url").val("");
+				$("#mp4box").html("");
+			})
+		</script>
+	</body>
+</html>

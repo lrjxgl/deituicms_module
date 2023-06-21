@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Diy</title>
+		<link href="http://at.alicdn.com/t/font_811242_4k6v9f174g7.css" rel="stylesheet" />
+		<link href="/plugin/dt-ui/dt-ui-h5.css" rel="stylesheet" /> 
+		
+	</head>
+	<body>
+		<style>
+		.flex{
+				display: flex;
+				flex-direction: row;
+		}
+		.comBox{
+			flex:1;
+		}
+		.pageBox{
+			width: 375px;
+			height: 680px; 
+			margin-left:20px; 
+			overflow: scroll;
+		}
+		#page>div{
+			cursor: pointer;
+		}
+		.header,.footer{
+			position: relative;
+		}
+		.header-row,.footer-row{
+			display: none;
+		}
+		.main-body{
+			min-height: 500px;
+		}
+		.diyui-List{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+		.diyui-uitem{
+			width: 60px;
+			height: auto;
+			margin: 5px;
+		}
+		.diyui-com{
+			position: relative;
+		}
+		.diyui-com-tool{
+			position: absolute;
+			right: 0;
+			top: 0;
+			display: flex;
+			left: 0;
+			flex-direction: row;
+			padding: 5px 5px;
+			background-color: #fff;
+			opacity: 0.6;
+		}
+		.pageBox .main-body{
+			height: 300px;
+			overflow: auto;
+		}
+		</style>
+		<div class="flex">
+			
+			<div class="comBox">
+				<div class="row-box">
+					<div class="flex bd-mp-10">
+						<div class="mgr-10 pointer">Page</div>
+						<div class="pointer  cl-primary">UI组件</div>
+						<div class="mgl-20">得推UIDesign</div>
+					</div>
+					<div class="diyui-List">
+						<div draggable="true" class="diyui-uitem js-ui" cm="md-abc-a">
+							<img src="{$diyDir}img/md-abc-a.png" />
+						</div>
+						<div class="diyui-uitem js-ui" cm="md-abc-b">
+							<img src="{$diyDir}img/md-abc-b.png" />
+						</div>
+						<div class="diyui-uitem js-ui" cm="md-abc-c">
+							<img src="{$diyDir}img/md-abc-c.png" />
+						</div>
+						<div class="diyui-uitem js-ui" cm="md-abc-d">
+							<img src="{$diyDir}img/md-abc-d.png" />
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<div id="diyPageBox"  class="pageBox">
+				<div class="flex row-box">
+					<div class="flex-1">页面Diy</div>
+					<div id="diyPage-save" class="btn-small">保存</div>
+				</div>
+				<div id="diyPageTpl">
+					<div class="header">
+						<div class="header-title">得推商城</div>
+					</div>
+					<div class="header-row"></div>
+					<div  class="main-body" id="diy-ui">
+						
+					</div>
+					<div class="footer-row"></div>
+					<div class="footer">
+						<div class="footer-item footer-active icon-home">首页</div>
+						<div class="footer-item icon-cascades">分类</div>
+						<div class="footer-item icon-cart">购物车</div>
+						<div class="footer-item icon-my_light">我的</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div v-if="show" id="uiApp">
+			<div @click="show=false" class="modal-mask"></div>
+			<div style="width: 480px; left: 50%; margin-left: -240px; height: 300px;" class="modal">
+				<div class="modal-header">
+					<div class="modal-title">数据源设置</div>
+					<div  @click="show=false" class="modal-close icon-close"></div>
+				</div>
+				<div class="modal-body">
+					<div class="input-flex">
+						<div class="input-flex-label">数据源</div>
+						<select class="input-flex-select" v-model="api" name="api">
+							<option value="">请选择</option>
+							<option v-for="(item,index) in apiList" :key="index" :value="item.key">{{item.title}}</option>
+						</select>
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">apiKey</div>
+						<input type="text" class="input-flex-text" name="apiKey" v-model="apiKey" />
+					</div>
+					<div @click="submit" class="btn-row-submit">保存</div>
+				</div>
+			</div>
+		</div>
+		<script src="/plugin/jquery/jquery.js"></script>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="https://www.itxst.com/package/sortable/sortable.min.js"></script>
+		<script src="{$skins}diypage/design.js"></script>
+		<script>
+		var uiId=0;
+		var p=$("#diy-ui");
+		
+		$(document).on("click","#diyPageBox a",function(event){
+		 
+			event.preventDefault();
+			return false;
+		})
+		var drag = document.getElementById('diy-ui');
+		var uiData=[];
+		$(function(){
+			var cmid=0;
+			var ops = {
+				animation: 1000,
+				//拖动结束
+				onEnd: function (evt) {
+					var o=$(".diyui-com");
+					var len=o.length;
+					var nuiData=[];
+					for(var i=0;i<len;i++){
+						var id=o.eq(i).attr("id");
+						for(var j=0;j<len;j++){
+							if(uiData[j].id==id){
+								nuiData.push(uiData[j]);
+							}
+						}
+					}
+					uiData=nuiData; 
+				},};
+			//初始化
+			var sortable = Sortable.create(drag, ops);
+			$(document).on("click",".js-ui",function(){
+				var cm=$(this).attr("cm");
+				var uiId=++cmid;
+				uiData.push({
+					"id":uiId,
+					"name":cm,
+					"api":"default",
+					"order":uiData.length,
+					"dataId":1
+				});
+				console.log(uiData);
+				$.ajax({
+					url:"/module.php?m=diypage&a=ui&ui="+cm,
+					success:function(e){
+						var html='<div id="'+uiId+'" class="diyui-com">'
+						
+						html+=`	<div class="diyui-com-tool">
+								<div class="pointer mgr-5 js-com-del">删除</div>
+								<div class="pointer js-com-set">编辑</div>
+							</div>
+							
+						`;
+						html+=e;
+						html+=`</div>`;
+						p.append(html)
+					}
+				})
+				
+			})
+			
+			$(document).on("click",".js-com-set",function(){
+				uiId=$(this).parents(".diyui-com").attr("id");
+				var api=$(this).attr("api");
+				uiApp.$data.show=true;
+				
+			})
+			
+			$(document).on("click",".js-com-del",function(e){
+				console.log("delete")
+				var pp=$(this).parents(".diyui-com");
+				skyJs.confirm({
+					content:"确认删除吗",
+					success:function(){
+						pp.remove();
+					}
+				})
+				 
+			})
+			
+			$(document).on("click","#diyPage-save",function(){
+				 
+				$.ajax({
+					url:"/module.php?m=diypage_userpage&a=save&ajax=1",
+					type:"POST",
+					data:{
+						content:JSON.stringify(uiData)
+					},
+					success:function(res){
+						skyJs.toast("保存成功")
+					}
+					
+				})
+			}) 
+		})
+		</script>
+	</body>
+</html>

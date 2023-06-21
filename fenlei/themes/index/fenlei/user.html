@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		<div class="flex pd-10 pdl-5 mgb-5 bg-white flex-ai-center">
+			<image gourl="/index.php?m=user&a=user_head" class="wh-60 mgr-5 bd-radius-50" src="{$user.user_head}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="flex flex-ai-center mgb-5">
+					<div class="f16 cl1 mgr-5">{$user.nickname}</div>
+					<div gourl="/index.php?m=user_rank" class="f12 cl-red">{$rank.rank_name}</div>
+					<div class="flex-1"></div>
+					{if $invitecode}
+					<div class="cl2 mgr-5">邀请码</div>
+					<div gourl="/index.php?m=invite&a=my" class="cl-num">{$invitecode}</div>
+					{/if}
+				</div>
+				
+				
+				<div class="flex flex-ai-center cl2"> 发布信息&nbsp;&nbsp;<text class="cl-num">{$topic_num}</text>&nbsp;&nbsp;条</div>
+			</div>
+			<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+		</div>
+		
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=fenlei&a=my" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">我的发布</div>
+				</div>
+				<div gourl="/module.php?m=fenlei_hongbao&a=my" class="row-item">
+					<div class="row-item-icon icon-redpacket cl-u"></div>
+					<div class="flex-1 cl-u">我的红包</div>
+				</div>
+				<div gourl="/module.php?m=fenlei_notice" class="row-item">
+					<div class="row-item-icon icon-message_light cl-u"></div>
+					<div class="flex-1 cl-u">我的消息</div>
+				</div>
+				 
+				<div gourl="/module.php?m=fenlei&a=myfav" class="row-item">
+					<div class="row-item-icon icon-favor cl-u"></div>
+					<div class="flex-1 cl-u">我的收藏</div>
+				</div>
+				<div gourl="/module.php?m=fenlei_company&a=my" class="row-item">
+					<div class="row-item-icon icon-subscription_light cl-u"></div>
+					<div class="flex-1 cl-u">联系信息</div>
+				</div>
+				<div gourl="/index.php?m=user_auth" class="row-item">
+					<div class="row-item-icon icon-subscription_light cl-u"></div>
+					<div class="flex-1 cl-u">实名认证</div>
+				</div>
+			</div>
+			<div class="row-box">
+				<div gourl="/index.php?m=user&amp;a=info" class="row-item">
+					<div class="row-item-icon icon-edit cl-u"></div>
+					<div class="flex-1 cl-u">账号编辑</div>
+				</div>
+				<div gourl="/index.php?m=user&amp;a=password" class="row-item">
+					<div class="row-item-icon icon-password cl-u"></div>
+					<div class="flex-1 cl-u">密码修改</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

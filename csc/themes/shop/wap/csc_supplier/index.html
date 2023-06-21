@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">供应商</div>
+			<div gourl="/moduleshop.php?m=csc_supplier&a=add" class="header-right-btn">添加</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<div class="row-box mgb-5 js-item">
+				<div class="mgb-5">{$c.title}</div>
+				<div class="flex mgb-5">
+					<div class="cl2 f12 mgr-10">{$c.nickname}</div>
+					<div class="cl2 f12">{$c.telephone}</div>
+					
+				</div>
+				<div class="cl2 mgb-10 f12">{$c.address}</div>
+				<div class="flex">
+					<div gourl="/moduleshop.php?m=csc_supplier&a=add&supid={$c.supid}" class="btn-small mgr-10">编辑</div>
+					<div url="/moduleshop.php?m=csc_supplier&a=delete&ajax=1&supid={$c.supid}" class="btn-small js-delete btn-danger">删除</div>
+				</div>
+			</div>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

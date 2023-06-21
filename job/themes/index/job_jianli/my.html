@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的简历</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/module.php?m=job_jianli&a=save">
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">名字</div>
+					<input type="text" class="input-flex-text" name="nickname" value="{$data.nickname}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">联系电话</div>
+					<input type="text" class="input-flex-text" name="telephone" value="{$data.telephone}" />
+				</div>
+				<div class="input-flex flex-ai-center">
+							<div class="input-flex-label">照片</div>
+							<div class="flex-1">
+								<div class="upimg-box bg-fff">
+									
+									<div class="upimg-item {if $data.imgurl==""}none{/if} js-upimg-btn">
+										<img class="upimg-img" {if $data.imgurl}src="{$data.trueimgurl}.100x100.jpg"{/if} >								 
+									</div>
+									{if $data.imgurl==""}	 
+									<div class="upimg-btn js-upimg-btn">
+										<i class="upimg-btn-icon"></i>
+									</div>
+									{/if}
+									<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+									<input style="display: none;" type="file" name="upimg" class="js-upimg-file" /> 
+								</div> 
+							</div>
+						</div>
+				<div class="input-flex">
+					<div class="input-flex-label input-flex-require">出生日期</div>
+					<input type="text" class="input-flex-text" placeholder="1988" name="age" value="{$data.age}" /> 
+					<div class="input-flex-note">如：1988</div>
+				</div> 
+				<div class="flex flex-ai-center pd-10 bg-fff">
+					<div class="input-flex-label input-flex-require">性别</div>
+					<div class="switch-group">
+						<input type="hidden" name="gender" class="switch-value" value="{$data.gender}" />
+						<div class="switch-left {if $data.gender eq 1}switch-active{/if} js-switch" data-value="1">男</div>
+						<div class="switch-right {if $data.gender neq 1}switch-active{/if} js-switch" data-value="2">女</div>
+					</div>
+					<div class="pd-10">学历</div>
+					<select name="xueli" class="input-flex-select">
+						<option value="0">请选择</option>
+						{foreach item=c key=k from=$xueliList}
+						<option {if $data.xueli eq $k}selected{/if} value="{$k}">{$c}</option>
+						{/foreach}
+					</select>
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">工作经验</div>
+					<textarea name="job" class="textarea-flex-text h60" name="job">{$data.job}</textarea>
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">自我介绍</div>
+					<textarea class="textarea-flex-text h60" name="description">{$data.description}</textarea>
+				</div>
+				
+				<div contenteditable="true" class="sky-editor-content" name="content">{$data.content}</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+			<script>
+				$(document).on("click",".js-switch",function(){
+					var p=$(this).parents("switch-group");
+					$(".switch-value").val($(this).siblings(".js-switch").attr("data-value"));
+					 
+					$(this).removeClass("switch-active").siblings(".js-switch").addClass("switch-active");
+				})
+			</script>
+	</body>
+</html>

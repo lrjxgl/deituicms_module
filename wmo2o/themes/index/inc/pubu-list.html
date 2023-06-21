@@ -1,0 +1,46 @@
+<div class="flex">
+	<div class="flex-1 mgr-5">
+		{foreach item=c key=k from=$pubList}
+			{if $k%2==0}
+				<a href="/module.php?m=wmo2o_product&a=show&id={$c.id}&shopid={$c.shopid}" class="sglist-item bd-radius-10">
+					 
+						<img class="sglist-img " src="{$c.imgurl}.small.jpg" />
+						<div class="sglist-item-pd">
+							<div class="sglist-title">{$c.title}</div>
+							<div class="flex mgb-5">
+								<div class="cl-money">￥</div>
+								<div class="cl-money f16">{$c.price}</div>
+								<div class="flex-1"></div>
+								<div class="cl2">月销{$c.buy_num}件</div>
+							</div>
+							
+							 
+						</div>
+					 
+				</a>
+			{/if}
+		{/foreach}
+	</div>
+	<div class="flex-1">
+		{foreach item=c key=k from=$pubList}
+			{if $k%2==1	}
+			<a href="/module.php?m=wmo2o_product&a=show&id={$c.id}&shopid={$c.shopid}" class="sglist-item bd-radius-10">
+				 
+					<img class="sglist-img " src="{$c.imgurl}.small.jpg" />
+					<div class="sglist-item-pd">
+						<div class="sglist-title">{$c.title}</div>
+						<div class="flex mgb-5">
+							<div class="cl-money">￥</div>
+							<div class="cl-money f16">{$c.price}</div>
+							<div class="flex-1"></div>
+							<div class="cl2">月销{$c.buy_num}件</div>
+						</div>
+						
+						 
+					</div>
+				 
+			</a>
+			{/if}
+		{/foreach}
+	</div>
+</div>

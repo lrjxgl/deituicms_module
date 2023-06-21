@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="header">
+		<div class="header-back"></div>
+		<div class="header-title">打印记录</div>
+	</div>
+	<div class="header-row"></div>
+	<div class="main-body">
+		<div class="uclist">
+			{foreach item=c from=$data}
+				<div class="item">
+		       	<div class="hd">{$c.title}</div>
+		           <div class="h30">{$c.dateline|date:Y-m-d H:i:s}</div>
+		           <div class="h30">打印状态：{if $c.bstaus eq 2}成功{else}失败{/if}  &nbsp;&nbsp;打印了{$c.times}次</div>
+		       </div>
+			{/foreach}
+		</div>
+		{$pagelist}
+	</div>
+	{include file="footer.html"}
+ 
+ 
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" :class="'flex-col'" id="app">
+			<div class="flex bg-fff pd-10 mgb-5">
+				 
+				<div class="flex-1 cl2">单号：{{order.orderno}}</div>
+				<div class="f12 cl3 mgr-10">{{order.timeago}}</div>
+				<div class="cl-primary">{{order.status_name}}</div>
+			</div>
+			<div class="flexlist">
+				{foreach item=c from=$prolist}
+				<div class="flexlist-item mgb-0">
+
+					<div gourl="/module.php?m=household_product&a=show&id={$c.productid}" class="flexlist-imgbox">
+						<image src="{$c.imgurl}.100x100.jpg" class="flexlist-img"></image>
+					</div>
+		
+					<div class="flex-1">
+						<div class="flexlist-title" gourl="/module.php?m=household_product&a=show&id={$c.productid}" target="_blank">{$c.title}</div>
+						<div class="flex">
+							<div class="cl2 mgr-10">{$c.ks_title}</div>
+							<div class="cl-num mgr-10">￥{$c.price} </div>
+							<div class="flex-1"></div>
+							<div class="cl2">x {$c.amount}</div>	
+						</div>		
+					</div>
+				</div>
+				{/foreach}
+				 
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex mgb-5">
+					 合计
+					<div class="cl-num">￥{$order.money}</div>元 
+				</div>
+			 
+				<div class="f14 mgb-5">备注</div>
+				<div class="bg-light pd-10 cl3 bd-radius-10">
+					{$order.comment}
+				</div>
+			</div>
+		
+			<div class="row-box pdt-0 mgb-5">
+				 
+				<div class="flex-table">
+					<div class="flex-table-label">联系人：</div>
+					<div class="flex-table-box text-right">
+						{$addr.truename}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">手机：</div>
+					<div class="flex-table-box text-right">
+						{$addr.telephone}
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">收货地址：</div>
+					<div class="flex-table-box text-right">
+						{$addr.address}
+					</div>
+				</div>
+			</div>
+			<div class=" row-box mgb-5">
+				<div class=" flex flex-center">
+					<div gourl="/index.php?m=kefu" class="btn btn-outline-primary ">联系客服</div>
+					<div class="flex-1"></div>
+					<div v-if="order.status==0" @click="confirm(order)" class="btn mgr-5">正在办理</div>
+					<div v-if="hhconfig.append_money==1 &&  order.status<=3 && !appendData " @click="appendBox=true" class="btn mgr-5">尾款处理</div>
+					<div v-if="order.status==1" @click="send(order)" class="btn">确认办完</div>
+					
+				</div>
+			</div>
+			<div v-if="appendData" class="row-box mgb-5">
+				<div class="row-box-hd mgb-10">尾款清单</div>
+				<div class="flex mgb-5">
+					<div>尾款</div>
+					<div class="cl-money">￥{{appendData.pay_money}}</div>
+					<div class="flex-1"></div>
+					<div>总费用</div>
+					<div class="cl-money">{{appendData.total_money}}</div>
+				</div>
+				<div class="cl3">{{appendData.content}}</div>
+			</div> 
+			
+			<div class="row-box">
+				<div class="row-box-hd mgb-10">订单日志</div>
+				{foreach item=c from=$logList}
+				<div class="flex bd-mp-5">
+					<div class="cl3 f12 mgr-10">{$c.createtime}</div>
+					<div class="cl2 flex-1">
+						{$c.content}
+					</div>
+					
+				</div>
+				{/foreach}
+			</div>
+			<div v-if="appendBox">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">设置总费用</div>
+						<div @click="appendBox=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">总费用</div>
+							<input v-model="append_money" type="text" class="input-flex-text" />
+							<div class="mgl-5">元</div>
+						</div>
+						<div class="textarea-flex">
+							<div class="textarea-flex-label">费用说明</div>
+							<textarea v-model="append_content" class="textarea-flex-text h60"></textarea>
+						</div>
+						<div @click="appendSubmit()" class="btn-row-submit">确认完成</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+		{include file="footer.html"}
+		<script>
+			var orderid="{$order.orderid}"
+		</script>
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script>
+			
+		</script>
+		<script src="{$skins}household_order/show.js"></script>
+	</body>
+</html>

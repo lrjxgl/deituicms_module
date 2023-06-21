@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<img src="{$driver.userhead}.100x100.jpg" class="w60 mgr-10" />
+					<div class="flex-1">
+						<div class="mgb-5">{$driver.truename}</div>
+						<div class="flex mgb-5">
+							<div class="mgr-5 cl2">账户金额</div>
+							<div class="cl-money">{$account.balance_money}元</div>
+							<div class="flex-1"></div>
+							<div gourl="/moduleshop.php?m=pinche_tixian" class="btn-mini btn-outline-primary">提现</div>							
+						</div>
+						<div class="flex mgb-5">
+							<div class="mgr-5 cl2">总收入</div>
+							<div class="cl-money">{$account.total_money}元</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row-box">
+				 
+				<div gourl="/moduleshop.php?m=pinche_driver_line" class="row-item">
+					<div class="row-item-icon icon-order"></div>
+					<div class="row-item-title">拼车线路</div>
+				</div>
+				<div gourl="/moduleshop.php?m=pinche_driver&a=info" class="row-item">
+					<div class="row-item-icon icon-people"></div>
+					<div class="row-item-title">司机信息</div>
+				</div>
+				<div gourl="/moduleshop.php?m=pinche_bankcard" class="row-item">
+					<div class="row-item-icon icon-vipcard"></div>
+					<div class="row-item-title">银行卡</div>
+				</div>
+				<div gourl="/moduleshop.php?m=pinche_tixian&a=log" class="row-item">
+					<div class="row-item-icon icon-order"></div>
+					<div class="row-item-title">提现日志</div>
+				</div>
+				<div gourl="/moduleshop.php?m=pinche_driver_account_log" class="row-item">
+					<div class="row-item-icon icon-moneybag"></div>
+					<div class="row-item-title">账户日志</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="my"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

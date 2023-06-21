@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}css/news.css?{$smarty.now}" rel="stylesheet">
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">主题详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			
+			<div class="newslist">
+
+				<div class="newslist-item">
+					<div class="newslist-item-user">
+						<img :gourl="'/index.php?m=home&userid='+data.userid" class="newslist-item-head" :src="data.user_head+'.100x100.jpg'">
+						<span class="newslist-item-nick">{{data.nickname}}</span>
+						 
+						<div  class="newslist-item-follow js-news-follow" >关注</div>
+					 
+					</div>
+					<div class="flex-1">
+						<div>
+							
+							<div class="newslist-item-content" v-html="data.content"></div>
+							 
+							<div v-if="data.videourl!=''" class="videobox">
+								<video controls="controls" class="video" :src="data.videourl"></video>
+							</div>
+							 
+
+							<div class="sglist-imglist js-thumb-item">
+								{foreach item=p from=$data.imgsdata}
+								<img class="js-thumb sglist-imglist-img" v="{$p|images_site}" src="{$p|images_site}.100x100.jpg">
+								{/foreach}
+							</div>
+							<div class="flex mgb-5 cl3 f12">来自：<a class="cl3 f12" :href="'/module.php?m=group&a=show&gid='+data.gid">{{group.gname}}</a></div>
+							<div class="flex">
+								<span class="newslist-item-time">{{data.timeago}}</span>
+								<span class="newslist-item-view"> &nbsp;阅 {{data.click_num}}</span>
+								<div newsid="{$data.id}" class="newslist-item-zan js-news-zan-btn">
+									<span>赞</span>
+									<span id="zan-num-{$data.id}">{{data.love_num}}</span>
+								</div>
+								<div newsid="{$data.id}" class="newslist-item-comment js-news-comment-btn">
+									<span>评论</span>
+									<span id="comment-num-{$data.id}">{{data.comment_num}}</span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+				 
+				<div v-if="data.zans && Object.keys(data.zans).length>0" class="newslist-cmbox">
+					<div class="flex" >
+						<i class="iconfont icon-likefill cl3 f12"></i>
+						 
+						<span class="mgr-5 cl2 f12" v-for="(zan,index) in data.zans" :key="index"  >{{zan.nickname}}</span>
+						 
+					</div>
+
+				</div>
+				 
+				{include file="group_title/show-comment.html"}
+			</div>
+		</div>
+
+
+		</div>
+		{include file="footer.html"}
+		<script>
+			var id = "{$data.id}";
+		</script>
+		<script src="{$skins}group_title/show.js"></script>
+		{include file="inc/js_thumb.html"}
+		{include file="group_title/comm.html"}
+		{php wx_jssdk();}
+
+	</body>
+</html>

@@ -1,0 +1,21 @@
+找家教系统
+
+	tutor_category 家教分类
+	tutor_lesson 课程
+	//教师
+	tutor_shop 教师
+	tutor_shop_cert 教师证件
+	tutor_shop_lesson 教师课程
+	tutor_shop_raty 动态评价
+	tutor_shop_blog 家教博文
+	//订单
+	tutor_order  订单
+	tutor_order_raty 订单评价
+	//上课
+	tutor_order_lesson 上课动态
+	tutor_order_lesson_raty 上课评价
+	
+	
+支付密码页面
+账号提现
+	

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div url="/module.php?m=ershou" class="header-back"></div>
+			<div class="header-title">产品列表</div>
+		 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<div class="tabs-border">
+				<div @click="setType('online')" class="tabs-border-item" :class="type=='online'?'tabs-border-active':''">上架中</div>
+				<div @click="setType('offline')"  class="tabs-border-item" :class="type=='offline'?'tabs-border-active':''">下架</div>
+				<div @click="setType('all')"  class="tabs-border-item" :class="type=='all'?'tabs-border-active':''">全部</div>
+			</div> 
+			<div style="display: none;" :class="'flex-col'" class="sglist">
+				 
+				<div v-for="(item,index) in  list" :key="index"  class="sglist-item">
+					<div class="flex mgb-5 bdb pd-5">
+						<div class="cl-status" v-if="item.status==1">上架中</div>
+						<div class="cl-status"  v-else>已下架</div>
+						 
+						<div class="flex-1"></div>
+						<div class="f12 cl3">{{item.createtime}}</div>
+					</div>
+					<div @click="goDetail(item.productid)" class="sglist-title flex" v-html="item.description"></div>
+					<div class="flexlist-item" @click="goDetail(item.productid)">
+						<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'"/>
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.title}}</div>
+						  
+						</div>
+					</div>
+					<div class="flex mgb-10">
+						<div class="mgr-5 cl2">优惠价</div>
+						<div class="cl-money mgr-10">￥{{item.price}}</div>
+						<div class="flex-1"></div>
+						<div class="cl3 f12">原价</div>
+						<div class="market-price">￥{{item.market_price}}</div>
+						 
+					</div>
+					<div class="sglist-ft flex-ai-center">
+						<div class="sglist-ft-cart">销量 {{item.sold_num}}</div>
+						<div class="flex-1"></div>
+						<div @click="del(item.productid)" class="cl-danger iconfont mgr-5 pointer icon-delete"></div>
+						<div v-if="item.status!=1" @click="pass(item)" class="btn-mini btn-outline-primary">上架</div> 
+						<div v-else @click="forbid(item)" class="btn-mini btn-outline-warning">下架</div> 
+					</div>
+					
+				</div>
+				<div class="loadMore"  v-if="per_page>0" @click="loadMore">加载更多</div>
+				 
+			</div>
+			
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var recommend_money="{$sconfig.recommend_money}";
+		</script>
+		<script src="/plugin/dt-ui/dt-ui-pagecache.js"></script>
+		<script src="/plugin/dt-ui/skyJs.js"></script>
+		<script src="{$skins}ershou_product/my.js"></script>
+	</body>
+</html>

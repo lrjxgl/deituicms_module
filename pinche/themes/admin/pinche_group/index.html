@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">{$typename}</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>gid</td>
+						<td>线路</td>
+						<td>司机</td>
+						<td>状态</td>
+						
+						<td>创建时间</td>
+						<td>乘客人数</td>
+						<td>freenum</td>
+						<td>money</td>
+						<td>成团耗时</td>
+						
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.gid}</td>
+					<td>{$c.line.title}</td>
+					<td>{if $c.driver}{$c.driver.truename}{else}无{/if}</td>
+					<td>{$c.status_name}</td>
+					
+					<td>{$c.dateline|date:Y-m-d}</td>
+					<td>{$c.usernum}</td>
+					<td>{$c.freenum}</td>
+					<td>{$c.money}</td>
+					<td>{$c.ptime}秒</td>
+					
+					<td>
+						<a href="/moduleadmin.php?m=pinche_group&a=show&gid={$c.gid}">查看</a> 
+					</td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">动物编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/moduleshop.php?m=gxny_shop_animal&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">图片</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+							</div>
+							{if !$data.imgurl}	
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+							{/if}
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" class="js-upimg-file" name="upimg" id="upimg" /> 
+						</div> 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">价格：</div>
+					<input type="text" name="price" id="price" class="input-flex-text" value="{$data.price}" />
+					<span>元</span>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">可返金额</div>
+					<input type="text" name="back_money" class="input-flex-text" value="{$data.back_money}" />
+					<span>元</span>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">状态：</div>
+					<div class="flex-1 flex flex-ai-center">
+						<input type="radio" class="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+						<input type="radio" class="radio" {if $data.status neq 1}checked{/if} name="status" value="2">
+						下线
+					</div>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">开放销售：</div>
+					<input type="radio" name="isopen" {if $data.isopen eq 1}checked{/if}    value="1" /> 是 
+					<input type="radio" name="isopen" {if $data.isopen neq 1}checked{/if}    value="0" /> 否
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">总量：</div>
+					<input type="text" name="total_num" id="total_num" class="input-flex-text"
+						value="{$data.total_num}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">销量：</div>
+					<div class="input-flex-txt">{$data.sold_num}</div>
+				 
+					<div class="input-flex-label">库存：</div>
+					<div class="input-flex-txt">{$data.free_num}</div>
+					 
+				</div>
+				<div class="sky-editor-content" id="e-content" name="content"  contenteditable="true">{$data.content}</div>
+				 
+				
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		 
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+	</body>
+</html>

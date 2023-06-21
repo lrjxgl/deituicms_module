@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>用户：</td><td>{$data.userid}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>年级：</td><td>{$data.typeid}</td></tr>
+  <tr><td>图片：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>内容：</td><td>{$data.content}</td></tr>
+  <tr><td>是否回答：</td><td>{$data.isanswer}</td></tr>
+  <tr><td>答案：</td><td>{$data.answerid}</td></tr>
+ </table>
+
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='zupu_people/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=zupu_people&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+						<td>gid：</td>		
+						<td><input type="text" name="gid" id="gid" value="{$data.gid}" ></td>
+						</tr>
+  <tr>
+						<td>pid：</td>		
+						<td><input type="text" name="pid" id="pid" value="{$data.pid}" ></td>
+						</tr>
+  <tr>
+						<td>nickname：</td>		
+						<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}" ></td>
+						</tr>
+  <tr>
+						<td>性别：</td>		
+						<td><input type="text" name="gender" id="gender" value="{$data.gender}" ></td>
+						</tr>
+  <tr>
+						<td>age：</td>		
+						<td><input type="text" name="age" id="age" value="{$data.age}" ></td>
+						</tr>
+  <tr>
+						<td>description：</td>		
+						<td><textarea name="description" id="description" class="textarea-flex-text h60"   />{$data.description}</textarea></td>
+						</tr>
+  <tr>
+						<td>address：</td>		
+						<td><input type="text" name="address" id="address" value="{$data.address}" ></td>
+						</tr>
+  <tr>
+						<td>status：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+  <tr>
+						<td>省：</td>		
+						<td><input type="text" name="provinceid" id="provinceid" value="{$data.provinceid}" ></td>
+						</tr>
+  <tr>
+						<td>市：</td>		
+						<td><input type="text" name="cityid" id="cityid" value="{$data.cityid}" ></td>
+						</tr>
+  <tr>
+						<td>区县：</td>		
+						<td><input type="text" name="districtid" id="districtid" value="{$data.districtid}" ></td>
+						</tr>
+  <tr>
+						<td>镇：</td>		
+						<td><input type="text" name="townid" id="townid" value="{$data.townid}" ></td>
+						</tr>
+  <tr>
+						<td>电话：</td>		
+						<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}" ></td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">设置</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=job&a=save">
+				<table class="table table-add">
+					<tr>
+						<td>兼职付费</td>
+						<td>
+							<input type="text" name="jz_money" value="{$data.jz_money}" />
+						</td>
+					</tr>
+					<tr>
+						<td>全职付费</td>
+						<td>
+							<input type="text" name="qz_money" value="{$data.qz_money}" />
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit" ungo="1">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='shop_product_item_log/nav.html'}
+		<form method="post" action="admin.php?m=shop_product_item_log&a=save">
+			<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+			<table class="table table-bordered">
+
+				<tr>
+					<td>标题：</td>
+					<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+				</tr>
+				<tr>
+					<td>创建时间：</td>
+					<td>{$data.createtime}</td>
+				</tr>
+				<tr>
+					<td>内容：</td>
+					<td><script type="text/plain" name="content" id="content"  style="height: 300px;" >{$data.content}</script></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" value="保存" class="btn btn-success"></td>
+				</tr>
+			</table>
+		</form>
+		{include file="footer.html"}
+		{php loadEditor(0);}
+		<script language="javascript">
+			var editor=UE.getEditor('content',options)
+		</script>
+	</body>
+</html>

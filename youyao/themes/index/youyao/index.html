@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">附近哪有药</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+			 
+				<div>
+					<div class="flex">
+						<input type="text" v-model="keyword"  class="input-flex-text"/>
+						<div @click="search" class="input-flex-btn">搜</div>
+					</div>
+					<div>
+						<div class="row-box mgb-10" v-for="(item,index) in list" :key="index">
+							<div class="flex flex-ai-center mgb-10">
+								<img @click="goShop(item.shopid)" :src="item.shop.imgurl+'.100x100.jpg'" class="w50" />
+								<div @click="goShop(item.shopid)"  class="flex-1">{{item.shop.shopname}}</div>
+								<div @click="goGuest(item)" class="btn-mini btn-outline-primary">咨询</div>
+ 							</div>
+							<div class="cl2 mgb-5">
+								{{item.title}}
+							</div>
+							<div class="cl3">{{item.description}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}youyao/index.js"></script>
+	</body>
+</html>

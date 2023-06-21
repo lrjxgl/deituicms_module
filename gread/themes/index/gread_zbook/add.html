@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">新书代购·一折买书</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+
+			<form id="actForm"  action="/module.php?m=gread_zbook&a=save&ajax=1">
+
+				<div class="input-flex flex-ai-center">
+					<div class="cl2 mgr-5">数量：</div>
+					<input type="text" class="input-flex-text w60 mgr-5"  name="num"   value="">
+					<div class="cl2 mgr-5">本</div>
+				 	<div class="cl2 mgr-5">总价：</div>
+				 	<input type="text" class="input-flex-text w60 mgr-5"  name="total_money"   value="">
+					<div class="cl2">元</div>
+				 </div>
+				 <div class="textarea-flex">
+				 	<div class="textarea-flex-label">书籍描述</div>
+				 	<textarea placeholder="描述书籍内容，价格" name="description" class="textarea-flex-text h60"></textarea>
+				 </div>
+				
+				<div class="bg-fff mgb-5">
+					<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+					{include file="inc/uploader-data.html"}
+				</div> 
+				 
+				<div class="input-flex flex-ai-center">
+					<div class="cl2 mgr-5">联系人：</div>
+					<input type="text" class="input-flex-text w60 mgr-5"  name="nickname" id="nickname" value="">
+				 
+					<div class="cl2 mgr-5">电话：</div>
+					<input type="text" class="input-flex-text"  name="telephone" id="telephone" value="">
+				</div>
+				 
+				
+				 <div class="text-center cl-red">新书代购，一折买书，代购更省钱</div>
+				<div class="btn-row-submit js-submit">确认下单</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		{get data=wxs model=weixin fun=selectRow(" status=1") }
+		{if INWEIXIN && $wxs}
+		
+		<?php wx_jssdk();?>
+		<script src="{$skins}inc/uploader-data-wx.js?{$smarty.now}"></script> 
+		{else} 
+		
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js?v2"></script>
+		{/if}
+	</body>
+</html>

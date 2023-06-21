@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='recycle_shop/nav.html'}
+		<div class="main-body">
+		<form method="post" action="/moduleadmin.php?m=recycle_shop&a=save">
+			<input type="hidden" name="shopid" style="display:none;" value="{$data.shopid}">
+			<table class="table-add">
+				<tr>
+					<td>店名：</td>
+					<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+				</tr>
+				<tr>
+					<td>简介：</td>
+					<td><textarea name="description" id="description" >{$data.description}</textarea></td>
+				</tr>
+				<tr>
+					<td>图片：</td>
+					<td>
+						<div class="js-upload-item">
+							<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+							<div class="upimg-btn js-upload-btn">+</div>
+							<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+							<div class="js-imgbox">
+								{if $data.imgurl}
+								<img src="{$data.imgurl|images_site}.100x100.jpg">
+								{/if}
+							</div>
+						</div>
+				
+					</td>
+				</tr>
+				<tr>
+					<td>地址：</td>
+					<td><input type="text" name="address" id="address" value="{$data.address}"></td>
+				</tr>
+				{if $data}
+				<tr>
+					<td>创建时间：</td>
+					<td>{$data.createtime}</td>
+				</tr>
+				{/if}
+				<tr>
+					<td>手机：</td>
+					<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}"></td>
+				</tr>
+				<tr>
+					<td>店主：</td>
+					<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}"></td>
+				</tr>
+				<tr>
+					<td>状态</td>
+					<td>
+						<input type="radio" {if $data.status neq 1} checked="" {/if} name="status" value="2" /> 下线
+						<input type="radio" {if $data.status eq 1} checked="" {/if} name="status" value="1" /> 上线
+					</td>
+				</tr>
+				<tr>
+					<td>配送费：</td>
+					<td><input type="text" class="w60" name="sendmoney" id="sendmoney" value="{$data.sendmoney}"> 元</td>
+				</tr>
+				<tr>
+					<td>地图信息</td>
+					<td>
+						<div>
+							<input type="hidden" name="lat" id="lat" value="{$data.lat}" />
+							<input type="hidden" name="lng" id="lng" value="{$data.lng}" />
+							<div id="gps">
+								{$data.lng},{$data.lat}
+							</div>
+						</div> 
+						<div id="allmap" style="width: 600px; height: 400px;"></div>
+					</td>
+				</tr>
+			</table>
+			<div class="btn-row-submit js-submit">保存</div>
+		</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script>
+					var map = new BMap.Map("allmap");    // 创建Map实例
+					map.enableScrollWheelZoom(true);
+			  // 初始化地图,设置中心点坐标和地图级别
+		{if $data.lat>0}
+		var point=new BMap.Point({$data.lng}, {$data.lat})
+		var marker = new BMap.Marker(point);  
+		map.addOverlay(marker);
+		map.centerAndZoom(point, 14);
+		{else}
+		var geolocation = new BMap.Geolocation();
+			geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				map.centerAndZoom(r.point, 14);
+			}
+			else {
+				alert('failed'+this.getStatus());
+			}        
+		},{enableHighAccuracy: true})
+		//map.centerAndZoom(new BMap.Point(120.240986, 27.316632), 14);
+		{/if}
+		map.addControl(new BMap.MapTypeControl({
+				mapTypes:[
+		           BMAP_NORMAL_MAP,
+		           BMAP_HYBRID_MAP
+		       ]}));
+			map.enableScrollWheelZoom(true);
+			map.setMapType(BMAP_HYBRID_MAP)
+			function showInfo(e){
+				var marker = new BMap.Marker(e.point);  
+				map.clearOverlays();
+				map.addOverlay(marker);
+				//alert(e.point.lng + ", " + e.point.lat);
+				$("#lat").val(e.point.lat);
+				$("#lng").val(e.point.lng);
+				$("#gps").html(e.point.lng + ", " + e.point.lat);
+			}
+			map.addEventListener("click", showInfo);
+				</script>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">标题</h1>
+</header>
+<div class="mui-content">
+    <div class="mui-content-padded">
+    	 <table class="tbs">
+				 <thead>
+  <tr>
+   <td>id</td>
+   <td>shopid</td>
+   <td>userid</td>
+   <td>名称</td>
+   <td>描述</td>
+   <td>createtime</td>
+   <td>content</td>
+<td>操作</td>
+  </tr>
+	</thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.content}</td>
+<td><a href="index.php?m=shop_product&a=add&id={$c.id}">编辑</a> <a href="index.php?m=shop_product&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="delete" url="index.php?m=shop_product&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    </div>
+</div>
+{include file="footer.html"}
+</body>
+</html>

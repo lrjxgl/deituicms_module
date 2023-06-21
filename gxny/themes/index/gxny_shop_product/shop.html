@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-title">共享菜园</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				<div class="aTab mgb-5">
+					<div class="mgr-10">菜园状态</div> 
+					<div :class="type=='free'?'aTab-item-active':''" @click="setType('free')" class="aTab-item">闲置</div>				
+					<div :class="type=='sold'?'aTab-item-active':''" @click="setType('sold')"  class="aTab-item">已售</div>
+					<div :class="type=='look'?'aTab-item-active':''" @click="setType('look')"  class="aTab-item">围观</div>
+				</div>
+				<div class="aTab mgb-5">
+					<div class="mgr-10">菜园类型</div> 
+					<div v-for="(item,index) in catList" :key="index"
+						:class="catid==item.catid?'aTab-item-active':''"
+						@click="setCat(item.catid)" 
+						class="aTab-item">{{item.title}}</div>				
+					 
+				</div>
+				<div style="max-height: 320px; overflow-y: auto;" class="cdBox mgb-5">
+					<div class="emptyData" v-if="list.length==0">暂无菜园</div>
+					<div @click="choiceProduct(item)"  :class="item.isused?'cdItem-active':''" class="cdItem" v-for="(item,index) in list" :key="index">
+						 {{item.no}} 
+					</div>
+				</div>
+				<div v-if="Object.keys(newPro).length>0"  class="row-box">
+					 
+					<div class="flex mgb-10 flex-ai-center">
+						<div class="mgr-5 cl-primary">菜园：#{{newPro.no}}</div>
+						<div class="flex-1"></div>
+						<div class="mgr-5 cl2">价格</div>
+						<div class="cl-money">{{newPro.cat.money}}元</div>
+						 
+					</div>
+					<div class="cl2 mgb-10">{{newPro.cat.description}}</div>
+					<div class="flex flex-ai-center">
+						<div class="flex-1"></div>
+							<div @click="buy(newPro)" class="btn-small">购买菜园</div>
+						</div>
+				</div>
+				
+			</div>
+		</div>
+		{assign var="ftnav" value="shop"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shopid}"
+		</script>
+		<script src="{$skins}gxny_shop_product/shop.js"></script>
+	</body>
+</html>

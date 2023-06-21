@@ -1,0 +1,30 @@
+ 
+.mtt10 {
+	margin-top: -10px;
+}
+
+.adBox {
+	display: flex;
+	flex-direction: row;
+
+}
+
+.adBox-item {
+	flex: 1;
+	margin: 5px;
+}
+
+.adBox-img {
+	width: 100%;
+	border-radius: 10px;
+}
+.swiper-pagination{
+	display: block;
+}
+.m-navPic-item{
+	max-width: 25%;
+	flex: 1;
+}
+.m-navPic-img{
+	width: 50%;
+}

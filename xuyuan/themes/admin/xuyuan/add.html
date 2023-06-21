@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+ 	<a class="item active" href="/moduleadmin.php?m=xuyuan">许愿墙管理</a>
+    <a class="item" href="javascript:;">许愿编辑</a>
+ </div>
+<form method="post" action="/moduleadmin.php?m=xuyuan&a=save&id={$c.id}">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table table-bordered" >
+  
+  
+ 
+  <tr><td>签名：</td><td><input type="text" name="nickname" id="nickname" value="{$data.nickname}" ></td></tr>
+   <tr><td width="100">内容：</td><td><textarea type="text" name="content" id="content"  class="w98 h100" >{$data.content}</textarea></td></tr>
+<tr><td></td><td><input type="submit" value="保存" class="btn btn-success"></td></tr> </table>
+</form>
+
+{include file="footer.html"} 
+		 
+	</body>
+	</html>

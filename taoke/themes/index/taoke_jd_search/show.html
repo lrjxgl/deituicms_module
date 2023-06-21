@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+ 
+	.fav-btn{
+		width: 36px;
+		height: 36px;
+		text-align: center;
+		line-height: 36px;
+		border-radius: 50%;
+		cursor: pointer;
+		background-color: #333;
+		opacity: 0.9;
+		color: #fff;
+	}
+	
+	.fav-btn:before{
+		color: #666;
+		font-family: iconfont;
+		content: "\e64c";
+	}
+	.fav-btn-active{
+		background-color: #e91e63
+	}
+	.fav-btn-active:before{
+		color: #fff;
+		font-size: 22px;
+	}
+</style>
+<body>
+
+<div class="details-nav">
+    <div href="/" class="goBack" >
+        <img src="{$skins}img/details-back.png" class="fl" alt="">
+    </div>
+    
+</div>
+<div class="main-body">
+	<img style="width: 100%;" src="{$data.imgurl}"  />
+     
+	<div class="p-title">
+		{$data.title}
+	</div>
+	<div class="p-desc">
+		{$data.description}
+		
+	</div>
+	<div class="p-price">
+		<span class="price">券后价：￥{$data.price}</span>
+		<span class="sold">销量 {$data.sold_num}</span>
+		<div class="juan-price">
+			<span class="q">券</span>
+			<span class="m">￥{$data.juan_money}</span>
+		</div>
+	</div>
+	 
+	
+ 
+	<a href="javascript:;"   class="look-text">图文详情</a>
+	<div class="p-detail" style="display: block;">
+		{foreach item=c from=$imgList}
+		<img src="{$c}" class="d-img" />
+		{/foreach}
+	</div>
+	 
+	 
+	
+</div>
+<div style="height: 60px;"></div>
+<div class="bfooter">
+	
+	<div class="flex mgl-10 mgr-10"><span>约返：</span><span class="juan">￥{$data.yj_money}</span> </div>
+	<div class="flex-1 "></div>
+	<div class="pwd " id="get-pwd">前往购买</div>
+ 
+</div>
+
+ 
+{include file="footer.html"}
+ 
+<script>
+	var id="{$data.id}";
+	var ispwd=false;
+	$(function(){
+		$(document).on("click",".js-fav-toggle",function(){
+			var tablename=$(this).attr("tablename");
+			var objectid=$(this).attr("objectid");
+			var that=$(this);
+			$.get("/index.php?m=fav&a=toggle&ajax=1",{
+				tablename:tablename,
+				objectid:objectid
+			},function(res){
+				skyToast(res.message);
+				if(res.error==1000){
+					window.location="/index.php?m=login";
+					return false;
+				}else{
+					if(res.data=='add'){
+						that.addClass("fav-btn-active");
+					}else{
+						that.removeClass("fav-btn-active");
+					}
+				}
+				
+			},"json")
+		})
+		$(document).on("click","#js-detail",function(){
+			$(".p-detail").toggle();
+		})
+		$(document).on("click","#get-pwd",function(){
+			$.ajax({
+				url:"/module.php?m=taoke_pdd_search&a=getpwd&ajax=1&id="+id,
+				dataType:"json",
+				success:function(res){
+					if(res.error){
+						skyToast(res.message);
+						return false;
+					}
+					window.location=res.data.url; 
+				}
+			})
+			
+		})
+ 
+	})
+</script>
+<?php wx_jssdk();?>
+<script>
+	wxshare_title="{$data.title}";
+	{if $data.imgurl}
+	wxshare_imgUrl="{$data.imgurl}";
+	{/if}
+</script>
+</body>
+</html>

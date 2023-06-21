@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="vbanner"><img src="{$vote.imgurl|images_site}"></div>
+<div class="vrow vtitle"><i class="iconfont icon-hottopic"></i>{$vote.title}</div>
+<div class="vcontent">{$vote.award}</div>
+ 
+ {assign var="ftnav" value="award"}
+{include file="footer.html"}
+</body>
+</html>

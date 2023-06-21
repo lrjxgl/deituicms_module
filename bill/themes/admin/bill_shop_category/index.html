@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">账单分类</div>
+		<div class="main-body">
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>catid</td>
+						 
+						<td>title</td>
+						 
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> {foreach item=c from=$list}
+				<tr>
+					<td>{$c.catid}</td>
+					 
+					<td>{$c.title}</td>
+					 
+					<td> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=bill_shop_category&a=delete&ajax=1&catid={$c.catid}">删除</a></td>
+				</tr>
+				{/foreach}
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

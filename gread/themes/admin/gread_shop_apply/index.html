@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_shop_apply/nav.html'}
+ <table class="tbs">
+<thead>  <tr>
+   <td>shopid</td>
+   <td>店名</td>
+   <td>简介</td>
+   <td>图片</td>
+   <td>地址</td>
+   <td>createtime</td>
+   <td>手机</td>
+   <td>店主</td>
+   <td>status</td>
+   <td>配送费</td>
+   <td>lat</td>
+   <td>lng</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.shopid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.address}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.status}</td>
+   <td>{$c.sendmoney}</td>
+   <td>{$c.lat}</td>
+   <td>{$c.lng}</td>
+<td><a href="/module.php?m=gread_shop_apply&a=add&shopid={$c.shopid}">编辑</a> <a href="/module.php?m=gread_shop_apply&a=show&shopid={$c.shopid}">查看</a> <a href="javascript:;" class="delete" url="/module.php?m=gread_shop_apply&a=delete&shopid={$c.shopid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

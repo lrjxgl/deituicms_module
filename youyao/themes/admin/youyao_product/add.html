@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='youyao_product/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=youyao_product&a=save">
+<input type="hidden" name="productid" style="display:none;" value="{$data.productid}" >
+ <table class="table-add">   
+  <tr>
+						<td>类别：</td>		
+						<td><input type="text" name="catid" id="catid" value="{$data.catid}" ></td>
+						</tr>
+  <tr>
+						<td>名称：</td>		
+						<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+						</tr>
+						
+						<tr>
+							<td>图片：</td>
+							<td>
+								<div class="js-upload-item">
+									<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+									<div class="upimg-btn js-upload-btn">+</div>
+									<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+									<div class="js-imgbox">
+										{if $data.imgurl}
+										<img src="{$data.imgurl|images_site}.100x100.jpg">
+										{/if}
+									</div>
+								</div>
+						
+							</td>
+						</tr>
+ 
+  <tr>
+						<td>状态：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+ 
+  <tr>
+						<td>价格：</td>		
+						<td><input type="text" name="price" id="price" value="{$data.price}" ></td>
+						</tr>
+  
+  <tr>
+						<td>描述：</td>		
+						<td><textarea name="description" id="description" class="textarea-flex-text h60"   />{$data.description}</textarea></td>
+						</tr>
+   
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+<script src="/static/admin/js/upload.js"></script>
+</body>
+</html>

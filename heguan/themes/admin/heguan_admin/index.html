@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='heguan_admin/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>adminid</td>
+   <td>heid</td>
+   <td>名称</td>
+   <td>电话</td>
+   <td>简介</td>
+   <td>状态</td>
+   <td>createtime</td>
+   <td>主图</td>
+   <td>主管</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.adminid}</td>
+   <td>{$c.heid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.description}</td>
+   <td>{$c.status}</td>
+   <td>{$c.createtime}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.isown}</td>
+<td><a href="/moduleadmin.php?m=heguan_admin&a=add&adminid={$c.adminid}">编辑</a> <a href="/module.php?m=heguan_admin&a=show&adminid={$c.adminid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=heguan_admin&a=delete&ajax=1&adminid={$c.adminid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

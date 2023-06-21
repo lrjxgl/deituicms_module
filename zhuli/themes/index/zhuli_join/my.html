@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的参与</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		    <div class="flexlist">
+		    	{foreach item=c from=$data}
+		    		<a href="/module.php?m=zhuli&a=join&id={$c.id}" class="flexlist-item">
+		    			<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg">
+		    			<div class="flex-1">
+		    				<div class="flexlist-title">{$c.title}</div>
+		    				<div class="flex">价格 
+		    					<span class="cl-money">￥{$c.price}</span>
+		    					<span class="market-price">￥{$c.price}</span>
+		    				</div>
+		    				 
+		    				 
+		    			</div>
+		    		</a>
+		    	{/foreach}
+		    </div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

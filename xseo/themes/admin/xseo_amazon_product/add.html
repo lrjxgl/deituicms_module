@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='xseo_amazon_product/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=xseo_amazon_product&a=save">
+<input type="hidden" name="productid" style="display:none;" value="{$data.productid}" >
+ <table class="table-add">  <tr>
+						<td>asin：</td>		
+						<td><input type="text" name="asin" id="asin" value="{$data.asin}" ></td>
+						</tr>
+  <tr>
+						<td>title：</td>		
+						<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+						</tr>
+  <tr>
+						<td>imgurl：</td>		
+						<td>{include file="inc/uploader-data.html"}</td>
+						</tr>
+  <tr>
+						<td>linkurl：</td>		
+						<td><input type="text" name="linkurl" id="linkurl" value="{$data.linkurl}" ></td>
+						</tr>
+  <tr>
+						<td>raty：</td>		
+						<td><input type="text" name="raty" id="raty" value="{$data.raty}" ></td>
+						</tr>
+  <tr>
+						<td>price：</td>		
+						<td><input type="text" name="price" id="price" value="{$data.price}" ></td>
+						</tr>
+  <tr>
+						<td>lower_price：</td>		
+						<td><input type="text" name="lower_price" id="lower_price" value="{$data.lower_price}" ></td>
+						</tr>
+  {if $data}<tr>
+						<td>createtime：</td>		
+						<td>{$data.createtime}</td>
+						</tr>{/if}
+  {if $data}<tr>
+						<td>updatetime：</td>		
+						<td>{$data.updatetime}</td>
+						</tr>{/if}
+  <tr>
+						<td>pageindex：</td>		
+						<td><input type="text" name="pageindex" id="pageindex" value="{$data.pageindex}" ></td>
+						</tr>
+  <tr>
+						<td>status：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+  <tr>
+						<td>raty_num：</td>		
+						<td><input type="text" name="raty_num" id="raty_num" value="{$data.raty_num}" ></td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

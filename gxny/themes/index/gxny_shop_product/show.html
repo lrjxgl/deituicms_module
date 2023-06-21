@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">菜园</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box mgb-5">
+				<div class="d-userbox">
+					<image gourl="/module.php?m=gxny_user&a=home&userid={$owner.userid}" class="d-userbox-head" src="{$owner.user_head}.100x100.jpg"></image>
+					<div class="flex-1">
+						<div class="d-userbox-nick">{$owner.nickname}</div>
+						<div class="mgb-5 d-userbox-follows flex-ai-center">
+							<text class="mgr-5">粉丝</text>
+							<text class="cl-num mgr-5 ">{$owner.followed_num}</text>
+							<text class="mgr-5">关注</text>
+							<text class="cl-num">{$owner.follow_num}</text>
+							
+							
+						</div>
+						<div class="mgb-5 f12 cl3">{$data.timeago} </div> 
+					</div>
+					<div class="btn-small btn-outline-success js-follow-toggle" data-userid="{$owner.userid}">{if $owner.isFollow}已{/if}关注</div>
+				</div>
+			</div>
+			
+			<div class="row-box mgb-5">
+				<div class="bd-mp-5 flex">
+					<div class="mgr-5 w100">基地：</div>
+					<div>{$shop.shopname}</div>
+				</div>
+				<div class="bd-mp-5 flex">
+					<div class="mgr-5 w100">菜园编号：</div>
+					<div>#{$product.no}</div>
+				</div>
+				
+				
+				 
+			</div>
+			<div v-if="list.length>0">
+				<div class="pd-10 fw-600">菜园动态</div>
+				<div   class="sglist">
+					 
+					<div v-for="(item,index) in  list" :key="index" @click="goBlog(item.id)" class="sglist-item">
+						
+						<div class="sglist-title flex" v-html="item.content"></div>
+						<div class="sglist-imglist">
+							 
+							<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+							
+						</div>
+						 
+						<div class="sglist-ft">
+							<div class="sglist-ft-love">{{item.love_num}}</div>
+							<div class="sglist-ft-cm">{{item.comment_num}}</div>
+							<div class="sglist-ft-view">{{item.view_num}}</div>
+						</div> 
+					</div>
+					
+				</div>
+			</div>
+			
+			
+			<a href="/module.php?m=gxny_blog&a=add&productid={$product.id}" class="fixedAdd">发布</a>
+		</div>
+		{include file="footer.html"}
+		<script >
+			var productid="{$product.id}"
+		</script>
+		<script src="{$skins}gxny_shop_product/show.js"></script>
+	</body>
+</html>

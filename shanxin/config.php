@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"善心缘",//模块名称
+	"from"=>"来自福鼎口福生鲜模块",
+	"module"=>"shanxin",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"一起来做点好心事",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"moduleadmin.php?m=shanxin&a=menu",
+	"check_update"=>"http://www.deituicms.com"
+);
+?>

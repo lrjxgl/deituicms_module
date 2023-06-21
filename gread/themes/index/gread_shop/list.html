@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">附近图书馆</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mui-content-padded">
+		    	<div class="flexlist">
+		    		{foreach item=c from=$data}
+		    			<div class="item">
+		    				<div class="img">
+		    					<img src="{$c.imgurl|images_site}.100x100.jpg">
+		    				</div>
+		    				<div class="flex-1">
+		    					<div class="title">{$c.title}</div>
+		    					<div class="address">{$c.address}</div>
+		    				</div>
+		    				
+		    			</div>
+		    		{/foreach}
+		    	</div>
+		    </div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.list{
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			padding: 5px;
+			background-color: #fff;
+		}
+		.list-item{
+			width:20%;
+			padding: 5px;
+		}
+		.list-item-head{
+			width:90%;
+			height: auto;
+			border-radius: 50%;
+			margin-bottom: 3px;
+			text-align: center;
+		}
+		.list-item-title{
+			font-size: 12px;
+			color: #646464;
+			text-align: center;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的邀请</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" v-if="pageLoad" :class="'flex-col'" id="App">
+			<div class="row-box mgb-5">
+				<div class="flex mgb-5">
+					<img class="wh-60 bd-radius-50 mgr-10" :src="pageData.user.user_head+'.100x100.jpg'" />
+					<div class="flex-1">
+						<div class="mgb-5">{{pageData.user.nickname}}</div>
+						<div class="flex">邀请码：<span class="cl-num ">{{pageData.invitecode}}</span></div>
+					</div>
+				</div>
+				<div class="cl2">
+					好友消费了，您可以获得奖励哦，赶快去邀请好友吧
+				</div>
+				<div class="flex-ai-center">
+					
+					<img :src="pageData.ewm" class="wmax mgb-5" />
+					<div class="f12 cl-num">保存图片分享给好友</div>
+				</div>
+			</div>
+			<div class="text-center fwb f16 pd-10">我的邀请</div>
+			<div class="list">
+				<div class="list-item" v-for="(item,index) in pageData.list" :key="index">
+					<img class="list-item-head" :src="item.user_head+'.100x100.jpg'" />
+					<div class="list-item-title">{{item.nickname}}</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}taoke_user/invite.js"></script>
+	</body>
+</html>

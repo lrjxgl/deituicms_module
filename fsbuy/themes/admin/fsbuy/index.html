@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="tabs-border">
+		<a href="/moduleadmin.php?m=fsbuy" class="item active">产品列表</a>
+		<a href="/moduleadmin.php?m=fsbuy&a=add" class="item">添加</a>
+	</div>
+ 
+<div class="main-body">
+    
+    	 <table class="tbs">
+    	 	<thead>
+  <tr>
+   <td>fsid</td>
+   <td>标题</td>
+   <td>图片</td>
+   
+   
+   <td>开始时间</td>
+   <td>状态</td>
+   <td>价格</td>
+   <td>购买数</td>
+	<td>围观数</td>
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr class="js-item">
+   <td>{$c.fsid}</td>
+   <td><a href="/module.php?m=fsbuy&a=show&fsid={$c.fsid}" target="_blank">{$c.title}</a></td>
+   <td><img src="{$c.imgurl}.100x100.jpg" width="50" /></td>
+    
+  
+	<td>{$c.startTime}</td>
+   <td>{$c.status_name}</td>
+   <td>￥{$c.price}</td>
+   <td>{$c.buynum}</td>
+	<td>{$c.viewnum}</td>
+<td>
+	<a href="/moduleadmin.php?m=fsbuy_order&fsid={$c.fsid}">订单管理</a>
+	<a href="/moduleadmin.php?m=fsbuy_ks&fsid={$c.fsid}">款式管理</a>
+	<a href="/moduleadmin.php?m=fsbuy&a=pinsuccess&fsid={$c.fsid}">成功拼团</a>
+	<br>
+	<a href="/moduleadmin.php?m=fsbuy&a=back&fsid={$c.fsid}">返利</a>
+	<a href="/moduleadmin.php?m=fsbuy&a=add&fsid={$c.fsid}">编辑</a>
+	
+	<a href="javascript:;" fsid="{$c.fsid}" class="js-copy">复制一份</a>
+	
+	 
+	<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=fsbuy&a=delete&fsid={$c.fsid}">删除</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-copy",function(){
+		var fsid=$(this).attr("fsid");
+		$.get("/moduleadmin.php?m=fsbuy&a=copy&ajax=1&fsid="+fsid,function(res){
+			skyToast("复制成功");
+			window.location.reload();
+		},"json")
+	})
+</script>
+</body>
+</html>

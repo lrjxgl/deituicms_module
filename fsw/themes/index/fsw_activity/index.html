@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">赛事活动</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="sglist">
+		{foreach item=c from=$list}
+		<div gourl="/module.php?m=fsw_activity&a=show&actid={$c.actid}" class="sglist-item">
+			<img class="sglist-img" src="{$c.imgurl|images_site}.middle.jpg" />
+			<div class="sglist-title">{$c.title}</div>
+		</div>
+		{/foreach}	 
+	</div>
+   
+	<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

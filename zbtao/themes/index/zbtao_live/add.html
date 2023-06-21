@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+	.ptItem{
+		margin-bottom: 5px;	
+	}
+	.ptItem-active{
+		color: #f60;
+	}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布直播预告</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=zbtao_live&a=save">
+				<input type="hidden" name="liveid" style="display:none;" value="{$data.liveid}">
+			 
+				<div class="input-flex">
+					<div class="input-flex-label">标题：</div>
+					<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">直播时间：</div>
+					<input type="text" name="zbtime" id="zbtime" class="input-flex-text" value="{$data.zbtime}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">直播平台：</div>
+					<input type="hidden" name="zbpts" id="zbpts" class="input-flex-text" value="{$data.zbpts}" />
+					<div>
+						{foreach item=c key=k from=$ptList}
+						<div v="{$c.ptid}" class="ptItem {if $c.selected}ptItem-active{/if}">{$c.nickname}:{$c.ptcom_name}</div>
+						{/foreach}
+					</div>
+				</div>
+				{if $data}<div class="input-flex">
+					<div class="input-flex-label">创建时间：</div>
+					{$data.createtime}
+				</div>{/if}
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">图片：</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.trueimgurl}.100x100.jpg">
+							</div>
+
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" />
+						</div>
+					</div>
+				</div>
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">简介</div>
+					<textarea name="description" class="textarea-flex-text">{$data.description}</textarea>
+				</div>  
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		 
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script>
+		laydate.render({
+			elem:"#zbtime",
+			type: 'datetime'
+		})
+		$(function(){
+			$(document).on("click",".ptItem",function(){
+				$(this).toggleClass("ptItem-active");
+				var res=$(".ptItem-active");
+				var pts="";
+				for(var i=0;i<res.length;i++){
+					if(i>0){
+						pts+=","
+					}
+					pts+=res.eq(i).attr("v");
+				}
+				$("#zbpts").val(pts);
+			})
+		})
+		</script>
+	</body>
+</html>

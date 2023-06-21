@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的纸条</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div @click="setTab('post')" :class="tab=='post'?'tabs-border-active':''" class="tabs-border-item">我放入的纸条</div>
+				<div @click="setTab('accept')"  :class="tab=='accept'?'tabs-border-active':''"  class="tabs-border-item">我抽到的纸条</div>
+			</div>
+			<div class="">
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="mgb-10">{{item.description}}</div>
+					<div class="flex mgb-10">
+						<img v-for="(img,imgIndex) in item.imgList" :key="imgIndex" :src="img+'.100x100.jpg'" class="w60 mg-5" />
+					</div>
+					<div class="flex mgb-10">
+						<div>微信号：</div>
+						<div>{{item.wxhao}}</div>
+					</div>
+					<div class="flex">
+						<div>已被{{item.user_num}}人抽到</div>
+						<div class="flex-1"></div>
+						<div class="btn">删除</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}yxq_paper/my.js"></script>
+	</body>
+</html>

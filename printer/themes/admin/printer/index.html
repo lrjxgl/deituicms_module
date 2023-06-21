@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+<body>
+<div class="shd">打印机列表</div>
+<div class="main-body">
+	
+	 <table class="tbs">
+		 <thead>
+			<tr>
+			   <td>id</td>
+			   <td>表名</td>
+			   <td>shopid</td>
+			   <td>名称</td>
+				
+			   <td>服务器</td>
+			   <td>密码</td>
+			   <td>用户</td>
+			   <td>秘钥</td>
+			   <td>模板</td>
+			   <td>加入时间</td>
+			   <td>状态</td>
+			   
+			<td>操作</td>
+			  </tr> 
+		 </thead>
+	  
+	 {foreach item=c from=$data}
+	<tr>
+	   <td>{$c.id}</td>
+	   <td>{$c.tablename}</td>
+	   <td>{$c.shopid}</td>
+	   <td>{$c.title}</td>
+	  
+	   <td>{$c.printer_host}</td>
+	   <td>{$c.printer_port}</td>
+	   <td>{$c.printer_sn}</td>
+	   <td>{$c.printer_token}</td>
+	   <td>{$c.tpl}</td>
+	   <td>{$c.dateline|date:Y-m-d}</td>
+	   <td>{$c.bstatus}</td>
+	  
+	<td> <a href="javascript:;" class="delete" url="/moduleadmin.php?m=printer&a=delete&ajax=1&id={$c.id}">删除</a></td>
+	  </tr>
+	   {/foreach}
+	 </table>
+	<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

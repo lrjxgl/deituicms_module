@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的粉丝</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if empty($list)}
+			<div class="emptyData">暂无粉丝</div>
+			{else}
+			<div class="row-box">
+				{foreach item=c from=$list}
+				<div class="flex flex-ai-center bd-mp-10">
+					<img src="{$c.user_head}.100x100.jpg" class="wh-30 bd-radius-50 mgr-5" />
+					<div class="cl2">{$c.nickname}</div>
+					<div class="flex-1"></div>
+					 
+				</div>
+				{/foreach}
+			</div>
+			{$pagelist}
+			{/if}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

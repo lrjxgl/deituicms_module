@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='aichat_prompt/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>分类</td>
+   <td>名称</td>
+    
+   <td style="width: 600px;">描述</td>
+   
+   <td>收藏/浏览/评论</td>
+   
+   <td>状态</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.catid}</td>
+   <td>{$c.title}</td>
+   
+   <td>{$c.description}</td>
+    
+   <td>{$c.fav_num}/{$c.view_num}/{$c.comment_num}</td>
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=aichat_prompt&a=status&id={$c.id}&ajax=1"></div>
+	   
+   </td>
+   
+<td><a href="/moduleadmin.php?m=aichat_prompt&a=add&id={$c.id}">编辑</a> <a href="/module.php?m=aichat_prompt&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=aichat_prompt&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

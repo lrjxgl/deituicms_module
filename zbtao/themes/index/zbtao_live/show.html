@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+			.btn-follow{
+				padding: 3px 6px;
+				border: 1px solid #666;
+				border-radius: 5px;
+				cursor: pointer; 
+				color: #666;
+			}
+			.btn-follow-active{
+				border: 1px solid #f30;
+				color: #F30;
+			}
+			</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">直播详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    <div class="flex flex-ai-center mgb-10 pd-10 bg-white">
+    	<img class="wh-60 bd-radius-50 mgr-10" src="{$pp.imgurl}.100x100.jpg" />	
+    	<div class="flex-1">
+    		<div class="mgb-10">{$pp.nickname}</div>
+    		<div class="flex">
+    			<div class="mgr-5">粉丝</div>
+    			<div class="cl-num mgr-10">{$pp.followed_num}</div>
+    			<div class="mgr-5">评价</div>
+    			<div class="cl-num mgr-10">{$pp.raty_grade}</div>
+    			<div class="mgr-5">积分</div>
+    			<div class="cl-num mgr-10">{$pp.grade}</div>
+    		</div>
+    	</div>
+		<div>
+			
+			<div @click="ppFollow()" class="btn-follow btn-follow-active" v-if="pp.isFollow==1">已关注</div>
+			<div @click="ppFollow()" class="btn-follow" v-else>关注</div>
+		</div>
+    </div>
+    <div class="row-box mgb-5">
+		<img class="d-img mgb-10"  src="{$data.imgurl}" />
+		<div class="bd-mp-10">{$data.title}</div>
+		<div class="flex bd-mp-10">
+			<div class="mgr-10">直播时间</div>
+			<div class="cl2">{$data.zbtime}</div>
+		</div>
+		<div class="flex">
+			<div class="mgr-10">直播平台</div>
+			<div class="flex-1">
+				{foreach item=c from=$pts}
+				<div class="flex bd-mp-10">
+					<div class="mgr-5 cl-status f12">{$c.ptcom_name}</div>
+					<div class="mgr-5 f12">昵称：{$c.nickname}</div>
+					<div class="flex-1"></div>
+					<div class="cl-primary f12">ID:{$c.zbhao}</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+	</div>
+	
+	<div class="row-box mgb-5">		
+		<div class="flex mgb-10">
+			<div class="flex-1 flex-center">
+				<div class="cl-num mgb-5">{$data.followed_num}</div>
+				<div>关注</div>
+			</div>
+			<div class="flex-1 flex-center">
+				<div class="cl-num mgb-5">{$data.love_num}</div>
+				<div>喜欢</div>
+			</div>
+			<div class="flex-1 flex-center">
+				<div class="cl-num mgb-5">{$data.raty_grade}</div>
+				<div>评价</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	<div class="row-box mgb-5">
+		<div class="d-desc">{$data.description}</div>
+	</div>
+	 
+	<div class="row-box mgb-10">
+		<div class="g-hd-1">带货列表</div>
+		<div class="flexlist">
+			 
+			<div v-for="(item,index) in proList" :key="index"  class="flexlist-item flex-ai-center">
+				<img class="flexlist-img" :src="item.imgurl+'.small.jpg'" />
+				<div class="flex-1">
+					
+					<div class="flexlist-title">{{item.title}}</div>
+					<div class="flex">
+						<div class="cl-money mgr-20">{{item.price}}</div>
+						 
+						<div class="market-price">{{item.market_price}}</div>
+					</div>
+				</div>
+				<div class="mgl-10">
+					<div @click="proFollow(item)" class="btn-follow btn-follow-active" v-if="item.isFollow==1">已关注</div>
+					<div @click="proFollow(item)" class="btn-follow" v-else>关注</div>
+				</div>
+			</div>
+			 
+		</div>
+	</div>
+	<div class="footer-row"></div>
+	<div class="footerFix bg-white">
+		<div class="flex flex-ai-center pd-10">
+			<div>喜欢的朋友关注一下</div>
+			<div class="flex-1"></div>
+			<div @click="liveFollow()" class="btn-follow btn-follow-active" v-if="data.isFollow==1">已关注</div>
+			<div @click="liveFollow()" class="btn-follow" v-else>关注</div>
+			
+		</div>
+	</div>
+</div>
+{include file="footer.html"}
+<script>
+	var liveid="{$data.liveid}"  
+</script>
+<script src="{$skins}zbtao_live/show.js"></script>
+</body>
+</html>

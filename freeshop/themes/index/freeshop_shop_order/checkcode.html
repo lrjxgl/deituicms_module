@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">验单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'"   id="App">
+			<div class="row-box mgb-5">
+				<div class="input-flex">
+					<div class="input-flex-label">验证码</div>
+					<input  v-model="code" type="text" class="input-flex-text" />
+				</div>
+				<div @click="search" class="btn-row-submit">查一下</div>
+			</div>
+			<div class="row-box" v-if="checkSuccess">
+				<div class="cl-primary text-center">验单成功</div>
+			</div>	
+			<div v-if="showOrder">
+				<div class="flex bg-fff pd-10 mgb-5">
+					 
+					<div class="flex-1 cl-money">订单金额：{{order.money}}</div>
+					<div class="f12 cl3 mgr-10">{{order.timeago}}</div>
+					<div class="cl-primary">{{order.status_name}}</div>
+				</div>
+				<div class="flexlist">
+				
+					<div class="flexlist-item mgb-0">
+				
+						<div  class="flexlist-imgbox">
+							<image :src="product.imgurl+'.100x100.jpg'" class="flexlist-img"></image>
+						</div>
+				
+						<div class="flex-1">
+							<div class="flexlist-title" >{{product.content}}</div>
+							<div class="flex">
+				
+								<div class="cl-num mgr-10">￥{{product.price}} </div>
+								<div class="flex-1"></div>
+								<div class="market-price mgr-10">{{product.market_price}}</div>
+								<div class="cl2">x 1</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div v-if="ordercode && ordercode.isuse==0" @click="check" class="btn-row-submit">确认验单</div>
+				<div class="pd-5 cl-red text-center" v-else>该验证码已经验证过了</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}freeshop_shop_order/checkcode.js"></script>
+	</body>
+</html>

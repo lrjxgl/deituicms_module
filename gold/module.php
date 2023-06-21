@@ -1,0 +1,1 @@
+<?php define("MODULE_GOLD_ID",30); ?>

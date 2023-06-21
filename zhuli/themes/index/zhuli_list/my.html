@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的砍价</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<img class="wh-60 bd-radius-50 mgr-10" src="{$user.user_head|images_site}.100x100.jpg" />
+					<div class="flex-1">
+						<div class="cl2 mgb-5">{$user.nickname}</div>
+						<div class="flex">
+							<div class="mgr-5">余额</div> 
+							<span class="cl-money">￥{$user.money}</span>
+						</div>
+					</div>
+					<div gourl="/index.php?m=user&a=set" class="iconfont icon-settings"></div>
+				</div>
+				
+			</div>
+			<div class="row-box">
+				<div gourl="/module.php?m=zhuli_order&a=my" class="row-item">
+					<div class="row-item-title">
+						我的订单
+					</div>
+				</div>
+				<div gourl="/module.php?m=zhuli_shaidan&a=my" class="row-item">
+					<div class="row-item-title">
+						我的晒单
+					</div>
+				</div>
+				<div gourl="/module.php?m=zhuli_join&a=my" class="row-item">
+					<div class="row-item-title">
+						我参与的
+					</div>
+				</div>
+				<div gourl="/module.php?m=zhuli_go&a=my"  class="row-item">
+					<div class="row-item-title">
+						我砍价的
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		{assign var="mfooter" value="my"}
+		{include file="index_footer.html"}
+		{include file="footjs.html"}
+	</body>
+</html>

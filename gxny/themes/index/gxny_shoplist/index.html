@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">农场列表</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="flex pd-10 ">
+			<input id="keyword" type="search" class="header-search pdl-5" />
+			<div id="searchBtn" class="header-search-btn  iconfont icon-search"></div>
+		</div>
+		<div class="main-body" id="App">
+			
+			<div style="display: none;" :class="'flex-col'" :style="'display:flex'" v-if="pageLoad">
+				
+				<div class="pos-relative">
+					 
+				<div @click="goShop(item.shopid)" v-for="(item,index) in pageData.shopList" :key="index" class="flexlist-item pointer">
+					<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img bd-radius-50" />
+					<div class="flex-1">
+						<div class="flexlist-title">{{item.shopname}}</div>
+						<sky-raty len="5" mod="2" readonly="1" :grade="item.raty_grade" label="评价"></sky-raty>
+						<div class="flex" v-if="item.prolist">
+							<div v-for="(p,pindex) in item.prolist" :key="pindex" class="mgr-5">
+								<img :src="p.imgurl+'.100x100.jpg'" class="wh-60 mgb-5" />
+
+							</div>
+						</div>
+					</div>
+
+					<div v-if="item.distance>0" class="cl3 f12">距您{{item.distance}}Km</div>
+				</div>
+			</div>
+		</div>
+
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script>
+			var catid = "{$catid}";
+			$(document).on("click","#searchBtn",function(){
+				var keyword=$("#keyword").val();
+				window.location="/module.php?m=gxny_search&keyword="+encodeURIComponent(keyword);
+			})
+		</script>
+		<script src="{$skins}gxny_shoplist/index.js?v2"></script>
+	</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.modalMap{
+			position: fixed;
+			bottom:10px;
+			left:10px;
+			right:10px;
+			z-index: 999;
+			background-color: #fff;
+		}
+		.map{
+			width:100%;
+			height: 240px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-title">候车室</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div v-if="!group">
+				<div>订单还未成团</div>
+			</div>
+			<div v-else>
+				<div style="height: 80px;"></div>
+				<div class="row-box" style="position: fixed;top:50px;left:0;right:0">
+					<div class="mgb-5">当前线路：{{line.title}}</div>
+					 
+					
+				</div>
+				<div class="row-box mgb-5">
+					<div class="flex">
+						 
+						<div @click="setLocalUser(u)" v-for="(u,ui) in userList" :key="ui" class="pd-5">
+							<img class="wh-60" :src="u.user_head+'.100x100.jpg'" />
+							<div class="text-center">{{u.nickname}}</div>
+							
+						</div>
+						 
+					</div>
+				</div>
+				<div class="row-box">
+					
+					<div class="list">
+						<div class="mgb-5 flex" v-for="(item,index) in msgList" :key="index">
+							<div class="mgr-5 cl2">{{item.nickname}}</div>
+							<div class="flex-1">
+								<div class="cl1">{{item.content}}</div>
+							</div>
+							
+						</div>
+					</div>
+					<div class="flex" style="position: fixed;bottom:50px;left:0;right:0;padding:5px;">
+						<input type="text" v-model="msgContent" class="input-flex-text" />
+						<div @click="sendMsg" class="input-flex-btn">发送</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-group" :class="uMapClass">
+				<div @click="uMapClass=''" class="modal-mask"></div>
+				<div class="modalMap">
+					<div class="pd-10">
+						<div class="flex mgb-10">
+							<div class="mgr-5">{{localUser.nickname}}</div>
+							<a class="cl-primary" :href="'tel:'+localUser.telephone">{{localUser.telephone}}</a>
+						</div>
+						
+						<div id="localMap" class="map"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="height: 50px;"></div>
+		{assign var="ftnav" value="houche"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script>
+			var map;
+			var geolocation = new BMap.Geolocation();
+			var geoLat,geoLng;
+			
+			function initMap(){
+				map = new BMap.Map("localMap");
+				var point = new BMap.Point(116.331398,39.897445);
+				map.enableScrollWheelZoom();			 
+				map.centerAndZoom(point,18);
+			}
+			function getGps(){
+				geolocation.getCurrentPosition(function(r){
+					if(this.getStatus() == BMAP_STATUS_SUCCESS){
+						geoLat=r.point.lat;
+						geoLng=r.point.lng;
+					}
+					else {
+						alert('failed'+this.getStatus());
+					}        
+				},{enableHighAccuracy: true})
+			}
+			function mapGps(){
+				
+				geolocation.getCurrentPosition(function(r){
+					if(this.getStatus() == BMAP_STATUS_SUCCESS){
+						var mk = new BMap.Marker(r.point);
+						map.addOverlay(mk);
+						map.panTo(r.point);
+						geoLat=r.point.lat;
+						geoLng=r.point.lng;
+						//alert('您的位置：'+r.point.lng+','+r.point.lat);
+					}
+					else {
+						alert('failed'+this.getStatus());
+					}        
+				},{enableHighAccuracy: true})
+			}
+			//获取gps
+			getGps();
+		</script>
+		<script src="{$skins}pinche_driver/houche.js?asdasw"></script>
+	</body>
+</html>

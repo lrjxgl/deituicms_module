@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<a href="/" class="header-back pos-relative"></a>
+			<div class="header-search-box">
+				<input id="keyword" placeholder="看车、买车、卖车就到福鼎生活网" type="search" class="header-search pdl-5" />
+				<div id="searchBtn" class="header-search-btn  iconfont icon-search"></div>
+			</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="swiper-container" style="width:100%;" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl|images_site}" />
+					  <div class="m-navPic-title">{$c.title}</div>
+					   
+			    </a>
+				
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+						 
+			</div>
+			{/if}
+		</div>
+		<div class="main-body" id="app">
+			<div class="tabs-border mgb-5">
+				<div @click="setType('recommend')" :class="{'tabs-border-active':type=='recommend'}" class="tabs-border-item">推荐</div>
+				<div @click="setType('follow')" :class="{'tabs-border-active':type=='follow'}" class="tabs-border-item">关注</div>
+				<!--
+				<div @click="setType('near')" :class="{'tabs-border-active':type=='near'}" class="tabs-border-item">附近</div>
+				-->
+				<div @click="setType('new')" :class="{'tabs-border-active':type=='new'}" class="tabs-border-item">最新</div>
+				 
+			</div>
+			<div v-if="type=='recommend'" class="sglist">
+				{foreach item=c from=$articleList}
+				<a href="/index.php?m=article&a=show&id={$c.id}" class="sglist-item">
+					{if $c.imgurl}
+					<div class="sglist-imgbox">
+						<img class="sglist-img" src="{$c.imgurl}.middle.jpg" />
+					</div>
+					{/if}
+					<div class="sglist-title">{$c.title}</div>
+					<div class="sglist-desc">{$c.description}</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{$c.love_num}</div>
+						<div class="sglist-ft-cm">{$c.comment_num}</div>
+						<div class="sglist-ft-view">{$c.view_num}</div>
+					</div> 
+				</a>
+				{/foreach}
+				 
+				{foreach item=item from=$recList}
+				<a href="/module.php?m=car_product&a=show&productid={$item.productid}" class="sglist-item pointer">
+					<div class="mgb-5 flex flex-ai-center">
+						<div class="btn-recommend">荐</div>
+						<div>{$item.title}</div>
+					</div>
+					<div class="sglist-imglist">
+						{foreach item=img from=$item.imgslist} 
+						<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+						{/foreach}
+					</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div class="mgr-5 cl2">售价</div>
+						<div class="cl-money mgr-10">￥{$item.money}</div>
+						<div class="cl2 f12 mgr-10">{$tem.brand_title}</div>
+						<div class="flex-1"></div> 
+						<div class="cl2 f12 mgr-10">上牌：{$item.pai_date}</div> 
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{$item.love_num}</div>
+						<div class="sglist-ft-cm">{$item.comment_num}</div>
+						<div class="sglist-ft-view">{$item.view_num}</div>
+					</div> 
+					  
+				</a>
+				{/foreach}
+				
+				{foreach item=item from=$hotList}
+				<a href="/module.php?m=car_product&a=show&productid={$item.productid}" class="sglist-item pointer">
+					<div class="mgb-5 flex flex-ai-center">
+						<div class="btn-recommend">荐</div>
+						<div>{$item.title}</div>
+					</div>
+					<div class="sglist-imglist">
+						{foreach item=img from=$item.imgslist} 
+						<img src="{$img}.100x100.jpg" class="sglist-imglist-img" />
+						{/foreach}
+					</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div class="mgr-5 cl2">售价</div>
+						<div class="cl-money mgr-10">￥{$item.money}</div>
+						<div class="cl2 f12 mgr-10">{$tem.brand_title}</div>
+						<div class="flex-1"></div> 
+						<div class="cl2 f12 mgr-10">上牌：{$item.pai_date}</div> 
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{$item.love_num}</div>
+						<div class="sglist-ft-cm">{$item.comment_num}</div>
+						<div class="sglist-ft-view">{$item.view_num}</div>
+					</div> 
+					  
+				</a>
+				{/foreach}
+			</div>
+			<div v-else class="sglist">
+				<div class="emptyData" v-if="!list || Object.keys(list).length==0">暂无数据</div> 
+				<div v-for="(item,index) in  list" :key="index" @click="goBlog(item.productid)" class="sglist-item pointer">
+					<div class="mgb-5 flex flex-ai-center">
+						<div class="btn-recommend">荐</div>
+						<div>{{item.title}}</div>
+					</div>
+					<div class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div class="mgr-5 cl2">售价</div>
+						<div class="cl-money mgr-10">￥{{item.money}}</div>
+						<div class="cl2 f12 mgr-10">{{item.brand_title}}</div>
+						<div class="flex-1"></div> 
+						<div class="cl2 f12 mgr-10">上牌：{{item.pai_date}}</div> 
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="sglist-ft-love">{{item.love_num}}</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+					</div> 
+					  
+				</div>
+				<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="car"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script src="/plugin/dt-ui/GPS.js"></script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			var lat=0,lng=0;
+			/*
+			var geolocation = new BMap.Geolocation();
+			var latlng=GPS.get();
+			 
+			if(!latlng){
+				
+				geolocation.getCurrentPosition(function(r){
+				if(this.getStatus() == BMAP_STATUS_SUCCESS){
+					lat=r.point.lat;
+					lng=r.point.lng;
+					GPS.set({
+						lat:lat,
+						lng:lng
+					});
+				}
+				else {			
+				}        
+				},{enableHighAccuracy: true})
+			}else{
+				lat=latlng.lat;
+				lng=latlng.lng;
+			}
+			*/
+			$(function(){
+			 
+				var flash=new Swiper("#indexFlash");
+				$(document).on("click","#searchBtn",function(){
+					var keyword=$("#keyword").val();
+					window.location="/module.php?m=car_search&keyword="+encodeURIComponent(keyword);
+				}) 
+			})
+			
+		</script>
+		<script src="{$skins}car/index.js"></script>
+		<?php wx_jssdk();?>
+		 
+	</body>
+</html>

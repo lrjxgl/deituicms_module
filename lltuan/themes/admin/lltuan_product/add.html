@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='lltuan_product/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=lltuan_product&a=save">
+				<input type="hidden" name="productid" style="display:none;" value="{$data.productid}">
+				<table class="table-add">
+					<tr>
+						<td>名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>审核状态：</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1"> 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status" value="2"> 下线
+						</td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><textarea name="description" id="description"
+								class="textarea-flex-text h60" />{$data.description}</textarea></td>
+					</tr>
+					<tr>
+						<td>图片：</td>
+						<td>
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>价格：</td>
+						<td><input type="text" class="w100" name="price" id="price" value="{$data.price}">元</td>
+					</tr>
+					
+					<tr>
+						<td>拼团设置：</td>
+						<td id="setApp">
+						<div class="row-box">
+							<div class="list mgb-10">
+								 
+								<div v-for="(item,index) in setList" :key="index" class="flex mgb-10 flex-ai-center">
+									<span class="mgr-10">人数：</span>
+									<input class="w100 mgr-10"  v-model="item.user_num"  type="text"/>
+									<span class="mgr-10">价格：</span>
+									<input class="w100 mgr-10"  v-model="item.price"  type="text"/>
+									<div @click="del(item)" class="btn-small btn-danger">删除</div>
+								</div>
+								 
+							</div>
+							<div class="flex flex-ai-center">
+								<span class="mgr-10">人数：</span>
+								<input class="w100 mgr-10" v-model="new_user_num"  type="text"/>
+								<span class="mgr-10">价格：</span>
+								<input class="w100 mgr-10" v-model="new_price"  type="text"/>
+								<div @click="add()" class="btn-small">新增</div>
+							</div>
+							<textarea class="none" name="setdata" id="setdata" >{$data.setdata}</textarea>
+						</div>	
+						
+					</td>
+					</tr>
+					{if $data}<tr>
+						<td>创建时间：</td>
+						<td>{$data.createtime}</td>
+					</tr>{/if}
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		<script>
+			var productid="{$data.productid}"
+		</script>
+		<script src="{$skins}lltuan_product/add.js?v2"></script>
+	</body>
+</html>

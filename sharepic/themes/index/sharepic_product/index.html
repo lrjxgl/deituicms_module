@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="header">
+		<div class="header-back"></div>
+		<div class="header-title">产品管理</div>
+	</div>
+	<div class="header-row"></div>
+<div class="main-body">
+   {foreach item=c from=$list}
+		<div class="flexlist-item">
+			<img src="{$c.imgurl}.100x100.jpg"  class="flexlist-img" />
+			<div class="flex-1">
+				<div class="title">{$c.title}</div>
+			</div>
+		</div>
+   {/foreach}
+  
+<div>{$pagelist}</div>
+</div> 
+<div class="footerFix"><div gourl="/module.php?m=sharepic_product&a=add" class="btn-row-submit mgt-5 mgb-5">发布</div></div>
+{include file="footer.html"}
+</body>
+</html>

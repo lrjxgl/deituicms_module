@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的认养</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="tabs-border mgb-5">
+				<div @click="setType('all')" :class="type=='all'?'tabs-border-active':''" class="tabs-border-item">全部</div>
+				<div @click="setType('doing')" :class="type=='doing'?'tabs-border-active':''"  class="tabs-border-item">认养中</div>
+				<div @click="setType('finish')" :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">已结束</div>
+				<div @click="setType('cancel')" :class="type=='cancel'?'tabs-border-active':''"  class="tabs-border-item">已取消</div>
+			</div>
+			<div>
+				<div v-for="(item,index) in list" :key="index" class="flexlist-item js-item">
+					<img :src="item.animal.imgurl+'.small.jpg'" class="flexlist-img" />
+					<div class="flex-1">
+
+						<div class="flex mgb-5">
+							<div class="mgr-5">金额</div>
+							<div class="mgr-10 cl-money">
+								￥{{item.money}}
+							</div>
+							<div class="mgr-5">可返</div>
+							<div class="mgr-5 cl-money">￥{{item.back_money}}</div>
+							<div class="flex-1"></div>
+							<div class="cl-status">{{item.status_name}}</div>
+						</div>
+						<div class="flexlist-title">{{item.animal.title}}</div>
+						<div class="flex">
+							<div class="f12 cl-primary">编号：{{item.animal_no}}</div>
+							<div class="flex-1"></div>
+							<div @click="showModal(item)" class="btn-mini mgr-5">拍视频</div>
+							<div @click="cancel(item)" class="btn-mini mgr-5">不养了</div>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div v-if="modalShow">
+				<div @click="modalShow=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">我要拍视频</div>
+						<div @click="modalShow=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<textarea v-model="taskContent" class="textarea-flex-text h60"></textarea>
+						<div @click="taskSubmit()" class="btn-row-submit">发布任务</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}gxny_animal_order/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<style>
+			.flexlist-item{
+				width:33.3%;
+			}
+		</style>
+		{include file="header.html"}
+		<div class="main-body">
+			<div class="flex">
+				{include file="user-side.html"}
+				<div class="flex-1">
+					<div class="mgb-10 cl-primary">我的课堂</div>
+					{if empty($list)}
+					<div class="emptyData">暂时未报名</div>
+					{/if}
+					<div class="flex flex-wrap">
+						{foreach item=c from=$list}
+						<a href="/module.php?m=book&a=view&bookid={$c.bookid}" class="flexlist-item">
+					
+							<img class="flexlist-img" src="{$c.imgurl}.100x100.jpg">
+							<div class="flex-1">
+								<div class="flexlist-title">{$c.title}</div>
+								<div class="cl3 f12">
+									{$c.description}
+								</div>
+					
+							</div>
+					
+						</a>
+						{/foreach}
+					</div>
+					{$pagelist}
+					
+				</div>
+		</div>
+		{include file="footer.html"}
+		 
+	</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">幻视设计</div>
+			<div class="header-right-btn" gourl="/module.php?m=h5video&a=add">发布</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="bg-white">
+				{foreach item=c from=$list}
+				 
+					<div gourl="/module.php?m=h5video&a=show&vid={$c.vid}" class="row-item">
+						<div class="row-item-title">{$c.title}</div>
+					</div> 
+				 
+				{/foreach}
+			</div>
+		</div>
+		{assign var="ftnav" value="template"}
+		{include file="ftnav.html"}
+		{include  file="footer.html"}
+	</body>
+</html>

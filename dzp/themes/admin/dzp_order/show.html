@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">订单详情</div>
+<div class="main-body">
+ <div class="flex mgb-10">
+	 <div class="cl-status mgr-20">{$order.status_name}</div>
+	 <div class="cl-primary">{$order.sendtype_name}</div>
+	 <div class="flex-1"></div>
+	 <div class="cl3 f14">{$order.dateline|date:Y-m-d H:i:s}</div>
+ </div>
+ <div class="flex mgb-10">
+	 <div>奖品：</div>
+	 <div>{$product.title}</div>
+	 {if $product.imgurl}
+	 <img class="w100" src="{$product.imgurl}.100x100.jpg" />
+	 {/if}
+	 
+ </div>
+ <div class="flex mgb-5">
+	 <div class="mgr-10">{$order.nickname}</div>
+	 <div class="mgr-10">{$order.telephone}</div>
+	 <div class="mgr-10">{$order.address}</div>
+ </div>
+<div class="flex ">
+	{if $order.status==0}
+	<div class="btn mgr-10 js-send-btn">确认发货</div>
+	{/if}
+</div>
+</div> 
+{include file="footer.html"}
+<script>
+	var orderid="{$order.orderid}";
+	$(function(){
+		$(document).on("click",".js-send-btn",function(){
+			skyJs.confirm({
+				content:"确认发货吗?",
+				success:function(){
+					$.ajax({
+						url:"/moduleadmin.php?m=dzp_order&ajax=1&a=send",
+						data:{
+							orderid:orderid
+						},
+						dataType:"json",
+						success:function(res){
+							skyJs.toast(res.message);
+							window.location.reload();
+						}
+					});
+				}
+			})
+			
+		})
+	})
+</script>
+</body>
+</html>

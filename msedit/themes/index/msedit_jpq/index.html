@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.jpqBox{
+			width: 200px;
+			margin: 0 auto;
+		}
+		.jpqBox-num{
+			text-align: center;
+			margin:20px auto;
+			width:200px;height: 200px;line-height: 200px;border-radius: 50%;background-color: #fff;
+			font-size: 60px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">节拍器</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="jpqBox">
+				<div class="jpqBox-num">{{paiNum}}</div>
+				<div class="flex flex-center mgb-10">
+					<div class="mgr-5">速度</div>
+					<input class="w60 mgr-5"  type="text" v-model="tempo"/>
+					<div class="mgr-5">节拍</div>
+					<div @click="meter=item" :class="item==meter?'badge-info':''" class="badge" v-for="(item,index) in meterList" :key="index">{{item}}</div>
+				 
+				</div>
+				<div class="flex-center" >
+					 
+					<div class="btn" @click="play()">开始</div>
+				</div>
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}js/isMobile.js"></script>
+		<script src="{$skins}js/soundBase.js?{$smarty.now}"></script>
+		<script src="{$skins}js/record.js?{$smarty.now}"></script>
+		<script src="{$skins}msedit_jpq/index.js"></script>
+	</body>
+</html>

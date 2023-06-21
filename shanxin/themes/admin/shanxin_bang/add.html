@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='shanxin_bang/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=shanxin_bang&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>sid：</td>		
+				<td><input type="text" name="sid" id="sid" value="{$data.sid}" ></td>
+				</tr>
+  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>状态：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>描述：</td>		
+				<td><input type="text" name="description" id="description" value="{$data.description}" ></td>
+				</tr>
+  <tr>
+				<td>创建时间：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>数量：</td>		
+				<td><input type="text" name="num" id="num" value="{$data.num}" ></td>
+				</tr>
+  <tr>
+				<td>价格：</td>		
+				<td><input type="text" name="money" id="money" value="{$data.money}" ></td>
+				</tr>
+  <tr>
+				<td>支付：</td>		
+				<td><input type="text" name="ispay" id="ispay" value="{$data.ispay}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

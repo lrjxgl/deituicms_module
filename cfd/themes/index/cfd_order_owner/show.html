@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">投资详情</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body">
+			<div class="row-box mgb-5">众筹项目：{$cfd.title}</div>
+			<div class="row-box mgb-5">
+				<div class="flex mgb-5">
+					<div>投资项目：</div>
+					<div>{$reward.title}</div>
+				</div>
+				<div class="flex mgb-5">
+					<div>投资金额：</div>
+					<div class="cl-money">{$order.money}元</div>
+				</div>
+				<div class="flex mgb-5">
+					<div>项目状态：</div>
+					<div class="cl-status">{$order.status_name}</div>
+				</div>
+				<div class="flex mgb-5">
+					<div>参与日期：</div>
+					<div>{$order.createtime}</div>
+				</div>
+			 
+			</div>
+			<div class="row-box mgb-5">
+				<textarea placeholder="兑现记录" class="textarea-flex-text h60" id="reward-content">{$order.reward_content}</textarea>
+				{if !$order.isreward}
+				<div id="order-reward" class="btn-row-submit">兑现回报</div>
+				{/if}
+			</div>
+			<div class="row-box">{$cfd.content}</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var orderid="{$order.orderid}";
+			$(document).on("click","#order-reward",function(){
+				var reward_content=$("#reward-content").val();
+				$.ajax({
+					url:"/module.php?m=cfd_order_owner&a=reward&ajax=1",
+					dataType:"json",
+					type:"POST",
+					data:{
+						orderid:orderid,
+						reward_content:reward_content
+					},
+					success:function(res){
+						skyToast(res.message)
+						if(!res.error){
+							window.location.reload();
+						}
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

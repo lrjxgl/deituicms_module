@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>{include file="head.html" }
+<body>
+ 
+<div class="tabs-border">
+	<a class="item active" href="/moduleadmin.php?m=vote_join&vid={$vote.id}">投票参与管理</a>
+</div>
+ <div class="index-hd">当前活动：{$vote.title}</div>
+ <div class="row">
+ 	<div class="col-6-1">{include file="vote/vmenu.html"}</div>
+    <div class="col-6-5">
+ 
+<table class="tbs">
+	<thead>
+  <tr>
+   <td>id</td>
+  <td>用户</td>
+   <td>投票时间</td>
+<td>投给选手</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+  <td>{$c[user].nickname}</td>
+   <td>{$c.time}</td>
+  
+   
+    
+<td> 
+	{$c[join].nickname}
+ 
+
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    </div>
+ </div>
+
+{include file="footer.html" } 
+</body>
+</html>
+		

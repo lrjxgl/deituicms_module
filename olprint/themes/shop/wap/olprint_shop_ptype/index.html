@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">打印设置</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{foreach item=c from=$list}
+			<form action="/moduleshop.php?m=olprint_shop_ptype&a=save&ajax=1" class="row-box mgb-5">
+				<input type="hidden" name="id" value="{$c.id}" />
+				<div>{$c.title}</div>
+				<div class="input-flex">
+					<div class="input-flex-label">起步</div>
+					<input value="{$c.start_money}" name="start_money" type="text" class="input-flex-text" />
+					<div class="mgl-5">元</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">每页</div>
+					<input value="{$c.page_money}" name="page_money" type="text" class="input-flex-text" />
+					<div class="mgl-5">元</div>
+				</div>
+				<div class="flex">
+					<div url="/moduleshop.php?m=olprint_shop_ptype&a=status&ajax=1&id={$c.id}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+					<div class="flex-1"></div>
+					<div class="btn-small submit">修改</div>
+				</div>
+			</form>
+			{/foreach}
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".submit",function(){
+				var f=$(this).parents("form");
+				var that=this;
+				$.ajax({
+					url:f.attr("action"),
+					data:f.serialize(),
+					type:"POST",
+					dataType:"json",
+					success:function(res){
+						skyToast(res.message)
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

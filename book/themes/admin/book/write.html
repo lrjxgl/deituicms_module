@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>写书</title>
+		<script src="/plugin/jquery/jquery.js"></script>
+		<link href="/plugin/dt-ui/dt-ui-pc.css" rel="stylesheet"  />
+		<link href="{$skins}book/write.css" rel="stylesheet" />
+	</head>
+ 
+	<body>
+		<div id="top" class="topbox">
+			<div class="title">{$book.title}</div>
+			<a href="/module.php?m=book&a=show&bookid={$book.bookid}" style="font-size: 16px;" target="_blank">查看</a>
+		</div>
+		<div id="leftbox" class="menulist">
+				 <div id="menuEdit" bookid="{$book.bookid}">编辑章节</div>
+				 <div class="js-go pd-5 flex" pid="0" vid="0" >
+					 <div class="flex-1">新增章节</div>
+					 <div class="js-go menulist-add" pid=0" vid="0">+</div>
+				 </div>
+				{foreach item=a from=$artlist}
+					<div class="aitem" id="aitem{$a.id}" >
+						<div class="atitle "  >
+							<div class="flex-1 js-go" vid="{$a.id}">{$a.title}</div>
+							<div class="js-go menulist-add" pid="{$a.id}" vid="0">+</div>
+						</div>
+						{if $a.child}
+							{foreach item=b from=$a.child}
+							<div class="bitem" id="bitem{$b.id}" >
+								<div class="btitle" vid="{$b.id}" >
+									<div class="flex-1 js-go" vid="{$b.id}">{$b.title}</div>
+									<div class="js-go menulist-add" pid="{$b.id}" vid="0">+</div>
+								</div>
+								{if $b.child}
+									{foreach item=c from=$b.child}
+									<div id="citem{$c.id}" class="citem js-go" vid="{$c.id}"  >{$c.title}</div>
+									{/foreach}
+								{/if}
+								</div>
+							{/foreach}
+						{/if}
+					</div>
+				{/foreach}
+			</div>
+		<div id="rightbox" >
+				<iframe id="iframe" ></iframe>
+			</div>
+		<div class="tanbox-bg"></div>	
+		<div id="artbox" class="tanbox">
+			<div class="row"><input class="text" type="text" name="title" id="add-title"  /></div>
+			<div class="btns">
+				<div class="btn btn-submit" id="add-submit">添加</div>
+				<div class="btn btn-submit" id="add-cancel">取消</div>
+			</div>
+			
+		</div>	
+		<script>
+			var bookid="{$book.bookid}";
+			$(document).on("click",".js-go",function(){
+				var id=$(this).attr("vid");
+				var pid=$(this).attr("pid")
+				$(".js-go").removeClass("active");
+				$(this).addClass("active");
+				var url="/moduleadmin.php?m=book_article&a=add&bookid="+bookid+"&pid="+pid+"&id="+id;
+				var iframe='<iframe id="iframe" src="'+url+'"></iframe>';
+				$("#rightbox").html(iframe);
+			})
+			 
+			$(document).on("click","#menuEdit",function(){
+				var bookid=$(this).attr("bookid");
+				var url="/moduleadmin.php?m=book&a=menu&bookid="+bookid;
+				var iframe='<iframe id="iframe" src="'+url+'"></iframe>';
+				$("#rightbox").html(iframe);
+			})
+		</script>
+	</body>
+</html>

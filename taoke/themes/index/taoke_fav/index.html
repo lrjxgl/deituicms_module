@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">我的收藏</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+		    	{foreach item=c from=$data}
+		            <li class="mui-table-view-cell">
+		                <a href="{$c.url}" class="mui-navigate-right">
+		                    {$c.title}
+		                </a>
+		            </li>
+		        {/foreach}     
+		        </ul>
+		      {$pagelist}  
+		</div>
+	</body>
+</html>

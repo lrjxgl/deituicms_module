@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('type') eq ''}active{/if}" href="{$appadmin}?m=zbtao_pp_apply">待审核</a>
+	<a class="item {if get('type') eq 'pass'}active{/if}" href="{$appadmin}?m=zbtao_pp_apply&type=pass">已通过</a>
+	<a class="item {if get('type') eq 'forbid'}active{/if}" href="{$appadmin}?m=zbtao_pp_apply&type=forbid">已禁止</a>
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>ppid</td>
+   <td>昵称</td>
+   <td>头像</td>
+    <td>性别</td>
+   <td>描述</td>
+  
+    
+   
+   
+   <td>状态</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr class="js-item">
+   <td>{$c.ppid}</td>
+   <td>{$c.nickname}</td>
+   <td><img src="{$c.imgurl}.100x100.jpg" class="wh-60" /></td>
+   <td>{if $c.gender eq 1}女{else}男{/if}</td>
+   <td>{$c.description}</td>
+    
+   <td>{$c.status}</td>
+    
+<td>
+	{if $c.status eq 0}
+	<div class="btn-mini mgr-5 js-delete" url="/moduleadmin.php?m=zbtao_pp_apply&a=pass&ajax=1&ppid={$c.ppid}" msg="确认审核通过吗">通过</div>
+	<div class="btn-mini js-delete" url="/moduleadmin.php?m=zbtao_pp_apply&a=forbid&ajax=1&ppid={$c.ppid}"  msg="确认不通过审核吗">不通过</div>
+	{/if}
+ </td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

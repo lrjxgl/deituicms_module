@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">商家</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="mui-content-padded">
+		    	
+		    	<form >
+		    		<col style="width: 100px;">
+		    		<table>
+		    			<tr>
+		    				<td>名称</td>
+		    				<td>
+		    					<input type="text" name="shopname" value="{$shop.shopname}" class="mui-input-clear" placeholder="名称">
+		    				</td>
+		    			</tr>
+		    			
+		    			<tr>
+		    				<td>Logo</td>
+		    				<td>
+		    					<div id="up1" url="/index.php?m=upload&a=uploadtao&dir=shop&id={$data.id}">
+						    	<div class="btn-upload" style="background-color: #0055AA; text-align: center; color: #fff; line-height: 33px;">
+						          <input type="file" name="upimg" id="ud"  class="btn-upload-file" onChange="uploadimg('up1')">
+						        	上传logo 
+						    	</div>
+						 
+						          <input type="hidden" name="logo" class="imgurl" value="{$data.logo}">
+						          <span class="imgShow">
+						          {if $data.logo}
+						          <img src="{$data.logo|images_site}.100x100.jpg">
+						          {/if}
+						          </span>
+						      </div>
+		    				</td>
+		    			</tr>
+		    			<tr>
+		    				<td>简介</td>
+		    				<td>
+		    					<textarea type='text' name='content' id='content'  style=" height:60px;" >{$data.content}</textarea>
+		    				</td>
+		    			</tr>
+		    		</table>
+		    	    
+		    	     <div class="btn-row-submit">保存</div>
+		    	</form>
+		    </div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

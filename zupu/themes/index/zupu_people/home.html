@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+	.footer-item{
+		line-height: 45px;
+	}</style>
+	<body>
+		<div class="header">
+			<div class="header-title">{$group.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="input-flex">
+				<input v-model="nickname" type="text" class="input-flex-text" />
+				<div @click="search" class="input-flex-btn">搜</div>
+			</div>
+			
+			<div class="flex-center pd-10" v-if="parent">
+				<div @click="setParent(parent.id)">{{parent.nickname}}</div>
+			</div>
+			<div class="tabs-border mgb-10" v-if="us.length>0">
+				<div :class="item.id==me.id?'tabs-border-active':''" class="tabs-border-item" @click="setParent(item.id)" v-for="(item,index) in us" :key="index">{{item.nickname}}</div>
+			</div>
+			<div v-if="child.length>0" class="row-box">
+				<div class="bd-mp-10" @click="setParent(item.id)" v-for="(item,index) in child" :key="index">{{item.nickname}}</div>
+			</div>
+			<div class="footer-row"></div>
+			<div class="footer">
+				<div class="footer-item">家园</div>
+				
+				<div class="footer-item">资讯</div> 
+				<div class="footer-item">聊天</div> 
+				<div class="footer-item">族谱</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}zupu_people/childItem.js"></script>
+		<script src="{$skins}zupu_people/home.js"></script>
+	</body>
+</html>

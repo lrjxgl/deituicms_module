@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+	.tag{
+		border: 1px solid #eee;
+		color: #666;
+		padding: 3px 5px;
+		margin: 5px;
+	}
+	.tag-active{
+		color: #F60;
+	}
+	</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">个性化标签</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	<div class="pd-10">一个主播只能标记5个标签</div>
+    <div class="flex bg-white flex-wrap">
+		 
+		<div v-for="(item,index) in list" :key="index" class="tag" @click="toggleSelect(item)" :class="item.selected==1?'tag-active':''">{{item.title}}</div>
+		 
+	</div> 
+</div>
+{include file="footer.html"}
+<script src="{$skins}zbtao_user_tag/my.js"></script>
+</body>
+</html>

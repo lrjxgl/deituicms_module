@@ -1,0 +1,58 @@
+.fixCart{
+	position: fixed;
+	left: 0;
+	bottom:100px;
+	display: flex;
+	flex-direction: row;
+	align-items: center; 
+	background-color: #18b357;
+	z-index: 999;
+	padding: 6px 10px;
+	border-top-right-radius: 20px;
+	border-bottom-right-radius: 20px;
+}
+.circle{
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	border: 1px solid #0088CC;
+	border-radius: 50%;
+	color: #0088CC;
+	font-size: 12px;
+	text-align: center;
+	margin-left: 5px;
+}
+.mtlist-buy{
+	width: 66px;
+	text-align: center;
+	background-color: #18B357;
+	color: #fff;
+	font-size: 12px;
+	margin: 0 auto;
+	border-radius: 10px;
+	padding:2px 0px;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+.kslist {
+ 	display: flex;
+ 	flex-direction: row;
+ 	align-items: center;
+ 	padding-left: 10px;
+ }
+
+ .kslist-label {
+ 	margin-right: 6px;
+ 	color: #646464;
+ }
+
+ .kslist-item {
+ 	border: 1px solid #eee;
+ 	padding: 4px 8px;
+ 	margin-right: 10px;
+ }
+
+ .kslist-active {
+ 	color: #007AFF;
+ }

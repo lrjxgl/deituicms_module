@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='youyao_shop/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>shopid</td>
+ 
+   <td>名称</td>
+   <td>描述</td>
+   
+   <td>nickname</td>
+   <td>联系电话</td>
+   <td>status</td>
+ 
+   <td>地址</td>
+   
+   <td>imgurl</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.shopid}</td>
+   
+   <td>{$c.shopname}</td>
+   <td>{$c.description}</td>
+ 
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.status}</td>
+   
+   <td>{$c.address}</td>
+  
+   <td>
+	<img src="{$c.imgurl}.100x100.jpg" class="w50" />
+ </td>
+<td><a href="/moduleadmin.php?m=youyao_shop&a=add&shopid={$c.shopid}">编辑</a> <a href="/module.php?m=youyao_shop&a=show&shopid={$c.shopid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=youyao_shop&a=delete&ajax=1&shopid={$c.shopid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

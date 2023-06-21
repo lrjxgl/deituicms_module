@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<style>
+		.tag-a,.tag-b{
+			border: 1px solid #EE3300;
+			padding: 2px 3px;
+			border-radius: 5px;
+			margin-right: 10px;
+			font-size: 12px;
+			margin-bottom: 5px;
+		}
+		.tag-b{
+			border-color: #0062CC;
+		}
+		</style>
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">钓点详情</div>
+	 
+</div>
+<div class="header-row"></div>
+<div class="main-body none" :class="'flex-col'"  id="App">
+	<div class="row-box mgb-5">
+		 
+		<div class="flex">
+			<img  @click="goHome({$admin.userid})" src="{$admin.user_head}.100x100.jpg" class="w50 bd-radius-50" />
+			<div class="flex-1 mgl-10">
+				<div class="flex flex-ai-center mgb-5">
+					<div @click="goHome({$admin.userid})" class="mgr-5">{$admin.nickname}</div>
+					<div class="cl-primary  f12">发布者</div>
+				</div>
+				
+				<div class="cl2">{$admin.description}</div>
+			</div>
+		</div>
+		 
+	</div>
+	<img class="d-img" src="{$data.imgurl}.middle.jpg" />
+    <div class="row-box mgb-5">
+		<div class="flex flex-ai-center">
+			<div class="cl1">{$data.title}</div>
+			<div class="flex-1"></div>
+			<div @click="toggleFav()" v-if="isFav"  class="flex flex-ai-center iconfont cl-red pd-5 icon-favor pdl-5 f14">已收藏</div>
+			<div @click="toggleFav()" v-else  class="flex flex-ai-center iconfont pd-5 icon-favor pdl-5 f14">收藏</div>
+		</div>
+		
+		
+		<div   class="flex mgb-10 flex-ai-center">
+			<div class="flex-1 mgr-10">{$data.address}</div>
+			<div @click="showMap()" class="iconfont pd-5 icon-location_light pointer cl-primary"></div>
+		</div>
+		
+		<div class="flex flex-ai-center mgb-10">
+			{if $data.is_allow eq 0}
+			<div class="tag-a cl-primary">允许</div>
+			{elseif $data.is_allow eq 1}
+			<div class="tag-a cl-warning">限制</div>
+			{else}
+			<div class="tag-a cl-danger">禁止</div>
+			{/if}
+			<div class="flex flex-1 flex-ai-center flex-wrap">
+			{foreach item=c from=$data.tagsList}
+			<div class="tag-b">{$c}</div>
+			{/foreach}	
+			</div>
+			
+			 
+			<div class="btn-mini btn-outline-primary" @click="shModal=true">晒渔获</div> 
+		</div>
+		
+	</div> 
+	
+	<div v-if="shModal">
+		<div  @click="shModal=false"  class="modal-mask"></div>
+		<div class="modal">
+			<div class="modal-header">
+				<div class="modal-title">我要晒渔获</div>
+				<div @click="shModal=false" class="modal-close icon-close"></div>
+			</div>
+			<div class="modal-body">
+				<textarea v-model="tagContent" class="textarea-flex-text h100"></textarea>
+				<div>填写您钓到的渔获，每行一个</div>
+				<div @click="tagSubmit()" class="btn-row-submit">确认发布</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-box mgb-5">
+		<div class="cl2 ">{$data.description}</div>
+	</div>
+	<div>
+		<div class="tabs-border">
+			<div :class="tab=='blog'?'tabs-border-active':''" @click="setTab('blog')" class="tabs-border-item">动态</div>
+			 
+			<div :class="tab=='checkin'?'tabs-border-active':''" @click="setTab('checkin')"   class="tabs-border-item">打卡</div>
+		</div>
+		<div>
+			<div v-if="tab=='blog'">
+				<div class="sglist">
+					<div class="sglist-item" v-for="(item,index) in blogList" :key="index">
+						<div class="flex mgb-5">
+							<img  @click="goHome(item.userid)" :src="item.user_head+'.100x100.jpg'" class="wh-40 bd-radius-50" />
+							<div class="flex-1 mgl-5">
+								<div  @click="goHome(item.userid)" class="f14 fw-600 mgb-5">{{item.nickname}}</div>
+								<div class="flex">
+									<div class="f12 cl3">{{item.timeago}}</div>
+									
+								</div>
+							</div>
+							 
+						</div>
+						<div  @click="goBlog(item.id)"  class="sglist-desc">{{item.content}}</div>
+						<div  @click="goBlog(item.id)"  v-if="item.imgsList" class="sglist-imglist">
+							 
+							<img v-for="(cc,ii) in item.imgsList" :key="ii" :src="cc+'.100x100.jpg'" class="sglist-imglist-img" />
+							 
+						</div>
+					</div>
+				</div>
+				<div v-if="blogPage>0" class="loadMore" @click="getBlog()">加载更多</div>
+				<div gourl="/module.php?m=fishing_blog&a=add&placeid={$data.placeid}" class="fixedAdd">发布</div>
+			</div>
+			<div v-if="tab=='checkin'">
+				 
+				<div class="sglist">
+					<div class="sglist-item" v-for="(item,index) in ckList" :key="index">
+						<div class="flex mgb-5">
+							<img @click="goHome(item.userid)" :src="item.user_head+'.100x100.jpg'" class="wh-40 bd-radius-50" />
+							<div class="flex-1 mgl-5">
+								<div  @click="goHome(item.userid)" class="f14 fw-600 mgb-5">{{item.nickname}}</div>
+								<div class="flex">
+									<div class="f12 cl3">{{item.timeago}}</div>
+									
+								</div>
+							</div>
+							 
+						</div>
+						<div class="sglist-desc">{{item.content}}</div>
+						<div v-if="item.imgsList" class="sglist-imglist">
+							 
+							<img v-for="(cc,ii) in item.imgsList" :key="ii" :src="cc+'.100x100.jpg'" class="sglist-imglist-img" />
+							 
+						</div>
+					</div>
+				</div>
+				<div v-if="ckPage>0" class="loadMore" @click="getCheckin()">加载更多</div>
+				<div gourl="/module.php?m=fishing_checkin&a=add&placeid={$data.placeid}" class="fixedAdd">打卡</div>
+			</div>
+		</div>
+	</div>
+	
+    
+</div>
+<style>
+.bdmapModal{
+	position: absolute;
+	height: 300px;
+	width: 100%;
+	top:50%;
+	margin-top: -150px;
+	margin-left: -2000px;
+}
+.bdmapShow{
+	margin-left: 0;
+}
+.bdmapModal .modal-mask{
+	display: none;
+}
+.bdmapShow .modal-mask{
+	display: block;
+}
+</style>
+<div  class="bdmapModal" id="bdmapModal">
+	<div onclick="$('#bdmapModal').removeClass('bdmapShow')" class="modal-mask"></div> 
+	<div class="none">
+		<div class="btn-small">去导航</div>
+	</div>
+	<div id="bdmap" style="width: 100%;height: 300px; z-index: 99;"></div>
+</div>
+
+{include file="footer.html"}
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=1.0&type=webgl&ak={const.BDMAPKEY}"></script>
+
+<script>
+var placeid="{$data.placeid}"
+var lat="{$data.lat}"
+var lng="{$data.lng}"
+ 
+ 
+</script>
+<script src="{$skins}fishing_place/show.js?{$smarty.now}"></script>
+</body>
+</html>

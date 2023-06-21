@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='h5video_music/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>musicid</td>
+   
+   <td>名称</td>
+	 <td>分类</td>
+   
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.musicid}</td>
+   
+   <td>{$c.title}</td>
+	 <td>{$c.catid}</td>
+    
+    <td> 
+   			<div url="/moduleadmin.php?m=h5video_music&a=status&ajax=1&musicid={$c.musicid}" class="js-toggle-status {if $c.status eq 1}yes{else}no{/if}"></div>
+   </td>
+<td><a href="/moduleadmin.php?m=h5video_music&a=add&musicid={$c.musicid}">编辑</a> 
+<a class="pointer js-music-play" url="{$c.url}">试听</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=h5video_music&a=delete&musicid={$c.musicid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div>
+ <div class="modal-group" id="musicBox">
+	 <div class="modal-mask js-modal-close"></div>
+	 <div class="modal">
+		 <div class="modal-header">
+			 <div class="modal-title">试听</div>
+			 <div class="modal-close js-modal-close">关闭</div>
+		 </div>
+		 <div class="modal-body">
+			<audio id="mp3" autoplay="autoplay" controls=""></audio>
+			</div> 
+		 
+	 </div>
+ </div>
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-music-play",function(){
+		var url=$(this).attr("url")
+		$("#musicBox").show();
+		$("#mp3").attr("src",url);
+	})
+	$(document).on("click",".js-modal-close",function(){
+		$("#musicBox").hide();
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">众筹回报</div>
+	<a href="javascript:window.location.reload()" class="header-right-btn">刷新</a>
+</div>
+<div class="header-row"></div> 
+<style>
+	.list-item{
+	 
+		margin-bottom: 10px;
+		padding: 10px;
+		background-color: #fff;
+		margin-bottom: 5px;
+	}
+	.flexnone{
+		flex: none;
+	} 
+	.list-item .text{
+		width: 400px;
+		margin-bottom: 0px;
+		height: 36px;
+	}
+	.list-item .money{
+		width:100px;
+		margin-bottom: 0px;
+		height: 36px;
+	}
+</style>
+<div class="main-body" id="App">
+   <div class="list">
+   		<form id="addForm">
+   		<div class="list-item">
+   			<input type="hidden" name="cfdid" value="{$cfd.cfdid}" />
+   			<div class="flex mgb-5">
+			名称： <input class="input-flex-text " type="text" class="text"  name="title" />
+   			
+   			</div>
+			<div class="flex flex-ai-center">
+				金额：<input class="input-flex-text flexnone"  type="text" class="money" name="money" />
+			股权：<input    type="checkbox" value="1" name="typeid" />
+   			<div @click="addSubmit" class="btn-small btn-success">添加</div>
+			</div>
+   		</div>
+   		</form>
+   		<div id="list">
+   		 
+   		<form :id="'e'+item.id" v-for="(item,index) in list" :key="index">
+   			<div class="list-item">
+   				<input type="hidden" name="id" :value="item.id" />
+				<div class="flex flex-ai-center mgb-5">
+   				名称： <input class="input-flex-text "  type="text" class="text" :value="item.title" name="title" />
+   				股权：<input type="checkbox" value="1" :checked="item.typeid==1" name="typeid" />
+				</div>
+   				<div class="flex flex-ai-center">
+				金额：<input class="input-flex-text  flexnone"  type="text" class="money" :value="item.money" name="money" />
+   				<div class="flex-1"></div>
+				<div @click="toggleStatus(item)" :class="item.status==1?'yes':'no'" class="mgr-20"></div>
+   				<div @click="editSubmit(item)" class="btn-small mgr-5 btn-success">保存</div>
+   				<div @click="delSubmit(item)"   class="btn-small btn-danger">删除</div>
+				</div>
+			</div>
+   		</form>
+   		 
+   		</div>
+   </div>
+</div>
+{include file="footer.html"}
+<script>
+	var cfdid="{$cfd.cfdid}";
+</script>
+<script src="{$skins}cfd_reward/index.js"></script> 
+
+</body>
+</html>

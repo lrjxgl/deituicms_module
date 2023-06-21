@@ -1,0 +1,99 @@
+.mHeader {
+	position: absolute;
+	top: 0px;
+	height: 60px;
+	width: 100%;
+	box-sizing: border-box;
+	background-image: linear-gradient(#fb2d2f, #dcb6c1);
+	padding: 10px 5px;
+}
+
+.hdIcon {
+	width: 40px;
+	height: 40px;
+}
+
+.mHeader-searchbox {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	border-radius: 20px;
+	flex: 1;
+	background-color: #fff;
+	margin: 0 10px;
+	align-items: center;
+	padding: 0px 20px;
+}
+
+.mHeader-search {
+	flex: 1;
+	width: 50px;
+	margin: 0px 5px;
+	height: 30px;
+	line-height: 30px;
+	border: 0;
+	outline: 0;
+}
+
+.m-navPic-title {
+	font-weight: 600;
+}
+
+.sbTitle {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.sbTitle-h1 {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.sbTitle-more {
+	color: #888;
+	font-size: 14px;
+	margin-right: 5px
+}
+
+.sbTitle-moreicon {
+	color: #999;
+	font-size: 12px;
+}
+
+/*人气*/
+.rqImg {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.rqTitle {
+	height: 20px;
+	line-height: 20px;
+	overflow: hidden;
+	text-overflow: clip;
+}
+
+/*省心*/
+.sxImg {
+	width: 100%;
+	margin-bottom: 5px;
+}
+
+.sxMoney {
+	color: #e74018;
+	font-size: 18px;
+	font-weight: 600;
+	text-align: center;
+}
+
+.sglist-desc {
+	margin-bottom: 15px;
+}
+
+.footer-item-num {
+	display: block;
+	border-color: #cb6626;
+	color: #cb6626;
+}

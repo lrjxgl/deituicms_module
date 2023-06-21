@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我发起的抽奖</div>
+	<div gourl="/module.php?m=mdish_lottery&a=add" class="header-right-btn">添加</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div>
+		{foreach item=c from=$list}
+		<div class="flexlist-item">
+			<img class="flexlist-img" src="{$c.imgurl|images_site}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="flexlist-title mgb-5">{$c.title}</div>
+				<div class="flex mgb-5">
+					<div class="mgr-5 f14 cl2">价值</div>
+					<div class="cl-money">￥{$c.price}</div>
+				</div>
+				<div class="flexlist-desc">{$c.description}</div>
+			</div>
+			<div>
+				<div class="cl-num f14 mgb-5">{$c.status_name}</div>
+				<div class="f12 cl3 mgb-5">{$c.sday}</div>
+				{if $c.status eq 1}
+				<div v="{$c.ltid}" class="btn-mini btn-outline-primary js-copy">再来一份</div>
+				{/if}
+			</div>
+			
+		</div>
+		{/foreach}
+	</div>
+    	 
+
+<div>{$pagelist}</div>    
+</div>
+{include file="footer.html"}
+<script>
+	$(document).on("click",".js-copy",function(){
+		var ltid=$(this).attr("v");
+		$.ajax({
+			url:"/module.php?m=mdish_lottery&a=copy&ajax=1",
+			data:{
+				ltid:ltid
+			},
+			dataType:"json",
+			success:function(res){
+				skyToast(res.message);
+				if(!res.error){
+					window.location.reload();
+				}
+				
+			}
+		})
+	})
+</script>
+</body>
+</html>

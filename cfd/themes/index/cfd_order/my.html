@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的投资</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body none" :class="'flex-col'" id="App">
+			
+			<div class="tabs-border">
+				<div @click="setType('all')" :class="type=='all'?'tabs-border-active':''" class="tabs-border-item ">
+					全部
+				</div>
+				<div @click="setType('unpay')" :class="type=='unpay'?'tabs-border-active':''"  class="tabs-border-item">
+					待支付
+				</div>
+				<div @click="setType('unfinish')" :class="type=='unfinish'?'tabs-border-active':''"  class="tabs-border-item">
+					待回报
+				</div>
+				<div @click="setType('finish')" :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">
+					已回报
+				</div>
+			</div>
+		    <div class="list">
+		    	 
+		    	<div v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+					<div class="flex mgb-10">
+						<div class="flex-1 cl2">
+							{{item.cfd.title}}
+						</div>
+						<div class="cl-status">
+							{{item.status_name}}
+						</div>
+					</div>
+		    		
+		    		<div  class="flex">
+		    			<span v-if="item.reward!=null" class="cl2">{{item.reward.title}} </span> 
+						<div class="flex-1"></div>
+		    			<span class="cl-money">￥{{item.money}}</span>
+		    		</div>
+		    		<div class="flex">
+						<div class="flex-1"></div>
+						<div  :gourl="'/module.php?m=cfd_order&a=show&orderid='+item.orderid"  class="btn-small mgr-10">查看</div>
+					 
+						<div v-if="item.ispay==0 && item.status==0" class="btn-small" :gourl="'/module.php?m=cfd_order&a=pay&orderid='+item.orderid">去支付</div>
+					 
+					</div>
+					
+		    	</div>		    	
+		    	 
+		    </div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}cfd_order/my.js?v=2"></script>
+	</body>
+</html>

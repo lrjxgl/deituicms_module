@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}fxa_product/cha/show.css" rel="stylesheet" />
+	<body>
+		 
+		<div id="App" class="main-body">
+			<div id="content" style="background-color: #e4f4f3;" class="d-content mgb-5">{$data.content}</div>
+			<div id="morePro" class="none">
+				{if !empty($list)}
+			
+				<div>
+					<img src="{$skins}fxa_product/cha/img/more.jpg" style="width: 100%;" />
+				</div>
+				
+				  
+				<style>
+					.morePro{
+						background-color: #e4f4f3;
+					}
+					.morePro-item{
+						position: relative;
+						margin-bottom: 10px;
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: center;
+					}
+					.morePro-item-img{
+						width: 90%;
+					}
+					 
+				</style>
+				<div style="">
+					
+					{foreach item=c from=$list}
+					<div gourl="/module.php?m=fxa_product&a=show&id={$c.id}" class="morePro-item">
+						<img src="{$c.imgurl}.middle.jpg" class="morePro-item-img" />
+						 
+					</div>
+					{/foreach}
+				</div> 
+				{/if}
+			</div>
+		</div>
+		<div class="footer-row" style="height: 80px;"></div>
+		<div class="footer pd-10">
+			<div gourl="/module.php?m=fxa_user" class="mgr-20">
+				<div class="iconfont icon-my_light"></div>
+				<div>我的</div>
+			</div class="mgr-20">
+			<div class="pointer" gourl="/index.php?m=kefu">
+				<div class="iconfont icon-service_light"></div>
+				<div>客服</div>
+			</div>
+			{if !$isLogin}
+				<div onclick="loginBox()" class="buy-btn">{if $data.price lt 10}立即登录免费领取精品茶叶{else}立即登录购买{/if}</div>
+			 {else}
+			{if $canBuy}
+			<div onclick="$('#addrModal').show()" class="buy-btn">{if $data.price lt 10}免费领取精品茶叶 (支付邮费{$data.price}){else}立即下单购买{/if}</div>
+			{else}
+			<div class="btn btn-disable mgl-10" >活动未开启</div>
+			{/if}
+			{/if}
+		</div>
+		<div onclick="$('#modalShare').show()" class="shareRight flex-ai-center flex">
+			邀请好友 	
+		</div>
+		<div class="modal-group" id="modalShare">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="flex-center" style="padding: 40px;">
+					<div class="mgb-10 cl-red">*长按图片保存分享给好友</div>
+					<div class="">
+						<img style="width:200px; " src="{$shareImg}">
+					</div>
+					
+				</div>
+			</div>
+		</div>
+		<div class="modal-group" id="modal-kefu">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="flex-center" style="padding: 40px;">
+					<div class="mgb-20">
+						<img style="width:150px; height: 150px;" src="{$skins}css/kefu.jpg">
+					</div>
+					<div>长按添加客服</div>
+				</div>
+			</div>
+		</div>
+		<div id="addrModal" class="modal-group">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header">
+					<div class="modal-title">填写收货信息</div>
+					<div class="modal-close icon-close"></div>
+				</div>
+				<div class="modal-body">
+					<div>
+						<div class="input-flex">
+							<div class="input-flex-label">联系人</div>
+							<input value="{$lastAddr.nickname}" id="nickname" class="input-flex-text" type="text" name="nickname"/>
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">电话</div>
+							<input value="{$lastAddr.telephone}" id="telephone" class="input-flex-text" type="text" name="telephone"/>
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">地址</div>
+							<input value="{$lastAddr.address}" id="address" class="input-flex-text" type="text" name="address"/>
+						</div>
+						<div id="order" class="btn-row-submit">确认下单</div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div id="loginApp">
+			<user-login :show-login="showLogin" @login-success="loginSuccess" @call-parent="hideLogin"></user-login>
+		</div>
+		{include file="footer.html"}
+		<script src="static/js/login.vue.js"></script>
+		<script>
+				
+				var productid = "{$data.id}";
+				var con=$("#content").html();
+				con=con.replace("#morePro",$("#morePro").html());
+				$("#content").html(con);
+				var loginApp=new Vue({
+					el:"#loginApp",
+					data:{
+						showLogin:false
+					},
+					methods:{
+						hideLogin:function(e){
+							this.showLogin=e;
+						},
+						loginSuccess:function(e){
+							this.showLogin=false;
+							window.location.reload();
+						}
+					}
+				})
+				function loginBox(){
+					loginApp.showLogin=true;
+				}
+				$(document).on("click", "#order", function() {
+					if(!postCheck.canPost()){
+						return false;
+					}
+					$.ajax({
+						url: "/module.php?m=fxa_order&a=order&ajax=1&productid=" + productid,
+						dataType: "json",
+						type:"POST",
+						data:{
+							productid:productid,
+							nickname:$("#nickname").val(),
+							telephone:$("#telephone").val(),
+							address:$("#address").val()
+						},
+						success: function(res) {
+							
+							skyToast(res.message);
+							if(res.error){
+								return false;
+							}
+							window.location=res.data.payurl;
+						}
+					})
+				})
+			 
+		</script>
+	</body>
+</html>

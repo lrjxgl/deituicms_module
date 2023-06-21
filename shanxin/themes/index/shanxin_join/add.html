@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">我要参与</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form id="joinForm" method="post" action="/module.php?m=shanxin_join&a=save">
+			 
+				<input type="hidden" name="sid" style="display:none;" value="{$shanxin.sid}">
+				<div class="input-flex">
+				 	<div class="input-flex-label">名字</div>
+				     <input type="text" name="nickname" class="input-flex-text" value="{$data.nickname}"> 
+				 </div>
+				 
+				 <div class="input-flex">
+				 	<div class="input-flex-label">联系电话</div>
+				     <td> <input type="text" class="input-flex-text" name="telephone" value="{$data.telephone}"></td>
+				 </div>
+				 <div class="input-flex">
+				 	<div class="input-flex-label">收货地址</div>
+				     <td> <input type="text" class="input-flex-text" name="address" value="{$data.address}"></td>
+				 </div>
+				 
+				 <div class="flex flex-ai-center pd-10 bg-white">
+				 	<div class="input-flex-label">老人照片</div>
+				 	<div class="flex-1 upimg-box">
+				 		<input type="file" id="upa" class="js-upimg-file" style="display: none;" />
+				 		<div class="upimg-btn js-upimg-btn">+</div>
+				 		<input type="hidden" name="imgurl" class="imgurl" value="{$data.imgurl}" />
+				 		<div class="upimg-item {if !$data}none{/if}">
+				 			 
+				 			<img src="{$data.imgurl|images_site}.100x100.jpg" class="upimg-img" width="100"  >
+				 			 
+				 		</div>
+				 	</div>
+				 </div>
+				 <div class="input-flex">
+				 	<div class="input-flex-label">寄语</div>
+				     <td> <input type="text" class="input-flex-text" name="description" value="{if !$data}关爱老人,从我做起{/if}{$data.description}"></td>
+				 </div>
+				 
+				 {if $data}
+				 <div class="flex-center pd-10 cl-warning">你已经参与过了<br/>如信息有误请加微信客服:leirijin</div>
+				 {else}
+				 
+				<div id="join-submit" class="btn-row-submit">提交</div>
+				{/if}
+				<div class="row-box">
+									<div class="fwb f16 mgb-5">活动说明</div> 
+									<div class="d-content">
+										{$shanxin.content}				 
+									</div>
+				</div>
+			</form>
+
+		</div>
+		{assign var="ftnav" value="join"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+ 
+		<script src="/plugin/dt-ui/dt-ui-upload.js?v3"></script>
+		<script>
+			
+			$(document).on("click","#join-submit",function(){
+				$.post("/module.php?m=shanxin_join&a=Save&ajax=1",
+						$("#joinForm").serialize(),
+						function(res){
+							skyToast(res.message);
+							if(res.error){
+								return false;
+							}else{
+								window.location=res.url;
+							}
+				},"json");
+			});
+			
+		</script>
+	</body>
+</html>

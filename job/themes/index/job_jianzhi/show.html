@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">兼职详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="row-box mgb-5">
+		<div class="d-title">{$data.title}</div>
+		<div class="mgb-5 f12 cl3">
+			发布于：{$data.createtime}
+		</div>
+		<div class="flex cl2 mgb-5">
+			<div class="flex-1">需求人数：{$data.num}人</div>
+			<div class="flex cl2">
+			工资：<div class="cl-money">￥{$data.money}</div>/天
+			</div>	
+		</div>
+		<div class="cl2 mgb-5">
+			上班时间：{$data.startTime}
+		</div>
+		
+		<div class="cl2 mgb-5">上班地址：{$data.address}</div>
+		
+	</div>
+	<div class="row-box">
+		<div class="cl2">{$data.description}</div>
+	</div>
+	{if $userid && !$isBaoming}
+	<div >
+		<div class="btn-row-submit" id="bmBtn">我要报名</div>
+	</div>
+	{else}
+	<div class="pd-10 text-center">已报名，请等待通知</div>
+	{/if}
+	<div class="row-box">
+		<div class="d-content">{$data.content}</div>
+	</div>
+	
+</div>
+<div class="modal-group" id="bmBox">
+	<div class="modal-mask"></div>
+	<div class="modal">
+		<div class="modal-header">
+			<div class="modal-title">报名</div>
+			<div class="modal-close icon-close"></div>
+		</div>
+		<div class="modal-body">
+			<div class="input-flex">
+				<div class="input-flex-label input-flex-require">联系电话</div>
+				<input type="text" id="bm-telephone" class="input-flex-text" />
+			</div>
+			<div class="input-flex">
+				<div class="input-flex-label input-flex-require">联系人</div>
+				<input type="text" id="bm-nickname" class="input-flex-text" />
+			</div>
+			<div class="textarea-flex">
+				<div class="textarea-flex-label">自我介绍</div>
+				<textarea class="textarea-flex-text h60" id="bm-description"></textarea>
+			</div>
+			<div class="btn-group">
+				<div class="btn mgr-10" id="bm-submit">确定报名</div>
+				<div class="btn btn-danger modal-cancel">取消报名</div>
+			</div>
+		</div>
+	</div>
+</div> 
+{include file="footer.html"}
+<script>
+	var objectid="{$data.id}";
+	$("#bmBtn").click(function(){
+		$("#bmBox").show();
+	})
+	$(document).on("click","#bm-submit",function(){
+		var nickname=$("#bm-nickname").val();
+		var telephone=$("#bm-telephone").val();
+		var description=$("#bm-description").val();
+		if(telephone==''){
+			skyToast("请输入联系电话");
+			return;
+		}
+		$.post("/module.php?m=job_jianzhi_baoming&a=save&ajax=1",{
+			objectid:objectid,
+			nickname:nickname,
+			telephone:telephone,
+			description:description
+		},function(res){
+			if(res.error==1000){
+				window.location="/index.php?m=login"
+				return ;
+			}
+			skyToast(res.message);
+			if(!res.error){
+				$("#bmBox").hide();
+			}
+		},"json")
+	})
+</script>
+<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+</body>
+</html>

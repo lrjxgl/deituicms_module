@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我发起的赛事</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div>
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<img gourl="/module.php?m=fsw_match&a=show&mid={$c.mid}"  src="{$c.imgurl}.middle.jpg" class="sglist-img" />
+					<div gourl="/module.php?m=fsw_match&a=show&mid={$c.mid}" class="mgb-5">{$c.title}</div>
+					<div class="mgb-10 cl3">{$c.description}</div>
+					<div class="flex">
+						<div gourl="/module.php?m=fsw_match&a=add&mid={$c.mid}" class="btn-mini mgr-5">编辑</div>
+						<div gourl="/module.php?m=fsw_activity&a=add&mid={$c.mid}" class="btn-mini mgr-5">+活动</div>
+						<div gourl="/module.php?m=fsw_activity&a=my&mid={$c.mid}" class="btn-mini mgr-5">活动列表</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=olprint_book&a=save">
+				<input type="hidden" name="bookid" style="display:none;" value="{$data.bookid}">
+
+				<div class="input-flex">
+					<div class="input-flex-label">标题：</div>
+					<input class="input-flex-text" type="text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">分类：</div>
+					<select class="input-flex-select" name="catid">
+						<option value="0">请选择</option>
+						{foreach item=c from=$catlist}
+						<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title} </option> 
+						{if $c.child} 
+						{foreach item=cc from=$c.child} 
+						<option value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title} </option>
+						 {/foreach}
+						 {/if} 
+						 {/foreach} 
+					</select> 
+
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">描述：</div>
+					<input class="input-flex-text" type="text" name="description" id="description" value="{$data.description}">
+				</div>
+
+				<div class="input-flex">
+					<div class="input-flex-label">金额：</div>
+					<input class="input-flex-text" type="text" name="money" id="money" value="{$data.money}">
+					<div class="mgl-5 cl-money">元</div>
+				</div>
+
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">上传文件</div>
+					<div class="btn-small js-upfile">选择文件</div>
+					<div id="upfile-loading" style="display: none;">上传中..</div>
+					<input type="hidden" name="fileurl" value="{$data.fileurl}" id="fileurl" />
+					<span class="mgl-5 cl-red f12">*只支持zip压缩包</span>
+					<input type="file" name="upfile" class="none" id="upfile" />
+				</div>
+
+				<div class="input-flex">
+					<div class="input-flex-label">页数：</div>
+					<input class="input-flex-text" type="text" name="page_num" id="page_num" value="{$data.page_num}">
+					<div>页</div>
+				</div>
+
+				<div class="input-flex">
+					<div class="input-flex-label">所属学期：</div>
+					<div class="flex-1 flex-ai-center flex">
+						<input {if $data.xtime eq 1}checked{/if} type="radio" name="xtime" value="1"> 上学期
+						<input {if $data.xtime eq 2}checked{/if} type="radio" name="xtime" value="2"> 下学期
+					</div>
+				</div>
+
+				<div class="input-flex">
+					<div>内容：
+					</div>
+					
+				</div>
+				<div >
+					<div class="sky-editor-content" name="content" id="content" contenteditable="true">{$data.content}</div>
+				</div>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script>
+			$(document).on("click", ".js-upfile", function() {
+				$("#upfile").click();
+			})
+			$(document).on("change", "#upfile", function() {
+				$("#upfile-loading").html("上传中...").show();
+				skyUpload("upfile", "/index.php?m=upload&a=upload&ajax=1", function(e) {
+
+					var res = JSON.parse(e.target.responseText);
+					if (res.error == 0) {
+						$("#upfile-loading").html("上传成功...");
+						$("#fileurl").val(res.imgurl);
+
+					} else {
+						$("#upfile-loading").html("上传失败...");
+					}
+
+				}, function(e) {
+					console.log(e)
+				}, function(e) {
+					console.log(e)
+				})
+			})
+		</script>
+	</body>
+</html>

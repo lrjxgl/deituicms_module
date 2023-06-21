@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<a class="item active" href="/moduleadmin.php?m=cj1">抽奖列表</a>
+			<a class="item" href="/moduleadmin.php?m=cj1&a=add">添加抽奖</a>
+		</div>
+		<div class="main-body">
+ 
+ <table class="tbs">
+ 	<thead>
+  <tr>
+   <td>id</td>
+   <td>名称</td>
+   <td>图片</td>
+   <td>价值</td>
+   <td>开始时间</td>
+   <td>需要人数</td>
+   <td>参与人数</td>
+   <td>上线</td>
+   <td>是否结束</td>
+   <td>中奖者</td>
+ 
+<td>操作</td>
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.title}</td>
+   <td><img src="{$c.imgurl|images_site}.100x100.jpg" width="50" /> </td>
+   <td>{$c.price}</td>
+   <td>{$c.starttime|date:Y-m-d H:i:s}</td>
+   <td>{$c.need_num}</td>
+   <td>{$c.join_num}</td>
+   <td><div class="{if $c.status eq 1}yes{else}no{/if}"></div></td>
+   <td> 
+		<div class="{if $c.isfinish}yes{else}no{/if}"></div>
+   </td>
+   <td>{$c.win_userid}</td>
+ 
+<td><a href="/moduleadmin.php?m=cj1&a=add&id={$c.id}">编辑</a> 
+	<a href="/module.php?m=cj1&a=show&id={$c.id}" target="_blank">查看</a> <br>
+	<a href="javascript:;" class="js-copy" v="{$c.id}">复制</a>
+	<a href="javascript:;" class="js-delete"te" url="/moduleadmin.php?m=cj1&a=delete&id={$c.id}">删除</a>
+
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-copy",function(){
+			$.get("/moduleadmin.php?m=cj1&a=copy&id="+$(this).attr("v")+"&ajax=1",function(data){
+				mui.toast(data.message);
+			},"json")
+		})
+	})
+</script>
+</body>
+</html>

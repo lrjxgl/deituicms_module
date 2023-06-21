@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">求药</div>
+	<div gourl="/module.php?m=youyao_find&a=add" class="header-right-btn">发布</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	<div v-if="!pageLoad" class="pd-10 cl3">加载中..</div>
+    <div v-for="(item,index) in list" :key="index" class="row-box mgb-5">
+		<div class="flex flex-ai-center">
+			<img :src="item.user.user_head+'.100x100.jpg'" class="w50 bd-radius-50 mgr-10">
+			<div class="cl2">{{item.user.nickname}}</div>
+			<div class="flex-1"></div>
+			<div @click="goPm(item.userid)" class="btn-mini btn-outline-info">联系Ta</div>
+		</div>
+		<div class="mgb-5">{{item.content}}</div>
+		<div class="cl3 f12">{{item.timeago}}</div>
+	</div>
+    
+</div>
+{assign var="ftnav" value="find"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+ 
+<script src="{$skins}youyao_find/my.js"></script>
+</body>
+</html>

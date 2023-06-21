@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='book_comment/nav.html'}
+<div class="main-body">
+ <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>bookid：</td><td>{$data.bookid}</td></tr>
+  <tr><td>articleid：</td><td>{$data.articleid}</td></tr>
+  <tr><td>pid：</td><td>{$data.pid}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+  <tr><td>ip_addr：</td><td>{$data.ip_addr}</td></tr>
+  <tr><td>ip：</td><td>{$data.ip}</td></tr>
+  <tr><td>content：</td><td>{$data.content}</td></tr>
+ </table>
+
+</div> 
+{include file="footer.html"}
+</body>
+</html>

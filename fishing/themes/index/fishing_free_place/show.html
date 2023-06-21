@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">慈善放流地点</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+	<div class="row-box mgb-5">
+		{if $data.userid==0}
+		<div class="flex">
+			<div>当前河段暂无慈善放流管理员</div>
+			<div class="flex-1"></div>
+			<div @click="adModal=true" class="cl-primary">申请成为管理员</div>
+		</div>
+		
+		{else}
+		<div class="flex">
+			<img src="{$admin.user_head}.100x100.jpg" class="w50 bd-radius-50" />
+			<div class="flex-1 mgl-10">
+				<div class="flex flex-ai-center mgb-5">
+					<div class="mgr-5">{$admin.nickname}</div>
+					<div class="cl-primary  f12">版主</div>
+				</div>
+				
+				<div class="cl2">{$admin.description}</div>
+			</div>
+		</div>
+		{/if}
+	</div>
+    <div class="row-box mgb-5">
+		<img src="{$data.imgurl}.middle.jpg" class="d-img mgb-5" />
+		<div class="d-title">{$data.title}</div>
+		<div class="cl2 mgb-5">位置：{$data.address}</div>
+		<div class="cl-red mgb-5">可放鱼类：{$data.fishing}</div>
+		<div class="cl3 mgb-5">{$data.description}</div>
+	</div>
+	<div >
+		<div class="tabs-border">
+			<div @click="setTab('activity')" :class="tab=='activity'?'tabs-border-active':''" class="tabs-border-item">放流活动</div>
+			<div @click="setTab('order')" :class="tab=='order'?'tabs-border-active':''"  class="tabs-border-item">参与列表</div>
+			<div @click="setTab('account')" :class="tab=='account'?'tabs-border-active':''"  class="tabs-border-item">财务账单</div>
+		</div>
+		<div>
+			<div v-if="tab=='activity'">
+				<div v-if="actList.length==0" class="emptyData">暂无放流活动</div>
+				<div v-else  class="sglist">
+					<div @click="goActivity(item)" class="sglist-item" v-for="(item,index) in actList" :key="index">
+						<div class="sglist-title">{{item.title}}</div>
+						<div class="flex mgb-5">
+							 
+							<div class="flex-1"></div>
+							<div class="cl3 f12">{{item.stime}}</div>
+						</div>
+						<div class="sglist-desc">{{item.description}}</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="tab=='order'" >
+				<div v-if="orderList.length==0" class="emptyData">暂无放流活动</div>
+				<div v-else  >
+					<div class="flex row-box mgb-5" v-for="(item,index) in orderList" :key="index">
+						<div class="mgr-5">
+							<img :src="item.user.user_head+'.100x100.jpg'" class="w50 bd-radius-50" />
+							<div>{{item.nickname}}</div>
+						</div>
+						<div class="flex-1">
+							<div class="cl-money mgb-5">￥{{item.money}}</div>
+							<div class="cl3">{{item.description}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="tab=='account'">
+				<div class="row-box mgb-5">
+					<div class="flex">
+						<span>账户余额：</span>
+						<span class="cl-money">{{account.money}}元</span>
+						<div class="flex-1"></div>
+						<span>总收款：</span>
+						<span class="cl-money">{{account.income}}元</span>
+					</div>	
+				</div>
+				<div>
+					<div class="row-box mgb-5" v-for="(item,index) in accList" :key="index">
+						<div class="flex flex-ai-center mgb-5">
+							<div class="cl-money">￥{{item.money}}</div>
+							<div class="flex-1"></div>
+							<div class="cl-red f12" v-if="item.money<0">支出</div>
+							<div class="cl-red f12" v-else>收入</div>
+							<div class="cl3 mgl-10 f12">{{item.createtime}}</div>
+						</div>
+						
+						<div class="cl2">{{item.content}}</div>
+					</div>
+				</div>
+			</div>
+			<div class="footer-row"></div>
+			<div class="footerFix">
+				<div class="flex flex-ai-center row-box">
+					<div class="cl-red">一起贡献一份小爱心吧</div>
+					<div class="flex-1"></div>
+					<div @click="orderModal=true" class="btn-small btn-outline-danger">参与放流</div>
+				</div>
+			</div>
+			<div v-if="orderModal==true">
+				<div @click="orderModal=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">参与放流</div>
+						<div  @click="orderModal=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">金额：</div>
+							<input v-model="orderMoney" type="text" class="input-flex-text" />
+							<span>元</span>
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">留言：</div>
+							<input v-model="orderDesc" type="text" class="input-flex-text" />
+						</div>
+						<div @click="orderSubmit()" class="btn-row-submit">立即参与</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="adModal">
+				<div @click="adModal=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">申请成为管理员</div>
+						<div  @click="adModal=false"  class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">联系人：</div>
+							<input v-model="admin.nickname" type="text" class="input-flex-text" />
+						</div>
+						<div class="input-flex">
+							<div class="input-flex-label">电话：</div>
+							<input v-model="admin.telephone" type="text" class="input-flex-text" />
+						</div>
+						<div class="textarea-flex">
+							<div class="textarea-flex-label">简介：</div>
+							<textarea v-model="admin.description" class="textarea-flex-text h60"></textarea>
+						</div>
+						<div @click="adminSubmit" class="btn-row-submit">确认申请</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+    
+</div>
+{include file="footer.html"}
+<script>
+	var placeid="{$data.placeid}"
+</script>
+<script src="{$skins}fishing_free_place/show.js"></script>
+</body>
+</html>

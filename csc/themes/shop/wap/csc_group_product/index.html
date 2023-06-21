@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}csc_group_product/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">产品聚合</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="side">
+				<div @click="setGid(item.gid)" v-for="(item,index) in tagList" :key="item">
+					<div  :class="item.gid==gid?'side-active':''" >{{item.title}}</div>
+				</div>
+			</div>
+			<div class="main">
+				<div class="flex">
+					<input v-model="keyword" type="text" class="input-flex-text" />
+					<div @click="search" class="input-flex-btn w50">筛选</div>
+				</div>
+				<div class="list">
+					<div v-for="(item,index) in list" :key="item" class="flexlist-item" >
+						<img class="flexlist-img" :src="item.imgurl+'.100x100.jpg'" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.title}}</div>
+							<div class="flex flex-ai-center">
+								<div class="cl-money mgr-10">￥{{item.price}}</div>
+								
+								<div class="f12 cl3">{{item.fenliang}}</div>
+								<div class="flex-1"></div>
+								<div @click="goToggle(item)" :class="item.ingroup?'yes':'no'" class="pointer"></div>
+							</div>
+							 
+						</div>
+						
+					</div>
+				</div>
+				<div class="loadMore"></div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}csc_group_product/index.js"></script>
+	</body>
+</html>

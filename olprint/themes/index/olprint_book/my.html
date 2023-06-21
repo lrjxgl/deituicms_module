@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的共享</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	 
+	{if empty($list)}
+	<div class="emptyData">暂无共享资料</div>
+	{/if}
+	
+    {foreach item=c from=$list}
+	<div class="row-box mgb-5">
+		<div class="mgb-5">{$c.title}</div>
+		<div class="flex flex-ai-center mgb-5">
+			<div class="cl-money mgr-10">￥{$c.money}</div>
+			
+			<div class="flex-1"></div>
+			<div class="cl2 f12 mgr-10">共{$c.page_num}页</div>
+			<div class="cl2 f12 mgr-10">/</div>
+			<div class="cl2 f12">打印{$c.print_num}次</div>
+			
+		</div>
+		<div class="cl3 f12 mgb-10">{$c.description}</div>
+		<div class="flex">
+			<div class="flex-1"></div>
+			<div class="btn btn-small btn-outline-info mgr-10" gourl="/module.php?m=olprint_book&a=add&bookid={$c.bookid}">修改</div>
+			<div class="js-delete btn btn-small btn-outline-danger" url="/module.php?m=olprint_book&a=delete&bookid={$c.bookid}&ajax=1">删除</div>
+		</div>
+	</div> 
+	{/foreach}
+	<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+<script>
+	$(document).on("click","#search-btn",function(){
+		var word=$("#search-word").val();
+		window.location="/module.php?m=olprint_book&a=search&keyword="+encodeURI(word)
+	})
+</script>
+</body>
+</html>

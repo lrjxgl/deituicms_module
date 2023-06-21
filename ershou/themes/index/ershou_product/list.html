@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}ershou_product/list.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			<div class="header-back pos-relative"></div>
+			<div    class="header-search-box mgr-10">	
+				<div class="header-search-icon icon-search_light"></div>
+				<input style="border:2px solid #fff06b !important;" placeholder="搜索你想要的宝贝" class="header-search bd-radius-20" />
+			</div>
+			 
+			<div class="iconfont icon-more_light f20 mgr-10"></div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div class="flex flex-ai-center">
+					<div @click="setTab('zonghe')" :class="tab=='zonghe'?'btn1-active':''" class="btn1 btnIcon  mgr-10">{{orderName}}</div>
+					<div @click="setTab('area')" :class="tab=='area'?'btn1-active':''" class="btn1 btnIcon mgr-10">{{areaName}}</div>
+					<div @click="setTab('new')" :class="tab=='new'?'btn1-active':''"  class="btn1">最新发布</div>
+					<div class="flex-1"></div>
+					<div  @click="setTab('shaixuan')"    class="fw-600 cl3">筛选</div>
+					<div  style="margin-left: 3px;" class="iconfont cl3 f12 icon-searchlist"></div>
+				</div>
+			</div>
+			<div class="pos-relative">
+				<!--综合下拉款-->
+				<div v-if="tab=='zonghe'">
+					<div  @click="setTab('')" class="mask"></div>
+					<div class="zhbox">
+						<div :class="orderby==''?'zhbox-item-active':''" @click="setOrder('','综合')" class="zhbox-item">综合</div>
+						<div :class="orderby=='priceAsc'?'zhbox-item-active':''" @click="setOrder('priceAsc','价格升序')"  class="zhbox-item">价格升序</div>
+						<div :class="orderby=='priceDesc'?'zhbox-item-active':''" @click="setOrder('priceDesc','价格降序')"  class="zhbox-item">价格降序</div>
+						<div :class="orderby=='updatetime'?'zhbox-item-active':''" @click="setOrder('updatetime','最近活跃')"  class="zhbox-item">最近活跃</div>
+						<div :class="orderby=='distance'?'zhbox-item-active':''" @click="setOrder('distance','离我最近')"  class="zhbox-item">离我最近</div>
+						<div :class="orderby=='raty'?'zhbox-item-active':''" @click="setOrder('raty','信用')"  class="zhbox-item">信用</div>
+					</div>
+				</div>
+				<!--区域下拉款-->
+				<div v-if="tab=='area'">
+					<div  @click="setTab('')" class="mask"></div>
+					<div class="areabox">
+						<div class="pd-10 bg-white">
+							<div class="cl3 mgb-5">当前定位</div>
+							<div class="flex">
+								<div class="iconfont icon-location_light"></div>
+								<div class="fw-600">{{addr.title}}</div>
+								<div class="flex-1"></div>
+								<div class="cl3">刷新</div>
+							</div> 
+						</div>
+						
+						<div class="bdb mgb-10"></div>
+						<div class="flex mgb-10" >
+							<div :style="{height:addrHeight+'px'}" style="background-color: #eee; overflow: auto;">
+								<div :class="Object.keys(province)==0?'area-item-active':''"  @click="getCityList(0,0)" class="area-item">全国</div>
+								<div :class="province.id==item.id?'area-item-active':''"  @click="getCityList(item,1)" v-for="(item,index) in provinceList" :key="index" class="area-item">{{item.name}}</div>
+								 
+							</div>
+							<div :style="{height:addrHeight+'px'}" style="overflow: auto;" class="flex-1">
+								<div  :class="city.id==item.id?'area-item-active':''"  @click="getCityList(item,2)" v-for="(item,index) in cityList" :key="index" class="area-item">{{item.name}}</div>
+							</div>
+							<div :style="{height:addrHeight+'px'}" style="overflow: auto;" class="flex-1" class="flex-1">
+								<div @click="town=item" :class="town.id==item.id?'area-item-active':''"   v-for="(item,index) in townList" :key="index" class="area-item">{{item.name}}</div>
+							</div>
+						</div>
+						<div class="flex flex-ai-center pd-10">
+							<div class="flex-1"></div>
+							<div @click="setAddr()" class="btn-small btn-outline-primary">确定选择</div>
+						</div>
+					</div>
+				</div>
+				<!--筛选-->
+				<div v-if="tab=='shaixuan'">
+					<div @click="setTab('')" class="modal-mask"></div>
+					<div class="sxbox">
+						<div class="flex">
+							<div class="flex-1"></div>
+							<div class="fw-600">筛选</div>
+							<div class="flex-1"></div>
+							<div  @click="setTab('')" class="iconfont icon-roundclose"></div>
+						</div>
+						
+						<div>
+							<div class="sxbox-hd">快捷筛选</div>
+							<div class="flex flex-wrap">
+								<div @click="set_qk_choice('grxz')" :class="qk_choice=='grxz'?'sxbox-btn-active':''" class="sxbox-btn">个人闲置</div>
+								<div @click="set_qk_choice('baoyou')" :class="qk_choice=='baoyou'?'sxbox-btn-active':''"  class="sxbox-btn">包邮</div>
+								<div @click="set_qk_choice('zuixin')" :class="qk_choice=='zuixin'?'sxbox-btn-active':''"  class="sxbox-btn">全新</div>
+							</div>
+							<div class="sxbox-hd">价格</div>
+							<div class="flex">
+								<input v-model="choice_min_price" class="sxbox-text" type="text" placeholder="最低价" /> 
+								<div style="margin: 0px 10px;font-size: 30px;color:#eee;">-</div>
+								<input v-model="choice_max_price" class="sxbox-text"  type="text" placeholder="最高价" /> 
+							</div>
+							<div class="sxbox-hd">发布时间</div>
+							<div class="flex flex-wrap">
+								<div @click="set_choice_day(1)" :class="choice_day==1?'sxbox-btn-active':''" class="sxbox-btn">1天</div>
+								<div @click="set_choice_day(3)" :class="choice_day==3?'sxbox-btn-active':''" class="sxbox-btn">3天</div>
+								<div @click="set_choice_day(7)" :class="choice_day==7?'sxbox-btn-active':''" class="sxbox-btn">7天</div>
+								<div @click="set_choice_day(14)" :class="choice_day==14?'sxbox-btn-active':''" class="sxbox-btn">14天</div>
+							</div>
+						</div>
+						
+						<div class="flex mgt-20">
+							<div @click="choiceReset()" class="sxbox-fbtn mgr-20">重置</div>
+							<div @click="choiceSubmit()" class="sxbox-fbtn sxbox-fbtn2">完成</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<div>
+				<product-list :dlist="list"></product-list>
+			</div>
+			
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			var  catid="{$cat.catid}"
+		</script>
+		<script src="{$skins}js/product-list.js"></script>
+		<script src="{$skins}ershou_product/list.js"></script>
+	</body>
+</html>

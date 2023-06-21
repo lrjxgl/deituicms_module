@@ -1,0 +1,89 @@
+.baiduMap{
+	position: absolute;
+	left: 0;
+	width: 100%;
+	top:-1000px;
+	height:360px;
+	background-color: #fff;
+	z-index: 99;
+}
+.shd {
+    padding: 6px 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    background-color: #FF4400;
+    display: inline-block;
+    color: #fff;
+    margin-left: 10px;
+}
+/***tbs****/
+.tbs {
+	width: 100%;
+	border: 0;
+	border-collapse: collapse;
+	border-radius: 10px;
+	border: 1px solid #ddd;
+}
+
+.tbs thead tr {
+	background-color: #f2f2f2;
+	color: #323232;
+}
+
+.tbs td {
+	border: 1px solid #ddd;
+
+	padding: 10px 10px;
+}
+
+.tbs thead td {
+	padding: 0px 10px;
+	line-height: 40px;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+}
+
+/**table-add****/
+.table-add {
+	width: 100%;
+}
+
+.table-add tr td {
+	padding: 6px;
+}
+
+.table-add tr td:first-child {
+	width: 100px;
+}
+
+.pages {
+	border-left: 1px solid #d8d8d8;
+	text-align: center;
+	font-size: 0;
+	line-height: 0;
+	display: inline-block;
+	*display: inline;
+	vertical-align: middle;
+	font-size: 16px;
+	margin: 10px;
+}
+
+.pages a,
+.pages strong {
+	padding: 0 15px;
+	border: 1px solid #d8d8d8;
+	border-left: 0;
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	color: #666;
+	float: left;
+	background-color: #f0f0f0
+}
+.main-body{
+	max-width: 100%;
+	padding: 0px 10px;
+}
+body{
+	background-color: #fff;
+}

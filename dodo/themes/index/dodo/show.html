@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}dodo/show.css" rel="stylesheet" />
+	<style>
+		.swiper-pagination{
+			flex-direction: row;
+			justify-content: center;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$user.nickname}的目标清单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="xbox">
+				<div class="f22 mgb-10 text-center">{$user.nickname}的目标清单</div>
+				<div class="dd-content">{$data.content|nl2br}</div>
+				<div class="mgb-10  flex-center flex">
+					 
+					<span class="pd-5 cl-num" id="sstime"></span>
+					 
+				</div>
+				<div class="cl2 f12 text-center">该目标订于{$data.dateline|date:Y-m-d H:i:s}</div>
+			</div>
+			<div class="mgb-20 text-center cl-num">不管前路多难，让我们携手前行</div> 
+			<div class="flex flex-center">
+				<div class="btn-group">
+					<div id="dodo-love-num" class="btn-love btn-love-s">{$data.love_num}</div>
+					<div id="dodo-jiayou" class="btn-l20">{if $islove}已加油{else}加油一下{/if}</div>
+				</div>
+				{if $data.isauthor}
+				<div gourl="/module.php?m=dodo_record&a=add&doid={$data.id}" class="btn btn-outline-primary mgl-20">发布日志</div>
+				{/if}
+			</div>
+		</div>
+		 
+		<div class="main-body" id="App" style="display: none;" :style="'display:block'">
+			 
+				<div class="tabs-border" style="width:260px; padding: 0px 30px; border-radius: 20px; margin: 20px auto;">
+					<div :class="tab=='record'?'tabs-border-active':''" @click="setTab('record')" class="tabs-border-item">日志列表</div>
+					<div :class="tab=='love'?'tabs-border-active':''"  @click="setTab('love')" class="tabs-border-item">加油列表</div>
+				</div>
+				<div id="">
+					<div v-if="tab=='record'" class="rdList">
+						<div v-if="recordList.length==0" class="emptyData">
+							暂无日志
+						</div>
+						<div v-for="(item,index) in recordList" :key="index" class="row-box mgb-10">
+							<div class="">								
+									<div class="mgb-5 cl2 ">{{item.content}}</div>
+									<div v-if="item.imgslist.length>0" class="sglist-imglist js-thumb-item">
+										 
+										<img v-for="(cc,ii) in item.imgslist" :key="ii" :src="cc+'.100x100.jpg'" :v="cc" class="sglist-imglist-img js-thumb" />
+										 
+									</div>
+									<div class="flex">
+										<div @click="loveToggle(item)" class="btn-love btn-love-s">{{item.love_num}}</div>
+									</div> 
+								</div>
+							</div>						 
+						</div>
+					</div>
+					<div  v-if="tab=='love'"  class="uList">
+						<div v-if="loveList.length==0" class="emptyData">
+							给Ta加油打气一下吧
+						</div>
+						<div v-for="(item,index) in loveList" :key="index" class="uItem">
+							<img class="uItem-img" :src="item.user_head+'.100x100.jpg'" /> 
+							<div class="uItem-nick">{{item.nickname}}</div>
+						</div>
+					</div>
+				</div>
+		</div>
+		<div id="pTool" draggable="true"  class="fixRight">
+			 
+			<div gourl="/module.php?m=dodo&a=add" class="pd-5 pointer cl-white bdb">发布目标</div>
+			<div gourl="/module.php?m=dodo&a=my" class="pd-5 pointer cl-white bdb" >我的目标</div>
+			<div gourl="/module.php?m=dodo" class="pd-5 pointer cl-white" >战友目标</div>
+		</div>
+		
+		{include file="footer.html"}
+		{include file="inc/js_thumb.html"} 
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var doid="{$data.id}";
+			var pTool={
+				inTouch:false,
+			}
+			var sw=$(window).innerWidth();
+			var sh=$(window).innerHeight();
+			$(function(){
+				$(document).on("touchstart","#pTool",function(){
+					pTool.inTouch=true;
+					console.log(true)
+				})
+				document.querySelector("#pTool").addEventListener("touchmove",function(event){
+				 
+					event.preventDefault();
+	
+						var touch=event.touches[0];
+						var px=touch.clientX-sw+30;
+						var py=touch.clientY-sh+130;
+						$("#pTool").css({
+							transform:"translate("+px+"px,"+py+"px)"
+						})
+					
+				})
+				$(document).on("touchmove","#pTool",function(){
+					pTool.inTouch=false;
+					console.log(false)
+				})
+				$(document).on("click","#dodo-jiayou",function(){
+					$.ajax({
+						url:"/module.php?m=dodo_love&a=toggle&ajax=1&doid="+doid,
+						dataType:"json",
+						success:function(res){
+							if(res.error) return false;
+							if(res.data.action=="add"){
+								$("#dodo-jiayou").html("已加油");
+								$("#dodo-love-num").html(res.data.love_num);
+							}else{
+								$("#dodo-jiayou").html("加油一下");
+								$("#dodo-love-num").html(res.data.love_num);
+							}
+						}
+					})
+				})
+			})
+		</script> 
+		<script src="{$skins}dodo/show.js?v23"></script>
+		<script>
+			var ltime={$data.ltime};
+			var timer=setInterval(function(){
+				ltime--;
+				if(ltime<0){
+					clearInterval(timer);
+					$("#sstime").html("已到期");
+					return false;
+				}
+				var etime=ltime;
+				var str="";
+				if(etime>3600*24){
+					var day=parseInt(etime/(3600*24));
+					str+=day+"天";
+					etime-=day*3600*24;
+				}
+				if(etime>3600){
+					var s=parseInt(etime/(3600));
+					str+=s+"时";
+					etime-=s*3600;
+				}
+				if(etime>60){
+					var s=parseInt(etime/(60));
+					str+=s+"分";
+					etime-=s*60;
+				}
+				str+=etime+"秒"
+				$("#sstime").html(str);
+			},1000)
+		</script>
+		<?php wx_jssdk();?>
+		<script type="text/javascript">
+			wxshare_title="{$seo.title}";
+		 
+		</script>
+	</body>
+</html>

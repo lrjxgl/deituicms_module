@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">楼盘详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if $data.videourl}
+			<div>
+				<video controls style="width:100%;" autoplay src="{$data.videourl|images_site}"></video>
+			</div>
+			{else}
+			<img class="d-img" src="{$data.imgurl}" />
+			{/if}
+			
+			<div class="row-box mgb-5">
+				<div class="d-title">{$data.title}</div>
+				<div class="flex mgb-5 flex-ai-center">
+					<text class="cl2 mgr-10">售价</text> 
+					<span class="cl-money f16">{$data.price}</span>
+					<text class="">元/平米</text>				
+				</div>
+				<div class="flex mgb-5">
+					<div class="cl2 mgr-10">开盘</div>
+					<div>{$data.kp_time}</div>
+				</div>
+				<div class="flex mgb-10">
+					<div class="cl2 mgr-10">地址</div>
+					<div>{$data.address}</div>
+				</div>
+				<div class="flex flex-center">
+					<div  class="btn-love js-fav-btn {if $isFav eq 1}btn-love-active{/if}">关注</div>
+				</div>
+			</div>
+			 
+			<style>
+				.phonebox{
+					background-color: #dcefe9;
+					border-radius: 5px;
+					display: flex;
+					flex-direction: row;
+					align-items: center;
+					padding: 10px;
+				}
+				.btn-phone{
+					display: flex;
+					    flex-direction: row;
+					width: 30px;
+					height: 30px;
+					background-color: #fff;
+					border-radius: 50%;
+					justify-content: center;
+					align-items: center;
+					color: #008200;
+					font-size: 18px;
+				}
+			</style>
+			<div class="row-box mgb-5 bg-">
+				
+				<div class="phonebox">
+					<div class="flex-1">
+						<a href="tel:{$data.tel_400}" class="fwb mgb-5 f16">{$data.tel_400}</a>
+						<div class="f12">致电了解更多信息</div>
+					</div>
+					
+					<a href="tel:{$data.tel_400}" class="btn-phone iconfont icon-phone"></a>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="fwb f16 mgb-10">主力户型</div>
+				<style>
+					.hxItem{
+						width:80px;
+						cursor: pointer;
+						margin-right: 5px;
+						display: flex;
+						flex-direction: column;
+						align-items: center;
+					}
+					.hxItem-img{
+						width:60px;
+						height: 60px;
+						margin-bottom: 5px;
+						border-radius: 10px;
+					}
+				</style>
+				<div class="scroll-div flex">
+					{foreach item=c from=$hxList}
+					<div class="hxItem" >
+						<img class="hxItem-img" src="{$c.imgurl}.100x100.jpg" />
+						<div class="cl2">{$c.title}</div>
+					</div>			
+					{/foreach}
+				</div>
+			</div>
+			{if $ptList}
+			<div class="row-box mgb-5">
+				<div class="fwb f16 mgb-10">周边配套</div>
+				
+				<style>
+					.ptlist{
+						display: flex;
+						align-items: center;
+						justify-content:space-between;
+					}
+					.ptlist-item{
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						justify-content: center;
+						background-color: #007AFF;
+						color: #fff;
+						font-size: 12px;
+						width:40px;
+						height: 40px;
+						border-radius: 50%;
+						text-align: center;
+						cursor: pointer;
+					}
+					.ptlist-item-1{
+						background-color: #0088CC;
+					}
+					.ptlist-item-2{
+						background-color: #F20C00;
+					}
+					.ptlist-item-3{
+						background-color: #F4726C;
+					}
+					.ptlist-item-4{
+						background-color: #DEE2E6;
+						color: #333;
+					}
+					.ptlist-box{
+						display: none;
+						padding: 10px;
+						border-bottom: 1px solid #eee;
+						margin-bottom: 10px;
+					}
+					.ptlist-box-active{
+						display: block;
+					}
+				</style>
+				<div>
+					
+					{foreach item=c from=$ptList}
+					<div class="ptlist-box">{$c.content}</div>
+					{/foreach}
+					<div class="flex ptlist">
+						{foreach item=c from=$ptList}
+							<div class="ptlist-item ptlist-item-{$c.typeid}">{$c.typeid_title}</div>
+						{/foreach}
+						 
+					</div>
+				</div>
+			</div>
+			{/if}
+			<div class="row-box">
+				<div class="d-content">{$data.content}</div>
+			</div>
+
+			 
+		</div>
+		{include file="footer.html"}
+		<script>
+			var id="{$data.id}";
+			$(document).on("click",".js-fav-btn",function(){
+				var that=$(this);
+				$.ajax({
+					url:"/module.php?m=house_loupan_love&a=toggle&ajax=1",
+					dataType:"json",
+					data:{
+						lpid:id
+					},
+					success:function(res){
+						if(res.error){
+							skyToast(res.message);
+							return false;
+						}
+						if(res.data=='delete'){
+							that.removeClass("btn-love-active")
+						}else{
+							that.addClass("btn-love-active")
+						}
+					}
+				})
+			})
+		 
+			$(".ptlist-box:eq(0)").show();
+			$(document).on("click",".ptlist-item",function(){
+				var i=$(this).index();
+				console.log(i)
+				$(".ptlist-box").hide();
+				$(".ptlist-box:eq("+i+")").show();
+			})
+		</script>
+		<?php wx_jssdk();?>
+		<script>
+			wxshare_imgUrl = "{$data.imgurl}";
+			wxshare_title = "{$data.title}";
+			$.get("/module.php?m=house_ershou&a=addclick&id={$data.id}")
+		</script>
+
+	</body>
+</html>

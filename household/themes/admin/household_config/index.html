@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="tabs-border">
+			<div class="item active">基本设置</div>
+		</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=household_config&a=save&ajax=1">
+				<input type="hidden" name="shoptype" value="household" />
+				<table class="table-add">
+					<tr>
+						<td>平台抽成</td>
+						<td>
+							<input type="text" class="w100" name="choudian" value="{$data.choudian}" /> %
+						</td>
+					</tr>
+					<tr>
+						<td>抽成模式</td>
+						<td>
+							<input type="radio" class="radio" {if $data.choudian_type eq 0}checked{/if} name="choudian_type" value="0" />  固定抽成
+							 <input type="radio" class="radio" {if $data.choudian_type eq 1}checked{/if}  name="choudian_type" value="1" /> 动态抽成
+						</td>
+					</tr>
+					<tr>
+						<td>接单延时</td>
+						<td>
+							<input type="text" class="w100" name="dtime" value="{$data.dtime}" />分钟
+						</td>
+					</tr>
+					 <tr>
+					 	<td>自动完单</td>
+					 	<td>
+					 		<input type="text" class="w100" name="auto_finish" value="{$data.auto_finish}" />小时
+					 	</td>
+					 </tr>
+					 <tr>
+						 <td>多城市</td>
+						 <td>
+							 <input  type="radio" name="morecity" {if $data.morecity eq 1}checked{/if} value="1" />开启
+							 <input  type="radio" name="morecity" {if $data.morecity eq 0}checked{/if}  value="0" />关闭
+						 </td>
+					 </tr>
+					<tr>
+						<td>Vip卡支付</td>
+						<td>
+							<input {if $data.vipcard eq 1}checked{/if} type="radio" name="vipcard" value="1" />开启
+							<input {if $data.vipcard neq 1}checked{/if}  type="radio" name="vipcard" value="1" /> 关闭
+							(需要vipcard模块支持)
+						</td>
+					</tr>
+					<tr>
+						<td>家电论坛</td>
+						<td>
+							<input type="text" name="forum_gid" value="{$data.forum_gid}" />
+						</td>
+					</tr>
+					<tr>
+						<td>底部分类</td>
+						<td>
+							<input type="radio" name="ftnav_cat" {if $data.ftnav_cat eq 1}checked{/if} value="1" /> 开启 
+							<input type="radio" name="ftnav_cat" {if $data.ftnav_cat neq 1}checked{/if} value="0" /> 关闭
+						</td>
+					</tr>
+					<tr>
+						<td>尾款支付</td>
+						<td>
+							<input type="radio" name="append_money" {if $data.append_money eq 1}checked{/if} value="1" /> 开启 
+							<input type="radio" name="append_money" {if $data.append_money neq 1}checked{/if} value="0" /> 关闭
+						</td>
+					</tr>
+					
+				</table>
+				<div class="btn-row-submit js-submit">保存设置</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

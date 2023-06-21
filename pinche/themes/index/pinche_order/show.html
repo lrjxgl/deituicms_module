@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex-table">
+					<div class="flex-table-label">订单状态</div>
+					<div class="flex-table-box">{$order.status_name}</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">拼车线路</div>
+					<div class="flex-table-box">{$line.title}</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">上车点</div>
+					<div class="flex-table-box">
+						{$order.start_addr}
+					
+					</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">下车点</div>
+					<div class="flex-table-box">
+						{$order.end_addr}
+					
+					</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">乘客数</div>
+					<div class="flex-table-box cl-money">{$order.usernum}个</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">订单价格</div>
+					<div class="flex-table-box cl-money">{$order.money}元</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">下单时间</div>
+					<div class="flex-table-box">{$order.dateline|date:Y-m-d}</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">最晚成团</div>
+					<div class="flex-table-box cl-num"> {$order.wait_etime_fmt}</div>
+				</div>
+			</div>
+			{if $driver}
+			<div class="row-box mgb-5">
+				<div class="flex-table">
+					<div  class="flex-table-label">司机</div>
+					<div class="flex-table-box">{$driver.truename}</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">电话</div>
+					<div class="flex-table-box">{$driver.telephone}</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">车牌</div>
+					<div class="flex-table-box">{$driver.carno}</div>
+				</div>
+			</div>
+			{/if}
+			<div class="row-box">
+				<div class="flex">
+					<div gourl="/index.php?m=kefu" class="btn-small mgr-5">联系客服</div>
+					<div class="flex-1"></div>
+					{if $driver}
+					<a href="tel:{$driver.telephone}" class="btn-small mgr-5">联系司机</a>
+					{/if}
+					 
+					{if $order.status==0}
+					<div  class="btn btn-small btn-danger js-cancel  mgr-5">取消订单</div>
+					{/if}
+					{if $order.ispay==0 && $order.status<=3}
+					<div gourl="/module.php?m=pinche_order&a=pay&orderid={$order.orderid}" class="btn-small mgr-5">去支付</div>
+					{/if}
+					<div class="btn-small btn-warning mgr-5">我要投诉</div>
+				</div>
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click",".js-cancel",function(){
+					skyJs.confirm({
+						content:"请勿频繁取消订单，确认取消吗？",
+						success:function(){
+							$.ajax({
+								url:"/module.php?m=pinche_order&a=cancel&ajax=1&orderid={$order.orderid}",
+								dataType:"json",
+								success:function(res){
+									skyJs.toast(res.message)
+									window.location.reload();
+								}
+							})
+						}
+					})
+					
+				})
+			})
+		</script>
+	</body>
+</html>

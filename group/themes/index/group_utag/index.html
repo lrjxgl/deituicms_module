@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		{include file="header.html"}
+		<div class="layui-main">
+			<div class="layui-row">
+	         	<div class="layui-col-md3">{include file="[c]/sidebar.html"}</div>
+				<div class="layui-col-md9">
+					{include file='group_utag/nav.html'}  <table class="tbs">
+<thead>  <tr>
+   <td>tagid</td>
+   <td>title</td>
+   <td>isrecommend</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.tagid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.isrecommend}</td>
+   <td>{$c.status}</td>
+<td><a href="/module.php?m=group_utag&a=add&tagid={$c.tagid}">编辑</a> <a href="/module.php?m=group_utag&a=show&tagid={$c.tagid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=group_utag&a=delete&ajax=1&tagid={$c.tagid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+				</div>
+
+			</div>
+		</div>	
+		{include file="footer.html"}
+
+	</body>
+
+</html>

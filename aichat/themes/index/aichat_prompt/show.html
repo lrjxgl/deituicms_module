@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>id：</td><td>{$data.id}</td></tr>
+  <tr><td>catid：</td><td>{$data.catid}</td></tr>
+  <tr><td>title：</td><td>{$data.title}</td></tr>
+  <tr><td>userid：</td><td>{$data.userid}</td></tr>
+  <tr><td>description：</td><td>{$data.description}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>updatetime：</td><td>{$data.updatetime}</td></tr>
+  <tr><td>love_num：</td><td>{$data.love_num}</td></tr>
+  <tr><td>view_num：</td><td>{$data.view_num}</td></tr>
+  <tr><td>comment_num：</td><td>{$data.comment_num}</td></tr>
+  <tr><td>status：</td><td>{$data.status}</td></tr>
+  <tr><td>content：</td><td>{$data.content}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

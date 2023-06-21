@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">提现记录</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="bg-ef">
+				{foreach item=c from=$list}
+				<div class="row-box mgb-5">
+					<div class="flex bd-mp-5">
+						<div>金额：</div>
+						<div class="cl-money mgl-5">{$c.money}元</div>
+						<div class="flex-1"></div>
+						<div class="cl-status">{$c.status_name}</div>
+					</div>
+					<div class="flex">
+						<div class="mgr-5">{$c.re_type}</div>
+						<div class="mgr-5">{$c.re_username}</div>
+						<div>{$c.re_bankcard}</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

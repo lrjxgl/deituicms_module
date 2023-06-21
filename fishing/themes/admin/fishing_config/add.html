@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">钓鱼配置</div>
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=fishing_config&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<table class="table-add">
+					<tr>
+						<td>打卡积分：</td>
+						<td><input type="text" name="checkin_post_grade" id="checkin_post_grade"
+								value="{$data.checkin_post_grade}"></td>
+					</tr>
+					<tr>
+						<td>发博积分：</td>
+						<td><input type="text" name="blog_post_grade" id="blog_post_grade"
+								value="{$data.blog_post_grade}"></td>
+					</tr>
+					<tr>
+						<td>渔获积分：</td>
+						<td><input type="text" name="tag_post_grade" id="tag_post_grade" value="{$data.tag_post_grade}">
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

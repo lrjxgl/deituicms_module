@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">读书会</div>
+	<div gourl="/module.php?m=gread_party&a=add" class="header-right-btn">发起</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{if empty($list)}
+	<div class="emptyData">暂无读书会活动</div>
+	{/if}
+	<div class="sglist">
+		{foreach item=c from=$list}
+		<div  class="sglist-item">
+			<div class="flex flex-ai-center bd-mp-10">
+				<img class="wh-40 bd-radius-50 mgr-5" src="{$c.user_head}.100x100.jpg">
+				<div class="cl2">{$c.nickname}</div>
+				<div class="flex-1"></div>
+				<div class="cl3 f12">{$c.createtime}</div>
+			</div>
+			<div class="sglist-title">{$c.title}</div>
+			
+			<div class="sglist-desc">{$c.description}</div>
+			<div class="flex mgb-5">
+				<div class="cl-money  mgr-20">￥{$c.money}</div>
+				 
+				<div class="cl2 mgr-5">限制人数</div>
+				<div class="cl-num">{$c.max_num}</div>
+				 
+				<div class="cl2 mgl-20  mgr-5">参与人数</div>
+				<div class="cl-num">{$c.join_num}</div>
+				<div class="flex-1"></div>
+				<div class="cl-primary" gourl="/module.php?m=party&a=show&id={$c.id}">查看</div>
+			</div>
+		</div>	
+		{/foreach}	
+	</div>
+	
+
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='olprint_book/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=olprint_book&a=save">
+				<input type="hidden" name="bookid" style="display:none;" value="{$data.bookid}">
+				<table class="table-add">
+					<tr>
+						<td>标题：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					<tr>
+						<td>分类：</td>
+						<td>
+							<select name="catid">
+								<option value="0">请选择</option>
+								{foreach item=c from=$catlist}
+									<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+									{if $c.child}
+									{foreach item=cc from=$c.child}
+									<option value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+									{/foreach}
+									{/if}
+								{/foreach}
+							</select>
+						</td>
+					</tr> 
+					<tr>
+						<td>描述：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+					 
+					<tr>
+						<td>金额：</td>
+						<td><input type="text" name="money" id="money" value="{$data.money}"></td>
+					</tr>
+					 
+					
+					
+					 
+					 
+					<tr>
+						<td>页数：</td>
+						<td><input type="text" name="page_num" id="page_num" value="{$data.page_num}"></td>
+					</tr>
+					 
+					<tr>
+						<td>所属学期：</td>
+						<td>
+							<input {if $data.xtime eq 1}checked{/if} type="radio" name="xtime" value="1"> 上学期
+							<input {if $data.xtime eq 2}checked{/if}  type="radio" name="xtime" value="2"> 下学期
+						</td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1} checked{/if} value="1" />显示
+							
+							<input type="radio" name="status" {if $data.status neq 1} checked{/if}  value="2" />隐藏
+						</td>
+					</tr>
+					<tr>
+						<td>首页推荐：</td>
+						<td>
+							<input type="radio" name="isindex" {if $data.isindex eq 1} checked{/if} value="1" />是
+							
+							<input type="radio" name="isindex" {if $data.isindex neq 1} checked{/if}  value="0" />否
+					 
+						
+						</td>
+					</tr>
+					<tr>
+						<td>内容：</td>
+						<td>
+							<script type="text/plain" id="content" name="content">{$data.content}</script>
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		{php loadEditor();}
+		<script>
+			var editor = UE.getEditor('content', options);
+		</script>
+	</body>
+</html>

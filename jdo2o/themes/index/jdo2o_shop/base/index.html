@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<link href="{$skins}jdo2o_shop/index/index.css" rel="stylesheet" />
+		<div id="App" class="none" :class="'flex-col'">
+			<div  v-if="pageLoad">
+				<div class="header-back-fixed goBack"></div> 	
+				<div class="modal-group" id="header-more-box">
+					<div class="modal-mask"></div>
+					<div class="header-fixtop-menu">
+						<div class="row-item-text pointer"><div class="row-item-icon icon-share"></div>分享店铺</div>
+						<div  class="row-item-text pointer"><div class="row-item-icon icon-warn_light"></div>举报商家</div>
+					</div>
+				</div>
+				
+				<div class="wshop-logo">
+					<image model="widthFix" class="wshop-logo-img" :src="shop.imgurl+'.100x100.jpg'"></image>
+				</div>
+				<div class="wshop mgb-5">
+					
+					<div >
+						<img class="d-img" :src="shop.imgurl" />
+						<div class="wshop-shopname">{{shop.shopname}}</div>
+						<div class="flex mgb-5">
+							<div class="flex-1"></div>
+							<div class="mgr-10 cl2 f12">已售{{shop.buy_num}}件</div>
+							<div class="cl2 f12">{{shop.fav_num}}人收藏</div>
+							<div class="flex-1"></div>
+						</div>
+						<div class="flex">
+							<div class="flex-1"></div>
+							<div @click="goGuest(shop.shopid)" class="btn-service icon-service_light icon-service_light mgr-20">客服</div>
+							<div @click="favShopToggle(shop.shopid)" :class='shopFavClass' class="btn-fav shop-fav-toggle ">收藏</div>
+							<div class="flex-1"></div>
+						</div> 
+						 
+						
+					</div>
+				
+				</div>
+				 
+				 
+				<div class="row-box mgb-5">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="cl1 f14">大家都在买</div>
+						<div class="flex-1"></div>
+						 
+					</div>
+					<div  @touchstart="rpStart"  @touchend="rpEnd" @touchmove="rpMove" class="rp-list" id="rp-list">
+						<div class="flex" >
+							<div :style="{marginLeft:rpX+'px'}"></div>
+							<div  @click="goProduct(item.id)"  v-for="(item,index) in pinList" :key="index" class="rp-item">
+								<div class="rp-item-pd">
+									<div class="rp-imgbox">
+										<div class="rp-img" :style="'background-image:url('+item.imgurl+'.small.jpg)'" ></div>
+									</div>
+									<div class="rp-item-title" style="overflow: hidden;">{{item.title}}</div>
+									<div class="flex">
+										<div class="f12 cl-money">￥</div>
+										<div class="cl-money">{{item.price}}</div>
+									</div>
+								</div>
+							</div>
+							<div id="rpEnd"></div>
+						</div>
+					</div>
+				</div>
+				<div class="bg-white text-center flex flex-ai-center flex-jc-center pd-10">
+					<div class="iconfont icon-cascades cl-num f14 mgr-5"></div>
+					<div @click="showCategory" class="cl-money f14 pointer">{{cat_label}}</div>
+				</div>
+				<div class="tabs-border mgb-5">
+					<div @click="setProType('')" :class="type==''?'tabs-border-active':''"  class="tabs-border-item">默认</div>
+					<div @click="setProType('new')" :class="type=='new'?'tabs-border-active':''" class="tabs-border-item">新品</div>
+					<div @click="setProType('sold')" :class="type=='sold'?'tabs-border-active':''"  class="tabs-border-item">销量</div>
+					<div @click="setProType('price')" :class="type=='price'?'tabs-border-active':''"  class="tabs-border-item">价格</div>
+				</div>
+				<div class="mtlist">
+					<div class="mtlist-item" v-for="(item,index) in list" :key="index">
+						<div class="mtlist-item-bd">
+							<div @click="goProduct(item.id)"  class="mtlist-bgimg-box pointer">
+								<div class="mtlist-bgimg" :style="{backgroundImage:'url('+item.imgurl+')'}"></div>
+							</div>
+			 
+							<div class="mtlist-item-pd">
+								<div @click="goProduct(item.id)" class="mtlist-title pointer">{{item.title}}</div>
+								 
+								<div class="flex flex-ai-center mgb-5">
+									<div class="cl-money f12">￥</div>
+									<div class="cl-money f14 mgr-5">{{item.price}}</div>
+									<div class="cl3 f10">已售{{item.buy_num}}件</div>
+									<div class="flex-1"></div>
+									
+								</div>
+								 
+							</div>
+						</div>
+					
+					</div>
+				</div>
+				<div class="loadMore" v-if="per_page>0" @click="getList()">加载更多</div>
+			</div>
+			<div class="footer-row"></div>
+			<div class="footerBox pd-5">
+				<div @click="goGuest" class=" w60 pointer flex-center mgr-5">
+					<div class="iconfont icon-service cl-primary f18"></div>
+					<div class="f12">客服</div>
+				</div>
+				<div v-if="cart.cart_total_num==0" class="flex-1 flex">
+					<div class="cl2">暂无商品，快去选购吧</div>
+				</div>
+				<div class="flex-1" v-if="cart.cart_total_num>0">
+					<div class="cl-money">￥{{cart.cart_total_money}}</div>
+					<div>运费金额 ￥{{cart.express_money}}</div>
+				</div>
+				<div v-if="cart.cart_total_num>0" class="btn" @click="goOrder">去结算</div>
+			</div>
+			<div :class="catClass" class="modal-group">
+				<div @click="catClass=''" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-body">
+						<div @click="setCat(0)" class="row-item">
+							<div class="row-item-title">全部商品</div>
+						</div>
+						<div class="row-item" @click="setCat(cat.catid,cat)" v-for=" (cat,index) in  catList" :key="index">
+							<div class="row-item-title">{{cat.title}}</div>							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div @click="backTop" class="back-top">
+				<div class="back-top-icon"></div>
+				<div class="back-top-text">顶</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var shopid = "{$shop.shopid}";
+		</script>
+		<script src="/plugin/dt-ui/dt-ui-touch.js"></script>
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script src="{$skins}jdo2o_shop/index/index.js"></script>
+	</body>
+</html>

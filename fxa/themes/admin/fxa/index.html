@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.chartBox{
+			width:480px;
+			height:320px;
+		}
+	</style>
+	<body>
+		<div class="tabs-border">
+			<div class="item  active">运营报表</div>
+		</div>
+		<div class="main-body">
+			<div class="flex">
+				<div class="box">
+					<div>七天报表</div>
+					<div class="chartBox" id="order7"></div>
+				</div>
+				<div class="box">
+					<div>月份报表</div>
+					<div class="chartBox" id="order30"></div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/echarts/echarts.common.min.js"></script>
+		<script>
+		var order7 = echarts.init(document.getElementById('order7'));
+		var order30 = echarts.init(document.getElementById('order30'));
+		function getOrder7(){
+			$.get("/moduleadmin.php?m=fxa&a=order7&ajax=1",function(res){
+				var option = {
+				    title: {
+				        text: ''
+				    },
+				    tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data:['订单金额']
+					},
+				    xAxis: {
+						type: 'category',
+						data: res.data.labels
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name:"订单金额",
+							data: res.data.orderMoneys,
+							type: 'line',
+							smooth: true
+						}			
+						
+					]
+				};
+				order7.setOption(option);
+			},"json")
+		}
+		function getOrder30(){
+			$.get("/moduleadmin.php?m=fxa&a=order30&ajax=1",function(res){
+				var option = {
+				    title: {
+				        text: ''
+				    },
+				    tooltip: {
+						trigger: 'axis'
+					},
+					legend: {
+						data:['订单金额']
+					},
+				    xAxis: {
+						type: 'category',
+						data: res.data.labels
+					},
+					yAxis: {
+						type: 'value'
+					},
+					series: [
+						{
+							name:"订单金额",
+							data: res.data.orderMoneys,
+							type: 'line',
+							smooth: true
+						}			
+						
+					]
+				};
+				order30.setOption(option);
+			},"json")
+		}
+		$(function(){
+			getOrder7();
+			getOrder30();
+		})
+		
+		</script>
+	</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gxny_shop_product/nav.html'}
+<div class="main-body">
+<form method="post" action="/moduleadmin.php?m=gxny_shop_product&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+						<td>用户2：</td>		
+						<td><input type="text" name="shopid" id="shopid" value="{$data.shopid}" ></td>
+						</tr>
+  <tr>
+						<td>no：</td>		
+						<td><input type="text" name="no" id="no" value="{$data.no}" ></td>
+						</tr>
+  <tr>
+						<td>status：</td>		
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</td>
+						</tr>
+  {if $data}<tr>
+						<td>创建时间：</td>		
+						<td>{$data.createtime}</td>
+						</tr>{/if}
+  <tr>
+						<td>catid：</td>		
+						<td><input type="text" name="catid" id="catid" value="{$data.catid}" ></td>
+						</tr>
+  <tr>
+						<td>decription：</td>		
+						<td><input type="text" name="decription" id="decription" value="{$data.decription}" ></td>
+						</tr>
+  <tr>
+						<td>isused：</td>		
+						<td><input type="text" name="isused" id="isused" value="{$data.isused}" ></td>
+						</tr>
+  <tr>
+						<td>userid：</td>		
+						<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+						</tr>
+  <tr>
+						<td>starttime：</td>		
+						<td><input type="text" name="starttime" id="starttime" value="{$data.starttime}" ></td>
+						</tr>
+  <tr>
+						<td>orderid：</td>		
+						<td><input type="text" name="orderid" id="orderid" value="{$data.orderid}" ></td>
+						</tr>
+  <tr>
+						<td>endtime：</td>		
+						<td><input type="text" name="endtime" id="endtime" value="{$data.endtime}" ></td>
+						</tr>
+  <tr>
+						<td>islook：</td>		
+						<td><input type="text" name="islook" id="islook" value="{$data.islook}" ></td>
+						</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

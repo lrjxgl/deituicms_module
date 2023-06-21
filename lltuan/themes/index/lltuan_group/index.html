@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>gid</td>
+   <td>placeid</td>
+   <td>productid</td>
+   <td>userid</td>
+   <td>名称</td>
+   <td>imgurl</td>
+   <td>审核状态</td>
+   <td>拼团状态</td>
+   <td>参与数量</td>
+   <td>实际成交</td>
+   <td>finish_time</td>
+   <td>isfinish</td>
+   <td>createtime</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.gid}</td>
+   <td>{$c.placeid}</td>
+   <td>{$c.productid}</td>
+   <td>{$c.userid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.status}</td>
+   <td>{$c.group_status}</td>
+   <td>{$c.join_num}</td>
+   <td>{$c.finish_num}</td>
+   <td>{$c.finish_time}</td>
+   <td>{$c.isfinish}</td>
+   <td>{$c.createtime}</td>
+<td><a href="/module.php?m=lltuan_group&a=add&gid={$c.gid}">编辑</a> <a href="/module.php?m=lltuan_group&a=show&gid={$c.gid}">查看</a> <a href="javascript:;" class="js-delete" url="/module.php?m=lltuan_group&a=delete&ajax=1&gid={$c.gid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

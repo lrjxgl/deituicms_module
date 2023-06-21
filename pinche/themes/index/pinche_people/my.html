@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">乘客联系方式</div>
+	<div gourl="/module.php?m=pinche_people&a=add" class="header-right-btn">添加</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    {foreach item=c from=$list}
+	<div class="row-box js-item mgb-5">
+		<div class="flex mgb-10">
+			<div class="cl-primary">{$c.nickname}</div>
+			<div class="flex-1"></div>
+			<div>{$c.telephone}</div>
+		</div>
+		<div class="flex">
+			<div class="flex-1"></div>
+			<div url="/module.php?m=pinche_people&a=delete&ajax=1&ppid={$c.ppid}" class="btn-mini btn-danger js-delete">删除</div>
+		</div>
+		
+	</div>
+	{/foreach}
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

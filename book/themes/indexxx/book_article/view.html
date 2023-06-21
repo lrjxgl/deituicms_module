@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<title></title>
+	 
+		<script src="/plugin/jquery/jquery.js"></script>
+		<link href="/plugin/dt-ui/dt-ui-pc.css" rel="stylesheet" />
+		<link href="{$skins}book_article/view.css" rel="stylesheet" />
+		
+	</head>
+	<body>
+		<div class="row-box mgb-5">
+			{if $data.mp3url}
+			<audio src="{$data.mp3url}" class="audio" controls=""></audio>
+			{/if}
+
+			{if $data.mp4url}
+			<video src="{$data.mp4url}" class="video" controls=""></video>
+			{/if}
+			
+			<div class="d-content ueditor {if $data.mp4url}none pos-content{/if}">
+				{$data.content}
+			</div>
+		</div>
+		
+		<div class="fix-rightbox">
+			{if $data.mp4url}
+			<div class="look-article mgb-10">查看讲义</div>
+			{/if}
+			<div class="mgb-10 look-bj">查看笔记</div>
+			<div class="btn-bj" id="bj-btn">写笔记</div>
+		</div>
+		
+		
+		<div class="modal-group" id="bj-modal">
+			<div class="modal-mask"></div>
+			<div class="modal" >
+				<div class="modal-header">
+					<div class="modal-title">写笔记</div>
+					<div class="modal-close" id="bj-close">关闭</div>
+				</div>
+				<div class="modal-body">
+					<textarea class="wCon" id="wCon"></textarea>
+					<div class="btn-row-submit" id="wSubmit">保存</div>
+				</div>
+				
+			</div>
+		</div>
+		<div class="modal-group" id="bjlist-modal">
+			<div class="modal-mask"></div>
+			<div class="modal" >
+				<div class="modal-header">
+					<div class="modal-title">笔记列表</div>
+					<div class="modal-close" id="bj-close">关闭</div>
+				</div>
+				<div class="modal-body" id="bjList">
+					<div class="bd-mp-5" v-for="(item,index) in list" :key="index">
+						{{item.content}}
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		{include file="book_article/comment.html"}
+		<script>
+			var bookid="{$data.bookid}";
+			var articleid="{$data.id}";
+		</script>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-h5.js"></script>
+		
+		<script type="text/javascript" charset="utf-8" src="/plugin/ueditor/third-party/SyntaxHighlighter/shCore.js"></script>
+		<link rel="stylesheet" type="text/css" href="/plugin/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css" />
+		<script src="{$skins}book_article/view.js"></script> 
+	</body>
+</html>

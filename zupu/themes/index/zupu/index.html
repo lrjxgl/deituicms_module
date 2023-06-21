@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">宗祠族谱</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div id="App" class="main-body">
+			<div class=" row-box mgb-5">
+				<div class="flex">
+					<input id="search-xing" class="input-flex-text w50"  type="text" placeholder="姓"  />
+					<input id="search-beifen" class="input-flex-text" type="text" placeholder="辈分排列" />
+					<div id="search-btn" class="input-flex-btn w60">寻根</div>
+				</div>
+				
+			</div>
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+			
+				<div class="swiper-pagination"></div>
+			
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+			<div>
+				<div class="pd-10 fw-600">资讯推荐</div>
+				<div class="flexlist">
+					{foreach item=item from=$newsList}
+					<div   class="flexlist-item">
+						<img class="flexlist-img" src="{$item.imgurl}.100x100.jpg" />
+						<div class="flex-1">
+							<div class="flexlist-title">{$item.title}</div>
+							<div class="flexlist-desc">{$item.description}</div>
+						</div>
+					</div>
+					{/foreach}
+				</div>
+			</div>
+			<div>
+				<div class="pd-10 fw-600">宗祠推荐</div>
+				{foreach item=c from=$groupList}
+				<div gourl="/module.php?m=zupu_group&a=show&gid={$c.gid}" class="row-box mgb-5">
+					<div class="mgb-5">{$c.title}</div>
+					<div class="flex mgb-5">
+						<span class="cl2 mgr-5">辈分</span>
+						<span class="cl-info">{$c.beifen}</span>
+					</div>
+					<div class="cl3">地址：{$c.address}</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(function(){
+				$(document).on("click","#search-btn",function(){
+					var xing=$("#search-xing").val();
+					var beifen=$("#search-beifen").val();
+					window.location="/module.php?m=zupu&a=search&xing="+xing+"&beifen="+beifen;
+				})
+			})
+		</script>
+	</body>
+</html>

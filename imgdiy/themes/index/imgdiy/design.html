@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}imgdiy/design.css?{$smarty.now}" rel="stylesheet" />
+	<body>
+		<div class="md-bg">
+			<div class="md-picbox">
+				<img class="md-pic" src="/module.php?m=imgdiy&a=img&id={$data.id}" />
+			</div>
+		</div>
+		<div class="md-footer">
+			<div class="md-tabs">
+				 
+				<div class="md-tabs-item">
+					<div class="md-tabs-icon icon-moban"></div>
+					<div class="md-tabs-title">换个模板</div> 
+				</div>
+				<div class="md-tabs-item">
+					<div class="md-tabs-icon icon-pic"></div>
+					<div class="md-tabs-title">换张图片</div> 
+				</div>
+				<div class="md-tabs-item js-editText" data-id="{$data.id}">
+					<div class="md-tabs-icon icon-wenzi"></div>
+					<div class="md-tabs-title">修改文字</div> 
+				</div>
+				 
+			</div>
+			<div class="md-btn">完成制作,生成海报</div>
+		</div>
+		<div class="ftbox">
+			<div class="ftbox-hd">
+				<div class="flex-1">修改文字</div>
+				<div class="btn-outline-success">完成</div>
+			</div>
+			<div class="ftbox-scroll">
+				{foreach item=c from=$artItems}
+				<div class="ftbox-item">{$c.word}</div>
+				{/foreach}
+			</div>
+		</div>
+		 
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+		<script>
+			var vm=new Vue({
+				el: '#app',
+				data:{
+					
+				},
+				created:function(){
+					
+				},
+				methods:function(){
+					
+				}
+			})
+		</script>
+	</body>
+</html>

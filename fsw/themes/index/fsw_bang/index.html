@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.tr-a{
+			background-color: #f30;
+			height: 40px;
+			margin-bottom: 5px;
+		}
+		.tr-a div{
+			height: 40px;
+			line-height: 40px;
+			color:#fff;
+			font-weight: 600;
+			
+		}
+		.tr-b{
+			margin-bottom: 5px;
+		}
+		.tr-b div{
+			height: 40px;
+			line-height: 40px;
+			color: #f30;
+			font-weight: 600;
+			font-size: 16px;
+			 
+		}
+		.td-a{
+			width: 60px;
+			text-align: center;
+		}
+		.td-f{
+			flex: 1;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+		}
+		.td-b{
+			width: 80px; 
+			text-align: center;
+		}
+		.td-c{
+			width: 80px;
+			text-align: center;
+		}
+		.pic{
+			width: 35px;
+			height: 35px;
+			border-radius: 50%;
+			margin-right: 5px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">钓鱼榜</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div class="flex tr-a">
+					<div class="td-a">排名</div>
+					<div class="td-f">用户</div>
+					<div class="td-b">联赛积分</div>
+					<div class="td-c">参赛次数</div>
+				</div>
+				<div v-for="(item,index) in ppList" :key="index" class="flex tr-b">
+					<div class="td-a">{{index+1}}</div>
+					<div class="td-f">
+					<img :src="item.user_head+'.100x100.jpg'" class="pic" />
+					{{item.nickname}}</div>
+					<div class="td-b">{{item.grade}}</div>
+					<div class="td-c">{{item.join_num}}</div>
+				</div>
+			</div>
+			
+		</div>
+		 
+		{include file="footer.html"}
+		<script src="{$skins}fsw_bang/index.js"></script>
+	</body>
+</html>

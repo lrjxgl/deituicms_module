@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.input-flex-label{
+			width: 50px;
+		}
+		.input-flex-text{
+			width: 80px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">课程教师</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div id="App">
+				<div class="tabs-border">
+					<div @click="setType('check')" :class="{'tabs-border-active':type=='check'}" class="tabs-border-item">已选择</div>
+					<div @click="setType('uncheck')"  :class="{'tabs-border-active':type=='uncheck'}" class="tabs-border-item">未选择</div>
+				</div>
+				<template v-for="(item,index) in pageData.list" :key="index">
+					
+					<div v-if=" (type=='check' && item.ischeck==1 )|| (type=='uncheck' && item.ischeck==0 )"  class="flexlist-item">
+						
+						<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.nickname}}</div>
+							<div class="flexlist-desc">{{item.description}}</div>
+						</div>
+						<div><input true-value="1"
+  false-value="0" 
+  @change="updateItem(item)" type="checkbox" v-model="item.ischeck" value="1" /> </div>
+					</div>
+				</template>
+			</div> 
+			 
+		</div>
+		
+		 
+		{include file="footer.html"}
+		<script>
+			var courseid="{$course.courseid}";
+		</script>
+		<script src="{$skins}exue_course_teacher/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="tbs">
+<thead>  <tr>
+   <td>shopid</td>
+   <td>title</td>
+   <td>description</td>
+   <td>imgurl</td>
+   <td>address</td>
+   <td>status</td>
+   <td>nickname</td>
+   <td>telephone</td>
+   <td>dateline</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.shopid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+   <td>{$c.imgurl}</td>
+   <td>{$c.address}</td>
+   <td>{$c.status}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+<td><a href="module.php?m=mdish_shop&a=add&shopid={$c.shopid}">编辑</a> <a href="/module.php?m=mdish_shop&a=show&shopid={$c.shopid}">查看</a> <a href="javascript:;" class="js-delete" url="module.php?m=mdish_shop&a=delete&ajax=1&shopid={$c.shopid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

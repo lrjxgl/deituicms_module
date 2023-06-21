@@ -1,0 +1,18 @@
+.ptlist .item{border-bottom: 1px solid #eee; padding: 5px;}
+.ptlist .item .time{line-height: 2;}
+.ptlist .item .f{color: #f60;}
+.ptlist .item .r-status{line-height: 2; color: #999;}
+.ptlist .item .r-addr{line-height: 1.5; color: #999; margin-bottom: 5px;}
+.ptlist .item .r-con{ 
+	color: #999; 
+	line-height: 1.5; 
+	border:1px solid #f0f0f0; 
+	padding: 5px;
+	margin-bottom: 5px;
+}
+.ptlist .item .r-tools{
+	text-align: center;
+}
+.ptlist .item .r-tools a{margin-right: 15px;}
+.ptlist .item .js-addMoney{color: #008200;}
+.ptlist .item .js-cancel{color: #999;}

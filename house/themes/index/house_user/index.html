@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+ 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="flex pd-10 mgb-10 bg-white flex-ai-center">
+				<image class="wh-60 mgr-5 bd-radius-50" gourl="/index.php?m=user&a=user_head" src="{$user.user_head}.100x100.jpg" />
+				<div class="flex-1">
+					<div class="mgb-10 f16 flex">
+						<div>{$user.nickname}</div>
+						<div class="flex-1"></div>
+						{if $invitecode}
+						<div class="cl2 mgr-5">邀请码</div>
+						<div class="cl-num">{$invitecode}</div>
+						{/if}
+					</div>
+					<div class="flex">
+						{if $agent}
+						<text class="mgr-5 cl-status">经纪人</text>
+						{elseif !$agent_apply}
+						<text class="mgr-5 cl3">经纪人</text>
+						<text class="cl-status">待审核</text>
+						{/if}
+					</div> 
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+			</div>
+			{if $agent}
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=house_resource&a=my" class="row-item">
+					<div class="row-item-icon icon-news  cl-u"></div>
+					<div class="row-item-title">我的房源</div>
+				</div>
+				<div gourl="/module.php?m=house_resource&a=add" class="row-item">
+					<div class="row-item-icon icon-edit  cl-u"></div>
+					<div class="row-item-title">发布房源</div>
+				</div>
+				<div gourl="/module.php?m=house_tuan&a=my" class="row-item">
+					<div class="row-item-icon icon-activity  cl-u"></div>
+					<div class="row-item-title">我的看房团</div>
+				</div>
+				
+				<div gourl="/module.php?m=house_tuan&a=add" class="row-item">
+					<div class="row-item-icon icon-edit  cl-u"></div>
+					<div class="row-item-title">发布看房团</div>
+				</div>
+				
+			</div>
+			{/if} 	
+			<div class="row-box mgb-5">
+				{if $agent_apply}
+				<div gourl="/module.php?m=house_agent_apply&a=add" class="row-item">
+					<div class="row-item-icon icon-edit  cl-u"></div>
+					<div class="row-item-title">申请成为经纪人发布房源</div>
+				</div>
+				{/if}
+				
+				
+				<div gourl="/module.php?m=house_tuan_user&a=my" class="row-item">
+					<div class="row-item-icon icon-activity  cl-u"></div>
+					<div class="row-item-title">报名的看房团</div>
+				</div>
+				<div gourl="/module.php?m=house_resource_love&a=my" class="row-item">
+					<div class="row-item-icon icon-news  cl-u"></div>
+					<div class="row-item-title">关注的房源</div>
+				</div> 
+				<div gourl="/module.php?m=house_loupan_love&a=my" class="row-item">
+					<div class="row-item-icon icon-discover  cl-u"></div>
+					<div class="row-item-title">关注的楼盘</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">	 
+				<div gourl="/index.php?m=notice&a=my" class="row-item">
+					<div class="row-item-icon icon-notice  cl-u"></div>
+					<div class="row-item-title">我的消息</div>
+				</div>
+			 
+			
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service  cl-u"></div>
+					<div class="row-item-title">联系客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info  cl-u"></div>
+					<div class="row-item-title">关于我们</div>
+				</div>
+			</div>
+			 
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

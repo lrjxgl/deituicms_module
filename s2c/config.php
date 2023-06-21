@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"得推社区团购",//模块名称
+	"module"=>"s2c",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"得推社区团购系统",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=s2c&a=menu",
+	"check_update"=>"http://www.deitui.com",
+);
+?>

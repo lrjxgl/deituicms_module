@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='elsearch_topic/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>tablename</td>
+   <td>objectid</td>
+   <td>title</td>
+   <td>description</td>
+    
+<td width="200">操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.tablename}</td>
+   <td>{$c.objectid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.description}</td>
+  
+<td><a href="/moduleadmin.php?m=elsearch_topic&a=add&id={$c.id}">编辑</a> 
+<a target="_blank" href="{$c.table.show_url}{$c.objectid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=elsearch_topic&a=delete&ajax=1&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

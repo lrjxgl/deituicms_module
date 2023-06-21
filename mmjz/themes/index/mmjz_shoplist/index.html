@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.side{
+			width:100px;
+			position: fixed;
+			left:0;
+			top:45px;
+			bottom:0;
+			background-color: #fff;
+			display: none;
+		}
+		.side-menu{
+			padding: 5px;
+			cursor: pointer;
+		}
+		.side-menu-active{
+			color: #f30;
+		}
+		.main{
+		 
+			flex: 1;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">选择位置</div>
+		</div>
+		<div class="header-row"></div>
+		 
+		<div class="main-body" id="App">
+			<div v-if="GpsIng" class="emptyData">定位中...</div>
+			<div style="display: none;" :class="'flex-col'" :style="'display:flex'" v-if="pageLoad">
+				<div class="flex">
+					<div class="side">
+						<div @click="setCity(item.id)" :class="cityid==item.id?'side-menu-active':''" class="side-menu" v-for="(item,index) in cityList" :key="index">{{item.name}}</div> 
+					</div>
+					<div class="main">
+						<div @click="goShop(shop.shopid)" class="flexlist-item flex-ai-center pointer">
+							
+							
+							<div class="flex-1">
+								<div class="flex">
+									<div class="flexlist-title">{{shop.shopname}}</div>
+									<div class="flex-1"></div>
+									<div class="cl-status">{{shop.yystatus_name}}</div>
+								</div>
+								
+								
+								<div class="cl3 f12">{{shop.address}}</div> 
+								<div class="cl3 f12 mgb-5">服务范围：{{shop.send_area}}</div>
+							</div>
+							<div class="iconfont icon-location_light cl-primary"></div>
+						</div>
+						<div @click="goShop(item.shopid)" v-for="(item,index) in pageData.shopList" :key="index" class="flexlist-item pointer">
+							
+							<div class="flex-1">
+								<div class="flex">
+									<div class="flexlist-title">{{item.shopname}}</div>
+									<div class="flex-1"></div>
+									<div class="cl-status">{{item.yystatus_name}}</div>
+								</div>
+								
+								
+								<div class="cl3 f12">{{item.address}}</div> 
+								<div class="cl3 f12 mgb-5">服务范围：{{item.send_area}}</div>
+							</div>
+						
+							<div class="flex flex-ai-center"><div class="cl3 f16 iconfont icon-right"></div></div>
+						</div>
+					</div>
+				</div>
+				 
+				
+				
+			</div>
+		</div>
+
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script>
+			var catid = "{$catid}";
+			$(document).on("click","#searchBtn",function(){
+				var keyword=$("#keyword").val();
+				window.location="/module.php?m=mmjz_search&keyword="+encodeURIComponent(keyword);
+			})
+		</script>
+		
+		<script src="{$skins}mmjz_shoplist/index.js?aava=2sa22aa2"></script>
+	</body>
+</html>

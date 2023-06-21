@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+ 
+<body>
+<div url="/module.php?m=hongbao" class="header-back-fixed goBack"></div>
+<div class="main-body">
+	<a href="http://www.fd175.com/module.php?m=cj1&a=show&id=5">
+		<img src="http://fd175.oss-cn-hangzhou.aliyuncs.com/attach/cj1/2018/01/17/4a0ba89663634a200acc8e012e038c74.png" style="width: 100%;"  />
+	</a>
+	<div class="row-box mgb-5">
+				<div class="d-title">{$data.title}</div>
+				<div class="flex mgb-5">
+		    		<label class="mgr-10 cl2">总额</label>
+					<span class="cl-money">￥{$data.total_money}</span>
+		    	</div>
+		    	<div class="f12 cl2">
+		    		截止时间：{$data.endtime|date:Y-m-d H:i:s}
+		    	</div>
+			</div> 
+	<div class="row-box">
+		<div class="row-box-hd">参与方法</div> 
+		<div class="d-content" style="padding: 5px; color: #555;">
+			{$data.joindesc}	
+			 
+			<div class="tbs-img">
+				<div id="img-ewm-1"><img src="{$skins}wx-zxh.jpg" style="width: 90%;"  /></div>
+				<div id="img-ewm-2"><img src="{$skins}wx-fwh.jpg" style="width: 90%;"  /></div>
+				<div class="tabs-border">
+					<div id="bts-ewm-1" class="tabs-border-item tabs-border-active">资讯论坛</div>
+					<div id="bts-ewm-2" class="tabs-border-item">服务号</div>
+				</div>
+			</div>
+			
+			 
+			
+		</div>
+		
+		
+	</div>
+	 
+			
+	<div class="row-box">
+    	{if $data.isask}
+    	<div class="input-flex">
+    		<div class="label">问题：</div>
+    		<div> {$data.ask}  
+    		</div>	
+    	</div>
+    	<div class="input-flex">
+    		<div class="label">回答：</div>
+    		<input type="text" class="text" id="answer" />
+    	</div>
+    	{/if}
+    	<div class="note" style="font-size: 14px; color: red; padding: 10px;">
+    		获得的红包大于1元才能通过微信发送，没满1元存在网站用户红包，累计到下次满1元自动发送。
+    	</div>
+    	{if $data.isfinish}
+    	<div style="color: #555;">当前活动已结束</div>
+    	{else}
+	    	{if $canget}
+	    	<div class="btn-row-submit" v="{$data.id}" id="getHongbao">立即抢红包</div>
+	    	{else}
+	    	<div style="color: #555;">你需要先通过公众号发送抢红包，获取参与资格。</div>
+	    	{/if}
+    	{/if}
+    </div>
+    <div class="row-box">
+	    <div class="d-content ueditor">
+	    	{$data.content}
+	    </div>
+    </div>
+ 
+   {if $itemlist}
+    <div class="paibox">
+    	<div class="flexitem">
+    		<div class="pm">排名</div>
+    		<div class="nick">姓名</div>
+    		<div class="money">金额</div>
+    	</div>
+    	{foreach item=c key=k from=$itemlist}
+    	<div class="flexitem">
+    		<div class="pm">{$k+1}</div>
+    		<div class="nick">{$c.nickname}</div>
+    		<div class="money">{$c.money}</div>
+    	</div>
+    	{/foreach}
+    </div>
+    {/if}
+     
+</div>
+<div class="footer-row"></div>
+{include file="footer.html"}
+<script>
+				$(document).on('click',"#bts-ewm-1",function(){
+					$("#img-ewm-1").show();
+					$("#img-ewm-2").hide();
+					$(this).addClass("tabs-border-active").siblings().removeClass("tabs-border-active");
+				})
+				$(document).on('click',"#bts-ewm-2",function(){
+					$("#img-ewm-2").show();
+					$("#img-ewm-1").hide();
+					$(this).addClass("tabs-border-active").siblings().removeClass("tabs-border-active");
+				})
+			</script>
+ 
+<script>
+	var isask="{$data.isask}";
+	
+	$(document).on("click","#getHongbao",function(){
+		var answer=$("#answer").val();
+			if(isask==1 && answer=='' ){
+				mui.toast('请填写答案');
+				return false;
+			} 
+		var id=$(this).attr("v");
+		$.post("/module.php?m=hongbao&a=get&ajax=1",{
+			id:id,
+			answer:answer
+		},function(data){
+			mui.toast(data.message);
+			if(data.error==0){
+				setTimeout(function(){
+					window.location.reload();
+				},600)				
+			}
+		},"json")
+	})
+</script>
+	<?php wx_jssdk();?>
+<script>
+	wxshare_title="{$data.title}";
+	{if $data.imgurl}
+	wxshare_imgUrl="{$data.imgurl}";
+	{/if}
+</script> 
+</body>
+</html>

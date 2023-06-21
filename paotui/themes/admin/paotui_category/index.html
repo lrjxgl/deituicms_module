@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='paotui_category/nav.html'}
+<div class="main-body">
+	<form class="search-form flex" method="get" action="/moduleadmin.php">
+		<input type="hidden" name="m" value="paotui_category" />
+		<select class="w150 mgr-10" name="typeid">
+			<option value="0">请选择</option>
+			{foreach item=c from=$typeList}
+			<option {if get('typeid')== $c.typeid}selected{/if} value="{$c.typeid}">{$c.title}</option>
+			{/foreach}
+		</select>
+		<button class="btn" type="submit">搜一下</button>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>catid</td>
+   <td>名称</td>
+   <td>服务类型</td>
+   <td>图片</td>
+   <td>状态</td>
+   <td>排序</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.catid}</td>
+   <td>{$c.title}</td>
+   <td>{$c.typeid_name}</td>
+   <td>{if $c.imgurl}<img src="{$c.imgurl}.100x100.jpg" width="50"/>{/if}</td>
+   <td>{$c.status}</td>
+   <td>{$c.orderindex}</td>
+<td><a href="/moduleadmin.php?m=paotui_category&a=add&catid={$c.catid}">编辑</a>
+ 
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=paotui_category&a=delete&catid={$c.catid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

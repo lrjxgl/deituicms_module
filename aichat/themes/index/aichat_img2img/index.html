@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">图像编辑</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div>
+					<input class="none" id="upimg" @change="uploadImg" type="file" />
+					<div class="flex">
+						<div class="flex-1 ">
+							<div v-if="true_oimg==''" class="flex flex-center bg-white" style="height: 300px;">
+								<div @click="upClick" class="btn-small">上传图片</div>
+							</div>
+							<img v-if="true_oimg!=''" class="wmax" :src="true_oimg" />
+						</div>
+						<div class="flex-1">
+							<img v-if="imgurl!=''" class="wmax" :src="imgurl" />
+						</div>
+					</div>
+				</div>
+				<div>
+					<textarea class="textarea-flex-text h60 mgb-5" placeholder="prompt..." v-model="prompt"></textarea>
+					<textarea class="textarea-flex-text h60 mgb-5"  placeholder="negative_prompt..." v-model="negative_prompt"></textarea>
+				</div>
+				<div class="flex">
+					 
+					<div class="flex-1"></div>
+					<div @click="submit" class="btn-small">开始生成</div>
+				</div>
+				
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}aichat_img2img/index.js?{$smarty.now}"></script>
+	</body>
+</html>

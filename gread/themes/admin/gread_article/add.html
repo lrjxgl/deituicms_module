@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="shd">文章发布</div>
+		 
+		<div class="main-body">
+			<div >
+				<form method="post" action="/moduleadmin.php?m=gread_article&a=save">
+					<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+					<table class="table table-bordered">
+						<tr>
+							<td width="100">标题：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+						<tr>
+							<td>简介：</td>
+							<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+						</tr>
+						 
+						<tr>
+							<td>图片：</td>
+							<td>
+								<div class="js-upload-item">
+									<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+									<div class="upimg-btn js-upload-btn">+</div>
+									<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+									<div class="js-imgbox">
+										{if $data.imgurl}
+										<img src="{$data.imgurl|images_site}.100x100.jpg">
+										{/if}
+									</div>
+								</div>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>状态：</td>
+							<td>
+								<input {if $data.status eq 1}checked{/if} type="radio" name="status" value="1"> 上架
+								<input {if $data.status neq 1}checked{/if}  type="radio" name="status" value="2"> 下架
+							</td>
+						</tr>
+						<tr>
+							<td>首页：</td>
+							<td>
+								<input {if $data.isindex eq 1}checked {/if} type="radio" name="isindex" value="1"> 是
+								<input  {if $data.isindex neq 1}checked {/if} type="radio" name="isindex" value="0"> 否
+							</td>
+						</tr>
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+						 
+					</table>
+					<div class="btn-row-submit js-submit">发布</div>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script language="javascript" src="/static/admin/js/upload.js"></script>
+			{php loadEditor();}
+
+<script language="javascript">
+ 
+var editor=UE.getEditor('content',options)
+</script>
+		{include file="footer.html"}
+	</body>
+
+</html>

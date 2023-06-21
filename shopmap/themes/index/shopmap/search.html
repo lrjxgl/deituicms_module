@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<div class="header">
+		<div class="header-back"></div>
+		<div class="header-search-box" style="margin-left: 35px; ">
+			<input class="header-search" value="{$smarty.get.keyword}" id="keyword" style="padding-left: 3px;" type="search">
+		</div>
+		<div class="header-search-btn iconfont icon-search" id="searchSubmit"></div>
+	</div>
+<div class="header-row"></div>
+<div class="main-body">
+	
+    <div class="flexlist" id="list">
+			 
+		</div> 
+		<div>{$pagelist}</div>
+     
+</div>
+ 
+{include file="footer.html"}
+<script id="list-tpl" type="text/html">
+	<%for(var i=0;i<list.length;i++){%>
+		<% var $c=list[i]%>
+		<a href="/module.php?m=shopmap&a=show&id=<%=$c.id%>" class="flexlist-item">
+			
+				<image class="flexlist-img" src="<%=$c.imgurl%>.100x100.jpg" />						
+			<div class="flex-1"> 
+				<div class="flexlist-title"><%=$c.title%></div>
+				<div class="cl2"><%=$c.address%></div>
+				<div class="cl3"><%=$c.description%></div>
+			</div>
+		</a>
+	<%}%>
+</script>
+<script src="/plugin/jquery/template-native.js"></script>
+<script src="/plugin/jquery/listload.js"></script>
+<script>
+	var keyword="{$smarty.get.keyword}";
+	getList();
+	function getList(){
+		$.get("/module.php?m=shopmap&ajax=1&keyword="+encodeURI(keyword),function(res){
+			var html=template("list-tpl",res.data);
+			$("#list").html(html);
+		},"json")
+	}
+	$(document).on("click","#searchSubmit",function(){
+		var keyword=$("#keyword").val();
+		window.location="/module.php?m=shopmap&a=search&keyword="+encodeURI(keyword);
+	})
+</script>
+</body>
+</html>

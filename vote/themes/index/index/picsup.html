@@ -1,0 +1,228 @@
+
+
+<div class="picsup-box">
+        	 
+            <div class="picsuploading" id="picsuploading">
+            	<div style="height:10px; width:80%; margin: 0 auto; background-color:#333;">
+            	<div class="picsup-progress" id="picsup-progress" style="background-color:#f60; width:1px; height:10px;"></div>
+                </div>
+            </div>
+            
+            <div class="row" style=" width:90%; margin: 0 auto; margin-bottom:20px;">
+            	<div class="col-2-1">
+                	<div class="btn-upload" style="background:#333; text-align:center; line-height:30px; color:#fff;"><i class="iconfont icon-upload"></i> 上传<input type="file" multiple  id="picsup" class="btn-upload-file"></div>
+                </div>
+                <div class="col-2-1">
+                	<div class="btn-upload" style="background:#333; text-align:center; line-height:30px; color:#fff;">
+                    <i class="iconfont icon-paizhao"></i> 拍照
+                    <input type="file" onChange="picspaizhao()" name="upimg"  id="picspz"  class="btn-upload-file"></div>
+                </div>    
+              </div>
+            <div id="pics" class="row">             
+            	<div id="webuploader" url="/index.php?m=imgs&tablename={$tablename}&object_id={$data.id}" class="webuploader">
+                    <div class="ks-list" >
+                                <div class="item">
+                                </div>
+                                <div class="clearfix"></div>
+                     </div>
+                 </div>
+            </div>
+            
+             
+        </div>
+
+
+<link href="/plugin/webuploader/webuploader.css" rel="stylesheet">
+<style>
+.picsuploading{height:10px; margin-top:10px; display:none;}
+.webuploader .ks-list{width:90%; margin:0 auto;}
+.ks-list .tools{margin-bottom:20px; padding-top:10px;}
+.ks-list .tools span{cursor:pointer;}
+.webuploader .ks-list .item{margin:0px; width:50%;}
+</style>
+<script language="javascript">
+   function picspaizhao()
+    {
+		  var vFD = new FormData();
+		 var f= document.getElementById('picspz').files; 
+		vFD.append('upimg', document.getElementById('picspz').files[0]);
+		var oXHR = new XMLHttpRequest();        
+		oXHR.addEventListener('load', uploadFinish, false);
+		oXHR.addEventListener('error', uploadError, false);
+		$("#picsuploading").show();
+		oXHR.open('POST', '/index.php?m=upload&a=uploadtao&dir=product&id={$data.id}&t='+Math.random());
+		oXHR.send(vFD);
+	}
+	
+	
+	function uploadFinish(e){
+		var data=eval("("+e.target.responseText+")");
+		$.post("/index.php?m=imgs&a=save&tablename={$tablename}&object_id={$data.id}",{imgurl:data.imgurl},function(data){
+				modImgsList("webuploader",1);
+				$("#picsuploading").hide();
+		},"json");
+	}
+	
+	function uploadError(e) { // upload error
+		skyToast("上传出错了");
+		$("#picsuploading").hide();
+	}  
+
+ 
+
+</script>
+        
+<script>
+var uptotal=uploaded=uplast=upid=uplen=0;
+modImgsList("webuploader",1)
+function modImgsList(objid,cover){
+	if(typeof(cover)=='undefined') cover=0;
+	var objid=objid;
+	var url=$("#"+objid).attr("url")+"&a=list";
+	$.get(url,function(data){
+		var html='';
+		for(var i=0;i<data.length;i++){
+			if(data[i].title==''){
+				data[i].title='';
+			}
+			html+='<div class="item" url="'+url+'"><input type="hidden" class="ks-ids" name="ids[]" value="'+data[i].id+'"><div class="img"><img src="'+data[i].imgurl+'.100x100.jpg" ></div>'
+			+'<div class="tools"> <span class="ks-left"></span> <span class="ks-right"></span>'
+			+(cover?'<span class="ks-cover" baseimg="'+data[i].baseimg+'" src="'+data[i].imgurl+'"></span>':'')
+			+'<span class="ksclose" did="'+data[i].id+'"></span></div>'
+			+' <div class="title "><input class="ks-title"  type="text"   value="'+data[i].title+'" placeholder="如：黑色" did="'+data[i].id+'"> </div></div>';
+		}
+		$("#"+objid+" .ks-list").html(html);
+	},"json")
+}
+
+
+$(function(){
+	$(document).on("focusout",".webuploader .ks-title",function(){
+		var url=$(this).parents(".webuploader").attr("url");
+		if($(this).val()=='' ){
+			skyToast('请填写完整');
+			return false;
+		}
+		$.post(url+"&a=save",{title:$(this).val(),id:$(this).attr("did")},function(data){
+			 skyToast('保存成功');
+		},"json");
+	});
+	
+	$(document).on("click",".webuploader .ksclose",function(){
+		var url=$(this).parents(".webuploader").attr("url");
+		var obj=$(this);
+		$.get(url+"&a=delete&id="+$(this).attr("did"),function(data){
+			obj.parents(".item").remove();
+		})
+	});
+	
+	$(document).on("click",".webuploader .ks-left",function(){
+		var url=$(this).parents(".webuploader").attr("url");
+		var p=$(this).parents(".item");
+		p.insertBefore(p.prev());
+		$.get(url+"&a=orderindex",$(this).parents(".webuploader").find(".ks-list .ks-ids").serialize(),function(){});
+	});
+	
+	$(document).on("click",".webuploader .ks-right",function(){
+		var url=$(this).parents(".webuploader").attr("url");
+		var p=$(this).parents(".item");
+		p.insertAfter(p.next());
+		$.get(url+"&a=orderindex",$(this).parents(".webuploader").find(".ks-list .ks-ids").serialize(),function(){});
+	});
+	
+	$(document).on("click",".webuploader .ks-cover",function(){	
+		$("#imgurl").val($(this).attr("baseimg"));
+		$("#imgShow").html("<img src='"+$(this).attr("src")+".100x100.jpg' width='100'>");
+	})
+});
+
+function picsupload(i)
+{
+		 var vFD = new FormData();
+		 var f= document.getElementById('picsup').files;
+		 $("#picsuploading").show();
+	 
+		vFD.append('upimg', document.getElementById('picsup').files[i]);
+		// create XMLHttpRequest object, adding few event listeners, and POSTing our data
+		var oXHR = new XMLHttpRequest();        
+		oXHR.addEventListener('load', picsupsuccess, false);
+		oXHR.addEventListener('error', picsuperror, false);
+		oXHR.upload.addEventListener("progress", picsupprogress, false);
+		oXHR.open('POST',"/index.php?m=upload&a=uploadtao&dir=forum&id={$data.id}");
+		oXHR.send(vFD);
+	
+		 
+}
+
+function picsupsuccess(e){
+			uplast=0;
+			var data=eval("("+e.target.responseText+")");
+			$.post("/index.php?m=imgs&a=save&tablename={$tablename}&object_id={$data.id}",{imgurl:data.imgurl},function(data){
+				modImgsList("webuploader",1)
+			},"json");
+	}
+	function picsuperror(e){
+			var data=eval("("+e.target.responseText+")");
+			skyToast(data.message);
+	}
+		
+	 function picsupprogress(evt) {
+		  
+            if (evt.lengthComputable) {
+				u=0;
+				for(var i=0;i<upid;i++){
+					u=u+document.getElementById('picsup').files[i].size;
+				}
+                var percentComplete = Math.round((evt.loaded +u)* 100 / uptotal);
+				percentComplete =Math.min(100,percentComplete);
+				
+                $('#picsup-progress').css("width",percentComplete.toString() + '%');
+				if(evt.loaded==evt.total){
+					
+					if(uplen<=upid+1){
+						$('#picsup-progress').css("width",'100%');
+						$("#picsuploading").hide();
+					}else{
+						upid=upid+1;
+						picsupload(upid);
+					}
+				}
+				
+            }
+            else {
+                $("#pics-loading").html('上传中');
+            }
+     }
+$(function(){
+	 
+	
+	
+	 
+	$("#picsup").bind("change",function(){
+
+		uptotal=upid=0;
+		uplen=document.getElementById('picsup').files.length;
+		if(uplen>6){
+			skyToast('文件最多6个');
+			return false;
+		}
+		for(var i=0;i<uplen;i++){
+			uptotal=uptotal+document.getElementById('picsup').files[i].size;
+		}
+		picsupload(upid);	
+	});
+	
+	$(".picsup-list").on("click",".picsup-item",function(){
+		var len=$(this).find(".close").length;
+		if(len>0){
+			$(this).find(".close").remove();
+		}else{
+			$(this).append("<span class='close'></span>");
+		}
+	});
+	
+	$(".picsup-list").on("click",".close",function(){
+		$(this).parents(".picsup-item").remove();
+	});
+});
+</script>        

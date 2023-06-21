@@ -1,0 +1,58 @@
+
+.tr-a {
+ 	background-color: #f30;
+ 	height: 40px;
+ 	margin-bottom: 5px;
+ }
+
+ .tr-a div {
+ 	height: 40px;
+ 	line-height: 40px;
+ 	color: #fff;
+ 	font-weight: 600;
+
+ }
+
+ .tr-b {
+ 	margin-bottom: 5px;
+ }
+
+ .tr-b div {
+ 	height: 40px;
+ 	line-height: 40px;
+ 	color: #f30;
+ 	font-weight: 600;
+ 	font-size: 16px;
+
+ }
+
+ .td-a {
+ 	width: 60px;
+ 	text-align: center;
+ }
+
+ .td-f {
+ 	flex: 1;
+ 	display: flex;
+ 	flex-direction: row;
+ 	align-items: center;
+ }
+
+ .td-b {
+ 	width: 80px;
+ 	text-align: center;
+ }
+
+ .td-c {
+ 	width: 80px;
+ 	text-align: center;
+ }
+
+ .pic {
+ 	width: 35px;
+ 	height: 35px;
+ 	border-radius: 50%;
+ 	margin-right: 5px;
+ }
+
+ 

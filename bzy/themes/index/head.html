@@ -1,0 +1,90 @@
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+{if !$site}
+{get data=site model=site fun=get()}
+{/if}
+<title>{if $seo}{$seo.title}{else}{$site.title}{/if}</title>
+<meta name="description" content="{if $seo}{$seo.description}{else}{$site.description}{/if}" />
+<link href="//at.alicdn.com/t/font_811242_bl1740adjkh.css" rel="stylesheet" />
+<link href="/plugin/dt-ui/dt-ui-h5.css?vss2" rel="stylesheet" />
+<link href="/index.php?m=skinscolor" rel="stylesheet" /> 
+<style>
+/**头部风格***/
+.header,.header-show{
+ background-color: #ed1941;	
+ box-shadow: none;  
+}
+.header-back:after,.header-title{color: #fff;}
+
+.header-search{
+	background-color: rgba(0,0,0,.1);
+	border: 0 !important;
+	color: #fff;
+}
+.header-search::-webkit-input-placeholder { /* Edge */
+  color: #fff;
+}
+
+.header-search:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #fff;
+}
+
+.header-search::placeholder {
+  color: #fff;
+}
+.header-search-icon{
+	color: #fff;
+}
+.header-search-btn{
+	background-color: #ed1941 !important;
+    color: #fff;
+}
+.header-right{
+	color: #fff;
+}
+.header-right-btn{
+	color: #fff;
+	border-color: #fff;
+}
+/*****底部风格****/
+
+		 
+		.footer-item,.footer-item:before{
+			 
+			color:#6d6d6d;
+		}
+		.footer-add:after{
+			background-color: #ed1941;
+			color: #fff;
+		}
+		.footer-active, .footer-active:before {
+		    background: none;
+			font-weight:600; 
+			color:#ed1941;
+		}
+	
+.cl-u,.row-item-title{
+	color:#ed1941;
+	font-weight: 600;
+} 
+.row-item-icon:before{
+	color:#ed1941;
+	font-size: 18px;
+}
+/*********/
+.btn-primary,.btn-row-submit,.input-flex-btn{
+	background-color: #ed1941;
+	border-color:#ed1941;
+}
+.cart-list-btn{
+	background-color:#ed1941 !important;
+}
+
+.btn,.btn-buy{
+	background-color: #ed1941;
+}
+.toast-success{
+	background-color: #ed1941  !important;
+}</style> 
+</head>

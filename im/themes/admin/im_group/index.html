@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='im_group/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>groupid</td>
+   <td>名称</td>
+   <td>logo</td>
+   <td>类型</td>
+   <td>描述</td>
+  
+   <td>状态</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.groupid}</td>
+   <td>{$c.title}</td>
+    <td><img src="{$c.imgurl|images_site}" class="wh-60" /> </td>
+   <td>{$c.typeid_title}</td>
+   <td>{$c.description}</td>
+   <td>
+	   <div url="/moduleadmin.php?m=im_group&a=status&ajax=1&groupid={$c.groupid}" class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status"></div>
+   </td>
+  
+<td>
+	<a href="/moduleadmin.php?m=im_group&a=add&groupid={$c.groupid}">编辑</a> 
+	<a href="/moduleadmin.php?m=im_group_user&groupid={$c.groupid}">成员列表</a>
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=im_group&a=delete&groupid={$c.groupid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

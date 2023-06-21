@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">金币兑换</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="mtlist">
+				{foreach item=c from=$list}
+				<div gourl="/module.php?m=gold_product&a=show&id={$c.id}" class="mtlist-item">
+					<div class="mtlist-item-bd">
+						<div class="mtlist-imgbox">
+						<img src="{$c.imgurl}" class="mtlist-img" />
+						</div>
+						<div class="mtlist-item-pd">
+							<div class="mtlist-title">{$c.title}</div>
+							<div class="flex flex-ai-end">
+								<div class="cl2 mgr-10">金币</div>
+								<div class="cl-money f22">{$c.gold}</div>
+								<div class="mgl-5 f14 cl2">个</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{include file="footer.html"}
+
+	</body>
+
+</html>

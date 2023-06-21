@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='s2c_vendor/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>vdid</td>
+    
+   <td>名称</td>
+   <td>联系人</td>
+   <td>电话</td>
+   <td>地址</td>
+   <td>营业执照</td>
+    
+   <td>状态</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.vdid}</td>
+  
+   <td>{$c.title}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.telephone}</td>
+   <td>{$c.address}</td>
+   <td><img src="{$c.yyzz}.100x100.jpg" width="50" /> </td>
+   
+   <td><div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=s2c_vendor&a=status&vdid={$c.vdid}&ajax=1" ></div></td>
+<td><a href="/moduleadmin.php?m=s2c_vendor&a=add&vdid={$c.vdid}">编辑</a> 
+ 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=s2c_vendor&a=delete&vdid={$c.vdid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

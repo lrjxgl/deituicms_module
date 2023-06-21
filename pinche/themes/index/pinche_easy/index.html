@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+	.abox{
+		border-radius: 10px;
+		background-color: #fff;
+		padding: 10px;
+		margin: 10px 10px;
+	}
+	.abox-item{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		border-bottom: 1px solid #eee;
+		margin-bottom: 5px;
+		padding-bottom: 5px;
+		
+	}</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$line.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<form>
+				<div class="row-box">
+					<div class="flex mgb-10">
+						<div class="mgr-10 cl2">上车位置</div>
+						<div class="cl-primary">{{addr.addr}}</div>
+					</div>
+					
+					<div class="cl2">乘客数量</div>
+					<div class="flex mgb-10"> 
+						<div @click="usernum=item" class="radioList-item" :class="usernum==item?'radioList-item-active':''" v-for="(item,index) in pps" :key="index">{{item}}人</div>						 
+					</div>
+					<div class="radioList-group mgb-10">
+						<div class="flex mgb-5">
+							<div class=" cl-primary">请选择乘客</div>
+							<div class="flex-1"></div>
+							<a class="cl-primary" href="/module.php?m=pinche_people&a=add">去添加</a>
+						</div>
+						
+						<div @click="ppitem=item" :class="ppitem.ppid==item.ppid?'radioList-item-active':''" v-for="(item,index) in ppList" :key="index" class="radioList-item">
+							{{item.nickname}}
+						</div>
+					</div>
+					<div class="flex mgb-10">
+						<div class="cl2 mgr-5">费用说明:</div>
+						<div class="mgr-5">白天 </div>
+						<div class="cl-money mgr-20">￥{{line.bai_money}}</div>
+						<div class="mgr-5">晚上</div>
+						<div class="cl-money"> ￥{{line.hei_money}}</div>
+						
+						
+					</div>
+					<div class="abox-item">
+						<div class="cl2">当前费用:</div>
+						<div class="cl-money mgr-5">￥{{line.basemoney}}</div>
+						 
+						<div class="cl2">，非站点接送另付费用</div>
+						<div class="cl-money">￥{{line.sendmoney}}/千米</div>
+					</div>
+					<div class="abox-item">
+						<div class="mgr-5">预计车费</div>
+						<div class="cl-money">￥{{totalmoney}}</div>
+					</div>
+					
+					
+					<div>
+						<div @click="orderSubmit" class="btn-row-submit">确认拼车</div>
+					</div>
+				</div>
+				
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script>
+		var addrid="{$addr.addrid}"
+		</script>
+		<script src="{$skins}pinche_easy/index.js"></script>
+	</body>
+</html>

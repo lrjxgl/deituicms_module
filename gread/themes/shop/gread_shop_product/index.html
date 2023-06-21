@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.side{
+			width: 80px;
+			background-color: #fff;
+			position: fixed;
+			left: 0;
+			top: 50px;
+			bottom:0;
+		}
+		.side-item{
+			padding: 5px;
+			color: #646464;
+			cursor: pointer;
+		}
+		.side-active{
+			color: #F30;
+		}
+		.side-main{
+			margin-left: 82px;
+			flex: 1;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">图书列表</div>
+			
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			
+			 
+				 
+					<div class="pd-5 bg-white mgb-5">
+						<div class="flex flex-ai-center mgb-5">
+							<select class="input-flex-select" @change="setCat()" v-model="catid">
+								<option value="0">全部分类</option>
+								<option :value="item.catid" v-for="(item,index) in catList" :key="index">{{item.title}}</option>
+							</select>
+							<select class="input-flex-select" @change="setRec()" v-model="recType">
+								<option value="0">全部</option>
+								<option value="1">推荐</option>
+								<option value="2">不推荐</option>
+							</select>
+							<select class="input-flex-select" @change="setStatus()" v-model="statusType">
+								<option value="0">全部</option>
+								<option value="1">上架</option>
+								<option value="2">下架</option>
+							</select>
+						</div>
+						<div class="flex flex-ai-center">
+							<div class="mgr-5 ">名称</div>
+							<input v-model="keyword" type="text" class="input-flex-text mgr-5" />
+							<div @click="search" class="btn-small">搜一下</div>
+						</div>
+					</div>
+					<div class="flexlist">
+					 
+						<div v-for="(item,index) in list" :key="index" class="flexlist-item">
+							<img :src="item.imgurl+'.100x100.jpg'" class="flexlist-img" />
+							<div class="flex-1">
+								<div class="flexlist-title">{{item.title}}</div>
+								<div class="flex mgb-5">
+									<div class="mgr-10">总量 {{item.total_num}}</div>
+									<div class="mgr-5">库存 {{item.free_num}}</div>
+									<div>借出 {{item.out_num}}</div>
+								</div>
+								<div class="flex">
+									<div class="cl2 f12" v-if="item.status==1">上架中</div>
+									<div class="cl3 f12"  v-else>已下架</div>
+									<div class="flex-1"></div>
+									<div @click="changeNum_show(item)" class="btn-mini mgr-5">更改</div>
+									<div @click="toggleStatus(item)" v-if="item.status==1" class="btn-mini btn-danger">下架</div>
+									<div @click="toggleStatus(item)" v-else class="btn-mini">上架</div>
+									<div @click="toggleRecommend(item)" v-if="item.isrecommend==1" class="btn-mini mgl-5 btn-danger">不推荐</div>
+									<div @click="toggleRecommend(item)" v-else class="btn-mini mgl-5 ">推荐</div>
+								</div>
+							</div>
+						</div>
+						 
+					 
+				 
+			</div>
+			
+			 
+			<div v-if="showChangeBox">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">更改数量</div>
+						<div class="modal-close icon-close" @click="showChangeBox=false"></div>
+					</div>
+					<div class="modal-body">
+						<div class="input-flex">
+							<div class="input-flex-label">数量</div>
+							<input type="text" v-model="num" class="input-flex-text" name="num" />
+						</div>
+						<div @click="changeNumSave()" class="btn-row-submit">确认更改</div>
+					</div>
+				</div>
+			</div> 
+
+		</div>
+		
+		{include file="footer.html"}
+		<script src="{$skins}gread_shop_product/index.js"></script>
+		 
+	</body>
+</html>

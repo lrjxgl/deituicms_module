@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">头部</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=zupu_people&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<div class="input-flex">
+					<div class="input-flex-label">名字</div>
+					<input type="text" class="input-flex-text"  name="nickname" id="nickname" value="{$data.nickname}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">性别</div>
+					<div class="flex-1 flex flex-ai-center">
+						<input type="radio" class="radio"  name="gender" {if $data.gender eq 1}checked{/if}  value="1" /> 男
+						<input type="radio" class="radio"  name="gender" {if $data.gender eq 2}checked{/if}  value="2" /> 女
+					</div>
+					
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">电话</div>
+					<input type="text" class="input-flex-text"  name="telephone" id="telephone" value="{$data.telephone}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">地址</div>
+					<input type="text" class="input-flex-text" name="address" id="address" value="{$data.address}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">简介</div>
+					<input type="text" class="input-flex-text"  name="nickname" id="nickname" value="{$data.nickname}" />
+				</div>
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body class="bg-fff">
+<header class="mui-bar mui-bar-nav">
+    <a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">{$data.title}</h1>
+</header>
+<div class="mui-content">
+    <div class="d-title">{$data.title}</div>
+		<div class="d-tools">
+			<div class="item">
+				发布者：{$user.nickname}
+			</div> 
+			<div class="item">{$data.timeago}</div>
+			
+		</div>
+		<div>
+			来自需求：<a href="/index.php?m=shop_product_item&a=show&productid={$data.productid}&id={$item.id}">{$item.title}</a>
+		</div>
+		<div class="d-content">{$data.content}</div>
+</div>
+ 
+</body>
+</html>

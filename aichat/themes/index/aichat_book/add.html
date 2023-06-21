@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">编辑书籍</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<form class="row-box" action="/module.php?m=aichat_book&a=save&ajax=1">
+				<input  type="hidden" name="bookid" value="{$data.bookid}"/>
+				<div class="input-flex">
+					<div class="input-flex-label">标题</div>
+					<input class="input-flex-text" name="title" value="{$data.title}" />
+				</div>
+				
+				<div>Ai提示</div>
+				<textarea class="textarea-flex-text h60 mgb-10" name="prompt">{$data.prompt}</textarea>
+				<div>Ai章节</div>
+				<textarea class="textarea-flex-text mgb-10" name="answer">{$data.answer}</textarea>
+				
+				<div>书籍介绍</div>
+				<div contenteditable="true" class="textarea-flex-text  mgb-10 sky-editor-content" name="content">{$data.content}</div>
+				<div class="flex flex-center">
+					<div class="btn-row-submit js-submit">保存</div>
+				</div>
+			</form>
+			
+			
+			
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+	</body>
+</html>

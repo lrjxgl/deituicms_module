@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我发布的钓点</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div>
+		{foreach item=c from=$list}
+		<div class="row-box mgb-5">
+			<div class="bd-mp-5">{$c.title}</div>
+			<div class="cl2 mgb-10">{$c.address}</div>
+			<div class="flex">
+				
+				<div class="cl-status">待审核</div>
+				<div class="flex-1"></div>
+				<div gourl="/module.php?m=fishing_place&a=show&placeid={$c.placeid}" class="btn-mini btn-outline-primary">查看</div>
+			</div>
+		</div>
+		{/foreach}
+	</div>
+	
+</div>
+{include file="footer.html"}
+</body>
+</html>

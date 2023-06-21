@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">人气卡</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="pd-10">商家可以通过购买人气卡获得平台多种方式推荐给用户，用户通过人气卡推荐进入商家主页或者产品页面记录一个人气分，人气分使用完结束。</div>
+			<div>
+				<div>
+					<div class="row-box mgb-5" v-for="(item,index) in vipList" :key="index">
+						<div class="flex flex-ai-center">
+							<div class="flex-1">
+								<div class="mgb-5">
+									{{item.title}}
+								</div>
+								<div class="flex">
+									
+									<div class="cl-num">{{item.num}}</div>
+									<div class="mgr-20 cl2">人</div>
+									<div class="cl2">价格</div>
+									<div clas="cl-money">￥{{item.price}}</div>
+								</div>
+							</div>
+							<div @click="buy(item.vid)" class="btn-small">购买</div>
+						</div>
+
+					</div>
+					 
+				</div>
+				<div class="pd-10 fw-600">购买记录</div>
+				<div>
+					<div class="row-box mgb-5" v-for="(item,index) in myList" :key="index">
+						<div class="flex flex-ai-center">
+							<div class="flex-1">
+								<div class="mgb-5">
+									{{item.title}}
+								</div>
+								<div class="flex">
+									
+									<div class="cl-num">{{item.num}}</div>
+									<div class="mgr-20 cl2">人</div>
+									
+									<div class="cl2">价格</div>
+									<div clas="cl-money">￥{{item.price}}</div>
+									<div class="flex-1"></div>
+									<div class="cl2">已有</div>
+									<div class="cl-num">{{item.has_num}}</div>
+									<div class="mgr-20 cl2">人</div>
+								</div>
+							</div>
+							<div @click="goDetail(item.spid)"  class="btn-small">查看</div>
+						</div>
+				
+					</div>
+					 
+				</div> 
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}mmjz_hot/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='exam_topic/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=exam_topic&a=save">
+				<input type="htopicidden" name="topicid" style="display:none;" value="{$data.topicid}">
+				<table class="table-add">
+					<tr>
+						<td>类型</td>
+						<td>
+							<select name="typeid">
+								 
+								{foreach item=c key=k from=$typeList}
+								<option {if $data.typeid eq $k}selected{/if} value="{$k}">{$c}</option>
+								{/foreach}
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>题目：</td>
+						<td><input type="text" name="title" topicid="title" value="{$data.title}"></td>
+					</tr>
+					 
+					 
+					
+					<tr>
+						<td>题目内容：</td>
+						<td><textarea  name="content" topicid="content"  >{$data.content}</textarea></td>
+					</tr>
+					<tr>
+						<td>答案：</td>
+						<td><input type="text" name="answer" topicid="answer" value="{$data.answer}"></td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td>
+							<input type="radio" name="status" {if $data.status eq 1} checked{/if} value="1" />显示
+							
+							<input type="radio" name="status" {if $data.status neq 1} checked{/if}  value="2" />隐藏
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

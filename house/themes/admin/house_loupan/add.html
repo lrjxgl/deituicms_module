@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		{include file="house_loupan/nav.html"}
+		<div class="main-body">
+			<div class="">
+				<form method="post" id="form" action="/moduleadmin.php?m=house_loupan&a=save">
+					<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+					<table class="tbs">
+						<colgroup>
+							<col width="100" />
+						</colgroup>
+						<tbody>
+						<tr>
+							<td>名称：</td>
+							<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+						</tr>
+						<tr>
+							<td>简介：</td>
+							<td>
+								<textarea name="description" id="description">{$data.description}</textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>在售：</td>
+							<td>
+								<input type="radio" name="isbuy" value="1" {if $data.isbuy eq 1}checked{/if} /> 在售
+								<input type="radio" name="isbuy" value="0" {if $data.isbuy neq 1}checked{/if}/> 未售
+							</td>
+						</tr>
+						<tr>
+							<td>价格：</td>
+							<td><input type="text" name="price" id="price" value="{$data.price}"></td>
+						</tr>
+						<tr>
+							<td>图片：</td>
+							<td>
+								<div class="js-upload-item">
+									<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+									<div class="upimg-btn js-upload-btn">+</div>
+									<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+									<div class="js-imgbox">
+										{if $data.imgurl}
+										<img src="{$data.imgurl|images_site}.100x100.jpg">
+										{/if}
+									</div>
+								</div>
+						
+							</td>
+						</tr>
+						<tr>
+							<td>视频：</td>
+							<td>
+								<div id="upmp4-btn" class="btn mgb-10">上传视频</div>
+								<span id="progress"></span>
+								<div style="padding: 10px; color: #f60;">视频小于100M，只支持mp4格式</div>
+								<div id="mp4box">
+									{if $data.videourl}
+									<video controls="" src="{$data.videourl|images_site}" class="video"></video>
+									{/if}
+								</div>
+								
+								<input type="hidden" name="videourl" id="mp4url" value="{$data.videourl}" />
+							 
+								<div style="display: none;">
+									<input type="file" id="upvideo" name="upfile" />
+								</div>
+								 
+							
+							</td>
+						</tr>
+						<tr>
+							<td>地址：</td>
+							<td>
+								<input type="text" name="address" id="address" value="{$data.address}">
+								<div onclick="showMap()" class="btn">选择地图</div>
+								<input type="text" class="w100" name="lat" id="lat" value="{$data.lat}" />
+								<input type="text"  class="w100" name="lng" id="lng" value="{$data.lng}" />
+							</td>
+						</tr>
+						 
+						<tr>
+							<td>开发商：</td>
+							<td><input type="text" name="kfs" id="kfs" value="{$data.kfs}"></td>
+						</tr>
+						<tr>
+							<td>400电话：</td>
+							<td><input type="text" name="tel_400" id="tel_400" value="{$data.tel_400}"></td>
+						</tr>
+						<tr>
+							<td>转号：</td>
+							<td><input type="text" name="tel_400_z" id="tel_400_z" value="{$data.tel_400_z}"></td>
+						</tr>
+						<tr>
+							<td>开盘时间：</td>
+							<td><input autocomplete="off" type="text" name="kp_time" id="kp-time" value="{$data.kp_time}"></td>
+						</tr>
+						 
+						<tr>
+							<td>内容：</td>
+							<td><script type="text/plain" id="content" name="content" >{$data.content}</script></td>
+						</tr>
+						 
+						</tbody>
+					</table>
+					<div id="submit"   class="btn-row-submit">保存</div>
+				</form>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/dt-upload-video.js"></script>
+		<script src="/static/admin/js/upload.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+				{php loadEditor();}
+
+<script language="javascript">
+ laydate.render({
+	 elem:"#kp-time"
+ })
+var editor=UE.getEditor('content',options)
+$(document).on("click","#submit",function(){
+	editor.sync(); 
+	$.post("/moduleadmin.php?m=house_loupan&a=save&ajax=1",$("#form").serialize(),function(data){
+		skyToast(data.message);
+		if(!data.error){
+			setTimeout(function(){
+				goBack();
+			},1000)
+		}
+		
+	},"json")
+})
+function showMap(){
+	var lat=$("#lat").val()
+	var lng=$("#lng").val()
+	var url="/index.php?m=map&map_com=baidu&lat="+lat+"&lng="+lng;
+	
+	var html='<iframe src="'+url+'" style="border:0;width:100%;height:480px"></iframe>';
+	showbox("选择地图",html,480,520);
+}
+function setMap(lat,lng){
+	$("#lat").val(lat)
+	$("#lng").val(lng)
+	showboxClose();
+}
+</script>
+ 	 
+	</body>
+
+</html>

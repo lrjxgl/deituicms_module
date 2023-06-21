@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}css/news.css" rel="stylesheet"  />
+	<body>
+		<div class="shd">晒单列表</div>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=zhuli_shaidan&type=new" class="tabs-border-item {if $type eq 'new'}tabs-border-active{/if}">待审核</div>
+			<div gourl="/moduleadmin.php?m=zhuli_shaidan&type=pass" class="tabs-border-item {if $type eq 'pass'}tabs-border-active{/if}">已通过</div>
+			<div gourl="/moduleadmin.php?m=zhuli_shaidan&type=gold" class="tabs-border-item {if $type eq 'gold'}tabs-border-active{/if}">待奖励</div>
+			<div gourl="/moduleadmin.php?m=zhuli_shaidan&type=forbid" class="tabs-border-item {if $type eq 'forbid'}tabs-border-active{/if}">已禁止</div>
+			<div gourl="/moduleadmin.php?m=zhuli_shaidan&type=all" class="tabs-border-item {if $type eq 'all'}tabs-border-active{/if}">全部</div>
+		</div>
+		<div class="main-body">
+			{if empty($data)}
+		    <div class="emptydata">暂无晒单</div>
+		    {else}
+		    	<div class="newslist" id="list">
+				{foreach item=c from=$data}
+					<div class="item">
+						<div class="g-sd1">
+					
+							<a href="/index.php?m=news&a=home&userid={$c.userid}"><img src="{$c.user_head|images_site}.100x100.jpg">
+								<span class="nick">{$c.nickname}</span>
+							</a>
+						 
+						</div>
+						<div class="g-mn1">
+							<div class="g-mn1c">
+								<div class="con">{$c.content}</div>
+								{if $c.videourl}
+								<div class="videobox">
+									<video controls="controls" class="video" src="{$c.videourl|images_site}"></video>
+								</div>
+								{/if}
+								<div class="pics js-thumb-item">
+									{foreach item=p from=$c.imgsdata}
+									<div class="img ">
+										<img class="js-thumb" v="{$p|images_site}" src="{$p|images_site}.100x100.jpg">
+									</div>
+									{/foreach}
+									<div class="clearfix"></div>
+								</div>
+								<div class="flex">
+									<div class="cl-status mgr-10">{$c.status_name}</div>
+									<span class="cl3 mgr-10">{$c.createtime|cutstr:10}</span>
+									{if $c.gold}
+									<span class="gold">奖励金币 <span class="cl-num">{$c.gold}</span> 个 </span>
+									{/if} 
+									<div class="flex-1"></div>
+									{if $c.status==1  && $c.gold==0}
+									<div v="{$c.id}" class="btn-mini js-send-btn">送金币</div>
+									{/if}
+								</div>
+					
+							</div>
+						</div>
+					
+					</div>
+				{/foreach}
+			   	</div>
+		    {/if}
+		    {$pagelist}
+		</div>
+		{include file="inc/js_thumb.html"}
+		 
+		<script>
+			var sdid=0;
+			var goldObj;
+			$(document).on("click",".js-send-btn",function(){
+				sdid=$(this).attr("v");
+				goldObj=$(this);
+				var html=`
+					<div >
+						<div class="input-flex">
+							<div class="input-flex-label">金币</div>
+							<input id="sgold" type="text" class="input-flex-text" />
+						</div>
+						<div class="btn-row-submit js-send-submit">确认奖励</div>
+					</div>
+				`;
+				skyJs.showBox({
+					width:480,
+					height:200,
+					content:html
+				})
+			})
+			
+			$(document).on("click",".js-send-submit",function(){
+				var that=this;
+				$.ajax({
+					url:"/moduleadmin.php?m=zhuli_shaidan&a=sendgold&ajax=1",
+					dataType:"json",
+					type:"POST",
+					data:{
+						gold:$("#sgold").val(),
+						id:sdid
+					},
+					success:function(res){
+						skyJs.toast(res.message);
+						if(res.error==0){
+							$("#skyJs-showBox").hide();
+							goldObj.remove();
+						}
+						
+					}
+				})
+				
+			})	
+		</script>
+	</body>
+</html>

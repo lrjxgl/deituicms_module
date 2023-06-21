@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">商家登录</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form id="form">
+			 
+				<div class="input-flex">
+					<input name="username" class="input-flex-text" type="text" placeholder="商家账号" />
+				</div>
+				<div class="input-flex">
+					<input name="password" class="input-flex-text" type="password" placeholder="商家密号" />
+				</div>
+			 
+			 <div class="btn-row-submit" id="submit">确认登录</div>
+			  
+			 
+			</form>	 
+		</div>
+		{include file="footer.html"}
+		<script>
+		 
+			$(document).on("click","#submit",function(){
+				$.ajax({
+					url:"/module.php?m=fxa_shop&a=loginsave&ajax=1",
+					dataType:"json",
+					data:$("#form").serialize(),
+					type:"POST",
+					success:function(res){
+						if(res.error){
+							skyToast(res.message)
+							return false;
+						}
+						window.location.reload();
+					}
+				})
+			})
+		</script>
+	</body>
+</html>

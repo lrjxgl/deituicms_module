@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单详情</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5">
+				<div class="flex-table">
+					<div class="flex-table-label">订单状态</div>
+					<div class="flex-table-box">{$order.status_name}</div>
+				</div>
+				<div class="flex-table">
+					<div class="flex-table-label">拼车线路</div>
+					<div class="flex-table-box">{$line.title}</div>
+				</div>
+				
+				<div class="flex-table">
+					<div  class="flex-table-label">订单价格</div>
+					<div class="flex-table-box cl-money">{$order.money}元</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">下单时间</div>
+					<div class="flex-table-box">{$order.dateline|date:Y-m-d}</div>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex-table">
+					<div  class="flex-table-label">司机</div>
+					<div class="flex-table-box">{$driver.truename}</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">电话</div>
+					<div class="flex-table-box">{$driver.telephone}</div>
+				</div>
+				<div class="flex-table">
+					<div  class="flex-table-label">车牌</div>
+					<div class="flex-table-box">{$driver.carno}</div>
+				</div>
+			</div>
+			<div class="row-box">
+				<div class="flex">					
+					<div class="btn">联系客服</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

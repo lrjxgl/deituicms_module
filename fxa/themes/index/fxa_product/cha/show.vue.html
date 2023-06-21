@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}fxa_product/cha/show.css" rel="stylesheet" />
+	<body>
+		 
+		<div id="App" class="main-body">
+			<div class="d-content mgb-5" v-html="data.content"></div>
+			<div class="fw-600 pd-10 f16">更多优惠</div> 
+			<div class="row-box">
+				
+				 
+				<div v-for="(item,index) in list" :key="list" class="flexlist-item">
+					<img @click="setProduct(item.id)" :src="item.imgurl+'.small.jpg'" class="flexlist-img" />
+					<div class="flex-1">
+						<div  @click="setProduct(item.id)" class="flexlist-title">{{item.title}}</div>
+						<div class="flexlist-desc">
+							{{item.description}}
+						</div>
+					</div>
+				</div>
+				 
+			</div> 
+			<div class="footer-row" style="height: 80px;"></div>
+			<div class="footer pd-10">
+				<div gourl="/module.php?m=fxa_user" class="mgr-20">
+					<div class="iconfont icon-my_light"></div>
+					<div>我的</div>
+				</div class="mgr-20">
+				<div class="pointer" gourl="/index.php?m=kefu">
+					<div class="iconfont icon-service_light"></div>
+					<div>客服</div>
+				</div>
+				 
+				 
+				<div v-if="canBuy==1" @click="addrModal=true" class="buy-btn">免费领取精品茶叶 (支付邮费{{data.price}})</div>
+				 
+				<div v-else class="btn btn-disable mgl-20" >活动未开启</div>
+				 
+			</div>
+			<div gourl="/module.php?m=fxa_product&a=share&id={$data.id}" class="shareRight flex-ai-center flex">
+				<div class="mgr-5 cl-white">
+				邀请好友<br />赚红包
+				</div>
+				<div class="iconfont f18 cl-white icon-redpacket"></div>	
+			</div>
+			
+			<div class="modal-group">
+				<div class="modal-mask"></div>
+				<div class="modal">
+					<div class="flex-center" style="padding: 40px;">
+						<div class="mgb-20">
+							<img style="width:150px; height: 150px;" src="{$skins}css/kefu.jpg">
+						</div>
+						<div>长按添加客服</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="addrModal==true">
+				<div @click="addrModal=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="modal-header">
+						<div class="modal-title">填写收货信息</div>
+						<div  @click="addrModal=false" class="modal-close icon-close"></div>
+					</div>
+					<div class="modal-body">
+						<div>
+							<div class="input-flex">
+								<div class="input-flex-label">联系人</div>
+								<input id="nickname" class="input-flex-text" type="text" name="nickname"/>
+							</div>
+							<div class="input-flex">
+								<div class="input-flex-label">电话</div>
+								<input id="telephone" class="input-flex-text" type="text" name="telephone"/>
+							</div>
+							<div class="input-flex">
+								<div class="input-flex-label">地址</div>
+								<input id="address" class="input-flex-text" type="text" name="address"/>
+							</div>
+							<div id="order" class="btn-row-submit">确认下单</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		{include file="footer.html"}
+		<script>			 
+			var productid = "3";
+		</script>
+		<script src="{$skins}fxa/index.js"></script>
+	</body>
+</html>

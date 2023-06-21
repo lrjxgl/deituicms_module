@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<a href="/module.php?m=bill" class="header-back"></a>
+	<div class="header-title">{$shop.title}</div>
+</div>
+<div class="header-row"></div>
+<div id="App" class="main-body">
+    <div class="flex row-box mgb-5">
+		<div class="flex-1 flex-center">
+			<div class="cl-money">￥{$shop.money}</div>
+			<div>余额</div>
+		</div>
+		<div class="flex-1 flex-center">
+			<div class="cl-money">￥{$income}</div>
+			<div>总收入</div>
+		</div>
+		<div class="flex-1 flex-center">
+			<div class="cl-money">￥{$outcome}</div>
+			<div>总支出</div>
+		</div>
+	</div>
+	<div>
+		<form class="row-box mgb-5">
+			 
+			<div class="flex mgb-10 flex-ai-center">
+				账单时间：<input type="text" id="cdate" class="input-flex-text" :value="cdate" />
+				分类：<select v-model="catid" class="input-flex-select" name="catid">
+					<option value="0">请选择</option>
+					{foreach item=c from=$catList}
+					<option  value="{$c.catid}">{$c.title}</option>
+					{/foreach}
+				</select>
+				
+			</div>
+			<div class="flex flex-ai-center">
+				<div class="f12 cl-money">合计{{sumMoney}}元</div>
+				<div class="flex-1"></div>
+				<button @click="choiceForm()"  type="button" class="btn-small">筛选</button>
+			</div>
+			
+		</form>
+		<div class="tabs-border">
+			<div @click="setType('online')" :class="type=='online'?'tabs-border-active':''" class="tabs-border-item">正常款</div>
+			<div @click="setType('back')"  :class="type=='back'?'tabs-border-active':''"  class="tabs-border-item">回收站</div>
+		</div>
+		
+		<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+			<div class="flex flex-ai-center mgb-5">
+				<div class="cl-money mgr-10">{{item.money}}</div>
+				<div class="cl-primary f12 mgr-5">{{item.catid_title}}</div>
+				<div class="flex-1"></div>
+				
+				<div class="f12 cl3">{{item.cdate}}</div>
+			</div>
+			<div class="mgb-5">{{item.title}}</div>
+			<div class="cl2 f12">{{item.content}}</div>
+			<div class="cl2 mgb-5 f12">{{item.logdesc}}</div>
+			<div class="flex">
+				<div class="flex-1"></div>
+				<div class="btn-mini btn-danger" @click="del(item)">删除</div>
+			</div>
+		</div>
+		<div v-if="per_page>0" @click="getList()" class="loadMore">查看更多</div>
+	</div>
+    
+</div>
+{include file="bill_shop/admin-ftnav.html"}
+{include file="footer.html"}
+<script>
+	var shopid="{$shop.shopid}";
+</script>
+<script src="/plugin/laydate/laydate.js"></script>
+ 
+<script src="{$skins}bill_shop/admin.js?v2"></script>
+</body>
+</html>

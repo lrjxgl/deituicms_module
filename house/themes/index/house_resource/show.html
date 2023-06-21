@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">房源详情</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{if $agent}
+	<div class="row-box mgb-5">
+		<div class="flex flex-ai-center">
+			<img gourl="/module.php?m=house_agent&a=show&id={$agent.id}" class="wh-60 mgr-10 bd-radius-5" src="{$agent.uhead|images_site}.100x100.jpg" />
+			<div class="flex-1">
+				<div gourl="/module.php?m=house_agent&a=show&id={$agent.id}"  class="f14 mgb-5">{$agent.truename}</div>
+				<div class="flex flex-ai-center">
+					<div class="cl2 mgr-5"> 房源 </div>
+					<div class="cl-num mgr-20">{$agent.house_num}套</div>
+					<div class="cl2 mgr-5">看房团</div>
+					<div class="cl-num">{$agent.tuan_num}场</div>
+					<div class="flex-1"></div>
+					<a class="mgr-5 cl3 iconfont icon-phone" href="tel:{$agent.telephone}"></a>
+				</div>
+				 
+			</div>
+			{if $agent.wxemw}
+			<div onclick="$('#wxModal').show()" class="iconfont icon-weixin cl-primary f20"></div>
+			<div id="wxModal" class="modal-group">
+				<div class="modal-mask"></div>
+				<img style="width: 200px;height: 200px; position: absolute;z-index: 999;left:50%;top:50%;margin-left:-100px;margin-top:-100px;" src="{$agent.wxemw|images_site}" />
+				
+			</div>
+			
+			{/if}
+		</div>		
+	</div>
+	{/if}
+	<div class="row-box mgb-5">
+		<div class="d-title">{$data.description}</div>
+		
+		<div class="flex mgb-10">
+			<div class="cl1 mgr-20">总价</div>
+			<div class="cl-money mgr-5">￥{$data.total_money}</div>
+			<div class="cl2">万元</div>
+		</div>
+		{if $data.sc_id>0}
+		<div class="flex mgb-10">
+			<div class="cl1 mgr-20">所在区域</div>
+			<div class="cl2">{$data.sc_id_title}</div>
+		 
+		</div>
+		{/if}
+		<div class="flex flex-center">
+			<div  class="btn-love js-fav-btn {if $isFav eq 1}btn-love-active{/if}">关注</div>
+		</div>
+	</div>
+	
+	<div class="row-box">	 
+		<div class="d-content">
+			{foreach item=c from=$imgslist}
+			<img src="{$c}" class="wmax mgb-5" />
+			{/foreach}
+		</div>
+		<div class="d-content">{$data.content}</div>
+	</div>
+    
+	
+</div>
+
+{include file="footer.html"}
+<script>
+	var id="{$data.id}";
+	$(document).on("click",".js-fav-btn",function(){
+		var that=$(this);
+		$.ajax({
+			url:"/module.php?m=house_resource_love&a=toggle&ajax=1",
+			dataType:"json",
+			data:{
+				resid:id
+			},
+			success:function(res){
+				if(res.error){
+					skyToast(res.message);
+					return false;
+				}
+				if(res.data=='delete'){
+					that.removeClass("btn-love-active")
+				}else{
+					that.addClass("btn-love-active")
+				}
+			}
+		})
+	})
+</script>
+<?php wx_jssdk();?>
+ 
+		<script>
+			 
+			wxshare_title = "{$data.description|removeJsRow}";
+			$.get("/module.php?m=house_ershou&a=addclick&id={$data.id}")
+		</script>
+</body>
+</html>

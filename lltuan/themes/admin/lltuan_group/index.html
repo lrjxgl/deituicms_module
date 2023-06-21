@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='lltuan_group/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>gid</td>
+	 <td>名称</td>
+	 <td>开团时间</td>
+    
+  
+   <td>审核状态</td>
+   <td>拼团状态</td>
+   <td>参与数量</td>
+   <td>实际成交</td>
+   
+   <td>是否完成</td>
+  
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.gid}</td>
+   <td>{$c.title}</td> 
+   <td>{$c.dotime}</td>
+   
+   <td>{$c.status}</td>
+   <td>{$c.group_status}</td>
+   <td>{$c.join_num}</td>
+   <td>{$c.finish_num}</td>
+  
+   <td>{$c.isfinish}</td>
+ 
+<td><a href="/moduleadmin.php?m=lltuan_group&a=add&gid={$c.gid}">编辑</a> 
+<a target="_blank" href="/module.php?m=lltuan_group&a=show&gid={$c.gid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=lltuan_group&a=delete&ajax=1&gid={$c.gid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

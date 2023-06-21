@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$book.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			
+			<div class="row-box mgb-5">
+				<img src="{$book.imgurl}" class="d-img" />
+				<div class="d-title bd-mp-5">{$book.title}</div>
+				<div class="flex bd-mp-5">
+					<div class="cl2 mgr-5">作者</div>
+					<div>{$book.author}</div>
+					<div class="flex-1"></div>
+					<div class="cl2">{$book.publisher}</div>
+				</div>
+				<div class="cl2 f14">简介：{$book.description}</div>
+			</div>
+			<div class="row-box d-content">
+				{$book.content}
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

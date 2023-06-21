@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="shd">借书卡</div>
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+   <td>店铺</td>
+   <td>会员</td>
+   <td>创建时间</td>
+   <td>金额</td>
+   <td>是否支付</td>
+
+</tr>
+  </tr>
+</thead> {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.shopname}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.createtime}</td>
+   <td>￥{$c.money}</td>
+   <td>
+   {if $c.ispay eq 1}是{else}否{/if}</td>
+
+
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

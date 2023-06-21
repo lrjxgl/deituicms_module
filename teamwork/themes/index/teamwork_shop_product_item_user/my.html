@@ -1,0 +1,48 @@
+<!DOCTYPE >
+<html>
+{include file="head.html"}
+ 
+<body>
+	 
+	<header class="mui-bar mui-bar-nav">
+		<a class="goBack mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">我的任务</h1>
+	</header>
+	<div class="mui-content">
+		<div class="tabs-border">
+			<a href="/index.php?m=shop_product_item_user&a=my" class="item  {if get('status') eq 0}active{/if}">全部</a>
+			<a href="/index.php?m=shop_product_item_user&a=my&status=1" class="item {if get('status') eq 1}active{/if}">未处理</a>
+			<a href="/index.php?m=shop_product_item_user&a=my&status=2" class="item {if get('status') eq 2}active{/if}">待测试</a>
+			<a href="/index.php?m=shop_product_item_user&a=my&status=3" class="item {if get('status') eq 3}active{/if}">已完成</a>
+			 
+		</div> 
+		<div class="row-box">
+		 
+			<div class="flex-col">
+				{foreach item=c from=$list}
+					<div class="flex-item flex-col flex-start" >
+						<a class="flex flex-center mgb-10" href="/index.php?m=shop_product_item&a=show&id={$c.id}">
+							<div class="m-order-{$c.orderindex}"></div>
+							 <div class="btn-mini btn-outline-success">{$c.type_name}</div>
+							<div  class="flex-1 ">
+							{$c.title}
+							</div>
+							<span class=" cor-success mgr-5 f12">{$c.status_name}</span>
+						</a>
+						<div class="flex">
+							<div class="flex-1">#{$c[product].title}#</div>
+							<div class=" mgr-10 cor3 f12">{if $c.status eq 3}完成于{$c.finishtime}{/if} 发布于{$c.timeago}</div>
+							 
+						</div>
+					</div>
+				
+				{/foreach}
+			</div>
+		</div>
+		 
+	</div>
+	{assign var="mfooter" value="item"}
+	{include file="footer.html"}
+</body>
+
+</html>

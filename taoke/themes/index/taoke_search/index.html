@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+	 
+		<div class="topTab">
+			<div onclick='window.location="/module.php?m=taoke_search&word="+$("#word").val()' class="topTab-item topTab-active">淘宝天猫</div>
+			<div  onclick='window.location="/module.php?m=taoke_pdd_search&word="+$("#word").val()'   class="topTab-item">拼多多</div>
+			 
+		</div> 
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div class="tabs-border">
+				<div @click="setOrder('')" :class="orderby==''?'tabs-border-active':''" class="tabs-border-item">综合排序</div>
+				<div @click="setOrder('sold_num')"  :class="orderby=='sold_num'?'tabs-border-active':''"  class="tabs-border-item">销量优先</div>
+				<div @click="setOrder('priceAsc')"  :class="orderby=='priceAsc'?'tabs-border-active':''"  class="tabs-border-item">价格排序</div>
+				<div @click="setOrder('maxBack')"  :class="orderby=='maxBack'?'tabs-border-active':''"  class="tabs-border-item">大额优惠</div>
+			</div>
+			<form class="header-search-box pd-5">
+				<input type="hidden" name="m" value="taoke_search" />
+				<input v-model="word" name="word" id="word" placeholder="搜一下领券购买更实惠" value="{$smarty.get.word}" type="search" class="header-search pdl-5" />
+				<button type="submit" class="header-search-btn  iconfont icon-search"></button>
+			</form>
+			<div class="tk-list">
+				
+				<div v-for="(item,index) in list" :key="index" class="tk-item" @click="goDetail(item.id)">
+					 
+					<div class="img">
+						<img :src="item.imgurl" />
+						<div class="juan-price">券￥{{item.juan_money}}</div>
+					</div>
+					<div class="title">{{item.title}}}</div>
+					<div class="row-price">
+						<span class="price">￥{{item.price}}(券后)</span>
+						<span class="sold">销量{{item.sold_num}}</span>
+					</div>
+				</div>
+ 
+			</div>
+			
+			<div class="loadMore" @click="getList" v-if="per_page>0">加载更多</div>
+			<div id="backTop" class="back-top">
+				<div class="back-top-icon"></div>
+				<div class="back-top-text">顶</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="search"}
+		{include file="ftnav.html"} 
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script>
+			var keyword="{$word}";
+			var catmap="{$catmap}";
+			$(document).on("click","#backTop",function(){
+				$(window).scrollTop(0);
+			})
+		</script>
+		<script src="{$skins}taoke_search/index.js"></script>
+		
+		 
+	</body>
+</html>

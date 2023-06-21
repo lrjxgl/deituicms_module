@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">文章提示词</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>promptid</td>
+   
+   <td style="wpromptidth: 300px;">中文</td>
+    
+ 
+   
+   <td>图片数</td>
+   
+   <td>状态</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.promptid}</td>
+  
+   <td>{$c.prompt}</td>
+   
+ 
+    
+   <td>{$c.create_num}</td>
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=aichat_text_prompt&a=status&promptid={$c.promptid}&ajax=1"></div>
+	   
+   </td>
+   
+<td> 
+ <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=aichat_text_prompt&a=delete&ajax=1&promptid={$c.promptid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

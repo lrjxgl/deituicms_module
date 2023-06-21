@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box mgb-5 flex">
+			    <image class="wh-60 mgr-10 bd-radius-50" src="{$user.user_head|images_site}.100x100.jpg"></image> 
+			    <div class="flex-1">
+			      <div class="mgb-10">{$user.nickname}</div>
+			      <div class="flex">
+					  <div class="mgr-5 f12 cl2">红包余额</div>
+			      	  <span class="cl-money">{$user.money}</span> 元 
+			      	 
+			      </div>
+			    </div>
+			  </div>
+			<div class="row-box">
+			    {foreach item=c from=$itemlist}
+			    <div class="row-item-text">
+			    	{$c.dateline|date:Y-m-d} 参与{$c.title}获得了{$c.money}元。
+			    </div>
+			    
+			    {/foreach}
+		    </div>
+		</div>
+	{assign var="ftnav" value="my"}
+		{include file="ftnav.html"}
+	{include file="footer.html"}	
+	</body>
+</html>

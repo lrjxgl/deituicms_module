@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.tnav-active{
+			font-weight: 600;
+			font-size: 1.6rem;
+		}
+		.tabs-border-item{
+			color:#666;
+		}
+		.tabs-border-active{
+			font-weight: 600;
+		}
+	</style> 
+	<body>
+		 
+		<div id="App" class="main-body">
+			<div class="row-box">
+				<div class="flex flex-ai-center">
+					<div class="iconfont icon-search"></div>
+					<div class="flex-1"></div>
+					<div @click="setPage('index')" :class="page=='index'?'tnav-active':''" class="mgr-10">推荐</div>
+					<div @click="setPage('find')" :class="page=='find'?'tnav-active':''" class="mgr-10">发现</div>
+					<div class="flex-1"></div>
+					<div gourl="/module.php?m=group_title&a=add" class="btn-small cl1 bd-radius-20 btn-outline-light">发帖子</div>
+				</div>
+			</div>
+			<page-index v-if="page=='index'"></page-index>
+			<page-find v-if="page=='find'"></page-find>
+		</div>
+		{assign var="ftnav" value="wan"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/dt-ui-pagecache.js"></script>
+		<script src="{$skins}ershou_wan/page-index.js"></script>
+		<script src="{$skins}ershou_wan/page-find.js"></script>
+		<script src="{$skins}ershou_wan/index.js"></script>
+	</body>
+</html>

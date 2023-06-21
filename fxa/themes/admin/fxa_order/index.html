@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="shd">{$type_name}</div>
+<div class="main-body">
+	<form action="/moduleadmin.php" class="search-form">
+		<input type="hidden" name="m" value="fxa_order" />
+		<input  type="hidden" name="type" value="{$type}"/>
+		orderid:<input type="text" name="orderid" class="w50" value="{$smarty.get.orderid|intval}"  />
+		 
+		
+		会员：<input class="w100" type="text" name="nickname" value="{$smarty.get.nickname|html}" />
+		商家：<input class="w100" type="text" name="shopname" value="{$smarty.get.shopname|html}" />
+		<button class="btn" type="submit">搜一下</button>
+	</form>
+ <table class="tbs">
+<thead>  <tr>
+   <td>orderid</td>
+   <td>会员</td>
+   <td>状态</td>
+   <td>产品</td>
+   <td>商家</td>
+   <td>支付状态</td>
+   <td>金额</td>
+   <td>分销收益</td>
+   <td>商家收益</td>
+  <td>下单时间</td>	
+  <td>操作</td>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.orderid}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.status_name}</td>
+   <td>{$c.title}</td>
+   <td>{$c.shopname}</td>
+   <td>{if $c.ispay eq 1}已支付{else}未支付{/if}</td>
+   <td>{$c.money}</td>
+   <td>{$c.fx_money}</td>
+   <td>{$c.shop_money}</td>
+	<td>{$c.createtime}</td>
+	<td>
+		<a href="/moduleadmin.php?m=fxa_order&a=show&orderid={$c.orderid}">详情</a>
+	</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

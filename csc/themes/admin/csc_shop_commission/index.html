@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='csc_shop_commission/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>shopid</td>
+   <td>per</td>
+   <td>stime</td>
+   <td>etime</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.shopid}</td>
+   <td>{$c.per}%</td>
+   <td>{$c.stime|date:Y-m-d H:i:s}</td>
+   <td>{$c.etime|date:Y-m-d H:i:s}</td>
+<td>
+	<a href="moduleadmin.php?m=csc_shop_commission&a=add&shopid={$c.shopid}">编辑</a>
+</td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">认养动物</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+   <div class="mtlist">
+	   {foreach item=c from=$list}
+	   <a href="/module.php?m=gxny_shop_animal&a=show&id={$c.id}" class="mtlist-item">
+		   <div class="mtlist-item-bd">
+			   <img class="mtlist-img mgb-5" src="{$c.imgurl}.small.jpg" />
+			   <div class="mtlist-item-pd">
+			   		
+			   		<div class="mtlist-title">{$c.title}</div>	
+					<div class="flex">
+						<div class="cl2">价格：</div>
+						<div class="cl-money">￥{$c.price}</div>
+						<div class="flex-1"></div>
+						<div class="cl3 mgr-5">库存 </div>
+						<div class="cl2">{$c.free_num}</div>
+					</div>
+			   </div>
+		   </div>
+		   
+	   </a>
+	   {/foreach}
+   </div>  
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

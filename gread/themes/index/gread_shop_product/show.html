@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">详情</div>
+			<div gourl="/module.php?m=gread_cart&shopid={$shop.shopid}" class="header-right-btn">结算</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			
+			    <img class="d-img" src="{$book.imgurl|images_site}">
+			 <div class="row-box">
+				<div class="d-title">{$book.title}</div>
+			    
+			    
+			    
+			    <div class="flex mgb-10">
+			    	<span class="mgr-5">价格</span> 
+			    	<span class="cl-price">￥{$book.price}</span>
+			    	<div class="flex-1"></div>
+					<div bookid="{$book.bookid}" shopid="{$shop.shopid}" class="buy-btn js-buy {if $book.incart}active{/if}">借</div>
+			    </div>
+			    
+			    <div class="d-content">
+			    	{$book.content}
+			    </div>
+		    </div>
+		</div>
+		{include file="footer.html"}
+		<script>
+		$(function(){
+			$(document).on("click",".js-buy",function(){
+				var bookid=$(this).attr("bookid");
+				var shopid=$(this).attr("shopid");
+				var $this=$(this);
+				$.get("/module.php?m=gread_cart&a=toggle&ajax=1",{
+					bookid:bookid,
+					shopid:shopid
+				},function(data){
+					skyJs.toast(data.message);
+					if(data.data.op=='add'){
+						$this.addClass("active");
+					}else{
+						$this.removeClass("active");
+					}
+					
+				},"json")
+			})
+		})
+	</script>
+	</body>
+</html>

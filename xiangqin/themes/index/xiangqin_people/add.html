@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">相亲信息</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+
+			<form method="post" action="/module.php?m=xiangqin_people&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				 
+				<div class="input-flex">
+					<div class="input-flex-label">姓名：</div>
+					<input type="text" name="truename" id="truename" class="input-flex-text" value="{$data.truename}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">联系电话：</div>
+					<input type="text" name="telephone" id="telephone" class="input-flex-text" value="{$data.telephone}" />
+				</div>
+				<div class="input-flex" >
+					<div class="input-flex-label">所在地</div>
+					<input type="hidden" name="province_id" id="province_id" value="{$data.province_id}" />
+					<input type="hidden" name="city_id" id="city_id" value="{$data.city_id}" />
+					<input type="hidden" name="town_id" id="town_id" value="{$data.town_id}" />
+					<input type="text" value="{$data.pct_address}" placeholder="请选择地区" class="input-flex-text" id="choice-district"   />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">头像：</div>
+					<div class="flex-1">
+						<div class="upimg-box bg-fff">
+							<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+								<img class="upimg-img" src="{$data.trueimgurl}.100x100.jpg">
+							</div>
+
+							<div class="upimg-btn js-upimg-btn">
+								<i class="upimg-btn-icon"></i>
+							</div>
+
+							<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+							<input style="display: none;" type="file" name="upimg" class="js-upimg-file" />
+						</div>
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">出生年月：</div>
+					<input type="text" name="birthday" id="birthday" class="input-flex-text" value="{$data.birthday}" />
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">性别：</div>
+					<input type="radio" name="gender"  {if $data.gender eq 1}checked{/if}  value="1" /> 男
+					<input type="radio" name="gender"   {if $data.gender neq 1}checked{/if}  value="2" /> 女
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">年收入：</div>
+					<input type="text" name="income" id="income" class="input-flex-text" value="{$data.income}" /> 
+					<span class="mgl-5">万元</span>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">职业：</div>
+					<input type="text" name="zhiye" id="zhiye" class="input-flex-text" value="{$data.zhiye}" />
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">房子</div>
+					<div class="flex flex-ai-center">
+						<input type="radio" {if $data.has_house eq 1}checked{/if} name="has_house" value="1" /> 有 
+						<input type="radio" {if $data.has_house neq 1}checked{/if} name="has_house" value="2" /> 没有 
+					</div>
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label">车子</div>
+					<div class="flex flex-ai-center">
+						<input type="radio"  {if $data.has_car eq 1}checked{/if} name="has_car" value="1" /> 有 
+						<input type="radio"  {if $data.has_car neq 1}checked{/if} name="has_car" value="2" /> 没有 
+					</div>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">对象要求：</div>
+					<textarea name="you_desc" id="you_desc" class="textarea-flex-text" >{$data.you_desc}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">自我介绍：</div>
+					 
+						<textarea name="self_desc" id="self_desc" class="textarea-flex-text" >{$data.self_desc}</textarea>
+				</div>
+				 
+				 
+				
+				<div contenteditable="true" class="sky-editor-content" name="content">{$data.content}</div>
+				
+				 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script src="/plugin/iosSelect/iosSelect.js"></script>
+			<link href="/plugin/iosSelect/iosSelect.css" rel="stylesheet" />
+			<script src="/static/areaData.js"></script>
+		<script>
+			laydate.render({
+				elem:"#birthday"
+			})
+			var selectContactDom = $("#choice-district");
+			var $province_id = $('#province_id');
+			var $city_id = $('#city_id');
+				var $town_id=$("#town_id");
+			selectContactDom.bind('click', function () {
+			 
+			    var oneLevelId = $province_id.val();
+			    var twoLevelId = $city_id.val();
+			    var threeLevelId = $town_id.val();
+			    var iosSelect = new IosSelect(3, 
+			        [iosProvinces, iosCitys, iosCountys],
+			        {
+			            title: '地址选择',
+			            itemHeight: 35,
+			            relation: [1, 1],
+			            oneLevelId: oneLevelId,
+			            twoLevelId: twoLevelId,
+			            threeLevelId: threeLevelId,
+			            callback: function (selectOneObj, selectTwoObj, selectThreeObj) {
+			               $province_id.val(selectOneObj.id); 
+			               
+			               $city_id.val(selectTwoObj.id);
+											 $town_id.val(selectThreeObj.id);
+			                selectContactDom.val(selectOneObj.value + ' ' + selectTwoObj.value + ' ' + selectThreeObj.value);
+			            }
+			    });
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">看过的美食</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" style="display: none;" :style="{display:'block'}" v-if="pageLoad" id="App">
+			 
+			<div class="mtlist bg-white">
+				<div :gourl="'/module.php?m=mdish_product&a=show&productid='+item.productid" v-for="(item,index) in list" :key="index" class="mtlist-item">
+					<div class="mtlist-bgimg-box mgb-5">
+						<div :style="'background-image: url('+item.imgurl+'.small.jpg);'" class="mtlist-bgimg"></div>
+					</div>
+					<div class="f14 mgb-5">{{item.title}}</div>
+					<div class="flex flex-ai-center mgb-5">
+						<div class="iconfont f12 cl2 icon-shop"></div>
+						<div class="cl2 f12">{{item.shop.title}}</div>
+					</div>
+					<div class="flex flex-center">
+						<div class="iconfont cl-red icon-like mgr-2"></div>
+						<div class="mgr-20 cl-red">{{item.love_num}}</div>
+					 
+						<div class="iconfont cl2 icon-attention_light mgr-2"></div>
+						<div class="cl2">{{item.view_num}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	 
+		{include file="footer.html"}
+		<script src="{$skins}mdish_view/my.js"></script>
+	</body>
+</html>

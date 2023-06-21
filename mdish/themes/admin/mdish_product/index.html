@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='mdish_product/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>productid</td>
+   <td>所属商家</td>
+   <td>美食名称</td>
+   
+   <td>图片</td>
+   <td>浏览</td>
+   <td>点赞</td>
+   <td>状态</td>
+   <td>推荐</td>
+   <td>热门</td>
+   <td>最新</td>
+   <td>时间</td>
+   <td>积分</td>
+   
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.productid}</td>
+   <td>{$c.shopid}</td>
+   <td>{$c.title}</td>
+   
+   <td>
+	<img src=" {$c.imgurl|images_site}.100x100.jpg" class="w50" />
+  </td>
+   <td>{$c.view_num}</td>
+   <td>{$c.love_num}</td>
+   <td>
+	   <div class="{if $c.status eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=mdish_product&a=status&ajax=1&productid={$c.productid}"></div>
+   </td>
+   <td><div class="{if $c.isrecommend eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=mdish_product&a=recommend&ajax=1&productid={$c.productid}"></div></td>
+   <td><div class="{if $c.ishot eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=mdish_product&a=hot&ajax=1&productid={$c.productid}"></div></td>
+   <td><div class="{if $c.isnew eq 1}yes{else}no{/if} js-toggle-status" url="/moduleadmin.php?m=mdish_product&a=new&ajax=1&productid={$c.productid}"></div></td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.grade}</td>
+   
+<td><a href="moduleadmin.php?m=mdish_product&a=add&productid={$c.productid}">编辑</a> 
+<a target="_blank" href="/module.php?m=mdish_product&a=show&productid={$c.productid}">查看</a> 
+<a href="javascript:;" class="js-delete" url="moduleadmin.php?m=mdish_product&a=delete&ajax=1&productid={$c.productid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="tabs-border">
+	<div class="item active">奖金查看</div>
+</div>
+<div class="main-body">
+    	 <table class="tbs" width="100%">
+    	 	<thead>
+  <tr>
+   <td>id</td>
+    
+   <td>金额</td>
+   <td>用户</td>
+   <td>时间</td>
+ 
+  </tr>
+  </thead>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+    
+   <td>{$c.money}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+ 
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+ 
+</div>
+{assign var="mfooter" value="item"}
+{include file="footer.html"}
+</body>
+</html>

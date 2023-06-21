@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"微投票",//模块名称
+	"module"=>"vote",//模块目录
+ 	"version"=>3.0,//当前版本
+	"info"=>"微投票可以用来进行各种投票活动",//模块信息
+	"from"=>"来自福鼎生活网",
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=vote&a=menu",
+	"check_update"=>"http://www.skymvc.com",
+);
+?>

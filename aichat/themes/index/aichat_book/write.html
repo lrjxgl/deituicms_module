@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">Ai写书</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<form>
+				<textarea v-model="prompt" class="textarea-flex-text h100" placeholder="我要写一本笑话书，含30篇故事,书籍内容含爱情亲情，现在请先列出这些笑话的名称." v-model="prompt"></textarea>
+				<div class="input-flex">
+					<div class="input-flex-label">篇数</div>
+					<input v-model="num" class="input-flex-text" name="num" /> 
+					<span>篇</span>
+				</div>
+				<div @click="submit()" class="btn-row-submit">确定生成</div>
+			</form>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}aichat_book/write.js"></script>
+	</body>
+</html>

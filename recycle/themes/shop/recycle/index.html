@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">物品回收</div>
+	 
+</div>
+<div class="header-row"></div>
+<div class="main-body none" :class="'flex-col'" id="App">
+    <div class="sglist">
+		 <div class="tabs-border i5">
+		 	<div @click="setType('all')" :class="type=='all'?'tabs-border-active':''" class="tabs-border-item ">全部
+		 	</div>
+		 	<div @click="setType('new')" :class="type=='new'?'tabs-border-active':''"
+		 		class="tabs-border-item">新订单</div>
+		 	<div @click="setType('confirm')" :class="type=='confirm'?'tabs-border-active':''"
+		 		class="tabs-border-item">已确认</div>
+		 	<div @click="setType('send')" :class="type=='send'?'tabs-border-active':''" class="tabs-border-item">配送中
+		 	</div>
+		 	<div @click="setType('finish')" :class="type=='finish'?'tabs-border-active':''"
+		 		class="tabs-border-item">已完成</div>
+		 	<div @click="setType('cancel')" :class="type=='cancel'?'tabs-border-active':''"
+		 		class="tabs-border-item">已取消</div>
+		 </div>
+		<div v-for="(item,index) in list" :key="index" class="sglist-item js-item">
+			<div class="flex bd-mp-5">
+				<div class="cl-status">{{item.status_name}}</div>
+				<div class="flex-1"></div>
+				<div class="cl3 f12">{{item.createtime}}</div>
+			</div>
+			<div class="sglist-title">{{item.description}}</div>
+			<div class="flex mgb-5">
+				<div class="cl2 mgr-5">{{item.nickname}}</div>
+				<div class="cl2 mgr-5">{{item.telephone}}</div>
+			</div>
+			<div class="cl2 f12 mgb-5">{{item.address}}</div>
+			<div class="cl2 f12 mgb-5">上门时间：{{item.freetime}}</div>  
+			<div  class="flex">
+				<div class="flex-1"></div>
+				<div :gourl="'/moduleshop.php?m=recycle&a=show&id='+item.id" class="btn-small mgr-10">查看</div>
+				<div v-if="item.status==0" @click="accept(item)"  class="btn-small mgr-10">确认接单</div>
+				<div v-if="item.status==1" @click="send(item)"  class="btn-small mgr-10">到点取货</div>
+				<div v-if="item.status==2" @click="finish(item)" class="btn-small mgr-10">订单完成</div>
+				<div v-if="item.status==0" @click="cancel(item)" class="btn-small btn-danger">取消订单</div>
+			</div>
+			 
+		</div>
+		<div @click="getList()" v-if="per_page>0" class="loadMore">加载更多</div> 
+	</div> 
+
+    
+</div>
+{include file="footer.html"}
+<script src="{$skins}recycle/index.js"></script>
+</body>
+</html>

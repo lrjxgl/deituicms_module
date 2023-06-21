@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.flexlist .tools .bt{
+			margin-right: 10px;
+			background-color: #ddd;
+			color: #444;
+			line-height: 30px;
+			padding: 0px 10px;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+		.flexlist .tools .bt.active{
+			background-color: #0062CC;
+			color: #fff;
+		}
+		.fixback{
+			display: flex;
+			position: fixed;
+			bottom: 0px;
+			left: 0;
+			right: 0;
+			background-color: #fff;
+			height: 50px;
+			line-height: 50px;
+		}
+		.fixback .txt{
+			flex: 1;
+			margin-left: 10px;
+		}
+		.fixback .txt .num{
+			color: #0066CC;
+		}
+		.fixback .bt{
+			float: right;
+			padding: 0 10px;
+			background-color: #0066CC;
+			color: #fff;
+			height: 30px;
+			line-height: 30px;
+			position: relative;
+			top: 10px;
+			font-size: 14px;
+			border-radius: 5px;
+			margin-right: 10px;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a href="/module.php?m=gread&a=home" class=" mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">待还图书</h1>
+		</header>
+		<div class="mui-content">
+		    
+		    <div class="flexlist">
+		    	{foreach item=c from=$data}
+		    		<div class="item">
+		    			<div class="img"><img src="{$c.imgurl}.100x100.jpg"></div>
+		    			<div class="flex-1">
+		    				<div class="title">{$c.title}</div>
+		    				<div class="row-price">
+		    					价格 <span class="price">{$c.book_money}</span>
+		    				</div>
+		    				<div class="desc">到期时间 {$c.backtime}</div>
+		    				<div class="tools">
+		    					<a class="bt js-hs-btn {if $c.incart}active{/if}" shopid="{$c.shopid}" bookid="{$c.bookid}">我要还书</a>
+		    					
+		    					<a href="" class="bt">写读后感</a>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	{/foreach}
+		    </div>
+		</div>
+		<div style="height: 50px;"></div>
+		<div class="fixback">
+			<div class="txt">共还<span id="hs-num" class="num">{$carts_num}</span>本</div>
+			<a href="/module.php?m=gread_backcart&shopid=1" class="bt" id="hs-submit">确认还书</a>
+		</div>
+		<script>
+			
+			$(document).on("click",".js-hs-btn",function(){
+				if($(this).hasClass("active")){
+					$(this).removeClass("active");
+					
+				}else{
+					$(this).addClass("active");				
+				}
+				$.get("/module.php?m=gread_backcart&a=toggle&ajax=1",{
+					shopid:$(this).attr("shopid"),
+					bookid:$(this).attr("bookid")
+				},function(data){
+					//mui.toast(data.message);
+				},"json")
+				var len=$(".js-hs-btn.active").length;
+				$("#hs-num").html(len);
+			});
+		</script>
+	</body>
+</html>

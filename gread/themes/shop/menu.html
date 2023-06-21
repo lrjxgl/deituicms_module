@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">商家后台</h1>
+		</header>
+		<div class="mui-content">
+			<style>
+				.logo {
+					width: 160px;
+					height: 160px;
+					border-radius: 20px;
+					margin: 0 auto;
+					background-color: #eee;
+					margin-top: 20px;
+					margin-bottom: 20px;
+				}
+				.navlist{
+					margin-left: -1vw;
+					margin-bottom: 20px;
+				}
+				.navlist-item{
+					display: block;
+					float: left;
+					width: 30vw;
+					height: 30vw;
+					line-height: 30vw;
+					text-align: center;
+					background-color: #478ed6;
+					color: #fff;
+					border-radius: 20px;
+					margin-left: 3vw;
+					margin-bottom: 10px;
+					font-size: 16px;
+				 
+				}
+			</style>
+			<div class="logo">
+
+			</div>
+			<div class="navlist">
+				<a href="/moduleshop.php?m=gread_order" class="navlist-item">
+					订单
+				</a>
+				<a href="/moduleshop.php?m=gread_shop" class="navlist-item">
+					商家管理
+				</a>
+				<a href="/moduleshop.php?m=gread_user_card" class="navlist-item">
+					会员卡
+				</a>
+			</div>
+			<div class="navlist">
+				<a href="/moduleshop.php?m=gread_shop_product" class="navlist-item">
+					图书管理
+				</a>
+				<a href="/moduleshop.php?m=gread_shop_inorder" class="navlist-item">
+					进货单
+				</a>
+				<a href="/moduleshop.php?m=gread_shop_outorder" class="navlist-item">
+					退货单
+				</a>
+				
+			</div>
+
+		</div>
+		{include file="footer.html"}
+	</body>
+
+</html>

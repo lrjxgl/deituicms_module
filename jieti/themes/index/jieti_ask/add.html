@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">我要发问</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form action="/module.php?m=jieti_ask&a=save&ajax=1">
+				<div class="input-flex" >
+					<div class="input-flex-label">学科</div>
+					<div id="select_contact" class="input-flex-select flex flex-ai-center">
+					<div  data-city-code="510100" data-province-code="510000" data-district-code="510105" id="show_contact">选择学科</div>
+					</div>
+					<input type="hidden" name="catid" data-id="0001" id="contact_province_code" />
+					<input type="hidden" name="catid_2nd" id="contact_city_code" value="" data-city-name="" />
+				</div>
+				
+				<div class="bg-fff mgb-5">
+					<input type="hidden" name="imgsdata" id="imgsdata" value="{$data.imgsdata}" />
+				
+					{include file="inc/uploader-data.html"}
+				</div>
+				<div class="btn-row-submit js-submit">
+					提问
+				</div>
+			</form>
+
+		</div>
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}inc/uploader-data.js"></script>
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<link href="/plugin/iosSelect/iosSelect.css" rel="stylesheet" />
+		<script src="/plugin/iosSelect/iosSelect.js"></script>
+		<script>
+			var iosProvinces, iosCitys;
+			$.ajax({
+				url:"/module.php?m=jieti_category&a=ios&ajax=1",
+				dataType:"json",
+				success:function(res){
+					iosProvinces=res.data.top;
+					iosCitys=res.data.child;
+				}
+			})
+			var selectContactDom = $('#select_contact');
+			    var showContactDom = $('#show_contact');
+			    var contactProvinceCodeDom = $('#contact_province_code');
+			    var contactCityCodeDom = $('#contact_city_code');
+			    selectContactDom.bind('click', function () {
+			        var sccode = showContactDom.attr('data-city-code');
+			        var scname = showContactDom.attr('data-city-name');
+			
+			        var oneLevelId = showContactDom.attr('data-province-code');
+			        var twoLevelId = showContactDom.attr('data-city-code');
+			        var iosSelect = new IosSelect(2, 
+			            [iosProvinces, iosCitys],
+			            {
+			                title: '学科选择',
+			                itemHeight: 35,
+			                relation: [1, 1],
+			                oneLevelId: oneLevelId,
+			                twoLevelId: twoLevelId,
+			                callback: function (selectOneObj, selectTwoObj) {
+			                    contactProvinceCodeDom.val(selectOneObj.id); 
+			                    contactProvinceCodeDom.attr('data-province-name', selectOneObj.value);
+			                    contactCityCodeDom.val(selectTwoObj.id);
+			                    contactCityCodeDom.attr('data-city-name', selectTwoObj.value);
+			
+			                    showContactDom.attr('data-province-code', selectOneObj.id);
+			                    showContactDom.attr('data-city-code', selectTwoObj.id);
+			   
+			                    showContactDom.html(selectOneObj.value + ' ' + selectTwoObj.value );
+			                }
+			        });
+			    });
+		</script>
+	</body>
+</html>

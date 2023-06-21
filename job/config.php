@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"微招聘",//模块名称
+	"module"=>"job",//模块目录
+ 	"version"=>2.0,//当前版本
+	"info"=>"微招聘",//模块信息
+	"from"=>"来自福鼎生活网",
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=job&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

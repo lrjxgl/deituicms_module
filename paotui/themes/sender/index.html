@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+
+	{include file="head.html"}
+	<style>
+		.btn-song,
+		.btn-shou {
+			width: 20px;
+			height: 20px;
+			line-height: 20px;
+			text-align: center;
+			margin-right: 5px;
+			background-color: #53beb7;
+			font-size: 12px;
+			color: #fff;
+			border-radius: 50%;
+		}
+
+		.btn-shou {
+			background-color: #ec9130;
+		}
+		.newMsg{
+			position: fixed;
+			bottom: 200px;
+			right: 5px;
+			width: 30px;
+			text-align: center;
+			height: 30px;
+			line-height: 30px;
+			border-radius: 5px;
+			background-color: #F06060;
+			color: #fff;
+			font-size: 12px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			
+			<div class="header-title">抢单</div>
+		</div>
+		<div class="header-row"></div>
+
+		<div class="main-body none" :class="'flex-col'" id="app">
+			<div @click="getList()" v-if="newMsg" class="newMsg">{{newMsg}}</div>
+			<div v-if="pconfig.morecity==1" class="flex flex-ai-center pd-10 bg-white">
+				
+				<div gourl="/index.php?m=city" class="flex-1 flex flex-center">
+					<div>{{city}}</div>
+					<div class="iconfont icon-location_light"></div>
+				</div>
+			</div>	
+			<div class="tabs-border">
+				<div :class="typeid==0?'tabs-border-active':''" class="tabs-border-item" @click="setType(0)">全部</div>
+				<div @click="setType(item.typeid)" v-for="(item,index) in typelist" :class="item.typeid==typeid?'tabs-border-active':''"
+				 :index="index" class="tabs-border-item">{{item.title}}</div>
+
+			</div>
+			<div class="ptlist">
+				<div v-if="list.length==0" class="emptyData">暂无跑腿任务</div>
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex flex-ai-center mgb-5">
+						<div class="mgr-5">{{item.typeid_name}}</div>
+
+						<div class="f12 cl3">{{item.createtime}}</div>
+						<div class="flex-1"></div>
+
+						<div class="flex mgb-5 flex-ai-center">
+							<div class="mgr-5 cl3">{{item.weight}}Kg</div>
+							<div class="cl-money">￥</div>
+							<div class="cl-money">{{item.money}}</div>
+						</div>
+					</div>
+					<div v-if="item.fromaddr && Object.keys(item.fromaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">取</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.fromaddr.truename}}</div>
+								<div class="cl3 f12">{{item.fromaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.fromaddr.address}}
+							</div>
+						</div>
+
+					</div>
+					<div v-if="item.toaddr && Object.keys(item.toaddr).length>0" class="flex mgb-5">
+						<div class="btn-song">收</div>
+						<div class="flex-1">
+							<div class="flex mgb-5">
+								<div class="mgr-10 f12">{{item.toaddr.truename}}</div>
+								<div class="cl3 f12">{{item.toaddr.telephone}}</div>
+							</div>
+							<div class="cl2 f12">
+								{{item.toaddr.address}}
+							</div>
+						</div>
+
+					</div>
+					<div class="bd pd-5 bd-radius-5 mgb-5 ">
+					<div class="cl-num f12 mgb-5" v-if="item.catid">
+						{{item.catid_title}}
+					</div>
+					<div v-if="item.content!=''" class="cl3 f12" v-html="item.content"></div>
+					</div>
+					<div v-if="item.typeid==3" class="flex mgb-10">
+						<div class="f12 cl2">商品估价</div>
+						<div class="cl-num f12">￥{{item.goodsmoney}}</div>
+					</div>
+					<div class="flex flex-jc-center">
+						<div @click="accept(item.id)" class="btn-small">我要抢单</div>
+
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		{assign var="ftnav" value="home"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}index.js"></script>
+	</body>
+
+</html>

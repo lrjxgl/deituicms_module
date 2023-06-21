@@ -1,0 +1,44 @@
+var that;
+var app=new Vue({
+	el:"#App",
+	data:function(){
+		return {
+			list:[],
+			type:'all'
+		}
+	},
+	created:function(){
+		that=this;
+		this.getPage()
+	},
+	methods:{
+		getPage:function(){
+			$.ajax({
+				url:"/moduleshop.php?m=pinche_order&ajax=1",
+				dataType:"json",
+				success:function(res){
+					that.list=res.data.list;
+				}
+			})
+		},
+		getList:function(){
+			$.ajax({
+				url:"/moduleshop.php?m=pinche_order&ajax=1",
+				dataType:"json",
+				data:{
+					type:this.type
+				},
+				success:function(res){
+					that.list=res.data.list;
+				}
+			})
+		},
+		setType:function(t){
+			this.type=t;
+			this.getList();
+		},		 
+		goDetail:function(orderid){
+			window.location="/moduleshop.php?m=pinche_order&a=show&orderid="+orderid;
+		}
+	}
+})

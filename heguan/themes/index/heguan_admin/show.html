@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	 <table class="table table-bordered" width="100%">
+  <tr><td>adminid：</td><td>{$data.adminid}</td></tr>
+  <tr><td>heid：</td><td>{$data.heid}</td></tr>
+  <tr><td>名称：</td><td>{$data.nickname}</td></tr>
+  <tr><td>电话：</td><td>{$data.telephone}</td></tr>
+  <tr><td>简介：</td><td>{$data.description}</td></tr>
+  <tr><td>状态：</td><td>{$data.status}</td></tr>
+  <tr><td>createtime：</td><td>{$data.createtime}</td></tr>
+  <tr><td>主图：</td><td>{$data.imgurl}</td></tr>
+  <tr><td>主管：</td><td>{$data.isown}</td></tr>
+ </table>
+
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}b2c_msg/index.css" rel="stylesheet" />
+	<body>
+		 
+		<div class="header">
+			 
+			<div class="header-title">我的消息</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div style="height: 45px;"></div>
+			<div style="position: fixed;top:45px;left:0;right:0">
+				<div class="tabs-border">
+					
+					<div @click="setTab('notice')" :class="tab=='notice'?'tabs-border-active':''" class="tabs-border-item">站内消息</div>
+					<div @click="setTab('kefu')" :class="tab=='kefu'?'tabs-border-active':''" class="tabs-border-item">我的咨询</div>
+					<div @click="setTab('sysmsg')" :class="tab=='sysmsg'?'tabs-border-active':''" class="tabs-border-item">系统通知</div>	 
+				</div>
+			</div>
+			<div v-if="tab=='kefu'">
+				<page-kefu></page-kefu>
+			</div> 
+			<div v-if="tab=='notice'">
+				<page-notice></page-notice>
+			</div>
+			
+			<div v-if="tab=='sysmsg'">
+				 
+				<page-sysmsg></page-sysmsg>
+			</div>
+			 
+		</div>
+	{assign var="ftnav" value="b2c_msg"}	
+	{include file="ftnav.html"}	
+	{include file="footer.html"} 
+	<script src="/plugin/dt-ui/skyJs.js"></script>
+	<script src="{$skins}b2c_msg/sysmsg.js"></script>
+	<script src="{$skins}b2c_msg/notice.js"></script>
+	<script src="{$skins}b2c_msg/kefu.js"></script> 
+	<script src="{$skins}b2c_msg/index.js"></script>
+	</body>
+</html>

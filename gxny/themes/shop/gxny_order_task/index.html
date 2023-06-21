@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">菜园任务</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div @click="setType('new')" :class="type=='new'?'tabs-border-active':''" class="tabs-border-item">待处理</div>
+				<div @click="setType('receive')"  :class="type=='receive'?'tabs-border-active':''"  class="tabs-border-item">待验收</div>
+				<div @click="setType('finish')"  :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">已完成</div>
+				<div @click="setType('all')"  :class="type=='all'?'tabs-border-active':''"  class="tabs-border-item">全部</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex flex-ai-center">
+					<div  class="mgr-10">任务类型</div>
+					<div class="mgr-10">
+						<input name="task_action" value="" v-model="task_action"  type="radio"/>全部
+					</div>
+					<div  class="mgr-10" v-for="(item,index) in acList" :key='index'>
+						<input  name="task_action" :value="item" v-model="task_action"  type="radio"/> {{item}}
+					</div>
+				</div>
+				
+				
+			</div>
+			<div>
+				<div class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+					<div class="flex bd-mp-5">
+						<div class="cl-status">{{item.status_name}}</div>
+						<div class="mgl-20 cl-info">{{item.task_action}}</div>
+					</div>
+					<div class="cl2 mgb-5" v-html="item.content"></div>
+					<div class="flex">
+						<div class="flex-1"></div>
+						<div v-if="item.status<2" @click="finish(item)" class="btn-small">完成任务</div>
+					</div>
+				</div> 
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}gxny_order_task/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='recycle_shop_apply/nav.html'}
+<form method="post" action="/module.php?m=recycle_shop_apply&a=save">
+<input type="hidden" name="shopid" style="display:none;" value="{$data.shopid}" >
+ <table class="table-add">  <tr>
+				<td>店名：</td>		
+				<td><input type="text" name="title" id="title" value="{$data.title}" ></td>
+				</tr>
+  <tr>
+				<td>简介：</td>		
+				<td><input type="text" name="description" id="description" value="{$data.description}" ></td>
+				</tr>
+  <tr>
+				<td>图片：</td>		
+				<td><input type="text" name="imgurl" id="imgurl" value="{$data.imgurl}" ></td>
+				</tr>
+  <tr>
+				<td>地址：</td>		
+				<td><input type="text" name="address" id="address" value="{$data.address}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>手机：</td>		
+				<td><input type="text" name="telephone" id="telephone" value="{$data.telephone}" ></td>
+				</tr>
+  <tr>
+				<td>店主：</td>		
+				<td><input type="text" name="nickname" id="nickname" value="{$data.nickname}" ></td>
+				</tr>
+  <tr>
+				<td>status：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>配送费：</td>		
+				<td><input type="text" name="sendmoney" id="sendmoney" value="{$data.sendmoney}" ></td>
+				</tr>
+  <tr>
+				<td>lat：</td>		
+				<td><input type="text" name="lat" id="lat" value="{$data.lat}" ></td>
+				</tr>
+  <tr>
+				<td>lng：</td>		
+				<td><input type="text" name="lng" id="lng" value="{$data.lng}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+ 
+{include file="footer.html"}
+</body>
+</html>

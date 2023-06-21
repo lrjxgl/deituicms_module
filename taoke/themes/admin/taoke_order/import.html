@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.bitem{
+			margin-bottom: 10px;
+		}
+	</style>
+	<body>
+		<div class="tabs-border">
+			<div gourl="/moduleadmin.php?m=taoke_xsl" class="item active">导入Excel</div>
+			 
+		</div>
+		<div class="main-body">
+		     
+		    	<div class="bitem">
+		    		<form   action="/moduleadmin.php?m=taoke_order&a=importSave" method="post" enctype="multipart/form-data">
+		    		<p class="mgb-10">淘客订单导入</p>
+		    		<div class="btn js-taoself-xsl-btn">选择Excel</div>
+		    		<input id="taoself-xsl" type="file" name="xsl" style="display: none;" />
+		    		
+		    		
+		    		</form>
+		    	</div>
+		    
+		    </div>
+	 
+		{include file="footer.html"}
+	<script>
+		$(document).on("click",".js-taoself-xsl-btn",function(){
+			$("#taoself-xsl").click();
+		})
+		$(document).on("change","#taoself-xsl",function(){
+			$("js-taoself-xsl-btn").html("文件上传中，请稍后");
+			$(this).parents("form").submit();
+		})
+	</script>	 
+		 
+	</body>
+</html>

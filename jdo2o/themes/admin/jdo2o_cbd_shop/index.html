@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div id="app" style="display: none;" :class="'flex-col'">
+			<div class="tabs-border">
+				<div @click="setPage('index')" :class="{'active':page=='index'}" class="item" >商家列表</div>
+				<div @click="setPage('shop')" :class="{'active':page=='shop'}" class="item" >添加商家</div>
+			</div>
+
+			<div  v-if="page=='index'" class="main-body" page="index">
+				<form class="search-form">
+					<div class="flex flex-ai-center">
+						商家名称：<input v-model="keyword" :value="keyword" class="w100 mgr-5" type="text" name="keyword" />
+						<div @click="search" class="btn-small">搜索</div>
+					</div>
+				</form>
+				<table class="tbs">
+					<tdead>
+						<tr>
+							<td>名称</td>
+							<td>地址</td>
+							<td>联系电话</td>
+							<td>操作</td>
+						</tr>
+					</tdead>
+					<tbody>
+						 
+						<tr v-for="(item,index) in pageData.shoplist">
+							<td>{{item.shopname}}</td>
+							<td>{{item.address}}</td>
+							<td>{{item.telephone}}</td>
+							<td>
+								<div  class="pointer cl-danger" @click="del(item.shopid)" >删除</div>
+							</td>
+						</tr>
+						 
+					</tbody>
+				</table>
+			</div>
+			
+			<div v-if="page=='shop'" class="main-body" page="shop">
+				<form class="search-form">
+					<div class="flex flex-ai-center">
+						商家名称：<input v-model="keyword" :value="keyword" class="w100 mgr-5" type="text" name="keyword" />
+						<div @click="search" class="btn-small">搜索</div>
+					</div>
+				</form>
+				<table class="tbs">
+					<tdead>
+						<tr>
+							<td>名称</td>
+							<td>地址</td>
+							<td>联系电话</td>
+							<td>操作</td>
+						</tr>
+					</tdead>
+					<tbody>
+						 
+						<tr v-for="(item,index) in pageData.list">
+							<td>{{item.shopname}}</td>
+							<td>{{item.address}}</td>
+							<td>{{item.telephone}}</td>
+							<td>
+								<div :class="item.status==1?'yes':'no'" class="js-toggle-status" @click="toggleAdd(item.shopid)" ></div>
+							</td>
+						</tr>
+						 
+					</tbody>
+				</table>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			var cbdid="{$cbd.cbdid}";
+		</script>
+		<script src="/plugin/vue/vue.min.js"></script>
+		<script src="{$skins}jdo2o_cbd_shop/index.js"></script>
+	</body>
+</html>

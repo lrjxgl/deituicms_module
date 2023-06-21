@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.w300{
+			width: 300px;
+		}
+	</style>
+	<body>
+		{include file='pinche_line/nav.html'}
+		<div class="main-body">
+			<form method="post" action="/moduleadmin.php?m=pinche_line&a=save">
+				<input type="hidden" name="lineid" style="display:none;" value="{$data.lineid}">
+				<table class="table-add">
+					<tr>
+						<td>路线名称：</td>
+						<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+					</tr>
+					 
+					<tr>
+						<td>分时费用</td>
+						<td>
+							<div class="flex flex-ai-center">
+								<div class="mgr-5">白天</div>
+								<input type="text" class="w100" name="bai_money" value="{$data.bai_money}" /> 元
+								<div class="mgr-5 mgl-5">晚上</div>
+								<input type="text" class="w100" name="hei_money" value="{$data.hei_money}" /> 元
+								<div class="mgl-10">
+									接送费用：	
+								</div>
+								<input type="text" class="w100"  name="sendmoney" id="sendmoney" value="{$data.sendmoney}">
+								<div class="mgr-5">元/Km</div>
+								<div class="mgr-5">接送计费</div>
+								<div class="flex">
+									<input type="radio" {if $data.send_paytype eq 0}checked{/if} name="send_paytype" value="0" /> 计人数
+									<input type="radio" {if $data.send_paytype eq 1}checked{/if}  name="send_paytype" value="1" /> 不计人数
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>班车间隔</td>
+						<td>
+							<input type="text" name="wait_time" value="{$data.wait_time}" class="w100" /> 分钟
+						</td>
+					</tr>
+					<tr>
+						<td>开始地址：</td>
+						<td>
+							<input type="hidden" name="start_lat" id="start_lat" value="{$data.start_lat}">
+							<input type="hidden" name="start_lng" id="start_lng" value="{$data.start_lng}">
+							<input class="w300" type="text" name="start_addr" id="start_addr" value="{$data.start_addr}">
+							<div onclick="showMap('start','{$data.start_lat}','{$data.start_lng}')" class="btn">地图选择</div>
+						</td>
+					</tr>
+				 
+					
+					<tr>
+						<td>结束地址：</td>
+						<td>
+							<input type="hidden" name="end_lat" id="end_lat" value="{$data.end_lat}">
+							<input type="hidden" name="end_lng" id="end_lng" value="{$data.end_lng}">
+							<input type="text" class="w300"  name="end_addr" id="end_addr" value="{$data.end_addr}">
+							<div onclick="showMap('end','{$data.end_lat}','{$data.end_lng}')"  class="btn">地图选择</div>
+						</td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td>
+							<input type="radio" {if $data.status eq 1}checked{/if} name="status" value="1" />上架
+							<input type="radio" {if $data.status neq 1}checked{/if}  name="status" value="2" />下架
+						</td>
+					</tr> 
+					<tr>
+						<td>线路图图片：</td>
+						<td> 
+							<div class="js-upload-item">
+								<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+								<div class="upimg-btn js-upload-btn">+</div>
+								<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+								<div class="js-imgbox">
+									{if $data.imgurl}
+									<img src="{$data.imgurl|images_site}.100x100.jpg">
+									{/if}
+								</div>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>描述：</td>
+						<td><input type="text" name="description" id="description" value="{$data.description}"></td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+ 
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"> </script>
+		<style>
+			.modal-body{
+				max-height: inherit;
+			}
+		</style>
+		<script>
+			var mType="start";
+			function showMap(type,lat,lng){
+				mType=type;
+				var html='<iframe style="width:560px;height: 450px;border:0;" src="/moduleadmin.php?m=pinche&a=map&lat='+lat+'&lng='+lng+'"></iframe>';
+				showbox("选择位置",html,640,500);
+			}
+			function callParen(lat,lng){
+				if(mType=='start'){
+					$("#start_lat").val(lat);
+					$("#start_lng").val(lng);
+				}else{
+					$("#end_lat").val(lat);
+					$("#end_lng").val(lng);
+				}
+				
+				showboxClose();
+			}
+		</script>
+	</body>
+</html>

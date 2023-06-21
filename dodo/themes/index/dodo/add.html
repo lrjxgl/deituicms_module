@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布目标</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form>
+				<div class="input-flex">
+						<div class="input-flex-label">截止日期</div>
+						<input autocomplete="off" id="etime" class="input-flex-text" type="text" />
+					</div>
+					<div class="textarea-flex">
+						<textarea id="dd-content" class="textarea-flex-text" placeholder="任务内容"></textarea>
+					</div>
+					<div class="pd-10 cl-danger">
+						目标发布后，不能改，不能删，请真心对待
+					</div>
+				</div>
+				<div id="dodoSubmit" class="btn-row-submit">确认发布</div>
+			</form>
+		</div>
+		{include file="footer.html"} 
+		<script src="/plugin/laydate/laydate.js"></script>
+		<script> 
+			laydate.render({
+				elem:"#etime",
+				type:"datetime"
+			})
+			$(document).on("click","#dodoShow",function(){
+				$("#dodoBox").show();
+			})
+			$(document).on("click","#dodoSubmit",function(){
+				if(!postCheck.canPost()){
+					return false;
+				}
+ 
+				if(confirm("目标截止时间："+$("#etime").val()+"，确认发布目标吗？")){
+					$.ajax({
+						url:"/module.php?m=dodo&a=save&ajax=1",
+						dataType:"json",
+						type:"POST",
+						data:{
+							content:$("#dd-content").val(),
+							etime:$("#etime").val()
+						},
+						success:function(res){
+							skyToast(res.message);
+							if(!res.error){
+								window.location=res.url;
+							}
+							
+						}
+					})
+				}
+				
+			})
+		</script>
+	</body>
+</html>

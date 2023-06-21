@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+	<div class="tabs-border">
+		<div class="item active">配置</div>
+	</div>
+ <table class='table table-bordered' width='100%'>
+  <tr>
+   <td>id</td>
+   <td>siteid</td>
+   <td>pi_user</td>
+   <td>pi_content</td>
+   <td>pwd</td>
+   <td>在线人数</td>
+   <td>执行计划</td>
+<td>操作</td>
+  </tr>
+ {foreach item=c from=$data}
+<tr>
+   <td>{$c.id}</td>
+   <td>{$c.siteid}</td>
+   <td>{$c.pi_user}</td>
+   <td>{$c.pi_content}</td>
+   <td>{$c.pwd}</td>
+   <td>{$c.online_num}</td>
+   <td>{$c.pi_cron}</td>
+<td><a href="admin.php?m=collect_config&a=add&id={$c.id}">编辑</a> <a href="admin.php?m=collect_config&a=show&id={$c.id}">查看</a> <a href="javascript:;" class="js-delete"te" url="admin.php?m=collect_config&a=delete&id={$c.id}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div>
+</div>
+{include file="footer.html"}

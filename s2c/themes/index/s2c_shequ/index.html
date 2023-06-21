@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}s2c_shequ/index.css" rel="stylesheet" />
+	<body>
+		<div class="scTop-bg"></div>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">选择社区</div>
+		</div>
+		<div class="header-row"></div>
+		<div  id="app">
+			<div v-if="pageLoad" style="display: none;" :style="'display:block'">
+			<div class="scTop">
+				
+				<div class="scTop-searchBox">
+					<i class="scTop-icon iconfont icon-search"></i>
+					<input @keyup="searchShequ" v-model="keyword" :value="keyword" type="search" class="scTop-text" />
+				</div>
+				
+				<div class="f14 cl-white flex-center mgb-1">当前社区</div>
+				<div class="tzBox">
+					<img :src="pageData.shequ.userhead+'.100x100.jpg'" class="tzBox-head">
+					<div class="cl3 f12 mgb-10">团长：{{pageData.shequ.nickname}} </div>
+					<div class="cl1 f18 mgb-10">{{pageData.shequ.title}}</div>
+					<div class="cl2 f16">{{pageData.shequ.address}}</div>
+				</div>
+			</div>
+			<div class="main-body bg-white">
+				<div class="shd">附近社区</div>
+				<div class="list">
+					<div @click="setScid(item.scid)" class="flexlist-item" v-for="(item,index) in pageData.list" :key="index">
+						<img :src="item.imgurl" class="wh-40 mgr-5" />
+						<div class="flex-1 mgr-10">
+							<div class="flex mgb-5">
+								<div class="cl1 f16">{{item.title}}</div>
+								<div class="flex-1"></div>
+								<div class="cl3 f12">距离{{item.distance}}公里</div>
+							</div>
+							<div class="cl2 mgb-5">团长：{{item.nickname}}</div>
+							<div class="cl3">{{item.address}}</div>
+						</div>
+						<div class="flex flex-ai-center"><div class="cl3 f16 iconfont icon-right"></div></div>
+					</div>
+					 
+				</div>
+			</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+		<script src="{$skins}s2c_shequ/index.js"></script>
+	</body>
+</html>

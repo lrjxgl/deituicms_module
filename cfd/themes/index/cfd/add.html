@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+<style>
+	.edui-editor div,.layui-laydate-footer div{
+		display: block;
+	}
+</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发起众筹</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			 
+				<form  id="form"  method="post" action="/module.php?m=cfd&a=save">
+					<input type="hidden" name="cfdid" style="display:none;" value="{$data.cfdid}">
+					<div class="input-flex">
+						<div class="input-flex-label">名称</div>
+						<input type="text" class="input-flex-text" name="title" id="title" value="{$data.title}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">图片</div>
+						<div class="flex-1">
+							<div class="upimg-box bg-fff">
+								<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+									<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg" >								 
+								</div>
+								{if !$data.imgurl}	
+								<div class="upimg-btn js-upimg-btn">
+									<i class="upimg-btn-icon"></i>
+								</div>
+								{/if}
+								<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+								<input style="display: none;" class="js-upimg-file" type="file" name="upimg"  /> 
+							</div> 
+						</div>
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">截止时间：</div>
+						<input type="text" class="input-flex-text"  name="endtime" id="endtime" value="{$data.endtime}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">描述：</div>
+						<input type="text" class="input-flex-text"  name="description" id="description" value="{$data.description}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">视频：</div>
+						<input type="text" class="input-flex-text"  name="videourl" id="videourl" value="{$data.videourl}">
+					</div>
+					<div class="input-flex">
+						<div class="input-flex-label">需要金额：</div>
+						<input type="text"  class="input-flex-text" name="needmoney" id="needmoney" value="{$data.needmoney}">
+					</div>
+					 <div class="input-flex">
+					 	<div class="input-flex-label">股权限制额</div>
+					 	<input type="text" class="input-flex-text"  name="gqmoney" value="{$data.gqmoney}" />
+					 </div>
+					 <div class="input-flex">
+					 	<div class="input-flex-label">团队介绍：</div>
+						<div class="flex-1">
+							<div class="sky-editor-content" name="teamdesc" contenteditable="true">{$data.teamdesc}</div>
+ 
+						</div>
+					 	
+					 </div>
+					 <div class="input-flex">
+					 	<div class="input-flex-label">内容：</div>
+						<div class="flex-1">
+							<div class="sky-editor-content" name="content" contenteditable="true">{$data.content}</div>
+ 
+						</div>
+					 </div>
+					  
+					<div class="btn-row-submit" id="submit">保存</div>
+				</form>
+			 
+		</div>
+		{include file="footer.html"}
+ 
+<script src="/plugin/skyeditor/skyeditor.more.js"></script>
+<script src="/plugin/laydate/laydate.js"></script>
+<script src="/plugin/lrz/lrz.bundle.js"></script>
+<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+<script>
+	laydate.render({
+	  elem: '#endtime',
+	  type: 'datetime'
+	});
+	$(document).on("click", "#submit", function() {
+	 
+		$.post("/module.php?m=cfd&a=save&ajax=1", $("#form").serialize(), function(data) {
+			if(data.error) {
+				skyToast(data.message);
+
+			} else {
+				goBack();
+			}
+		}, "json")
+	})
+	
+ 
+</script>	
+	</body>
+
+</html>

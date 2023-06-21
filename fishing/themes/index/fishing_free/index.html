@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">公益增殖放流</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			<div class="tabs-border">
+				<div  @click="setTab('activity')" :class="tab=='activity'?'tabs-border-active':''"  class="tabs-border-item">放流活动</div>
+				<div @click="setTab('place')" :class="tab=='place'?'tabs-border-active':''"  class="tabs-border-item">放流地点</div>
+				<div @click="setTab('order')" :class="tab=='order'?'tabs-border-active':''"  class="tabs-border-item">爱心捐赠</div>
+				<div @click="setTab('rule')" :class="tab=='rule'?'tabs-border-active':''"  class="tabs-border-item">放流规则</div>
+			</div>
+			<div v-if="tab=='activity'">
+				<div v-if="actList.length==0" class="emptyData">暂无放流活动</div>
+				<div v-else  class="sglist">
+					<div @click="goActivity(item)" class="sglist-item" v-for="(item,index) in actList" :key="index">
+						<img :src="item.imgurl+'.middle.jpg'" class="sglist-img" />
+						<div class="sglist-title">{{item.title}}</div>
+						<div class="flex mgb-5">
+							<div class="cl3">位置：{{item.place.address}}</div> 
+							<div class="flex-1"></div>
+							<div class="cl3 f12">时间：{{item.stime}}</div>
+						</div>
+						<div class="sglist-desc">{{item.description}}</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="tab=='place'">
+				<div v-if="placeList.length==0" class="emptyData">暂无放流地点</div>
+				<div v-else  class="sglist">
+					<div  @click="goPlace(item)" class="sglist-item" v-for="(item,index) in placeList" :key="index">
+						<img :src="item.imgurl+'.middle.jpg'" class="sglist-img" />
+						<div class="sglist-title">{{item.title}}</div>
+						 
+						<div class="sglist-desc">{{item.address}}</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="tab=='order'" >
+				<div v-if="orderList.length==0" class="emptyData">暂无爱心捐赠</div>
+				<div v-else  >
+					<div class="flex row-box mgb-5" v-for="(item,index) in orderList" :key="index">
+						<div class="mgr-5">
+							<img :src="item.user.user_head+'.100x100.jpg'" class="w50 bd-radius-50" />
+							<div>{{item.nickname}}</div>
+						</div>
+						<div class="flex-1">
+							<div class="cl-money mgb-5">￥{{item.money}}</div>
+							<div class="cl3">{{item.description}}</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-if="tab=='rule'" class="row-box">
+				<div class="d-content">{$data.content}</div>
+			</div>
+			 
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}fishing_free/index.js"></script>
+	</body>
+</html>

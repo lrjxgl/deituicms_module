@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body class="bg-ef">
+		<div class="tabs-border">
+			<div class="item active">产品列表</div>
+		</div>
+		 
+		<div class="main-body" id="app">
+			 
+			<div class="sglist">
+				 
+				<div v-for="(item,index) in list" :key="index"  class="sglist-item">
+					
+					<div @click="goDetail(item.productid)" class="sglist-title flex" v-html="item.content"></div>
+					<div @click="goDetail(item.productid)" class="sglist-imglist">
+						 
+						<img v-for="(img,imgIndex) in item.imgslist" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+						
+					</div>
+					<div class="flex flex-ai-center mgb-10">
+						<div class="mgr-5 cl2">售价</div>
+						<div class="cl-money mgr-10">￥{{item.money}}</div>
+						<div class="cl2 f12 mgr-10">{{item.brand_title}}</div>
+						<div class="flex-1"></div> 
+						<div class="cl2 f12 mgr-10">上牌：{{item.pai_date}}</div> 
+						
+					</div>
+					<div class="sglist-ft">
+						<div class="mgr-10">
+							<input type="checkbox" v-model="ids"  name="ids[]" :value="item.productid" />
+						</div> 
+						<div class="flex">
+							<div>推荐</div>
+							<div  :class="item.isrecommend?'yes':'no'" @click="toggleRecommend(item)" ></div>
+						</div>
+						<div class="sglist-ft-cm">{{item.comment_num}}</div>
+						<div class="sglist-ft-view">{{item.view_num}}</div>
+						<div class="flex-1"></div>
+						<template v-if="item.sitecheck==0">
+							<div  @click="pass(item.productid)" class="btn-mini mgr-5">通过</div>
+							<div  @click="forbid(item.productid)" class="btn-mini mgr-5 btn-danger">禁止</div>
+						</template>
+						
+						<div @click="del(item.productid)" class=" cl-danger mgr-10 iconfont pointer icon-delete"></div>
+						<div @click="edit(item.productid)" class="pointer mgr-10 cl-primary">编辑</div>
+						
+					</div>
+					
+				</div>
+				<div class="loadMore" v-if="per_page>0" @click="getList">加载更多</div>
+			</div>
+			<div class="flex">
+				聚合：
+				<select name="gid" v-model="gid" class="w100 mgr-5">
+					<option value="0">请选择</option>
+					 
+					<option v-for="(item,index) in groupList" :key="index" :value="item.gid">{{item.title}}</option>
+					 
+				</select>
+				<div  class="btn"  @click="changeGroup">聚合产品</div>
+			</div>
+		</div>
+		 
+		{include file="footer.html"}
+		<script>
+			var type="{$type}"
+		</script>
+		<script src="{$skins}car_product/index.js?v=3a4xs"></script>
+	</body>
+</html>

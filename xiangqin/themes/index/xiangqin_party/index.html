@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+ 
+	<div class="header-title">活动报名</div>
+	<div gourl="/module.php?m=party&a=add" class="header-right-btn">发起</div>
+</div>
+<div class="header-row"></div>
+ 
+<div class="main-body none" :class="'flex-col'" id="App">
+	
+	<div class="tabs-border">
+		<div @click="setType('doing')" :class="type=='doing'?'tabs-border-active':''" class="tabs-border-item">进行中</div>
+		<div @click="setType('unbegin')"  :class="type=='unbegin'?'tabs-border-active':''"  class="tabs-border-item">即将开始</div>
+		<div @click="setType('finish')"  :class="type=='finish'?'tabs-border-active':''"  class="tabs-border-item">已结束</div>
+	</div>
+	 
+	<div v-if="!list || list.length==0" class="emptyData">暂无活动</div>
+	 
+	<div v-else class="sglist">
+	 
+		<div v-for="(item,index) in list" :key="index" class="sglist-item">
+			<img :gourl="'/module.php?m=party&a=show&id='+item.id" v-if="item.imgurl!=''" :src="item.imgurl+'.small.jpg'" class="sglist-img" />
+			<div class="flex flex-ai-center bd-mp-10">
+				<img class="wh-40 bd-radius-50 mgr-5" :src="item.user_head+'.100x100.jpg'">
+				<div class="cl2">{{item.nickname}}</div>
+				<div class="flex-1"></div>
+				<div class="cl3 f12">{{item.createtime}}</div>
+			</div>
+			<div :gourl="'/module.php?m=party&a=show&id='+item.id" class="sglist-title">{{item.title}}</div>
+			
+			
+			<div class="flex mgb-10">
+				<div class="cl-money  mgr-20">￥{{item.money}}</div>
+				 
+				<div class="cl2 mgr-5">限制人数</div>
+				<div class="cl-num">{{item.max_num}}</div>
+				 
+				<div class="cl2 mgl-20  mgr-5">参与人数</div>
+				<div class="cl-num">{{item.join_num}}</div>
+				
+			</div>
+			<div class="flex mgb-10">
+				<div class="cl2 f12 mgr-5">活动时间</div>
+				<div class="cl2 f12 ">{{item.stime}}</div>
+			</div>
+			
+			 
+		</div>	
+		 
+	</div>
+	<div class="loadMore" v-if="per_page>0" @click="getList()">点击加载更多</div>
+ 
+    
+</div>
+{assign var="ftnav" value='party'}
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script src="{$skins}xiangqin_party/index.js"></script>
+ 
+</body>
+</html>

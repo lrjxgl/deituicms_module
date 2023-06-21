@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+
+	<body>
+
+		{include file="header.html"}
+		<div class="layui-main">
+			<div class="layui-row">
+	         	<div class="layui-col-md3">{include file="[c]/sidebar.html"}</div>
+				<div class="layui-col-md9">
+					{include file='book_note/nav.html'} <form method="post" action="/module.php?m=book_note&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+ <table class="table-add">  <tr>
+				<td>bookid：</td>		
+				<td><input type="text" name="bookid" id="bookid" value="{$data.bookid}" ></td>
+				</tr>
+  <tr>
+				<td>articleid：</td>		
+				<td><input type="text" name="articleid" id="articleid" value="{$data.articleid}" ></td>
+				</tr>
+  <tr>
+				<td>userid：</td>		
+				<td><input type="text" name="userid" id="userid" value="{$data.userid}" ></td>
+				</tr>
+  <tr>
+				<td>status：</td>		
+				<td><input type="text" name="status" id="status" value="{$data.status}" ></td>
+				</tr>
+  <tr>
+				<td>createtime：</td>		
+				<td><input type="text" name="createtime" id="createtime" value="{$data.createtime}" ></td>
+				</tr>
+  <tr>
+				<td>内容：</td>		
+				<td><input type="text" name="content" id="content" value="{$data.content}" ></td>
+				</tr>
+</table> <div class="btn-row-submit js-submit">保存</div> 
+</form>
+				</div>
+
+			</div>
+		</div>	
+		{include file="footer.html"}
+
+	</body>
+
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='gread_book/nav.html'}
+		<div class="main-body">
+		<form method="post" action="/moduleadmin.php?m=gread_book&a=save">
+			<input type="hidden" name="bookid" style="display:none;" value="{$data.bookid}">
+			<table class="table-add">
+				
+				<tr>
+					<td>书名：</td>
+					<td><input type="text" name="title" id="title" value="{$data.title}"></td>
+				</tr>
+				<tr>
+					<td>分类：</td>
+					<td>
+						<select name="catid">
+							<option value="0">请选择</option>
+							{foreach item=c from=$catlist}
+							<option value="{$c.catid}" {if $data.catid eq $c.catid}selected{/if}>{$c.title}</option>
+							{if $c.child}
+								{foreach item=cc from=$c.child}
+								<option  value="{$cc.catid}" {if $data.catid eq $cc.catid}selected{/if}>|--{$cc.title}</option>
+								{/foreach}
+							{/if}
+							{/foreach}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>简介：</td>
+					<td><textarea name="description" id="description" >{$data.description}</textarea></td>
+				</tr>
+				<tr>
+					<td>图片：</td>
+					<td>
+						<div class="js-upload-item">
+							<input type="file" id="upa" class="js-upload-file" style="display: none;" />
+							<div class="upimg-btn js-upload-btn">+</div>
+							<input type="hidden" name="imgurl" class="js-imgurl" value="{$data.imgurl}" />
+							<div class="js-imgbox">
+								{if $data.imgurl}
+								<img src="{$data.imgurl|images_site}.100x100.jpg">
+								{/if}
+							</div>
+						</div>
+				
+					</td>
+				</tr>
+				<tr>
+					<td>作者</td>
+					<td><input type="text" name="author" id="author" value="{$data.author}"></td>
+				</tr>
+				<tr>
+					<td>出版社</td>
+					<td><input type="text" name="publisher" id="publisher" value="{$data.publisher}"></td>
+				</tr>
+				<tr>
+					<td>价格：</td>
+					<td><input type="text" name="price" id="price" value="{$data.price}"></td>
+				</tr>
+				{if $data}
+				<tr>
+					<td>创建时间：</td>
+					<td>{$data.createtime}</td>
+				</tr>
+				{/if}
+				<tr>
+					<td>状态</td>
+					<td>
+						<input type="radio" {if $data.status neq 1} checked="" {/if} name="status" value="2" /> 下线
+						<input type="radio" {if $data.status eq 1} checked="" {/if} name="status" value="1" /> 上线
+					</td>
+				</tr>
+				<tr>
+					<td>内容：</td>
+					<td>
+						<script type="text/plain" id="content" name="content">{$data.content}</script>
+					</td>
+				</tr>
+			</table>
+			<div class="btn-row-submit js-submit">保存</div>
+		</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/static/admin/js/upload.js"></script>
+		{php loadEditor();}
+		<script>
+			var editor = UE.getEditor('content', options);
+		 
+		</script>
+	</body>
+</html>

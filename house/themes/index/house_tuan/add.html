@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">发布看房团</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<form method="post" action="/module.php?m=house_tuan&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<div class="input-flex">
+					<div class="input-flex-label">名称：</div>
+					<input type="text" class="input-flex-text" name="title" id="title" value="{$data.title}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">图片</div>
+					<div class="flex-1">
+						<div class="upimg-box">
+							<input type="file"  class="js-upimg-file" style="display: none;" />
+							<div class="upimg-btn js-upimg-btn">+</div>
+							<input type="hidden" name="imgurl" class="imgurl" value="{$data.imgurl}" />
+							<div class="upimg-img-box js-upimg-btn">
+								{if $data.imgurl} 
+								<img class="upimg-img" src="{$data.imgurl|images_site}.100x100.jpg">
+								{/if} 
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="pd-5">
+					<div class="pd-5 mgb-5 f14">活动简介：</div>
+					<textarea name="description" class="textarea-flex-text">{$data.description}</textarea>
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">开始时间：</div>
+					<input autocomplete="off" class="input-flex-text"  type="text" name="stime" id="stime" value="{$data.stime}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">截止时间：</div>
+					<input autocomplete="off" class="input-flex-text"   type="text" name="etime" id="etime" value="{$data.etime}">
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">限制人数：</div>
+					<input type="text" class="input-flex-text"  name="max_num"   value="{$data.max_num}">
+					<div class="mgl-5">人</div>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">签到红包：</div>
+					<input type="text" class="input-flex-text"  name="hongbao"   value="{$data.hongbao}">
+					<div class="mgl-5">元</div>
+				</div>
+				<div class="input-flex flex-ai-center">
+					<div class="input-flex-label">邀请红包：</div>
+					<input type="text" class="input-flex-text"  name="invite_hongbao"   value="{$data.invite_hongbao}">
+					<div class="mgl-5">元</div>
+				</div>
+				<div class="input-flex mgb-10">
+					<div class="input-flex-label">活动地址：</div>
+					<input type="text" class="input-flex-text"  name="address" id="address" value="{$data.address}">
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label">联系人：</div>
+					<input type="text" class="input-flex-text"  name="truename" id="truename" value="{$data.truename}">
+				</div>
+				
+				<div class="input-flex">
+					<div class="input-flex-label">联系电话：</div>
+					<input type="text" class="input-flex-text"  name="telephone" id="telephone" value="{$data.telephone}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">微信号：</div>
+					<input type="text" class="input-flex-text"  name="wxhao" id="wxhao" value="{$data.wxhao}">
+				</div>
+				<div class="input-flex">
+					<div class="input-flex-label">二维码：</div>
+					 
+					<div class="flex-1">
+						<div class="upimg-box">
+							<input type="file"  class="js-upimg-file" style="display: none;" />
+							<div class="upimg-btn js-upimg-btn">+</div>
+							<input type="hidden" name="wxewm" class="imgurl" value="{$data.wxewm}" />
+							<div class="upimg-img-box js-upimg-btn">
+								{if $data.wxewm} 
+								<img class="upimg-img" src="{$data.wxewm|images_site}.100x100.jpg">
+								{/if} 
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="pd-5">
+					<div class="pd-5 mgb-5 f14">活动详情：</div>
+					<div class="sky-editor-content" name="content" contenteditable="true">{$data.content}</div>
+				</div>  
+					 
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/lrz/lrz.bundle.js"></script>
+		<script src="/plugin/dt-ui/dt-ui-upload.js"></script>
+		<script src="/plugin/skyeditor/skyeditor.js"></script>
+		<script src="/plugin/laydate/laydate.js"></script>
+		 
+		<script>
+			laydate.render({
+				elem:"#stime",
+				type:"datetime"
+			})
+			laydate.render({
+				elem:"#etime",
+				type:"datetime"
+			})
+			 
+		</script>
+	</body>
+</html>

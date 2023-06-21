@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}css/news.css?{$smarty.now}" rel="stylesheet">
+
+<body>
+<div class="header">
+    <div class="header-back"></div>
+    <div class="header-title">我的帖子</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{if empty($list)}
+	<div class="emptyData">暂无帖子</div>
+	{else}
+	<div class="newslist">
+	{foreach item=c from=$list}
+		<div class="row-box bdb">
+ 
+			<div class="d-content">{$c.content}</div>
+			{if $c.videourl}
+			<div class="videobox">
+				<video controls="controls" class="video" src="{$c.videourl|images_site}"></video>
+			</div>
+			{/if}
+			<div class="flex flex-wrap js-thumb-item">
+				{foreach item=p from=$c.imgList}
+				<img class="js-thumb mg-5 wh-40" v="{$p|images_site}" src="{$p|images_site}.100x100.jpg">
+				{/foreach}
+				<div class="clearfix"></div>
+			</div>
+			<div class="flex">
+				<span class="time">{$c.dateline|timeago}</span>
+				<div class="flex-1"></div>
+				<span class="js-recommend mgr-5 cl-primary f12" href="javascript:;" v="{$c.id}">{if $c.isrecommend==1}已{/if}推荐</span>
+				
+				<a class="js-del mgr-5 cl-danger f12" href="javascript:;" v="{$c.id}">删除</a>
+				
+				<a class=" mgr-5 cl-primary f12" href="/module.php?m=group_title&a=add&id={$c.id}&gid={$c.gid}">编辑</a>
+				<span href="javascript:;" class="js-ding mgr-5 cl-primary f12" v="{$c.id}">{if $c.isding==1}已{/if}置顶</span>
+				<div class=" mgr-5 cl-primary f12">
+					{$c.love_num}赞 / {$c.comment_num}评
+				</div>
+				
+				
+				 
+			</div>
+ 
+	</div>
+
+ 
+	{/foreach}
+   	</div>
+	{/if}
+</div>
+{include file="footer.html"} 
+{include file="inc/js_thumb.html"}
+{include file="group_title/comm.html"}
+<style>
+	 
+	.footer-item{
+		line-height: 40px;
+	}
+</style>
+ 
+<script>
+	$(function(){
+		$(document).on("click",".js-del",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			if(confirm("确定删除吗?")){
+				$.get("/module.php?m=group_title&a=delete&ajax=1&id="+id,function(data){
+					if(data.error==0){
+						obj.parents(".item").remove();
+					}
+				},"json")
+			}
+		})
+	})
+</script>
+</body>
+</html>

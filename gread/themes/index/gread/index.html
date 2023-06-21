@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+
+		<div class="header">
+			<a href="/" class="header-back"></a>
+			<div class="header-title">福鼎共享图书</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box">
+				{if $shop}
+
+				<div class="flex" gourl="/module.php?m=gread_shop&a=near">
+					<div class="iconfont icon-location"></div>
+					<div class="cl2">{$shop.title}</div>
+					<div class="flex-1"></div>
+					<div class="iconfont icon-right"></div>
+
+				</div>
+
+				{else}
+				<div class="flex" gourl="/module.php?m=gread_shop&a=near">
+					<div class="iconfont icon-location"></div>
+					<div class="cl2">请选择书店</div>
+					<div class="iconfont icon-right"></div>
+
+				</div>
+				{/if}
+			</div>
+			<div class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper">
+					{foreach item=c from=$flashList}
+					<div class="swiper-slide">
+						<img gourl="{$c.link1}" class="wmax" src="{$c.imgurl}" />
+					</div>
+					{/foreach}
+				</div>
+
+				<div class="swiper-pagination"></div>
+
+			</div>
+			{if $navList}
+			<div class="m-navPic mgb-5">
+			    {foreach item=c from=$navList}
+			    <a href="{$c.link1}" class="m-navPic-item">
+					  <img class="m-navPic-img" src="{$c.imgurl}" />
+					  <div class="m-navPic-title">{$c.title}</div>				   
+			    </a>		
+			    {/foreach}
+			</div>
+			{/if}
+			{if $adList}
+			<div class="adBox">
+				{foreach item=c from=$adList}
+				<div class="adBox-item">
+					<img gourl="{$c.link1}" src="{$c.imgurl}" class="adBox-img" />
+				</div>
+				{/foreach}
+			
+			</div>
+			{/if}
+			<div class="row-box-hd pdl-10">
+				<div class="flex-1 f16">书馆资讯</div>
+				<div gourl="/module.php?m=gread_article" class="row-box-more">更多</div> 
+			</div>
+			{foreach item=c from=$articleList}
+			<a href="/module.php?m=gread_article&a=show&id={$c.id}" class="sglist-item">
+				{if $c.imgurl}
+				<div class="sglist-imgbox">
+					<img class="sglist-img" src="{$c.imgurl}.middle.jpg" />
+				</div>
+				{/if}
+				<div class="sglist-title">{$c.title}</div>
+				<div class="sglist-desc">{$c.description}</div>
+				 
+			</a>
+			{/foreach}
+			<div class="row-box-hd pdl-10">
+				<div class="flex-1 f16">新书上架</div>
+				<div gourl="/module.php?m=gread_book&a=new" class="row-box-more">更多</div> 
+			</div>
+			<div class="flexlist">
+
+				{foreach item=c from=$bookList}
+				<div gourl="/module.php?m=gread_book&a=show&bookid={$c.bookid}" class="flexlist-item">
+					<img src="{$c.imgurl}.100x100.jpg" class="flexlist-img" />
+					<div class="flex-1">
+						<div class="flexlist-title">{$c.title}</div>
+						<div class="flexlist-desc">{$c.description}</div>
+					</div>
+				</div>
+				{/foreach}
+			</div>
+		</div>
+		{assign var="mfooter" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script>
+			$(function() {
+				var flash = new Swiper("#indexFlash");
+			})
+		</script>
+		<?php wx_jssdk();?>
+		
+	</body>
+</html>

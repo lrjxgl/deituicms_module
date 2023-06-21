@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">兼职报名列表</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	<div class="row-box mgb-5">
+		{$jianzhi.title}
+	</div>
+	{if empty($list)}
+	<div class="emptyData">暂无报名</div>
+	{/if}
+    {foreach item=c from=$list}
+	 <div class="bg-white pd-10 mgb-5">
+	 	  <div class="c1 f16 mgb-5">联系人：{$c.nickname}</div>
+		   <div class="cl2  mgb-5">联系电话：{$c.telephone}</div>
+	 	  <div class="mgb-5 cl2">
+	 		  报名时间：{$c.createtime}	 		   
+	 	  </div>
+ 
+	 	  <div class="cl2">
+	 		 简介： {$c.description}
+	 	  </div>
+	 </div>
+	{/foreach} 
+</div>
+{include file="footer.html"}
+</body>
+</html>

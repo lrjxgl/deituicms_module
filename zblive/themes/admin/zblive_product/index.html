@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">直播产品:{$zblive.title}</div>
+		<div class="main-body" id="App">
+			<div class="search-form">
+				<div class="flex flex-ai-center">
+					<div class="mgr-5">名称</div>
+					<input v-model="title" type="text" class="input-flex-text" />
+					<div @click="search" class="btn">搜一下</div>
+				</div>
+			</div>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>图片</td>
+						<td>名称</td>
+						<td>价格</td>
+						<td>上架</td>
+						<td>排序</td>
+						
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tr  v-for="(item,index) in list" :key="index">
+					<td><img :src="item.imgurl+'.100x100.jpg' " class="flexlist-img" /></td>
+					<td>{{item.title}}</td>
+					<td>￥{{item.price}}</td>
+					<td>
+						<div v-if="item.status==1" class="yes"></div>
+						<div v-else class="no"></div>
+					</td>
+					<td><input type="text" class="input-flex-text" v-model="item.orderindex" /></td>
+					<td>
+						<div v-if="item.status!=1" @click="up(item)" class="btn">上架</div>
+						<div  v-if="item.status==1"  @click="down(item)" class="btn">下架</div>
+						<div @click="change(item)" class="btn">修改</div>
+						<div @click="del(item)" class="btn">删除</div>
+						 
+					</td>
+				</tr>
+			</table>
+			 
+			
+			<div class="" v-if="proShow">
+				<div @click="proShow=false" class="modal-mask"></div>
+				<div class="modal">
+					<div class="flexlist-item" v-for="(item,index) in proList" :key="index">
+						<img :src="item.imgurl+'.100x100.jpg' " class="flexlist-img" />
+						<div class="flex-1">
+							<div class="flexlist-title">{{item.title}}</div>
+							<div class="flex">
+								<div class="cl2 mgr-5">促销价</div>
+								<div class="cl-money">￥{{item.price}}</div>
+							</div>
+						</div>
+						<div>
+							<div @click="add(item.id)" class="btn">添加</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"} 
+		<script>
+			var room_id="{$zblive.id}";
+		</script>
+		<script>
+			var room_id="{$zblive.id}";
+			var ws_gid="{$ws_gid}";
+			var ws_uid="{$ws_uid}";
+			var ws_host="{$ws_host}";
+			var video;
+			var ssuser;
+			var iswap={if ISWAP}1{else}0{/if};
+			var msApp;
+		</script>
+		<script src="{$skins}zblive_product/msg.js"></script>
+		<script src="{$skins}zblive_product/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}css/news.css?{$smarty.now}" rel="stylesheet">
+
+<body>
+<div class="header">
+		<div class="header-back"></div> 
+		<div class="header-title">主题管理</div>
+	</div>
+	<div class="header-row"></div>
+ 
+<div class="main-body">
+	<div class="tabs-border">
+		<a class="tabs-border-item {if get('isrecommend')==0 && get('isforbid')==0 && get('isding')==0}tabs-border-active{/if}" href="/module.php?m=group_title&a=admin&gid={$group.gid}">全部</a>
+		<a class="tabs-border-item {if get('isrecommend')==1}tabs-border-active{/if}" href="/module.php?m=group_title&a=admin&isrecommend=1&gid={$group.gid}">推荐</a>
+		<a class="tabs-border-item {if get('isforbid')==1}tabs-border-active{/if}" href="/module.php?m=group_title&a=admin&isforbid=1&gid={$group.gid}">禁止</a>
+		<a class="tabs-border-item {if get('isding')==1}tabs-border-active{/if}" href="/module.php?m=group_title&a=admin&isding=1&gid={$group.gid}">置顶</a>
+	</div> 
+	<div class="newslist">
+	{foreach item=c from=$list}
+		<div class="row-box item bdb mgb-5">
+ 
+			<div class="d-content">{$c.content}</div>
+			{if $c.videourl}
+			<div class="videobox">
+				<video controls="controls" class="video" src="{$c.videourl|images_site}"></video>
+			</div>
+			{/if}
+			<div class="flex flex-wrap mgb-5 js-thumb-item">
+				{foreach item=p from=$c.imgList}
+				<div class="img ">
+					<img class="wh-40 mg-5 js-thumb" v="{$p|images_site}" src="{$p|images_site}.100x100.jpg">
+				</div> 
+				{/foreach}
+				<div class="clearfix"></div>
+			</div>
+			<div class="flex">
+				<span class="time">{$c.dateline|timeago}</span>
+				<div class="flex-1"></div>
+				<a class="js-recommend cl3 f12 mgr-5" href="javascript:;" v="{$c.id}">{if $c.isrecommend==1}已{/if}推荐</a>
+				
+				<a class="cl3 f12 mgr-5 {if $c.status==4}js-pass{else}js-forbid{/if}" href="javascript:;" v="{$c.id}">{if $c.status==4}已{/if}禁止</a>
+				<a href="javascript:;" class="cl3 f12 mgr-5 js-ding" v="{$c.id}">{if $c.isding==1}已{/if}置顶</a>
+				
+				<a class="cl3 f12 mgr-5" href="/module.php?m=group_title&a=add&id={$c.id}&gid={$c.gid}">编辑</a>
+				<div  class="cl3 f12">
+					{$c.love_num}赞 / {$c.comment_num}评
+				</div>
+				
+				
+				 
+			</div>
+ 
+	</div>
+
+ 
+	{/foreach}
+   	</div>
+</div>
+{include file="admin_footer.html"}
+{include file="footer.html"}
+{include file="inc/js_thumb.html"}
+{include file="group_title/comm.html"}
+<script>
+	$(function(){
+		$(document).on("click",".js-recommend",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/module.php?m=group_title&a=recommend&ajax=1&id="+id,function(data){
+				if(data.data==1){
+					obj.text("推荐成功");
+				}else{
+					obj.text("取消成功");
+				}
+			},"json")
+		})
+		
+		$(document).on("click",".js-forbid",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/module.php?m=group_title&a=forbid&ajax=1&id="+id,function(data){
+				obj.text("禁止成功");
+			},"json")
+		})
+		
+		$(document).on("click",".js-pass",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/module.php?m=group_title&a=pass&ajax=1&id="+id,function(data){
+				obj.text("审核成功");
+			},"json")
+		})
+		
+		$(document).on("click",".js-ding",function(){
+			var id=$(this).attr("v");
+			var obj=$(this);
+			$.get("/module.php?m=group_title&a=ding&ajax=1&id="+id,function(data){
+				if(data.data==1){
+					obj.text("置顶成功");
+				}else{
+					obj.text("取消成功");
+				}
+			},"json")
+		})
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">商家保证金</div>
+		<div class="main-body">
+			<form class="search-form" action="/moduleadmin.php" autocomplete="off">
+				<input type="hidden" name="m" value="wmo2o_shop_earnest" />
+				<div class="flex flex-ai-center">
+				shopid:<input class="w60" type="text" name="shopid" value="{$smarty.get.shopid|intval}" />
+				名称：<input class="w100" type="text" name="shopname" value="{$smarty.get.shopname|html}" />
+				 
+				<button class="btn-small mgl-10" type="submit">搜一下</button>
+				</div>
+			</form>
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>商家</td>
+						<td>金额</td>
+						<td>更新时间</td>
+						<td>操作</td>
+					</tr>
+				</thead>
+				<tbody>
+					{foreach item=c from=$list}
+					<tr>
+						<td>{$c.shopid}::{$c.shopname}</td>
+						<td>￥{$c.money}</td>
+						<td>{$c.lasttime}</td>
+						<td>
+							<div shopid="{$c.shopid}" class="btn-mini btn-outline-warning js-change-btn">扣除</div>
+						</td>
+					</tr>
+					{/foreach}
+				</tbody>
+			</table>
+			{$pagelist}
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/skyJs.js?v3"></script>
+		<script>
+			$(function(){
+				var shopid=0;
+				 
+				$(document).on("click",".js-change-btn",function(){
+					shopid=$(this).attr("shopid");
+					var html=`
+						<div></div>
+						<div class="input-flex flex-ai-center">
+							<div class="input-flex-label">金额</div>
+							<input id="saveMoney" class="input-flex-text" />
+							<div class="mgl-5">元</div>
+						</div>
+						<div class="input-flex flex-ai-center">
+							<div class="input-flex-label">扣除原因</div>
+							<input id="saveContent" class="input-flex-text" />
+							 
+						</div>
+						<div id="saveBtn" class="btn-row-submit">确认扣除</div>
+					`;
+					skyJs.showBox({
+						width:480,
+						content:html
+					})
+				})
+				
+				$(document).on("click","#saveBtn",function(){
+					var money=$("#saveMoney").val();
+					var content=$("#saveContent").val();
+					var that=this;
+					$.ajax({
+						url:"/moduleadmin.php?m=wmo2o_shop_earnest&a=save&ajax=1",
+						dataType:"JSON",
+						type:"POST",
+						data:{
+							shopid:shopid,
+							money:money,
+							saveContent:content
+						},
+						success:function(res){
+							skyJs.toast(res.message);
+							if(res.error){
+								return false;
+							}
+							setTimeout(function(){
+								window.location.reload();
+							},600)
+							
+						}
+					})
+				})
+			})
+		</script>
+	</body>
+</html>

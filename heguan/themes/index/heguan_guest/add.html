@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">头部</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    
+    	<form method="post" action="/module.php?m=heguan_guest&a=save">
+<input type="hidden" name="id" style="display:none;" value="{$data.id}" >
+<div class="input-flex">
+						<div class="input-flex-label">heid：</div>		
+						<input type="text" name="heid" id="heid" class="input-flex-text" value="{$data.heid}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">投诉类型：</div>		
+						<input type="text" name="typeid" id="typeid" class="input-flex-text" value="{$data.typeid}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">标题：</div>		
+						<input type="text" name="title" id="title" class="input-flex-text" value="{$data.title}"  /> 
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">简介：</div>		
+						<textarea name="description" id="description" class="textarea-flex-text h60"   />{$data.description}</textarea> 
+						</div>
+<div class="input-flex flex-ai-center">
+						<div class="input-flex-label">状态：</div>		
+						<div class="flex-1 flex flex-ai-center">
+							<input type="radio" class="radio" {if $data.status eq 1}checked{/if} name="status"  value="1" > 上线
+							<input type="radio" class="radio" {if $data.status neq 1}checked{/if} name="status"  value="2" > 下线
+						</div>
+						</div>
+{if $data}<div class="input-flex">
+						<div class="input-flex-label">createtime：</div>		
+						{$data.createtime}
+						</div>{/if}
+<div class="input-flex">
+						<div class="input-flex-label">主图：</div>		
+						<div class="flex-1">
+							<div class="upimg-box bg-fff">
+								<div class="upimg-item {if !$data.imgurl}none{/if} js-upimg-btn">
+									<img class="upimg-img" src="{$data.trueimgurl}.100x100.jpg">								 
+								</div>
+								
+								<div class="upimg-btn js-upimg-btn">
+									<i class="upimg-btn-icon"></i>
+								</div>
+							
+								<input type="hidden" name="imgurl" value="{$data.imgurl}" class="imgurl" />
+								<input style="display: none;" type="file" name="upimg"  class="js-upimg-file" /> 
+							</div> 
+						</div>
+						</div>
+<div class="input-flex">
+						<div class="input-flex-label">图集：</div>		
+						<div class="flex-1">
+						{include file="inc/uploader-data.html"}
+						</div>
+						</div>
+ <div class="btn-row-submit js-submit">保存</div> 
+</form>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

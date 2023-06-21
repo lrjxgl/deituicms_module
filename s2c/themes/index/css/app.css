@@ -1,0 +1,57 @@
+/**头部风格***/
+.header{
+ 
+ background-color: #f75451;	
+ box-shadow: none;
+}
+.header-back:after,.header-title{color: #fff;}
+
+.header-search{
+	background-color: rgba(0,0,0,.1);
+	border: 0 !important;
+	color: #fff;
+}
+.header-search-icon{
+	color: #fff;
+}
+.header-right{
+	color: #fff;
+}
+.header-right-btn{
+	color: #fff;
+	border-color: #fff;
+}
+.header-search-btn{
+	background-color: #ff815a;
+	color: #fff;
+}
+
+.side-menu {
+	cursor: pointer;
+	padding: 10px 5px;
+	border-bottom: 1px solid #eee;
+	color: #646464;
+	font-size: 14px;
+}
+
+.kslist {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding-left: 10px;
+}
+
+.kslist-label {
+	margin-right: 6px;
+	color: #646464;
+}
+
+.kslist-item {
+	border: 1px solid #eee;
+	padding: 4px 8px;
+	margin-right: 10px;
+}
+
+.kslist-active {
+	color: #007AFF;
+}

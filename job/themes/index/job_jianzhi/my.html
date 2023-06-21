@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">兼职管理</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+  {foreach item=c from=$list}
+  <div class="bg-white pd-10 mgb-5">
+	  <div class="c1 f16 mgb-5">{$c.title}</div>
+	  <div class=" mgb-5 flex">
+	  		  <div class="flex-1 cl2"> {if $c.status eq 1}已上线{else}未上线{/if}</div>
+	  		  <div class=" flex">
+				  <div class="cl2">{if $c.ispay eq 1}已支付{else}未支付{/if}  支付金额</div>
+					<div class="cl-money">￥{$c.paymoney}</div>
+			   </div>
+	  </div>
+	  <div class="flex mgb-5">
+		  时间：{$c.startTime}
+		  <div class="flex-1">
+			  
+		  </div>
+		  工资 <div class="cl-money">￥{$c.money}</div>/天
+	  </div>
+	  <div class="cl2  mgb-5">地点：{$c.address}</div>
+	  
+	  <div class="cl2 mgb-5">
+		  {$c.description}
+	  </div>
+	  <div class="mgb-10 flex">
+		  <div class="flex-1">报名 {$c.bm_num}位</div>
+		  <div>查看 {$c.view_num}次</div>
+	  </div>
+	  <div class="flex flex-jc-center">
+		  {if !$c.ispay}
+		  <div gourl="/module.php?m=job_jianzhi&a=pay&id={$c.id}" class="btn-small mgr-10">去支付</div>
+		  {/if}
+		  <div gourl="/module.php?m=job_jianzhi&a=show&id={$c.id}" class="btn-small mgr-5">查看</div>
+		  <div gourl="/module.php?m=job_jianzhi_baoming&a=jianzhi&objectid={$c.id}" class="btn-small">报名管理</div>
+	  </div>
+  </div>
+  {/foreach}
+<div>{$pagelist}</div>
+  
+</div>
+{include file="ftnav.html"}
+{include file="footer.html"}
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">Vip卡充值</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="radioList bg-white">
+				<input type="text" class="none radioList-value" id="opsid" value="" name="id" />
+				{foreach item=c from=$list}
+				<div class="radioList-item js-radioList-item" data-value="{$c.id}">
+					
+					充￥{$c.paymoney} 获得￥{$c.money}
+				</div>
+				{/foreach}
+			</div>
+			<div class="row-box mgb-5">
+				<div class="row-box-hd mgb-10">支付方式</div>
+			
+				<div class="radioList">
+					<input type="text" class="none radioList-value" name="paytype" id="paytype" value="">
+					{foreach item=c key=k from=$paytypeList}
+					<div class="radioList-item js-radioList-item" data-value="{$k}">			
+						{$c}
+					</div>
+					{/foreach} 
+					 
+			
+				</div>
+			</div>
+			<div class="btn-row-submit" id="submit">立即充值</div>
+		</div>
+		{include file="footer.html"}
+		<script>
+			$(document).on("click",".js-radioList-item",function(){
+				var p=$(this).parents(".radioList");
+				var v=$(this).attr("data-value");
+				p.find(".radioList-value").val(v);
+				$(this).addClass("radioList-item-active").siblings().removeClass("radioList-item-active");
+				
+			})
+			$(document).on("click","#submit",function(){
+				var opsid=$("#opsid").val();
+				var paytype=$("#paytype").val();
+				if(opsid==''){
+					skyToast("请选择充值金额");
+					return false;
+				}
+				if(paytype==''){
+					skyToast("请选择充值方式");
+					return false;
+				}
+				window.location="/module.php?m=vipcard_recharge&a=recharge&opsid="+opsid+"&paytype="+paytype;
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-title">拼车订单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body none" :class="'flex-col'" id="App">
+			<div v-if="Object.keys(list).length==0" class="emptyData">
+				暂无订单
+			</div>
+			<div v-else class="row-box mgb-5" v-for="(item,index) in list" :key="index">
+				<div class="bd-mp-10 flex">
+					<div class="cl-primary">{{item.line.title}}</div>
+					<div class="cl2 mgl-10">人数 {{item.usernum}}</div>
+					<div class="flex-1"></div>
+					<div class="cl-money">￥{{item.money}}</div>
+				</div>
+				
+				<div class="flex">
+					<div class="cl-status mgr-10">{{item.status_name}}</div>
+					<div class="cl2 mgr-5">上车时间</div>
+					<div class="cl-red">{{item.wait_etime_fmt}}</div>
+					<div class="flex-1"></div>
+					
+					<div @click="goOrder(item)" class="btn-small">查看</div>
+				</div>
+			</div>
+		</div>
+		{assign var="ftnav" value="group"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script src="{$skins}pinche_group/index.js"></script>
+	</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.mapImg{
+			overflow: auto;
+			height: 200px;
+		}
+		.mapImg img{
+			width: 100%;
+			height: auto;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-title">附近</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div id="allmap" style="height:480px"></div>
+			<div id="list">
+				
+			</div>
+		</div>
+		<div class="footer">
+			<div gourl="/module.php?m=photo" class="footer-item icon-home">摄影</div>
+			<div gourl="/module.php?m=photo&a=maps" class="footer-item footer-active icon-location_light">附近</div>
+		</div>
+	{include file="footer.html"}
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak={const.BDMAPKEY}"></script>
+	<script>
+		
+	</script>
+	<script>
+		var width=$("body").width();
+		var height=$(window).innerHeight();
+		
+		$("#allmap").css("width",width);
+		$("#allmap").css("height",height-100);
+		var map = new BMap.Map("allmap");    // 创建Map实例
+		map.enableScrollWheelZoom(true);
+		map.centerAndZoom(new BMap.Point(120.240986, 27.316632), 11);
+		// 添加带有定位的导航控件
+		  var navigationControl = new BMap.NavigationControl({
+			// 靠左上角位置
+			anchor: BMAP_ANCHOR_TOP_LEFT,
+			// LARGE类型
+			type: BMAP_NAVIGATION_CONTROL_LARGE,
+			// 启用显示定位
+			enableGeolocation: true
+		  });
+		  map.addControl(navigationControl);
+		 var geolocationControl = new BMap.GeolocationControl();
+		    map.addControl(geolocationControl);
+		map.addControl(new BMap.MapTypeControl({
+				mapTypes:[
+					BMAP_NORMAL_MAP,
+					BMAP_HYBRID_MAP
+				]}));
+		map.enableScrollWheelZoom(true);
+		map.setMapType(BMAP_SATELLITE_MAP)
+		map.enableScrollWheelZoom(true);
+		getList();
+		var mks=[];
+		var mkdata=[];
+		var opts = {
+		width : 250,     // 信息窗口宽度
+		height: 250,     // 信息窗口高度
+		title : "照片说明" , // 信息窗口标题
+		enableMessage:true//设置允许信息窗发送短息
+	   };
+		function addClickHandler(content,marker){
+			marker.addEventListener("click",function(e){
+				openInfo(content,e)}
+			);
+		}
+		function openInfo(content,e){
+			var p = e.target;
+			var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+			var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+			map.openInfoWindow(infoWindow,point); //开启信息窗口
+			 
+			
+		}
+		function getList(){
+			$.get("/module.php?m=photo&ajax=1",function(res){
+				for(var i in res.data.list){
+					var rs=res.data.list[i];
+					var point=new BMap.Point(rs.lng, rs.lat);
+					var marker = new BMap.Marker(point);
+					var label = new BMap.Label(rs.title,{offset:new BMap.Size(-20,-30)});
+					marker.setLabel(label);
+					mks.push(marker);
+					mkdata.push(rs);
+					map.addOverlay(marker);
+					content='<div>'+rs.description+'</div><a href="/module.php?m=photo&a=show&id='+rs.id+'"  class="mapImg"><img class="mapImg-img" src="'+rs.imgurl+'.small.jpg"/></a>';
+					addClickHandler(content,marker);
+				}
+				
+			},"json")
+		}
+	</script>
+	</body>
+</html>

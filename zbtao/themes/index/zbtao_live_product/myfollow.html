@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">想要的商品</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+    
+	<div class="flexlist">
+		 
+		<div @click="goLive(item.liveid)" v-for="(item,index) in list" :key="index" class="flexlist-item">
+			<img class="flexlist-img" :src="item.imgurl+'.small.jpg'" />
+			<div class="flex-1">
+				
+				<div class="flexlist-title">{{item.title}}</div>
+				<div class="flex">
+					<div class="cl-money">{{item.price}}</div>
+					<div class="flex-1"></div>
+					<div class="market-price">{{item.market_price}}</div>
+				</div>
+			</div>
+		</div>
+		 
+	</div>
+    
+</div>
+ 
+{include file="footer.html"}
+<script src="{$skins}zbtao_live_product/myfollow.js"></script>
+</body>
+</html>

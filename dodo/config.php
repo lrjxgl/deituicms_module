@@ -1,0 +1,11 @@
+<?php
+$config=array(
+	"title"=>"定时目标",//模块名称
+	"module"=>"dodo",//模块目录
+ 	"version"=>1.0,//当前版本
+	"info"=>"定时目标是一款让人定制有时间期限的目标的应用",//模块信息
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=dodo&a=menu",
+	"check_update"=>"http://www.deituicms.com",
+);
+?>

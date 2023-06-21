@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}xiangqin_user/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			 
+			<div class="header-title">个人中心</div>
+			 
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="uhead" v-if="pageLoad">
+
+				<image gourl="/index.php?m=user&a=user_head" class="uhead-img" src="{$user.user_head}.100x100.jpg"></image>
+
+				<div class="uhead-box">
+					<div class="uhead-nick">{$user.nickname}</div>
+					 
+					<div class="uhead-rnum flex  flex-ai-center">
+						金币
+						<text class="cl-money mgl-5 mgr-5">{$user.gold}</text>
+
+						积分
+						<text class="cl-money mgl-5">{$user.grade}</text>
+
+					</div>
+				</div>
+				<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+			</div>
+			<div class="row-box mgb-5">
+				
+				<div gourl="/module.php?m=xiangqin_people&a=add" class="row-item">
+					<div class="row-item-icon icon-people  cl-u"></div>
+					<div class="row-item-title">相亲信息</div>
+				</div>
+				{if XIANGQIN_PARTY_ON}
+				<div gourl="/module.php?m=party&a=my" class="row-item">
+					<div class="row-item-icon icon-activity  cl-u"></div>
+					<div class="row-item-title">我创建的活动</div>
+				</div>
+				<div gourl="/module.php?m=party_join&a=my"  class="row-item">
+					<div class="row-item-icon icon-group_light  cl-u"></div>
+					<div class="row-item-title">我参与的活动</div>
+				</div>
+				{/if} 
+				<div gourl="/module.php?m=xiangqin_friend" class="row-item">
+					<div class="row-item-icon icon-friend  cl-u"></div>
+					<div class="row-item-title">互动好友</div>
+				</div>
+				 
+				<div gourl="/module.php?m=xiangqin_biaobai&a=my" class="row-item">
+					<div class="row-item-icon icon-like  cl-u"></div>
+					<div class="row-item-title">我的表白</div>
+				</div>
+				
+				 
+			</div>		
+			<div class="row-box mgb-5">	 
+				<div gourl="/index.php?m=user_auth" class="row-item">
+					<div class="row-item-icon icon-vipcard  cl-u"></div>
+					<div class="row-item-title">实名认证</div>
+				</div>
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service  cl-u"></div>
+					<div class="row-item-title">联系客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info  cl-u"></div>
+					<div class="row-item-title">关于我们</div>
+				</div>
+			</div>
+			
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}	
+	</body>
+</html>

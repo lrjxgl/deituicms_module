@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">在线打印</div>
+		</div>
+		 
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="row-box">
+			{if $shop}
+			
+			<div class="flex" gourl="/module.php?m=olprint_shoplist">
+				<div class="iconfont icon-location"></div>
+				<div class="cl2">{$shop.shopname}</div>
+				<div class="flex-1"></div>
+				<div class="iconfont icon-right"></div>
+			
+			</div>
+			
+			{else}
+			<div class="flex" gourl="/module.php?m=olprint_shoplist">
+				<div class="iconfont icon-location"></div>
+				<div class="cl2">请选择书店</div>
+				<div class="iconfont icon-right"></div>
+			
+			</div>
+			{/if}
+			</div> 
+			<img src="{$skins}banner.jpg" class="mgb-5" style="width: 100%;" />
+			<style>
+				.m-navPic-item{
+					width:25%;
+				}
+			</style>
+			<div class="m-navPic mgb-5 flex-center">
+				<div gourl="/module.php?m=olprint_order&a=add&ptype=a4" class="m-navPic-item">
+					<div class="m-navPic-icon icon-text"></div>
+					<div class="m-navPic-title">我要打印</div>
+				</div>
+				
+				<div gourl="/module.php?m=olprint_book" class="m-navPic-item">
+					<div class="m-navPic-icon icon-hot_light"></div>
+					<div class="m-navPic-title">热门资料</div>
+				</div>
+				 
+			</div>
+			{foreach item=c from=$list}
+			<div gourl="/module.php?m=olprint_book&a=show&bookid={$c.bookid}" class="row-box mgb-5">
+				<div class="mgb-5">{$c.title}</div>
+				<div class="flex flex-ai-center mgb-5">
+					<div class="cl-money mgr-10">￥{$c.money}</div>
+					
+					<div class="flex-1"></div>
+					<div class="cl2 f12 mgr-10">共{$c.page_num}页</div>
+					<div class="cl2 f12 mgr-10">/</div>
+					<div class="cl2 f12">打印{$c.print_num}次</div>
+					
+				</div>
+				<div class="cl3 f12">{$c.description}</div>
+			</div> 
+			{/foreach}
+			 
+		</div>
+		{assign var="ftnav" value="index"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

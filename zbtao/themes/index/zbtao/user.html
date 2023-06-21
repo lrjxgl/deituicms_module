@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		<div class="flex pd-10 pdl-5 mgb-5 bg-white flex-ai-center">
+			<image gourl="/index.php?m=user&a=user_head" class="wh-60 mgr-5 bd-radius-50" src="{$user.user_head}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="f16 cl1 mgb-5">{$user.nickname}</div>
+				<div class="flex flex-ai-center"> 
+					<div class="mgr-5">金币</div>
+					<div class="mgr-10 cl-num">{$user.gold}</div>
+					<div class="mgr-5">积分</div>
+					<div class="mgr-10 cl-num">{$user.grade}</div> 
+				</div>
+			</div>
+			<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+		</div>
+			{if !$ppApply && !$pp}
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=zbtao_pp_apply" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">申请入驻</div>
+				</div>
+			</div>
+			{/if}
+			{if $pp}
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=zbtao_live&a=add" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">发起直播</div>
+				</div>
+				<div gourl="/module.php?m=zbtao_live&a=my" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">我的直播</div>
+				</div>
+				<div gourl="/module.php?m=zbtao_pp&a=edit" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">主播资料</div>
+				</div>
+				<div gourl="/module.php?m=zbtao_pp_pts&a=my" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">直播平台</div>
+				</div>
+				<div gourl="/module.php?m=zbtao_pp_tag&a=my" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">主播标签</div>
+				</div>
+			</div>
+			{/if}
+			<div class="row-box mgb-5">
+				<div gourl="/module.php?m=zbtao_pp&a=myfollow" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">关注的主播</div>
+				</div>
+				<div gourl="/module.php?m=zbtao_live&a=myfollow" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">关注的直播</div>
+				</div>
+				<div gourl="/module.php?m=zbtao_live_product&a=myfollow" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">想要的商品</div>
+				</div>
+				<div gourl="/module.php?m=zbtao_user_tag&a=my" class="row-item">
+					<div class="row-item-icon cl-u icon-news"></div>
+					<div class="flex-1 cl-u ">个性化标签</div>
+				</div> 
+				 
+				 
+			</div>
+			<div class="row-box">
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service_light cl-u"></div>
+					<div class="flex-1 cl-u">在线客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info cl-u"></div>
+					<div class="flex-1 cl-u">关于我们</div>
+				</div> 
+			</div>
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

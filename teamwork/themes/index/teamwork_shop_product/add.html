@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+		<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">项目编辑</h1>
+	</header>
+	<div class="mui-content">
+		<div class="mui-content-padded">
+			<form method="post" action="index.php?m=shop_product&a=save">
+				<input type="hidden" name="id" style="display:none;" value="{$data.id}">
+				<div class="input-flex">
+					<div class="label">项目名称</div>
+				 
+						<input type="text" class="text" name="title" id="title" value="{$data.title}">
+					 
+				</div>
+				<div class="input-flex">
+					<div class="label">描述</div>
+					<div class="flex-1">
+						<textarea name="description" class="textarea">{$data.description}</textarea>
+					</div>
+					
+				</div>
+				{if ISWAP}
+				<textarea id="content" name="content" style="display: none;"></textarea>
+				<div class="sky-editor-content" id="js-content" contenteditable="true">{$data.content}</div>
+				
+				{else}
+				<script type="text/plain" name="content" id="content"  style="height: 300px;" >{$data.content}</script>
+				{/if} 
+				<div class="btn-row-submit" id="submit">添加</div>
+				 
+			</form>
+		</div>
+	</div>
+	 
+	{if ISWAP}
+	<script src="/plugin/skyeditor/skyeditor.js"></script>
+	{else}
+	{php loadEditor(0);}
+	<script language="javascript">
+		var editor=UE.getEditor('content',options)
+	</script>
+	{/if}
+	<script>
+		 
+		$(function(){
+			$(document).on("click","#submit",function(){
+				{if ISWAP}
+				$("#content").val($("#js-content").html());
+				{/if}
+				$.post($(this).parents("form").attr("action")+"&ajax=1",$(this).parents("form").serialize(),function(res){
+					mui.toast(res.message);
+					if(!res.error){
+						goBack();
+					}
+				},"json")
+			})
+			
+		})
+	</script>
+</body>
+
+</html>

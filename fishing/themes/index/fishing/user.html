@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	 
+	<body>
+		<div class="header">
+			<div class="header-title">我的</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+		<div class="flex pd-10 pdl-5 mgb-5 bg-white flex-ai-center">
+			<image gourl="/index.php?m=user&a=user_head" class="wh-60 mgr-5 bd-radius-50" src="{$user.user_head}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="f16 cl1 mgb-5">{$user.nickname}</div>
+				<div class="flex flex-ai-center"> 
+					<div class="mgr-5">钓点</div>
+					<div class="mgr-10 cl-num">{$place_num}</div>
+					<div class="mgr-5">动态</div>
+					<div class="mgr-10 cl-num">{$blog_num}</div>
+					<div class="mgr-5">打卡</div>
+					<div class="mgr-10 cl-num">{$checkin_num}</div>
+				</div>
+			</div>
+			<div gourl="/index.php?m=user&a=set" class="flex-center btn-small btn-link iconfont icon-settings"></div>
+		</div>
+			<div class="row-box mgb-5">
+				<div class="bd-mp-10 fw-600">钓鱼比赛</div>
+				<div class="flex flex-wrap">
+					<div gourl="/module.php?m=fsw_user&a=add" class="m-navPic-item">
+						<div class="m-navPic-icon icon-edit_light"></div>
+						<div class="m-navPic-title">钓手信息</div>
+					</div>
+					<div gourl="/module.php?m=fsw_activity&a=myjoin" class="m-navPic-item">
+						<div class="m-navPic-icon  icon-news"></div>
+						<div class="m-navPic-title">参与比赛</div>
+					</div>
+					<div gourl="/module.php?m=fsw_match&a=myjoin" class="m-navPic-item">
+						<div class="m-navPic-icon   icon-news"></div>
+						<div class="m-navPic-title">参与联赛</div>
+					</div>
+					<div gourl="/module.php?m=fsw_match&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon cl-u icon-news"></div>
+						<div class="m-navPic-title">发起联赛</div>
+					</div>
+					
+					<div gourl="/module.php?m=fsw_activity&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon cl-u icon-news"></div>
+						<div class="m-navPic-title">发起比赛</div>
+					</div>
+				</div>
+				
+				
+			</div>
+			
+			<div class="row-box mgb-5">
+				<div class="bd-mp-10 fw-600">公益增殖放流</div>
+				<div class="flex flex-wrap">
+					
+					<div  gourl="/module.php?m=fishing_free_activity&a=myjoin" class="m-navPic-item">
+						<div class="m-navPic-icon icon-my_light" ></div>
+						<div class="m-navPic-title">参与活动</div>
+					</div>
+					 
+					<div  gourl="/module.php?m=fishing_free_order&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-like" ></div>
+						<div class="m-navPic-title">我的捐赠</div>
+					</div>
+					<div gourl="/module.php?m=fishing_free_place&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-edit_light" ></div>
+						<div class="m-navPic-title">位置管理</div>
+					</div>
+					<div  gourl="/module.php?m=fishing_free_activity&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-edit_light" ></div>
+						<div class="m-navPic-title">活动管理</div>
+					</div>
+				</div> 
+				
+			</div>	
+				
+			<div class="row-box mgb-5">
+				<div class="bd-mp-10 fw-600">渔获交易</div>
+				<div class="flex flex-wrap">
+					<div gourl="/module.php?m=fenlei&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-news"></div>
+						<div class="m-navPic-title">我的发布</div>
+					</div>
+					<div gourl="/module.php?m=fenlei&a=add&catid=78" class="m-navPic-item">
+						<div class="m-navPic-icon icon-edit_light"></div>
+						<div class="m-navPic-title">发布渔获</div>
+					</div>
+					<div gourl="/module.php?m=fenlei&a=add&catid=78" class="m-navPic-item">
+						<div class="m-navPic-icon icon-edit_light"></div>
+						<div class="m-navPic-title">预约渔获</div>
+					</div>
+				</div> 
+			</div>	
+			<div class="row-box mgb-5">
+				<div class="bd-mp-10 fw-600">我的帖子</div>
+				<div class="flex flex-wrap">
+					<div gourl="/module.php?m=fishing_blog&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon  icon-news"></div>
+						<div class="m-navPic-title">我的动态</div>
+					</div>
+					<div gourl="/module.php?m=fishing_blog&a=add" class="m-navPic-item">
+						<div class="m-navPic-icon  icon-edit"></div>
+						<div class="m-navPic-title">发布动态</div>
+					</div>
+					<div gourl="/module.php?m=fishing_blog_comment&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon  icon-comment_light"></div>
+						<div class="m-navPic-title">我的评论</div>
+					</div>
+					<div gourl="/module.php?m=fishing_checkin&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-location"></div>
+						<div class="m-navPic-title">我的打卡</div>
+					</div>
+				</div> 
+			</div> 
+			<div class="row-box mgb-5">
+				<div class="bd-mp-10 fw-600">钓点</div>
+				<div class="flex flex-wrap">
+					<div gourl="/module.php?m=fishing_place&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-news"></div>
+						<div class="m-navPic-title">我的钓点</div>
+					</div>
+					<div gourl="/module.php?m=fishing_fav&a=my" class="m-navPic-item">
+						<div class="m-navPic-icon icon-news"></div>
+						<div class="m-navPic-title">我的收藏</div>
+					</div>
+				</div>
+				
+				 
+			</div>
+			
+			
+			<div class="row-box">
+				<div gourl="/index.php?m=kefu" class="row-item">
+					<div class="row-item-icon icon-service_light cl-u"></div>
+					<div class="flex-1 cl-u">在线客服</div>
+				</div>
+				<div gourl="/index.php?m=html&a=aboutus" class="row-item">
+					<div class="row-item-icon icon-info cl-u"></div>
+					<div class="flex-1 cl-u">关于我们</div>
+				</div> 
+			</div>
+		</div>
+		{assign var="ftnav" value="user"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+	</body>
+</html>

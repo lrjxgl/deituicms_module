@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='pinche_line_addr/nav.html'}
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>addrid</td>
+   <td>lineid</td>
+   <td>地址</td>
+   <td>纬度</td>
+   <td>精度</td>
+   <td>status</td>
+<td>操作</td></tr>
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.addrid}</td>
+   <td>{$c.lineid}</td>
+   <td>{$c.addr}</td>
+   <td>{$c.lat}</td>
+   <td>{$c.lng}</td>
+   <td>{$c.status}</td>
+<td><a href="/moduleadmin.php?m=pinche_line_addr&a=add&addrid={$c.addrid}">编辑</a> <a href="/module.php?m=pinche_line_addr&a=show&addrid={$c.addrid}">查看</a> <a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=pinche_line_addr&a=delete&ajax=1&addrid={$c.addrid}">删除</a></td>
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

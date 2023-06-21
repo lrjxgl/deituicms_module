@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="/plugin/swiper/css/swiper.min.css" rel="stylesheet" />
+	 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">{$data.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body mgb-10"> 
+			{if $data.mp4url!=''}
+			<video 
+				style="width: 100%;margin-bottom: 10px;"
+				src="{$data.mp4url}" 
+				x5-playsinline="true"
+				x-webkit-airplay="true"
+				 playsinline="true" 
+				 webkit-playsinline="true" 
+			  controls="controls" autoplay=""></video>
+			{/if}
+			<div style="width: 100%;" class="swiper-container" id="indexFlash">
+				<div class="swiper-wrapper js-thumb-item" >
+					{foreach item=c from=$imgslist}
+					<div class="swiper-slide">
+						<img v="{$c}.middle.jpg" class="imgWidth js-thumb" src="{$c}.middle.jpg" />
+					</div>
+					{/foreach}
+				</div>
+				 
+				<div class="swiper-pagination flex flex-jc-center"></div>
+			 
+			</div>
+			 
+			
+			<div class="pd-10 mgb-5 bg-fff">
+				<div class="d-title">{$data.title}</div>
+				<div class="d-content"> {$data.content} </div>
+			</div>
+			<div class="tabs-border-group">
+				<div class="tabs-border">
+					<div class="tabs-border-item js-tabs-border-item tabs-border-active">评论</div>
+					<div class="tabs-border-item js-tabs-border-item ">相关分享</div>
+				</div>
+				<div class="tabs-border-box tabs-border-box-active">
+					{include file="inc/comment.html"}
+				</div>
+				<div id="blogApp" class="tabs-border-box">
+					<index-blog></index-blog>
+				</div>	
+			</div>
+			
+			
+		</div>
+		<a href="/module.php?m=jdo2o_blog&a=add&placeid={$data.placeid}" class="fixedAdd">发布</a>
+		{include file="footer.html"}
+		{include file="inc/js_thumb.html"}
+		<script>
+			var placeid="{$data.placeid}";
+		</script>
+		<script src="{$skins}inc/comment.js?{const.JS_VERSION}"></script>
+		<?php wx_jssdk();?> 
+		<script type="text/javascript">
+			wxshare_title="{$data.title}";
+			{if $data.imgurl} 
+			 wxshare_imgUrl="{$data.imgurl|images_site}.100x100.jpg";
+			 {/if}
+		</script>
+		<script>
+			setTimeout(function(){
+				$.get("/index.php?m=article&a=addclick&id={$data.id}&ajax=1")
+			},3000);
+			
+		</script>
+		<script src="/plugin/swiper/js/swiper.min.js"></script>
+		<script src="{$skins}jdo2o_place/list-blog.js"></script>
+		<script>
+			$(function(){
+				if($("#indexFlash .swiper-slide").length>0){
+					var flash = new Swiper("#indexFlash", {
+						pagination: {
+							el: '.swiper-pagination',
+						}
+					});
+				}else{
+					$("#indexFlash").hide();
+				}
+				
+			})
+			
+		</script>
+	</body>
+	
+</html>

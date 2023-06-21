@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+<div class="tabs-border">
+	<a class="item {if get('a') eq 'default'}active{/if}" href="{$appadmin}?m=vipcard_log">消费记录</a>
+	 
+</div>
+<div class="main-body">
+ <table class="tbs">
+<thead>  <tr>
+   <td>id</td>
+    
+   <td>会员卡</td>
+   <td>金额</td>
+   <td>办理时间</td>
+   <td>备注</td>
+ 
+  </tr>
+</thead> {foreach item=c from=$list}
+<tr>
+   <td>{$c.id}</td>
+   
+   <td>{$c.card.nickname}/{$c.card.telephone}</td>
+   <td>{$c.money}</td>
+   <td>{$c.dateline|date:Y-m-d}</td>
+   <td>{$c.content}</td>
+ 
+  </tr>
+   {/foreach}
+ </table>
+<div>{$pagelist}</div>
+</div> 
+{include file="footer.html"}
+</body>
+</html>

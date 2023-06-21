@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">我的返券日志</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+   {foreach item=c from=$list}
+	<div class="row-box mgb-5">
+		<div class="mgb-5">{$c.shopname}</div>
+		<div class="flex">
+			<div class="cl-money">￥{$c.money}</div>
+			<div class="flex-1"></div>
+			<div class="f12 cl3">{$c.dateline|timeago}</div>
+		</div>
+	</div>
+   {/foreach}
+ 
+<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

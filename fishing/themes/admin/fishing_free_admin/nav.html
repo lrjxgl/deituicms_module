@@ -1,0 +1,5 @@
+<div class="tabs-border">
+	<a class="item {if $type eq ''}active{/if}" href="{$appadmin}?m=fishing_free_admin">待审核</a>
+	<a class="item {if $type eq 'pass'}active{/if}" href="{$appadmin}?m=fishing_free_admin&type=pass">已通过</a>
+	 <a class="item {if $type eq 'all'}active{/if}" href="{$appadmin}?m=fishing_free_admin&type=all">全部</a>
+</div>

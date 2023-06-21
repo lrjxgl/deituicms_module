@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		 
+		<div class="tabs-border">
+			<div  gourl="/moduleadmin.php?m=taoke_order"  class="item {if get('type') eq ''}active{/if}">全部订单</div>
+			<div gourl="/moduleadmin.php?m=taoke_order&type=no" class="item {if get('type') eq 'no'}active{/if}">待报单</div>
+			<div gourl="/moduleadmin.php?m=taoke_order&type=yes"  class="item {if get('type') eq 'yes'}active{/if}">已报单</div>
+		</div>
+		<div class="main-body">
+		<form></form>
+		<table class="tbs">
+			<thead>
+				<tr>
+					<td>订单号</td>
+					<td>商品名称</td>
+					<td>图片</td>
+					<td>用户</td>
+					<td>订单金额</td>
+					<td>预估收入</td>
+					<td>结算状态</td>
+					<td>返利状态</td> 
+				</tr>
+			</thead>
+			<tbody>
+				{foreach item=c from=$data}
+				<tr>
+					<td>{$c.orderno}</td>
+					<td>{$c.title}</td>
+					<td>
+						<img src="{$c.imgurl|images_site}" width="50" />
+					</td>
+					<td>{$c.nickname}</td>
+					<td>￥{$c.money}</td>
+					<td>￥{$c.income}</td>
+					<td>{$c.orderstatus}</td>
+					<td>{if $c.isback eq 1}已返{elseif $c.isback eq 11}已取消{else}未返{/if}</td> 
+				</tr>
+				{/foreach}
+			</tbody>
+		</table>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">订单评价</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="app">
+			<form v-if="pageLoad" id="ratyForm" @submit.prevent="ratySubmit">
+				<input type="text" class="none" name="orderid" :value="order.orderid" />
+				<div class="row-box mgb-5">
+					<sky-raty label="评价" fields="raty_grade" len="10" :grade="raty.raty_grade"></sky-raty>
+					 
+				<div class="textarea-flex">
+					<div class="textarea-flex-label">评价内容</div>
+					<textarea name="content" placeholder="请输入评价内容" :value="raty.content" class="textarea-flex-text h60"></textarea>
+				</div>
+				<div class="row-box">
+
+					<div class="flexlist-item mgb-0">
+					
+						<div gourl="/module.php?m=ershou_product&a=show&productid={$product.productid}" class="flexlist-imgbox">
+							<image src="{$product.imgurl}.100x100.jpg" class="flexlist-img"></image>
+						</div>
+					
+						<div class="flex-1">
+							<div class="flexlist-title" gourl="/module.php?m=ershou_product&a=show&productid={$c.productid}" target="_blank">{$product.content}</div>
+							<div class="flex">
+					
+								<div class="cl-num mgr-10">￥{$product.price} </div>
+								<div class="flex-1"></div>
+								<div class="market-price mgr-10">{$product.market_price}</div>
+								<div class="cl2">x 1</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<button form-type="submit" v-if="order.israty==0" class="btn-row-submit" id="submit">提交评价</button>
+
+			</form>
+		</div>
+		{include file="footer.html"}
+		<script src="/plugin/dt-ui/raty.vue.js"></script>
+		<script>
+			var orderid = "{$order.orderid}";
+		</script>
+		<script src="{$skins}ershou_order/raty.js"></script>
+	</body>
+</html>

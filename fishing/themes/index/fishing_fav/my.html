@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的收藏</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div v-if="placeList.length==0" class="emptyData">暂无数据</div>
+			<div v-else class="row-box">
+				<div class="bd-mp-10 pointer" @click="goPlace(item.placeid)" v-for="(item,index) in placeList" :key="index" >
+					<div>
+						<div class="mgb-10">{{item.title}}</div>
+						<div class="mgb-10 cl3">{{item.address}}</div> 
+						<div class="flex flex-ai-center">
+							
+							 
+							<div v-if="item.is_allow==0" class="tag-a cl-primary">允许</div>
+							 
+							<div v-else-if="item.is_allow==1" class="tag-a cl-warning">限制</div>
+							 
+							<div v-else class="tag-a cl-danger">禁止</div>
+							 
+							<div v-for="(tt,ii) in item.tagsList" :key="ii" class="tag-b">{{tt}}</div>
+							 
+							<div class="flex-1"></div>
+							<div class="cl-num f12">人气 {{item.view_num}}</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}fishing_fav/my.js"></script>
+	</body>
+</html>

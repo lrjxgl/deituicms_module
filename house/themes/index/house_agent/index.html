@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">房产经纪人</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+    <div class="flexlist">
+		{foreach item=c from=$list}
+		<div gourl="/module.php?m=house_agent&a=show&id={$c.id}" class="flexlist-item">
+			<img class="flexlist-img" src="{$c.uhead|images_site}.100x100.jpg" />
+			<div class="flex-1">
+				<div class="flexlist-title">{$c.truename}</div>
+				<div class="flexlist-desc">{$c.description}</div>
+			</div>
+		</div>
+		{/foreach}
+	</div>
+	<div>{$pagelist}</div>
+    
+</div>
+{include file="footer.html"}
+</body>
+</html>

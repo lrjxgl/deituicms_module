@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		{include file='jieti_category/nav.html'}
+		<div class="main-body">
+			{if $cat}
+			<div class="pd-10">当前分类：{$cat.title}</div>
+			{/if}
+			<table class="tbs">
+				<thead>
+					<tr>
+						<td>catid</td>
+
+						<td>名称</td>
+						<td>pid</td>
+
+
+						<td>排序</td>
+						<td>状态</td>
+
+						<td>操作</td>
+					</tr>
+					</tr>
+				</thead> 
+				<tbody>
+				{foreach item=c from=$list}
+				<tr>
+					<td>{$c.catid}</td>
+
+					<td>{$c.title}</td>
+					<td>{$c.pid}</td>
+					<td>{$c.orderindex}</td>
+					<td>{$c.status}</td>
+					<td><a href="/moduleadmin.php?m=jieti_category&a=add&catid={$c.catid}">编辑</a>
+						 <a href="/moduleadmin.php?m=jieti_category&pid={$c.catid}">下级分类</a>
+						<a href="javascript:;" class="js-delete" url="/moduleadmin.php?m=jieti_category&a=delete&catid={$c.catid}">删除</a></td>
+				</tr>
+				{/foreach}
+				 
+				
+				</tbody>
+			</table>
+			<div>{$pagelist}</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

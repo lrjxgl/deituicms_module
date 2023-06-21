@@ -1,0 +1,23 @@
+.wheel {
+	display: block;
+	width: 320px;
+	height: 320px;
+	position: relative;
+
+	margin: 0 auto;
+	 
+}
+
+.wheel-pointer {
+	position: absolute;
+	width: 156px;
+	height: 156px;
+	left: 80px;
+	top: 80px;
+	cursor: pointer;
+}
+
+#wheelCanvas {
+	width: 320px;
+	height: 320px;
+}

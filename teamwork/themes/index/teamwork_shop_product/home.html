@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+	{include file="head.html"}
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a href="/" class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">{$product.title}</h1>
+			<a class="mui-bar-nav-link" href="/index.php?m=shop_product_item&a=add&productid={$product.id}">提需求</a>
+		</header>
+		<div class="mui-content">
+			 
+			<div class="tabs-border" >
+				 
+				<a href="/index.php?m=shop_product&a=home&id={$product.id}" class="item  {if get('status') eq 0}active{/if}">全部</a>
+				<a href="/index.php?m=shop_product&a=home&id={$product.id}&status=1" class="item {if get('status') eq 1}active{/if}">未处理</a>
+				<a href="/index.php?m=shop_product&a=home&id={$product.id}&status=2" class="item {if get('status') eq 2}active{/if}">待测试</a>
+				<a href="/index.php?m=shop_product&a=home&id={$product.id}&status=3" class="item {if get('status') eq 3}active{/if}">已解决</a>
+				<a href="/index.php?m=shop_product&a=home&id={$product.id}&status=-1" class="item {if get('status') eq -1}active{/if}">未分配</a>
+		 
+			</div>
+			<div class="pd-10 ">总计：{$rscount} 个</div>
+			<div class="row-box">
+				<div class="flex-col">
+				{foreach item=c from=$itemList}
+					<div class="flex-item flex-col flex-start" >
+					<a class="flex flex-center mgb-10" href="/index.php?m=shop_product_item&a=show&id={$c.id}">
+						<div class="m-order-{$c.orderindex}"></div> 
+						<div class="btn-mini btn-outline-success">{$c.type_name}</div>
+						<div  class="flex-1 ">
+						{$c.title}
+						</div>
+						<span class=" cor-success mgr-5 f12">{$c.status_name}</span>
+					</a>
+					<div class="flex">
+						
+						<div class="flex-1 mgr-10 cor3 f12">{if $c.status eq 3}完成于{$c.finishtime}{/if} 发布于{$c.timeago}</div>
+						{if $isadmin}
+						<a class=" btn-mini btn-outline-success" href="/index.php?m=shop_product_item_user&a=add&itemid={$c.id}">分配任务</a>
+						{/if}
+					</div>
+					</div>
+				{/foreach}
+				</div>
+			</div>
+		</div>
+		{assign var="mfooter" value="home"}
+		{include file="shop_product/ftnav.html"}
+	</body>
+
+</html>

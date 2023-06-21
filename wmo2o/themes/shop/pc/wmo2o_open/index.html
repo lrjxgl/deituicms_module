@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">开放平台</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+			<div class="row-box">
+				
+				<div class="row-item">
+					<div class="cl1">微信公众号</div>
+					<div class="flex-1"></div>
+					<div v-if="pageData.weixin" gourl="/moduleshop.php?m=wmo2o_open&a=goweixin" class="btn-small">重新绑定</div>
+					<div v-else gourl="/moduleshop.php?m=wmo2o_open&a=goweixin" class="btn-small">重新绑定</div>
+				</div>
+			</div>
+			
+		</div>
+		{include file="footer.html"}
+		<script src="{$skins}wmo2o_open/index.js?v2"></script>
+	</body>
+</html>

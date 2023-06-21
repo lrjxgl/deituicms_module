@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+<link href="{$skins}css/news.css" rel="stylesheet">
+<body>
+ 
+<div class="header">
+	<div url="/module.php?m=group"  class="header-back"></div>
+	<div class="header-title">圈子主页</div>
+	<div gourl="/module.php?m=group_title&a=add&gid={$group.gid}" class="header-right-btn">发布</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body">
+	{include file="group/grouphead.html"}
+	{assign  var="gtab" value="index"}
+    {include file="group/grouphead_nav.html"}
+    <div class="newslist">
+    	{foreach item=c from=$dinglist}
+		{include file="group_title/item.html"}
+		{/foreach}
+		{foreach item=c from=$reclist}
+			{include file="group_title/item.html"}
+		{/foreach}
+		{foreach item=c from=$list}
+			{include file="group_title/item.html"}
+		{/foreach}
+   	</div>
+</div>
+{include file="footer.html"}
+{include file="inc/js_thumb.html"}
+{include file="group_title/comm.html"}
+{php wx_jssdk();}
+<script>
+	wxshare_imgUrl="{$group.glogo}";
+	wxshare_title="{$group.title}";
+</script>
+</body>
+</html>

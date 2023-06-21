@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}index.css" rel="stylesheet" />
+	<body>
+		<div style="position: fixed;left:0px; right: 0px;">
+			<div class="header-back-fixed goBack"></div>
+			<div class="header-fixtop-right">
+				<div id="header-more-btn" class="header-fixtop-icon pointer icon-share"></div>
+			</div>
+		</div>
+		<div class="modal-group" id="header-more-box">
+			<div class="modal-mask" style="background-color: #000; opacity: 0.8;"></div>
+			<div style="position: fixed;right: 0px;top: 30px; z-index: 9999;">
+				<img src="/static/images/wx_guide.png" style="width: 200px;" />
+			</div>
+		</div>
+
+		<div class="wshop-logo">
+			<img class="wshop-logo-img" src="{$shop.imgurl}.100x100.jpg">
+		</div>
+
+
+
+		<div class="modal-group" id="modal-coupon">
+			<div class="modal-mask"></div>
+			<div class="modal">
+				<div class="modal-header">
+					<div class="modal-title">优惠券</div>
+					<div class="modal-close icon-close"></div>
+				</div>
+				<div class="modal-body">
+					<div class="flex">
+						{if $couponList}
+						{foreach item=c from=$couponList}
+						<div class="btn-small">{$c.title}</div>
+						{/foreach}
+						{else}
+						<div class="emptyData">暂无优惠券</div>
+						{/if}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="main-body">
+			<div class="row-box mgb-5">
+
+				<div class="row-item-text">
+					<div class="row-item-icon icon-shop"></div>
+					<div class="flex-1">{$shop.shopname}</div>
+				</div>
+
+				<div class="row-item-text">
+					<div class="row-item-icon icon-profile_light"></div>
+					<div class="mgr-10">{$shop.nickname}</div>
+					<a href="tel:{$shop.telephone}" class="flex-1">{$shop.telephone}</a>
+				</div>
+				<div class="row-item-text ">
+					<div class="row-item-icon icon-location_light"></div>
+					<div class="flex-1">{$shop.address}</div>
+				</div>
+				<div class="flex">
+					<img src="https://api.map.baidu.com/staticimage/v2?ak={const.BDMAPKEY}&mcode=666666&center=116.403874,39.914888&width=300&height=200&zoom=11" />
+				</div>
+
+
+
+
+			</div>
+			<div class="row-box mgb-5">
+				<div class="row-item-text ">
+					<div class="row-item-icon icon-read"></div>
+					<div class="flex-1">公司介绍</div>
+				</div>
+				<div class="d-content">
+					{$shop.content}
+				</div>
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

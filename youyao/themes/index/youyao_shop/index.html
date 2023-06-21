@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+{include file="head.html"}
+
+<body>
+<div class="header">
+	<div class="header-back"></div>
+	<div class="header-title">药店列表</div>
+</div>
+<div class="header-row"></div>
+<div class="main-body" id="App">
+     <div>
+     	<div class="row-box mgb-10" v-for="(item,index) in list" :key="index">
+     		<div class="flex flex-ai-center mgb-10">
+     			<img  @click="goShop(item.shopid)"  :src="item.imgurl+'.100x100.jpg'" class="w50" />
+     			<div @click="goShop(item.shopid)"  class="flex-1">{{item.shopname}}</div>
+     			<div class="btn-mini btn-outline-primary">咨询</div>
+     		</div>
+     		<div class="cl2 mgb-5">
+     			{{item.address}}
+     		</div>
+     		 
+     	</div>
+     </div>
+
+    
+</div>
+{assign var="ftnav" value="shop"}
+{include file="ftnav.html"}
+{include file="footer.html"}
+<script src="{$skins}youyao_shop/index.js"></script>
+</body>
+</html>

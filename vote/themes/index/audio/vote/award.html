@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+{include file="head.html"}
+
+<body>
+<img class="wmax" src="{$vote.imgurl|images_site}">
+<div class="row-box">
+<div class="row-item-text mgb-10">
+	<i class="row-item-icon icon-hot_light"></i>
+	<div class="flex-1">{$vote.title}</div>
+</div>
+<div class="d-content mgb-5">{$vote.content}</div>
+<div class="d-content">{$vote.award}</div>
+</div> 
+ {assign var="ftnav" value="award"}
+{include file="footer.html"}
+</body>
+</html>

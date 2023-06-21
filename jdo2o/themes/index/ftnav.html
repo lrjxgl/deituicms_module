@@ -1,0 +1,14 @@
+<div class="footer-row"></div>
+{if !$shop}
+	{get data=shop model=mod_jdo2o_shop fun=selectRow(array("where"=>"shopid=".SHOPID,"fields"=>"shopid,open_mall"))}
+{/if}
+ 
+<div class="footer">
+	<div class="footer-item icon-home {if get('m') eq 'jdo2o'}footer-active{/if}" gourl="/module.php?m=jdo2o">首页</div>
+	{if $shop.open_mall}
+	<div class="footer-item icon-cascades {if get('m') eq 'jdo2o_product'}footer-active{/if}" gourl="/module.php?m=jdo2o_product">商城</div>
+	{/if} 
+	<div class="footer-item icon-location_light {if get('m') eq 'jdo2o_place'}footer-active{/if}" gourl="/module.php?m=jdo2o_place">景点</div>
+	<div class="footer-item icon-news {if get('m') eq 'jdo2o_blog'}footer-active{/if}" gourl="/module.php?m=jdo2o_blog">帖子</div>
+	<div class="footer-item icon-my_light {if get('m') eq 'jdo2o_user'}footer-active{/if}"  gourl="/module.php?m=jdo2o_user">我的</div>
+</div>

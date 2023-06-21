@@ -1,0 +1,137 @@
+.btn1 {
+	border: 1px solid #eee;
+	border-radius: 20px;
+	padding: 5px 10px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	font-weight: 600;
+}
+
+.btn1-active {
+	background-color: #ffe60f;
+}
+
+.btnIcon:after {
+	font-family: iconfont;
+	content: "\e79b";
+	font-size: 1rem;
+	transform: scale(0.6);
+}
+
+.mask {
+	position: absolute;
+	z-index: 10;
+	top: 0;
+	bottom: -1000px;
+	left: 0;
+	right: 0;
+	background-color: #000;
+	opacity: 0.6;
+}
+
+.zhbox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0px;
+	z-index: 99;
+	background-color: #fff;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding: 20px;
+}
+
+.zhbox-item {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin-bottom: 1.5rem;
+	color: #646464;
+	justify-content: space-between;
+}
+
+.zhbox-item-active {
+	color: #000;
+	font-weight: 600;
+}
+
+.zhbox-item-active:after {
+	font-family: iconfont;
+	content: "\e645"
+}
+/*区域*/
+.areabox {
+	position: absolute;
+	top: 0;
+	 
+	left: 0;
+	right: 0px;
+	z-index: 99;
+	background-color: #fff;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;
+	padding-bottom: 20px;
+}	
+.area-item{
+	margin-bottom: 10px;
+	padding: 10px 20px;
+}
+.area-item-active{
+	background-color: #fff;
+	border-left: 1px solid #f30;
+	color:#f30;
+}
+ 
+.sxbox {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0px;
+	z-index: 99;
+	background-color: #fff;
+	border-radius: 20px;
+ 
+	padding: 20px;
+}
+.sxbox-hd{
+	font-weight: 600;
+	margin-bottom: 1.5rem;
+	margin-top: 2rem;
+	 
+}
+.sxbox-btn{
+	cursor: pointer;
+	background-color: #f7f7f7;
+	padding: 5px 15px;
+	border-radius: 20px;
+	box-sizing: border-box;
+	margin-right: 2%;
+	width: 31.3%; 
+	text-align: center;
+	margin-bottom: 1rem;
+}
+.sxbox-btn-active{
+	color:#f30;
+}
+.sxbox-text{
+	border: 1px solid #eee;
+	outline: 0;
+	border-radius: 20px;
+	background-color: #f7f7f7;
+	padding: 8px;
+	text-align: center;
+	flex: 1;
+	width: 60px;
+}
+.sxbox-fbtn{
+	flex: 1;
+	background-color: #f7f7f7;
+	border-radius: 20px;
+	text-align: center;
+	padding: 10px;
+	font-weight: 600;
+}
+.sxbox-fbtn2{
+	background-color: #ffe60f;
+}

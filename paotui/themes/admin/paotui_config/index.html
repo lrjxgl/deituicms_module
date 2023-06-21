@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="shd">平台配置</div>
+		<div class="main-body">
+			<form action="/moduleadmin.php?m=paotui_config&a=save&ajax=1">
+				<table class="table-add">
+					<tr>
+						<td>平台抽成</td>
+						<td>
+							<input class="w150" type="text" name="per_money" value="{$pconfig.per_money}" >%
+						</td>
+					</tr>
+					<tr>
+						<td>最低配送</td>
+						<td>
+							<input class="w150" type="text" name="min_money" value="{$pconfig.min_money}" >元
+						</td>
+					</tr>
+					<tr>
+						<td>收费标准</td>
+						<td>
+							<textarea name="fee_desc">{$pconfig.fee_desc}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>派单延时</td>
+						<td>
+							<input class="w100" type="text" name="lazy_time" value="{$pconfig.lazy_time}" />秒 
+						</td>
+					</tr>
+					<tr>
+						<td>应用密钥</td>
+						<td>
+							<input   type="text" name="croncode" value="{$pconfig.croncode}" > 
+						</td>
+					</tr>
+					<tr>
+						<td>多城市</td>
+						<td>
+							<input  type="radio" name="morecity" {if $pconfig.morecity eq 0}checked{/if} value="0"/> 否
+							<input  type="radio" name="morecity" {if $pconfig.morecity eq 1}checked{/if}  value="1"/> 是
+						</td>
+					</tr>
+				</table>
+				<div class="btn-row-submit js-submit">保存</div>
+			</form>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+{include file='gread_shop/nav.html'}
+ <table class="tbs">
+<thead>  <tr>
+   <td>shopid</td>
+   <td>店名</td>
+    
+   <td>图片</td>
+   <td>地址</td>
+   
+   <td>手机</td>
+   <td>店主</td>
+   <td>status</td>
+   <td>配送费</td>
+    
+<td>操作</td></tr>
+  </tr>
+</thead> 
+{foreach item=c from=$data}
+<tr>
+   <td>{$c.shopid}</td>
+   <td>{$c.title}</td>
+ 
+    <td><img src="{$c.imgurl}.100x100.jpg" width="50" /> </td>
+   <td>{$c.address}</td>
+   
+   <td>{$c.telephone}</td>
+   <td>{$c.nickname}</td>
+   <td>{$c.status}</td>
+   <td>{$c.sendmoney}</td>
+    
+<td>
+	<a href="/moduleadmin.php?m=gread_shop&a=add&shopid={$c.shopid}">编辑</a>
+	 <a href="/moduleadmin.php?m=gread_shop_admin&shopid={$c.shopid}">管理账号</a> 
+<a href="/module.php?m=gread_shop&a=show&shopid={$c.shopid}" target="_blank">查看</a> 
+<a href="javascript:;" class="delete" url="/moduleadmin.php?m=gread_shop&a=delete&shopid={$c.shopid}">删除</a></td>
+  </tr>
+  {/foreach}
+ </table>
+<div>{$pagelist}</div>
+ 
+{include file="footer.html"}
+</body>
+</html>

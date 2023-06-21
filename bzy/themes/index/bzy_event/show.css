@@ -1,0 +1,143 @@
+.bowl {
+	text-align: center;
+	margin: 20px auto;
+	width: 78%;
+}
+
+.bowl .bg_img {
+	width: 100%;
+
+}
+
+#dicebox {
+	position: relative;
+}
+
+#redpacket0,
+#redpacket1,
+#redpacket2,
+#redpacket3,
+#redpacket4,
+#redpacket5 {
+	top: 15%;
+	left: 20%;
+	width: 10%;
+	position: absolute;
+	-webkit-animation-duration: 1.5s;
+	-moz-animation-duration: 1.5s;
+	-o-animation-duration: 1.5s;
+	animation-duration: 1.5s;
+	-webkit-animation-fill-mode: both;
+	-moz-animation-fill-mode: both;
+	-o-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-direction: alternate;
+	-moz-animation-direction: alternate;
+	-o-animation-direction: alternate;
+	animation-direction: alternate;
+	position: absolute;
+}
+
+#redpacket0 {
+	-webkit-animation-name: dice1;
+	-moz-animation-name: dice1;
+	-o-animation-name: dice1;
+	animation-name: dice1;
+}
+
+#redpacket1 {
+	-webkit-animation-name: dice2;
+	-moz-animation-name: dice2;
+	-o-animation-name: dice2;
+	animation-name: dice2;
+}
+
+#redpacket2 {
+	-webkit-animation-name: dice3;
+	-moz-animation-name: dice3;
+	-o-animation-name: dice3;
+	animation-name: dice3;
+}
+
+#redpacket3 {
+	-webkit-animation-name: dice4;
+	-moz-animation-name: dice4;
+	-o-animation-name: dice4;
+	animation-name: dice4;
+}
+
+#redpacket4 {
+	-webkit-animation-name: dice5;
+	-moz-animation-name: dice5;
+	-o-animation-name: dice5;
+	animation-name: dice5;
+}
+
+#redpacket5 {
+	-webkit-animation-name: dice6;
+	-moz-animation-name: dice6;
+	-o-animation-name: dice6;
+	animation-name: dice6;
+}
+.dicebox-logo{
+	    position: absolute;
+	        top: 50%;
+	        left: 50%;
+	        margin-left: -50px;
+	    line-height: 2;
+	    color: #ed1941;
+	    font-weight: bold;
+}
+.ftab{
+	display: flex;
+	flex-direction: row;
+	margin-bottom: 2px;
+}
+.ftab-item{
+	flex: 1;
+	padding: 5px;
+	background-color: #F1C40F;
+	text-align: center;
+}
+.ftab-active{
+	background-color: #F06060;
+	color: #fff;
+}
+.alert-header,.alert,.alert-msg,.alert-ft{
+	background-color: #c81e3e;
+	color: #fff;
+}
+.alert-header{
+	color: #c81e3e;
+	height: 10px;
+	line-height: 10px;
+}
+.alert-ft{
+	height: 50px;
+}
+.alert-ft-success{
+	color: #fff;
+}
+.ph-hd{
+	background-color: #eee;
+}
+.ph-con{
+	background-color: #fff;
+}
+.ph-a,.ph-b,.ph-c{
+	 
+	padding: 8px;
+}
+.ph-a{
+	width: 60px;
+}
+.ph-b{
+	flex: 1;	
+}
+.ph-c{
+	width: 60px;
+	color: #F60;
+}
+.phc0,.phc1,.phc1{
+	color: #F30;
+}

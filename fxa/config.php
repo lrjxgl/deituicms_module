@@ -1,0 +1,12 @@
+<?php
+$config=array(
+	"title"=>"单品分销",//模块名称
+	"module"=>"fxa",//模块目录
+ 	"version"=>3.0,//当前版本
+	"info"=>"分销单品模式-分享图片给好友，销售可以获得提成",//模块信息
+	"from"=>"福鼎生活网",
+	"table_pre"=>"sky_",//表前缀
+	"adminurl"=>"/moduleadmin.php?m=fxa&a=menu",
+	"check_update"=>"http://www.deituicms.com/index.php?m=checkupdate&product=mod_fxa",
+);
+?>

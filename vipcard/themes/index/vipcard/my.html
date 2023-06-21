@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.uhead {
+			display: flex;
+			flex-direction: row;
+			padding: 10px;
+			background-color: #fff;
+			margin-bottom: 5px;
+		}
+
+		.uhead-img {
+			width: 80px;
+			height: 80px;
+			margin-right: 10px;
+			display: block;
+			border-radius: 50%;
+		}
+
+		.uhead-box {
+			flex: 1;
+		}
+
+		.uhead-nick {
+			margin-bottom: 5px;
+			font-size: 16px;
+		}
+
+		.uhead-rnum {
+			color: #999;
+			margin-bottom: 10px;
+			line-height: 14px;
+			display: flex;
+			font-size: 14px;
+		}
+
+		.cl-u,
+		.cl-u:before {
+			color: #ed6d53;
+		}
+
+		.row-item-icon:before {
+			font-size: 22px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">Vip会员卡</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			{if !$card}
+				{if $apply}
+				<div class="emptyData f14">您申请Vip会员卡信息正在审核中</div>
+				{else}
+				<div class="emptyData">您还未办理Vip会员卡</div>
+				<div class="text-center"><a href="/module.php?m=vipcard&a=apply">申请办理Vip会员卡</a></div>
+				{/if}
+			
+			
+			{else}
+			<div class="uhead">
+
+				<image gourl="/index.php?m=user&a=user_head" class="uhead-img" src="{$user.user_head}.100x100.jpg"></image>
+
+				<div class="uhead-box">
+					<div class="uhead-nick">{$user.nickname}</div>
+					<div class="uhead-rnum flex flex-ai-center">
+						卡内余额 ￥
+						<text class="f14 cl-money mgl-5">{$card.money}</text>
+					</div>
+					<div class="uhead-rnum flex  flex-ai-center">
+						充值总额
+						<text class="cl-money mgl-5 mgr-5">￥{$card.total_money}</text>
+					</div>
+				</div>
+				<div gourl="/module.php?m=vipcard_recharge" class="flex-center btn-small btn-link">去充值</div>
+			</div>
+			{/if}
+			{if $logList} 
+			<div class="list">
+				<div class="row-box-hd pdl-5">账户日志</div>
+				{foreach item=c from=$logList}
+				<div class="row-box mgb-5">
+					<div class="flex mgb-5">
+						<div class="flex-1 cl-money">￥{$c.money}</div>
+						<div class="f12 cl3">{$c.createtime}</div>	
+					</div>
+					<div class="cl3">{$c.content}</div>
+				</div>
+				{/foreach}
+			</div>
+			{/if}
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

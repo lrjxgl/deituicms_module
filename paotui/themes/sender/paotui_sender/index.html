@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<link href="{$skins}paotui_sender/index.css" rel="stylesheet" />
+	<body>
+		<div class="header">
+			
+			<div class="header-title">个人中心</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="uhead">
+				<img class="uhead-img" src="{$sender.imgurl}.100x100.jpg" />
+				<div class="uhead-box">
+					<div class="uhead-nick">{$sender.nickname}</div>
+					<div class="uhead-rnum flex flex-ai-center">
+						
+						<text>余额 ￥</text>
+						<text class="f14 cl-money mgl-5">{$sender.money}</text>
+						<div gourl="/sender.php?m=paotui_tixian" class="mgl-10 cl-num">我要提现</div>
+					</div>
+					 
+				</div>
+				
+			</div>
+			<div class="bg-white mgb-5">
+				<div gourl="/sender.php?m=paotui_sender_notice"  class="row-item">
+					<div class="row-item-icon icon-message_light"></div>
+					<div class="row-item-title">消息</div>
+				</div> 
+				 
+				<div gourl="/sender.php?m=paotui_sender_money"  class="row-item">
+					<div class="row-item-icon icon-redpacket"></div>
+					<div class="row-item-title">收支记录</div>
+				</div>
+				<div gourl="/sender.php?m=paotui_bankcard"  class="row-item">
+					<div class="row-item-icon icon-vipcard"></div>
+					<div class="row-item-title">银行卡</div>
+				</div>
+				<div  gourl="/sender.php?m=paotui_sender&a=add"  class="row-item">
+					<div class="row-item-icon icon-settings"></div>
+					<div class="row-item-title">个人信息</div>
+				</div>
+				<div  gourl="/sender.php?m=paotui_kefu"  class="row-item">
+					<div class="row-item-icon icon-service"></div>
+					<div class="row-item-title">联系客服</div>
+				</div> 
+			</div>
+			<div id="logout" class="btn-row-submit btn-danger">退出</div> 
+		</div>
+		{assign var="ftnav" value="sender"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			$(document).on("click","#logout",function(){
+				$.ajax({
+					url:"/sender.php?m=paotui_login&a=logout&ajax=1",
+					dataType:"json",
+					success:function(res){
+						window.location="/sender.php?m=paotui_login"
+					}
+				})
+				
+			})
+		</script>
+	</body>
+</html>

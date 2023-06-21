@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">我的收藏</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body">
+			<div class="mtlist mgt-5">
+				{foreach item=c from=$list}
+				<div class="mtlist-item">
+					<div class="mtlist-item-bd">
+						<a class="mtlist-bgimg-box" href="/module.php?m=ershou_product&a=show&productid={$c.productid}">
+							<div class="mtlist-bgimg" style="background-image:url({$c.imgurl}.small.jpg)" ></div>
+						</a>
+						<div class="mtlist-item-pd">
+							<div class="mtlist-item-money">
+								<div class="mtlist-item-money-flex">￥
+									<text class="mtlist-item-money_money">{$c.price}</text>
+								</div>
+								<div class="mtlist-item-money_num">月销{$c.sold_num}件</div>
+							</div>
+							<div class="mtlist-title">{$c.description}</div>
+							 
+						</div>
+					</div>
+				</div>
+				{/foreach}
+				
+			</div>
+		</div>
+		{include file="footer.html"}
+	</body>
+</html>

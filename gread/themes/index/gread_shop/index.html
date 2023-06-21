@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.side{
+			position: fixed;
+			top: 45px;
+			left: 0px;
+			width: 80px;
+			bottom: 50px;
+			background-color: #fff;
+		}
+		.side-menu{
+			cursor: pointer;
+			padding: 10px 5px;
+			border-bottom: 1px solid #eee;
+			color: #646464;
+			font-size: 14px;
+		}
+		.side-active{
+			color: #f60;
+		}
+		.main{
+			margin-left: 82px;
+		}
+	</style> 
+	<body>
+		<div class="header">
+			<div class="header-back"></div>
+			<div class="header-title">共享图书·{$shop.title}</div>
+			<div gourl="/module.php?m=gread_cart&shopid={$shop.shopid}" class="header-right-btn">去下单</div>
+		</div>
+		<div class="header-row"></div>
+		<div class="main-body" id="App">
+		    <div class="flex">
+				<div class="side">
+					<div @click="setCat(0)" :class="catid==0?'side-active':''" class="side-menu">全部</div>
+					<div 
+					@click="setCat(item.catid)" 
+					v-for="(item,index) in catList" 
+					:key="index"
+					:class="catid==item.catid?'side-active':''"
+					class="side-menu">{{item.title}}</div>
+					 
+				</div>
+				<div class="main flex-1">
+					<div class="pd-5 bg-white mgb-5">
+						<div class="flex flex-ai-center">
+							 
+							<input placeholder="请输入关键字" v-model="keyword" type="text" class="input-flex-text mgr-5" />
+							<div @click="search" class="btn-small">搜一下</div>
+						</div>
+					</div>
+					<div class="flexlist">
+							 
+						<div v-for="(item,index) in bookList" :key="index" class="flexlist-item">
+							<img @click="goDetail(item.bookid,item.shopid)" class="flexlist-img" :src="item.imgurl+'.100x100.jpg'">
+							<div class="flex-1">
+								<div @click="goDetail(item.bookid,item.shopid)"  class="title">{{item.title}}</div>
+								<div class="flex">
+									<span class="cl-money mgr-5">￥{{item.price}}</span>
+									 
+									<div class="flex-1"></div>
+									<div v-if="item.free_num==0" class="cl3 f12">缺货</div>
+									<div v-else :class="item.incart?'active':''"  @click="buy(item)" class="buy-btn">借</div>
+								</div>
+							</div>
+						</div>
+						 
+					</div>
+				</div>
+			</div>
+	    	 
+	    	
+		   
+		</div>
+		{assign var="mfooter" value="shop"}
+		{include file="ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var shopid="{$shop.shopid}"
+		</script>
+		<script src="{$skins}gread_shop/index.js?v3"></script>
+	 
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	{include file="head.html"}
+	<style>
+		.goAdd{
+			position: fixed;
+			bottom: 150px;
+			right: 5px;
+			width: 30px;
+			padding: 5px;
+			text-align: center;
+			background-color: #f30;
+			color: #fff;
+			border-radius: 5px;
+		}
+	</style>
+	<body>
+		<div class="header">
+			<a href="/module.php?m=fishing" class="header-back"></a>
+			<div class="header-title">{$cat.title}</div>
+		</div>
+		<div class="header-row"></div>
+		<div id="App" class="main-body">
+			
+			<div class="pos-relative">
+				<div class="tab-select">
+					<div class="tab-select-item" id="tab-scarea">
+						<div class="tab-select-label">{{sc_title}}</div>
+						<div class="tab-select-t3down "></div>
+					</div>
+					<div v-if="cat.type_open" class="tab-select-item" id="tab-type">
+						<div class="tab-select-label">{{type_title}}</div>
+						<div class="tab-select-t3down "></div>	
+					</div>
+					<div v-if="cat.money_open"  class="tab-select-item" id="tab-sprice">
+						<div class="tab-select-label">{{sprice_title}}</div>
+						<div class="tab-select-t3down "></div>	
+					</div>
+				</div>
+								
+				<div id="scarea-box" class="tab-select-box">
+					<div @click="setArea(0,'所在区域')" class="tab-select-box-item" v="">所在区域</div>
+							
+					<div @click="setArea(item.sc_id,item.title)" v-for="(item,index) in scList" :key="index"
+						class="tab-select-box-item">{{item.title}}</div>
+							
+				</div>
+				<div  v-if="cat.type_open"  id="type-box" class="tab-select-box">
+					<a class="tab-select-box-item" @click="setType(0,'类型')" >选择类型</a>
+					<a class="tab-select-box-item" @click="setType(index,item)" v-for="(item,index) in typeList" :key="index">{{item}}</a>
+					
+				</div>
+				<div v-if="cat.money_open"  id="sprice-box" class="tab-select-box">
+					<a class="tab-select-box-item"  @click="setPrice('价格区间',0)" >价格区间</a>
+					<a class="tab-select-box-item"  @click="setPrice(item,1)" v-for="(item,index) in priceList" :key="index">{{item}}</a>
+				</div>
+			</div>
+			<div class="row-box mgb-5">
+				<div class="flex">
+					<div class="flex-1 mgr-10">
+						<div class="cl-info mgb-5">福鼎野生渔获这里交易</div>
+						<div class="cl-info mgb-5">免费发布渔获信息</div>
+						
+						<div class="cl-red mgb-5">长按二维码保存，分享给更多朋友</div>
+					</div>
+					<div>
+						<img src="{$skins}fish/share.png" style="width: 80px;" />
+					</div>
+				</div>
+			</div>
+			<div v-if="list.length==0" class="emptyData">暂无渔获</div>
+			<div class="sglist">
+				<div @click="goDetail(item.id)" v-for="(item,index) in list" :key="index" class="sglist-item pointer">
+					<div class="flex mgb-5">
+						<div v-if="item.hb_on" class="bc-red mgr-5">红</div>
+						<div class="f14">{{item.title}}</div>
+					</div>						 								 
+					<div v-if="item.money>0" class="flexlist-row">
+						<div class="cl-money">￥{{item.money}}</div>
+					</div>						 
+					<div class="sglist-desc">{{item.description}}</div>
+					<div class="sglist-imglist">
+								 
+						<img v-for="(img,imgIndex) in item.imgsdata" :key="imgIndex" :src="img+'.100x100.jpg'" class="sglist-imglist-img" />
+					</div>
+					<div class="cl3 f12">发布于{{item.createtime}}</div>
+				</div>
+			</div>
+			<div class="loadMore" v-if="per_page>0" @click="getList()">加载更多</div>
+			<div gourl="/module.php?m=fenlei&a=add&catid={$cat.catid}" class="fixedAdd">发布</div> 
+		</div>
+		{assign var="ftnav" value="fenlei"}
+		{include file="fish/ftnav.html"}
+		{include file="footer.html"}
+		<script>
+			var catid="{$cat.catid}"
+			$(document).on("click", ".tab-select-item", function() {
+				var index = $(this).index();
+				console.log(index);
+				$(".tab-select-box:eq(" + index + ")").toggle();
+				$(".tab-select-box:eq(" + index + ")").siblings(".tab-select-box").hide();
+			})
+		</script>
+		<script src="{$skins}fish/list.js"></script>
+	</body>
+</html>
